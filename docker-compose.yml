@@ -1,0 +1,86 @@
+version: '3.8'
+name: atlas
+
+services:
+  # APP
+  atlas:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - "atlas:latest"
+    container_name: atlas
+    networks:
+      - catalog-network
+    ports:
+      - "8080:8080"
+
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:17.6-alpine3.22
+    container_name: postgres
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-laravel}
+      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    networks:
+      - catalog-network
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  # Redis Cache Service
+  redis:
+    image: redis:8.2.1-alpine3.22
+    container_name: redis
+    environment: []
+    links: []
+    networks:
+      - catalog-network
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+  # RedisInsight GUI Service
+  redis-insights:
+    image: redislabs/redisinsight:2.70.1
+    container_name: redis-insights
+    depends_on:
+      - redis
+    environment:
+      - ALLOW_ANONYMOUS_USAGE_STATS=no
+      - RI_ACCEPT_TERMS_AND_CONDITIONS=true
+      - RI_DATABASE_MANAGEMENT=false
+      - RI_ENCRYPTION_KEY="j8avWnevHBh2ylooVLLseyFfiRVwtmhVVoVvHXMuV3I="
+      - RI_LOG_LEVEL=warn
+      - RI_REDIS_DB=0
+      - RI_REDIS_HOST=redis
+      - RI_REDIS_PORT=6379
+      - RI_REDIS_USERNAME=default
+      - RI_REDIS_PASSWORD=
+      - RI_REDIS_TLS=FALSE
+    links:
+      - redis
+    networks:
+      - catalog-network
+    ports:
+      - "5540:5540"
+    restart: unless-stopped
+    volumes:
+      - redisinsight:/data
+
+networks:
+  catalog-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  redisinsight:
+    driver: local
