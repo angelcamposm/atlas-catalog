@@ -32,27 +32,32 @@ class CreateResourcesCommand extends Command
             $model = Str::singular($model);
         }
 
-        $this->call('make:migration', ['name' => 'create_'.Str::snake($model).'_table','--create' => Str::plural($model)]);
-        // Model
-        $this->call('make:model', ['name' => $model]);
+        $arguments = ['name' => $model];
+
         // Controller
-        $this->call('make:controller', ['name' => $model.'Controller','--api' => true, '--model' => $model]);
-        // Form Requests
-        $this->call('make:request', ['name' => 'Store'.$model.'Request']);
-        $this->call('make:request', ['name' => 'Update'.$model.'Request']);
-        // Resource
-        $this->call('make:resource', ['name' => $model.'Resource']);
-        // Observer
-        $this->call('make:observer', ['name' => $model.'Observer','--model' => $model]);
-        // Policy
-        $this->call('make:policy', ['name' => $model.'Policy','--model' => $model]);
+        $arguments['--controller'] = true;
+        $arguments['--api'] = true;
+        $arguments['--requests'] = true;
+
+        // Database
+        $arguments['--migration'] = true;
 
         if ($this->confirm('Do you want to create a seeder?', false)) {
-            $this->call('make:seeder', ['name' => $model.'Seeder']);
+            $arguments['--seed'] = true;
         }
 
         if ($this->confirm('Do you want to create a factory?', false)) {
-            $this->call('make:factory', ['name' => $model.'Factory', '--model' => $model]);
+            $arguments['--factory'] = true;
         }
+
+        $arguments['--policy'] = true;
+
+        $this->call('make:model', $arguments);
+
+        // Resource
+        $this->call('make:resource', ['name' => $model.'Resource']);
+
+        // Observer
+        $this->call('make:observer', ['name' => $model.'Observer','--model' => $model]);
     }
 }
