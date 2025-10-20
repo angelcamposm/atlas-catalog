@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/images/logo.png" width="600" alt="Atlas Catalog Logo"></p>
+<p align="center"><img src="docs/images/logo.png" width="680" alt="Atlas Catalog Logo"></p>
 
 ## About Atlas Catalog
 
