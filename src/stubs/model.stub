@@ -1,0 +1,42 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Traits\BelongsToUser;
+{{ factoryImport }}
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * @property int $created_by
+ * @property int $updated_by
+ */
+class {{ class }} extends Model
+{
+    {{ factory }}
+    use BelongsToUser;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string|null
+     */
+    protected $table = '';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        //
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        //
+    ];
+}
