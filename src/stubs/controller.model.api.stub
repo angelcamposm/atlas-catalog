@@ -1,50 +1,80 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
-use {{ namespacedModel }};
 use {{ rootNamespace }}Http\Controllers\Controller;
 use {{ namespacedRequests }}
+use App\Http\Resources\{{ model }}Resource;
+use App\Http\Resources\{{ model }}ResourceCollection;
+use {{ namespacedModel }};
+use Illuminate\Http\Response;
 
 class {{ class }} extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return {{ model }}ResourceCollection
      */
-    public function index()
+    public function index(): {{ model }}ResourceCollection
     {
-        //
+        return new {{ model }}ResourceCollection({{ model }}::paginate());
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param {{ storeRequest }} $request
+     *
+     * @return {{ model }}Resource
      */
-    public function store({{ storeRequest }} $request)
+    public function store({{ storeRequest }} $request): {{ model }}Resource
     {
-        //
+        $model = {{ model }}::create($request->validated());
+
+        return new {{ model }}Resource($model);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return {{ model }}Resource
      */
-    public function show({{ model }} ${{ modelVariable }})
+    public function show({{ model }} ${{ modelVariable }}): {{ model }}Resource
     {
-        //
+        return new {{ model }}Resource(${{ modelVariable }});
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param {{ updateRequest }} $request
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return {{ model }}Resource
      */
-    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }}): {{ model }}Resource
     {
-        //
+        $model = ${{ modelVariable }}->update($request->validated());
+
+        return new {{ model }}Resource($model);
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param {{ model }} ${{ modelVariable }}
+     *
+     * @return Response
      */
-    public function destroy({{ model }} ${{ modelVariable }})
+    public function destroy({{ model }} ${{ modelVariable }}): Response
     {
-        //
+        ${{ modelVariable }}->delete();
+
+        return response()->noContent();
     }
 }

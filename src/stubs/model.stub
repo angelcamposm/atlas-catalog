@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use App\Traits\BelongsToUser;
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $created_by
  * @property int $updated_by
+ * @method static paginate()
+ * @method static create(array $validated)
  */
 class {{ class }} extends Model
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use Illuminate\Auth\Access\Response;
@@ -13,7 +15,7 @@ class {{ class }}
      */
     public function viewAny({{ user }} $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +23,7 @@ class {{ class }}
      */
     public function view({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -29,7 +31,7 @@ class {{ class }}
      */
     public function create({{ user }} $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +39,7 @@ class {{ class }}
      */
     public function update({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -45,7 +47,7 @@ class {{ class }}
      */
     public function delete({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -53,7 +55,7 @@ class {{ class }}
      */
     public function restore({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -61,6 +63,6 @@ class {{ class }}
      */
     public function forceDelete({{ user }} $user, {{ model }} ${{ modelVariable }}): bool
     {
-        return false;
+        return true;
     }
 }
