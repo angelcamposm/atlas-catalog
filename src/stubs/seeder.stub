@@ -21,8 +21,8 @@ class {{ class }} extends Seeder
                 ['name' => $item['name']],
                 [
                     //
-                ]
-            ]);
+                ],
+            );
         });
     }
 }
