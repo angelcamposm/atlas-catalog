@@ -14,7 +14,7 @@ class ApiAccessPolicySeeder extends Seeder
      */
     public function run(): void
     {
-        $rows = include database_path('data/file.php');
+        $rows = include database_path('data/api_access_policies.php');
 
         collect($rows)->each(function ($item) {
             ApiAccessPolicy::firstOrCreate(
