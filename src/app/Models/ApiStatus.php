@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $description
  * @property int $created_by
  * @property int $updated_by
- * @method static firstOrCreate(array $array, array $array1)
- * @method static paginate()
  * @method static create(array $validated)
+ * @method static firstOrCreate(array $attributes = [], array $values = [], array $joining = [], $touch = true)
+ * @method static paginate()
  */
 class ApiStatus extends Model
 {

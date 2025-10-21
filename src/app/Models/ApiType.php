@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $created_by
  * @property int $updated_by
- * @method static paginate()
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [], array $joining = [], $touch = true)
+ * @method static paginate()
  */
 class ApiType extends Model
 {
