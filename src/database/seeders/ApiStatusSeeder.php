@@ -12,12 +12,12 @@ class ApiStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $statuses = include database_path('data/api_statuses.php');
+        $rows = include database_path('data/api_statuses.php');
 
-        collect($statuses)->each(function ($status) {
+        collect($rows)->each(function ($item) {
             ApiStatus::firstOrCreate(
-                ['name' => $status['name']],
-                ['description' => $status['description']]
+                ['name' => $item['name']],
+                ['description' => $item['description']]
             );
         });
     }
