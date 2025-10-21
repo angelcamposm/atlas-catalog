@@ -17,7 +17,7 @@ class ApiStatusSeeder extends Seeder
         collect($rows)->each(function ($item) {
             ApiStatus::firstOrCreate(
                 ['name' => $item['name']],
-                ['description' => $item['description']]
+                ['description' => $item['description']],
             );
         });
     }
