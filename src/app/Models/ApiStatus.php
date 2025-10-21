@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static firstOrCreate(array $attributes = [], array $values = [], array $joining = [], $touch = true)
  * @method static inRandomOrder()
  * @method static paginate()
+ * @method static pluck(string $string)
  */
 class ApiStatus extends Model
 {
