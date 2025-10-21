@@ -31,10 +31,13 @@ class DatabaseSeeder extends Seeder
     private function create_initial_user(): void
     {
         if (app()->runningInConsole()) {
-            User::factory()->create([
-                'name' => 'Admin User',
-                'email' => 'admin@example.com',
-            ]);
+            User::firstOrCreate(
+                ['email' => 'admin@example.com'],
+                [
+                    'name' => 'Admin User',
+                    'password' => bcrypt('password'),
+                ],
+            );
         }
     }
 }
