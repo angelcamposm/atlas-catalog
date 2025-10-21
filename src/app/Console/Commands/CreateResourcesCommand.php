@@ -56,6 +56,7 @@ class CreateResourcesCommand extends Command
 
         // Resource
         $this->call('make:resource', ['name' => $model.'Resource']);
+        $this->call('make:resource', ['name' => $model.'ResourceCollection', '--collection' => true]);
 
         // Observer
         $this->call('make:observer', ['name' => $model.'Observer','--model' => $model]);
