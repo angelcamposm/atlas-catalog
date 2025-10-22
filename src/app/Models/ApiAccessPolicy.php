@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static inRandomOrder()
  * @method static paginate()
  * @method static pluck(string $string)
+ * @method static updateOrCreate(array $array, array $array1)
  */
 #[ObservedBy(ApiAccessPolicyObserver::class)]
 class ApiAccessPolicy extends Model

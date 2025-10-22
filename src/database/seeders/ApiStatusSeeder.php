@@ -15,7 +15,7 @@ class ApiStatusSeeder extends Seeder
         $rows = include database_path('data/api_statuses.php');
 
         collect($rows)->each(function ($item) {
-            ApiStatus::firstOrCreate(
+            ApiStatus::updateOrCreate(
                 ['name' => $item['name']],
                 ['description' => $item['description']],
             );

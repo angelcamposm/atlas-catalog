@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Models\BusinessDomain;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Log;
 
 class BusinessDomainSeeder extends Seeder
 {
@@ -20,7 +19,7 @@ class BusinessDomainSeeder extends Seeder
         $collection = collect($rows);
 
         $collection->whereNull('parent')->each(function ($item) {
-            BusinessDomain::firstOrCreate(
+            BusinessDomain::updateOrCreate(
                 ['name' => $item['name']],
                 [
                     'description' => $item['description'],

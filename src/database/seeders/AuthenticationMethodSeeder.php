@@ -17,7 +17,7 @@ class AuthenticationMethodSeeder extends Seeder
         $rows = include database_path('data/authentication_methods.php');
 
         collect($rows)->each(function ($item) {
-            AuthenticationMethod::firstOrCreate(
+            AuthenticationMethod::updateOrCreate(
                 ['name' => $item['name']],
                 ['description' => $item['description']],
             );

@@ -17,7 +17,7 @@ class ApiTypeSeeder extends Seeder
         $rows = include database_path('data/api_types.php');
 
         collect($rows)->each(function ($item) {
-            ApiType::firstOrCreate(
+            ApiType::updateOrCreate(
                 ['name' => $item['name']],
                 ['description' => $item['description']],
             );
