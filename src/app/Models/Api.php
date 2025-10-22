@@ -10,11 +10,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property int $id
+ * @property string $name
+ * @property string|null $description
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
+ * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
+ * @method static pluck(string $string)
+ * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
 class Api extends Model
 {
