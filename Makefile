@@ -1,9 +1,9 @@
 REGISTRY :=
 ORGANIZATION :=
 REPOSITORY := atlas-catalog
-TAG := v0.1.0
+TAG := latest
 
-FULL_IMAGE_NAME := $(REGISTRY)/$(ORGANIZATION)/$(REPOSITORY):$(TAG)
+FULL_IMAGE_NAME := $(REPOSITORY):$(TAG)
 
 .PHONY: build
 build:
