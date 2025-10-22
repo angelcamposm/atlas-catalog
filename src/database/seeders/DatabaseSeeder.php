@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             ApiStatusSeeder::class,
             ApiTypeSeeder::class,
             AuthenticationMethodSeeder::class,
+            BusinessDomainSeeder::class,
         ]);
     }
 
