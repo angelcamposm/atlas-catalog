@@ -9,7 +9,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * @method static firstOrCreate(array $attributes = [], array $values = [], array $joining = [], $touch = true)
+ * @property int $id
+ * @property string $name
+ * @property int $created_by
+ * @property int $updated_by
+ * @method static create(array $validated)
+ * @method static firstOrCreate(array $attributes = [], array $values = [])
+ * @method static paginate()
+ * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
 class User extends Authenticatable
 {
