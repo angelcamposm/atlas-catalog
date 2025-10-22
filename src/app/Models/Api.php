@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\ApiObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\ApiFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
+#[ObservedBy(ApiObserver::class)]
 class Api extends Model
 {
     /**

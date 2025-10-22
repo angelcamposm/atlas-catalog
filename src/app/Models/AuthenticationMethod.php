@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\AuthenticationMethodObserver;
 use App\Traits\BelongsToUser;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
+#[ObservedBy(AuthenticationMethodObserver::class)]
 class AuthenticationMethod extends Model
 {
     use BelongsToUser;

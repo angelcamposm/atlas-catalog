@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\ApiAccessPolicyObserver;
 use App\Traits\BelongsToUser;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  */
+#[ObservedBy(ApiAccessPolicyObserver::class)]
 class ApiAccessPolicy extends Model
 {
     use BelongsToUser;
