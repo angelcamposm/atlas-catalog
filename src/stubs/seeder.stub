@@ -17,7 +17,7 @@ final class {{ class }} extends Seeder
         $rows = include database_path('data/file.php');
 
         collect($rows)->each(function ($item) {
-            {{ model }}::firstOrCreate(
+            {{ model }}::updateOrCreate(
                 ['name' => $item['name']],
                 [
                     //
