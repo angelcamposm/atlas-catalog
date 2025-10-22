@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Models\BusinessDomain;
 use Illuminate\Database\Seeder;
 
-class BusinessDomainSeeder extends Seeder
+final class BusinessDomainSeeder extends Seeder
 {
     /**
      * Run the database seeds.

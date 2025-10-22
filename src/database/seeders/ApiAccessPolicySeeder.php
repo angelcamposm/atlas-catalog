@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Models\ApiAccessPolicy;
 use Illuminate\Database\Seeder;
 
-class ApiAccessPolicySeeder extends Seeder
+final class ApiAccessPolicySeeder extends Seeder
 {
     /**
      * Run the database seeds.

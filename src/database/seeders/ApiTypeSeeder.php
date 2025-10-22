@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Models\ApiType;
 use Illuminate\Database\Seeder;
 
-class ApiTypeSeeder extends Seeder
+final class ApiTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.

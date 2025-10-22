@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Models\AuthenticationMethod;
 use Illuminate\Database\Seeder;
 
-class AuthenticationMethodSeeder extends Seeder
+final class AuthenticationMethodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
