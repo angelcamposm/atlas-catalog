@@ -48,13 +48,13 @@ spec:
           imagePullPolicy: IfNotPresent
           livenessProbe:
             httpGet:
-              path: /healthz # Create a simple health check route in your app
+              path: /healthz
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
           ports:
             - containerPort: 8080
-              name: http
+              name: http-alt
               protocol: TCP
           readinessProbe:
             httpGet:
