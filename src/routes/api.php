@@ -12,6 +12,7 @@ use App\Http\Controllers\BusinessTierController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\ProgrammingLanguageController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('business-tiers', BusinessTierController::class);
     Route::apiResource('lifecycles', LifecycleController::class);
 
+    // Resource Domain
+    Route::apiResource('resources', ResourceController::class);
     Route::apiResource('resource-types', ResourceTypeController::class);
 
     // Security Domain
