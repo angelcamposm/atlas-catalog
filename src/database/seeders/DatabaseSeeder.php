@@ -35,6 +35,8 @@ class DatabaseSeeder extends Seeder
             BusinessDomainSeeder::class,
             BusinessTierSeeder::class,
             LifecycleSeeder::class,
+            ProgrammingLanguageSeeder::class,
+            FrameworkSeeder::class,
         ]);
     }
 
