@@ -8,6 +8,7 @@ use App\Observers\ProgrammingLanguageObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -54,4 +55,12 @@ class ProgrammingLanguage extends Model
     protected $hidden = [
         //
     ];
+
+     /**
+      * @return HasMany
+      */
+    public function frameworks(): HasMany
+    {
+        return $this->hasMany(Framework::class, 'language_id');
+    }
 }
