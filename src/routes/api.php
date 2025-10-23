@@ -12,6 +12,7 @@ use App\Http\Controllers\BusinessTierController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\ProgrammingLanguageController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -32,4 +33,5 @@ Route::prefix('v1')->group(function () {
     // Technology Domain
     Route::apiResource('frameworks', FrameworkController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
+    Route::apiResource('vendors', VendorController::class);
 });
