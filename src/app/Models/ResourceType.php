@@ -8,6 +8,7 @@ use App\Observers\ResourceTypeObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -53,4 +54,13 @@ class ResourceType extends Model
     protected $hidden = [
         //
     ];
+
+     /**
+      *
+      * @return HasMany<Resource>
+      */
+    public function resources(): HasMany
+    {
+        return $this->hasMany(Resource::class, 'type_id');
+    }
 }
