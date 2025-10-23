@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * A list of common business tiers for seeding the database.
+ * A list of common business criticality tiers for seeding the database.
  * Each element should contain a 'code', 'name', and a 'description'.
  */
 return [
