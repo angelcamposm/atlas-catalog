@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\ApiAccessPolicyController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ApiStatusController;
 use App\Http\Controllers\ApiTypeController;
 use App\Http\Controllers\AuthenticationMethodController;
 use App\Http\Controllers\BusinessDomainController;
+use App\Http\Controllers\BusinessTierController;
 use App\Http\Controllers\LifecycleController;
+use App\Http\Controllers\ProgrammingLanguageController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -18,8 +22,12 @@ Route::prefix('v1')->group(function () {
 
     // Business Domain
     Route::apiResource('business-domains', BusinessDomainController::class);
+    Route::apiResource('business-tiers', BusinessTierController::class);
     Route::apiResource('lifecycles', LifecycleController::class);
 
     // Security Domain
     Route::apiResource('authentication-methods', AuthenticationMethodController::class);
+
+    // Technology Domain
+    Route::apiResource('programming-languages', ProgrammingLanguageController::class);
 });
