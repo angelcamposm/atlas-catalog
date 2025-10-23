@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             LifecycleSeeder::class,
             ProgrammingLanguageSeeder::class,
             FrameworkSeeder::class,
+            ResourceTypeSeeder::class,
             VendorSeeder::class,
         ]);
     }
