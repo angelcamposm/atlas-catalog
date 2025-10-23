@@ -5,5 +5,4 @@ src/public/storage/
 src/storage/
 src/vendor/
 src/.env
-src/.env.example
 **/*.sqlite
