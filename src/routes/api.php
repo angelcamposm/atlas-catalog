@@ -9,6 +9,7 @@ use App\Http\Controllers\ApiTypeController;
 use App\Http\Controllers\AuthenticationMethodController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessTierController;
+use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,6 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('authentication-methods', AuthenticationMethodController::class);
 
     // Technology Domain
+    Route::apiResource('frameworks', FrameworkController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
 });
