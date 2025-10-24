@@ -1,22 +1,21 @@
+# Docker Compose para Desarrollo Local (con hot-reload)
 version: '3.8'
-name: atlas
+name: atlas-dev
 
 services:
-  # Backend Laravel API
+  # Backend Laravel API (Development)
   backend:
     build:
       context: .
       dockerfile: Dockerfile
-      tags:
-        - "atlas-catalog:latest"
-    container_name: atlas-backend
+    container_name: atlas-backend-dev
     networks:
       - catalog-network
     ports:
       - "8080:8080"
     environment:
-      - APP_ENV=${APP_ENV:-production}
-      - APP_DEBUG=${APP_DEBUG:-false}
+      - APP_ENV=local
+      - APP_DEBUG=true
       - DB_CONNECTION=pgsql
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -25,24 +24,33 @@ services:
       - DB_PASSWORD=${DB_PASSWORD:-secret}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
+    volumes:
+      # Mount source code for hot-reload
+      - ./src:/var/www/html
     depends_on:
       - postgres
       - redis
     restart: unless-stopped
 
-  # Frontend Next.js
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: atlas-frontend
+  # Frontend Next.js (Development)
+  frontend-dev:
+    image: node:22-alpine
+    container_name: atlas-frontend-dev
+    working_dir: /app
     networks:
       - catalog-network
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - NEXT_PUBLIC_API_URL=http://localhost:8080/api
+      - WATCHPACK_POLLING=true
+    volumes:
+      # Mount source code for hot-reload
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: sh -c "npm install && npm run dev"
     depends_on:
       - backend
     restart: unless-stopped
@@ -50,7 +58,7 @@ services:
   # PostgreSQL Database Service
   postgres:
     image: postgres:17.6-alpine3.22
-    container_name: postgres
+    container_name: postgres-dev
     environment:
       POSTGRES_DB: ${DB_DATABASE:-laravel}
       POSTGRES_USER: ${DB_USERNAME:-laravel}
@@ -61,26 +69,24 @@ services:
       - "5432:5432"
     restart: unless-stopped
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres-data-dev:/var/lib/postgresql/data
 
   # Redis Cache Service
   redis:
     image: redis:8.2.1-alpine3.22
-    container_name: redis
-    environment: []
-    links: []
+    container_name: redis-dev
     networks:
       - catalog-network
     ports:
       - "6379:6379"
     restart: unless-stopped
     volumes:
-      - redis-data:/data
+      - redis-data-dev:/data
 
   # RedisInsight GUI Service
   redis-insights:
     image: redislabs/redisinsight:2.70.1
-    container_name: redis-insights
+    container_name: redis-insights-dev
     depends_on:
       - redis
     environment:
@@ -95,24 +101,22 @@ services:
       - RI_REDIS_USERNAME=default
       - RI_REDIS_PASSWORD=
       - RI_REDIS_TLS=FALSE
-    links:
-      - redis
     networks:
       - catalog-network
     ports:
       - "5540:5540"
     restart: unless-stopped
     volumes:
-      - redisinsight:/data
+      - redisinsight-dev:/data
 
 networks:
   catalog-network:
     driver: bridge
 
 volumes:
-  postgres-data:
+  postgres-data-dev:
     driver: local
-  redis-data:
+  redis-data-dev:
     driver: local
-  redisinsight:
+  redisinsight-dev:
     driver: local

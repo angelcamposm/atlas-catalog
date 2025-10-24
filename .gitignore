@@ -6,3 +6,28 @@ src/storage/
 src/vendor/
 src/.env
 **/*.sqlite
+
+# Frontend Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/out/
+frontend/dist/
+frontend/.turbo/
+
+# Docker volumes and data
+postgres-data/
+postgres-data-dev/
+redis-data/
+redis-data-dev/
+redisinsight/
+redisinsight-dev/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# GitHub Copilot and AI Agents configuration
+.github/copilot-instructions.md
+.github/agents.md

@@ -17,6 +17,33 @@ use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
+// Health Check Endpoint
+Route::get('health', function () {
+    try {
+        // Check database connection
+        \DB::connection()->getPdo();
+        
+        // Check Redis connection
+        \Cache::store('redis')->get('health-check');
+        
+        return response()->json([
+            'status' => 'healthy',
+            'timestamp' => now()->toIso8601String(),
+            'services' => [
+                'database' => 'up',
+                'redis' => 'up',
+                'api' => 'up',
+            ],
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'unhealthy',
+            'timestamp' => now()->toIso8601String(),
+            'error' => $e->getMessage(),
+        ], 503);
+    }
+});
+
 Route::prefix('v1')->group(function () {
     // API Domain
     Route::apiResource('api-access-policies', ApiAccessPolicyController::class);
