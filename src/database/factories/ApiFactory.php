@@ -36,7 +36,11 @@ class ApiFactory extends Factory
             'access_policy_id' => ApiAccessPolicy::inRandomOrder()->first()->id,
             'authentication_method_id' => AuthenticationMethod::inRandomOrder()->first()->id,
             'protocol' => 'http',
-            'document_specification' => $this->faker->text,
+            'document_specification' => json_encode([
+                'title' => $this->faker->sentence,
+                'description' => $this->faker->paragraph,
+                'version' => $this->faker->semver(false, false),
+            ]),
             'status_id' => ApiStatus::inRandomOrder()->first()->id,
             'type_id' => ApiType::inRandomOrder()->first()->id,
             'url' => $this->faker->url(),

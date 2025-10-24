@@ -14,7 +14,7 @@ final class ResourceTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        $rows = include database_path('data/file.php');
+        $rows = include database_path('data/resource_types.php');
 
         collect($rows)->each(function ($item) {
             ResourceType::updateOrCreate(
