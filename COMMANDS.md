@@ -162,14 +162,14 @@ docker build -t atlas-frontend:latest ./frontend
 
 ## 📊 URLs de Servicios
 
-| Servicio | URL | Descripción |
-|----------|-----|-------------|
-| Frontend | http://localhost:3000 | Aplicación Next.js |
-| Backend API | http://localhost:8080/api | API REST Laravel |
-| Health Check | http://localhost:8080/api/health | Estado del sistema |
-| Redis Insights | http://localhost:5540 | GUI Redis |
-| PostgreSQL | localhost:5432 | Base de datos |
-| Redis | localhost:6379 | Cache |
+| Servicio       | URL                              | Descripción        |
+| -------------- | -------------------------------- | ------------------ |
+| Frontend       | http://localhost:3000            | Aplicación Next.js |
+| Backend API    | http://localhost:8080/api        | API REST Laravel   |
+| Health Check   | http://localhost:8080/api/health | Estado del sistema |
+| Redis Insights | http://localhost:5540            | GUI Redis          |
+| PostgreSQL     | localhost:5432                   | Base de datos      |
+| Redis          | localhost:6379                   | Cache              |
 
 ## 🗃️ Comandos de Base de Datos
 

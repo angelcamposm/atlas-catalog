@@ -7,31 +7,35 @@ Esta guía explica cómo ejecutar el proyecto completo usando Docker Compose.
 El `docker-compose.yml` incluye los siguientes servicios:
 
 1. **backend** - Laravel API (PHP 8.4 + Apache)
-   - Puerto: `8080`
-   - Endpoint: `http://localhost:8080/api`
+
+    - Puerto: `8080`
+    - Endpoint: `http://localhost:8080/api`
 
 2. **frontend** - Next.js Application (Node.js)
-   - Puerto: `3000`
-   - URL: `http://localhost:3000`
+
+    - Puerto: `3000`
+    - URL: `http://localhost:3000`
 
 3. **postgres** - PostgreSQL Database
-   - Puerto: `5432`
-   - Base de datos para Laravel
+
+    - Puerto: `5432`
+    - Base de datos para Laravel
 
 4. **redis** - Redis Cache
-   - Puerto: `6379`
-   - Cache y sesiones
+
+    - Puerto: `6379`
+    - Cache y sesiones
 
 5. **redis-insights** - Redis GUI
-   - Puerto: `5540`
-   - Interfaz web para gestionar Redis
+    - Puerto: `5540`
+    - Interfaz web para gestionar Redis
 
 ## 📋 Requisitos Previos
 
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- 4GB RAM disponible (mínimo)
-- Puertos disponibles: 3000, 8080, 5432, 6379, 5540
+-   Docker Engine 20.10+
+-   Docker Compose 2.0+
+-   4GB RAM disponible (mínimo)
+-   Puertos disponibles: 3000, 8080, 5432, 6379, 5540
 
 ## 🚀 Inicio Rápido
 
@@ -46,6 +50,7 @@ nano .env
 ```
 
 Variables importantes:
+
 ```env
 # Database
 DB_DATABASE=atlas_catalog
@@ -84,9 +89,9 @@ docker-compose exec backend php artisan key:generate
 
 ### 4. Verificar los Servicios
 
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080/api
-- **Redis Insights**: http://localhost:5540
+-   **Frontend**: http://localhost:3000
+-   **Backend API**: http://localhost:8080/api
+-   **Redis Insights**: http://localhost:5540
 
 ## 📂 Estructura de Servicios
 
@@ -101,10 +106,11 @@ backend:
 ```
 
 **Rutas API disponibles:**
-- `GET /api/apis` - Lista de APIs
-- `GET /api/api-types` - Tipos de API
-- `GET /api/lifecycles` - Ciclos de vida
-- `GET /api/programming-languages` - Lenguajes de programación
+
+-   `GET /api/apis` - Lista de APIs
+-   `GET /api/api-types` - Tipos de API
+-   `GET /api/lifecycles` - Ciclos de vida
+-   `GET /api/programming-languages` - Lenguajes de programación
 
 ### Frontend (Next.js)
 
@@ -237,6 +243,7 @@ docker-compose down -v --rmi all
 **Problema**: Error de CORS o conexión rechazada
 
 **Solución**:
+
 1. Verificar que `NEXT_PUBLIC_API_URL` esté correctamente configurado
 2. Verificar que el backend esté corriendo: `docker-compose ps`
 3. Revisar logs del backend: `docker-compose logs backend`
@@ -247,6 +254,7 @@ docker-compose down -v --rmi all
 **Problema**: Error al ejecutar migraciones
 
 **Solución**:
+
 ```bash
 # Verificar conexión a la base de datos
 docker-compose exec backend php artisan migrate:status
@@ -263,6 +271,7 @@ docker-compose exec backend php artisan migrate --force
 **Problema**: Contenedor se detiene inmediatamente
 
 **Solución**:
+
 ```bash
 # Ver logs del servicio
 docker-compose logs backend
@@ -280,6 +289,7 @@ docker-compose up -d backend
 **Problema**: "Port already in use"
 
 **Solución**:
+
 ```bash
 # Identificar el proceso usando el puerto
 lsof -i :8080  # o el puerto en conflicto
@@ -306,43 +316,48 @@ docker volume ls
 ### Redis Insights
 
 Accede a http://localhost:5540 para:
-- Ver datos en Redis
-- Monitorear rendimiento
-- Gestionar keys
-- Analizar memoria
+
+-   Ver datos en Redis
+-   Monitorear rendimiento
+-   Gestionar keys
+-   Analizar memoria
 
 ## 🔒 Seguridad en Producción
 
 Para producción, asegúrate de:
 
 1. **Cambiar credenciales por defecto**
-   ```env
-   DB_PASSWORD=<password-seguro-aleatorio>
-   ```
+
+    ```env
+    DB_PASSWORD=<password-seguro-aleatorio>
+    ```
 
 2. **Deshabilitar debug**
-   ```env
-   APP_DEBUG=false
-   ```
+
+    ```env
+    APP_DEBUG=false
+    ```
 
 3. **Usar HTTPS**
-   - Configurar proxy reverso (Nginx/Traefik)
-   - Obtener certificados SSL
+
+    - Configurar proxy reverso (Nginx/Traefik)
+    - Obtener certificados SSL
 
 4. **Limitar puertos expuestos**
-   - No exponer PostgreSQL (puerto 5432) públicamente
-   - No exponer Redis (puerto 6379) públicamente
+
+    - No exponer PostgreSQL (puerto 5432) públicamente
+    - No exponer Redis (puerto 6379) públicamente
 
 5. **Configurar variables de entorno seguras**
-   - Usar secretos de Docker Swarm o Kubernetes
-   - No commitear archivos `.env` con credenciales reales
+    - Usar secretos de Docker Swarm o Kubernetes
+    - No commitear archivos `.env` con credenciales reales
 
 ## 📚 Recursos Adicionales
 
-- [Docker Documentation](https://docs.docker.com/)
-- [Docker Compose Documentation](https://docs.docker.com/compose/)
-- [Laravel Deployment](https://laravel.com/docs/11.x/deployment)
-- [Next.js Deployment](https://nextjs.org/docs/deployment)
+-   [Docker Documentation](https://docs.docker.com/)
+-   [Docker Compose Documentation](https://docs.docker.com/compose/)
+-   [Laravel Deployment](https://laravel.com/docs/11.x/deployment)
+-   [Next.js Deployment](https://nextjs.org/docs/deployment)
 
 ## 💡 Tips
 

@@ -1,5 +1,5 @@
 # Docker Compose para Desarrollo Local (con hot-reload)
-version: '3.8'
+version: "3.8"
 name: atlas-dev
 
 services:

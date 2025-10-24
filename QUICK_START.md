@@ -4,9 +4,9 @@ Guía rápida para poner en marcha el proyecto en menos de 5 minutos.
 
 ## Prerrequisitos
 
-- Docker y Docker Compose instalados
-- Git
-- 8GB RAM disponible (recomendado)
+-   Docker y Docker Compose instalados
+-   Git
+-   8GB RAM disponible (recomendado)
 
 ## Instalación Rápida
 
@@ -31,9 +31,10 @@ make info
 ```
 
 **¡Listo!** Accede a:
-- **Frontend**: http://localhost:3000
-- **API**: http://localhost:8080/api
-- **Redis Insights**: http://localhost:5540
+
+-   **Frontend**: http://localhost:3000
+-   **API**: http://localhost:8080/api
+-   **Redis Insights**: http://localhost:5540
 
 ### Opción 2: Docker Compose Manual
 
@@ -65,11 +66,12 @@ docker-compose -f docker-compose.dev.yml ps
 ```
 
 Deberías ver 5 contenedores corriendo:
-- `atlas-backend-dev`
-- `atlas-frontend-dev`
-- `postgres-dev`
-- `redis-dev`
-- `redis-insights-dev`
+
+-   `atlas-backend-dev`
+-   `atlas-frontend-dev`
+-   `postgres-dev`
+-   `redis-dev`
+-   `redis-insights-dev`
 
 ### 2. Probar el Backend API
 
@@ -141,14 +143,15 @@ make fresh
 ### El frontend no se conecta al backend
 
 1. Verificar que `frontend/.env.local` existe y contiene:
-   ```
-   NEXT_PUBLIC_API_URL=http://localhost:8080/api
-   ```
+
+    ```
+    NEXT_PUBLIC_API_URL=http://localhost:8080/api
+    ```
 
 2. Reiniciar el frontend:
-   ```bash
-   docker restart atlas-frontend-dev
-   ```
+    ```bash
+    docker restart atlas-frontend-dev
+    ```
 
 ### Puerto ya en uso
 
@@ -159,9 +162,9 @@ Si algún puerto (3000, 8080, 5432) está en uso:
 
 ## Siguiente Paso
 
-- Lee la [documentación completa](README.md)
-- Explora el [setup full-stack](FULL_STACK_SETUP.md)
-- Revisa la [documentación de Docker](DOCKER.md)
+-   Lee la [documentación completa](README.md)
+-   Explora el [setup full-stack](FULL_STACK_SETUP.md)
+-   Revisa la [documentación de Docker](DOCKER.md)
 
 ## Desarrollo
 
@@ -180,8 +183,8 @@ atlas-catalog/
 
 El entorno de desarrollo incluye hot-reload automático:
 
-- **Backend**: Los cambios en `src/` se reflejan automáticamente
-- **Frontend**: Los cambios en `frontend/` activan Fast Refresh de Next.js
+-   **Backend**: Los cambios en `src/` se reflejan automáticamente
+-   **Frontend**: Los cambios en `frontend/` activan Fast Refresh de Next.js
 
 ### Base de Datos
 
@@ -205,16 +208,16 @@ docker exec -it redis-dev redis-cli
 
 El seeder carga datos de ejemplo:
 
-- **API Types**: REST, GraphQL, SOAP, WebSocket
-- **Lifecycles**: Planning, Development, Testing, Production, Deprecated
-- **Programming Languages**: PHP, JavaScript, Python, Java, etc.
-- **APIs de ejemplo**: Varias APIs con diferentes configuraciones
+-   **API Types**: REST, GraphQL, SOAP, WebSocket
+-   **Lifecycles**: Planning, Development, Testing, Production, Deprecated
+-   **Programming Languages**: PHP, JavaScript, Python, Java, etc.
+-   **APIs de ejemplo**: Varias APIs con diferentes configuraciones
 
 ## Recursos
 
-- [Laravel Documentation](https://laravel.com/docs)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Docker Documentation](https://docs.docker.com)
+-   [Laravel Documentation](https://laravel.com/docs)
+-   [Next.js Documentation](https://nextjs.org/docs)
+-   [Docker Documentation](https://docs.docker.com)
 
 ---
 
