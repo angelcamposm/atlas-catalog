@@ -20,6 +20,15 @@ export interface Api extends Timestamps, UserReference {
     id: number;
     name: string;
     description?: string;
+    access_policy_id?: number;
+    authentication_method_id?: number;
+    protocol?: string;
+    document_specification?: string | Record<string, any>;
+    status_id?: number;
+    type_id?: number;
+    url?: string;
+    version?: string;
+    // Legacy fields for compatibility
     api_type_id?: number;
     lifecycle_id?: number;
     api_status_id?: number;
@@ -77,6 +86,10 @@ export interface ApiResponse<T> {
 
 export interface PaginatedResponse<T> {
     data: T[];
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
     links: PaginationLinks;
     meta: PaginationMeta;
 }
