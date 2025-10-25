@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             AuthenticationMethodSeeder::class,
             BusinessDomainSeeder::class,
             BusinessTierSeeder::class,
+            EnvironmentSeeder::class,
             LifecycleSeeder::class,
             ProgrammingLanguageSeeder::class,
             FrameworkSeeder::class,
