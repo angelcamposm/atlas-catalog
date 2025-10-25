@@ -30,8 +30,8 @@ class Resource extends Model
      /**
       * @use HasFactory<ResourceFactory>
       */
-    use HasFactory;
-    use BelongsToUser;
+    use HasFactory,
+        BelongsToUser;
 
     /**
      * The table associated with the model.
