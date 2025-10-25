@@ -9,14 +9,17 @@ use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
 use Database\Factories\GroupFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
+ * @property-read Collection<int, User> $users
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -37,7 +40,7 @@ class Group extends Model
     /**
      * The table associated with the model.
      *
-     * @var string|null
+     * @var string
      */
     protected $table = 'groups';
 
@@ -54,14 +57,27 @@ class Group extends Model
         'label',
         'parent_id',
         'type_id',
+        'created_by',
+        'updated_by',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The users that belong to the group.
      *
-     * @var array<string>
+     * @return BelongsToMany<User>
      */
-    protected $hidden = [
-        //
-    ];
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'group_members')->withPivot('role_id');
+    }
+
+    /**
+     * Check if the group has any users.
+     *
+     * @return bool
+     */
+    public function hasMembers(): bool
+    {
+        return $this->members()->exists();
+    }
 }
