@@ -56,6 +56,8 @@ class Api extends Model
         'type_id',
         'url',
         'version',
+        'created_by',
+        'updated_by',
     ];
 
     /**

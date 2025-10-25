@@ -43,6 +43,8 @@ class Lifecycle extends Model
         'color',
         'description',
         'name',
+        'created_by',
+        'updated_by',
     ];
 
     /**

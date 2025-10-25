@@ -43,6 +43,8 @@ class BusinessTier extends Model
         'code',
         'description',
         'name',
+        'created_by',
+        'updated_by',
     ];
 
     /**

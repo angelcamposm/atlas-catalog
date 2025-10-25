@@ -44,6 +44,8 @@ class ResourceType extends Model
         'category',
         'description',
         'icon',
+        'created_by',
+        'updated_by',
     ];
 
     /**

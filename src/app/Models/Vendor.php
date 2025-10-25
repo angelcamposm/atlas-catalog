@@ -24,7 +24,6 @@ use Illuminate\Database\Eloquent\Model;
  #[ObservedBy(VendorObserver::class)]
 class Vendor extends Model
 {
-    //
     use BelongsToUser;
 
     /**
@@ -43,6 +42,8 @@ class Vendor extends Model
         'name',
         'icon',
         'url',
+        'created_by',
+        'updated_by',
     ];
 
     /**

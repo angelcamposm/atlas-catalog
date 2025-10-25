@@ -45,6 +45,8 @@ class ProgrammingLanguage extends Model
         'icon',
         'is_enabled',
         'url',
+        'created_by',
+        'updated_by',
     ];
 
     /**

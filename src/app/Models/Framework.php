@@ -47,6 +47,8 @@ class Framework extends Model
         'is_enabled',
         'language_id',
         'url',
+        'created_by',
+        'updated_by',
     ];
 
     /**

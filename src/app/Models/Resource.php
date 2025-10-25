@@ -48,6 +48,8 @@ class Resource extends Model
     protected $fillable = [
         'name',
         'type_id',
+        'created_by',
+        'updated_by',
     ];
 
     /**

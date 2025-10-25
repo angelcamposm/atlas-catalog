@@ -51,6 +51,8 @@ class BusinessDomain extends Model
         'category',
         'is_active',
         'parent_id',
+        'created_by',
+        'updated_by',
     ];
 
     /**

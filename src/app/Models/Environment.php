@@ -50,6 +50,8 @@ class Environment extends Model
         'prefix',
         'sort_order',
         'suffix',
+        'created_by',
+        'updated_by',
     ];
 
     /**
