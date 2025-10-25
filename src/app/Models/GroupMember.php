@@ -7,7 +7,6 @@ namespace App\Models;
 use App\Observers\GroupMemberObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
@@ -51,10 +50,10 @@ class GroupMember extends Pivot
         'updated_by',
     ];
 
-     /**
-      * Indicates if the IDs are auto-incrementing.
-      *
-      * @var bool
-      */
-     public $incrementing = true;
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = true;
 }
