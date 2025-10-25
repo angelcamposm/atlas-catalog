@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(ProgrammingLanguageObserver::class)]
+#[ObservedBy(ProgrammingLanguageObserver::class)]
 class ProgrammingLanguage extends Model
 {
     //

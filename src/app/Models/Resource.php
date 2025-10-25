@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(ResourceObserver::class)]
+#[ObservedBy(ResourceObserver::class)]
 class Resource extends Model
 {
      /**

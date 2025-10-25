@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(VendorObserver::class)]
+#[ObservedBy(VendorObserver::class)]
 class Vendor extends Model
 {
     use BelongsToUser;

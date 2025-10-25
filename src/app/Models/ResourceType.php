@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(ResourceTypeObserver::class)]
+#[ObservedBy(ResourceTypeObserver::class)]
 class ResourceType extends Model
 {
     use BelongsToUser;

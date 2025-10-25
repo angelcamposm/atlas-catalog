@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(GroupMemberObserver::class)]
+#[ObservedBy(GroupMemberObserver::class)]
 class GroupMember extends Pivot
 {
     use BelongsToUser;

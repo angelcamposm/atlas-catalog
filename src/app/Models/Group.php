@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(GroupObserver::class)]
+#[ObservedBy(GroupObserver::class)]
 class Group extends Model
 {
     /**

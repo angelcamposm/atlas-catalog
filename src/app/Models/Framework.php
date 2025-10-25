@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(FrameworkObserver::class)]
+#[ObservedBy(FrameworkObserver::class)]
 class Framework extends Model
 {
     //
@@ -60,13 +60,13 @@ class Framework extends Model
         //
     ];
 
-     /**
-      * Establishes a relationship to the ProgrammingLanguage model.
-      *
-      * @return BelongsTo
-      */
-     public function language(): BelongsTo
-     {
-         return $this->belongsTo(ProgrammingLanguage::class, 'language_id');
+    /**
+     * Establishes a relationship to the ProgrammingLanguage model.
+     *
+     * @return BelongsTo
+     */
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(ProgrammingLanguage::class, 'language_id');
     }
 }

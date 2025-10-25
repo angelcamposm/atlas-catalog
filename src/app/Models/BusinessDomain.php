@@ -29,8 +29,8 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy(BusinessDomainObserver::class)]
 class BusinessDomain extends Model
 {
-    use BelongsToUser,
-        HasRelatives;
+    use BelongsToUser;
+    use HasRelatives;
 
     /**
      * The table associated with the model.
