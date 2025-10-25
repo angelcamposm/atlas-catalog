@@ -4,5 +4,4 @@ buildMetadata:
   - managedByLabel
 namespace: atlas-catalog
 resources:
-  - ./resources/deployment.yaml
-  - ./resources/service.yaml
+  - ./resources/namespace.yaml

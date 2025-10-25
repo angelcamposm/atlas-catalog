@@ -3,16 +3,21 @@ kind: Deployment
 metadata:
   name: atlas-catalog-backend
   labels:
+    app.kubernetes.io/name: atlas-catalog-backend
+    app.kubernetes.io/instance: atlas-catalog
+    app.kubernetes.io/version: v1.0.0
+    app.kubernetes.io/part-of: atlas-catalog
     app: atlas-catalog-backend
+    tier: backend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: atlas-catalog-backend
+      app.kubernetes.io/name: atlas-catalog-backend
   template:
     metadata:
       labels:
-        app: atlas-catalog-backend
+        app.kubernetes.io/name: atlas-catalog-backend
     spec:
       terminationGracePeriodSeconds: 30
       containers:
