@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+buildMetadata:
+  - managedByLabel
+labels:
+  - pairs:
+      app.kubernetes.io/name: atlas-catalog
+    includeSelectors: true
+    includeTemplates: true
+configMapGenerator:
+  - name: app-config
+    files:
+      - .env
+resources:
+  - ./resources/deployment.backend.yaml
+  - ./resources/service.yaml
