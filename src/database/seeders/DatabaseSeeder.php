@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             LifecycleSeeder::class,
             ProgrammingLanguageSeeder::class,
             FrameworkSeeder::class,
+            GroupMemberRoleSeeder::class,
             ResourceTypeSeeder::class,
             VendorSeeder::class,
         ]);
