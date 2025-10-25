@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
 
     private function run_base_seeders(): void
     {
+        // First-level models
         $this->call([
             ApiAccessPolicySeeder::class,
             ApiStatusSeeder::class,
@@ -37,10 +38,15 @@ class DatabaseSeeder extends Seeder
             EnvironmentSeeder::class,
             LifecycleSeeder::class,
             ProgrammingLanguageSeeder::class,
-            FrameworkSeeder::class,
             GroupMemberRoleSeeder::class,
+            GroupTypeSeeder::class,
             ResourceTypeSeeder::class,
             VendorSeeder::class,
+        ]);
+
+        // Second-level models
+        $this->call([
+            FrameworkSeeder::class,
         ]);
     }
 
