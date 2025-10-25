@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(BusinessTierObserver::class)]
+#[ObservedBy(BusinessTierObserver::class)]
 class BusinessTier extends Model
 {
     //
