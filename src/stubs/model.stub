@@ -41,7 +41,8 @@ class {{ class }} extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        //
+        'created_by',
+        'updated_by',
     ];
 
     /**
