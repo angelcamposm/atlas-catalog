@@ -9,7 +9,12 @@ use App\Http\Controllers\ApiTypeController;
 use App\Http\Controllers\AuthenticationMethodController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessTierController;
+use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FrameworkController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\GroupMemberController;
+use App\Http\Controllers\GroupMemberRoleController;
+use App\Http\Controllers\GroupTypeController;
 use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
@@ -27,6 +32,7 @@ Route::prefix('v1')->group(function () {
     // Business Domain
     Route::apiResource('business-domains', BusinessDomainController::class);
     Route::apiResource('business-tiers', BusinessTierController::class);
+    Route::apiResource('environments', EnvironmentController::class);
     Route::apiResource('lifecycles', LifecycleController::class);
 
     // Resource Domain
@@ -40,4 +46,10 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('frameworks', FrameworkController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
     Route::apiResource('vendors', VendorController::class);
+
+    // Account Domain
+    Route::apiResource('groups', GroupController::class);
+    Route::apiResource('group-members', GroupMemberController::class);
+    Route::apiResource('group-member-roles', GroupMemberRoleController::class);
+    Route::apiResource('group-types', GroupTypeController::class);
 });
