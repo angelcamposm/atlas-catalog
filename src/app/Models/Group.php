@@ -33,9 +33,9 @@ class Group extends Model
     /**
      * @use HasFactory<GroupFactory>
      */
-    use HasFactory,
-        HasRelatives,
-        BelongsToUser;
+    use HasFactory;
+    use HasRelatives;
+    use BelongsToUser;
 
     /**
      * The table associated with the model.

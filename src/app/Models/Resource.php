@@ -27,11 +27,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[ObservedBy(ResourceObserver::class)]
 class Resource extends Model
 {
-     /**
-      * @use HasFactory<ResourceFactory>
-      */
-    use HasFactory,
-        BelongsToUser;
+    /**
+     * @use HasFactory<ResourceFactory>
+     */
+    use HasFactory;
+    use BelongsToUser;
 
     /**
      * The table associated with the model.
@@ -61,9 +61,9 @@ class Resource extends Model
         //
     ];
 
-     /**
-      * @return BelongsTo<ResourceType>
-      */
+    /**
+     * @return BelongsTo<ResourceType>
+     */
     public function type(): BelongsTo
     {
         return $this->belongsTo(ResourceType::class, 'type_id', 'id');
