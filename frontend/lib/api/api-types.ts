@@ -3,10 +3,13 @@
  */
 
 import { apiClient } from "../api-client";
+import {
+    apiTypeResponseSchema,
+    paginatedApiTypeResponseSchema,
+} from "@/types/api";
 import type {
-    ApiType,
-    ApiResponse,
-    PaginatedResponse,
+    ApiTypeResponse,
+    PaginatedApiTypeResponse,
     CreateApiTypeRequest,
     UpdateApiTypeRequest,
 } from "@/types/api";
@@ -15,28 +18,39 @@ export const apiTypesApi = {
     /**
      * Get all API Types with pagination
      */
-    getAll: (page = 1) =>
-        apiClient.get<PaginatedResponse<ApiType>>(
+    getAll: async (page = 1): Promise<PaginatedApiTypeResponse> => {
+        const response = await apiClient.get<unknown>(
             `/api-types${apiClient.buildQuery({ page })}`
-        ),
+        );
+        return paginatedApiTypeResponseSchema.parse(response);
+    },
 
     /**
      * Get a single API Type by ID
      */
-    getById: (id: number) =>
-        apiClient.get<ApiResponse<ApiType>>(`/api-types/${id}`),
+    getById: async (id: number): Promise<ApiTypeResponse> => {
+        const response = await apiClient.get<unknown>(`/api-types/${id}`);
+        return apiTypeResponseSchema.parse(response);
+    },
 
     /**
      * Create a new API Type
      */
-    create: (data: CreateApiTypeRequest) =>
-        apiClient.post<ApiResponse<ApiType>>("/api-types", data),
+    create: async (data: CreateApiTypeRequest): Promise<ApiTypeResponse> => {
+        const response = await apiClient.post<unknown>("/api-types", data);
+        return apiTypeResponseSchema.parse(response);
+    },
 
     /**
      * Update an existing API Type
      */
-    update: (id: number, data: UpdateApiTypeRequest) =>
-        apiClient.put<ApiResponse<ApiType>>(`/api-types/${id}`, data),
+    update: async (
+        id: number,
+        data: UpdateApiTypeRequest
+    ): Promise<ApiTypeResponse> => {
+        const response = await apiClient.put<unknown>(`/api-types/${id}`, data);
+        return apiTypeResponseSchema.parse(response);
+    },
 
     /**
      * Delete an API Type

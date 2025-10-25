@@ -3,10 +3,10 @@
  */
 
 import { apiClient } from "../api-client";
+import { apiResponseSchema, paginatedApiResponseSchema } from "@/types/api";
 import type {
-    Api,
+    PaginatedApiResponse,
     ApiResponse,
-    PaginatedResponse,
     CreateApiRequest,
     UpdateApiRequest,
 } from "@/types/api";
@@ -15,27 +15,39 @@ export const apisApi = {
     /**
      * Get all APIs with pagination
      */
-    getAll: (page = 1) =>
-        apiClient.get<PaginatedResponse<Api>>(
+    getAll: async (page = 1): Promise<PaginatedApiResponse> => {
+        const response = await apiClient.get<unknown>(
             `/apis${apiClient.buildQuery({ page })}`
-        ),
+        );
+        return paginatedApiResponseSchema.parse(response);
+    },
 
     /**
      * Get a single API by ID
      */
-    getById: (id: number) => apiClient.get<ApiResponse<Api>>(`/apis/${id}`),
+    getById: async (id: number): Promise<ApiResponse> => {
+        const response = await apiClient.get<unknown>(`/apis/${id}`);
+        return apiResponseSchema.parse(response);
+    },
 
     /**
      * Create a new API
      */
-    create: (data: CreateApiRequest) =>
-        apiClient.post<ApiResponse<Api>>("/apis", data),
+    create: async (data: CreateApiRequest): Promise<ApiResponse> => {
+        const response = await apiClient.post<unknown>("/apis", data);
+        return apiResponseSchema.parse(response);
+    },
 
     /**
      * Update an existing API
      */
-    update: (id: number, data: UpdateApiRequest) =>
-        apiClient.put<ApiResponse<Api>>(`/apis/${id}`, data),
+    update: async (
+        id: number,
+        data: UpdateApiRequest
+    ): Promise<ApiResponse> => {
+        const response = await apiClient.put<unknown>(`/apis/${id}`, data);
+        return apiResponseSchema.parse(response);
+    },
 
     /**
      * Delete an API

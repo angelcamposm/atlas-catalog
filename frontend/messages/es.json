@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "title": "Catalogo Atlas",
+    "description": "Plataforma centralizada para catalogar APIs."
+  },
+  "common": {
+    "viewApis": "Ver APIs",
+    "manageTypes": "Gestionar Tipos",
+    "viewLifecycles": "Ver Ciclos de Vida",
+    "viewLanguages": "Ver Lenguajes",
+    "comingSoon": "Proximamente",
+    "backendLabel": "API Backend:",
+    "featuresLabel": "Caracteristicas:",
+    "techStackLabel": "Tecnologia:",
+    "techStackValue": "Next.js 16 + TypeScript + Tailwind CSS",
+    "builtWith": "Construido con {heart} usando Laravel y Next.js",
+    "retry": "Reintentar",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "pageSummary": "Pagina {current} de {total}",
+    "noData": "No hay APIs disponibles",
+    "totalCount": "Total: {count} APIs",
+    "n_a": "N/D",
+    "language": "Idioma",
+    "locale": {
+      "en": "Ingles",
+      "es": "Espanol"
+    }
+  },
+  "home": {
+    "title": "Catalogo Atlas",
+    "subtitle": "Plataforma centralizada para gestionar y seguir tus microservicios, APIs y activos digitales.",
+    "cards": {
+      "catalog": {
+        "title": "Catalogo de APIs",
+        "description": "Explora y gestiona tu inventario completo de APIs con metadata y documentacion."
+      },
+      "types": {
+        "title": "Tipos de API",
+        "description": "Clasifica tus APIs por tipo: REST, GraphQL, SOAP y mas."
+      },
+      "lifecycles": {
+        "title": "Ciclos de Vida",
+        "description": "Sigue las etapas del ciclo de vida de las APIs desde desarrollo hasta produccion."
+      },
+      "languages": {
+        "title": "Lenguajes de Programacion",
+        "description": "Organiza las APIs por los lenguajes de programacion que utilizan."
+      },
+      "domains": {
+        "title": "Dominios de Negocio",
+        "description": "Agrupa los servicios por dominios de negocio para una propiedad clara."
+      },
+      "discovery": {
+        "title": "Fuentes de Descubrimiento",
+        "description": "Registra como se descubrieron y registraron las APIs en el catalogo."
+      }
+    },
+    "quickStart": {
+      "title": "Primeros Pasos",
+      "features": "CRUD completo para APIs, Tipos, Ciclos de Vida y mas"
+    }
+  },
+  "apis": {
+    "title": "Catalogo de APIs",
+    "errors": {
+      "load": "No pudimos cargar las APIs. Intentalo de nuevo."
+    }
+  }
+}

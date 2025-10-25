@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "title": "Atlas Catalog",
+    "description": "Centralized API catalog management system."
+  },
+  "common": {
+    "viewApis": "View APIs",
+    "manageTypes": "Manage Types",
+    "viewLifecycles": "View Lifecycles",
+    "viewLanguages": "View Languages",
+    "comingSoon": "Coming Soon",
+    "backendLabel": "Backend API:",
+    "featuresLabel": "Features:",
+    "techStackLabel": "Tech Stack:",
+    "techStackValue": "Next.js 16 + TypeScript + Tailwind CSS",
+    "builtWith": "Built with {heart} using Laravel & Next.js",
+    "retry": "Retry",
+    "previous": "Previous",
+    "next": "Next",
+    "pageSummary": "Page {current} of {total}",
+    "noData": "No APIs available",
+    "totalCount": "Total: {count} APIs",
+    "n_a": "N/A",
+    "language": "Language",
+    "locale": {
+      "en": "English",
+      "es": "Spanish"
+    }
+  },
+  "home": {
+    "title": "Atlas Catalog",
+    "subtitle": "Centralized API catalog management system for tracking and managing your microservices, APIs, and digital assets.",
+    "cards": {
+      "catalog": {
+        "title": "API Catalog",
+        "description": "Browse and manage your complete API inventory with rich metadata and documentation."
+      },
+      "types": {
+        "title": "API Types",
+        "description": "Categorize your APIs by type: REST, GraphQL, SOAP, and more."
+      },
+      "lifecycles": {
+        "title": "Lifecycles",
+        "description": "Track API lifecycle stages from development to production."
+      },
+      "languages": {
+        "title": "Programming Languages",
+        "description": "Organize APIs by the programming languages they use."
+      },
+      "domains": {
+        "title": "Business Domains",
+        "description": "Group services by business domains for clear ownership."
+      },
+      "discovery": {
+        "title": "Discovery Sources",
+        "description": "Track how APIs were discovered and registered in the catalog."
+      }
+    },
+    "quickStart": {
+      "title": "Getting Started",
+      "features": "Full CRUD operations for APIs, Types, Lifecycles, and more"
+    }
+  },
+  "apis": {
+    "title": "API Catalog",
+    "errors": {
+      "load": "We couldn't load the APIs. Please try again."
+    }
+  }
+}

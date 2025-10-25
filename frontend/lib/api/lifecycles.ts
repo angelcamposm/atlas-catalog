@@ -3,10 +3,13 @@
  */
 
 import { apiClient } from "../api-client";
+import {
+    lifecycleResponseSchema,
+    paginatedLifecycleResponseSchema,
+} from "@/types/api";
 import type {
-    Lifecycle,
-    ApiResponse,
-    PaginatedResponse,
+    LifecycleResponse,
+    PaginatedLifecycleResponse,
     CreateLifecycleRequest,
     UpdateLifecycleRequest,
 } from "@/types/api";
@@ -15,28 +18,44 @@ export const lifecyclesApi = {
     /**
      * Get all Lifecycles with pagination
      */
-    getAll: (page = 1) =>
-        apiClient.get<PaginatedResponse<Lifecycle>>(
+    getAll: async (page = 1): Promise<PaginatedLifecycleResponse> => {
+        const response = await apiClient.get<unknown>(
             `/lifecycles${apiClient.buildQuery({ page })}`
-        ),
+        );
+        return paginatedLifecycleResponseSchema.parse(response);
+    },
 
     /**
      * Get a single Lifecycle by ID
      */
-    getById: (id: number) =>
-        apiClient.get<ApiResponse<Lifecycle>>(`/lifecycles/${id}`),
+    getById: async (id: number): Promise<LifecycleResponse> => {
+        const response = await apiClient.get<unknown>(`/lifecycles/${id}`);
+        return lifecycleResponseSchema.parse(response);
+    },
 
     /**
      * Create a new Lifecycle
      */
-    create: (data: CreateLifecycleRequest) =>
-        apiClient.post<ApiResponse<Lifecycle>>("/lifecycles", data),
+    create: async (
+        data: CreateLifecycleRequest
+    ): Promise<LifecycleResponse> => {
+        const response = await apiClient.post<unknown>("/lifecycles", data);
+        return lifecycleResponseSchema.parse(response);
+    },
 
     /**
      * Update an existing Lifecycle
      */
-    update: (id: number, data: UpdateLifecycleRequest) =>
-        apiClient.put<ApiResponse<Lifecycle>>(`/lifecycles/${id}`, data),
+    update: async (
+        id: number,
+        data: UpdateLifecycleRequest
+    ): Promise<LifecycleResponse> => {
+        const response = await apiClient.put<unknown>(
+            `/lifecycles/${id}`,
+            data
+        );
+        return lifecycleResponseSchema.parse(response);
+    },
 
     /**
      * Delete a Lifecycle
