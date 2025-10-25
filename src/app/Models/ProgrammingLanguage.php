@@ -58,9 +58,9 @@ class ProgrammingLanguage extends Model
         //
     ];
 
-     /**
-      * @return HasMany
-      */
+    /**
+     * @return HasMany
+     */
     public function frameworks(): HasMany
     {
         return $this->hasMany(Framework::class, 'language_id');

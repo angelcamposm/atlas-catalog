@@ -57,10 +57,10 @@ class ResourceType extends Model
         //
     ];
 
-     /**
-      *
-      * @return HasMany<Resource>
-      */
+    /**
+     *
+     * @return HasMany<Resource>
+     */
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class, 'type_id');
