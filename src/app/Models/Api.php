@@ -34,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $deprecated_by
  * @property int|null $created_by
  * @property int|null $updated_by
+ *
  * @property-read ApiAccessPolicy|null $accessPolicy
  * @property-read AuthenticationMethod|null $authenticationMethod
  * @property-read ApiCategory|null $category
@@ -42,6 +43,7 @@ use Illuminate\Support\Carbon;
  * @property-read User|null $deprecator
  * @property-read User|null $creator
  * @property-read User|null $updater
+ *
  * @method static ApiFactory factory($count = null, $state = [])
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])

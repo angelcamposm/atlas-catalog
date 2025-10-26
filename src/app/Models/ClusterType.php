@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $vendor_id
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()

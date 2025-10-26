@@ -15,8 +15,10 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int $user_id
  * @property int $created_by
  * @property int $updated_by
+ *
  * @property-read Group $group
  * @property-read User $user
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()

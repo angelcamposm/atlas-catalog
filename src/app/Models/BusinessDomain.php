@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $created_by
  * @property int $updated_by
  * @property BusinessDomain $parent
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()

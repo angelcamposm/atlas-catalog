@@ -18,12 +18,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $type_id
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
  * @use HasFactory<ResourceFactory>
  */
 #[ObservedBy(ResourceObserver::class)]

@@ -17,11 +17,14 @@ use Illuminate\Notifications\Notifiable;
  * @property string $password
  * @property int $created_by
  * @property int $updated_by
+ *
  * @property-read Collection<int, Group> $groups
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static paginate()
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
  * @use HasFactory<UserFactory>
  */
 class User extends Authenticatable

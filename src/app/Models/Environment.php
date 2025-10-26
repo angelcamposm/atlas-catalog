@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $suffix
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
