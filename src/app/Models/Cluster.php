@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -102,6 +103,23 @@ class Cluster extends Model
     public function lifecycle(): BelongsTo
     {
         return $this->belongsTo(Lifecycle::class, 'lifecycle_id', 'id');
+    }
+
+    /**
+     * Get the Service Accounts for this cluster.
+     *
+     * @return BelongsToMany<ServiceAccount>
+     */
+    public function serviceAccount(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            related: ServiceAccount::class,
+            table: ClusterServiceAccount::class,
+            foreignPivotKey: 'cluster_id',
+            relatedPivotKey: 'service_account_id',
+            parentKey: 'id',
+            relatedKey: 'id',
+        );
     }
 
     /**

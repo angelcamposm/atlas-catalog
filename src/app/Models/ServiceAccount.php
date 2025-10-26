@@ -10,6 +10,7 @@ use Database\Factories\ServiceAccountFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -61,6 +62,23 @@ class ServiceAccount extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the clusters associated with the service account.
+     *
+     * @return BelongsToMany<Cluster>
+     */
+    public function cluster(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            related: Cluster::class,
+            table: ClusterServiceAccount::class,
+            foreignPivotKey: 'service_account_id',
+            relatedPivotKey: 'id',
+            parentKey: 'id',
+            relatedKey: 'cluster_id',
+        );
+    }
 
     /**
      * Get the service account tokens associated with the service account.
