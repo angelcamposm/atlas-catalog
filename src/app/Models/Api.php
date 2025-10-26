@@ -10,6 +10,7 @@ use Database\Factories\ApiFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -68,4 +69,54 @@ class Api extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the access policy for the API.
+     *
+     * @return BelongsTo
+     */
+    public function accessPolicy(): BelongsTo
+    {
+        return $this->belongsTo(ApiAccessPolicy::class, 'access_policy_id');
+    }
+
+    /**
+     * Get the status of the API.
+     *
+     * @return BelongsTo
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(ApiStatus::class, 'status_id');
+    }
+
+    /**
+     * Get the type of the API.
+     *
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ApiType::class, 'type_id');
+    }
+
+    /**
+     * Check if the API is considered deprecated.
+     *
+     * @return bool
+     */
+    public function isDeprecated(): bool
+    {
+        return $this->deprecated_at !== null && $this->deprecated_at->isPast();
+    }
+
+    /**
+     * Check if the API is considered published.
+     *
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->published_at !== null && $this->published_at->isPast();
+    }
 }
