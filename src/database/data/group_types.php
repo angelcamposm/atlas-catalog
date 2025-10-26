@@ -57,5 +57,9 @@ return [
     [
         'name' => 'DevOps Team',
         'description' => 'Specializes in implementing and maintaining continuous integration/delivery pipelines, automation tools, and infrastructure as code to streamline development and deployment processes.',
-    ]
+    ],
+    [
+        'name' => 'Stakeholders',
+        'description' => 'Key individuals or groups with vested interests in the project outcomes, including business owners, investors, end-users, and external partners who influence project decisions and requirements.',
+    ],
 ];
