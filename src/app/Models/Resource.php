@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $name
+ * @property int $type_id
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
@@ -62,6 +63,8 @@ class Resource extends Model
     ];
 
     /**
+     * Get the resource type.
+     *
      * @return BelongsTo<ResourceType>
      */
     public function type(): BelongsTo
