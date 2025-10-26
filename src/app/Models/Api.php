@@ -53,8 +53,8 @@ use Illuminate\Support\Carbon;
 #[ObservedBy(ApiObserver::class)]
 class Api extends Model
 {
-    use HasFactory;
     use BelongsToUser;
+    use HasFactory;
 
     protected $table = 'apis';
 
