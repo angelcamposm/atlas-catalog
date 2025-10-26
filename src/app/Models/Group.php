@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\GroupObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasIcon;
 use App\Traits\HasRelatives;
 use Database\Factories\GroupFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -27,16 +28,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @use HasFactory<GroupFactory>
  */
 #[ObservedBy(GroupObserver::class)]
 class Group extends Model
 {
-    /**
-     * @use HasFactory<GroupFactory>
-     */
-    use HasFactory;
-    use HasRelatives;
     use BelongsToUser;
+    use HasFactory;
+    use HasIcon;
+    use HasRelatives;
 
     /**
      * The table associated with the model.
