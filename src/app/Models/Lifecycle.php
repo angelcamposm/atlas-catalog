@@ -58,4 +58,14 @@ class Lifecycle extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Check if the lifecycle requires approval.
+     *
+     * @return bool
+     */
+    public function needsApproval(): bool
+    {
+        return $this->approval_required;
+    }
 }
