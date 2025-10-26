@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('apis', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->foreignId('category_id')->nullable()->constrained('api_categories', 'id')->nullOnDelete();
             $table->foreignId('access_policy_id')->nullable()->constrained('api_access_policies', 'id')->nullOnDelete();
             $table->foreignId('authentication_method_id')->nullable()->constrained('authentication_methods', 'id')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('api_categories', 'id')->nullOnDelete();
             $table->datetime('deprecated_at')->nullable();
             $table->foreignId('deprecated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->string('deprecation_reason', 255)->nullable();
