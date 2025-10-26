@@ -22,12 +22,10 @@ use Illuminate\Notifications\Notifiable;
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static paginate()
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @use HasFactory<UserFactory>
  */
 class User extends Authenticatable
 {
-    /**
-     * @use HasFactory<UserFactory>
-     */
     use HasFactory;
     use Notifiable;
 
