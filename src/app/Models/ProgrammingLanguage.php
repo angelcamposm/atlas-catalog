@@ -12,7 +12,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property string $icon
+ * @property bool $is_enabled
  * @property string $name
+ * @property string $url
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
@@ -25,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ObservedBy(ProgrammingLanguageObserver::class)]
 class ProgrammingLanguage extends Model
 {
-    //
     use BelongsToUser;
 
     /**
@@ -59,7 +61,9 @@ class ProgrammingLanguage extends Model
     ];
 
     /**
-     * @return HasMany
+     * Get the frameworks associated with the programming language.
+     *
+     * @return HasMany<Framework>
      */
     public function frameworks(): HasMany
     {
