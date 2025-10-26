@@ -24,15 +24,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @use HasFactory<ServiceAccountFactory>
  */
 #[ObservedBy(ServiceAccountObserver::class)]
 class ServiceAccount extends Model
 {
-    /**
-     * @use HasFactory<ServiceAccountFactory>
-     */
-    use HasFactory;
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
