@@ -28,15 +28,13 @@ use Illuminate\Support\Carbon;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @use HasFactory<ServiceAccountTokenFactory>
  */
 #[ObservedBy(ServiceAccountTokenObserver::class)]
 class ServiceAccountToken extends Model
 {
-    /**
-     * @use HasFactory<ServiceAccountTokenFactory>
-     */
-    use HasFactory;
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
