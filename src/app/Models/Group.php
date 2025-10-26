@@ -81,4 +81,14 @@ class Group extends Model
     {
         return $this->members()->exists();
     }
+
+    /**
+     * Get the group type.
+     *
+     * @return BelongsTo<GroupType>
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(GroupType::class, 'type_id', 'id');
+    }
 }
