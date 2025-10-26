@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('fqdn')->nullable();
             $table->ipAddress()->nullable();
             $table->macAddress()->nullable();
-            $table->string('node_type', 1)->default(NodeType::Unknown->value);;
+            $table->string('node_type', 1)->default(NodeType::Unknown->value);
             $table->string('os');
             $table->string('os_version');
             $table->string('timezone')->default('GTM');
