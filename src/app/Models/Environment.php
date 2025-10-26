@@ -11,7 +11,16 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property string $abbr
+ * @property bool $approval_required
+ * @property string $description
+ * @property bool $display_in_matrix
+ * @property string $display_name
  * @property string $name
+ * @property int $owner_id
+ * @property string $prefix
+ * @property int $sort_order
+ * @property string $suffix
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
