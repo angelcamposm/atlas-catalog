@@ -71,6 +71,10 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
+        $this->call([
+            NodeSeeder::class,
+        ]);
+
         // Reuse existing related models to avoid creating new ones for each API.
         $accessPolicyIds = ApiAccessPolicy::pluck('id');
         $statusIds = ApiStatus::pluck('id');
