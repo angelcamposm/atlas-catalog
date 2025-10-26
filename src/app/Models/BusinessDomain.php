@@ -12,12 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
+ * @property string $category
  * @property string|null $description
  * @property string $display_name
+ * @property bool $is_active
+ * @property string $name
+ * @property int $parent_id
  * @property int $created_by
  * @property int $updated_by
- * @property mixed $parent_id
  * @property BusinessDomain $parent
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
