@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property string $icon
  * @property string $name
+ * @property string $url
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
