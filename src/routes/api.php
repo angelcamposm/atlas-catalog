@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ApiAccessPolicyController;
+use App\Http\Controllers\ApiCategoryController;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ApiStatusController;
 use App\Http\Controllers\ApiTypeController;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     // API Domain
     Route::apiResource('api-access-policies', ApiAccessPolicyController::class);
+    Route::apiResource('api-categories', ApiCategoryController::class);
     Route::apiResource('api-statuses', ApiStatusController::class);
     Route::apiResource('api-types', ApiTypeController::class);
     Route::apiResource('apis', ApiController::class);
