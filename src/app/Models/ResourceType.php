@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property string $category
+ * @property string $description
+ * @property string $icon
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
@@ -58,6 +61,7 @@ class ResourceType extends Model
     ];
 
     /**
+     * Get the resources associated with the resource type.
      *
      * @return HasMany<Resource>
      */
