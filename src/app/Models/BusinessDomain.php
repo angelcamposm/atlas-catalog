@@ -65,4 +65,14 @@ class BusinessDomain extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Check if the business domain is active.
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
 }
