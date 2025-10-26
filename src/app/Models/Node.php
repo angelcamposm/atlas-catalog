@@ -22,15 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @use HasFactory<NodeFactory>
  */
 #[ObservedBy(NodeObserver::class)]
 class Node extends Model
 {
-    /**
-     * @use HasFactory<NodeFactory>
-     */
-    use HasFactory;
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
