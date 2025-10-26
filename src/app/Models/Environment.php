@@ -71,4 +71,24 @@ class Environment extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Check if the environment has an owner.
+     *
+     * @return bool
+     */
+    public function hasOwner(): bool
+    {
+        return $this->owner_id !== null;
+    }
+
+    /**
+     * Check if the environment requires approval.
+     *
+     * @return bool
+     */
+    public function needsApproval(): bool
+    {
+        return $this->approval_required;
+    }
 }
