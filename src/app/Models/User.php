@@ -12,7 +12,9 @@ use Illuminate\Notifications\Notifiable;
 
 /**
  * @property int $id
+ * @property string $email
  * @property string $name
+ * @property string $password
  * @property int $created_by
  * @property int $updated_by
  * @property-read Collection<int, Group> $groups
