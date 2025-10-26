@@ -65,7 +65,8 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ]
+        ],
+        "pint": "@php vendor/bin/pint --ansi"
     },
     "extra": {
         "laravel": {
