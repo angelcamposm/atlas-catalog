@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\ProgrammingLanguageObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ProgrammingLanguage extends Model
 {
     use BelongsToUser;
+    use HasIcon;
 
     /**
      * The table associated with the model.
