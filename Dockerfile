@@ -2,8 +2,6 @@ FROM php:8.4.13-apache-trixie
 
 WORKDIR /usr/local/bin
 
-COPY --from=composer:2.8.12 /usr/bin/composer /usr/local/bin/composer
-
 COPY build/scripts/atlas.sh ./atlas
 
 RUN set -eux; \
@@ -19,11 +17,15 @@ COPY build/apache/000-default.conf ./000-default.conf
 
 RUN set -eux; \
 	apt-get update && apt-get install -y \
+		curl \
 		libpq-dev \
 		libzip-dev \
 		unzip \
 		; \
 	docker-php-ext-install pdo_pgsql pgsql zip; \
+	php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"; \
+	php composer-setup.php --install-dir=/usr/local/bin --filename=composer; \
+	rm composer-setup.php; \
 	rm -rf /var/lib/apt/lists/*; \
 	a2enmod rewrite;
 

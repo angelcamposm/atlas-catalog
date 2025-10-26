@@ -19,6 +19,7 @@
 
 # production
 /build
+metronic-v9.3.2/
 
 # misc
 .DS_Store

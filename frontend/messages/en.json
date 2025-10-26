@@ -30,6 +30,69 @@
   "home": {
     "title": "Atlas Catalog",
     "subtitle": "Centralized API catalog management system for tracking and managing your microservices, APIs, and digital assets.",
+    "hero": {
+      "badge": "API Platform Enablement",
+      "title": {
+        "highlight": "One place to govern",
+        "accent": "every API"
+      },
+      "description": "Atlas Catalog keeps your service inventory, lifecycles and documentation aligned so platform teams can focus on enablement.",
+      "ctaPrimary": "Open the catalog",
+      "ctaSecondary": "See how it works",
+      "stats": {
+        "catalog": {
+          "value": "150+",
+          "label": "catalogued assets",
+          "description": "APIs, lifecycles and domains tracked centrally"
+        },
+        "teams": {
+          "value": "12",
+          "label": "enabled teams",
+          "description": "Product and platform groups collaborating"
+        },
+        "uptime": {
+          "value": "99.9%",
+          "label": "visibility",
+          "description": "Realtime health insights feeding governance"
+        }
+      }
+    },
+    "brands": {
+      "title": "Trusted by platform leaders",
+      "items": [
+        "Atlas Labs",
+        "DataNorth",
+        "CloudWave",
+        "Nebula Systems",
+        "ForgeWorks",
+        "Quantum Apps"
+      ]
+    },
+    "featureHighlights": {
+      "title": "Everything observability-ready",
+      "subtitle": "Blend discovery, governance and documentation with prebuilt workflows inspired by Metronic layouts.",
+      "items": {
+        "inventory": {
+          "label": "Inventory",
+          "title": "Unified API registry",
+          "description": "Map REST, GraphQL, SOAP and event-driven services with consistent metadata."
+        },
+        "governance": {
+          "label": "Governance",
+          "title": "Lifecycle guardrails",
+          "description": "Track approvals, ownership and lifecycle transitions with policy-driven cues."
+        },
+        "insights": {
+          "label": "Insights",
+          "title": "Operational visibility",
+          "description": "Surface adoption metrics, quality checks and discovery funnels in one view."
+        }
+      }
+    },
+    "quickLinks": {
+      "title": "Jump into the workspace",
+      "subtitle": "Navigate directly to the modules your team uses most."
+    },
     "cards": {
       "catalog": {
         "title": "API Catalog",
@@ -56,9 +119,46 @@
         "description": "Track how APIs were discovered and registered in the catalog."
       }
     },
+    "howItWorks": {
+      "title": "Ship reliable services faster",
+      "subtitle": "Atlas Catalog adapts Metronic's flow to the reality of platform engineering teams.",
+      "steps": {
+        "import": {
+          "title": "Connect sources",
+          "description": "Capture APIs from Git repositories, CI pipelines or manual submissions."
+        },
+        "enrich": {
+          "title": "Enrich metadata",
+          "description": "Classify types, lifecycles, domains and technology context in minutes."
+        },
+        "publish": {
+          "title": "Publish & monitor",
+          "description": "Expose curated docs and track adoption with automated quality scoring."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Teams feel the difference",
+      "subtitle": "Real stories from platform leaders who standardized on Atlas Catalog.",
+      "items": {
+        "sofia": {
+          "quote": "Our developers finally have a single source of truth. The new landing mirrors Metronic polish while staying focused on productivity.",
+          "author": "Sofia Ramirez",
+          "role": "Platform Lead, DataNorth"
+        },
+        "liam": {
+          "quote": "Atlas Catalog gave us governance workflows without slowing teams down. The thematic sections make onboarding effortless.",
+          "author": "Liam Chen",
+          "role": "Head of API Experience, ForgeWorks"
+        }
+      }
+    },
     "quickStart": {
-      "title": "Getting Started",
-      "features": "Full CRUD operations for APIs, Types, Lifecycles, and more"
+      "title": "Getting started is effortless",
+      "description": "Spin up the Laravel backend, point the frontend to your API URL and invite teams to explore the catalog.",
+      "features": "Full CRUD operations for APIs, Types, Lifecycles, and more",
+      "primaryCta": "Launch the catalog",
+      "secondaryCta": "View quick start guide"
     }
   },
   "apis": {

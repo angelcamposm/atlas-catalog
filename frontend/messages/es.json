@@ -30,6 +30,69 @@
   "home": {
     "title": "Catalogo Atlas",
     "subtitle": "Plataforma centralizada para gestionar y seguir tus microservicios, APIs y activos digitales.",
+    "hero": {
+      "badge": "Habilitacion de plataformas API",
+      "title": {
+        "highlight": "Un lugar para gobernar",
+        "accent": "cada API"
+      },
+      "description": "Atlas Catalog mantiene alineado tu inventario de servicios, ciclos de vida y documentacion para que el equipo de plataforma se enfoque en habilitar.",
+      "ctaPrimary": "Abrir el catalogo",
+      "ctaSecondary": "Ver como funciona",
+      "stats": {
+        "catalog": {
+          "value": "150+",
+          "label": "activos catalogados",
+          "description": "APIs, ciclos de vida y dominios gestionados en un solo lugar"
+        },
+        "teams": {
+          "value": "12",
+          "label": "equipos habilitados",
+          "description": "Equipos de producto y plataforma colaborando"
+        },
+        "uptime": {
+          "value": "99.9%",
+          "label": "visibilidad",
+          "description": "Indicadores en tiempo real alimentan la gobernanza"
+        }
+      }
+    },
+    "brands": {
+      "title": "Confiado por lideres de plataforma",
+      "items": [
+        "Atlas Labs",
+        "DataNorth",
+        "CloudWave",
+        "Nebula Systems",
+        "ForgeWorks",
+        "Quantum Apps"
+      ]
+    },
+    "featureHighlights": {
+      "title": "Todo listo para observabilidad",
+      "subtitle": "Combina descubrimiento, gobernanza y documentacion con flujos inspirados en Metronic.",
+      "items": {
+        "inventory": {
+          "label": "Inventario",
+          "title": "Registro unificado de APIs",
+          "description": "Mapea servicios REST, GraphQL, SOAP y eventos con metadata consistente."
+        },
+        "governance": {
+          "label": "Gobernanza",
+          "title": "Rieles de ciclo de vida",
+          "description": "Sigue aprobaciones, responsables y transiciones con senales basadas en politicas."
+        },
+        "insights": {
+          "label": "Insights",
+          "title": "Visibilidad operacional",
+          "description": "Muestra metricas de adopcion, controles de calidad y embudos de descubrimiento en una vista."
+        }
+      }
+    },
+    "quickLinks": {
+      "title": "Ingresa al espacio de trabajo",
+      "subtitle": "Navega directo a los modulos que tu equipo usa a diario."
+    },
     "cards": {
       "catalog": {
         "title": "Catalogo de APIs",
@@ -56,9 +119,46 @@
         "description": "Registra como se descubrieron y registraron las APIs en el catalogo."
       }
     },
+    "howItWorks": {
+      "title": "Entrega servicios confiables mas rapido",
+      "subtitle": "Atlas Catalog adapta el flujo de Metronic a la realidad de los equipos de plataforma.",
+      "steps": {
+        "import": {
+          "title": "Conectar fuentes",
+          "description": "Captura APIs desde repositorios Git, pipelines de CI o cargas manuales."
+        },
+        "enrich": {
+          "title": "Enriquecer metadata",
+          "description": "Clasifica tipos, ciclos de vida, dominios y contexto tecnologico en minutos."
+        },
+        "publish": {
+          "title": "Publicar y monitorear",
+          "description": "Comparte documentacion curada y sigue la adopcion con puntajes automatizados."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Los equipos notan la diferencia",
+      "subtitle": "Historias reales de lideres que estandarizaron con Atlas Catalog.",
+      "items": {
+        "sofia": {
+          "quote": "Nuestros desarrolladores por fin tienen una unica fuente de verdad. La nueva portada refleja el brillo de Metronic sin perder productividad.",
+          "author": "Sofia Ramirez",
+          "role": "Lider de Plataforma, DataNorth"
+        },
+        "liam": {
+          "quote": "Atlas Catalog nos dio flujos de gobernanza sin frenar a los equipos. Las secciones tematicas hacen que la adopcion sea facil.",
+          "author": "Liam Chen",
+          "role": "Director de Experiencia API, ForgeWorks"
+        }
+      }
+    },
     "quickStart": {
-      "title": "Primeros Pasos",
-      "features": "CRUD completo para APIs, Tipos, Ciclos de Vida y mas"
+      "title": "Comenzar es sencillo",
+      "description": "Levanta el backend en Laravel, apunta el frontend a tu URL de API e invita a los equipos a explorar el catalogo.",
+      "features": "CRUD completo para APIs, Tipos, Ciclos de Vida y mas",
+      "primaryCta": "Lanzar el catalogo",
+      "secondaryCta": "Ver guia rapida"
     }
   },
   "apis": {

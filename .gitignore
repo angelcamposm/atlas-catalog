@@ -15,6 +15,9 @@ frontend/out/
 frontend/dist/
 frontend/.turbo/
 
+# Metronic theme assets
+metronic-v9.3.2/
+
 # Docker volumes and data
 postgres-data/
 postgres-data-dev/
