@@ -10,10 +10,12 @@ use Database\Factories\ServiceAccountFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
  * @property string $name
+ * @property string $namespace
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
