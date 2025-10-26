@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('name', 50);
             $table->foreignId('type_id')->constrained('resource_types', 'id')->nullOnDelete();
             $table->timestamp('created_at')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
         });
     }
 

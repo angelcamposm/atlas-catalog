@@ -20,9 +20,9 @@ return new class extends Migration
             $table->boolean('is_enabled')->default(true);
             $table->string('url', 255);
             $table->timestamp('created_at')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
         });
     }
 

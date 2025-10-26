@@ -22,9 +22,9 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->foreignId('parent_id')->nullable()->constrained('business_domains', 'id')->nullOnDelete();
             $table->timestamp('created_at')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
         });
     }
 
