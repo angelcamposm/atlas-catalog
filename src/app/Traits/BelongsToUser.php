@@ -26,7 +26,7 @@ trait BelongsToUser
     /**
      * Get the user who created this record.
      *
-     * @return BelongsTo
+     * @return BelongsTo<User>
      */
     public function creator(): BelongsTo
     {
@@ -36,7 +36,7 @@ trait BelongsToUser
     /**
      * Get the user who last updated this record.
      *
-     * @return BelongsTo
+     * @return BelongsTo<User>
      */
     public function updater(): BelongsTo
     {
