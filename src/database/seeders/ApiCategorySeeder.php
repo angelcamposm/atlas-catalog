@@ -14,7 +14,7 @@ final class ApiCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $rows = include database_path('data/file.php');
+        $rows = include database_path('data/api_categories.php');
 
         collect($rows)->each(function ($item) {
             ApiCategory::updateOrCreate(
