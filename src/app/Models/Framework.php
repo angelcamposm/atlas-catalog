@@ -12,7 +12,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
+ * @property string $description
+ * @property string $icon
+ * @property bool $is_enabled
+ * @property int $language_id
  * @property string $name
+ * @property string $url
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
@@ -61,9 +66,9 @@ class Framework extends Model
     ];
 
     /**
-     * Establishes a relationship to the ProgrammingLanguage model.
+     * Get the programming language associated with the framework.
      *
-     * @return BelongsTo
+     * @return BelongsTo<ProgrammingLanguage>
      */
     public function language(): BelongsTo
     {
