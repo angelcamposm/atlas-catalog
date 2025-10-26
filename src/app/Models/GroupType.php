@@ -8,9 +8,11 @@ use App\Observers\GroupTypeObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property string $description
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
@@ -24,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy(GroupTypeObserver::class)]
 class GroupType extends Model
 {
-    //
     use BelongsToUser;
 
     /**
