@@ -54,4 +54,14 @@ class GroupType extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the groups associated with the group type.
+     *
+     * @return HasMany<Group>
+     */
+    public function groups(): HasMany
+    {
+        return $this->hasMany(Group::class, 'group_type_id');
+    }
 }
