@@ -24,15 +24,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @use HasFactory<ResourceFactory>
  */
 #[ObservedBy(ResourceObserver::class)]
 class Resource extends Model
 {
-    /**
-     * @use HasFactory<ResourceFactory>
-     */
-    use HasFactory;
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
