@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -128,5 +129,15 @@ class Api extends Model
     public function isPublished(): bool
     {
         return $this->published_at !== null && $this->published_at->isPast();
+    }
+
+    /**
+     * Get the last update timestamp as a Carbon instance.
+     *
+     * @return Carbon
+     */
+    public function lastUpdate(): Carbon
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $this->updated_at);
     }
 }
