@@ -25,6 +25,17 @@ class DatabaseSeeder extends Seeder
         $this->create_sample_data();
     }
 
+    private function create_initial_user(): void
+    {
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin User',
+                'password' => bcrypt('password'),
+            ],
+        );
+    }
+
     private function run_base_seeders(): void
     {
         // First-level models
@@ -45,21 +56,11 @@ class DatabaseSeeder extends Seeder
             VendorSeeder::class,
         ]);
 
-        // Second-level models
+        // Second-level models (models that depend on another model)
         $this->call([
+            ClusterTypeSeeder::class,
             FrameworkSeeder::class,
         ]);
-    }
-
-    private function create_initial_user(): void
-    {
-        User::firstOrCreate(
-            ['email' => 'admin@example.com'],
-            [
-                'name' => 'Admin User',
-                'password' => bcrypt('password'),
-            ],
-        );
     }
 
     /**
