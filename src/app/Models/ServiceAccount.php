@@ -59,4 +59,14 @@ class ServiceAccount extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the service account tokens associated with the service account.
+     *
+     * @return HasMany<ServiceAccountToken>
+     */
+    public function tokens(): HasMany
+    {
+        return $this->hasMany(ServiceAccount::class, 'service_account_id', 'id');
+    }
 }
