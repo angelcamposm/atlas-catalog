@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property bool $approval_required
+ * @property string $color
+ * @property string $description
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
