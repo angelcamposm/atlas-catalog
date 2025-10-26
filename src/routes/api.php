@@ -20,6 +20,7 @@ use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ResourceTypeController;
+use App\Http\Controllers\ServiceAccountController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,7 @@ Route::prefix('v1')->group(function () {
 
     // Security Domain
     Route::apiResource('authentication-methods', AuthenticationMethodController::class);
+    Route::apiResource('service-accounts', ServiceAccountController::class);
 
     // Technology Domain
     Route::apiResource('frameworks', FrameworkController::class);
