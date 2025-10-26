@@ -11,13 +11,13 @@ use InvalidArgumentException;
  */
 class MemoryBytes
 {
-    const int BYTE = 1;
-    const int KILOBYTE = 1024;
-    const int MEGABYTE = 1048576;
-    const int GIGABYTE = 1073741824;
-    const int TERABYTE = 1099511627776;
-    const int PETABYTE = 1125899906842624;
-    const int EXABYTE = 1152921504606846976;
+    public const int BYTE = 1;
+    public const int KILOBYTE = 1024;
+    public const int MEGABYTE = 1048576;
+    public const int GIGABYTE = 1073741824;
+    public const int TERABYTE = 1099511627776;
+    public const int PETABYTE = 1125899906842624;
+    public const int EXABYTE = 1152921504606846976;
 
     /**
      * Get the total bytes for the given count.
