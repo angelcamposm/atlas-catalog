@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\FrameworkObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,8 +31,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[ObservedBy(FrameworkObserver::class)]
 class Framework extends Model
 {
-    //
     use BelongsToUser;
+    use HasIcon;
 
     /**
      * The table associated with the model.
