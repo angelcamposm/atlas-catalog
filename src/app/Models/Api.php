@@ -42,6 +42,16 @@ class Api extends Model
     protected $table = 'apis';
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'released_at' => 'datetime',
+        'deprecated_at' => 'datetime',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
