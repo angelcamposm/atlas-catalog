@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property string $description
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
@@ -24,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy(GroupMemberRoleObserver::class)]
 class GroupMemberRole extends Model
 {
-    //
     use BelongsToUser;
 
     /**
