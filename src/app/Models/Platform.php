@@ -32,7 +32,7 @@ class Platform extends Model
      *
      * @var string|null
      */
-    protected $table = 'platform';
+    protected $table = 'platforms';
 
     /**
      * The attributes that are mass assignable.
