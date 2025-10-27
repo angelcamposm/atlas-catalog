@@ -21,5 +21,5 @@ return [
     [
         'name' => 'Composite API',
         'description' => 'A type of API that combines multiple separate API calls (which could be to internal or partner APIs) into a single API request. This simplifies the logic for the client application.',
-    ]
+    ],
 ];
