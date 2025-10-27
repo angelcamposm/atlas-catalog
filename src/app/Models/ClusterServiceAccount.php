@@ -27,7 +27,7 @@ class ClusterServiceAccount extends Pivot
      *
      * @var string|null
      */
-    protected $table = 'cluster_service_accounts';
+    protected $table = 'cluster_service_account';
 
     /**
      * The attributes that are mass assignable.

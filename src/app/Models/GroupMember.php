@@ -15,16 +15,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property int $user_id
  * @property int $created_by
  * @property int $updated_by
- *
- * @property-read Group $group
- * @property-read User $user
- *
- * @method static create(array $validated)
- * @method static firstOrCreate(array $attributes = [], array $values = [])
- * @method static inRandomOrder()
- * @method static paginate()
- * @method static pluck(string $string)
- * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
 #[ObservedBy(GroupMemberObserver::class)]
 class GroupMember extends Pivot

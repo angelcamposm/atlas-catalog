@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_members', function (Blueprint $table) {
+        Schema::create('group_member', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->nullable()->constrained('groups', 'id')->nullOnDelete();
             $table->boolean('is_active')->default(true);
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_members');
+        Schema::dropIfExists('group_member');
     }
 };
