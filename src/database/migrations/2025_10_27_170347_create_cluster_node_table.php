@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cluster_nodes');
+        Schema::dropIfExists('cluster_node');
     }
 };
