@@ -10,6 +10,7 @@ use Database\Factories\NodeFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -73,4 +74,21 @@ class Node extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the clusters associated with the service account.
+     *
+     * @return BelongsToMany<Cluster>
+     */
+    public function cluster(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            related: Cluster::class,
+            table: ClusterNode::class,
+            foreignPivotKey: 'node_id',
+            relatedPivotKey: 'cluster_id',
+            parentKey: 'id',
+            relatedKey: 'id',
+        );
+    }
 }
