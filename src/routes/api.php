@@ -13,7 +13,6 @@ use App\Http\Controllers\BusinessTierController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\GroupController;
-use App\Http\Controllers\GroupMemberController;
 use App\Http\Controllers\GroupMemberRoleController;
 use App\Http\Controllers\GroupTypeController;
 use App\Http\Controllers\LifecycleController;
@@ -53,7 +52,6 @@ Route::prefix('v1')->group(function () {
 
     // Account Domain
     Route::apiResource('groups', GroupController::class);
-    Route::apiResource('group-members', GroupMemberController::class);
     Route::apiResource('group-member-roles', GroupMemberRoleController::class);
     Route::apiResource('group-types', GroupTypeController::class);
 });
