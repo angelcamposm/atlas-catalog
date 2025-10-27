@@ -106,6 +106,23 @@ class Cluster extends Model
     }
 
     /**
+     * Get the nodes associated with the cluster.
+     *
+     * @return BelongsToMany<Node>
+     */
+    public function nodes(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            related: Node::class,
+            table: ClusterNode::class,
+            foreignPivotKey: 'cluster_id',
+            relatedPivotKey: 'node_id',
+            parentKey: 'id',
+            relatedKey: 'id'
+        );
+    }
+
+    /**
      * Get the Service Accounts for this cluster.
      *
      * @return BelongsToMany<ServiceAccount>
