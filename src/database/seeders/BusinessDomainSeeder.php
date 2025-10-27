@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\BusinessDomain;
+use App\Traits\HasDataFile;
 use Illuminate\Database\Seeder;
 
 final class BusinessDomainSeeder extends Seeder
 {
+    use HasDataFile;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $rows = include database_path('data/business_domains.php');
-
-        $collection = collect($rows);
+        $collection = collect(self::getRows());
 
         $collection->whereNull('parent')->each(function ($item) {
             BusinessDomain::updateOrCreate(
