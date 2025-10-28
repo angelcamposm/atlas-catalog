@@ -10,6 +10,7 @@ use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
@@ -19,6 +20,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $url
  * @property int $created_by
  * @property int $updated_by
+ *
+ * @property-read Collection<Framework> $frameworks
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
