@@ -25,7 +25,7 @@ class StoreBusinessDomainRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:100', 'unique:business_domains,name'],
+            'name' => ['required', 'string', 'max:50', 'unique:business_domains,name'],
             'description' => ['nullable', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:1'],
             'is_active' => ['sometimes', 'boolean'],

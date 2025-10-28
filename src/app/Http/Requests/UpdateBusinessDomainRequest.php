@@ -30,7 +30,7 @@ class UpdateBusinessDomainRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:100', Rule::unique('business_domains')->ignore($this->businessDomain)],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('business_domains')->ignore($this->businessDomain)],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
             'category' => ['sometimes', 'string', 'max:1'],
             'is_active' => ['sometimes', 'boolean'],
