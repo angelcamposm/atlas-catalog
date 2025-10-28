@@ -21,6 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @property-read User|null $creator The user who created this language entry.
+ * @property-read User|null $updater The user who last updated this language entry.
  */
 #[ObservedBy({{ class }}Observer::class)]
 class {{ class }} extends Model
