@@ -26,7 +26,7 @@ class GroupMember extends Pivot
      *
      * @var string
      */
-    protected $table = 'group_members';
+    protected $table = 'group_member';
 
     /**
      * The attributes that are mass assignable.
