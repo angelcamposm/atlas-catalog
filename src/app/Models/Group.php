@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $created_by
  * @property int $updated_by
  *
+ * @property-read GroupType|null $type
  * @property-read Collection<int, User> $users
  *
  * @method static create(array $validated)
