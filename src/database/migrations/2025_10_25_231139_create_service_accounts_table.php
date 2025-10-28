@@ -14,7 +14,7 @@ return new class () extends Migration {
     {
         Schema::create('service_accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 253);
+            $table->string('name', 253)->unique();
             $table->string('namespace', 253)->nullable();
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();

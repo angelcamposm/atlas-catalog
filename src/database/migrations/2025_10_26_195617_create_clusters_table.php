@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('clusters', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->string('name', 50)->unique();
             $table->string('api_url', 255)->nullable();
             $table->string('cluster_uuid', 255)->nullable();
             $table->string('display_name', 50)->nullable();

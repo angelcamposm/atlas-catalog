@@ -18,7 +18,7 @@ return new class extends Migration
     {
         Schema::create('nodes', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 253);
+            $table->string('name', 253)->unique();
             $table->string('discovery_source', 10)->default(DiscoverySource::Manual->value);
             $table->string('cpu_architecture', 10)->default(CpuArchitecture::X86_64->value);
             $table->unsignedTinyInteger('cpu_sockets')->default(1);

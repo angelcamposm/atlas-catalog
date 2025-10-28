@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('business_domains', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->string('name', 50)->unique();
             $table->string('description', 255)->nullable();
             $table->string('display_name', 255);
             $table->string('category', 1);
