@@ -13,6 +13,8 @@ on:
 
 jobs:
   shell-check:
+    # Run on `angelcamposm/atlas-catalog` main branch, or on pull requests to prevent double-running on mirrors
+    if: (github.event_name == 'pull_request' || (github.event_name == 'push' && github.repository == 'angelcamposm/atlas-catalog')
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
