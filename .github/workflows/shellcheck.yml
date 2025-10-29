@@ -1,0 +1,23 @@
+name: ShellCheck
+
+on:
+  push:
+    branches:
+      - master
+      - release/*
+  pull_request:
+    branches:
+      - master
+      - release/*
+  workflow_dispatch:
+
+jobs:
+  shell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@2.0.0
