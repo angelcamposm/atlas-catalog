@@ -1,2 +1,12 @@
 src/node_modules/
+src/storage/logs/
+src/storage/framework/cache/
+src/storage/framework/sessions/
+src/storage/framework/views/
+src/stubs/
 src/vendor/
+src/**/*.sqlite
+src/.env
+src/.env.example
+src/phpunit.xml
+src/pint.json

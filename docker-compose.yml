@@ -2,18 +2,33 @@ version: '3.8'
 name: atlas
 
 services:
-  # APP
-  atlas:
+
+  # PHP-FPM Application Service
+  app:
     build:
       context: .
       dockerfile: Dockerfile
       tags:
         - "atlas-catalog:latest"
-    container_name: atlas
+    container_name: app
+    networks:
+      - catalog-network
+    volumes:
+      - ./src:/var/www/html
+
+  # Nginx Web Server
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    depends_on:
+      - app
     networks:
       - catalog-network
     ports:
       - "8080:8080"
+    volumes:
+      - ./src:/var/www/html
+      - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
   # PostgreSQL Database Service
   postgres:
@@ -55,7 +70,7 @@ services:
       - ALLOW_ANONYMOUS_USAGE_STATS=no
       - RI_ACCEPT_TERMS_AND_CONDITIONS=true
       - RI_DATABASE_MANAGEMENT=false
-      - RI_ENCRYPTION_KEY="j8avWnevHBh2ylooVLLseyFfiRVwtmhVVoVvHXMuV3I="
+      - RI_ENCRYPTION_KEY="${REDIS_ENCRYPTION_KEY:-default}"
       - RI_LOG_LEVEL=warn
       - RI_REDIS_DB=0
       - RI_REDIS_HOST=redis
