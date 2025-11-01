@@ -20,7 +20,7 @@ export const programmingLanguagesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedProgrammingLanguageResponse> => {
         const response = await apiClient.get<unknown>(
-            `/programming-languages${apiClient.buildQuery({ page })}`
+            `/v1/programming-languages${apiClient.buildQuery({ page })}`
         );
         return paginatedProgrammingLanguageResponseSchema.parse(response);
     },
@@ -30,7 +30,7 @@ export const programmingLanguagesApi = {
      */
     getById: async (id: number): Promise<ProgrammingLanguageResponse> => {
         const response = await apiClient.get<unknown>(
-            `/programming-languages/${id}`
+            `/v1/programming-languages/${id}`
         );
         return programmingLanguageResponseSchema.parse(response);
     },
@@ -42,7 +42,7 @@ export const programmingLanguagesApi = {
         data: CreateProgrammingLanguageRequest
     ): Promise<ProgrammingLanguageResponse> => {
         const response = await apiClient.post<unknown>(
-            "/programming-languages",
+            "/v1/programming-languages",
             data
         );
         return programmingLanguageResponseSchema.parse(response);
@@ -56,7 +56,7 @@ export const programmingLanguagesApi = {
         data: UpdateProgrammingLanguageRequest
     ): Promise<ProgrammingLanguageResponse> => {
         const response = await apiClient.put<unknown>(
-            `/programming-languages/${id}`,
+            `/v1/programming-languages/${id}`,
             data
         );
         return programmingLanguageResponseSchema.parse(response);
@@ -65,5 +65,5 @@ export const programmingLanguagesApi = {
     /**
      * Delete a Programming Language
      */
-    delete: (id: number) => apiClient.delete(`/programming-languages/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/programming-languages/${id}`),
 };

@@ -17,7 +17,7 @@ export const apisApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiResponse> => {
         const response = await apiClient.get<unknown>(
-            `/apis${apiClient.buildQuery({ page })}`
+            `/v1/apis${apiClient.buildQuery({ page })}`
         );
         return paginatedApiResponseSchema.parse(response);
     },
@@ -26,7 +26,7 @@ export const apisApi = {
      * Get a single API by ID
      */
     getById: async (id: number): Promise<ApiResponse> => {
-        const response = await apiClient.get<unknown>(`/apis/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/apis/${id}`);
         return apiResponseSchema.parse(response);
     },
 
@@ -34,7 +34,7 @@ export const apisApi = {
      * Create a new API
      */
     create: async (data: CreateApiRequest): Promise<ApiResponse> => {
-        const response = await apiClient.post<unknown>("/apis", data);
+        const response = await apiClient.post<unknown>("/v1/apis", data);
         return apiResponseSchema.parse(response);
     },
 
@@ -45,12 +45,12 @@ export const apisApi = {
         id: number,
         data: UpdateApiRequest
     ): Promise<ApiResponse> => {
-        const response = await apiClient.put<unknown>(`/apis/${id}`, data);
+        const response = await apiClient.put<unknown>(`/v1/apis/${id}`, data);
         return apiResponseSchema.parse(response);
     },
 
     /**
      * Delete an API
      */
-    delete: (id: number) => apiClient.delete(`/apis/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/apis/${id}`),
 };
