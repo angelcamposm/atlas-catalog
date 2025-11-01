@@ -10,16 +10,25 @@ use App\Http\Controllers\ApiTypeController;
 use App\Http\Controllers\AuthenticationMethodController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessTierController;
+use App\Http\Controllers\ClusterController;
+use App\Http\Controllers\ClusterServiceAccountController;
+use App\Http\Controllers\ClusterTypeController;
+use App\Http\Controllers\ComponentTypeController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupMemberRoleController;
 use App\Http\Controllers\GroupTypeController;
 use App\Http\Controllers\LifecycleController;
+use App\Http\Controllers\LinkController;
+use App\Http\Controllers\LinkTypeController;
+use App\Http\Controllers\NodeController;
+use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ResourceTypeController;
 use App\Http\Controllers\ServiceAccountController;
+use App\Http\Controllers\ServiceAccountTokenController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +80,7 @@ Route::prefix('v1')->group(function () {
     // Security Domain
     Route::apiResource('authentication-methods', AuthenticationMethodController::class);
     Route::apiResource('service-accounts', ServiceAccountController::class);
+    Route::apiResource('service-account-tokens', ServiceAccountTokenController::class);
 
     // Technology Domain
     Route::apiResource('frameworks', FrameworkController::class);
@@ -81,4 +91,18 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('groups', GroupController::class);
     Route::apiResource('group-member-roles', GroupMemberRoleController::class);
     Route::apiResource('group-types', GroupTypeController::class);
+
+    // Infrastructure Domain (Kubernetes/Clusters)
+    Route::apiResource('clusters', ClusterController::class);
+    Route::apiResource('cluster-types', ClusterTypeController::class);
+    Route::apiResource('cluster-service-accounts', ClusterServiceAccountController::class);
+    Route::apiResource('nodes', NodeController::class);
+
+    // Platform Domain
+    Route::apiResource('platforms', PlatformController::class);
+    Route::apiResource('component-types', ComponentTypeController::class);
+
+    // Integration Domain
+    Route::apiResource('links', LinkController::class);
+    Route::apiResource('link-types', LinkTypeController::class);
 });
