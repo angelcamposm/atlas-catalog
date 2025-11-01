@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -9,12 +10,13 @@ import { CreateClusterForm } from "@/components/infrastructure";
 export default function NewClusterPage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = use(params);
     const router = useRouter();
 
     const handleSuccess = () => {
-        router.push(`/${params.locale}/infrastructure/clusters`);
+        router.push(`/${locale}/infrastructure/clusters`);
     };
 
     const handleCancel = () => {
@@ -25,7 +27,7 @@ export default function NewClusterPage({
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <Link href={`/${params.locale}/infrastructure/clusters`}>
+                <Link href={`/${locale}/infrastructure/clusters`}>
                     <Button variant="outline" size="icon">
                         <ArrowLeft className="h-4 w-4" />
                     </Button>

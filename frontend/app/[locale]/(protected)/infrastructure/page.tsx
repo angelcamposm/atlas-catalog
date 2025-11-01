@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { Server, Cpu, Plus, TrendingUp, Activity } from "lucide-react";
 import { HiServerStack } from "react-icons/hi2";
@@ -13,8 +13,9 @@ import type { Cluster, Node } from "@/types/api";
 export default function InfrastructureDashboardPage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = use(params);
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [nodes, setNodes] = useState<Node[]>([]);
     const [loading, setLoading] = useState(true);
@@ -75,14 +76,14 @@ export default function InfrastructureDashboardPage({
                 </div>
                 <div className="flex gap-2">
                     <Link
-                        href={`/${params.locale}/infrastructure/clusters/new`}
+                        href={`/${locale}/infrastructure/clusters/new`}
                     >
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             New Cluster
                         </Button>
                     </Link>
-                    <Link href={`/${params.locale}/infrastructure/nodes/new`}>
+                    <Link href={`/${locale}/infrastructure/nodes/new`}>
                         <Button variant="outline">
                             <Plus className="mr-2 h-4 w-4" />
                             New Node
@@ -174,7 +175,7 @@ export default function InfrastructureDashboardPage({
                         <div className="flex items-center justify-between">
                             <CardTitle>Recent Clusters</CardTitle>
                             <Link
-                                href={`/${params.locale}/infrastructure/clusters`}
+                                href={`/${locale}/infrastructure/clusters`}
                             >
                                 <Button variant="ghost" size="sm">
                                     View All
@@ -190,7 +191,7 @@ export default function InfrastructureDashboardPage({
                                     No clusters found
                                 </p>
                                 <Link
-                                    href={`/${params.locale}/infrastructure/clusters/new`}
+                                    href={`/${locale}/infrastructure/clusters/new`}
                                 >
                                     <Button
                                         variant="outline"
@@ -207,7 +208,7 @@ export default function InfrastructureDashboardPage({
                                 {clusters.slice(0, 5).map((cluster) => (
                                     <Link
                                         key={cluster.id}
-                                        href={`/${params.locale}/infrastructure/clusters/${cluster.id}`}
+                                        href={`/${locale}/infrastructure/clusters/${cluster.id}`}
                                         className="block"
                                     >
                                         <div className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-accent">
@@ -247,7 +248,7 @@ export default function InfrastructureDashboardPage({
                         <div className="flex items-center justify-between">
                             <CardTitle>Recent Nodes</CardTitle>
                             <Link
-                                href={`/${params.locale}/infrastructure/nodes`}
+                                href={`/${locale}/infrastructure/nodes`}
                             >
                                 <Button variant="ghost" size="sm">
                                     View All
@@ -263,7 +264,7 @@ export default function InfrastructureDashboardPage({
                                     No nodes found
                                 </p>
                                 <Link
-                                    href={`/${params.locale}/infrastructure/nodes/new`}
+                                    href={`/${locale}/infrastructure/nodes/new`}
                                 >
                                     <Button
                                         variant="outline"
@@ -280,7 +281,7 @@ export default function InfrastructureDashboardPage({
                                 {nodes.slice(0, 5).map((node) => (
                                     <Link
                                         key={node.id}
-                                        href={`/${params.locale}/infrastructure/nodes/${node.id}`}
+                                        href={`/${locale}/infrastructure/nodes/${node.id}`}
                                         className="block"
                                     >
                                         <div className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-accent">

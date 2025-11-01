@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Edit, Trash2, ExternalLink } from "lucide-react";
@@ -13,8 +13,9 @@ import type { PlatformResponse } from "@/types/api";
 export default function PlatformDetailPage({
     params,
 }: {
-    params: { locale: string; id: string };
+    params: Promise<{ locale: string; id: string }>;
 }) {
+    const { locale, id } = use(params);
     const router = useRouter();
     const [platform, setPlatform] = useState<PlatformResponse | null>(null);
     const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ export default function PlatformDetailPage({
         try {
             setLoading(true);
             setError(null);
-            const response = await platformsApi.getById(parseInt(params.id));
+            const response = await platformsApi.getById(parseInt(id));
             setPlatform(response);
         } catch (err) {
             console.error("Error loading platform:", err);
@@ -32,7 +33,7 @@ export default function PlatformDetailPage({
         } finally {
             setLoading(false);
         }
-    }, [params.id]);
+    }, [id]);
 
     useEffect(() => {
         loadPlatform();
@@ -44,8 +45,8 @@ export default function PlatformDetailPage({
         }
 
         try {
-            await platformsApi.delete(parseInt(params.id));
-            router.push(`/${params.locale}/platform/platforms`);
+            await platformsApi.delete(parseInt(id));
+            router.push(`/${locale}/platform/platforms`);
         } catch (err) {
             console.error("Error deleting platform:", err);
             alert("Failed to delete platform");
@@ -67,7 +68,7 @@ export default function PlatformDetailPage({
         return (
             <div className="container mx-auto space-y-6 p-6">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/platform/platforms`}>
+                    <Link href={`/${locale}/platform/platforms`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -95,7 +96,7 @@ export default function PlatformDetailPage({
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/platform/platforms`}>
+                    <Link href={`/${locale}/platform/platforms`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -126,7 +127,7 @@ export default function PlatformDetailPage({
                         size="sm"
                         onClick={() =>
                             router.push(
-                                `/${params.locale}/platform/platforms/${params.id}/edit`
+                                `/${locale}/platform/platforms/${id}/edit`
                             )
                         }
                     >

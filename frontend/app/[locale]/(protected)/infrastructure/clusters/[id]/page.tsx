@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Edit, Trash2, Power, PowerOff } from "lucide-react";
@@ -14,8 +14,9 @@ import type { ClusterResponse } from "@/types/api";
 export default function ClusterDetailPage({
     params,
 }: {
-    params: { locale: string; id: string };
+    params: Promise<{ locale: string; id: string }>;
 }) {
+    const { locale, id } = use(params);
     const router = useRouter();
     const [cluster, setCluster] = useState<ClusterResponse | null>(null);
     const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ export default function ClusterDetailPage({
         try {
             setLoading(true);
             setError(null);
-            const response = await clustersApi.getById(parseInt(params.id));
+            const response = await clustersApi.getById(parseInt(id));
             setCluster(response);
         } catch (err) {
             console.error("Error loading cluster:", err);
@@ -33,7 +34,7 @@ export default function ClusterDetailPage({
         } finally {
             setLoading(false);
         }
-    }, [params.id]);
+    }, [id]);
 
     useEffect(() => {
         loadCluster();
@@ -45,8 +46,8 @@ export default function ClusterDetailPage({
         }
 
         try {
-            await clustersApi.delete(parseInt(params.id));
-            router.push(`/${params.locale}/infrastructure/clusters`);
+            await clustersApi.delete(parseInt(id));
+            router.push(`/${locale}/infrastructure/clusters`);
         } catch (err) {
             console.error("Error deleting cluster:", err);
             alert("Failed to delete cluster");
@@ -57,7 +58,7 @@ export default function ClusterDetailPage({
         if (!cluster) return;
 
         try {
-            await clustersApi.update(parseInt(params.id), {
+            await clustersApi.update(parseInt(id), {
                 is_active: !cluster.data.is_active,
             });
             loadCluster(); // Reload to get updated data
@@ -82,7 +83,7 @@ export default function ClusterDetailPage({
         return (
             <div className="container mx-auto space-y-6 p-6">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/infrastructure/clusters`}>
+                    <Link href={`/${locale}/infrastructure/clusters`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -110,7 +111,7 @@ export default function ClusterDetailPage({
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/infrastructure/clusters`}>
+                    <Link href={`/${locale}/infrastructure/clusters`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -150,7 +151,7 @@ export default function ClusterDetailPage({
                         size="sm"
                         onClick={() =>
                             router.push(
-                                `/${params.locale}/infrastructure/clusters/${params.id}/edit`
+                                `/${locale}/infrastructure/clusters/${id}/edit`
                             )
                         }
                     >

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Edit, Trash2, Power, PowerOff } from "lucide-react";
@@ -14,8 +14,9 @@ import type { NodeResponse } from "@/types/api";
 export default function NodeDetailPage({
     params,
 }: {
-    params: { locale: string; id: string };
+    params: Promise<{ locale: string; id: string }>;
 }) {
+    const { locale, id } = use(params);
     const router = useRouter();
     const [node, setNode] = useState<NodeResponse | null>(null);
     const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ export default function NodeDetailPage({
         try {
             setLoading(true);
             setError(null);
-            const response = await nodesApi.getById(parseInt(params.id));
+            const response = await nodesApi.getById(parseInt(id));
             setNode(response);
         } catch (err) {
             console.error("Error loading node:", err);
@@ -33,7 +34,7 @@ export default function NodeDetailPage({
         } finally {
             setLoading(false);
         }
-    }, [params.id]);
+    }, [id]);
 
     useEffect(() => {
         loadNode();
@@ -45,8 +46,8 @@ export default function NodeDetailPage({
         }
 
         try {
-            await nodesApi.delete(parseInt(params.id));
-            router.push(`/${params.locale}/infrastructure/nodes`);
+            await nodesApi.delete(parseInt(id));
+            router.push(`/${locale}/infrastructure/nodes`);
         } catch (err) {
             console.error("Error deleting node:", err);
             alert("Failed to delete node");
@@ -57,7 +58,7 @@ export default function NodeDetailPage({
         if (!node) return;
 
         try {
-            await nodesApi.update(parseInt(params.id), {
+            await nodesApi.update(parseInt(id), {
                 is_active: !node.data.is_active,
             });
             loadNode(); // Reload to get updated data
@@ -82,7 +83,7 @@ export default function NodeDetailPage({
         return (
             <div className="container mx-auto space-y-6 p-6">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/infrastructure/nodes`}>
+                    <Link href={`/${locale}/infrastructure/nodes`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -109,7 +110,7 @@ export default function NodeDetailPage({
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/infrastructure/nodes`}>
+                    <Link href={`/${locale}/infrastructure/nodes`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -149,7 +150,7 @@ export default function NodeDetailPage({
                         size="sm"
                         onClick={() =>
                             router.push(
-                                `/${params.locale}/infrastructure/nodes/${params.id}/edit`
+                                `/${locale}/infrastructure/nodes/${id}/edit`
                             )
                         }
                     >

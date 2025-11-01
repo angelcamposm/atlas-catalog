@@ -1,4 +1,5 @@
 "use client";
+import { use } from "react";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,12 +10,13 @@ import { CreateLinkForm } from "@/components/integration";
 export default function NewLinkPage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = use(params);
     const router = useRouter();
 
     const handleSuccess = () => {
-        router.push(`/${params.locale}/integration/links`);
+        router.push(`/${locale}/integration/links`);
     };
 
     const handleCancel = () => {
@@ -25,7 +27,7 @@ export default function NewLinkPage({
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <Link href={`/${params.locale}/integration/links`}>
+                <Link href={`/${locale}/integration/links`}>
                     <Button variant="outline" size="icon">
                         <ArrowLeft className="h-4 w-4" />
                     </Button>

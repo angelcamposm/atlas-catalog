@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { Cable, Plus, ArrowRight, Activity, Zap } from "lucide-react";
 import { HiLink } from "react-icons/hi2";
@@ -13,8 +13,9 @@ import type { Link as IntegrationLink } from "@/types/api";
 export default function IntegrationDashboardPage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = use(params);
     const [links, setLinks] = useState<IntegrationLink[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -74,7 +75,7 @@ export default function IntegrationDashboardPage({
                         Manage your service integrations and communication links
                     </p>
                 </div>
-                <Link href={`/${params.locale}/integration/links/new`}>
+                <Link href={`/${locale}/integration/links/new`}>
                     <Button>
                         <Plus className="mr-2 h-4 w-4" />
                         New Link
@@ -162,7 +163,7 @@ export default function IntegrationDashboardPage({
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <CardTitle>Integration Links</CardTitle>
-                        <Link href={`/${params.locale}/integration/links`}>
+                        <Link href={`/${locale}/integration/links`}>
                             <Button variant="ghost" size="sm">
                                 View All
                             </Button>
@@ -181,7 +182,7 @@ export default function IntegrationDashboardPage({
                                 link
                             </p>
                             <Link
-                                href={`/${params.locale}/integration/links/new`}
+                                href={`/${locale}/integration/links/new`}
                             >
                                 <Button>
                                     <Plus className="mr-2 h-4 w-4" />
@@ -194,7 +195,7 @@ export default function IntegrationDashboardPage({
                             {links.slice(0, 10).map((link) => (
                                 <Link
                                     key={link.id}
-                                    href={`/${params.locale}/integration/links/${link.id}`}
+                                    href={`/${locale}/integration/links/${link.id}`}
                                     className="block"
                                 >
                                     <div className="flex items-center justify-between rounded-lg border p-4 transition-all hover:border-green-500 hover:shadow-md">

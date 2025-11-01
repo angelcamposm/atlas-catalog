@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -21,8 +21,9 @@ import type { LinkResponse } from "@/types/api";
 export default function LinkDetailPage({
     params,
 }: {
-    params: { locale: string; id: string };
+    params: Promise<{ locale: string; id: string }>;
 }) {
+    const { locale, id } = use(params);
     const router = useRouter();
     const [link, setLink] = useState<LinkResponse | null>(null);
     const [loading, setLoading] = useState(true);
@@ -32,7 +33,7 @@ export default function LinkDetailPage({
         try {
             setLoading(true);
             setError(null);
-            const response = await linksApi.getById(parseInt(params.id));
+            const response = await linksApi.getById(parseInt(id));
             setLink(response);
         } catch (err) {
             console.error("Error loading link:", err);
@@ -40,7 +41,7 @@ export default function LinkDetailPage({
         } finally {
             setLoading(false);
         }
-    }, [params.id]);
+    }, [id]);
 
     useEffect(() => {
         loadLink();
@@ -54,8 +55,8 @@ export default function LinkDetailPage({
         }
 
         try {
-            await linksApi.delete(parseInt(params.id));
-            router.push(`/${params.locale}/integration/links`);
+            await linksApi.delete(parseInt(id));
+            router.push(`/${locale}/integration/links`);
         } catch (err) {
             console.error("Error deleting link:", err);
             alert("Failed to delete link");
@@ -66,7 +67,7 @@ export default function LinkDetailPage({
         if (!link) return;
 
         try {
-            await linksApi.update(parseInt(params.id), {
+            await linksApi.update(parseInt(id), {
                 is_active: !link.data.is_active,
             });
             loadLink(); // Reload to get updated data
@@ -93,7 +94,7 @@ export default function LinkDetailPage({
         return (
             <div className="container mx-auto space-y-6 p-6">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/integration/links`}>
+                    <Link href={`/${locale}/integration/links`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -121,7 +122,7 @@ export default function LinkDetailPage({
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <Link href={`/${params.locale}/integration/links`}>
+                    <Link href={`/${locale}/integration/links`}>
                         <Button variant="outline" size="icon">
                             <ArrowLeft className="h-4 w-4" />
                         </Button>
@@ -161,7 +162,7 @@ export default function LinkDetailPage({
                         size="sm"
                         onClick={() =>
                             router.push(
-                                `/${params.locale}/integration/links/${params.id}/edit`
+                                `/${locale}/integration/links/${id}/edit`
                             )
                         }
                     >

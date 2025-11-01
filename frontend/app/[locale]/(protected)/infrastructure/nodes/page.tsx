@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     description: "Manage infrastructure nodes",
 };
 
-export default function NodesPage({ params }: { params: { locale: string } }) {
+export default async function NodesPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
@@ -21,7 +23,7 @@ export default function NodesPage({ params }: { params: { locale: string } }) {
                         configurations
                     </p>
                 </div>
-                <Link href={`/${params.locale}/infrastructure/nodes/new`}>
+                <Link href={`/${locale}/infrastructure/nodes/new`}>
                     <Button>
                         <Plus className="mr-2 h-4 w-4" />
                         New Node

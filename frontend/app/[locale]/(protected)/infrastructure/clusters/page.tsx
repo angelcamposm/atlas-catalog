@@ -9,11 +9,12 @@ export const metadata: Metadata = {
     description: "Manage Kubernetes clusters in your infrastructure",
 };
 
-export default function ClustersPage({
+export default async function ClustersPage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = await params;
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
@@ -26,7 +27,7 @@ export default function ClustersPage({
                         Manage your Kubernetes clusters and their configurations
                     </p>
                 </div>
-                <Link href={`/${params.locale}/infrastructure/clusters/new`}>
+                <Link href={`/${locale}/infrastructure/clusters/new`}>
                     <Button>
                         <Plus className="mr-2 h-4 w-4" />
                         New Cluster

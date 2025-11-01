@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { Box, Plus, Package, Layers } from "lucide-react";
 import { HiCube } from "react-icons/hi2";
@@ -12,8 +12,9 @@ import type { Platform } from "@/types/api";
 export default function PlatformDashboardPage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = use(params);
     const [platforms, setPlatforms] = useState<Platform[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -65,7 +66,7 @@ export default function PlatformDashboardPage({
                         Manage your platforms and technology stack
                     </p>
                 </div>
-                <Link href={`/${params.locale}/platform/platforms/new`}>
+                <Link href={`/${locale}/platform/platforms/new`}>
                     <Button>
                         <Plus className="mr-2 h-4 w-4" />
                         New Platform
@@ -153,7 +154,7 @@ export default function PlatformDashboardPage({
                 <CardHeader>
                     <div className="flex items-center justify-between">
                         <CardTitle>Platforms</CardTitle>
-                        <Link href={`/${params.locale}/platform/platforms`}>
+                        <Link href={`/${locale}/platform/platforms`}>
                             <Button variant="ghost" size="sm">
                                 View All
                             </Button>
@@ -171,7 +172,7 @@ export default function PlatformDashboardPage({
                                 Get started by creating your first platform
                             </p>
                             <Link
-                                href={`/${params.locale}/platform/platforms/new`}
+                                href={`/${locale}/platform/platforms/new`}
                             >
                                 <Button>
                                     <Plus className="mr-2 h-4 w-4" />
@@ -184,7 +185,7 @@ export default function PlatformDashboardPage({
                             {platforms.map((platform) => (
                                 <Link
                                     key={platform.id}
-                                    href={`/${params.locale}/platform/platforms/${platform.id}`}
+                                    href={`/${locale}/platform/platforms/${platform.id}`}
                                     className="block"
                                 >
                                     <div className="rounded-lg border p-4 transition-all hover:border-purple-500 hover:shadow-md">

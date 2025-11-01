@@ -1,4 +1,5 @@
 "use client";
+import { use } from "react";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,12 +10,13 @@ import { CreateNodeForm } from "@/components/infrastructure";
 export default function NewNodePage({
     params,
 }: {
-    params: { locale: string };
+    params: Promise<{ locale: string }>;
 }) {
+    const { locale } = use(params);
     const router = useRouter();
 
     const handleSuccess = () => {
-        router.push(`/${params.locale}/infrastructure/nodes`);
+        router.push(`/${locale}/infrastructure/nodes`);
     };
 
     const handleCancel = () => {
@@ -25,7 +27,7 @@ export default function NewNodePage({
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <Link href={`/${params.locale}/infrastructure/nodes`}>
+                <Link href={`/${locale}/infrastructure/nodes`}>
                     <Button variant="outline" size="icon">
                         <ArrowLeft className="h-4 w-4" />
                     </Button>
