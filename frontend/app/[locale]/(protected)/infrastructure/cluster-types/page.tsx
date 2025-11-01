@@ -2,13 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-    HiCube,
-    HiPlus,
-    HiPencil,
-    HiTrash,
-    HiXCircle,
-} from "react-icons/hi2";
+import { HiCube, HiPlus, HiPencil, HiTrash, HiXCircle } from "react-icons/hi2";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/card";
@@ -102,9 +96,7 @@ export default function ClusterTypesPage() {
 
                 <Button
                     onClick={() =>
-                        router.push(
-                            "/infrastructure/cluster-types/create"
-                        )
+                        router.push("/infrastructure/cluster-types/create")
                     }
                     className="flex items-center gap-2"
                 >
@@ -166,7 +158,10 @@ export default function ClusterTypesPage() {
                             {/* Metadata */}
                             <div className="flex items-center gap-4 text-xs text-muted-foreground pt-4 border-t">
                                 <div>
-                                    ID: <span className="font-mono">{clusterType.id}</span>
+                                    ID:{" "}
+                                    <span className="font-mono">
+                                        {clusterType.id}
+                                    </span>
                                 </div>
                                 <div>
                                     Created:{" "}
@@ -218,9 +213,7 @@ export default function ClusterTypesPage() {
                     </p>
                     <Button
                         onClick={() =>
-                            router.push(
-                                "/infrastructure/cluster-types/create"
-                            )
+                            router.push("/infrastructure/cluster-types/create")
                         }
                         className="flex items-center gap-2 mx-auto"
                     >
@@ -235,7 +228,9 @@ export default function ClusterTypesPage() {
                 <div className="flex items-center justify-center gap-2">
                     <Button
                         variant="outline"
-                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        onClick={() =>
+                            setCurrentPage((p) => Math.max(1, p - 1))
+                        }
                         disabled={currentPage === 1}
                     >
                         Previous

@@ -126,7 +126,10 @@ export default function LinkTypesPage() {
                                     <div className="text-xs font-medium text-muted-foreground mb-1">
                                         Icon
                                     </div>
-                                    <Badge variant="secondary" className="text-xs font-mono">
+                                    <Badge
+                                        variant="secondary"
+                                        className="text-xs font-mono"
+                                    >
                                         {linkType.icon}
                                     </Badge>
                                 </div>
@@ -135,7 +138,10 @@ export default function LinkTypesPage() {
                             {/* Metadata */}
                             <div className="flex items-center gap-4 text-xs text-muted-foreground pt-4 border-t">
                                 <div>
-                                    ID: <span className="font-mono">{linkType.id}</span>
+                                    ID:{" "}
+                                    <span className="font-mono">
+                                        {linkType.id}
+                                    </span>
                                 </div>
                                 <div>
                                     Created:{" "}
@@ -202,7 +208,9 @@ export default function LinkTypesPage() {
                 <div className="flex items-center justify-center gap-2">
                     <Button
                         variant="outline"
-                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        onClick={() =>
+                            setCurrentPage((p) => Math.max(1, p - 1))
+                        }
                         disabled={currentPage === 1}
                     >
                         Previous

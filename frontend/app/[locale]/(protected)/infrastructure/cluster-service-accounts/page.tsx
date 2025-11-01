@@ -2,7 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { HiServerStack, HiPlus, HiPencil, HiTrash, HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import {
+    HiServerStack,
+    HiPlus,
+    HiPencil,
+    HiTrash,
+    HiCheckCircle,
+    HiXCircle,
+} from "react-icons/hi2";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/card";
@@ -259,7 +266,9 @@ export default function ClusterServiceAccountsPage() {
                 <div className="flex items-center justify-center gap-2">
                     <Button
                         variant="outline"
-                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        onClick={() =>
+                            setCurrentPage((p) => Math.max(1, p - 1))
+                        }
                         disabled={currentPage === 1}
                     >
                         Previous
