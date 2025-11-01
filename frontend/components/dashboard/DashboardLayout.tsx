@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ProfileModal } from "@/components/profile/ProfileModal";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/Button";
 import { LogOut, Bell } from "lucide-react";
@@ -50,6 +51,9 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
 
                             {/* Right side - User info and logout */}
                             <div className="flex items-center space-x-3">
+                                {/* Theme Toggle */}
+                                <ThemeToggle />
+
                                 {/* Notifications */}
                                 <div className="relative">
                                     <Button

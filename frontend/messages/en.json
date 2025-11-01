@@ -241,6 +241,8 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System",
+    "blue": "Ocean Blue",
+    "purple": "Royal Purple",
     "profilePicture": "Profile Picture",
     "uploadImage": "Upload Image",
     "changeImage": "Change Image",

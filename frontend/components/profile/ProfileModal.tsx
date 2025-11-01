@@ -2,9 +2,11 @@
 
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import { HiXMark, HiCamera, HiUser } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
+import { activeThemes } from "@/lib/theme-config";
 
 interface ProfileModalProps {
     isOpen: boolean;
@@ -20,8 +22,8 @@ interface ProfileModalProps {
 export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
     const t = useTranslations("profile");
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { theme, setTheme } = useTheme();
     
-    const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
     const [profileImage, setProfileImage] = useState<string | null>(
         user.avatar || null
     );
@@ -220,48 +222,45 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                                     {t("themeDescription")}
                                 </p>
                                 <div className="grid grid-cols-3 gap-3">
-                                    <button
-                                        onClick={() => setTheme("light")}
-                                        className={`rounded-lg border-2 p-4 text-center transition-all ${
-                                            theme === "light"
-                                                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                                                : "border-gray-300 hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-600"
-                                        }`}
-                                    >
-                                        <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-white shadow-md" />
-                                        <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {t("light")}
-                                        </span>
-                                    </button>
-                                    <button
-                                        onClick={() => setTheme("dark")}
-                                        className={`rounded-lg border-2 p-4 text-center transition-all ${
-                                            theme === "dark"
-                                                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                                                : "border-gray-300 hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-600"
-                                        }`}
-                                    >
-                                        <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-gray-900 shadow-md" />
-                                        <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {t("dark")}
-                                        </span>
-                                    </button>
-                                    <button
-                                        onClick={() => setTheme("system")}
-                                        className={`rounded-lg border-2 p-4 text-center transition-all ${
-                                            theme === "system"
-                                                ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                                                : "border-gray-300 hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-600"
-                                        }`}
-                                    >
-                                        <div className="mx-auto mb-2 flex h-8 w-8 overflow-hidden rounded-full shadow-md">
-                                            <div className="w-1/2 bg-white" />
-                                            <div className="w-1/2 bg-gray-900" />
-                                        </div>
-                                        <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {t("system")}
-                                        </span>
-                                    </button>
+                                    {activeThemes.map((themeName) => {
+                                        const isSelected = theme === themeName;
+                                        
+                                        return (
+                                            <button
+                                                key={themeName}
+                                                onClick={() => setTheme(themeName)}
+                                                className={`rounded-lg border-2 p-4 text-center transition-all ${
+                                                    isSelected
+                                                        ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200 dark:bg-blue-900/20 dark:ring-blue-800"
+                                                        : "border-gray-300 hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-600"
+                                                }`}
+                                            >
+                                                {/* Theme Icon */}
+                                                {themeName === "light" && (
+                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-white shadow-md ring-1 ring-gray-200" />
+                                                )}
+                                                {themeName === "dark" && (
+                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-gray-900 shadow-md" />
+                                                )}
+                                                {themeName === "system" && (
+                                                    <div className="mx-auto mb-2 flex h-8 w-8 overflow-hidden rounded-full shadow-md">
+                                                        <div className="w-1/2 bg-white" />
+                                                        <div className="w-1/2 bg-gray-900" />
+                                                    </div>
+                                                )}
+                                                {themeName === "blue" && (
+                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-blue-500 shadow-md" />
+                                                )}
+                                                {themeName === "purple" && (
+                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-purple-500 shadow-md" />
+                                                )}
+                                                
+                                                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                                                    {t(themeName)}
+                                                </span>
+                                            </button>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         </div>

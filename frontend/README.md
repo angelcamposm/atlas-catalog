@@ -84,6 +84,49 @@ npm run dev
 
 The app will hot-reload as you edit files.
 
+## 🎨 Theme System
+
+Atlas Catalog features a **comprehensive and extensible theme system** powered by `next-themes`.
+
+### Available Themes
+
+-   ☀️ **Light** - Clean and bright interface
+-   🌙 **Dark** - Easy on the eyes for extended use
+-   💻 **System** - Automatically follows your OS preference
+
+### Theme Features
+
+-   ✅ Persistent theme selection (saved in localStorage)
+-   ✅ No flash of unstyled content (FOUC)
+-   ✅ System preference detection
+-   ✅ Smooth transitions between themes
+-   ✅ **Extensible architecture** - Ready for custom themes
+
+### Using Themes
+
+**Quick Toggle:**
+Click the theme button in the dashboard top bar to cycle through themes.
+
+**Profile Settings:**
+Open your profile modal to select a specific theme with visual previews.
+
+### Adding Custom Themes
+
+The system is designed to support unlimited custom themes. See [`docs/THEMES.md`](./docs/THEMES.md) for:
+
+-   Adding new themes
+-   Customizing colors
+-   Creating theme variants
+-   Best practices
+
+**Future themes ready to activate:**
+
+-   🔵 Ocean Blue
+-   🟣 Royal Purple
+-   🌲 Forest Green
+-   🌅 Sunset Orange
+-   🎨 Custom themes
+
 ## 🎨 UI Components with shadcn/ui
 
 This project uses [shadcn/ui](https://ui.shadcn.com/) - a collection of beautifully designed, accessible components built with Radix UI and Tailwind CSS.
