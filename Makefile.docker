@@ -1,0 +1,227 @@
+# Makefile for Atlas Catalog Docker Management
+.PHONY: help build up down restart logs clean install dev prod test
+
+# Default target
+help:
+	@echo "Atlas Catalog - Docker Commands"
+	@echo "================================"
+	@echo ""
+	@echo "Production Commands:"
+	@echo "  make prod          - Start production environment"
+	@echo "  make build         - Build all Docker images"
+	@echo "  make up            - Start all services"
+	@echo "  make down          - Stop all services"
+	@echo "  make restart       - Restart all services"
+	@echo "  make logs          - View logs (all services)"
+	@echo ""
+	@echo "Development Commands:"
+	@echo "  make dev           - Start development environment"
+	@echo "  make dev-down      - Stop development environment"
+	@echo "  make dev-logs      - View development logs"
+	@echo "  make dev-restart   - Restart development environment"
+	@echo ""
+	@echo "Backend Commands:"
+	@echo "  make backend-shell - Access backend container shell"
+	@echo "  make migrate       - Run Laravel migrations"
+	@echo "  make seed          - Run Laravel seeders"
+	@echo "  make artisan CMD=  - Run artisan command"
+	@echo ""
+	@echo "Frontend Commands:"
+	@echo "  make frontend-shell - Access frontend container shell"
+	@echo "  make npm CMD=       - Run npm command in frontend"
+	@echo ""
+	@echo "Database Commands:"
+	@echo "  make db-shell      - Access PostgreSQL shell"
+	@echo "  make db-backup     - Backup database"
+	@echo "  make db-restore    - Restore database"
+	@echo ""
+	@echo "Cleanup Commands:"
+	@echo "  make clean         - Remove containers and volumes"
+	@echo "  make clean-all     - Remove everything (including images)"
+	@echo "  make prune         - Prune Docker system"
+	@echo ""
+
+# Production Commands
+prod: build
+	docker-compose up -d
+	@echo "✅ Production environment started"
+	@echo "Frontend: http://localhost:3000"
+	@echo "Backend API: http://localhost:8080/api"
+
+build:
+	docker-compose build
+	@echo "✅ Images built successfully"
+
+up:
+	docker-compose up -d
+	@echo "✅ Services started"
+
+down:
+	docker-compose down
+	@echo "✅ Services stopped"
+
+restart:
+	docker-compose restart
+	@echo "✅ Services restarted"
+
+logs:
+	docker-compose logs -f
+
+# Development Commands
+dev:
+	docker-compose -f docker-compose.dev.yml up -d
+	@echo "✅ Development environment started"
+	@echo "Frontend (dev): http://localhost:3000"
+	@echo "Backend API (dev): http://localhost:8080/api"
+	@echo "RedisInsight: http://localhost:5540"
+
+dev-down:
+	docker-compose -f docker-compose.dev.yml down
+	@echo "✅ Development environment stopped"
+
+dev-logs:
+	docker-compose -f docker-compose.dev.yml logs -f
+
+dev-restart:
+	docker-compose -f docker-compose.dev.yml restart
+	@echo "✅ Development services restarted"
+
+dev-build:
+	docker-compose -f docker-compose.dev.yml build
+	@echo "✅ Development images built"
+
+# Backend Commands
+backend-shell:
+	docker-compose exec app sh
+
+migrate:
+	docker-compose exec app php artisan migrate
+	@echo "✅ Migrations executed"
+
+migrate-fresh:
+	docker-compose exec app php artisan migrate:fresh --seed
+	@echo "✅ Database reset and seeded"
+
+seed:
+	docker-compose exec app php artisan db:seed
+	@echo "✅ Database seeded"
+
+artisan:
+	docker-compose exec app php artisan $(CMD)
+
+composer:
+	docker-compose exec app composer $(CMD)
+
+# Frontend Commands
+frontend-shell:
+	docker-compose exec frontend sh
+
+frontend-dev-shell:
+	docker-compose -f docker-compose.dev.yml exec frontend-dev sh
+
+npm:
+	docker-compose exec frontend npm $(CMD)
+
+npm-dev:
+	docker-compose -f docker-compose.dev.yml exec frontend-dev npm $(CMD)
+
+frontend-build:
+	docker-compose exec frontend npm run build
+	@echo "✅ Frontend built"
+
+frontend-test:
+	docker-compose exec frontend npm test
+	@echo "✅ Frontend tests completed"
+
+# Database Commands
+db-shell:
+	docker-compose exec postgres psql -U laravel laravel
+
+db-backup:
+	@mkdir -p backups
+	docker-compose exec postgres pg_dump -U laravel laravel > backups/backup-$(shell date +%Y%m%d-%H%M%S).sql
+	@echo "✅ Database backed up to backups/"
+
+db-restore:
+	@if [ -z "$(FILE)" ]; then \
+		echo "❌ Error: Specify backup file with FILE=path/to/backup.sql"; \
+		exit 1; \
+	fi
+	docker-compose exec -T postgres psql -U laravel laravel < $(FILE)
+	@echo "✅ Database restored from $(FILE)"
+
+# Redis Commands
+redis-shell:
+	docker-compose exec redis redis-cli
+
+redis-flush:
+	docker-compose exec redis redis-cli FLUSHALL
+	@echo "✅ Redis cache cleared"
+
+# Install Commands
+install: build
+	@echo "🚀 Installing Atlas Catalog..."
+	docker-compose up -d postgres redis
+	@echo "⏳ Waiting for database..."
+	@sleep 5
+	docker-compose up -d app nginx
+	@echo "⏳ Running migrations..."
+	@sleep 3
+	docker-compose exec app php artisan migrate --seed
+	docker-compose up -d frontend
+	@echo "✅ Installation complete!"
+	@echo ""
+	@echo "Frontend: http://localhost:3000"
+	@echo "Backend API: http://localhost:8080/api"
+	@echo "RedisInsight: http://localhost:5540"
+
+# Cleanup Commands
+clean:
+	docker-compose down -v
+	@echo "✅ Containers and volumes removed"
+
+clean-all: clean
+	docker images | grep atlas | awk '{print $$3}' | xargs -r docker rmi -f
+	@echo "✅ All Atlas images removed"
+
+clean-dev:
+	docker-compose -f docker-compose.dev.yml down -v
+	@echo "✅ Development environment cleaned"
+
+prune:
+	docker system prune -f
+	@echo "✅ Docker system pruned"
+
+# Status Commands
+status:
+	@echo "Atlas Catalog Services Status:"
+	@echo "=============================="
+	docker-compose ps
+
+ps:
+	docker-compose ps
+
+# Monitoring Commands
+stats:
+	docker stats $(shell docker-compose ps -q)
+
+health:
+	@echo "Checking services health..."
+	@curl -f http://localhost:3000 > /dev/null 2>&1 && echo "✅ Frontend: OK" || echo "❌ Frontend: DOWN"
+	@curl -f http://localhost:8080/api > /dev/null 2>&1 && echo "✅ Backend: OK" || echo "❌ Backend: DOWN"
+	@docker-compose exec postgres pg_isready -U laravel > /dev/null 2>&1 && echo "✅ PostgreSQL: OK" || echo "❌ PostgreSQL: DOWN"
+	@docker-compose exec redis redis-cli ping > /dev/null 2>&1 && echo "✅ Redis: OK" || echo "❌ Redis: DOWN"
+
+# Quick actions
+rebuild: down build up
+	@echo "✅ Services rebuilt and restarted"
+
+rebuild-frontend:
+	docker-compose build frontend
+	docker-compose up -d frontend
+	@echo "✅ Frontend rebuilt and restarted"
+
+rebuild-backend:
+	docker-compose build app
+	docker-compose restart app nginx
+	@echo "✅ Backend rebuilt and restarted"

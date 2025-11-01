@@ -3,23 +3,31 @@ name: atlas
 
 services:
 
-  # PHP-FPM Application Service
+  # PHP-FPM Application Service (Backend API)
   app:
     build:
       context: .
       dockerfile: Dockerfile
       tags:
-        - "atlas-catalog:latest"
-    container_name: app
+        - "atlas-catalog-backend:latest"
+    container_name: atlas-app
     networks:
       - catalog-network
     volumes:
       - ./src:/var/www/html
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_USERNAME=${DB_USERNAME:-laravel}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
 
-  # Nginx Web Server
+  # Nginx Web Server (Backend API Gateway)
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx
+    container_name: atlas-nginx
     depends_on:
       - app
     networks:
@@ -29,6 +37,25 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  # Next.js Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      tags:
+        - "atlas-catalog-frontend:latest"
+    container_name: atlas-frontend
+    depends_on:
+      - nginx
+    networks:
+      - catalog-network
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://nginx:8080/api
+    restart: unless-stopped
 
   # PostgreSQL Database Service
   postgres:
