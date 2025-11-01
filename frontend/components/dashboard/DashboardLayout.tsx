@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
@@ -21,41 +22,14 @@ interface DashboardLayoutProps {
     locale: string;
 }
 
-// Configuración de secciones con iconos y títulos
-const SECTION_CONFIG: Record<
-    string,
-    { icon: React.ElementType; title: string; subtitle?: string }
-> = {
-    "/dashboard": {
-        icon: HiChartBar,
-        title: "Dashboard",
-        subtitle: "Overview",
-    },
-    "/infrastructure": {
-        icon: HiServer,
-        title: "Infrastructure",
-        subtitle: "Manage your infrastructure",
-    },
-    "/integration": {
-        icon: HiLink,
-        title: "Integration",
-        subtitle: "Connect your services",
-    },
-    "/platform": {
-        icon: HiCube,
-        title: "Platform",
-        subtitle: "Platform management",
-    },
-    "/apis": {
-        icon: HiSquares2X2,
-        title: "APIs",
-        subtitle: "API catalog",
-    },
-    "/settings": {
-        icon: HiCog6Tooth,
-        title: "Settings",
-        subtitle: "Manage your preferences",
-    },
+// Configuración de secciones con iconos (los títulos vienen de traducciones)
+const SECTION_ICONS: Record<string, React.ElementType> = {
+    "/dashboard": HiChartBar,
+    "/infrastructure": HiServer,
+    "/integration": HiLink,
+    "/platform": HiCube,
+    "/apis": HiSquares2X2,
+    "/settings": HiCog6Tooth,
 };
 
 export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
@@ -65,6 +39,14 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+
+    // Traducciones
+    const tDashboard = useTranslations("dashboard");
+    const tInfrastructure = useTranslations("infrastructure");
+    const tIntegration = useTranslations("integration");
+    const tPlatform = useTranslations("platform");
+    const tApis = useTranslations("apis");
+    const tSettings = useTranslations("settings");
 
     // Mock user data - TODO: Replace with real user data from auth context
     const currentUser = {
@@ -78,10 +60,40 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
         // Remover el locale de la ruta
         const pathWithoutLocale = pathname.replace(`/${locale}`, "");
 
-        // Buscar la sección que coincida
-        for (const [key, value] of Object.entries(SECTION_CONFIG)) {
+        // Buscar la sección que coincida y devolver con traducciones
+        for (const [key, icon] of Object.entries(SECTION_ICONS)) {
             if (pathWithoutLocale.startsWith(key)) {
-                return { key, ...value };
+                let title = "";
+                let subtitle = "";
+
+                switch (key) {
+                    case "/dashboard":
+                        title = tDashboard("overview");
+                        subtitle = tDashboard("subtitle");
+                        break;
+                    case "/infrastructure":
+                        title = tInfrastructure("overview");
+                        subtitle = tInfrastructure("subtitle");
+                        break;
+                    case "/integration":
+                        title = tIntegration("overview");
+                        subtitle = tIntegration("subtitle");
+                        break;
+                    case "/platform":
+                        title = tPlatform("overview");
+                        subtitle = tPlatform("subtitle");
+                        break;
+                    case "/apis":
+                        title = tApis("title");
+                        subtitle = "";
+                        break;
+                    case "/settings":
+                        title = tSettings("title");
+                        subtitle = tSettings("description");
+                        break;
+                }
+
+                return { key, icon, title, subtitle };
             }
         }
 

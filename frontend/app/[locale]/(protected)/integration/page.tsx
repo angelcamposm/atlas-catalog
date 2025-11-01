@@ -2,6 +2,7 @@
 
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Cable, Plus, ArrowRight, Activity, Zap } from "lucide-react";
 import { HiLink } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
@@ -17,6 +18,7 @@ export default function IntegrationDashboardPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params);
+    const t = useTranslations("integration");
     const [links, setLinks] = useState<IntegrationLink[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -69,8 +71,8 @@ export default function IntegrationDashboardPage({
             {/* Header */}
             <PageHeader
                 icon={HiLink}
-                title="Integration Overview"
-                subtitle="Manage your service integrations and communication links"
+                title={t("title")}
+                subtitle={t("subtitle")}
                 actions={
                     <Link href={`/${locale}/integration/links/new`}>
                         <Button>

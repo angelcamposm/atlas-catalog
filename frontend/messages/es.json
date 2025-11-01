@@ -236,10 +236,30 @@
     }
   },
   "apis": {
-    "title": "Catalogo de APIs",
+    "title": "Catálogo de APIs",
     "errors": {
-      "load": "No pudimos cargar las APIs. Intentalo de nuevo."
+      "load": "No pudimos cargar las APIs. Inténtalo de nuevo."
     }
+  },
+  "infrastructure": {
+    "title": "Resumen de Infraestructura",
+    "subtitle": "Gestiona tus clústeres Kubernetes y nodos de infraestructura",
+    "overview": "Resumen de Infraestructura"
+  },
+  "integration": {
+    "title": "Resumen de Integración",
+    "subtitle": "Gestiona tus integraciones de servicios y enlaces de comunicación",
+    "overview": "Resumen de Integración"
+  },
+  "platform": {
+    "title": "Resumen de Plataforma",
+    "subtitle": "Gestiona tus plataformas y stack tecnológico",
+    "overview": "Resumen de Plataforma"
+  },
+  "dashboard": {
+    "title": "Panel de Control",
+    "subtitle": "Resumen general",
+    "overview": "Panel"
   },
   "profile": {
     "title": "Perfil de Usuario",

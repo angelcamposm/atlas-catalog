@@ -2,6 +2,7 @@
 
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Server, Cpu, Plus, TrendingUp, Activity } from "lucide-react";
 import { HiServer, HiServerStack } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
@@ -17,6 +18,7 @@ export default function InfrastructureDashboardPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params);
+    const t = useTranslations("infrastructure");
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [nodes, setNodes] = useState<Node[]>([]);
     const [loading, setLoading] = useState(true);
@@ -68,8 +70,8 @@ export default function InfrastructureDashboardPage({
             {/* Header */}
             <PageHeader
                 icon={HiServer}
-                title="Infrastructure Overview"
-                subtitle="Manage your Kubernetes clusters and infrastructure nodes"
+                title={t("title")}
+                subtitle={t("subtitle")}
                 actions={
                     <>
                         <Link href={`/${locale}/infrastructure/clusters/new`}>

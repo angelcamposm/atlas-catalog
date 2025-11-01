@@ -241,6 +241,26 @@
       "load": "We couldn't load the APIs. Please try again."
     }
   },
+  "infrastructure": {
+    "title": "Infrastructure Overview",
+    "subtitle": "Manage your Kubernetes clusters and infrastructure nodes",
+    "overview": "Infrastructure Overview"
+  },
+  "integration": {
+    "title": "Integration Overview",
+    "subtitle": "Manage your service integrations and communication links",
+    "overview": "Integration Overview"
+  },
+  "platform": {
+    "title": "Platform Overview",
+    "subtitle": "Manage your platforms and technology stack",
+    "overview": "Platform Overview"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview",
+    "overview": "Dashboard"
+  },
   "profile": {
     "title": "User Profile",
     "subtitle": "Manage your account settings and preferences",

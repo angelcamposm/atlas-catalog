@@ -2,6 +2,7 @@
 
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Box, Plus, Package, Layers } from "lucide-react";
 import { HiCube } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +17,7 @@ export default function PlatformDashboardPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params);
+    const t = useTranslations("platform");
     const [platforms, setPlatforms] = useState<Platform[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -60,8 +62,8 @@ export default function PlatformDashboardPage({
             {/* Header */}
             <PageHeader
                 icon={HiCube}
-                title="Platform Overview"
-                subtitle="Manage your platforms and technology stack"
+                title={t("title")}
+                subtitle={t("subtitle")}
                 actions={
                     <Link href={`/${locale}/platform/platforms/new`}>
                         <Button>
