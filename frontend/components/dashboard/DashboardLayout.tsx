@@ -7,7 +7,16 @@ import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/Button";
-import { LogOut, Bell } from "lucide-react";
+import { 
+    LogOut, 
+    Bell, 
+    GitBranch, 
+    Tag, 
+    Users, 
+    BarChart3, 
+    FileText, 
+    Shield 
+} from "lucide-react";
 import {
     HiServer,
     HiLink,
@@ -30,6 +39,13 @@ const SECTION_ICONS: Record<string, React.ElementType> = {
     "/platform": HiCube,
     "/apis": HiSquares2X2,
     "/settings": HiCog6Tooth,
+    "/lifecycles": GitBranch,
+    "/types": Tag,
+    "/teams": Users,
+    "/analytics": BarChart3,
+    "/documentation": FileText,
+    "/security": Shield,
+    "/notifications": Bell,
 };
 
 export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
@@ -47,6 +63,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     const tPlatform = useTranslations("platform");
     const tApis = useTranslations("apis");
     const tSettings = useTranslations("settings");
+    const tSidebar = useTranslations("sidebar");
 
     // Mock user data - TODO: Replace with real user data from auth context
     const currentUser = {
@@ -90,6 +107,34 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                     case "/settings":
                         title = tSettings("title");
                         subtitle = tSettings("description");
+                        break;
+                    case "/lifecycles":
+                        title = tSidebar("lifecycles");
+                        subtitle = "Gestión de ciclos de vida de APIs";
+                        break;
+                    case "/types":
+                        title = tSidebar("types");
+                        subtitle = "Tipos y categorías de APIs";
+                        break;
+                    case "/teams":
+                        title = tSidebar("teams");
+                        subtitle = "Gestión de equipos y colaboración";
+                        break;
+                    case "/analytics":
+                        title = tSidebar("analytics");
+                        subtitle = "Analíticas y métricas avanzadas";
+                        break;
+                    case "/documentation":
+                        title = tSidebar("documentation");
+                        subtitle = "Centro de documentación";
+                        break;
+                    case "/security":
+                        title = tSidebar("security");
+                        subtitle = "Centro de seguridad";
+                        break;
+                    case "/notifications":
+                        title = tSidebar("notifications");
+                        subtitle = "Notificaciones y alertas";
                         break;
                 }
 
