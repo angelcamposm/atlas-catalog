@@ -6,11 +6,11 @@ This document describes the Docker setup for the Atlas Catalog application, whic
 
 The application uses a multi-container architecture:
 
-- **Backend (Laravel)**: PHP-FPM + Nginx
-- **Frontend (Next.js)**: Node.js standalone server
-- **Database**: PostgreSQL 17.6
-- **Cache**: Redis 8.2
-- **Tools**: RedisInsight for Redis management
+-   **Backend (Laravel)**: PHP-FPM + Nginx
+-   **Frontend (Next.js)**: Node.js standalone server
+-   **Database**: PostgreSQL 17.6
+-   **Cache**: Redis 8.2
+-   **Tools**: RedisInsight for Redis management
 
 ## Quick Start
 
@@ -28,9 +28,10 @@ docker-compose down
 ```
 
 **Services URLs:**
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8080/api
-- RedisInsight: http://localhost:5540
+
+-   Frontend: http://localhost:3000
+-   Backend API: http://localhost:8080/api
+-   RedisInsight: http://localhost:5540
 
 ### Development Mode
 
@@ -49,48 +50,54 @@ docker-compose -f docker-compose.dev.yml down
 ```
 
 **Development Features:**
-- Hot-reload for both frontend and backend
-- Source code mounted as volumes
-- Debug mode enabled
-- npm packages auto-installed
+
+-   Hot-reload for both frontend and backend
+-   Source code mounted as volumes
+-   Debug mode enabled
+-   npm packages auto-installed
 
 ## Services Details
 
 ### Frontend (Next.js)
 
 **Production:**
-- Container: `atlas-frontend`
-- Port: 3000
-- Build: Multi-stage optimized build
-- User: Non-root user (nextjs:1001)
+
+-   Container: `atlas-frontend`
+-   Port: 3000
+-   Build: Multi-stage optimized build
+-   User: Non-root user (nextjs:1001)
 
 **Development:**
-- Container: `atlas-frontend-dev`
-- Port: 3000
-- Features: Hot-reload, live code updates
-- Command: `npm run dev`
+
+-   Container: `atlas-frontend-dev`
+-   Port: 3000
+-   Features: Hot-reload, live code updates
+-   Command: `npm run dev`
 
 ### Backend (Laravel API)
 
 **Production:**
-- App Container: `atlas-app`
-- Nginx Container: `atlas-nginx`
-- Port: 8080
-- PHP Version: 8.4-fpm
+
+-   App Container: `atlas-app`
+-   Nginx Container: `atlas-nginx`
+-   Port: 8080
+-   PHP Version: 8.4-fpm
 
 **Development:**
-- Container: `atlas-backend-dev`
-- Port: 8080
-- Features: Live code updates via volume mount
+
+-   Container: `atlas-backend-dev`
+-   Port: 8080
+-   Features: Live code updates via volume mount
 
 ### Database (PostgreSQL)
 
-- Container: `postgres` / `postgres-dev`
-- Port: 5432
-- Version: 17.6-alpine
-- Data persistence: Named volume
+-   Container: `postgres` / `postgres-dev`
+-   Port: 5432
+-   Version: 17.6-alpine
+-   Data persistence: Named volume
 
 **Default Credentials:**
+
 ```
 Database: laravel
 Username: laravel
@@ -99,16 +106,16 @@ Password: secret
 
 ### Cache (Redis)
 
-- Container: `redis` / `redis-dev`
-- Port: 6379
-- Version: 8.2.1-alpine
-- Data persistence: Named volume
+-   Container: `redis` / `redis-dev`
+-   Port: 6379
+-   Version: 8.2.1-alpine
+-   Data persistence: Named volume
 
 ### RedisInsight
 
-- Container: `redis-insights` / `redis-insights-dev`
-- Port: 5540
-- Access: http://localhost:5540
+-   Container: `redis-insights` / `redis-insights-dev`
+-   Port: 5540
+-   Access: http://localhost:5540
 
 ## Environment Variables
 
@@ -189,15 +196,15 @@ docker-compose restart frontend
 
 ### Production Volumes
 
-- `postgres-data`: PostgreSQL data
-- `redis-data`: Redis data
-- `redisinsight`: RedisInsight configuration
+-   `postgres-data`: PostgreSQL data
+-   `redis-data`: Redis data
+-   `redisinsight`: RedisInsight configuration
 
 ### Development Volumes
 
-- `postgres-data-dev`: PostgreSQL data (dev)
-- `redis-data-dev`: Redis data (dev)
-- `redisinsight-dev`: RedisInsight configuration (dev)
+-   `postgres-data-dev`: PostgreSQL data (dev)
+-   `redis-data-dev`: Redis data (dev)
+-   `redisinsight-dev`: RedisInsight configuration (dev)
 
 ### Backup and Restore
 
@@ -218,9 +225,10 @@ docker cp $(docker-compose ps -q redis):/data/dump.rdb ./redis-backup.rdb
 All services communicate via the `catalog-network` bridge network.
 
 **Internal Service Communication:**
-- Frontend → Backend: `http://nginx:8080/api`
-- Backend → Database: `postgres:5432`
-- Backend → Redis: `redis:6379`
+
+-   Frontend → Backend: `http://nginx:8080/api`
+-   Backend → Database: `postgres:5432`
+-   Backend → Redis: `redis:6379`
 
 ## Troubleshooting
 
@@ -253,8 +261,8 @@ If ports are already in use, modify `docker-compose.yml`:
 
 ```yaml
 ports:
-  - "3001:3000"  # Frontend (change 3000 to 3001)
-  - "8081:8080"  # Backend (change 8080 to 8081)
+    - "3001:3000" # Frontend (change 3000 to 3001)
+    - "8081:8080" # Backend (change 8080 to 8081)
 ```
 
 ### Reset Everything
@@ -293,34 +301,41 @@ docker-compose up -d
 
 ```yaml
 frontend:
-  deploy:
-    resources:
-      limits:
-        cpus: '1'
-        memory: 1G
-      reservations:
-        cpus: '0.5'
-        memory: 512M
+    deploy:
+        resources:
+            limits:
+                cpus: "1"
+                memory: 1G
+            reservations:
+                cpus: "0.5"
+                memory: 512M
 ```
 
 ### Add Health Checks
 
 ```yaml
 frontend:
-  healthcheck:
-    test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health')"]
-    interval: 30s
-    timeout: 10s
-    retries: 3
-    start_period: 40s
+    healthcheck:
+        test:
+            [
+                "CMD",
+                "node",
+                "-e",
+                "require('http').get('http://localhost:3000/api/health')",
+            ]
+        interval: 30s
+        timeout: 10s
+        retries: 3
+        start_period: 40s
 ```
 
 ### Multi-stage Build Optimization
 
 The frontend Dockerfile uses multi-stage builds:
-- **Stage 1 (deps)**: Install dependencies
-- **Stage 2 (builder)**: Build application
-- **Stage 3 (runner)**: Minimal production image
+
+-   **Stage 1 (deps)**: Install dependencies
+-   **Stage 2 (builder)**: Build application
+-   **Stage 3 (runner)**: Minimal production image
 
 This results in a much smaller final image (~150MB vs ~1GB).
 
@@ -331,14 +346,15 @@ This results in a much smaller final image (~150MB vs ~1GB).
 ```yaml
 - name: Build and test
   run: |
-    docker-compose -f docker-compose.yml build
-    docker-compose -f docker-compose.yml up -d
-    docker-compose exec -T frontend npm test
+      docker-compose -f docker-compose.yml build
+      docker-compose -f docker-compose.yml up -d
+      docker-compose exec -T frontend npm test
 ```
 
 ## Support
 
 For issues or questions:
+
 1. Check logs: `docker-compose logs`
 2. Verify services: `docker-compose ps`
 3. Review environment variables
@@ -347,7 +363,6 @@ For issues or questions:
 ## License
 
 Same as Atlas Catalog project.
-
 
 Esta guía explica cómo ejecutar el proyecto completo usando Docker Compose.
 

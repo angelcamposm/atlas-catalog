@@ -4,10 +4,10 @@ Get Atlas Catalog running in less than 5 minutes!
 
 ## Prerequisites
 
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- 4GB RAM available (minimum)
-- Git
+-   Docker Engine 20.10+
+-   Docker Compose 2.0+
+-   4GB RAM available (minimum)
+-   Git
 
 ## Quick Start (3 Options)
 
@@ -23,10 +23,11 @@ cd atlas-catalog
 ```
 
 The script provides an interactive menu to:
-- ✅ Start production or development environment
-- ✅ View logs and check service status
-- ✅ Run database migrations
-- ✅ Clean up everything
+
+-   ✅ Start production or development environment
+-   ✅ View logs and check service status
+-   ✅ Run database migrations
+-   ✅ Clean up everything
 
 ### Option 2: Using Makefile (Recommended for developers)
 
