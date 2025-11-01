@@ -23,7 +23,7 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
     const t = useTranslations("profile");
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { theme, setTheme } = useTheme();
-    
+
     const [profileImage, setProfileImage] = useState<string | null>(
         user.avatar || null
     );
@@ -123,7 +123,9 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                                         </div>
                                     )}
                                     <button
-                                        onClick={() => fileInputRef.current?.click()}
+                                        onClick={() =>
+                                            fileInputRef.current?.click()
+                                        }
                                         className="absolute bottom-0 right-0 rounded-full bg-white p-2 shadow-lg dark:bg-gray-800"
                                     >
                                         <HiCamera className="h-4 w-4 text-gray-600 dark:text-gray-300" />
@@ -143,7 +145,9 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                                         <Button
                                             variant="outline"
                                             size="default"
-                                            onClick={() => fileInputRef.current?.click()}
+                                            onClick={() =>
+                                                fileInputRef.current?.click()
+                                            }
                                         >
                                             {profileImage
                                                 ? t("changeImage")
@@ -224,11 +228,13 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                                 <div className="grid grid-cols-3 gap-3">
                                     {activeThemes.map((themeName) => {
                                         const isSelected = theme === themeName;
-                                        
+
                                         return (
                                             <button
                                                 key={themeName}
-                                                onClick={() => setTheme(themeName)}
+                                                onClick={() =>
+                                                    setTheme(themeName)
+                                                }
                                                 className={`rounded-lg border-2 p-4 text-center transition-all ${
                                                     isSelected
                                                         ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200 dark:bg-blue-900/20 dark:ring-blue-800"
@@ -254,7 +260,7 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                                                 {themeName === "purple" && (
                                                     <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-purple-500 shadow-md" />
                                                 )}
-                                                
+
                                                 <span className="text-sm font-medium text-gray-900 dark:text-white">
                                                     {t(themeName)}
                                                 </span>
@@ -269,7 +275,11 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                     {/* Footer */}
                     <div className="sticky bottom-0 border-t border-gray-200 bg-white px-6 py-4 dark:border-gray-800 dark:bg-gray-900">
                         <div className="flex justify-end space-x-3">
-                            <Button variant="outline" size="default" onClick={onClose}>
+                            <Button
+                                variant="outline"
+                                size="default"
+                                onClick={onClose}
+                            >
                                 {t("close")}
                             </Button>
                             <Button

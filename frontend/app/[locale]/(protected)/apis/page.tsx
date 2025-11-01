@@ -72,93 +72,93 @@ export default function ApisPage() {
     return (
         <div className="p-6">
             <div className="mb-8">
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                        {t("title")}
-                    </h1>
+                <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                    {t("title")}
+                </h1>
+                <p className="text-gray-600 dark:text-gray-400">
+                    {common("totalCount", { count: totalCount })}
+                </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {apis.map((api) => (
+                    <Card key={api.id}>
+                        <CardHeader>
+                            <CardTitle>{api.name}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <div className="space-y-3">
+                                {api.description && (
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+                                        {api.description}
+                                    </p>
+                                )}
+
+                                <div className="flex flex-wrap gap-2">
+                                    <Badge variant="primary">
+                                        {api.protocol?.toUpperCase() ||
+                                            common("n_a")}
+                                    </Badge>
+                                    {api.version && (
+                                        <Badge variant="secondary">
+                                            v{api.version}
+                                        </Badge>
+                                    )}
+                                </div>
+
+                                {api.url && (
+                                    <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
+                                        {api.url}
+                                    </p>
+                                )}
+
+                                <div className="text-xs text-gray-400 dark:text-gray-600">
+                                    ID: {api.id}
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                ))}
+            </div>
+
+            {totalPages > 1 && (
+                <div className="flex justify-center gap-2">
+                    <button
+                        onClick={() =>
+                            setCurrentPage((page) => Math.max(1, page - 1))
+                        }
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {common("previous")}
+                    </button>
+                    <span className="px-4 py-2 text-gray-900 dark:text-white">
+                        {common("pageSummary", {
+                            current: currentPage,
+                            total: totalPages,
+                        })}
+                    </span>
+                    <button
+                        onClick={() =>
+                            setCurrentPage((page) =>
+                                Math.min(totalPages, page + 1)
+                            )
+                        }
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {common("next")}
+                    </button>
+                </div>
+            )}
+
+            {totalCount === 0 && (
+                <div className="text-center py-12">
                     <p className="text-gray-600 dark:text-gray-400">
-                        {common("totalCount", { count: totalCount })}
+                        {common("noData")}
                     </p>
                 </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    {apis.map((api) => (
-                        <Card key={api.id}>
-                            <CardHeader>
-                                <CardTitle>{api.name}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="space-y-3">
-                                    {api.description && (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
-                                            {api.description}
-                                        </p>
-                                    )}
-
-                                    <div className="flex flex-wrap gap-2">
-                                        <Badge variant="primary">
-                                            {api.protocol?.toUpperCase() ||
-                                                common("n_a")}
-                                        </Badge>
-                                        {api.version && (
-                                            <Badge variant="secondary">
-                                                v{api.version}
-                                            </Badge>
-                                        )}
-                                    </div>
-
-                                    {api.url && (
-                                        <p className="text-xs text-gray-500 dark:text-gray-500 truncate">
-                                            {api.url}
-                                        </p>
-                                    )}
-
-                                    <div className="text-xs text-gray-400 dark:text-gray-600">
-                                        ID: {api.id}
-                                    </div>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-
-                {totalPages > 1 && (
-                    <div className="flex justify-center gap-2">
-                        <button
-                            onClick={() =>
-                                setCurrentPage((page) => Math.max(1, page - 1))
-                            }
-                            disabled={currentPage === 1}
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {common("previous")}
-                        </button>
-                        <span className="px-4 py-2 text-gray-900 dark:text-white">
-                            {common("pageSummary", {
-                                current: currentPage,
-                                total: totalPages,
-                            })}
-                        </span>
-                        <button
-                            onClick={() =>
-                                setCurrentPage((page) =>
-                                    Math.min(totalPages, page + 1)
-                                )
-                            }
-                            disabled={currentPage === totalPages}
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {common("next")}
-                        </button>
-                    </div>
-                )}
-
-                {totalCount === 0 && (
-                    <div className="text-center py-12">
-                        <p className="text-gray-600 dark:text-gray-400">
-                            {common("noData")}
-                        </p>
-                    </div>
-                )}
-            </div>
+            )}
+        </div>
     );
 }

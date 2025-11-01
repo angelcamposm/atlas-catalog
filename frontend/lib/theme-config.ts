@@ -1,6 +1,6 @@
 /**
  * Theme Configuration
- * 
+ *
  * Define available themes for the application.
  * The system is designed to be extensible - add new themes here as needed.
  */
