@@ -4,17 +4,18 @@
 
 Atlas Catalog is a modern full-stack application designed to serve as a centralized and comprehensive inventory for all microservices, APIs, and digital assets within an organization. It consists of:
 
--   **Backend**: Laravel 11-based RESTful API for managing APIs, lifecycles, types, and metadata
--   **Frontend**: Next.js 15 application with TypeScript for consuming and visualizing the API catalog
+- **Backend**: Laravel 11-based RESTful API for managing APIs, lifecycles, types, and metadata
+- **Frontend**: Next.js 16 application with TypeScript for consuming and visualizing the API catalog
 
 Key features include:
 
--   **Centralized Service Discovery**: A single source of truth for all your APIs and services.
--   **Rich Metadata Management**: Track essential information such as endpoints, versions, ownership, access policies, and documentation.
--   **Business Domain Organization**: Group services by business domains to provide clear context and ownership.
--   **Modern Web Interface**: Intuitive Next.js frontend with TypeScript and Tailwind CSS.
--   **Standardized & RESTful**: A clean, predictable API that follows modern best practices for easy integration.
--   **Extensible by Design**: Easily add new metadata or integrate with other developer tools.
+- **Centralized Service Discovery**: A single source of truth for all your APIs and services.
+- **Rich Metadata Management**: Track essential information such as endpoints, versions, ownership, access policies, and documentation.
+- **Business Domain Organization**: Group services by business domains to provide clear context and ownership.
+- **Modern Web Interface**: Intuitive Next.js frontend with TypeScript, Tailwind CSS v4, and shadcn/ui components.
+- **Internationalization**: Built-in multi-language support with next-intl.
+- **Standardized & RESTful**: A clean, predictable API that follows modern best practices for easy integration.
+- **Extensible by Design**: Easily add new metadata or integrate with other developer tools.
 
 Whether you are a developer looking for service documentation, a platform engineer managing the ecosystem, or an architect designing new systems, Atlas Catalog provides the visibility and control needed to navigate your microservices landscape with confidence.
 
@@ -152,6 +153,42 @@ npm run dev
 
 The frontend will be available at `http://localhost:3000`
 
+#### UI Components with shadcn/ui
+
+This project uses [shadcn/ui](https://ui.shadcn.com/) for building beautiful, accessible components. Components are configured with Tailwind CSS v4 and can be added on demand.
+
+**Adding new components:**
+
+```bash
+# Add a specific component (e.g., button, card, dialog)
+npx shadcn@latest add button
+npx shadcn@latest add card
+npx shadcn@latest add dialog
+
+# Add multiple components at once
+npx shadcn@latest add button card badge
+```
+
+**Typography styling:**
+
+The project includes [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) for beautiful prose styling. Use the `prose` class for formatted content:
+
+```tsx
+<article className="prose dark:prose-invert lg:prose-xl">
+  <h1>Article Title</h1>
+  <p>Your content here...</p>
+</article>
+```
+
+**Component configuration:**
+
+- Components are stored in `frontend/components/ui/`
+- Utilities are in `frontend/lib/utils.ts`
+- Configuration is in `frontend/components.json`
+- Tailwind config uses CSS variables for theming
+
+For more information, see the [shadcn/ui documentation](https://ui.shadcn.com/).
+
 ### 🐳 Docker Deployment
 
 El proyecto incluye dos configuraciones de Docker Compose:
@@ -287,10 +324,13 @@ docker-compose -f docker-compose.dev.yml down -v
 
 ### Frontend
 
--   Next.js 15 (App Router)
+-   Next.js 16 (App Router)
 -   TypeScript (strict mode)
--   React 18
--   Tailwind CSS
+-   React 19
+-   Tailwind CSS v4
+-   shadcn/ui - Reusable component library
+-   @tailwindcss/typography - Beautiful prose styling
+-   next-intl v4 - Internationalization (i18n)
 -   Custom API client
 
 ## License
