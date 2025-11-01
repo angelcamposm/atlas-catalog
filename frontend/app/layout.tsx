@@ -38,6 +38,14 @@ export default async function RootLayout({
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
+                    themes={[
+                        "light",
+                        "dark",
+                        "blue",
+                        "purple",
+                        "green",
+                        "orange",
+                    ]}
                 >
                     {children}
                 </ThemeProvider>

@@ -278,18 +278,26 @@
     "appearance": {
       "title": "Appearance",
       "description": "Customize how the application looks on your device",
-      "themeLabel": "Theme",
+      "colorModeLabel": "Color Mode",
+      "lightThemeLabel": "Light Theme Variant",
+      "darkThemeLabel": "Dark Theme Variant",
       "systemNote": "Automatically adapts to your system's theme preference",
-      "currentTheme": "Currently using {theme} theme"
+      "currentMode": "Currently using {mode} mode"
     },
-    "theme": {
+    "colorMode": {
       "light": "Light",
       "dark": "Dark",
-      "blue": "Ocean Blue",
-      "purple": "Royal Purple",
-      "green": "Forest Green",
-      "orange": "Sunset Orange",
       "system": "System"
+    },
+    "lightTheme": {
+      "default": "Default Light",
+      "orange": "Sunset Orange",
+      "green": "Forest Green"
+    },
+    "darkTheme": {
+      "default": "Default Dark",
+      "blue": "Ocean Blue",
+      "purple": "Royal Purple"
     },
     "language": {
       "title": "Language",

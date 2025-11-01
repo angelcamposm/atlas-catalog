@@ -283,50 +283,28 @@ html {
     }
 }
 
-/* Theme: Blue (Ocean Blue) */
-.blue {
-    --background: #f0f9ff; /* sky-50 */
-    --foreground: #0c4a6e; /* sky-900 */
-    --primary: #0ea5e9; /* sky-500 */
+/* Light Theme Variants */
+.theme-orange {
+    --background: #fff7ed; /* orange-50 */
+    --foreground: #7c2d12; /* orange-900 */
+    --primary: #f97316; /* orange-500 */
     --primary-foreground: #ffffff;
-    --secondary: #0284c7; /* sky-600 */
+    --secondary: #ea580c; /* orange-600 */
     --secondary-foreground: #ffffff;
-    --accent: #06b6d4; /* cyan-500 */
+    --accent: #fb923c; /* orange-400 */
     --accent-foreground: #ffffff;
-    --muted: #e0f2fe; /* sky-100 */
-    --muted-foreground: #475569; /* slate-600 */
-    --border: #bae6fd; /* sky-200 */
-    --input: #bae6fd;
-    --ring: #0ea5e9;
+    --muted: #ffedd5; /* orange-100 */
+    --muted-foreground: #c2410c; /* orange-700 */
+    --border: #fed7aa; /* orange-200 */
+    --input: #fed7aa;
+    --ring: #f97316;
     --card: #ffffff;
-    --card-foreground: #0c4a6e;
+    --card-foreground: #7c2d12;
     --popover: #ffffff;
-    --popover-foreground: #0c4a6e;
+    --popover-foreground: #7c2d12;
 }
 
-/* Theme: Purple (Royal Purple) */
-.purple {
-    --background: #faf5ff; /* purple-50 */
-    --foreground: #581c87; /* purple-900 */
-    --primary: #a855f7; /* purple-500 */
-    --primary-foreground: #ffffff;
-    --secondary: #9333ea; /* purple-600 */
-    --secondary-foreground: #ffffff;
-    --accent: #c026d3; /* fuchsia-600 */
-    --accent-foreground: #ffffff;
-    --muted: #f3e8ff; /* purple-100 */
-    --muted-foreground: #7c3aed; /* violet-600 */
-    --border: #e9d5ff; /* purple-200 */
-    --input: #e9d5ff;
-    --ring: #a855f7;
-    --card: #ffffff;
-    --card-foreground: #581c87;
-    --popover: #ffffff;
-    --popover-foreground: #581c87;
-}
-
-/* Theme: Green (Forest Green) */
-.green {
+.theme-green {
     --background: #f0fdf4; /* green-50 */
     --foreground: #064e3b; /* emerald-900 */
     --primary: #10b981; /* emerald-500 */
@@ -346,23 +324,43 @@ html {
     --popover-foreground: #064e3b;
 }
 
-/* Theme: Orange (Sunset Orange) */
-.orange {
-    --background: #fff7ed; /* orange-50 */
-    --foreground: #7c2d12; /* orange-900 */
-    --primary: #f97316; /* orange-500 */
-    --primary-foreground: #ffffff;
-    --secondary: #ea580c; /* orange-600 */
-    --secondary-foreground: #ffffff;
-    --accent: #fb923c; /* orange-400 */
-    --accent-foreground: #ffffff;
-    --muted: #ffedd5; /* orange-100 */
-    --muted-foreground: #c2410c; /* orange-700 */
-    --border: #fed7aa; /* orange-200 */
-    --input: #fed7aa;
-    --ring: #f97316;
-    --card: #ffffff;
-    --card-foreground: #7c2d12;
-    --popover: #ffffff;
-    --popover-foreground: #7c2d12;
+/* Dark Theme Variants */
+.dark.theme-blue {
+    --background: #0c4a6e; /* sky-900 */
+    --foreground: #f0f9ff; /* sky-50 */
+    --primary: #38bdf8; /* sky-400 */
+    --primary-foreground: #0c4a6e;
+    --secondary: #0ea5e9; /* sky-500 */
+    --secondary-foreground: #0c4a6e;
+    --accent: #22d3ee; /* cyan-400 */
+    --accent-foreground: #0c4a6e;
+    --muted: #075985; /* sky-800 */
+    --muted-foreground: #7dd3fc; /* sky-300 */
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.15);
+    --ring: #38bdf8;
+    --card: #0c4a6e;
+    --card-foreground: #f0f9ff;
+    --popover: #0c4a6e;
+    --popover-foreground: #f0f9ff;
+}
+
+.dark.theme-purple {
+    --background: #581c87; /* purple-900 */
+    --foreground: #faf5ff; /* purple-50 */
+    --primary: #c084fc; /* purple-400 */
+    --primary-foreground: #581c87;
+    --secondary: #a855f7; /* purple-500 */
+    --secondary-foreground: #581c87;
+    --accent: #e879f9; /* fuchsia-400 */
+    --accent-foreground: #581c87;
+    --muted: #6b21a8; /* purple-800 */
+    --muted-foreground: #d8b4fe; /* purple-300 */
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.15);
+    --ring: #c084fc;
+    --card: #581c87;
+    --card-foreground: #faf5ff;
+    --popover: #581c87;
+    --popover-foreground: #faf5ff;
 }

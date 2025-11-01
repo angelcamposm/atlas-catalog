@@ -278,18 +278,26 @@
     "appearance": {
       "title": "Apariencia",
       "description": "Personaliza cómo se ve la aplicación en tu dispositivo",
-      "themeLabel": "Tema",
+      "colorModeLabel": "Modo de Color",
+      "lightThemeLabel": "Variante de Tema Claro",
+      "darkThemeLabel": "Variante de Tema Oscuro",
       "systemNote": "Se adapta automáticamente a la preferencia de tema de tu sistema",
-      "currentTheme": "Usando tema {theme} actualmente"
+      "currentMode": "Usando modo {mode} actualmente"
     },
-    "theme": {
+    "colorMode": {
       "light": "Claro",
       "dark": "Oscuro",
-      "blue": "Azul Océano",
-      "purple": "Púrpura Real",
-      "green": "Verde Bosque",
-      "orange": "Naranja Atardecer",
       "system": "Sistema"
+    },
+    "lightTheme": {
+      "default": "Claro Predeterminado",
+      "orange": "Naranja Atardecer",
+      "green": "Verde Bosque"
+    },
+    "darkTheme": {
+      "default": "Oscuro Predeterminado",
+      "blue": "Azul Océano",
+      "purple": "Púrpura Real"
     },
     "language": {
       "title": "Idioma",

@@ -1,9 +1,10 @@
 "use client";
 
 import { use, useState } from "react";
-import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
+import { useThemeSettings } from "@/hooks/use-theme-settings";
+import { lightThemes, darkThemes } from "@/lib/theme-config";
 import {
     HiCog6Tooth,
     HiMoon,
@@ -34,19 +35,37 @@ export default function SettingsPage({
     const t = useTranslations("settings");
     const router = useRouter();
     const pathname = usePathname();
-    const { theme, setTheme } = useTheme();
+    
+    const {
+        colorMode,
+        lightTheme,
+        darkTheme,
+        activeMode,
+        setColorMode,
+        setLightTheme,
+        setDarkTheme,
+    } = useThemeSettings();
+    
     const [emailNotifications, setEmailNotifications] = useState(true);
     const [pushNotifications, setPushNotifications] = useState(false);
     const [weeklyDigest, setWeeklyDigest] = useState(true);
 
-    const themes = [
-        { value: "light", label: t("theme.light"), icon: HiSun },
-        { value: "dark", label: t("theme.dark"), icon: HiMoon },
-        { value: "blue", label: t("theme.blue"), icon: HiSparkles },
-        { value: "purple", label: t("theme.purple"), icon: HiSparkles },
-        { value: "green", label: t("theme.green"), icon: HiSparkles },
-        { value: "orange", label: t("theme.orange"), icon: HiFire },
-        { value: "system", label: t("theme.system"), icon: HiComputerDesktop },
+    const colorModes = [
+        { value: "light" as const, label: t("colorMode.light"), icon: HiSun },
+        { value: "dark" as const, label: t("colorMode.dark"), icon: HiMoon },
+        { value: "system" as const, label: t("colorMode.system"), icon: HiComputerDesktop },
+    ];
+
+    const lightThemeOptions = [
+        { value: "default" as const, label: t("lightTheme.default"), icon: HiSun },
+        { value: "orange" as const, label: t("lightTheme.orange"), icon: HiFire },
+        { value: "green" as const, label: t("lightTheme.green"), icon: HiSparkles },
+    ];
+
+    const darkThemeOptions = [
+        { value: "default" as const, label: t("darkTheme.default"), icon: HiMoon },
+        { value: "blue" as const, label: t("darkTheme.blue"), icon: HiSparkles },
+        { value: "purple" as const, label: t("darkTheme.purple"), icon: HiSparkles },
     ];
 
     const languages = [
@@ -87,22 +106,21 @@ export default function SettingsPage({
                         {t("appearance.description")}
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-6">
+                    {/* Color Mode Selection */}
                     <div>
                         <Label className="text-base mb-3 block">
-                            {t("appearance.themeLabel")}
+                            {t("appearance.colorModeLabel")}
                         </Label>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                            {themes.map((themeOption) => {
-                                const Icon = themeOption.icon;
-                                const isActive = theme === themeOption.value;
+                            {colorModes.map((mode) => {
+                                const Icon = mode.icon;
+                                const isActive = colorMode === mode.value;
 
                                 return (
                                     <button
-                                        key={themeOption.value}
-                                        onClick={() =>
-                                            setTheme(themeOption.value)
-                                        }
+                                        key={mode.value}
+                                        onClick={() => setColorMode(mode.value)}
                                         className={`
                                             flex items-center gap-3 p-4 rounded-lg border-2 transition-all
                                             ${
@@ -126,7 +144,7 @@ export default function SettingsPage({
                                                     : "text-foreground"
                                             }`}
                                         >
-                                            {themeOption.label}
+                                            {mode.label}
                                         </span>
                                         {isActive && (
                                             <div className="ml-auto h-2 w-2 rounded-full bg-primary" />
@@ -136,13 +154,113 @@ export default function SettingsPage({
                             })}
                         </div>
                         <p className="text-xs text-muted-foreground mt-2">
-                            {theme === "system"
+                            {colorMode === "system"
                                 ? t("appearance.systemNote")
-                                : t("appearance.currentTheme", {
-                                      theme: theme || "system",
+                                : t("appearance.currentMode", {
+                                      mode: colorMode,
                                   })}
                         </p>
                     </div>
+
+                    {/* Light Theme Selection - Only show if light or system (and system resolves to light) */}
+                    {(colorMode === "light" || (colorMode === "system" && activeMode === "light")) && (
+                        <div>
+                            <Label className="text-base mb-3 block">
+                                {t("appearance.lightThemeLabel")}
+                            </Label>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                {lightThemeOptions.map((themeOption) => {
+                                    const Icon = themeOption.icon;
+                                    const isActive = lightTheme === themeOption.value;
+
+                                    return (
+                                        <button
+                                            key={themeOption.value}
+                                            onClick={() => setLightTheme(themeOption.value)}
+                                            className={`
+                                                flex items-center gap-3 p-4 rounded-lg border-2 transition-all
+                                                ${
+                                                    isActive
+                                                        ? "border-primary bg-primary/5"
+                                                        : "border-border hover:border-primary/50 hover:bg-accent/50"
+                                                }
+                                            `}
+                                        >
+                                            <Icon
+                                                className={`h-5 w-5 ${
+                                                    isActive
+                                                        ? "text-primary"
+                                                        : "text-muted-foreground"
+                                                }`}
+                                            />
+                                            <span
+                                                className={`font-medium ${
+                                                    isActive
+                                                        ? "text-primary"
+                                                        : "text-foreground"
+                                                }`}
+                                            >
+                                                {themeOption.label}
+                                            </span>
+                                            {isActive && (
+                                                <div className="ml-auto h-2 w-2 rounded-full bg-primary" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Dark Theme Selection - Only show if dark or system (and system resolves to dark) */}
+                    {(colorMode === "dark" || (colorMode === "system" && activeMode === "dark")) && (
+                        <div>
+                            <Label className="text-base mb-3 block">
+                                {t("appearance.darkThemeLabel")}
+                            </Label>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                {darkThemeOptions.map((themeOption) => {
+                                    const Icon = themeOption.icon;
+                                    const isActive = darkTheme === themeOption.value;
+
+                                    return (
+                                        <button
+                                            key={themeOption.value}
+                                            onClick={() => setDarkTheme(themeOption.value)}
+                                            className={`
+                                                flex items-center gap-3 p-4 rounded-lg border-2 transition-all
+                                                ${
+                                                    isActive
+                                                        ? "border-primary bg-primary/5"
+                                                        : "border-border hover:border-primary/50 hover:bg-accent/50"
+                                                }
+                                            `}
+                                        >
+                                            <Icon
+                                                className={`h-5 w-5 ${
+                                                    isActive
+                                                        ? "text-primary"
+                                                        : "text-muted-foreground"
+                                                }`}
+                                            />
+                                            <span
+                                                className={`font-medium ${
+                                                    isActive
+                                                        ? "text-primary"
+                                                        : "text-foreground"
+                                                }`}
+                                            >
+                                                {themeOption.label}
+                                            </span>
+                                            {isActive && (
+                                                <div className="ml-auto h-2 w-2 rounded-full bg-primary" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 
@@ -323,7 +441,8 @@ export default function SettingsPage({
                             {t("system.currentTheme")}
                         </span>
                         <span className="font-medium capitalize">
-                            {theme || "system"}
+                            {colorMode} {activeMode === "light" && lightTheme !== "default" && `(${lightTheme})`}
+                            {activeMode === "dark" && darkTheme !== "default" && `(${darkTheme})`}
                         </span>
                     </div>
                 </CardContent>

@@ -1,14 +1,18 @@
 /**
  * Theme Configuration
  *
- * Define available themes for the application.
- * The system is designed to be extensible - add new themes here as needed.
+ * Two-level theme system:
+ * 1. Color Mode: light, dark, or system
+ * 2. Color Theme: specific color variant within the mode
  */
 
-export type ThemeName = "light" | "dark" | "blue" | "purple" | "green" | "orange" | "system";
+export type ColorMode = "light" | "dark" | "system";
+
+export type LightTheme = "default" | "orange" | "green";
+export type DarkTheme = "default" | "blue" | "purple";
 
 export interface ThemeConfig {
-    name: ThemeName;
+    name: string;
     label: string;
     colors: {
         primary: string;
@@ -21,64 +25,17 @@ export interface ThemeConfig {
 
 /**
  * Available themes
- * Currently: light and dark
- * Future: blue, purple, custom themes, etc.
  */
-export const themes: Record<ThemeName, ThemeConfig> = {
-    light: {
-        name: "light",
-        label: "Light",
+export const lightThemes: Record<LightTheme, ThemeConfig> = {
+    default: {
+        name: "default",
+        label: "Default Light",
         colors: {
             primary: "#3b82f6",
             secondary: "#6366f1",
             accent: "#8b5cf6",
             background: "#ffffff",
             foreground: "#111827",
-        },
-    },
-    dark: {
-        name: "dark",
-        label: "Dark",
-        colors: {
-            primary: "#3b82f6",
-            secondary: "#6366f1",
-            accent: "#8b5cf6",
-            background: "#030712",
-            foreground: "#f9fafb",
-        },
-    },
-    // Future themes - ready to be implemented
-    blue: {
-        name: "blue",
-        label: "Ocean Blue",
-        colors: {
-            primary: "#0ea5e9",
-            secondary: "#0284c7",
-            accent: "#06b6d4",
-            background: "#f0f9ff",
-            foreground: "#0c4a6e",
-        },
-    },
-    purple: {
-        name: "purple",
-        label: "Royal Purple",
-        colors: {
-            primary: "#a855f7",
-            secondary: "#9333ea",
-            accent: "#c026d3",
-            background: "#faf5ff",
-            foreground: "#581c87",
-        },
-    },
-    green: {
-        name: "green",
-        label: "Forest Green",
-        colors: {
-            primary: "#10b981",
-            secondary: "#059669",
-            accent: "#14b8a6",
-            background: "#f0fdf4",
-            foreground: "#064e3b",
         },
     },
     orange: {
@@ -92,26 +49,58 @@ export const themes: Record<ThemeName, ThemeConfig> = {
             foreground: "#7c2d12",
         },
     },
-    system: {
-        name: "system",
-        label: "System",
+    green: {
+        name: "green",
+        label: "Forest Green",
+        colors: {
+            primary: "#10b981",
+            secondary: "#059669",
+            accent: "#14b8a6",
+            background: "#f0fdf4",
+            foreground: "#064e3b",
+        },
+    },
+};
+
+export const darkThemes: Record<DarkTheme, ThemeConfig> = {
+    default: {
+        name: "default",
+        label: "Default Dark",
         colors: {
             primary: "#3b82f6",
             secondary: "#6366f1",
             accent: "#8b5cf6",
-            background: "#ffffff",
-            foreground: "#111827",
+            background: "#030712",
+            foreground: "#f9fafb",
+        },
+    },
+    blue: {
+        name: "blue",
+        label: "Ocean Blue",
+        colors: {
+            primary: "#0ea5e9",
+            secondary: "#0284c7",
+            accent: "#06b6d4",
+            background: "#0c4a6e",
+            foreground: "#f0f9ff",
+        },
+    },
+    purple: {
+        name: "purple",
+        label: "Royal Purple",
+        colors: {
+            primary: "#a855f7",
+            secondary: "#9333ea",
+            accent: "#c026d3",
+            background: "#581c87",
+            foreground: "#faf5ff",
         },
     },
 };
 
 /**
- * Active themes that are currently available in the UI
- * Add/remove theme names here to enable/disable them
+ * Default selections
  */
-export const activeThemes: ThemeName[] = ["light", "dark", "blue", "purple", "green", "orange", "system"];
-
-/**
- * Default theme
- */
-export const defaultTheme: ThemeName = "system";
+export const defaultColorMode: ColorMode = "system";
+export const defaultLightTheme: LightTheme = "default";
+export const defaultDarkTheme: DarkTheme = "default";
