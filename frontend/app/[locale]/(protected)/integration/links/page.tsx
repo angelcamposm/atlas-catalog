@@ -9,9 +9,13 @@ export const metadata: Metadata = {
     description: "Manage integration links",
 };
 
-export default async function LinksPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function LinksPage({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
     const { locale } = await params;
-    
+
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
