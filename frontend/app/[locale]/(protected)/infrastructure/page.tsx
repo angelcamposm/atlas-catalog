@@ -57,9 +57,7 @@ export default function InfrastructureDashboardPage({
             <div className="container mx-auto flex min-h-[400px] items-center justify-center p-6">
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
-                    <p className="text-muted-foreground">
-                        Loading infrastructure...
-                    </p>
+                    <p className="text-muted-foreground">{t("loading")}</p>
                 </div>
             </div>
         );
@@ -77,13 +75,13 @@ export default function InfrastructureDashboardPage({
                         <Link href={`/${locale}/infrastructure/clusters/new`}>
                             <Button>
                                 <Plus className="mr-2 h-4 w-4" />
-                                New Cluster
+                                {t("newCluster")}
                             </Button>
                         </Link>
                         <Link href={`/${locale}/infrastructure/nodes/new`}>
                             <Button variant="outline">
                                 <Plus className="mr-2 h-4 w-4" />
-                                New Node
+                                {t("newNode")}
                             </Button>
                         </Link>
                     </>
@@ -96,7 +94,7 @@ export default function InfrastructureDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Total Clusters
+                            {t("stats.totalClusters")}
                         </CardTitle>
                         <Server className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -105,7 +103,7 @@ export default function InfrastructureDashboardPage({
                             {stats.totalClusters}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            {stats.activeClusters} active
+                            {stats.activeClusters} {t("stats.active")}
                         </p>
                     </CardContent>
                 </Card>
@@ -114,7 +112,7 @@ export default function InfrastructureDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Total Nodes
+                            {t("stats.totalNodes")}
                         </CardTitle>
                         <Cpu className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -123,7 +121,7 @@ export default function InfrastructureDashboardPage({
                             {stats.totalNodes}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            {stats.activeNodes} active
+                            {stats.activeNodes} {t("stats.active")}
                         </p>
                     </CardContent>
                 </Card>
@@ -132,7 +130,7 @@ export default function InfrastructureDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Master Nodes
+                            {t("stats.masterNodes")}
                         </CardTitle>
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -141,7 +139,7 @@ export default function InfrastructureDashboardPage({
                             {stats.masterNodes}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Control plane
+                            {t("stats.controlPlane")}
                         </p>
                     </CardContent>
                 </Card>
@@ -150,7 +148,7 @@ export default function InfrastructureDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Worker Nodes
+                            {t("stats.workerNodes")}
                         </CardTitle>
                         <TrendingUp className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -159,7 +157,7 @@ export default function InfrastructureDashboardPage({
                             {stats.workerNodes}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Workload execution
+                            {t("stats.workload")}
                         </p>
                     </CardContent>
                 </Card>
@@ -171,10 +169,10 @@ export default function InfrastructureDashboardPage({
                 <Card>
                     <CardHeader>
                         <div className="flex items-center justify-between">
-                            <CardTitle>Recent Clusters</CardTitle>
+                            <CardTitle>{t("clusters.title")}</CardTitle>
                             <Link href={`/${locale}/infrastructure/clusters`}>
                                 <Button variant="ghost" size="sm">
-                                    View All
+                                    {t("clusters.viewAll")}
                                 </Button>
                             </Link>
                         </div>
@@ -184,7 +182,7 @@ export default function InfrastructureDashboardPage({
                             <div className="py-8 text-center">
                                 <HiServerStack className="mx-auto mb-3 h-12 w-12 text-muted-foreground/50" />
                                 <p className="text-sm text-muted-foreground">
-                                    No clusters found
+                                    {t("clusters.empty")}
                                 </p>
                                 <Link
                                     href={`/${locale}/infrastructure/clusters/new`}
@@ -195,7 +193,7 @@ export default function InfrastructureDashboardPage({
                                         className="mt-3"
                                     >
                                         <Plus className="mr-2 h-4 w-4" />
-                                        Create Cluster
+                                        {t("newCluster")}
                                     </Button>
                                 </Link>
                             </div>
@@ -227,8 +225,8 @@ export default function InfrastructureDashboardPage({
                                                 }
                                             >
                                                 {cluster.is_active
-                                                    ? "Active"
-                                                    : "Inactive"}
+                                                    ? t("clusters.active")
+                                                    : t("clusters.inactive")}
                                             </Badge>
                                         </div>
                                     </Link>
@@ -242,10 +240,10 @@ export default function InfrastructureDashboardPage({
                 <Card>
                     <CardHeader>
                         <div className="flex items-center justify-between">
-                            <CardTitle>Recent Nodes</CardTitle>
+                            <CardTitle>{t("nodes.title")}</CardTitle>
                             <Link href={`/${locale}/infrastructure/nodes`}>
                                 <Button variant="ghost" size="sm">
-                                    View All
+                                    {t("nodes.viewAll")}
                                 </Button>
                             </Link>
                         </div>
@@ -255,7 +253,7 @@ export default function InfrastructureDashboardPage({
                             <div className="py-8 text-center">
                                 <Cpu className="mx-auto mb-3 h-12 w-12 text-muted-foreground/50" />
                                 <p className="text-sm text-muted-foreground">
-                                    No nodes found
+                                    {t("nodes.empty")}
                                 </p>
                                 <Link
                                     href={`/${locale}/infrastructure/nodes/new`}
@@ -266,7 +264,7 @@ export default function InfrastructureDashboardPage({
                                         className="mt-3"
                                     >
                                         <Plus className="mr-2 h-4 w-4" />
-                                        Create Node
+                                        {t("newNode")}
                                     </Button>
                                 </Link>
                             </div>
@@ -292,7 +290,9 @@ export default function InfrastructureDashboardPage({
                                             </div>
                                             <div className="flex gap-2">
                                                 <Badge variant="secondary">
-                                                    {node.node_role}
+                                                    {node.node_role === "master"
+                                                        ? t("nodes.master")
+                                                        : t("nodes.worker")}
                                                 </Badge>
                                                 <Badge
                                                     variant={
@@ -302,8 +302,8 @@ export default function InfrastructureDashboardPage({
                                                     }
                                                 >
                                                     {node.is_active
-                                                        ? "Active"
-                                                        : "Inactive"}
+                                                        ? t("nodes.active")
+                                                        : t("nodes.inactive")}
                                                 </Badge>
                                             </div>
                                         </div>

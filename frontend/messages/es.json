@@ -244,17 +244,103 @@
   "infrastructure": {
     "title": "Resumen de Infraestructura",
     "subtitle": "Gestiona tus clústeres Kubernetes y nodos de infraestructura",
-    "overview": "Resumen de Infraestructura"
+    "overview": "Resumen de Infraestructura",
+    "newCluster": "Nuevo Clúster",
+    "newNode": "Nuevo Nodo",
+    "stats": {
+      "totalClusters": "Total de Clústeres",
+      "totalNodes": "Total de Nodos",
+      "masterNodes": "Nodos Maestros",
+      "workerNodes": "Nodos Workers",
+      "active": "activo(s)",
+      "controlPlane": "Plano de control",
+      "workload": "Carga de trabajo"
+    },
+    "clusters": {
+      "title": "Clústeres Recientes",
+      "viewAll": "Ver todos los clústeres",
+      "name": "Nombre",
+      "environment": "Entorno",
+      "version": "Versión",
+      "nodes": "nodos",
+      "status": "Estado",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "empty": "No hay clústeres",
+      "emptyDescription": "Crea tu primer clúster Kubernetes para empezar."
+    },
+    "nodes": {
+      "title": "Nodos Recientes",
+      "viewAll": "Ver todos los nodos",
+      "name": "Nombre",
+      "cluster": "Clúster",
+      "role": "Rol",
+      "status": "Estado",
+      "master": "Maestro",
+      "worker": "Worker",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "empty": "No hay nodos",
+      "emptyDescription": "Agrega nodos a tus clústeres para empezar."
+    },
+    "loading": "Cargando infraestructura..."
   },
   "integration": {
     "title": "Resumen de Integración",
     "subtitle": "Gestiona tus integraciones de servicios y enlaces de comunicación",
-    "overview": "Resumen de Integración"
+    "overview": "Resumen de Integración",
+    "newLink": "Nuevo Enlace",
+    "stats": {
+      "totalLinks": "Total de Enlaces",
+      "activeLinks": "Enlaces Activos",
+      "synchronous": "Síncronos",
+      "asynchronous": "Asíncronos",
+      "httpProtocol": "HTTP/HTTPS",
+      "grpcProtocol": "gRPC",
+      "active": "activo(s)",
+      "messageDriven": "basado en mensajes"
+    },
+    "links": {
+      "title": "Enlaces Recientes",
+      "viewAll": "Ver todos los enlaces",
+      "name": "Nombre",
+      "type": "Tipo",
+      "protocol": "Protocolo",
+      "style": "Estilo",
+      "status": "Estado",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "empty": "No hay enlaces",
+      "emptyDescription": "Crea tu primer enlace de integración para empezar."
+    },
+    "loading": "Cargando integraciones..."
   },
   "platform": {
     "title": "Resumen de Plataforma",
     "subtitle": "Gestiona tus plataformas y stack tecnológico",
-    "overview": "Resumen de Plataforma"
+    "overview": "Resumen de Plataforma",
+    "newPlatform": "Nueva Plataforma",
+    "stats": {
+      "totalPlatforms": "Total de Plataformas",
+      "withVendor": "Con Proveedor",
+      "withUrl": "Con URL",
+      "withVersion": "Con Versión",
+      "registered": "plataformas registradas",
+      "vendorAssigned": "proveedor asignado",
+      "externalLinks": "enlaces externos",
+      "versionTracked": "con versión rastreada"
+    },
+    "platforms": {
+      "title": "Plataformas Recientes",
+      "viewAll": "Ver todas las plataformas",
+      "name": "Nombre",
+      "vendor": "Proveedor",
+      "version": "Versión",
+      "url": "URL",
+      "empty": "No hay plataformas",
+      "emptyDescription": "Registra tu primera plataforma para empezar."
+    },
+    "loading": "Cargando plataformas..."
   },
   "dashboard": {
     "title": "Panel de Control",

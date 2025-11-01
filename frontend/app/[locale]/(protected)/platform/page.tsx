@@ -50,7 +50,7 @@ export default function PlatformDashboardPage({
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
                     <p className="text-muted-foreground">
-                        Loading platforms...
+                        {t("loading")}
                     </p>
                 </div>
             </div>
@@ -68,7 +68,7 @@ export default function PlatformDashboardPage({
                     <Link href={`/${locale}/platform/platforms/new`}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
-                            New Platform
+                            {t("newPlatform")}
                         </Button>
                     </Link>
                 }
@@ -80,7 +80,7 @@ export default function PlatformDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Total Platforms
+                            {t("stats.totalPlatforms")}
                         </CardTitle>
                         <Box className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -89,7 +89,7 @@ export default function PlatformDashboardPage({
                             {stats.totalPlatforms}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Registered platforms
+                            {t("stats.registered")}
                         </p>
                     </CardContent>
                 </Card>
@@ -98,7 +98,7 @@ export default function PlatformDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            With Vendor
+                            {t("stats.withVendor")}
                         </CardTitle>
                         <Package className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -107,7 +107,7 @@ export default function PlatformDashboardPage({
                             {stats.withVendor}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Vendor assigned
+                            {t("stats.vendorAssigned")}
                         </p>
                     </CardContent>
                 </Card>
@@ -116,7 +116,7 @@ export default function PlatformDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            With URL
+                            {t("stats.withUrl")}
                         </CardTitle>
                         <Layers className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -125,7 +125,7 @@ export default function PlatformDashboardPage({
                             {stats.withUrl}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            External links
+                            {t("stats.externalLinks")}
                         </p>
                     </CardContent>
                 </Card>
@@ -134,7 +134,7 @@ export default function PlatformDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Versioned
+                            {t("stats.withVersion")}
                         </CardTitle>
                         <Package className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -143,7 +143,7 @@ export default function PlatformDashboardPage({
                             {stats.withVersion}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Version tracked
+                            {t("stats.versionTracked")}
                         </p>
                     </CardContent>
                 </Card>
@@ -153,10 +153,10 @@ export default function PlatformDashboardPage({
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
-                        <CardTitle>Platforms</CardTitle>
+                        <CardTitle>{t("platforms.title")}</CardTitle>
                         <Link href={`/${locale}/platform/platforms`}>
                             <Button variant="ghost" size="sm">
-                                View All
+                                {t("platforms.viewAll")}
                             </Button>
                         </Link>
                     </div>
@@ -166,10 +166,10 @@ export default function PlatformDashboardPage({
                         <div className="py-12 text-center">
                             <HiCube className="mx-auto mb-4 h-16 w-16 text-muted-foreground/50" />
                             <h3 className="mb-2 text-lg font-semibold">
-                                No platforms found
+                                {t("platforms.empty")}
                             </h3>
                             <p className="mb-4 text-sm text-muted-foreground">
-                                Get started by creating your first platform
+                                {t("platforms.emptyDescription")}
                             </p>
                             <Link href={`/${locale}/platform/platforms/new`}>
                                 <Button>

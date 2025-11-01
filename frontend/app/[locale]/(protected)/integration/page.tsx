@@ -58,9 +58,7 @@ export default function IntegrationDashboardPage({
             <div className="container mx-auto flex min-h-[400px] items-center justify-center p-6">
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
-                    <p className="text-muted-foreground">
-                        Loading integrations...
-                    </p>
+                    <p className="text-muted-foreground">{t("loading")}</p>
                 </div>
             </div>
         );
@@ -77,7 +75,7 @@ export default function IntegrationDashboardPage({
                     <Link href={`/${locale}/integration/links/new`}>
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
-                            New Link
+                            {t("newLink")}
                         </Button>
                     </Link>
                 }
@@ -89,7 +87,7 @@ export default function IntegrationDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Total Links
+                            {t("stats.totalLinks")}
                         </CardTitle>
                         <Cable className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -98,7 +96,7 @@ export default function IntegrationDashboardPage({
                             {stats.totalLinks}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            {stats.activeLinks} active
+                            {stats.activeLinks} {t("stats.active")}
                         </p>
                     </CardContent>
                 </Card>
@@ -107,7 +105,7 @@ export default function IntegrationDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Synchronous
+                            {t("stats.synchronous")}
                         </CardTitle>
                         <Activity className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -125,7 +123,7 @@ export default function IntegrationDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            Asynchronous
+                            {t("stats.asynchronous")}
                         </CardTitle>
                         <Zap className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -134,7 +132,7 @@ export default function IntegrationDashboardPage({
                             {stats.asynchronous}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            Message-driven
+                            {t("stats.messageDriven")}
                         </p>
                     </CardContent>
                 </Card>
@@ -143,7 +141,7 @@ export default function IntegrationDashboardPage({
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            HTTP/HTTPS
+                            {t("stats.httpProtocol")}
                         </CardTitle>
                         <Cable className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
@@ -152,7 +150,7 @@ export default function IntegrationDashboardPage({
                             {stats.httpProtocol}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            {stats.grpcProtocol} gRPC
+                            {stats.grpcProtocol} {t("stats.grpcProtocol")}
                         </p>
                     </CardContent>
                 </Card>
@@ -162,10 +160,10 @@ export default function IntegrationDashboardPage({
             <Card>
                 <CardHeader>
                     <div className="flex items-center justify-between">
-                        <CardTitle>Integration Links</CardTitle>
+                        <CardTitle>{t("links.title")}</CardTitle>
                         <Link href={`/${locale}/integration/links`}>
                             <Button variant="ghost" size="sm">
-                                View All
+                                {t("links.viewAll")}
                             </Button>
                         </Link>
                     </div>
@@ -175,11 +173,10 @@ export default function IntegrationDashboardPage({
                         <div className="py-12 text-center">
                             <HiLink className="mx-auto mb-4 h-16 w-16 text-muted-foreground/50" />
                             <h3 className="mb-2 text-lg font-semibold">
-                                No integration links found
+                                {t("links.empty")}
                             </h3>
                             <p className="mb-4 text-sm text-muted-foreground">
-                                Get started by creating your first integration
-                                link
+                                {t("links.emptyDescription")}
                             </p>
                             <Link href={`/${locale}/integration/links/new`}>
                                 <Button>

@@ -244,17 +244,103 @@
   "infrastructure": {
     "title": "Infrastructure Overview",
     "subtitle": "Manage your Kubernetes clusters and infrastructure nodes",
-    "overview": "Infrastructure Overview"
+    "overview": "Infrastructure Overview",
+    "newCluster": "New Cluster",
+    "newNode": "New Node",
+    "stats": {
+      "totalClusters": "Total Clusters",
+      "totalNodes": "Total Nodes",
+      "masterNodes": "Master Nodes",
+      "workerNodes": "Worker Nodes",
+      "active": "active",
+      "controlPlane": "Control plane",
+      "workload": "Workload"
+    },
+    "clusters": {
+      "title": "Recent Clusters",
+      "viewAll": "View all clusters",
+      "name": "Name",
+      "environment": "Environment",
+      "version": "Version",
+      "nodes": "nodes",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "No clusters yet",
+      "emptyDescription": "Create your first Kubernetes cluster to get started."
+    },
+    "nodes": {
+      "title": "Recent Nodes",
+      "viewAll": "View all nodes",
+      "name": "Name",
+      "cluster": "Cluster",
+      "role": "Role",
+      "status": "Status",
+      "master": "Master",
+      "worker": "Worker",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "No nodes yet",
+      "emptyDescription": "Add nodes to your clusters to get started."
+    },
+    "loading": "Loading infrastructure..."
   },
   "integration": {
     "title": "Integration Overview",
     "subtitle": "Manage your service integrations and communication links",
-    "overview": "Integration Overview"
+    "overview": "Integration Overview",
+    "newLink": "New Link",
+    "stats": {
+      "totalLinks": "Total Links",
+      "activeLinks": "Active Links",
+      "synchronous": "Synchronous",
+      "asynchronous": "Asynchronous",
+      "httpProtocol": "HTTP/HTTPS",
+      "grpcProtocol": "gRPC",
+      "active": "active",
+      "messageDriven": "message-driven"
+    },
+    "links": {
+      "title": "Recent Links",
+      "viewAll": "View all links",
+      "name": "Name",
+      "type": "Type",
+      "protocol": "Protocol",
+      "style": "Style",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "No links yet",
+      "emptyDescription": "Create your first integration link to get started."
+    },
+    "loading": "Loading integrations..."
   },
   "platform": {
     "title": "Platform Overview",
     "subtitle": "Manage your platforms and technology stack",
-    "overview": "Platform Overview"
+    "overview": "Platform Overview",
+    "newPlatform": "New Platform",
+    "stats": {
+      "totalPlatforms": "Total Platforms",
+      "withVendor": "With Vendor",
+      "withUrl": "With URL",
+      "withVersion": "With Version",
+      "registered": "registered platforms",
+      "vendorAssigned": "vendor assigned",
+      "externalLinks": "external links",
+      "versionTracked": "version tracked"
+    },
+    "platforms": {
+      "title": "Recent Platforms",
+      "viewAll": "View all platforms",
+      "name": "Name",
+      "vendor": "Vendor",
+      "version": "Version",
+      "url": "URL",
+      "empty": "No platforms yet",
+      "emptyDescription": "Register your first platform to get started."
+    },
+    "loading": "Loading platforms..."
   },
   "dashboard": {
     "title": "Dashboard",
