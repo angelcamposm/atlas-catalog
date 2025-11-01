@@ -11,6 +11,8 @@ import {
     HiBell,
     HiComputerDesktop,
     HiLanguage,
+    HiSparkles,
+    HiFire,
 } from "react-icons/hi2";
 import {
     Card,
@@ -40,6 +42,10 @@ export default function SettingsPage({
     const themes = [
         { value: "light", label: t("theme.light"), icon: HiSun },
         { value: "dark", label: t("theme.dark"), icon: HiMoon },
+        { value: "blue", label: t("theme.blue"), icon: HiSparkles },
+        { value: "purple", label: t("theme.purple"), icon: HiSparkles },
+        { value: "green", label: t("theme.green"), icon: HiSparkles },
+        { value: "orange", label: t("theme.orange"), icon: HiFire },
         { value: "system", label: t("theme.system"), icon: HiComputerDesktop },
     ];
 

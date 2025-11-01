@@ -37,6 +37,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
+import packageJson from "@/package.json";
 
 interface AppSidebarProps {
     locale: string;
@@ -373,7 +374,7 @@ export function AppSidebar({ locale }: AppSidebarProps) {
                             <span className="font-medium">Frontend</span>
                         </div>
                         <div className="rounded-full bg-gradient-blue-indigo px-2.5 py-0.5 text-xs font-semibold text-white">
-                            v0.1.0
+                            v{packageJson.version}
                         </div>
                     </div>
                 </div>

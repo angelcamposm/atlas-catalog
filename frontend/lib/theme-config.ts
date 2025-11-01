@@ -5,7 +5,7 @@
  * The system is designed to be extensible - add new themes here as needed.
  */
 
-export type ThemeName = "light" | "dark" | "blue" | "purple" | "system";
+export type ThemeName = "light" | "dark" | "blue" | "purple" | "green" | "orange" | "system";
 
 export interface ThemeConfig {
     name: ThemeName;
@@ -70,6 +70,28 @@ export const themes: Record<ThemeName, ThemeConfig> = {
             foreground: "#581c87",
         },
     },
+    green: {
+        name: "green",
+        label: "Forest Green",
+        colors: {
+            primary: "#10b981",
+            secondary: "#059669",
+            accent: "#14b8a6",
+            background: "#f0fdf4",
+            foreground: "#064e3b",
+        },
+    },
+    orange: {
+        name: "orange",
+        label: "Sunset Orange",
+        colors: {
+            primary: "#f97316",
+            secondary: "#ea580c",
+            accent: "#fb923c",
+            background: "#fff7ed",
+            foreground: "#7c2d12",
+        },
+    },
     system: {
         name: "system",
         label: "System",
@@ -87,7 +109,7 @@ export const themes: Record<ThemeName, ThemeConfig> = {
  * Active themes that are currently available in the UI
  * Add/remove theme names here to enable/disable them
  */
-export const activeThemes: ThemeName[] = ["light", "dark", "system"];
+export const activeThemes: ThemeName[] = ["light", "dark", "blue", "purple", "green", "orange", "system"];
 
 /**
  * Default theme

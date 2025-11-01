@@ -282,3 +282,87 @@ html {
         @apply bg-background text-foreground;
     }
 }
+
+/* Theme: Blue (Ocean Blue) */
+.blue {
+    --background: #f0f9ff; /* sky-50 */
+    --foreground: #0c4a6e; /* sky-900 */
+    --primary: #0ea5e9; /* sky-500 */
+    --primary-foreground: #ffffff;
+    --secondary: #0284c7; /* sky-600 */
+    --secondary-foreground: #ffffff;
+    --accent: #06b6d4; /* cyan-500 */
+    --accent-foreground: #ffffff;
+    --muted: #e0f2fe; /* sky-100 */
+    --muted-foreground: #475569; /* slate-600 */
+    --border: #bae6fd; /* sky-200 */
+    --input: #bae6fd;
+    --ring: #0ea5e9;
+    --card: #ffffff;
+    --card-foreground: #0c4a6e;
+    --popover: #ffffff;
+    --popover-foreground: #0c4a6e;
+}
+
+/* Theme: Purple (Royal Purple) */
+.purple {
+    --background: #faf5ff; /* purple-50 */
+    --foreground: #581c87; /* purple-900 */
+    --primary: #a855f7; /* purple-500 */
+    --primary-foreground: #ffffff;
+    --secondary: #9333ea; /* purple-600 */
+    --secondary-foreground: #ffffff;
+    --accent: #c026d3; /* fuchsia-600 */
+    --accent-foreground: #ffffff;
+    --muted: #f3e8ff; /* purple-100 */
+    --muted-foreground: #7c3aed; /* violet-600 */
+    --border: #e9d5ff; /* purple-200 */
+    --input: #e9d5ff;
+    --ring: #a855f7;
+    --card: #ffffff;
+    --card-foreground: #581c87;
+    --popover: #ffffff;
+    --popover-foreground: #581c87;
+}
+
+/* Theme: Green (Forest Green) */
+.green {
+    --background: #f0fdf4; /* green-50 */
+    --foreground: #064e3b; /* emerald-900 */
+    --primary: #10b981; /* emerald-500 */
+    --primary-foreground: #ffffff;
+    --secondary: #059669; /* emerald-600 */
+    --secondary-foreground: #ffffff;
+    --accent: #14b8a6; /* teal-500 */
+    --accent-foreground: #ffffff;
+    --muted: #d1fae5; /* emerald-100 */
+    --muted-foreground: #047857; /* emerald-700 */
+    --border: #a7f3d0; /* emerald-200 */
+    --input: #a7f3d0;
+    --ring: #10b981;
+    --card: #ffffff;
+    --card-foreground: #064e3b;
+    --popover: #ffffff;
+    --popover-foreground: #064e3b;
+}
+
+/* Theme: Orange (Sunset Orange) */
+.orange {
+    --background: #fff7ed; /* orange-50 */
+    --foreground: #7c2d12; /* orange-900 */
+    --primary: #f97316; /* orange-500 */
+    --primary-foreground: #ffffff;
+    --secondary: #ea580c; /* orange-600 */
+    --secondary-foreground: #ffffff;
+    --accent: #fb923c; /* orange-400 */
+    --accent-foreground: #ffffff;
+    --muted: #ffedd5; /* orange-100 */
+    --muted-foreground: #c2410c; /* orange-700 */
+    --border: #fed7aa; /* orange-200 */
+    --input: #fed7aa;
+    --ring: #f97316;
+    --card: #ffffff;
+    --card-foreground: #7c2d12;
+    --popover: #ffffff;
+    --popover-foreground: #7c2d12;
+}

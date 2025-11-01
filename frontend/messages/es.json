@@ -256,6 +256,8 @@
     "system": "Sistema",
     "blue": "Azul Océano",
     "purple": "Púrpura Real",
+    "green": "Verde Bosque",
+    "orange": "Naranja Atardecer",
     "profilePicture": "Foto de Perfil",
     "uploadImage": "Subir Imagen",
     "changeImage": "Cambiar Imagen",
@@ -283,6 +285,10 @@
     "theme": {
       "light": "Claro",
       "dark": "Oscuro",
+      "blue": "Azul Océano",
+      "purple": "Púrpura Real",
+      "green": "Verde Bosque",
+      "orange": "Naranja Atardecer",
       "system": "Sistema"
     },
     "language": {

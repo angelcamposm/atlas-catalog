@@ -256,6 +256,8 @@
     "system": "System",
     "blue": "Ocean Blue",
     "purple": "Royal Purple",
+    "green": "Forest Green",
+    "orange": "Sunset Orange",
     "profilePicture": "Profile Picture",
     "uploadImage": "Upload Image",
     "changeImage": "Change Image",
@@ -283,6 +285,10 @@
     "theme": {
       "light": "Light",
       "dark": "Dark",
+      "blue": "Ocean Blue",
+      "purple": "Royal Purple",
+      "green": "Forest Green",
+      "orange": "Sunset Orange",
       "system": "System"
     },
     "language": {
