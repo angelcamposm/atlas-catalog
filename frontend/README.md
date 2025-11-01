@@ -9,6 +9,7 @@ A modern Next.js application for visualizing and managing API catalogs with inte
 -   **UI Library**: [React 19](https://react.dev)
 -   **Styling**: [Tailwind CSS v4](https://tailwindcss.com)
 -   **Components**: [shadcn/ui](https://ui.shadcn.com)
+-   **Icons**: [react-icons](https://react-icons.github.io/react-icons/) - Popular icon library with Font Awesome, Hero Icons, Material Design, and more
 -   **Typography**: [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin)
 -   **Internationalization**: [next-intl v4](https://next-intl.dev)
 -   **API Client**: Custom REST client with TypeScript types

@@ -23,6 +23,7 @@
     "n_a": "N/A",
     "language": "Language",
     "login": "Login",
+    "signIn": "Sign In",
     "locale": {
       "en": "English",
       "es": "Spanish"
@@ -33,6 +34,59 @@
     "howItWorks": "How It Works",
     "testimonials": "Testimonials",
     "catalog": "Catalog"
+  },
+  "sidebar": {
+    "navigation": "Navigation",
+    "expand": "Expand sidebar",
+    "collapse": "Collapse sidebar",
+    "dashboard": "Dashboard",
+    "apis": "APIs",
+    "lifecycles": "Lifecycles",
+    "types": "Types",
+    "teams": "Teams",
+    "analytics": "Analytics",
+    "documentation": "Documentation",
+    "security": "Security",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
+  "footer": {
+    "tagline": "Centralized API catalog management for modern platform teams",
+    "changelog": "Changelog",
+    "product": {
+      "title": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "documentation": "Documentation",
+      "apiCatalog": "API Catalog"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About Us",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "resources": {
+      "title": "Resources",
+      "guides": "Guides",
+      "help": "Help Center",
+      "community": "Community",
+      "status": "Status"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "license": "License"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for the latest updates and features.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    }
   },
   "home": {
     "title": "Atlas Catalog",

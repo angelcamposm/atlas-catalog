@@ -3,6 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/home/HeroSection";
 import { TrustedBrandsSection } from "@/components/home/TrustedBrandsSection";
 import { FeatureHighlightsSection } from "@/components/home/FeatureHighlightsSection";
+import { MetricsSection } from "@/components/home/MetricsSection";
 import { QuickLinksSection } from "@/components/home/QuickLinksSection";
 import { HowItWorksSection } from "@/components/home/HowItWorksSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
@@ -50,13 +51,6 @@ export default async function HomePage({ params }: HomePageProps) {
     }));
 
     const quickLinkConfig = [
-        {
-            key: "catalog",
-            href: `${basePath}/apis`,
-            actionLabel: common("viewApis"),
-            variant: "primary" as const,
-            disabled: false,
-        },
         {
             key: "types",
             href: `${basePath}/api-types`,
@@ -123,7 +117,7 @@ export default async function HomePage({ params }: HomePageProps) {
     return (
         <>
             <Navbar locale={locale} />
-            <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+            <div className="bg-white pt-16 text-gray-900 dark:bg-gray-900 dark:text-white">
                 <HeroSection
                     badge={t("hero.badge")}
                     titleHighlight={t("hero.title.highlight")}
@@ -150,6 +144,12 @@ export default async function HomePage({ params }: HomePageProps) {
                         items={featureItems}
                     />
                 </div>
+                <div id="metrics">
+                    <MetricsSection
+                        title="Métricas y Estadísticas"
+                        subtitle="Visualiza el rendimiento y distribución de tus APIs en tiempo real"
+                    />
+                </div>
                 <QuickLinksSection
                     title={t("quickLinks.title")}
                     subtitle={t("quickLinks.subtitle")}
@@ -174,7 +174,7 @@ export default async function HomePage({ params }: HomePageProps) {
                     description={t("quickStart.description")}
                     primaryCta={{
                         label: t("quickStart.primaryCta"),
-                        href: `${basePath}/apis`,
+                        href: `${basePath}/login`,
                     }}
                     secondaryCta={{
                         label: t("quickStart.secondaryCta"),

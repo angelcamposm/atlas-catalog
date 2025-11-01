@@ -29,13 +29,19 @@ export function LocaleSwitcher() {
     };
 
     return (
-        <div className="fixed top-4 right-4 z-50">
+        <div className="relative">
             <label htmlFor="locale-switcher" className="sr-only">
                 {t("language")}
             </label>
             <select
                 id="locale-switcher"
-                className="rounded border border-gray-300 bg-white px-3 py-1 text-sm text-gray-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100"
+                className="h-9 cursor-pointer appearance-none rounded-lg border border-gray-300/60 bg-white/80 px-3 pr-8 text-sm font-medium text-gray-700 shadow-sm backdrop-blur-sm transition-all hover:border-blue-400 hover:bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200/50 dark:border-gray-700/60 dark:bg-gray-800/80 dark:text-gray-100 dark:hover:border-blue-500 dark:hover:bg-gray-800"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                    backgroundPosition: "right 0.5rem center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "1.5em 1.5em",
+                }}
                 value={locale}
                 disabled={isPending}
                 onChange={handleChange}

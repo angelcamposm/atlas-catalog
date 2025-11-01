@@ -23,6 +23,7 @@
     "n_a": "N/D",
     "language": "Idioma",
     "login": "Iniciar sesion",
+    "signIn": "Acceder",
     "locale": {
       "en": "Ingles",
       "es": "Espanol"
@@ -33,6 +34,59 @@
     "howItWorks": "Como Funciona",
     "testimonials": "Testimonios",
     "catalog": "Catalogo"
+  },
+  "sidebar": {
+    "navigation": "Navegación",
+    "expand": "Expandir barra lateral",
+    "collapse": "Contraer barra lateral",
+    "dashboard": "Panel",
+    "apis": "APIs",
+    "lifecycles": "Ciclos de Vida",
+    "types": "Tipos",
+    "teams": "Equipos",
+    "analytics": "Analíticas",
+    "documentation": "Documentación",
+    "security": "Seguridad",
+    "notifications": "Notificaciones",
+    "settings": "Configuración"
+  },
+  "footer": {
+    "tagline": "Catálogo centralizado de APIs para equipos de plataforma modernos",
+    "changelog": "Registro de cambios",
+    "product": {
+      "title": "Producto",
+      "features": "Características",
+      "pricing": "Precios",
+      "documentation": "Documentación",
+      "apiCatalog": "Catálogo de APIs"
+    },
+    "company": {
+      "title": "Empresa",
+      "about": "Acerca de",
+      "blog": "Blog",
+      "careers": "Carreras",
+      "contact": "Contacto"
+    },
+    "resources": {
+      "title": "Recursos",
+      "guides": "Guías",
+      "help": "Centro de Ayuda",
+      "community": "Comunidad",
+      "status": "Estado"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio",
+      "cookies": "Política de Cookies",
+      "license": "Licencia"
+    },
+    "newsletter": {
+      "title": "Mantente Actualizado",
+      "description": "Suscríbete a nuestro boletín para recibir las últimas actualizaciones y funciones.",
+      "placeholder": "Ingresa tu correo",
+      "subscribe": "Suscribirse"
+    }
   },
   "home": {
     "title": "Catalogo Atlas",

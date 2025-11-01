@@ -36,7 +36,7 @@ export function HeroSection({
     return (
         <section
             id="hero"
-            className="relative overflow-hidden bg-linear-to-b from-blue-50 via-white to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-900"
+            className="relative overflow-hidden bg-gradient-hero dark:from-gray-950 dark:via-gray-900 dark:to-gray-900"
         >
             <div className="absolute inset-0 -z-10">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.15),transparent_55%)] dark:bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.2),transparent_60%)]" />
@@ -52,7 +52,7 @@ export function HeroSection({
                     </Badge>
                     <h1 className="text-4xl font-bold leading-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
                         {titleHighlight}{" "}
-                        <span className="bg-linear-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-text-blue-indigo-blue">
                             {titleAccent}
                         </span>
                     </h1>

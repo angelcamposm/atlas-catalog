@@ -31,7 +31,7 @@ export default function Home() {
                                 with rich metadata and documentation.
                             </p>
                             <Link href="/apis">
-                                <Button variant="primary" className="w-full">
+                                <Button variant="default" className="w-full">
                                     View APIs
                                 </Button>
                             </Link>

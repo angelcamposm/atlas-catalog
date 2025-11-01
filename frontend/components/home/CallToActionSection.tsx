@@ -37,7 +37,7 @@ export function CallToActionSection({
     return (
         <section
             id="quickstart"
-            className="relative overflow-hidden bg-linear-to-r from-blue-600 via-indigo-600 to-blue-700 py-24 text-white"
+            className="relative overflow-hidden bg-gradient-cta py-24 text-white"
         >
             <div className="absolute inset-0 -z-10 opacity-30 bg-white/10 blur-3xl" />
             <div className="container mx-auto px-4">

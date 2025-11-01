@@ -13,7 +13,13 @@ interface QuickLinkItem {
     description: string;
     actionLabel: string;
     href: string;
-    variant?: "primary" | "secondary" | "ghost";
+    variant?:
+        | "default"
+        | "destructive"
+        | "outline"
+        | "secondary"
+        | "ghost"
+        | "link";
     disabled?: boolean;
 }
 
