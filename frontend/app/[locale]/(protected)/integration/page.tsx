@@ -7,6 +7,7 @@ import { HiLink } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { linksApi } from "@/lib/api/integration";
 import type { Link as IntegrationLink } from "@/types/api";
 
@@ -66,22 +67,19 @@ export default function IntegrationDashboardPage({
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight">
-                        Integration Overview
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Manage your service integrations and communication links
-                    </p>
-                </div>
-                <Link href={`/${locale}/integration/links/new`}>
-                    <Button>
-                        <Plus className="mr-2 h-4 w-4" />
-                        New Link
-                    </Button>
-                </Link>
-            </div>
+            <PageHeader
+                icon={HiLink}
+                title="Integration Overview"
+                subtitle="Manage your service integrations and communication links"
+                actions={
+                    <Link href={`/${locale}/integration/links/new`}>
+                        <Button>
+                            <Plus className="mr-2 h-4 w-4" />
+                            New Link
+                        </Button>
+                    </Link>
+                }
+            />
 
             {/* Stats Grid */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -181,9 +179,7 @@ export default function IntegrationDashboardPage({
                                 Get started by creating your first integration
                                 link
                             </p>
-                            <Link
-                                href={`/${locale}/integration/links/new`}
-                            >
+                            <Link href={`/${locale}/integration/links/new`}>
                                 <Button>
                                     <Plus className="mr-2 h-4 w-4" />
                                     Create Link

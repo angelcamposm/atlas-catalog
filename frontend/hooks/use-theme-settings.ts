@@ -10,28 +10,35 @@ const DARK_THEME_KEY = "dark-theme";
 
 export function useThemeSettings() {
     const { setTheme: setNextTheme, systemTheme } = useTheme();
-    
+
     const [colorMode, setColorModeState] = useState<ColorMode>(() => {
         if (typeof window !== "undefined") {
-            return (localStorage.getItem(COLOR_MODE_KEY) as ColorMode) || "system";
+            return (
+                (localStorage.getItem(COLOR_MODE_KEY) as ColorMode) || "system"
+            );
         }
         return "system";
     });
-    
+
     const [lightTheme, setLightThemeState] = useState<LightTheme>(() => {
         if (typeof window !== "undefined") {
-            return (localStorage.getItem(LIGHT_THEME_KEY) as LightTheme) || "default";
+            return (
+                (localStorage.getItem(LIGHT_THEME_KEY) as LightTheme) ||
+                "default"
+            );
         }
         return "default";
     });
-    
+
     const [darkTheme, setDarkThemeState] = useState<DarkTheme>(() => {
         if (typeof window !== "undefined") {
-            return (localStorage.getItem(DARK_THEME_KEY) as DarkTheme) || "default";
+            return (
+                (localStorage.getItem(DARK_THEME_KEY) as DarkTheme) || "default"
+            );
         }
         return "default";
     });
-    
+
     const [mounted, setMounted] = useState(false);
 
     // Set mounted state
@@ -48,14 +55,17 @@ export function useThemeSettings() {
 
         // Add theme variant class
         const html = document.documentElement;
-        
+
         // Remove all theme classes
-        html.classList.remove("theme-orange", "theme-green", "theme-blue", "theme-purple");
+        html.classList.remove(
+            "theme-orange",
+            "theme-green",
+            "theme-blue",
+            "theme-purple"
+        );
 
         // Determine which theme to apply
-        const effectiveMode = colorMode === "system" 
-            ? systemTheme 
-            : colorMode;
+        const effectiveMode = colorMode === "system" ? systemTheme : colorMode;
 
         if (effectiveMode === "light" && lightTheme !== "default") {
             html.classList.add(`theme-${lightTheme}`);

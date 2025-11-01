@@ -6,6 +6,7 @@ import { Box, Plus, Package, Layers } from "lucide-react";
 import { HiCube } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { platformsApi } from "@/lib/api/platform";
 import type { Platform } from "@/types/api";
 
@@ -57,22 +58,19 @@ export default function PlatformDashboardPage({
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight">
-                        Platform Overview
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Manage your platforms and technology stack
-                    </p>
-                </div>
-                <Link href={`/${locale}/platform/platforms/new`}>
-                    <Button>
-                        <Plus className="mr-2 h-4 w-4" />
-                        New Platform
-                    </Button>
-                </Link>
-            </div>
+            <PageHeader
+                icon={HiCube}
+                title="Platform Overview"
+                subtitle="Manage your platforms and technology stack"
+                actions={
+                    <Link href={`/${locale}/platform/platforms/new`}>
+                        <Button>
+                            <Plus className="mr-2 h-4 w-4" />
+                            New Platform
+                        </Button>
+                    </Link>
+                }
+            />
 
             {/* Stats Grid */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -171,9 +169,7 @@ export default function PlatformDashboardPage({
                             <p className="mb-4 text-sm text-muted-foreground">
                                 Get started by creating your first platform
                             </p>
-                            <Link
-                                href={`/${locale}/platform/platforms/new`}
-                            >
+                            <Link href={`/${locale}/platform/platforms/new`}>
                                 <Button>
                                     <Plus className="mr-2 h-4 w-4" />
                                     Create Platform

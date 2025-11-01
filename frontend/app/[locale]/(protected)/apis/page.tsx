@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { HiSquares2X2 } from "react-icons/hi2";
 import { apisApi } from "@/lib/api/apis";
 import type { Api, PaginatedApiResponse } from "@/types/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { Badge } from "@/components/ui/Badge";
+import { PageHeader } from "@/components/layout/PageHeader";
 
 export default function ApisPage() {
     const [apis, setApis] = useState<Api[]>([]);
@@ -37,6 +39,7 @@ export default function ApisPage() {
 
     useEffect(() => {
         void loadApis(currentPage);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     if (loading) {
@@ -70,15 +73,12 @@ export default function ApisPage() {
     }
 
     return (
-        <div className="p-6">
-            <div className="mb-8">
-                <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                    {t("title")}
-                </h1>
-                <p className="text-gray-600 dark:text-gray-400">
-                    {common("totalCount", { count: totalCount })}
-                </p>
-            </div>
+        <div className="container mx-auto space-y-6 p-6">
+            <PageHeader
+                icon={HiSquares2X2}
+                title={t("title")}
+                subtitle={common("totalCount", { count: totalCount })}
+            />
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {apis.map((api) => (

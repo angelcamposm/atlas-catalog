@@ -3,10 +3,11 @@
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { Server, Cpu, Plus, TrendingUp, Activity } from "lucide-react";
-import { HiServerStack } from "react-icons/hi2";
+import { HiServer, HiServerStack } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/Badge";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { clustersApi, nodesApi } from "@/lib/api/infrastructure";
 import type { Cluster, Node } from "@/types/api";
 
@@ -65,32 +66,27 @@ export default function InfrastructureDashboardPage({
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight">
-                        Infrastructure Overview
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Manage your Kubernetes clusters and infrastructure nodes
-                    </p>
-                </div>
-                <div className="flex gap-2">
-                    <Link
-                        href={`/${locale}/infrastructure/clusters/new`}
-                    >
-                        <Button>
-                            <Plus className="mr-2 h-4 w-4" />
-                            New Cluster
-                        </Button>
-                    </Link>
-                    <Link href={`/${locale}/infrastructure/nodes/new`}>
-                        <Button variant="outline">
-                            <Plus className="mr-2 h-4 w-4" />
-                            New Node
-                        </Button>
-                    </Link>
-                </div>
-            </div>
+            <PageHeader
+                icon={HiServer}
+                title="Infrastructure Overview"
+                subtitle="Manage your Kubernetes clusters and infrastructure nodes"
+                actions={
+                    <>
+                        <Link href={`/${locale}/infrastructure/clusters/new`}>
+                            <Button>
+                                <Plus className="mr-2 h-4 w-4" />
+                                New Cluster
+                            </Button>
+                        </Link>
+                        <Link href={`/${locale}/infrastructure/nodes/new`}>
+                            <Button variant="outline">
+                                <Plus className="mr-2 h-4 w-4" />
+                                New Node
+                            </Button>
+                        </Link>
+                    </>
+                }
+            />
 
             {/* Stats Grid */}
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -174,9 +170,7 @@ export default function InfrastructureDashboardPage({
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <CardTitle>Recent Clusters</CardTitle>
-                            <Link
-                                href={`/${locale}/infrastructure/clusters`}
-                            >
+                            <Link href={`/${locale}/infrastructure/clusters`}>
                                 <Button variant="ghost" size="sm">
                                     View All
                                 </Button>
@@ -247,9 +241,7 @@ export default function InfrastructureDashboardPage({
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <CardTitle>Recent Nodes</CardTitle>
-                            <Link
-                                href={`/${locale}/infrastructure/nodes`}
-                            >
+                            <Link href={`/${locale}/infrastructure/nodes`}>
                                 <Button variant="ghost" size="sm">
                                     View All
                                 </Button>

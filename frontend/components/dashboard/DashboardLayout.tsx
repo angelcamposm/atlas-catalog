@@ -1,22 +1,70 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/Button";
 import { LogOut, Bell } from "lucide-react";
+import {
+    HiServer,
+    HiLink,
+    HiCube,
+    HiSquares2X2,
+    HiChartBar,
+    HiCog6Tooth,
+} from "react-icons/hi2";
 
 interface DashboardLayoutProps {
     children: React.ReactNode;
     locale: string;
 }
 
+// Configuración de secciones con iconos y títulos
+const SECTION_CONFIG: Record<
+    string,
+    { icon: React.ElementType; title: string; subtitle?: string }
+> = {
+    "/dashboard": {
+        icon: HiChartBar,
+        title: "Dashboard",
+        subtitle: "Overview",
+    },
+    "/infrastructure": {
+        icon: HiServer,
+        title: "Infrastructure",
+        subtitle: "Manage your infrastructure",
+    },
+    "/integration": {
+        icon: HiLink,
+        title: "Integration",
+        subtitle: "Connect your services",
+    },
+    "/platform": {
+        icon: HiCube,
+        title: "Platform",
+        subtitle: "Platform management",
+    },
+    "/apis": {
+        icon: HiSquares2X2,
+        title: "APIs",
+        subtitle: "API catalog",
+    },
+    "/settings": {
+        icon: HiCog6Tooth,
+        title: "Settings",
+        subtitle: "Manage your preferences",
+    },
+};
+
 export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     const router = useRouter();
+    const pathname = usePathname();
+    const mainRef = useRef<HTMLElement>(null);
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
     // Mock user data - TODO: Replace with real user data from auth context
     const currentUser = {
@@ -24,6 +72,37 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
         email: "john@example.com",
         role: "Admin",
     };
+
+    // Detectar la sección actual basándose en la ruta
+    const getCurrentSection = () => {
+        // Remover el locale de la ruta
+        const pathWithoutLocale = pathname.replace(`/${locale}`, "");
+
+        // Buscar la sección que coincida
+        for (const [key, value] of Object.entries(SECTION_CONFIG)) {
+            if (pathWithoutLocale.startsWith(key)) {
+                return { key, ...value };
+            }
+        }
+
+        return null;
+    };
+
+    const currentSection = getCurrentSection();
+
+    // Detectar scroll para mostrar/ocultar el título en la barra superior
+    useEffect(() => {
+        const mainElement = mainRef.current;
+        if (!mainElement) return;
+
+        const handleScroll = () => {
+            // Mostrar título cuando se haya hecho scroll > 64px (altura de la barra superior h-16)
+            setIsScrolled(mainElement.scrollTop > 64);
+        };
+
+        mainElement.addEventListener("scroll", handleScroll);
+        return () => mainElement.removeEventListener("scroll", handleScroll);
+    }, []);
 
     const handleLogout = () => {
         // Por ahora solo redirige al home
@@ -41,15 +120,33 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                     {/* Top Bar - Fixed */}
                     <header className="sticky top-0 z-40 shrink-0 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
                         <div className="flex h-16 items-center justify-between px-6">
-                            {/* Left side - could add breadcrumbs or title here */}
-                            <div className="flex items-center space-x-4">
-                                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Dashboard
-                                </h2>
+                            {/* Left side - Section title (visible only when scrolled) */}
+                            <div
+                                className={`flex items-center space-x-3 transition-all duration-300 ${
+                                    isScrolled && currentSection
+                                        ? "opacity-100 translate-x-0"
+                                        : "opacity-0 -translate-x-4 pointer-events-none"
+                                }`}
+                            >
+                                {currentSection && (
+                                    <>
+                                        <currentSection.icon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+                                        <div>
+                                            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                                {currentSection.title}
+                                            </h2>
+                                            {currentSection.subtitle && (
+                                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                    {currentSection.subtitle}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </>
+                                )}
                             </div>
 
                             {/* Right side - User info and logout */}
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-3 ml-auto">
                                 {/* Notifications */}
                                 <div className="relative">
                                     <Button
@@ -102,7 +199,10 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                     </header>
 
                     {/* Page Content - Scrollable */}
-                    <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950">
+                    <main
+                        ref={mainRef}
+                        className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950"
+                    >
                         {children}
                     </main>
                 </SidebarInset>

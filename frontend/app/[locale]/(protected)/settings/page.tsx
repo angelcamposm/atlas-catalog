@@ -35,7 +35,7 @@ export default function SettingsPage({
     const t = useTranslations("settings");
     const router = useRouter();
     const pathname = usePathname();
-    
+
     const {
         colorMode,
         lightTheme,
@@ -45,7 +45,7 @@ export default function SettingsPage({
         setLightTheme,
         setDarkTheme,
     } = useThemeSettings();
-    
+
     const [emailNotifications, setEmailNotifications] = useState(true);
     const [pushNotifications, setPushNotifications] = useState(false);
     const [weeklyDigest, setWeeklyDigest] = useState(true);
@@ -53,19 +53,47 @@ export default function SettingsPage({
     const colorModes = [
         { value: "light" as const, label: t("colorMode.light"), icon: HiSun },
         { value: "dark" as const, label: t("colorMode.dark"), icon: HiMoon },
-        { value: "system" as const, label: t("colorMode.system"), icon: HiComputerDesktop },
+        {
+            value: "system" as const,
+            label: t("colorMode.system"),
+            icon: HiComputerDesktop,
+        },
     ];
 
     const lightThemeOptions = [
-        { value: "default" as const, label: t("lightTheme.default"), icon: HiSun },
-        { value: "orange" as const, label: t("lightTheme.orange"), icon: HiFire },
-        { value: "green" as const, label: t("lightTheme.green"), icon: HiSparkles },
+        {
+            value: "default" as const,
+            label: t("lightTheme.default"),
+            icon: HiSun,
+        },
+        {
+            value: "orange" as const,
+            label: t("lightTheme.orange"),
+            icon: HiFire,
+        },
+        {
+            value: "green" as const,
+            label: t("lightTheme.green"),
+            icon: HiSparkles,
+        },
     ];
 
     const darkThemeOptions = [
-        { value: "default" as const, label: t("darkTheme.default"), icon: HiMoon },
-        { value: "blue" as const, label: t("darkTheme.blue"), icon: HiSparkles },
-        { value: "purple" as const, label: t("darkTheme.purple"), icon: HiSparkles },
+        {
+            value: "default" as const,
+            label: t("darkTheme.default"),
+            icon: HiMoon,
+        },
+        {
+            value: "blue" as const,
+            label: t("darkTheme.blue"),
+            icon: HiSparkles,
+        },
+        {
+            value: "purple" as const,
+            label: t("darkTheme.purple"),
+            icon: HiSparkles,
+        },
     ];
 
     const languages = [
@@ -163,7 +191,8 @@ export default function SettingsPage({
                     </div>
 
                     {/* Light Theme Selection - Only show if light or system (and system resolves to light) */}
-                    {(colorMode === "light" || (colorMode === "system" && activeMode === "light")) && (
+                    {(colorMode === "light" ||
+                        (colorMode === "system" && activeMode === "light")) && (
                         <div>
                             <Label className="text-base mb-3 block">
                                 {t("appearance.lightThemeLabel")}
@@ -171,12 +200,15 @@ export default function SettingsPage({
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 {lightThemeOptions.map((themeOption) => {
                                     const Icon = themeOption.icon;
-                                    const isActive = lightTheme === themeOption.value;
+                                    const isActive =
+                                        lightTheme === themeOption.value;
 
                                     return (
                                         <button
                                             key={themeOption.value}
-                                            onClick={() => setLightTheme(themeOption.value)}
+                                            onClick={() =>
+                                                setLightTheme(themeOption.value)
+                                            }
                                             className={`
                                                 flex items-center gap-3 p-4 rounded-lg border-2 transition-all
                                                 ${
@@ -213,7 +245,8 @@ export default function SettingsPage({
                     )}
 
                     {/* Dark Theme Selection - Only show if dark or system (and system resolves to dark) */}
-                    {(colorMode === "dark" || (colorMode === "system" && activeMode === "dark")) && (
+                    {(colorMode === "dark" ||
+                        (colorMode === "system" && activeMode === "dark")) && (
                         <div>
                             <Label className="text-base mb-3 block">
                                 {t("appearance.darkThemeLabel")}
@@ -221,12 +254,15 @@ export default function SettingsPage({
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 {darkThemeOptions.map((themeOption) => {
                                     const Icon = themeOption.icon;
-                                    const isActive = darkTheme === themeOption.value;
+                                    const isActive =
+                                        darkTheme === themeOption.value;
 
                                     return (
                                         <button
                                             key={themeOption.value}
-                                            onClick={() => setDarkTheme(themeOption.value)}
+                                            onClick={() =>
+                                                setDarkTheme(themeOption.value)
+                                            }
                                             className={`
                                                 flex items-center gap-3 p-4 rounded-lg border-2 transition-all
                                                 ${
@@ -441,8 +477,13 @@ export default function SettingsPage({
                             {t("system.currentTheme")}
                         </span>
                         <span className="font-medium capitalize">
-                            {colorMode} {activeMode === "light" && lightTheme !== "default" && `(${lightTheme})`}
-                            {activeMode === "dark" && darkTheme !== "default" && `(${darkTheme})`}
+                            {colorMode}{" "}
+                            {activeMode === "light" &&
+                                lightTheme !== "default" &&
+                                `(${lightTheme})`}
+                            {activeMode === "dark" &&
+                                darkTheme !== "default" &&
+                                `(${darkTheme})`}
                         </span>
                     </div>
                 </CardContent>
