@@ -9,13 +9,13 @@ import { CallToActionSection } from "@/components/home/CallToActionSection";
 import { type Locale } from "@/i18n/config";
 
 interface HomePageProps {
-    params: {
+    params: Promise<{
         locale: Locale;
-    };
+    }>;
 }
 
 export default async function HomePage({ params }: HomePageProps) {
-    const { locale } = params;
+    const { locale } = await params;
     const t = await getTranslations({ locale, namespace: "home" });
     const common = await getTranslations({ locale, namespace: "common" });
 

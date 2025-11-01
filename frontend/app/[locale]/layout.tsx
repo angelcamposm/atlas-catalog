@@ -1,20 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import {
-    getMessages,
-    getTranslations,
-    unstable_setRequestLocale,
-} from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { locales, type Locale } from "@/i18n/config";
 
 interface LocaleLayoutProps {
     children: ReactNode;
-    params: {
+    params: Promise<{
         locale: Locale;
-    };
+    }>;
 }
 
 export function generateStaticParams() {
@@ -24,9 +20,9 @@ export function generateStaticParams() {
 export async function generateMetadata({
     params,
 }: {
-    params: { locale: Locale };
+    params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-    const { locale } = params;
+    const { locale } = await params;
 
     if (!locales.includes(locale)) {
         notFound();
@@ -44,13 +40,12 @@ export default async function LocaleLayout({
     children,
     params,
 }: LocaleLayoutProps) {
-    const { locale } = params;
+    const { locale } = await params;
 
     if (!locales.includes(locale)) {
         notFound();
     }
 
-    unstable_setRequestLocale(locale);
     const messages = await getMessages({ locale });
 
     return (

@@ -1,22 +1,24 @@
-import type { AbstractIntlMessages } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
+import { routing } from "./routing";
 import { type Locale } from "./config";
 
-const messagesMap: Record<Locale, () => Promise<AbstractIntlMessages>> = {
-    en: () => import("../messages/en.json").then((module) => module.default),
-    es: () => import("../messages/es.json").then((module) => module.default),
-};
+export default getRequestConfig(async ({ requestLocale }) => {
+    // Obtener el locale del request
+    const requestedLocale = await requestLocale;
 
-export default getRequestConfig(async ({ locale }) => {
-    const loader = messagesMap[locale as Locale];
+    // Validar que el locale es uno de los soportados, si no usar el default
+    const locale =
+        requestedLocale && routing.locales.includes(requestedLocale as Locale)
+            ? requestedLocale
+            : routing.defaultLocale;
 
-    if (!loader) {
-        throw new Error(`Unsupported locale: ${locale}`);
-    }
-
-    const messages = await loader();
+    // Cargar mensajes del locale correspondiente
+    const messages = await import(`../messages/${locale}.json`).then(
+        (module) => module.default
+    );
 
     return {
+        locale,
         messages,
     };
 });

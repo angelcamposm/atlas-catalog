@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "next-intl/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { locales, type Locale } from "@/i18n/config";
 
 export function LocaleSwitcher() {
@@ -19,7 +19,12 @@ export function LocaleSwitcher() {
         }
 
         startTransition(() => {
-            router.replace(pathname, { locale: nextLocale });
+            // Construir la nueva ruta con el locale actualizado
+            const segments = pathname.split("/").filter(Boolean);
+            // Reemplazar el primer segmento (locale actual) con el nuevo
+            segments[0] = nextLocale;
+            const newPath = `/${segments.join("/")}`;
+            router.push(newPath);
         });
     };
 
