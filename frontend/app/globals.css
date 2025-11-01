@@ -302,6 +302,16 @@ html {
     --card-foreground: #7c2d12;
     --popover: #ffffff;
     --popover-foreground: #7c2d12;
+    
+    /* Sidebar - Orange theme */
+    --sidebar: #ffffff;
+    --sidebar-foreground: #7c2d12;
+    --sidebar-primary: #f97316;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #ffedd5;
+    --sidebar-accent-foreground: #7c2d12;
+    --sidebar-border: #fed7aa;
+    --sidebar-ring: #f97316;
 }
 
 .theme-green {
@@ -322,6 +332,16 @@ html {
     --card-foreground: #064e3b;
     --popover: #ffffff;
     --popover-foreground: #064e3b;
+    
+    /* Sidebar - Green theme */
+    --sidebar: #ffffff;
+    --sidebar-foreground: #064e3b;
+    --sidebar-primary: #10b981;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #d1fae5;
+    --sidebar-accent-foreground: #064e3b;
+    --sidebar-border: #a7f3d0;
+    --sidebar-ring: #10b981;
 }
 
 /* Dark Theme Variants */
