@@ -39,6 +39,7 @@
     "navigation": "Navigation",
     "expand": "Expand sidebar",
     "collapse": "Collapse sidebar",
+    "search": "Search menu...",
     "dashboard": "Dashboard",
     "apis": "APIs",
     "lifecycles": "Lifecycles",
