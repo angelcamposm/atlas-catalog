@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Navbar } from "@/components/layout/Navbar";
 import { HeroSection } from "@/components/home/HeroSection";
 import { TrustedBrandsSection } from "@/components/home/TrustedBrandsSection";
 import { FeatureHighlightsSection } from "@/components/home/FeatureHighlightsSection";
@@ -120,65 +121,74 @@ export default async function HomePage({ params }: HomePageProps) {
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
     return (
-        <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
-            <HeroSection
-                badge={t("hero.badge")}
-                titleHighlight={t("hero.title.highlight")}
-                titleAccent={t("hero.title.accent")}
-                description={t("hero.description")}
-                primaryCta={{
-                    label: t("hero.ctaPrimary"),
-                    href: `${basePath}/apis`,
-                }}
-                secondaryCta={{
-                    label: t("hero.ctaSecondary"),
-                    href: "#how-it-works",
-                }}
-                stats={heroStats}
-            />
-            <TrustedBrandsSection
-                title={t("brands.title")}
-                items={brandItems}
-            />
-            <FeatureHighlightsSection
-                title={t("featureHighlights.title")}
-                subtitle={t("featureHighlights.subtitle")}
-                items={featureItems}
-            />
-            <QuickLinksSection
-                title={t("quickLinks.title")}
-                subtitle={t("quickLinks.subtitle")}
-                items={quickLinks}
-            />
-            <HowItWorksSection
-                title={t("howItWorks.title")}
-                subtitle={t("howItWorks.subtitle")}
-                steps={steps}
-            />
-            <TestimonialsSection
-                title={t("testimonials.title")}
-                subtitle={t("testimonials.subtitle")}
-                items={testimonials}
-            />
-            <CallToActionSection
-                title={t("quickStart.title")}
-                description={t("quickStart.description")}
-                primaryCta={{
-                    label: t("quickStart.primaryCta"),
-                    href: `${basePath}/apis`,
-                }}
-                secondaryCta={{
-                    label: t("quickStart.secondaryCta"),
-                    href: "#modules",
-                }}
-                backendLabel={common("backendLabel")}
-                backendValue={backendUrl}
-                featuresLabel={common("featuresLabel")}
-                featuresValue={t("quickStart.features")}
-                techStackLabel={common("techStackLabel")}
-                techStackValue={common("techStackValue")}
-                footnote={common("builtWith", { heart: "❤" })}
-            />
-        </div>
+        <>
+            <Navbar locale={locale} />
+            <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
+                <HeroSection
+                    badge={t("hero.badge")}
+                    titleHighlight={t("hero.title.highlight")}
+                    titleAccent={t("hero.title.accent")}
+                    description={t("hero.description")}
+                    primaryCta={{
+                        label: t("hero.ctaPrimary"),
+                        href: `${basePath}/apis`,
+                    }}
+                    secondaryCta={{
+                        label: t("hero.ctaSecondary"),
+                        href: "#how-it-works",
+                    }}
+                    stats={heroStats}
+                />
+                <TrustedBrandsSection
+                    title={t("brands.title")}
+                    items={brandItems}
+                />
+                <div id="features">
+                    <FeatureHighlightsSection
+                        title={t("featureHighlights.title")}
+                        subtitle={t("featureHighlights.subtitle")}
+                        items={featureItems}
+                    />
+                </div>
+                <QuickLinksSection
+                    title={t("quickLinks.title")}
+                    subtitle={t("quickLinks.subtitle")}
+                    items={quickLinks}
+                />
+                <div id="how-it-works">
+                    <HowItWorksSection
+                        title={t("howItWorks.title")}
+                        subtitle={t("howItWorks.subtitle")}
+                        steps={steps}
+                    />
+                </div>
+                <div id="testimonials">
+                    <TestimonialsSection
+                        title={t("testimonials.title")}
+                        subtitle={t("testimonials.subtitle")}
+                        items={testimonials}
+                    />
+                </div>
+                <CallToActionSection
+                    title={t("quickStart.title")}
+                    description={t("quickStart.description")}
+                    primaryCta={{
+                        label: t("quickStart.primaryCta"),
+                        href: `${basePath}/apis`,
+                    }}
+                    secondaryCta={{
+                        label: t("quickStart.secondaryCta"),
+                        href: "#modules",
+                    }}
+                    backendLabel={common("backendLabel")}
+                    backendValue={backendUrl}
+                    featuresLabel={common("featuresLabel")}
+                    featuresValue={t("quickStart.features")}
+                    techStackLabel={common("techStackLabel")}
+                    techStackValue={common("techStackValue")}
+                    footnote={common("builtWith", { heart: "❤" })}
+                />
+            </div>
+        </>
     );
 }

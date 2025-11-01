@@ -1,21 +1,30 @@
 <p align="center"><img src="docs/images/logo.png" width="680" alt="Atlas Catalog Logo"></p>
 
+## ⚠️ Development Status
+
+**IMPORTANT: Backend is READ-ONLY**
+
+-   The Laravel backend (`src/` directory) is **stable and locked** - no modifications allowed
+-   All active development is on the **Next.js frontend** (`frontend/` directory)
+-   Backend provides REST API at `/api/v1/*` endpoints
+-   Frontend adapts to existing backend responses and schemas
+
 ## About Atlas Catalog
 
 Atlas Catalog is a modern full-stack application designed to serve as a centralized and comprehensive inventory for all microservices, APIs, and digital assets within an organization. It consists of:
 
-- **Backend**: Laravel 11-based RESTful API for managing APIs, lifecycles, types, and metadata
-- **Frontend**: Next.js 16 application with TypeScript for consuming and visualizing the API catalog
+-   **Backend**: Laravel 11-based RESTful API for managing APIs, lifecycles, types, and metadata (**READ-ONLY**)
+-   **Frontend**: Next.js 16 application with TypeScript for consuming and visualizing the API catalog (**ACTIVE DEVELOPMENT**)
 
 Key features include:
 
-- **Centralized Service Discovery**: A single source of truth for all your APIs and services.
-- **Rich Metadata Management**: Track essential information such as endpoints, versions, ownership, access policies, and documentation.
-- **Business Domain Organization**: Group services by business domains to provide clear context and ownership.
-- **Modern Web Interface**: Intuitive Next.js frontend with TypeScript, Tailwind CSS v4, and shadcn/ui components.
-- **Internationalization**: Built-in multi-language support with next-intl.
-- **Standardized & RESTful**: A clean, predictable API that follows modern best practices for easy integration.
-- **Extensible by Design**: Easily add new metadata or integrate with other developer tools.
+-   **Centralized Service Discovery**: A single source of truth for all your APIs and services.
+-   **Rich Metadata Management**: Track essential information such as endpoints, versions, ownership, access policies, and documentation.
+-   **Business Domain Organization**: Group services by business domains to provide clear context and ownership.
+-   **Modern Web Interface**: Intuitive Next.js frontend with TypeScript, Tailwind CSS v4, and shadcn/ui components.
+-   **Internationalization**: Built-in multi-language support with next-intl.
+-   **Standardized & RESTful**: A clean, predictable API that follows modern best practices for easy integration.
+-   **Extensible by Design**: Easily add new metadata or integrate with other developer tools.
 
 Whether you are a developer looking for service documentation, a platform engineer managing the ecosystem, or an architect designing new systems, Atlas Catalog provides the visibility and control needed to navigate your microservices landscape with confidence.
 
@@ -86,9 +95,17 @@ curl http://localhost:8080/api/health
 
 ### 📚 Documentación Detallada
 
+#### Guías de Setup y Despliegue
+
 -   [QUICK_START.md](QUICK_START.md) - Guía de inicio rápido
 -   [FULL_STACK_SETUP.md](FULL_STACK_SETUP.md) - Setup completo sin Docker
 -   [DOCKER.md](DOCKER.md) - Documentación Docker detallada
+
+#### Documentación por Componente
+
+-   **Backend (Laravel)**: [src/README.md](src/README.md) - API REST, endpoints, modelos y arquitectura backend
+-   **Frontend (Next.js)**: [frontend/README.md](frontend/README.md) - Aplicación web, componentes, i18n y desarrollo frontend
+-   **Epics Frontend**: [docs/frontend-epics.md](docs/frontend-epics.md) - Roadmap de funcionalidades planificadas
 
 ### Backend (Laravel API)
 
@@ -175,17 +192,17 @@ The project includes [@tailwindcss/typography](https://tailwindcss.com/docs/typo
 
 ```tsx
 <article className="prose dark:prose-invert lg:prose-xl">
-  <h1>Article Title</h1>
-  <p>Your content here...</p>
+    <h1>Article Title</h1>
+    <p>Your content here...</p>
 </article>
 ```
 
 **Component configuration:**
 
-- Components are stored in `frontend/components/ui/`
-- Utilities are in `frontend/lib/utils.ts`
-- Configuration is in `frontend/components.json`
-- Tailwind config uses CSS variables for theming
+-   Components are stored in `frontend/components/ui/`
+-   Utilities are in `frontend/lib/utils.ts`
+-   Configuration is in `frontend/components.json`
+-   Tailwind config uses CSS variables for theming
 
 For more information, see the [shadcn/ui documentation](https://ui.shadcn.com/).
 
@@ -307,13 +324,28 @@ docker-compose -f docker-compose.dev.yml up --build --force-recreate
 docker-compose -f docker-compose.dev.yml down -v
 ```
 
-## Documentation
+## 📖 Documentation
 
--   **Backend API**: See `src/README.md` for Laravel backend documentation
--   **Frontend**: See `frontend/README.md` for Next.js frontend documentation
--   **API Endpoints**: Check `src/routes/api.php` for available endpoints
+For detailed documentation about each component:
 
-## Tech Stack
+-   **Backend (Laravel API)**: See [src/README.md](src/README.md)
+    -   API endpoints reference
+    -   Database schema
+    -   Code style and conventions
+    -   Development and testing
+-   **Frontend (Next.js)**: See [frontend/README.md](frontend/README.md)
+    -   Component architecture
+    -   Internationalization setup
+    -   API client usage
+    -   shadcn/ui integration
+-   **Frontend Roadmap**: See [docs/frontend-epics.md](docs/frontend-epics.md)
+
+    -   Planned features and epics
+    -   Development priorities
+
+-   **API Routes**: Check `src/routes/api.php` for all available endpoints
+
+## 🛠️ Tech Stack
 
 ### Backend
 

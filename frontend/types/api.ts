@@ -18,8 +18,8 @@ export const timestampsSchema = z.object({
 export type Timestamps = z.infer<typeof timestampsSchema>;
 
 export const userReferenceSchema = z.object({
-    created_by: z.number().int(),
-    updated_by: z.number().int(),
+    created_by: z.number().int().nullable(),
+    updated_by: z.number().int().nullable(),
 });
 export type UserReference = z.infer<typeof userReferenceSchema>;
 

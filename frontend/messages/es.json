@@ -22,10 +22,17 @@
     "totalCount": "Total: {count} APIs",
     "n_a": "N/D",
     "language": "Idioma",
+    "login": "Iniciar sesion",
     "locale": {
       "en": "Ingles",
       "es": "Espanol"
     }
+  },
+  "nav": {
+    "features": "Caracteristicas",
+    "howItWorks": "Como Funciona",
+    "testimonials": "Testimonios",
+    "catalog": "Catalogo"
   },
   "home": {
     "title": "Catalogo Atlas",
