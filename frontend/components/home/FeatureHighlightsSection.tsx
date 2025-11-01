@@ -1,5 +1,10 @@
 import { Badge } from "@/components/ui/Badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 
 interface FeatureItem {
     label: string;
@@ -38,24 +43,16 @@ export function FeatureHighlightsSection({
                 </div>
                 <div className="mt-12 grid gap-6 md:grid-cols-3">
                     {items.map((item) => (
-                        <Card
-                            key={item.title}
-                            className="border border-gray-200/60 shadow-sm dark:border-gray-800/80"
-                        >
-                            <CardHeader className="space-y-1">
-                                <Badge
-                                    variant="primary"
-                                    className="uppercase tracking-wide"
-                                >
+                        <Card key={item.title}>
+                            <CardHeader>
+                                <Badge variant="primary" className="w-fit">
                                     {item.label}
                                 </Badge>
                                 <CardTitle>{item.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-gray-600 dark:text-gray-300">
+                                <CardDescription>
                                     {item.description}
-                                </p>
-                            </CardContent>
+                                </CardDescription>
+                            </CardHeader>
                         </Card>
                     ))}
                 </div>
