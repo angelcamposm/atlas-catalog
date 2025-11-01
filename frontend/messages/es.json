@@ -227,5 +227,27 @@
     "errors": {
       "load": "No pudimos cargar las APIs. Intentalo de nuevo."
     }
+  },
+  "profile": {
+    "title": "Perfil de Usuario",
+    "subtitle": "Gestiona tu cuenta y preferencias",
+    "personalInfo": "Información Personal",
+    "fullName": "Nombre Completo",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "appearance": "Apariencia",
+    "theme": "Tema",
+    "themeDescription": "Elige tu tema de color preferido",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "profilePicture": "Foto de Perfil",
+    "uploadImage": "Subir Imagen",
+    "changeImage": "Cambiar Imagen",
+    "removeImage": "Eliminar Imagen",
+    "uploadDescription": "JPG, PNG o GIF. Tamaño máximo 2MB.",
+    "close": "Cerrar",
+    "saveChanges": "Guardar Cambios",
+    "changesSaved": "¡Cambios guardados correctamente!"
   }
 }

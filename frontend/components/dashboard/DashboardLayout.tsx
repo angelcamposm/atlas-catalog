@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import { ProfileModal } from "@/components/profile/ProfileModal";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/Button";
 import { LogOut, Bell } from "lucide-react";
@@ -15,6 +16,14 @@ interface DashboardLayoutProps {
 export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     const router = useRouter();
     const [showNotifications, setShowNotifications] = useState(false);
+    const [showProfileModal, setShowProfileModal] = useState(false);
+
+    // Mock user data - TODO: Replace with real user data from auth context
+    const currentUser = {
+        name: "John Doe",
+        email: "john@example.com",
+        role: "Admin",
+    };
 
     const handleLogout = () => {
         // Por ahora solo redirige al home
@@ -58,8 +67,11 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                     </Button>
                                 </div>
 
-                                {/* User Info */}
-                                <div className="hidden sm:flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                                {/* User Info - Clickable */}
+                                <button
+                                    onClick={() => setShowProfileModal(true)}
+                                    className="hidden sm:flex items-center space-x-3 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                                >
                                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-blue-indigo text-sm font-semibold text-white">
                                         JD
                                     </div>
@@ -71,7 +83,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                             Admin
                                         </p>
                                     </div>
-                                </div>
+                                </button>
 
                                 {/* Logout Button */}
                                 <Button
@@ -95,6 +107,13 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                     </main>
                 </SidebarInset>
             </div>
+
+            {/* Profile Modal */}
+            <ProfileModal
+                isOpen={showProfileModal}
+                onClose={() => setShowProfileModal(false)}
+                user={currentUser}
+            />
         </SidebarProvider>
     );
 }

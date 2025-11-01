@@ -227,5 +227,27 @@
     "errors": {
       "load": "We couldn't load the APIs. Please try again."
     }
+  },
+  "profile": {
+    "title": "User Profile",
+    "subtitle": "Manage your account settings and preferences",
+    "personalInfo": "Personal Information",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "role": "Role",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeDescription": "Choose your preferred color theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "profilePicture": "Profile Picture",
+    "uploadImage": "Upload Image",
+    "changeImage": "Change Image",
+    "removeImage": "Remove Image",
+    "uploadDescription": "JPG, PNG or GIF. Max size 2MB.",
+    "close": "Close",
+    "saveChanges": "Save Changes",
+    "changesSaved": "Changes saved successfully!"
   }
 }
