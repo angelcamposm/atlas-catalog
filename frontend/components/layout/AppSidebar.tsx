@@ -314,9 +314,12 @@ export function AppSidebar({ locale }: AppSidebarProps) {
                                     <SidebarMenu>
                                         {group.items.map((item) => {
                                             const Icon = item.icon;
-                                            const isActive = pathname === item.url;
+                                            const isActive =
+                                                pathname === item.url;
                                             return (
-                                                <SidebarMenuItem key={item.title}>
+                                                <SidebarMenuItem
+                                                    key={item.title}
+                                                >
                                                     <SidebarMenuButton
                                                         asChild
                                                         isActive={isActive}
@@ -324,15 +327,19 @@ export function AppSidebar({ locale }: AppSidebarProps) {
                                                     >
                                                         <Link href={item.url}>
                                                             <Icon />
-                                                            <span>{item.title}</span>
+                                                            <span>
+                                                                {item.title}
+                                                            </span>
                                                             {item.badge && (
                                                                 <span
                                                                     className={`ml-auto rounded-full px-2 py-0.5 text-xs font-medium ${
-                                                                        item.badge === "Pro"
+                                                                        item.badge ===
+                                                                        "Pro"
                                                                             ? "bg-gradient-amber-orange text-white"
-                                                                            : item.badge === "100+"
-                                                                              ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                                                                              : "flex h-5 w-5 items-center justify-center bg-blue-600 text-white"
+                                                                            : item.badge ===
+                                                                              "100+"
+                                                                            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                                                                            : "flex h-5 w-5 items-center justify-center bg-blue-600 text-white"
                                                                     }`}
                                                                 >
                                                                     {item.badge}
