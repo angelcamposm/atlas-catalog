@@ -23,14 +23,14 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
 
     return (
         <SidebarProvider>
-            <div className="flex min-h-screen w-full">
+            <div className="flex h-screen w-full overflow-hidden">
                 {/* Sidebar */}
                 <AppSidebar locale={locale} />
 
                 {/* Main Content */}
-                <SidebarInset className="flex-1">
-                    {/* Top Bar */}
-                    <header className="sticky top-0 z-40 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
+                <SidebarInset className="flex flex-1 flex-col overflow-hidden">
+                    {/* Top Bar - Fixed */}
+                    <header className="sticky top-0 z-40 shrink-0 border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
                         <div className="flex h-16 items-center justify-between px-6">
                             {/* Left side - could add breadcrumbs or title here */}
                             <div className="flex items-center space-x-4">
@@ -89,8 +89,8 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                         </div>
                     </header>
 
-                    {/* Page Content */}
-                    <main className="flex-1 bg-gray-50 dark:bg-gray-950">
+                    {/* Page Content - Scrollable */}
+                    <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-950">
                         {children}
                     </main>
                 </SidebarInset>

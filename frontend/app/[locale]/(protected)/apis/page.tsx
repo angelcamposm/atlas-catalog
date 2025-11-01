@@ -37,12 +37,11 @@ export default function ApisPage() {
 
     useEffect(() => {
         void loadApis(currentPage);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="flex items-center justify-center min-h-[400px]">
                 <LoadingSpinner size="lg" />
             </div>
         );
@@ -50,7 +49,7 @@ export default function ApisPage() {
 
     if (error) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+            <div className="flex items-center justify-center min-h-[400px]">
                 <Card className="max-w-md">
                     <CardContent>
                         <div className="text-center py-8">
@@ -71,9 +70,8 @@ export default function ApisPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="container mx-auto px-4 py-8">
-                <div className="mb-8">
+        <div className="p-6">
+            <div className="mb-8">
                     <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
                         {t("title")}
                     </h1>
@@ -162,6 +160,5 @@ export default function ApisPage() {
                     </div>
                 )}
             </div>
-        </div>
     );
 }

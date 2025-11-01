@@ -1,4 +1,3 @@
-import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import type { Metadata } from "next";
 import { Construction } from "lucide-react";
 
@@ -9,16 +8,9 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default async function DashboardPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
-    const { locale } = await params;
-
+export default async function DashboardPage() {
     return (
-        <DashboardLayout locale={locale}>
-            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-180px)] p-8">
+        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-180px)] p-8">
                 <div className="max-w-2xl w-full text-center space-y-8">
                     {/* Construction Icon */}
                     <div className="flex justify-center">
@@ -152,6 +144,5 @@ export default async function DashboardPage({
                     </div>
                 </div>
             </div>
-        </DashboardLayout>
     );
 }

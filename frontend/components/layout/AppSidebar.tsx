@@ -224,27 +224,18 @@ export function AppSidebar({ locale }: AppSidebarProps) {
                 </SidebarGroup>
             </SidebarContent>
 
-            {/* Footer - User Info */}
+            {/* Footer - Version Info */}
             <SidebarFooter>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href={`/${locale}/profile`}>
-                                <div className="flex size-8 items-center justify-center rounded-full bg-gradient-blue-indigo text-sm font-semibold text-white">
-                                    JD
-                                </div>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">
-                                        John Doe
-                                    </span>
-                                    <span className="truncate text-xs">
-                                        john@example.com
-                                    </span>
-                                </div>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
+                <div className="px-4 py-3">
+                    <div className="flex items-center justify-between rounded-lg bg-gray-100 px-3 py-2 dark:bg-gray-800">
+                        <div className="text-xs text-gray-600 dark:text-gray-400">
+                            <span className="font-medium">Frontend</span>
+                        </div>
+                        <div className="rounded-full bg-gradient-blue-indigo px-2.5 py-0.5 text-xs font-semibold text-white">
+                            v0.1.0
+                        </div>
+                    </div>
+                </div>
             </SidebarFooter>
         </Sidebar>
     );
