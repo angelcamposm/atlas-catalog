@@ -26,11 +26,11 @@ export function UnderConstruction({
                             </div>
                         </div>
                     </div>
-                    
+
                     <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
                         {title}
                     </h2>
-                    
+
                     <p className="mb-6 text-lg text-muted-foreground max-w-md mx-auto">
                         {description}
                     </p>
@@ -44,7 +44,8 @@ export function UnderConstruction({
 
                     <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
                         <p className="text-sm text-muted-foreground">
-                            Mientras tanto, puedes explorar otras secciones disponibles en el menú lateral.
+                            Mientras tanto, puedes explorar otras secciones
+                            disponibles en el menú lateral.
                         </p>
                     </div>
                 </CardContent>

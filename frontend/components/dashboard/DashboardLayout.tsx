@@ -7,15 +7,15 @@ import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/Button";
-import { 
-    LogOut, 
-    Bell, 
-    GitBranch, 
-    Tag, 
-    Users, 
-    BarChart3, 
-    FileText, 
-    Shield 
+import {
+    LogOut,
+    Bell,
+    GitBranch,
+    Tag,
+    Users,
+    BarChart3,
+    FileText,
+    Shield,
 } from "lucide-react";
 import {
     HiServer,
