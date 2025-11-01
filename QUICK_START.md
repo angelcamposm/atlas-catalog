@@ -1,42 +1,47 @@
-# 🚀 Quick Start - Atlas Catalog
+# 🚀 Atlas Catalog - Quick Start Guide
 
-Guía rápida para poner en marcha el proyecto en menos de 5 minutos.
+Get Atlas Catalog running in less than 5 minutes!
 
-## Prerrequisitos
+## Prerequisites
 
--   Docker y Docker Compose instalados
--   Git
--   8GB RAM disponible (recomendado)
+- Docker Engine 20.10+
+- Docker Compose 2.0+
+- 4GB RAM available (minimum)
+- Git
 
-## Instalación Rápida
+## Quick Start (3 Options)
 
-### Opción 1: Usando Makefile (Recomendado)
+### Option 1: Interactive Script (Easiest) ⭐
 
 ```bash
-# 1. Clonar el repositorio
-git clone <repository-url>
+# 1. Clone the repository
+git clone https://github.com/angelcamposm/atlas-catalog.git
 cd atlas-catalog
 
-# 2. Setup inicial (copiar archivos .env)
-make setup
-
-# 3. Iniciar entorno de desarrollo
-make dev-d
-
-# 4. Ejecutar migraciones y seeders
-make fresh
-
-# 5. Ver información del proyecto
-make info
+# 2. Run the interactive script
+./start.sh
 ```
 
-**¡Listo!** Accede a:
+The script provides an interactive menu to:
+- ✅ Start production or development environment
+- ✅ View logs and check service status
+- ✅ Run database migrations
+- ✅ Clean up everything
 
--   **Frontend**: http://localhost:3000
--   **API**: http://localhost:8080/api
--   **Redis Insights**: http://localhost:5540
+### Option 2: Using Makefile (Recommended for developers)
 
-### Opción 2: Docker Compose Manual
+```bash
+# Start production environment
+make -f Makefile.docker prod
+
+# Or start development environment (with hot-reload)
+make -f Makefile.docker dev
+
+# View all available commands
+make -f Makefile.docker help
+```
+
+### Option 3: Manual Docker Compose
 
 ```bash
 # 1. Clonar el repositorio
