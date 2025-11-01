@@ -2,11 +2,10 @@
 
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import { HiXMark, HiCamera, HiUser } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
-import { activeThemes } from "@/lib/theme-config";
 
 interface ProfileModalProps {
     isOpen: boolean;
@@ -21,13 +20,17 @@ interface ProfileModalProps {
 
 export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
     const t = useTranslations("profile");
+    const router = useRouter();
+    const pathname = usePathname();
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const { theme, setTheme } = useTheme();
 
     const [profileImage, setProfileImage] = useState<string | null>(
         user.avatar || null
     );
     const [showSaveNotification, setShowSaveNotification] = useState(false);
+
+    // Get current locale from pathname
+    const currentLocale = pathname.split("/")[1] || "en";
 
     if (!isOpen) return null;
 
@@ -213,57 +216,64 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
                             </div>
                         </div>
 
-                        {/* Appearance Settings */}
+                        {/* Language Settings */}
                         <div>
                             <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">
-                                {t("appearance")}
+                                {t("language")}
                             </h3>
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {t("theme")}
+                                    {t("selectLanguage")}
                                 </label>
                                 <p className="mb-3 text-sm text-gray-500 dark:text-gray-400">
-                                    {t("themeDescription")}
+                                    {t("languageDescription")}
                                 </p>
-                                <div className="grid grid-cols-3 gap-3">
-                                    {activeThemes.map((themeName) => {
-                                        const isSelected = theme === themeName;
+                                <div className="grid grid-cols-2 gap-3">
+                                    {[
+                                        {
+                                            code: "en",
+                                            name: "English",
+                                            flag: "🇬🇧",
+                                        },
+                                        {
+                                            code: "es",
+                                            name: "Español",
+                                            flag: "🇪🇸",
+                                        },
+                                    ].map((lang) => {
+                                        const isSelected =
+                                            currentLocale === lang.code;
 
                                         return (
                                             <button
-                                                key={themeName}
-                                                onClick={() =>
-                                                    setTheme(themeName)
-                                                }
-                                                className={`rounded-lg border-2 p-4 text-center transition-all ${
+                                                key={lang.code}
+                                                onClick={() => {
+                                                    const newPath =
+                                                        pathname.replace(
+                                                            `/${currentLocale}`,
+                                                            `/${lang.code}`
+                                                        );
+                                                    router.push(newPath);
+                                                }}
+                                                className={`rounded-lg border-2 p-4 text-left transition-all ${
                                                     isSelected
                                                         ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200 dark:bg-blue-900/20 dark:ring-blue-800"
                                                         : "border-gray-300 hover:border-gray-400 dark:border-gray-700 dark:hover:border-gray-600"
                                                 }`}
                                             >
-                                                {/* Theme Icon */}
-                                                {themeName === "light" && (
-                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-white shadow-md ring-1 ring-gray-200" />
-                                                )}
-                                                {themeName === "dark" && (
-                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-gray-900 shadow-md" />
-                                                )}
-                                                {themeName === "system" && (
-                                                    <div className="mx-auto mb-2 flex h-8 w-8 overflow-hidden rounded-full shadow-md">
-                                                        <div className="w-1/2 bg-white" />
-                                                        <div className="w-1/2 bg-gray-900" />
+                                                <div className="flex items-center space-x-3">
+                                                    <span className="text-3xl">
+                                                        {lang.flag}
+                                                    </span>
+                                                    <div>
+                                                        <div className="font-medium text-gray-900 dark:text-white">
+                                                            {lang.name}
+                                                        </div>
+                                                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                            {lang.code.toUpperCase()}
+                                                        </div>
                                                     </div>
-                                                )}
-                                                {themeName === "blue" && (
-                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-blue-500 shadow-md" />
-                                                )}
-                                                {themeName === "purple" && (
-                                                    <div className="mx-auto mb-2 h-8 w-8 rounded-full bg-purple-500 shadow-md" />
-                                                )}
-
-                                                <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                                    {t(themeName)}
-                                                </span>
+                                                </div>
                                             </button>
                                         );
                                     })}

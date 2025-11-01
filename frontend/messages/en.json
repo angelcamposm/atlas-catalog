@@ -261,8 +261,57 @@
     "changeImage": "Change Image",
     "removeImage": "Remove Image",
     "uploadDescription": "JPG, PNG or GIF. Max size 2MB.",
+    "language": "Language",
+    "languageSettings": "Language Settings",
+    "selectLanguage": "Select Language",
+    "languageDescription": "Select your preferred language",
     "close": "Close",
     "saveChanges": "Save Changes",
     "changesSaved": "Changes saved successfully!"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your application preferences",
+    "comingSoon": "Coming Soon",
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize how the application looks on your device",
+      "themeLabel": "Theme",
+      "systemNote": "Automatically adapts to your system's theme preference",
+      "currentTheme": "Currently using {theme} theme"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Select your preferred language for the application",
+      "label": "Choose Language",
+      "current": "Currently using {language}"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Configure how you receive notifications (feature in development)",
+      "email": {
+        "title": "Email Notifications",
+        "description": "Receive notifications via email"
+      },
+      "push": {
+        "title": "Push Notifications",
+        "description": "Receive push notifications in your browser"
+      },
+      "digest": {
+        "title": "Weekly Digest",
+        "description": "Get a weekly summary of your activity"
+      }
+    },
+    "system": {
+      "title": "System Information",
+      "version": "Version",
+      "environment": "Environment",
+      "currentTheme": "Current Theme"
+    }
   }
 }

@@ -261,8 +261,57 @@
     "changeImage": "Cambiar Imagen",
     "removeImage": "Eliminar Imagen",
     "uploadDescription": "JPG, PNG o GIF. Tamaño máximo 2MB.",
+    "language": "Idioma",
+    "languageSettings": "Configuración de Idioma",
+    "selectLanguage": "Seleccionar Idioma",
+    "languageDescription": "Selecciona tu idioma preferido",
     "close": "Cerrar",
     "saveChanges": "Guardar Cambios",
     "changesSaved": "¡Cambios guardados correctamente!"
+  },
+  "settings": {
+    "title": "Configuración",
+    "description": "Gestiona las preferencias de tu aplicación",
+    "comingSoon": "Próximamente",
+    "appearance": {
+      "title": "Apariencia",
+      "description": "Personaliza cómo se ve la aplicación en tu dispositivo",
+      "themeLabel": "Tema",
+      "systemNote": "Se adapta automáticamente a la preferencia de tema de tu sistema",
+      "currentTheme": "Usando tema {theme} actualmente"
+    },
+    "theme": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    },
+    "language": {
+      "title": "Idioma",
+      "description": "Selecciona tu idioma preferido para la aplicación",
+      "label": "Elegir Idioma",
+      "current": "Usando {language} actualmente"
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "description": "Configura cómo recibir notificaciones (función en desarrollo)",
+      "email": {
+        "title": "Notificaciones por Email",
+        "description": "Recibe notificaciones por correo electrónico"
+      },
+      "push": {
+        "title": "Notificaciones Push",
+        "description": "Recibe notificaciones push en tu navegador"
+      },
+      "digest": {
+        "title": "Resumen Semanal",
+        "description": "Recibe un resumen semanal de tu actividad"
+      }
+    },
+    "system": {
+      "title": "Información del Sistema",
+      "version": "Versión",
+      "environment": "Entorno",
+      "currentTheme": "Tema Actual"
+    }
   }
 }
