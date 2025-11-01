@@ -44,6 +44,7 @@
     "lifecycles": "Lifecycles",
     "types": "Types",
     "teams": "Teams",
+    "overview": "Overview",
     "infrastructure": "Infrastructure",
     "clusters": "Clusters",
     "nodes": "Nodes",

@@ -73,6 +73,11 @@ export function AppSidebar({ locale }: AppSidebarProps) {
 
     const infrastructureItems = [
         {
+            title: t("overview"),
+            url: `/${locale}/infrastructure`,
+            icon: BarChart3,
+        },
+        {
             title: t("clusters"),
             url: `/${locale}/infrastructure/clusters`,
             icon: Server,
@@ -86,6 +91,11 @@ export function AppSidebar({ locale }: AppSidebarProps) {
 
     const platformItems = [
         {
+            title: t("overview"),
+            url: `/${locale}/platform`,
+            icon: BarChart3,
+        },
+        {
             title: t("platforms"),
             url: `/${locale}/platform/platforms`,
             icon: Box,
@@ -93,6 +103,11 @@ export function AppSidebar({ locale }: AppSidebarProps) {
     ];
 
     const integrationItems = [
+        {
+            title: t("overview"),
+            url: `/${locale}/integration`,
+            icon: BarChart3,
+        },
         {
             title: t("links"),
             url: `/${locale}/integration/links`,
