@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+buildMetadata:
+  - managedByLabel
+images:
+  - name: redis/redisinsight
+    newTag: 2.70.1
+labels:
+  - pairs:
+      app.kubernetes.io/name: redis-insight
+    includeSelectors: true
+    includeTemplates: true
+resources:
+  - ./resources/deployment.yaml
+  - ./resources/service.yaml

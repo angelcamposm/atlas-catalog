@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property ?int $created_by
  * @property ?int $updated_by
- * @property-read ?User $creator
- * @property-read ?User $updater
+ * @property-read User|null $creator The user who created this language entry.
+ * @property-read User|null $updater The user who last updated this language entry.
  *
  * @mixin Model
  */
@@ -26,7 +26,7 @@ trait BelongsToUser
     /**
      * Get the user who created this record.
      *
-     * @return BelongsTo
+     * @return BelongsTo<User>
      */
     public function creator(): BelongsTo
     {
@@ -36,7 +36,7 @@ trait BelongsToUser
     /**
      * Get the user who last updated this record.
      *
-     * @return BelongsTo
+     * @return BelongsTo<User>
      */
     public function updater(): BelongsTo
     {

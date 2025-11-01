@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  labels:
+    app: redis
+data:
+  redis.conf: |
+    # Enable password protection
+    requirepass ${REDIS_PASSWORD}
+    # Enable Append Only File (AOF) persistence for durability
+    appendonly yes

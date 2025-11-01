@@ -11,9 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property string $code
+ * @property string $description
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -21,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(BusinessTierObserver::class)]
+#[ObservedBy(BusinessTierObserver::class)]
 class BusinessTier extends Model
 {
     //
@@ -43,6 +46,8 @@ class BusinessTier extends Model
         'code',
         'description',
         'name',
+        'created_by',
+        'updated_by',
     ];
 
     /**

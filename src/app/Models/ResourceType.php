@@ -6,15 +6,20 @@ namespace App\Models;
 
 use App\Observers\ResourceTypeObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property string $category
+ * @property string $description
+ * @property string $icon
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -22,10 +27,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(ResourceTypeObserver::class)]
+#[ObservedBy(ResourceTypeObserver::class)]
 class ResourceType extends Model
 {
     use BelongsToUser;
+    use HasIcon;
 
     /**
      * The table associated with the model.
@@ -44,6 +50,8 @@ class ResourceType extends Model
         'category',
         'description',
         'icon',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -55,10 +63,11 @@ class ResourceType extends Model
         //
     ];
 
-     /**
-      *
-      * @return HasMany<Resource>
-      */
+    /**
+     * Get the resources associated with the resource type.
+     *
+     * @return HasMany<Resource>
+     */
     public function resources(): HasMany
     {
         return $this->hasMany(Resource::class, 'type_id');

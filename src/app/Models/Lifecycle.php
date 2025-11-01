@@ -11,9 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property bool $approval_required
+ * @property string $color
+ * @property string $description
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -21,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(LifecycleObserver::class)]
+#[ObservedBy(LifecycleObserver::class)]
 class Lifecycle extends Model
 {
     use BelongsToUser;
@@ -43,6 +47,8 @@ class Lifecycle extends Model
         'color',
         'description',
         'name',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -53,4 +59,14 @@ class Lifecycle extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Check if the lifecycle requires approval.
+     *
+     * @return bool
+     */
+    public function needsApproval(): bool
+    {
+        return $this->approval_required;
+    }
 }

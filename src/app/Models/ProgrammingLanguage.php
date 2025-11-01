@@ -6,15 +6,23 @@ namespace App\Models;
 
 use App\Observers\ProgrammingLanguageObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * @property int $id
+ * @property string $icon
+ * @property bool $is_enabled
  * @property string $name
+ * @property string $url
  * @property int $created_by
  * @property int $updated_by
+ *
+ * @property-read Collection<Framework> $frameworks
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -22,11 +30,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(ProgrammingLanguageObserver::class)]
+#[ObservedBy(ProgrammingLanguageObserver::class)]
 class ProgrammingLanguage extends Model
 {
-    //
     use BelongsToUser;
+    use HasIcon;
 
     /**
      * The table associated with the model.
@@ -45,6 +53,8 @@ class ProgrammingLanguage extends Model
         'icon',
         'is_enabled',
         'url',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -56,9 +66,11 @@ class ProgrammingLanguage extends Model
         //
     ];
 
-     /**
-      * @return HasMany
-      */
+    /**
+     * Get the frameworks associated with the programming language.
+     *
+     * @return HasMany<Framework>
+     */
     public function frameworks(): HasMany
     {
         return $this->hasMany(Framework::class, 'language_id');

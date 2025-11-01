@@ -15,23 +15,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $name
+ * @property int $type_id
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ResourceFactory>
  */
- #[ObservedBy(ResourceObserver::class)]
+#[ObservedBy(ResourceObserver::class)]
 class Resource extends Model
 {
-     /**
-      * @use HasFactory<ResourceFactory>
-      */
-    use HasFactory;
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -48,6 +49,8 @@ class Resource extends Model
     protected $fillable = [
         'name',
         'type_id',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -59,9 +62,11 @@ class Resource extends Model
         //
     ];
 
-     /**
-      * @return BelongsTo<ResourceType>
-      */
+    /**
+     * Get the resource type.
+     *
+     * @return BelongsTo<ResourceType>
+     */
     public function type(): BelongsTo
     {
         return $this->belongsTo(ResourceType::class, 'type_id', 'id');

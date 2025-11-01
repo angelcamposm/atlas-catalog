@@ -1,4 +1,5 @@
 .idea/
+!iac/config/**/.gitkeep
 src/bootstrap/cace/
 src/node_modules/
 src/public/storage/

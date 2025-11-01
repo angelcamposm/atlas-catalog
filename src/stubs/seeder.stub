@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace {{ namespace }};
 
+use App\Traits\HasDataFile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 final class {{ class }} extends Seeder
 {
+    use HasDataFile;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $rows = include database_path('data/file.php');
-
-        collect($rows)->each(function ($item) {
+        collect(self::getRows())->each(function ($item) {
             {{ model }}::updateOrCreate(
                 ['name' => $item['name']],
                 [

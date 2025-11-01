@@ -12,13 +12,16 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
+ * @property string $category
  * @property string|null $description
  * @property string $display_name
+ * @property bool $is_active
+ * @property string $name
+ * @property int $parent_id
  * @property int $created_by
  * @property int $updated_by
- * @property mixed $parent_id
  * @property BusinessDomain $parent
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -29,8 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 #[ObservedBy(BusinessDomainObserver::class)]
 class BusinessDomain extends Model
 {
-    use BelongsToUser,
-        HasRelatives;
+    use BelongsToUser;
+    use HasRelatives;
 
     /**
      * The table associated with the model.
@@ -51,6 +54,8 @@ class BusinessDomain extends Model
         'category',
         'is_active',
         'parent_id',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -61,4 +66,14 @@ class BusinessDomain extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Check if the business domain is active.
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->is_active;
+    }
 }

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-insights
+  labels:
+    app: redis-insight
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 5540
+      protocol: TCP
+      targetPort: 5540
+  selector:
+    app: redis-insight

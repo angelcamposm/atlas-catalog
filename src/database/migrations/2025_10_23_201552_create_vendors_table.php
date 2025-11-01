@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->string('name', 50)->unique();
             $table->string('icon', 50)->nullable();
-            $table->string('url', 255);
+            $table->string('url', 255)->nullable();
             $table->timestamp('created_at')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
         });
     }
 

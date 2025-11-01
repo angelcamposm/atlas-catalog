@@ -25,23 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->create_sample_data();
     }
 
-    private function run_base_seeders(): void
-    {
-        $this->call([
-            ApiAccessPolicySeeder::class,
-            ApiStatusSeeder::class,
-            ApiTypeSeeder::class,
-            AuthenticationMethodSeeder::class,
-            BusinessDomainSeeder::class,
-            BusinessTierSeeder::class,
-            LifecycleSeeder::class,
-            ProgrammingLanguageSeeder::class,
-            FrameworkSeeder::class,
-            ResourceTypeSeeder::class,
-            VendorSeeder::class,
-        ]);
-    }
-
     private function create_initial_user(): void
     {
         User::firstOrCreate(
@@ -53,6 +36,33 @@ class DatabaseSeeder extends Seeder
         );
     }
 
+    private function run_base_seeders(): void
+    {
+        // First-level models
+        $this->call([
+            ApiAccessPolicySeeder::class,
+            ApiCategorySeeder::class,
+            ApiStatusSeeder::class,
+            ApiTypeSeeder::class,
+            AuthenticationMethodSeeder::class,
+            BusinessDomainSeeder::class,
+            BusinessTierSeeder::class,
+            EnvironmentSeeder::class,
+            LifecycleSeeder::class,
+            ProgrammingLanguageSeeder::class,
+            GroupMemberRoleSeeder::class,
+            GroupTypeSeeder::class,
+            ResourceTypeSeeder::class,
+            VendorSeeder::class,
+        ]);
+
+        // Second-level models (models that depend on another model)
+        $this->call([
+            ClusterTypeSeeder::class,
+            FrameworkSeeder::class,
+        ]);
+    }
+
     /**
      * Creates sample API data for development environments by reusing existing relations.
      */
@@ -61,6 +71,10 @@ class DatabaseSeeder extends Seeder
         if (app()->isProduction()) {
             return;
         }
+
+        $this->call([
+            NodeSeeder::class,
+        ]);
 
         // Reuse existing related models to avoid creating new ones for each API.
         $accessPolicyIds = ApiAccessPolicy::pluck('id');

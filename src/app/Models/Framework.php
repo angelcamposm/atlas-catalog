@@ -6,15 +6,24 @@ namespace App\Models;
 
 use App\Observers\FrameworkObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
+ * @property string $description
+ * @property string $icon
+ * @property bool $is_enabled
+ * @property int $language_id
  * @property string $name
+ * @property string $url
  * @property int $created_by
  * @property int $updated_by
+ *
+ * @property-read ProgrammingLanguage $language
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -22,11 +31,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
- #[ObservedBy(FrameworkObserver::class)]
+#[ObservedBy(FrameworkObserver::class)]
 class Framework extends Model
 {
-    //
     use BelongsToUser;
+    use HasIcon;
 
     /**
      * The table associated with the model.
@@ -47,6 +56,8 @@ class Framework extends Model
         'is_enabled',
         'language_id',
         'url',
+        'created_by',
+        'updated_by',
     ];
 
     /**
@@ -58,13 +69,13 @@ class Framework extends Model
         //
     ];
 
-     /**
-      * Establishes a relationship to the ProgrammingLanguage model.
-      *
-      * @return BelongsTo
-      */
-     public function language(): BelongsTo
-     {
-         return $this->belongsTo(ProgrammingLanguage::class, 'language_id');
+    /**
+     * Get the programming language associated with the framework.
+     *
+     * @return BelongsTo<ProgrammingLanguage>
+     */
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(ProgrammingLanguage::class, 'language_id');
     }
 }

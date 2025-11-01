@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-insight
+  labels:
+    app.kubernetes.io/name: postgres
+    app.kubernetes.io/version: v1.0
+    app: redis-insight
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-insight
+  template:
+    metadata:
+      labels:
+        app: redis-insight
+    spec:
+      containers:
+        - name: redis-insight
+          env:
+            - name: ALLOW_ANONYMOUS_USAGE_STATS
+              value: no
+            - name: RI_ACCEPT_TERMS_AND_CONDITIONS
+              value: 'true'
+            - name: RI_DATABASE_MANAGEMENT
+              value: 'false'
+            - name: RI_ENCRYPTION_KEY
+              value: j8avWnevHBh2ylooVLLseyFfiRVwtmhVVoVvHXMuV3I=
+            - name: RI_LOG_LEVEL
+              value: warn
+            - name: RI_REDIS_DB
+              value: '0'
+            - name: RI_REDIS_HOST
+              value: redis
+            - name: RI_REDIS_PORT
+              value: '6379'
+            - name: RI_REDIS_USERNAME
+              value: default
+            - name: RI_REDIS_PASSWORD
+              value: ''
+            - name: RI_REDIS_TLS
+              value: 'false'
+          envFrom:
+            - secretRef:
+                name: redis-insight-secret
+          image: redis/redisinsight:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /api/health/
+              port: http
+          ports:
+            - name: http
+              containerPort: 5540
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /api/health/
+              port: http
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          startupProbe:
+            tcpSocket:
+              port: http

@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
  * @property string|null $description
+ * @property string $name
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -42,6 +43,8 @@ class ApiType extends Model
     protected $fillable = [
         'name',
         'description',
+        'created_by',
+        'updated_by',
     ];
 
     /**
