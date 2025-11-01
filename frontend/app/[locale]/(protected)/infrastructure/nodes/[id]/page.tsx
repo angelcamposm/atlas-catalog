@@ -76,7 +76,7 @@ export default function NodeDetailPage({
                 </div>
             </div>
         );
-    };
+    }
 
     if (error || !node) {
         return (
@@ -248,7 +248,13 @@ export default function NodeDetailPage({
                                 Memory
                             </label>
                             <p className="mt-1 text-base">
-                                {(nodeData.memory_bytes / 1024 / 1024 / 1024).toFixed(2)} GB
+                                {(
+                                    nodeData.memory_bytes /
+                                    1024 /
+                                    1024 /
+                                    1024
+                                ).toFixed(2)}{" "}
+                                GB
                             </p>
                         </div>
                         <div>
@@ -256,7 +262,13 @@ export default function NodeDetailPage({
                                 Storage
                             </label>
                             <p className="mt-1 text-base">
-                                {(nodeData.storage_bytes / 1024 / 1024 / 1024).toFixed(2)} GB
+                                {(
+                                    nodeData.storage_bytes /
+                                    1024 /
+                                    1024 /
+                                    1024
+                                ).toFixed(2)}{" "}
+                                GB
                             </p>
                         </div>
                     </CardContent>
@@ -283,9 +295,7 @@ export default function NodeDetailPage({
                                 Created At
                             </label>
                             <p className="mt-1 text-base">
-                                {new Date(
-                                    nodeData.created_at
-                                ).toLocaleString()}
+                                {new Date(nodeData.created_at).toLocaleString()}
                             </p>
                         </div>
                         <div>
@@ -301,9 +311,7 @@ export default function NodeDetailPage({
                                 Updated At
                             </label>
                             <p className="mt-1 text-base">
-                                {new Date(
-                                    nodeData.updated_at
-                                ).toLocaleString()}
+                                {new Date(nodeData.updated_at).toLocaleString()}
                             </p>
                         </div>
                     </div>

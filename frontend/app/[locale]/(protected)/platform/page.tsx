@@ -45,7 +45,9 @@ export default function PlatformDashboardPage({
             <div className="container mx-auto flex min-h-[400px] items-center justify-center p-6">
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
-                    <p className="text-muted-foreground">Loading platforms...</p>
+                    <p className="text-muted-foreground">
+                        Loading platforms...
+                    </p>
                 </div>
             </div>
         );
@@ -168,7 +170,9 @@ export default function PlatformDashboardPage({
                             <p className="mb-4 text-sm text-muted-foreground">
                                 Get started by creating your first platform
                             </p>
-                            <Link href={`/${params.locale}/platform/platforms/new`}>
+                            <Link
+                                href={`/${params.locale}/platform/platforms/new`}
+                            >
                                 <Button>
                                     <Plus className="mr-2 h-4 w-4" />
                                     Create Platform

@@ -29,10 +29,7 @@ interface CreateLinkFormProps {
     onCancel?: () => void;
 }
 
-export function CreateLinkForm({
-    onSuccess,
-    onCancel,
-}: CreateLinkFormProps) {
+export function CreateLinkForm({ onSuccess, onCancel }: CreateLinkFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [linkTypes, setLinkTypes] = useState<LinkType[]>([]);
@@ -166,7 +163,9 @@ export function CreateLinkForm({
                                 value={formData.source_type}
                                 onChange={(
                                     e: React.ChangeEvent<HTMLInputElement>
-                                ) => handleChange("source_type", e.target.value)}
+                                ) =>
+                                    handleChange("source_type", e.target.value)
+                                }
                                 placeholder="e.g., Api"
                             />
                         </div>
@@ -206,7 +205,9 @@ export function CreateLinkForm({
                                 value={formData.target_type}
                                 onChange={(
                                     e: React.ChangeEvent<HTMLInputElement>
-                                ) => handleChange("target_type", e.target.value)}
+                                ) =>
+                                    handleChange("target_type", e.target.value)
+                                }
                                 placeholder="e.g., Database"
                             />
                         </div>

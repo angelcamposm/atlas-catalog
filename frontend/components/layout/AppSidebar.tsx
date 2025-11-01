@@ -83,9 +83,19 @@ export function AppSidebar({ locale }: AppSidebarProps) {
             icon: Server,
         },
         {
+            title: t("cluster_types"),
+            url: `/${locale}/infrastructure/cluster-types`,
+            icon: Tag,
+        },
+        {
             title: t("nodes"),
             url: `/${locale}/infrastructure/nodes`,
             icon: Cpu,
+        },
+        {
+            title: t("service_accounts"),
+            url: `/${locale}/infrastructure/cluster-service-accounts`,
+            icon: Shield,
         },
     ];
 
@@ -100,6 +110,11 @@ export function AppSidebar({ locale }: AppSidebarProps) {
             url: `/${locale}/platform/platforms`,
             icon: Box,
         },
+        {
+            title: t("component_types"),
+            url: `/${locale}/platform/component-types`,
+            icon: Tag,
+        },
     ];
 
     const integrationItems = [
@@ -112,6 +127,11 @@ export function AppSidebar({ locale }: AppSidebarProps) {
             title: t("links"),
             url: `/${locale}/integration/links`,
             icon: Cable,
+        },
+        {
+            title: t("link_types"),
+            url: `/${locale}/integration/link-types`,
+            icon: Tag,
         },
     ];
 

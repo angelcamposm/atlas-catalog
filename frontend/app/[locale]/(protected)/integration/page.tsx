@@ -37,9 +37,15 @@ export default function IntegrationDashboardPage({
     const stats = {
         totalLinks: links.length,
         activeLinks: links.filter((l) => l.is_active).length,
-        synchronous: links.filter((l) => l.communication_style === "synchronous").length,
-        asynchronous: links.filter((l) => l.communication_style === "asynchronous").length,
-        httpProtocol: links.filter((l) => l.protocol === "http" || l.protocol === "https").length,
+        synchronous: links.filter(
+            (l) => l.communication_style === "synchronous"
+        ).length,
+        asynchronous: links.filter(
+            (l) => l.communication_style === "asynchronous"
+        ).length,
+        httpProtocol: links.filter(
+            (l) => l.protocol === "http" || l.protocol === "https"
+        ).length,
         grpcProtocol: links.filter((l) => l.protocol === "grpc").length,
     };
 
@@ -48,7 +54,9 @@ export default function IntegrationDashboardPage({
             <div className="container mx-auto flex min-h-[400px] items-center justify-center p-6">
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
-                    <p className="text-muted-foreground">Loading integrations...</p>
+                    <p className="text-muted-foreground">
+                        Loading integrations...
+                    </p>
                 </div>
             </div>
         );
@@ -169,9 +177,12 @@ export default function IntegrationDashboardPage({
                                 No integration links found
                             </h3>
                             <p className="mb-4 text-sm text-muted-foreground">
-                                Get started by creating your first integration link
+                                Get started by creating your first integration
+                                link
                             </p>
-                            <Link href={`/${params.locale}/integration/links/new`}>
+                            <Link
+                                href={`/${params.locale}/integration/links/new`}
+                            >
                                 <Button>
                                     <Plus className="mr-2 h-4 w-4" />
                                     Create Link
@@ -201,7 +212,9 @@ export default function IntegrationDashboardPage({
                                                                 : "secondary"
                                                         }
                                                     >
-                                                        {link.is_active ? "Active" : "Inactive"}
+                                                        {link.is_active
+                                                            ? "Active"
+                                                            : "Inactive"}
                                                     </Badge>
                                                 </div>
                                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -220,7 +233,10 @@ export default function IntegrationDashboardPage({
                                                 {link.protocol.toUpperCase()}
                                             </Badge>
                                             <Badge variant="primary">
-                                                {link.communication_style.replace("_", " ")}
+                                                {link.communication_style.replace(
+                                                    "_",
+                                                    " "
+                                                )}
                                             </Badge>
                                         </div>
                                     </div>

@@ -94,7 +94,8 @@ export default function ClusterDetailPage({
                 <Card>
                     <CardContent className="pt-6">
                         <p className="text-muted-foreground">
-                            {error || "The requested cluster could not be found."}
+                            {error ||
+                                "The requested cluster could not be found."}
                         </p>
                     </CardContent>
                 </Card>
@@ -169,7 +170,9 @@ export default function ClusterDetailPage({
 
             {/* Status Badge */}
             <div>
-                <Badge variant={clusterData.is_active ? "success" : "secondary"}>
+                <Badge
+                    variant={clusterData.is_active ? "success" : "secondary"}
+                >
                     {clusterData.is_active ? "Active" : "Inactive"}
                 </Badge>
             </div>

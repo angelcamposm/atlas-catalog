@@ -79,7 +79,8 @@ export default function PlatformDetailPage({
                 <Card>
                     <CardContent className="pt-6">
                         <p className="text-muted-foreground">
-                            {error || "The requested platform could not be found."}
+                            {error ||
+                                "The requested platform could not be found."}
                         </p>
                     </CardContent>
                 </Card>
@@ -155,7 +156,9 @@ export default function PlatformDetailPage({
                             <label className="text-sm font-medium text-muted-foreground">
                                 Name
                             </label>
-                            <p className="mt-1 text-base">{platformData.name}</p>
+                            <p className="mt-1 text-base">
+                                {platformData.name}
+                            </p>
                         </div>
                         {platformData.description && (
                             <div>

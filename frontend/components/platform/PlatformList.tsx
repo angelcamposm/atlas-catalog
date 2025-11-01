@@ -38,9 +38,7 @@ export function PlatformList({
             setTotalPages(response.meta.last_page);
         } catch (err) {
             setError(
-                err instanceof Error
-                    ? err.message
-                    : "Error loading platforms"
+                err instanceof Error ? err.message : "Error loading platforms"
             );
             console.error("Error loading platforms:", err);
         } finally {

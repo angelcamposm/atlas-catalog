@@ -3,7 +3,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, Power, PowerOff, ArrowRight } from "lucide-react";
+import {
+    ArrowLeft,
+    Edit,
+    Trash2,
+    Power,
+    PowerOff,
+    ArrowRight,
+} from "lucide-react";
 import { HiLink } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -40,7 +47,9 @@ export default function LinkDetailPage({
     }, [loadLink]);
 
     const handleDelete = async () => {
-        if (!confirm("Are you sure you want to delete this integration link?")) {
+        if (
+            !confirm("Are you sure you want to delete this integration link?")
+        ) {
             return;
         }
 
@@ -72,7 +81,9 @@ export default function LinkDetailPage({
             <div className="container mx-auto flex min-h-[400px] items-center justify-center p-6">
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
-                    <p className="text-muted-foreground">Loading integration link...</p>
+                    <p className="text-muted-foreground">
+                        Loading integration link...
+                    </p>
                 </div>
             </div>
         );
@@ -94,7 +105,8 @@ export default function LinkDetailPage({
                 <Card>
                     <CardContent className="pt-6">
                         <p className="text-muted-foreground">
-                            {error || "The requested integration link could not be found."}
+                            {error ||
+                                "The requested integration link could not be found."}
                         </p>
                     </CardContent>
                 </Card>
@@ -176,7 +188,9 @@ export default function LinkDetailPage({
                     {linkData.protocol.toUpperCase()}
                 </Badge>
                 <Badge variant="primary">
-                    {linkData.communication_style.replace("_", " ").toUpperCase()}
+                    {linkData.communication_style
+                        .replace("_", " ")
+                        .toUpperCase()}
                 </Badge>
             </div>
 
@@ -311,9 +325,7 @@ export default function LinkDetailPage({
                                 Created At
                             </label>
                             <p className="mt-1 text-base">
-                                {new Date(
-                                    linkData.created_at
-                                ).toLocaleString()}
+                                {new Date(linkData.created_at).toLocaleString()}
                             </p>
                         </div>
                         <div>
@@ -329,9 +341,7 @@ export default function LinkDetailPage({
                                 Updated At
                             </label>
                             <p className="mt-1 text-base">
-                                {new Date(
-                                    linkData.updated_at
-                                ).toLocaleString()}
+                                {new Date(linkData.updated_at).toLocaleString()}
                             </p>
                         </div>
                     </div>

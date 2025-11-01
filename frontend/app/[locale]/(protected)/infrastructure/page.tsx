@@ -53,7 +53,9 @@ export default function InfrastructureDashboardPage({
             <div className="container mx-auto flex min-h-[400px] items-center justify-center p-6">
                 <div className="text-center">
                     <div className="mb-4 inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
-                    <p className="text-muted-foreground">Loading infrastructure...</p>
+                    <p className="text-muted-foreground">
+                        Loading infrastructure...
+                    </p>
                 </div>
             </div>
         );
@@ -72,7 +74,9 @@ export default function InfrastructureDashboardPage({
                     </p>
                 </div>
                 <div className="flex gap-2">
-                    <Link href={`/${params.locale}/infrastructure/clusters/new`}>
+                    <Link
+                        href={`/${params.locale}/infrastructure/clusters/new`}
+                    >
                         <Button>
                             <Plus className="mr-2 h-4 w-4" />
                             New Cluster
@@ -169,7 +173,9 @@ export default function InfrastructureDashboardPage({
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <CardTitle>Recent Clusters</CardTitle>
-                            <Link href={`/${params.locale}/infrastructure/clusters`}>
+                            <Link
+                                href={`/${params.locale}/infrastructure/clusters`}
+                            >
                                 <Button variant="ghost" size="sm">
                                     View All
                                 </Button>
@@ -183,8 +189,14 @@ export default function InfrastructureDashboardPage({
                                 <p className="text-sm text-muted-foreground">
                                     No clusters found
                                 </p>
-                                <Link href={`/${params.locale}/infrastructure/clusters/new`}>
-                                    <Button variant="outline" size="sm" className="mt-3">
+                                <Link
+                                    href={`/${params.locale}/infrastructure/clusters/new`}
+                                >
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="mt-3"
+                                    >
                                         <Plus className="mr-2 h-4 w-4" />
                                         Create Cluster
                                     </Button>
@@ -234,7 +246,9 @@ export default function InfrastructureDashboardPage({
                     <CardHeader>
                         <div className="flex items-center justify-between">
                             <CardTitle>Recent Nodes</CardTitle>
-                            <Link href={`/${params.locale}/infrastructure/nodes`}>
+                            <Link
+                                href={`/${params.locale}/infrastructure/nodes`}
+                            >
                                 <Button variant="ghost" size="sm">
                                     View All
                                 </Button>
@@ -248,8 +262,14 @@ export default function InfrastructureDashboardPage({
                                 <p className="text-sm text-muted-foreground">
                                     No nodes found
                                 </p>
-                                <Link href={`/${params.locale}/infrastructure/nodes/new`}>
-                                    <Button variant="outline" size="sm" className="mt-3">
+                                <Link
+                                    href={`/${params.locale}/infrastructure/nodes/new`}
+                                >
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        className="mt-3"
+                                    >
                                         <Plus className="mr-2 h-4 w-4" />
                                         Create Node
                                     </Button>
