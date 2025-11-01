@@ -14,6 +14,10 @@ import {
     FileText,
     Shield,
     Bell,
+    Server,
+    Cpu,
+    Cable,
+    Box,
 } from "lucide-react";
 
 import {
@@ -64,6 +68,35 @@ export function AppSidebar({ locale }: AppSidebarProps) {
             title: t("teams"),
             url: `/${locale}/teams`,
             icon: Users,
+        },
+    ];
+
+    const infrastructureItems = [
+        {
+            title: t("clusters"),
+            url: `/${locale}/infrastructure/clusters`,
+            icon: Server,
+        },
+        {
+            title: t("nodes"),
+            url: `/${locale}/infrastructure/nodes`,
+            icon: Cpu,
+        },
+    ];
+
+    const platformItems = [
+        {
+            title: t("platforms"),
+            url: `/${locale}/platform/platforms`,
+            icon: Box,
+        },
+    ];
+
+    const integrationItems = [
+        {
+            title: t("links"),
+            url: `/${locale}/integration/links`,
+            icon: Cable,
         },
     ];
 
@@ -150,6 +183,87 @@ export function AppSidebar({ locale }: AppSidebarProps) {
                                                         {item.badge}
                                                     </span>
                                                 )}
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                );
+                            })}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+
+                {/* Infrastructure */}
+                <SidebarGroup>
+                    <SidebarGroupLabel>{t("infrastructure")}</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {infrastructureItems.map((item) => {
+                                const Icon = item.icon;
+                                const isActive = pathname === item.url;
+                                return (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={isActive}
+                                            tooltip={item.title}
+                                        >
+                                            <Link href={item.url}>
+                                                <Icon />
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                );
+                            })}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+
+                {/* Platform */}
+                <SidebarGroup>
+                    <SidebarGroupLabel>{t("platform")}</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {platformItems.map((item) => {
+                                const Icon = item.icon;
+                                const isActive = pathname === item.url;
+                                return (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={isActive}
+                                            tooltip={item.title}
+                                        >
+                                            <Link href={item.url}>
+                                                <Icon />
+                                                <span>{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                );
+                            })}
+                        </SidebarMenu>
+                    </SidebarGroupContent>
+                </SidebarGroup>
+
+                {/* Integration */}
+                <SidebarGroup>
+                    <SidebarGroupLabel>{t("integration")}</SidebarGroupLabel>
+                    <SidebarGroupContent>
+                        <SidebarMenu>
+                            {integrationItems.map((item) => {
+                                const Icon = item.icon;
+                                const isActive = pathname === item.url;
+                                return (
+                                    <SidebarMenuItem key={item.title}>
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={isActive}
+                                            tooltip={item.title}
+                                        >
+                                            <Link href={item.url}>
+                                                <Icon />
+                                                <span>{item.title}</span>
                                             </Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
