@@ -14,7 +14,7 @@ return [
     ],
     [
         'name' => 'C++',
-        'icon' => 'svg/c-pp.svg',
+        'icon' => 'svg/c-plus-plus.svg',
         'is_enabled' => false,
         'url' => 'https://learn.microsoft.com/en-us/cpp/cpp/',
     ],
@@ -82,7 +82,7 @@ return [
         'name' => 'R',
         'icon' => 'svg/r-project.svg',
         'is_enabled' => false,
-        'url' => '',
+        'url' => 'https://www.r-project.org/',
     ],
     [
         'name' => 'Rust',
