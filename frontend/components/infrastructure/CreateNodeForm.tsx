@@ -91,9 +91,9 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 id="name"
                                 required
                                 value={formData.name}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                    handleChange("name", e.target.value)
-                                }
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) => handleChange("name", e.target.value)}
                                 placeholder="e.g., node-01"
                             />
                         </div>
@@ -101,15 +101,16 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* Hostname */}
                         <div className="space-y-2">
                             <Label htmlFor="hostname">
-                                Hostname <span className="text-destructive">*</span>
+                                Hostname{" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="hostname"
                                 required
                                 value={formData.hostname}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                    handleChange("hostname", e.target.value)
-                                }
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) => handleChange("hostname", e.target.value)}
                                 placeholder="e.g., node-01.example.com"
                             />
                         </div>
@@ -117,15 +118,16 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* IP Address */}
                         <div className="space-y-2">
                             <Label htmlFor="ip_address">
-                                IP Address <span className="text-destructive">*</span>
+                                IP Address{" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="ip_address"
                                 required
                                 value={formData.ip_address}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                    handleChange("ip_address", e.target.value)
-                                }
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) => handleChange("ip_address", e.target.value)}
                                 placeholder="e.g., 192.168.1.10"
                             />
                         </div>
@@ -133,14 +135,18 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* Node Type */}
                         <div className="space-y-2">
                             <Label htmlFor="node_type">
-                                Node Type <span className="text-destructive">*</span>
+                                Node Type{" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Select
                                 value={formData.node_type}
                                 onValueChange={(value: string) =>
                                     handleChange(
                                         "node_type",
-                                        value as "physical" | "virtual" | "cloud"
+                                        value as
+                                            | "physical"
+                                            | "virtual"
+                                            | "cloud"
                                     )
                                 }
                             >
@@ -148,8 +154,12 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="physical">Physical</SelectItem>
-                                    <SelectItem value="virtual">Virtual</SelectItem>
+                                    <SelectItem value="physical">
+                                        Physical
+                                    </SelectItem>
+                                    <SelectItem value="virtual">
+                                        Virtual
+                                    </SelectItem>
                                     <SelectItem value="cloud">Cloud</SelectItem>
                                 </SelectContent>
                             </Select>
@@ -158,7 +168,8 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* Node Role */}
                         <div className="space-y-2">
                             <Label htmlFor="node_role">
-                                Node Role <span className="text-destructive">*</span>
+                                Node Role{" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Select
                                 value={formData.node_role}
@@ -173,8 +184,12 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="master">Master</SelectItem>
-                                    <SelectItem value="worker">Worker</SelectItem>
+                                    <SelectItem value="master">
+                                        Master
+                                    </SelectItem>
+                                    <SelectItem value="worker">
+                                        Worker
+                                    </SelectItem>
                                     <SelectItem value="etcd">ETCD</SelectItem>
                                 </SelectContent>
                             </Select>
@@ -183,7 +198,8 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* CPU Cores */}
                         <div className="space-y-2">
                             <Label htmlFor="cpu_cores">
-                                CPU Cores <span className="text-destructive">*</span>
+                                CPU Cores{" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="cpu_cores"
@@ -191,8 +207,13 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 required
                                 min="1"
                                 value={formData.cpu_cores}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                    handleChange("cpu_cores", parseInt(e.target.value))
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) =>
+                                    handleChange(
+                                        "cpu_cores",
+                                        parseInt(e.target.value)
+                                    )
                                 }
                             />
                         </div>
@@ -220,10 +241,14 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="x86_64">x86_64</SelectItem>
+                                    <SelectItem value="x86_64">
+                                        x86_64
+                                    </SelectItem>
                                     <SelectItem value="arm64">ARM64</SelectItem>
                                     <SelectItem value="arm">ARM</SelectItem>
-                                    <SelectItem value="ppc64le">PPC64LE</SelectItem>
+                                    <SelectItem value="ppc64le">
+                                        PPC64LE
+                                    </SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -231,7 +256,8 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* Memory (GB) */}
                         <div className="space-y-2">
                             <Label htmlFor="memory">
-                                Memory (GB) <span className="text-destructive">*</span>
+                                Memory (GB){" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="memory"
@@ -240,7 +266,9 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 min="1"
                                 step="0.5"
                                 value={bytesToGb(formData.memory_bytes)}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) =>
                                     handleChange(
                                         "memory_bytes",
                                         gbToBytes(parseFloat(e.target.value))
@@ -252,7 +280,8 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                         {/* Storage (GB) */}
                         <div className="space-y-2">
                             <Label htmlFor="storage">
-                                Storage (GB) <span className="text-destructive">*</span>
+                                Storage (GB){" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="storage"
@@ -260,7 +289,9 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 required
                                 min="1"
                                 value={bytesToGb(formData.storage_bytes)}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) =>
                                     handleChange(
                                         "storage_bytes",
                                         gbToBytes(parseFloat(e.target.value))
@@ -281,7 +312,9 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 required
                                 min="1"
                                 value={formData.environment_id}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) =>
                                     handleChange(
                                         "environment_id",
                                         parseInt(e.target.value)

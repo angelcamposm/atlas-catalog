@@ -35,7 +35,9 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
             setNodes(response.data);
             setTotalPages(response.meta.last_page);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading nodes");
+            setError(
+                err instanceof Error ? err.message : "Error loading nodes"
+            );
             console.error("Error loading nodes:", err);
         } finally {
             setLoading(false);
@@ -161,14 +163,26 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                                     </div>
                                 </div>
                                 <div className="flex gap-2">
-                                    <Badge variant={getNodeTypeColor(node.node_type)}>
+                                    <Badge
+                                        variant={getNodeTypeColor(
+                                            node.node_type
+                                        )}
+                                    >
                                         {node.node_type}
                                     </Badge>
-                                    <Badge variant={getNodeRoleColor(node.node_role)}>
+                                    <Badge
+                                        variant={getNodeRoleColor(
+                                            node.node_role
+                                        )}
+                                    >
                                         {node.node_role}
                                     </Badge>
                                     <Badge
-                                        variant={node.is_active ? "success" : "danger"}
+                                        variant={
+                                            node.is_active
+                                                ? "success"
+                                                : "danger"
+                                        }
                                     >
                                         {node.is_active ? (
                                             <CheckCircle2 className="mr-1 h-3 w-3" />
@@ -183,7 +197,9 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                         <CardContent>
                             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                                 <div>
-                                    <p className="text-sm text-muted-foreground">CPU</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        CPU
+                                    </p>
                                     <p className="font-medium">
                                         {node.cpu_cores} cores
                                     </p>
@@ -208,13 +224,17 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Type</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Type
+                                    </p>
                                     <p className="font-medium capitalize">
                                         {node.node_type}
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-muted-foreground">Role</p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Role
+                                    </p>
                                     <p className="font-medium capitalize">
                                         {node.node_role}
                                     </p>

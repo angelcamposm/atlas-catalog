@@ -17,7 +17,8 @@ export default function NodesPage({ params }: { params: { locale: string } }) {
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Nodes</h1>
                     <p className="text-muted-foreground">
-                        Manage your infrastructure nodes and their configurations
+                        Manage your infrastructure nodes and their
+                        configurations
                     </p>
                 </div>
                 <Link href={`/${params.locale}/infrastructure/nodes/new`}>

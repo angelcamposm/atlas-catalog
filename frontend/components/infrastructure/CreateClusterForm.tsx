@@ -100,9 +100,9 @@ export function CreateClusterForm({
                             id="name"
                             required
                             value={formData.name}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                handleChange("name", e.target.value)
-                            }
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => handleChange("name", e.target.value)}
                             placeholder="e.g., Production EKS Cluster"
                         />
                     </div>
@@ -113,9 +113,9 @@ export function CreateClusterForm({
                         <Textarea
                             id="description"
                             value={formData.description}
-                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-                                handleChange("description", e.target.value)
-                            }
+                            onChange={(
+                                e: React.ChangeEvent<HTMLTextAreaElement>
+                            ) => handleChange("description", e.target.value)}
                             placeholder="Describe the cluster..."
                             rows={3}
                         />
@@ -159,9 +159,9 @@ export function CreateClusterForm({
                             id="version"
                             required
                             value={formData.version}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                handleChange("version", e.target.value)
-                            }
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => handleChange("version", e.target.value)}
                             placeholder="e.g., 1.28.0"
                         />
                     </div>
@@ -176,9 +176,9 @@ export function CreateClusterForm({
                             type="url"
                             required
                             value={formData.endpoint}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                handleChange("endpoint", e.target.value)
-                            }
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => handleChange("endpoint", e.target.value)}
                             placeholder="https://api.cluster.example.com"
                         />
                     </div>

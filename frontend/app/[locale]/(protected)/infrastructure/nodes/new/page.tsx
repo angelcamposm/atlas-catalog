@@ -6,7 +6,11 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { CreateNodeForm } from "@/components/infrastructure";
 
-export default function NewNodePage({ params }: { params: { locale: string } }) {
+export default function NewNodePage({
+    params,
+}: {
+    params: { locale: string };
+}) {
     const router = useRouter();
 
     const handleSuccess = () => {
