@@ -1,0 +1,1321 @@
+openapi: 3.0.3
+info:
+  title: Atlas Catalog API
+  description: A RESTful API for managing the Atlas Service Catalog.
+  version: 1.0.0
+servers:
+  - url: /api/v1
+    description: API v1
+
+paths:
+  # APIs
+  /apis:
+    get:
+      tags: [APIs]
+      summary: List APIs
+      description: Retrieves a list of APIs.
+      responses:
+        '200':
+          description: A list of APIs.
+    post:
+      tags: [APIs]
+      summary: Create a new API
+      description: Adds a new API to the catalog.
+      requestBody:
+        $ref: '#/components/requestBodies/Api'
+      responses:
+        '201':
+          description: API created successfully.
+  '/apis/{api}':
+    get:
+      tags: [APIs]
+      summary: Get a specific API
+      parameters:
+        - $ref: '#/components/parameters/api'
+      responses:
+        '200':
+          description: API details.
+    put:
+      tags: [APIs]
+      summary: Update an API
+      parameters:
+        - $ref: '#/components/parameters/api'
+      requestBody:
+        $ref: '#/components/requestBodies/Api'
+      responses:
+        '200':
+          description: API updated successfully.
+    delete:
+      tags: [APIs]
+      summary: Delete an API
+      parameters:
+        - $ref: '#/components/parameters/api'
+      responses:
+        '204':
+          description: API deleted successfully.
+
+  # API Access Policies
+  /apis/access-policies:
+    get:
+      tags: [API Access Policies]
+      summary: List API Access Policies
+      responses:
+        '200':
+          description: A list of API access policies.
+    post:
+      tags: [API Access Policies]
+      summary: Create a new API Access Policy
+      requestBody:
+        $ref: '#/components/requestBodies/ApiAccessPolicy'
+      responses:
+        '201':
+          description: API Access Policy created successfully.
+  '/apis/access-policies/{access_policy}':
+    get:
+      tags: [API Access Policies]
+      summary: Get a specific API Access Policy
+      parameters:
+        - $ref: '#/components/parameters/access_policy'
+      responses:
+        '200':
+          description: API Access Policy details.
+    put:
+      tags: [API Access Policies]
+      summary: Update an API Access Policy
+      parameters:
+        - $ref: '#/components/parameters/access_policy'
+      requestBody:
+        $ref: '#/components/requestBodies/ApiAccessPolicy'
+      responses:
+        '200':
+          description: API Access Policy updated successfully.
+    delete:
+      tags: [API Access Policies]
+      summary: Delete an API Access Policy
+      parameters:
+        - $ref: '#/components/parameters/access_policy'
+      responses:
+        '204':
+          description: API Access Policy deleted successfully.
+
+  # API Categories
+  /apis/categories:
+    get:
+      tags: [API Categories]
+      summary: List API Categories
+      responses:
+        '200':
+          description: A list of API categories.
+    post:
+      tags: [API Categories]
+      summary: Create a new API Category
+      requestBody:
+        $ref: '#/components/requestBodies/ApiCategory'
+      responses:
+        '201':
+          description: API Category created successfully.
+  '/apis/categories/{category}':
+    get:
+      tags: [API Categories]
+      summary: Get a specific API Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      responses:
+        '200':
+          description: API Category details.
+    put:
+      tags: [API Categories]
+      summary: Update an API Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      requestBody:
+        $ref: '#/components/requestBodies/ApiCategory'
+      responses:
+        '200':
+          description: API Category updated successfully.
+    delete:
+      tags: [API Categories]
+      summary: Delete an API Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      responses:
+        '204':
+          description: API Category deleted successfully.
+
+  # API Statuses
+  /apis/statuses:
+    get:
+      tags: [API Statuses]
+      summary: List API Statuses
+      responses:
+        '200':
+          description: A list of API statuses.
+    post:
+      tags: [API Statuses]
+      summary: Create a new API Status
+      requestBody:
+        $ref: '#/components/requestBodies/ApiStatus'
+      responses:
+        '201':
+          description: API Status created successfully.
+  '/apis/statuses/{status}':
+    get:
+      tags: [API Statuses]
+      summary: Get a specific API Status
+      parameters:
+        - $ref: '#/components/parameters/status'
+      responses:
+        '200':
+          description: API Status details.
+    put:
+      tags: [API Statuses]
+      summary: Update an API Status
+      parameters:
+        - $ref: '#/components/parameters/status'
+      requestBody:
+        $ref: '#/components/requestBodies/ApiStatus'
+      responses:
+        '200':
+          description: API Status updated successfully.
+    delete:
+      tags: [API Statuses]
+      summary: Delete an API Status
+      parameters:
+        - $ref: '#/components/parameters/status'
+      responses:
+        '204':
+          description: API Status deleted successfully.
+
+  # API Types
+  /apis/types:
+    get:
+      tags: [API Types]
+      summary: List API Types
+      responses:
+        '200':
+          description: A list of API types.
+    post:
+      tags: [API Types]
+      summary: Create a new API Type
+      requestBody:
+        $ref: '#/components/requestBodies/ApiType'
+      responses:
+        '201':
+          description: API Type created successfully.
+  '/apis/types/{type}':
+    get:
+      tags: [API Types]
+      summary: Get a specific API Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '200':
+          description: API Type details.
+    put:
+      tags: [API Types]
+      summary: Update an API Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      requestBody:
+        $ref: '#/components/requestBodies/ApiType'
+      responses:
+        '200':
+          description: API Type updated successfully.
+    delete:
+      tags: [API Types]
+      summary: Delete an API Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '204':
+          description: API Type deleted successfully.
+
+  # Authentication Methods
+  /authentication-methods:
+    get:
+      tags: [Authentication Methods]
+      summary: List Authentication Methods
+      responses:
+        '200':
+          description: A list of Authentication Methods.
+    post:
+      tags: [Authentication Methods]
+      summary: Create a new Authentication Method
+      requestBody:
+        $ref: '#/components/requestBodies/AuthenticationMethod'
+      responses:
+        '201':
+          description: Authentication Method created successfully.
+  '/authentication-methods/{authentication_method}':
+    get:
+      tags: [Authentication Methods]
+      summary: Get a specific Authentication Method
+      parameters:
+        - $ref: '#/components/parameters/authentication_method'
+      responses:
+        '200':
+          description: Authentication Method details.
+    put:
+      tags: [Authentication Methods]
+      summary: Update an Authentication Method
+      parameters:
+        - $ref: '#/components/parameters/authentication_method'
+      requestBody:
+        $ref: '#/components/requestBodies/AuthenticationMethod'
+      responses:
+        '200':
+          description: Authentication Method updated successfully.
+    delete:
+      tags: [Authentication Methods]
+      summary: Delete an Authentication Method
+      parameters:
+        - $ref: '#/components/parameters/authentication_method'
+      responses:
+        '204':
+          description: Authentication Method deleted successfully.
+
+  # Business Domains
+  /business-domains:
+    get:
+      tags: [Business Domains]
+      summary: List Business Domains
+      responses:
+        '200':
+          description: A list of Business Domains.
+    post:
+      tags: [Business Domains]
+      summary: Create a new Business Domain
+      requestBody:
+        $ref: '#/components/requestBodies/BusinessDomain'
+      responses:
+        '201':
+          description: Business Domain created successfully.
+  '/business-domains/{business_domain}':
+    get:
+      tags: [Business Domains]
+      summary: Get a specific Business Domain
+      parameters:
+        - $ref: '#/components/parameters/business_domain'
+      responses:
+        '200':
+          description: Business Domain details.
+    put:
+      tags: [Business Domains]
+      summary: Update a Business Domain
+      parameters:
+        - $ref: '#/components/parameters/business_domain'
+      requestBody:
+        $ref: '#/components/requestBodies/BusinessDomain'
+      responses:
+        '200':
+          description: Business Domain updated successfully.
+    delete:
+      tags: [Business Domains]
+      summary: Delete a Business Domain
+      parameters:
+        - $ref: '#/components/parameters/business_domain'
+      responses:
+        '204':
+          description: Business Domain deleted successfully.
+
+  # Business Tiers
+  /business-tiers:
+    get:
+      tags: [Business Tiers]
+      summary: List Business Tiers
+      responses:
+        '200':
+          description: A list of Business Tiers.
+    post:
+      tags: [Business Tiers]
+      summary: Create a new Business Tier
+      requestBody:
+        $ref: '#/components/requestBodies/BusinessTier'
+      responses:
+        '201':
+          description: Business Tier created successfully.
+  '/business-tiers/{business_tier}':
+    get:
+      tags: [Business Tiers]
+      summary: Get a specific Business Tier
+      parameters:
+        - $ref: '#/components/parameters/business_tier'
+      responses:
+        '200':
+          description: Business Tier details.
+    put:
+      tags: [Business Tiers]
+      summary: Update a Business Tier
+      parameters:
+        - $ref: '#/components/parameters/business_tier'
+      requestBody:
+        $ref: '#/components/requestBodies/BusinessTier'
+      responses:
+        '200':
+          description: Business Tier updated successfully.
+    delete:
+      tags: [Business Tiers]
+      summary: Delete a Business Tier
+      parameters:
+        - $ref: '#/components/parameters/business_tier'
+      responses:
+        '204':
+          description: Business Tier deleted successfully.
+
+  # Clusters
+  /clusters:
+    get:
+      tags: [Clusters]
+      summary: List Clusters
+      responses:
+        '200':
+          description: A list of Clusters.
+    post:
+      tags: [Clusters]
+      summary: Create a new Cluster
+      requestBody:
+        $ref: '#/components/requestBodies/Cluster'
+      responses:
+        '201':
+          description: Cluster created successfully.
+  '/clusters/{cluster}':
+    get:
+      tags: [Clusters]
+      summary: Get a specific Cluster
+      parameters:
+        - $ref: '#/components/parameters/cluster'
+      responses:
+        '200':
+          description: Cluster details.
+    put:
+      tags: [Clusters]
+      summary: Update a Cluster
+      parameters:
+        - $ref: '#/components/parameters/cluster'
+      requestBody:
+        $ref: '#/components/requestBodies/Cluster'
+      responses:
+        '200':
+          description: Cluster updated successfully.
+    delete:
+      tags: [Clusters]
+      summary: Delete a Cluster
+      parameters:
+        - $ref: '#/components/parameters/cluster'
+      responses:
+        '204':
+          description: Cluster deleted successfully.
+
+  # Cluster Types
+  /clusters/types:
+    get:
+      tags: [Cluster Types]
+      summary: List Cluster Types
+      responses:
+        '200':
+          description: A list of Cluster Types.
+    post:
+      tags: [Cluster Types]
+      summary: Create a new Cluster Type
+      requestBody:
+        $ref: '#/components/requestBodies/ClusterType'
+      responses:
+        '201':
+          description: Cluster Type created successfully.
+  '/clusters/types/{type}':
+    get:
+      tags: [Cluster Types]
+      summary: Get a specific Cluster Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '200':
+          description: Cluster Type details.
+    put:
+      tags: [Cluster Types]
+      summary: Update a Cluster Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      requestBody:
+        $ref: '#/components/requestBodies/ClusterType'
+      responses:
+        '200':
+          description: Cluster Type updated successfully.
+    delete:
+      tags: [Cluster Types]
+      summary: Delete a Cluster Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '204':
+          description: Cluster Type deleted successfully.
+
+  # Environments
+  /environments:
+    get:
+      tags: [Environments]
+      summary: List Environments
+      responses:
+        '200':
+          description: A list of Environments.
+    post:
+      tags: [Environments]
+      summary: Create a new Environment
+      requestBody:
+        $ref: '#/components/requestBodies/Environment'
+      responses:
+        '201':
+          description: Environment created successfully.
+  '/environments/{environment}':
+    get:
+      tags: [Environments]
+      summary: Get a specific Environment
+      parameters:
+        - $ref: '#/components/parameters/environment'
+      responses:
+        '200':
+          description: Environment details.
+    put:
+      tags: [Environments]
+      summary: Update an Environment
+      parameters:
+        - $ref: '#/components/parameters/environment'
+      requestBody:
+        $ref: '#/components/requestBodies/Environment'
+      responses:
+        '200':
+          description: Environment updated successfully.
+    delete:
+      tags: [Environments]
+      summary: Delete an Environment
+      parameters:
+        - $ref: '#/components/parameters/environment'
+      responses:
+        '204':
+          description: Environment deleted successfully.
+
+  # Frameworks
+  /frameworks:
+    get:
+      tags: [Frameworks]
+      summary: List Frameworks
+      responses:
+        '200':
+          description: A list of Frameworks.
+    post:
+      tags: [Frameworks]
+      summary: Create a new Framework
+      requestBody:
+        $ref: '#/components/requestBodies/Framework'
+      responses:
+        '201':
+          description: Framework created successfully.
+  '/frameworks/{framework}':
+    get:
+      tags: [Frameworks]
+      summary: Get a specific Framework
+      parameters:
+        - $ref: '#/components/parameters/framework'
+      responses:
+        '200':
+          description: Framework details.
+    put:
+      tags: [Frameworks]
+      summary: Update a Framework
+      parameters:
+        - $ref: '#/components/parameters/framework'
+      requestBody:
+        $ref: '#/components/requestBodies/Framework'
+      responses:
+        '200':
+          description: Framework updated successfully.
+    delete:
+      tags: [Frameworks]
+      summary: Delete a Framework
+      parameters:
+        - $ref: '#/components/parameters/framework'
+      responses:
+        '204':
+          description: Framework deleted successfully.
+
+  # Groups
+  /groups:
+    get:
+      tags: [Groups]
+      summary: List Groups
+      responses:
+        '200':
+          description: A list of Groups.
+    post:
+      tags: [Groups]
+      summary: Create a new Group
+      requestBody:
+        $ref: '#/components/requestBodies/Group'
+      responses:
+        '201':
+          description: Group created successfully.
+  '/groups/{group}':
+    get:
+      tags: [Groups]
+      summary: Get a specific Group
+      parameters:
+        - $ref: '#/components/parameters/group'
+      responses:
+        '200':
+          description: Group details.
+    put:
+      tags: [Groups]
+      summary: Update a Group
+      parameters:
+        - $ref: '#/components/parameters/group'
+      requestBody:
+        $ref: '#/components/requestBodies/Group'
+      responses:
+        '200':
+          description: Group updated successfully.
+    delete:
+      tags: [Groups]
+      summary: Delete a Group
+      parameters:
+        - $ref: '#/components/parameters/group'
+      responses:
+        '204':
+          description: Group deleted successfully.
+
+  # Group Member Roles
+  /groups/member-roles:
+    get:
+      tags: [Group Member Roles]
+      summary: List Group Member Roles
+      responses:
+        '200':
+          description: A list of Group Member Roles.
+    post:
+      tags: [Group Member Roles]
+      summary: Create a new Group Member Role
+      requestBody:
+        $ref: '#/components/requestBodies/GroupMemberRole'
+      responses:
+        '201':
+          description: Group Member Role created successfully.
+  '/groups/member-roles/{member_role}':
+    get:
+      tags: [Group Member Roles]
+      summary: Get a specific Group Member Role
+      parameters:
+        - $ref: '#/components/parameters/member_role'
+      responses:
+        '200':
+          description: Group Member Role details.
+    put:
+      tags: [Group Member Roles]
+      summary: Update a Group Member Role
+      parameters:
+        - $ref: '#/components/parameters/member_role'
+      requestBody:
+        $ref: '#/components/requestBodies/GroupMemberRole'
+      responses:
+        '200':
+          description: Group Member Role updated successfully.
+    delete:
+      tags: [Group Member Roles]
+      summary: Delete a Group Member Role
+      parameters:
+        - $ref: '#/components/parameters/member_role'
+      responses:
+        '204':
+          description: Group Member Role deleted successfully.
+
+  # Group Types
+  /groups/types:
+    get:
+      tags: [Group Types]
+      summary: List Group Types
+      responses:
+        '200':
+          description: A list of Group Types.
+    post:
+      tags: [Group Types]
+      summary: Create a new Group Type
+      requestBody:
+        $ref: '#/components/requestBodies/GroupType'
+      responses:
+        '201':
+          description: Group Type created successfully.
+  '/groups/types/{type}':
+    get:
+      tags: [Group Types]
+      summary: Get a specific Group Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '200':
+          description: Group Type details.
+    put:
+      tags: [Group Types]
+      summary: Update a Group Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      requestBody:
+        $ref: '#/components/requestBodies/GroupType'
+      responses:
+        '200':
+          description: Group Type updated successfully.
+    delete:
+      tags: [Group Types]
+      summary: Delete a Group Type
+      parameters:
+        - $ref: '#/components/parameters/type'
+      responses:
+        '204':
+          description: Group Type deleted successfully.
+
+  # Lifecycles
+  /lifecycles:
+    get:
+      tags: [Lifecycles]
+      summary: List Lifecycles
+      responses:
+        '200':
+          description: A list of Lifecycles.
+    post:
+      tags: [Lifecycles]
+      summary: Create a new Lifecycle
+      requestBody:
+        $ref: '#/components/requestBodies/Lifecycle'
+      responses:
+        '201':
+          description: Lifecycle created successfully.
+  '/lifecycles/{lifecycle}':
+    get:
+      tags: [Lifecycles]
+      summary: Get a specific Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/lifecycle'
+      responses:
+        '200':
+          description: Lifecycle details.
+    put:
+      tags: [Lifecycles]
+      summary: Update a Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/lifecycle'
+      requestBody:
+        $ref: '#/components/requestBodies/Lifecycle'
+      responses:
+        '200':
+          description: Lifecycle updated successfully.
+    delete:
+      tags: [Lifecycles]
+      summary: Delete a Lifecycle
+      parameters:
+        - $ref: '#/components/parameters/lifecycle'
+      responses:
+        '204':
+          description: Lifecycle deleted successfully.
+
+  # Links
+  /links:
+    get:
+      tags: [Links]
+      summary: List Links
+      responses:
+        '200':
+          description: A list of Links.
+    post:
+      tags: [Links]
+      summary: Create a new Link
+      requestBody:
+        $ref: '#/components/requestBodies/Link'
+      responses:
+        '201':
+          description: Link created successfully.
+  '/links/{link}':
+    get:
+      tags: [Links]
+      summary: Get a specific Link
+      parameters:
+        - $ref: '#/components/parameters/link'
+      responses:
+        '200':
+          description: Link details.
+    put:
+      tags: [Links]
+      summary: Update a Link
+      parameters:
+        - $ref: '#/components/parameters/link'
+      requestBody:
+        $ref: '#/components/requestBodies/Link'
+      responses:
+        '200':
+          description: Link updated successfully.
+    delete:
+      tags: [Links]
+      summary: Delete a Link
+      parameters:
+        - $ref: '#/components/parameters/link'
+      responses:
+        '204':
+          description: Link deleted successfully.
+
+  # Link Categories
+  /links/categories:
+    get:
+      tags: [Link Categories]
+      summary: List Link Categories
+      responses:
+        '200':
+          description: A list of Link Categories.
+    post:
+      tags: [Link Categories]
+      summary: Create a new Link Category
+      requestBody:
+        $ref: '#/components/requestBodies/LinkCategory'
+      responses:
+        '201':
+          description: Link Category created successfully.
+  '/links/categories/{category}':
+    get:
+      tags: [Link Categories]
+      summary: Get a specific Link Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      responses:
+        '200':
+          description: Link Category details.
+    put:
+      tags: [Link Categories]
+      summary: Update a Link Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      requestBody:
+        $ref: '#/components/requestBodies/LinkCategory'
+      responses:
+        '200':
+          description: Link Category updated successfully.
+    delete:
+      tags: [Link Categories]
+      summary: Delete a Link Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      responses:
+        '204':
+          description: Link Category deleted successfully.
+
+  # Nodes
+  /nodes:
+    get:
+      tags: [Nodes]
+      summary: List Nodes
+      responses:
+        '200':
+          description: A list of Nodes.
+    post:
+      tags: [Nodes]
+      summary: Create a new Node
+      requestBody:
+        $ref: '#/components/requestBodies/Node'
+      responses:
+        '201':
+          description: Node created successfully.
+  '/nodes/{node}':
+    get:
+      tags: [Nodes]
+      summary: Get a specific Node
+      parameters:
+        - $ref: '#/components/parameters/node'
+      responses:
+        '200':
+          description: Node details.
+    put:
+      tags: [Nodes]
+      summary: Update a Node
+      parameters:
+        - $ref: '#/components/parameters/node'
+      requestBody:
+        $ref: '#/components/requestBodies/Node'
+      responses:
+        '200':
+          description: Node updated successfully.
+    delete:
+      tags: [Nodes]
+      summary: Delete a Node
+      parameters:
+        - $ref: '#/components/parameters/node'
+      responses:
+        '204':
+          description: Node deleted successfully.
+
+  # Platforms
+  /platforms:
+    get:
+      tags: [Platforms]
+      summary: List Platforms
+      responses:
+        '200':
+          description: A list of Platforms.
+    post:
+      tags: [Platforms]
+      summary: Create a new Platform
+      requestBody:
+        $ref: '#/components/requestBodies/Platform'
+      responses:
+        '201':
+          description: Platform created successfully.
+  '/platforms/{platform}':
+    get:
+      tags: [Platforms]
+      summary: Get a specific Platform
+      parameters:
+        - $ref: '#/components/parameters/platform'
+      responses:
+        '200':
+          description: Platform details.
+    put:
+      tags: [Platforms]
+      summary: Update a Platform
+      parameters:
+        - $ref: '#/components/parameters/platform'
+      requestBody:
+        $ref: '#/components/requestBodies/Platform'
+      responses:
+        '200':
+          description: Platform updated successfully.
+    delete:
+      tags: [Platforms]
+      summary: Delete a Platform
+      parameters:
+        - $ref: '#/components/parameters/platform'
+      responses:
+        '204':
+          description: Platform deleted successfully.
+
+  # Programming Languages
+  /programming-languages:
+    get:
+      tags: [Programming Languages]
+      summary: List Programming Languages
+      responses:
+        '200':
+          description: A list of Programming Languages.
+    post:
+      tags: [Programming Languages]
+      summary: Create a new Programming Language
+      requestBody:
+        $ref: '#/components/requestBodies/ProgrammingLanguage'
+      responses:
+        '201':
+          description: Programming Language created successfully.
+  '/programming-languages/{programming_language}':
+    get:
+      tags: [Programming Languages]
+      summary: Get a specific Programming Language
+      parameters:
+        - $ref: '#/components/parameters/programming_language'
+      responses:
+        '200':
+          description: Programming Language details.
+    put:
+      tags: [Programming Languages]
+      summary: Update a Programming Language
+      parameters:
+        - $ref: '#/components/parameters/programming_language'
+      requestBody:
+        $ref: '#/components/requestBodies/ProgrammingLanguage'
+      responses:
+        '200':
+          description: Programming Language updated successfully.
+    delete:
+      tags: [Programming Languages]
+      summary: Delete a Programming Language
+      parameters:
+        - $ref: '#/components/parameters/programming_language'
+      responses:
+        '204':
+          description: Programming Language deleted successfully.
+
+  # Resources
+  /resources:
+    get:
+      tags: [Resources]
+      summary: List Resources
+      responses:
+        '200':
+          description: A list of Resources.
+    post:
+      tags: [Resources]
+      summary: Create a new Resource
+      requestBody:
+        $ref: '#/components/requestBodies/Resource'
+      responses:
+        '201':
+          description: Resource created successfully.
+  '/resources/{resource}':
+    get:
+      tags: [Resources]
+      summary: Get a specific Resource
+      parameters:
+        - $ref: '#/components/parameters/resource'
+      responses:
+        '200':
+          description: Resource details.
+    put:
+      tags: [Resources]
+      summary: Update a Resource
+      parameters:
+        - $ref: '#/components/parameters/resource'
+      requestBody:
+        $ref: '#/components/requestBodies/Resource'
+      responses:
+        '200':
+          description: Resource updated successfully.
+    delete:
+      tags: [Resources]
+      summary: Delete a Resource
+      parameters:
+        - $ref: '#/components/parameters/resource'
+      responses:
+        '204':
+          description: Resource deleted successfully.
+
+  # Resource Categories
+  /resources/categories:
+    get:
+      tags: [Resource Categories]
+      summary: List Resource Categories
+      responses:
+        '200':
+          description: A list of Resource Categories.
+    post:
+      tags: [Resource Categories]
+      summary: Create a new Resource Category
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceCategory'
+      responses:
+        '201':
+          description: Resource Category created successfully.
+  '/resources/categories/{category}':
+    get:
+      tags: [Resource Categories]
+      summary: Get a specific Resource Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      responses:
+        '200':
+          description: Resource Category details.
+    put:
+      tags: [Resource Categories]
+      summary: Update a Resource Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      requestBody:
+        $ref: '#/components/requestBodies/ResourceCategory'
+      responses:
+        '200':
+          description: Resource Category updated successfully.
+    delete:
+      tags: [Resource Categories]
+      summary: Delete a Resource Category
+      parameters:
+        - $ref: '#/components/parameters/category'
+      responses:
+        '204':
+          description: Resource Category deleted successfully.
+
+  # Service Accounts
+  /service-accounts:
+    get:
+      tags: [Service Accounts]
+      summary: List Service Accounts
+      responses:
+        '200':
+          description: A list of Service Accounts.
+    post:
+      tags: [Service Accounts]
+      summary: Create a new Service Account
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceAccount'
+      responses:
+        '201':
+          description: Service Account created successfully.
+  '/service-accounts/{service_account}':
+    get:
+      tags: [Service Accounts]
+      summary: Get a specific Service Account
+      parameters:
+        - $ref: '#/components/parameters/service_account'
+      responses:
+        '200':
+          description: Service Account details.
+    put:
+      tags: [Service Accounts]
+      summary: Update a Service Account
+      parameters:
+        - $ref: '#/components/parameters/service_account'
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceAccount'
+      responses:
+        '200':
+          description: Service Account updated successfully.
+    delete:
+      tags: [Service Accounts]
+      summary: Delete a Service Account
+      parameters:
+        - $ref: '#/components/parameters/service_account'
+      responses:
+        '204':
+          description: Service Account deleted successfully.
+
+  # Vendors
+  /vendors:
+    get:
+      tags: [Vendors]
+      summary: List Vendors
+      responses:
+        '200':
+          description: A list of Vendors.
+    post:
+      tags: [Vendors]
+      summary: Create a new Vendor
+      requestBody:
+        $ref: '#/components/requestBodies/Vendor'
+      responses:
+        '201':
+          description: Vendor created successfully.
+  '/vendors/{vendor}':
+    get:
+      tags: [Vendors]
+      summary: Get a specific Vendor
+      parameters:
+        - $ref: '#/components/parameters/vendor'
+      responses:
+        '200':
+          description: Vendor details.
+    put:
+      tags: [Vendors]
+      summary: Update a Vendor
+      parameters:
+        - $ref: '#/components/parameters/vendor'
+      requestBody:
+        $ref: '#/components/requestBodies/Vendor'
+      responses:
+        '200':
+          description: Vendor updated successfully.
+    delete:
+      tags: [Vendors]
+      summary: Delete a Vendor
+      parameters:
+        - $ref: '#/components/parameters/vendor'
+      responses:
+        '204':
+          description: Vendor deleted successfully.
+
+components:
+  parameters:
+    api: {name: api, in: path, required: true, schema: {type: integer}}
+    access_policy: {name: access_policy, in: path, required: true, schema: {type: integer}}
+    category: {name: category, in: path, required: true, schema: {type: integer}}
+    status: {name: status, in: path, required: true, schema: {type: integer}}
+    type: {name: type, in: path, required: true, schema: {type: integer}}
+    authentication_method: {name: authentication_method, in: path, required: true, schema: {type: integer}}
+    business_domain: {name: business_domain, in: path, required: true, schema: {type: integer}}
+    business_tier: {name: business_tier, in: path, required: true, schema: {type: integer}}
+    cluster: {name: cluster, in: path, required: true, schema: {type: integer}}
+    environment: {name: environment, in: path, required: true, schema: {type: integer}}
+    framework: {name: framework, in: path, required: true, schema: {type: integer}}
+    group: {name: group, in: path, required: true, schema: {type: integer}}
+    member_role: {name: member_role, in: path, required: true, schema: {type: integer}}
+    lifecycle: {name: lifecycle, in: path, required: true, schema: {type: integer}}
+    link: {name: link, in: path, required: true, schema: {type: integer}}
+    node: {name: node, in: path, required: true, schema: {type: integer}}
+    platform: {name: platform, in: path, required: true, schema: {type: integer}}
+    programming_language: {name: programming_language, in: path, required: true, schema: {type: integer}}
+    resource: {name: resource, in: path, required: true, schema: {type: integer}}
+    service_account: {name: service_account, in: path, required: true, schema: {type: integer}}
+    vendor: {name: vendor, in: path, required: true, schema: {type: integer}}
+
+  schemas:
+    Base:
+      type: object
+      properties:
+        id: {type: integer, readOnly: true}
+        name: {type: string}
+        description: {type: string, nullable: true}
+
+    Api: {$ref: '#/components/schemas/Base'}
+    ApiAccessPolicy: {$ref: '#/components/schemas/Base'}
+    ApiCategory: {$ref: '#/components/schemas/Base'}
+    ApiStatus: {$ref: '#/components/schemas/Base'}
+    ApiType: {$ref: '#/components/schemas/Base'}
+    AuthenticationMethod: {$ref: '#/components/schemas/Base'}
+    BusinessDomain: {$ref: '#/components/schemas/Base'}
+    BusinessTier: {$ref: '#/components/schemas/Base'}
+    Cluster: {$ref: '#/components/schemas/Base'}
+    ClusterType: {$ref: '#/components/schemas/Base'}
+    Environment: {$ref: '#/components/schemas/Base'}
+    Framework: {$ref: '#/components/schemas/Base'}
+    Group: {$ref: '#/components/schemas/Base'}
+    GroupMemberRole: {$ref: '#/components/schemas/Base'}
+    GroupType: {$ref: '#/components/schemas/Base'}
+    Lifecycle: {$ref: '#/components/schemas/Base'}
+    Link: {$ref: '#/components/schemas/Base'}
+    LinkCategory: {$ref: '#/components/schemas/Base'}
+    Node: {$ref: '#/components/schemas/Base'}
+    Platform: {$ref: '#/components/schemas/Base'}
+    ProgrammingLanguage: {$ref: '#/components/schemas/Base'}
+    Resource: {$ref: '#/components/schemas/Base'}
+    ResourceCategory: {$ref: '#/components/schemas/Base'}
+    ServiceAccount: {$ref: '#/components/schemas/Base'}
+    Vendor: {$ref: '#/components/schemas/Base'}
+
+  requestBodies:
+    Api:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Api'
+    ApiAccessPolicy:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiAccessPolicy'
+    ApiCategory:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiCategory'
+    ApiStatus:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiStatus'
+    ApiType:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiType'
+    AuthenticationMethod:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthenticationMethod'
+    BusinessDomain:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BusinessDomain'
+    BusinessTier:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BusinessTier'
+    Cluster:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Cluster'
+    ClusterType:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClusterType'
+    Environment:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Environment'
+    Framework:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Framework'
+    Group:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Group'
+    GroupMemberRole:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupMemberRole'
+    GroupType:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupType'
+    Lifecycle:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Lifecycle'
+    Link:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Link'
+    LinkCategory:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LinkCategory'
+    Node:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Node'
+    Platform:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Platform'
+    ProgrammingLanguage:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProgrammingLanguage'
+    Resource:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Resource'
+    ResourceCategory:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceCategory'
+    ServiceAccount:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceAccount'
+    Vendor:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Vendor'
