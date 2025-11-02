@@ -7,10 +7,8 @@ import {
     HiPlus,
     HiPencil,
     HiTrash,
-    HiCheckCircle,
     HiXCircle,
 } from "react-icons/hi2";
-import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/card";
 import { clusterServiceAccountsApi } from "@/lib/api/infrastructure";
@@ -63,17 +61,7 @@ export default function ClusterServiceAccountsPage() {
         }
     };
 
-    const toggleStatus = async (id: number, currentStatus: boolean) => {
-        try {
-            await clusterServiceAccountsApi.update(id, {
-                is_active: !currentStatus,
-            });
-            await loadAccounts(currentPage);
-        } catch (err) {
-            console.error("Failed to toggle status:", err);
-            alert("Failed to toggle status");
-        }
-    };
+    // Removed toggleStatus - ClusterServiceAccount is a pivot table without is_active field
 
     if (loading && accounts.length === 0) {
         return (
@@ -164,15 +152,17 @@ export default function ClusterServiceAccountsPage() {
                                             SA #{account.service_account_id}
                                         </div>
                                     </td>
-                                    <td className="p-4">
+                                    {/* TODO: namespace no existe en ClusterServiceAccount - es una tabla pivot */}
+                                    {/* <td className="p-4">
                                         <Badge
                                             variant="secondary"
                                             className="font-mono text-xs"
                                         >
                                             {account.namespace}
                                         </Badge>
-                                    </td>
-                                    <td className="p-4">
+                                    </td> */}
+                                    {/* TODO: is_active no existe en ClusterServiceAccount - es una tabla pivot */}
+                                    {/* <td className="p-4">
                                         <button
                                             onClick={() =>
                                                 toggleStatus(
@@ -198,6 +188,11 @@ export default function ClusterServiceAccountsPage() {
                                                 </>
                                             )}
                                         </button>
+                                    </td> */}
+                                    <td className="p-4">
+                                        <span className="text-sm text-muted-foreground">
+                                            Pivot table - no status
+                                        </span>
                                     </td>
                                     <td className="p-4 text-sm text-muted-foreground">
                                         {new Date(

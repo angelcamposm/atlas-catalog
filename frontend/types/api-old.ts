@@ -2,7 +2,7 @@
  * API Type Definitions for Atlas Catalog
  *
  * These types correspond to the Laravel API Resources
- * Based on actual backend models and API endpoints
+ * Generated from DBML schema
  */
 
 import { z } from "zod";
@@ -26,25 +26,50 @@ export const userReferenceSchema = z.object({
 });
 export type UserReference = z.infer<typeof userReferenceSchema>;
 
-// Enums from Backend -------------------------------------------------------
+// Enums --------------------------------------------------------------------
 
-// Protocol enum from backend (App\Enums\Protocol)
+export enum AuthorizationMethod {
+    BASIC = "BASIC",
+    OAUTH = "OAUTH",
+    KEY = "KEY",
+    NONE = "NONE",
+}
+
 export enum Protocol {
-    HTTP = "http",
-    HTTPS = "https",
+    HTTP = "HTTP",
+    HTTPS = "HTTPS",
 }
 
-// CommunicationStyle enum from backend (App\Enums\CommunicationStyle)
-export enum CommunicationStyle {
-    SYNCHRONOUS = "synchronous",
-    ASYNCHRONOUS = "asynchronous",
+export enum AccessPolicy {
+    PUBLIC = "PUBLIC",
+    INTERNAL = "INTERNAL",
+    THIRD_PARTY = "THIRD_PARTY",
 }
 
-// Discovery Source (if used in backend)
+export enum DomainCategory {
+    CORE = "CORE",
+    SUPPORTING = "SUPPORTING",
+    GENERIC = "GENERIC",
+}
+
 export enum DiscoverySource {
     SCAN = "SCAN",
     PIPELINE = "PIPELINE",
     MANUAL = "MANUAL",
+}
+
+export enum BuildResult {
+    SUCCESS = "SUCCESS",
+    FAILURE = "FAILURE",
+    ABORTED = "ABORTED",
+    UNSTABLE = "UNSTABLE",
+}
+
+export enum WorkloadKind {
+    DEPLOYMENT = "DEPLOYMENT",
+    DAEMONSET = "DAEMONSET",
+    STATEFULSET = "STATEFULSET",
+    REPLICASET = "REPLICASET",
 }
 
 // Users and Groups ---------------------------------------------------------
@@ -52,10 +77,10 @@ export enum DiscoverySource {
 export const userSchema = z
     .object({
         id: z.number().int(),
-        name: nullableString(),
         email: nullableString(),
         email_verified_at: nullableDate(),
         is_active: z.boolean().default(true),
+        remember_token: nullableBoolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
@@ -96,12 +121,28 @@ export const groupMemberRoleSchema = z
     .merge(userReferenceSchema);
 export type GroupMemberRole = z.infer<typeof groupMemberRoleSchema>;
 
+export const groupMemberSchema = z
+    .object({
+        id: z.number().int(),
+        is_active: z.boolean().default(true),
+        team_id: z.number().int(),
+        user_id: z.number().int(),
+        role_id: nullableNumber(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type GroupMember = z.infer<typeof groupMemberSchema>;
+
 // Business Domain ----------------------------------------------------------
 
 export const businessDomainSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
+        category: z
+            .nativeEnum(DomainCategory)
+            .optional()
+            .nullable(),
         description: nullableString(),
         display_name: nullableString(),
         parent_id: nullableNumber(),
@@ -120,6 +161,18 @@ export const businessTierSchema = z
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type BusinessTier = z.infer<typeof businessTierSchema>;
+
+export const businessCriticalityLevelSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type BusinessCriticalityLevel = z.infer<
+    typeof businessCriticalityLevelSchema
+>;
 
 // Environments and Status --------------------------------------------------
 
@@ -229,7 +282,10 @@ export const componentSchema = z
         id: z.number().int(),
         name: z.string().trim().min(1),
         criticality_id: nullableNumber(),
-        discovery_source: z.nativeEnum(DiscoverySource).optional().nullable(),
+        discovery_source: z
+            .nativeEnum(DiscoverySource)
+            .optional()
+            .nullable(),
         display_name: nullableString(),
         description: nullableString(),
         domain_id: nullableNumber(),
@@ -252,17 +308,13 @@ export type Component = z.infer<typeof componentSchema>;
 // Builds, Releases, and Deployments ----------------------------------------
 
 export const buildSchema = z.object({
-    id: z.number(),
+    id: z.number().int(),
     component_id: nullableNumber(),
-    job_id: z.string(),
+    job_id: z.string().trim().min(1),
     launched_at: z.string(),
     launched_by: nullableNumber(),
     finished_at: z.string(),
-    result: nullableString(), // Backend usa string, no enum
-    created_by: z.number(),
-    updated_by: z.number(),
-    created_at: z.string(),
-    updated_at: z.string(),
+    result: z.nativeEnum(BuildResult).optional().nullable(),
 });
 export type Build = z.infer<typeof buildSchema>;
 
@@ -302,9 +354,12 @@ export const componentEnvironmentSchema = z
     .object({
         id: z.number().int(),
         component_id: z.number().int(),
-        discovery_source: z.nativeEnum(DiscoverySource).optional().nullable(),
+        discovery_source: z
+            .nativeEnum(DiscoverySource)
+            .optional()
+            .nullable(),
         environment_id: z.number().int(),
-        kind: nullableString(), // Backend no tiene enum WorkloadKind
+        kind: z.nativeEnum(WorkloadKind).optional().nullable(),
         release_id: z.number().int(),
     })
     .merge(timestampsSchema)
@@ -346,38 +401,32 @@ export const componentResourceSchema = z
     .merge(userReferenceSchema);
 export type ComponentResource = z.infer<typeof componentResourceSchema>;
 
-// APIs ---------------------------------------------------------------------
-
-export const apiAccessPolicySchema = z
+export const apiSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
         description: nullableString(),
+        access_policy_id: nullableNumber(),
+        authentication_method_id: nullableNumber(),
+        protocol: nullableString(),
+        document_specification: z
+            .union([z.string(), z.record(z.string(), z.unknown())])
+            .optional()
+            .nullable(),
+        status_id: nullableNumber(),
+        type_id: nullableNumber(),
+        url: nullableString(),
+        version: nullableString(),
+        api_type_id: nullableNumber(),
+        lifecycle_id: nullableNumber(),
+        api_status_id: nullableNumber(),
+        programming_language_id: nullableNumber(),
+        business_domain_category: nullableString(),
+        discovery_source: nullableString(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
-export type ApiAccessPolicy = z.infer<typeof apiAccessPolicySchema>;
-
-export const authenticationMethodSchema = z
-    .object({
-        id: z.number().int(),
-        name: z.string().trim().min(1),
-        description: nullableString(),
-    })
-    .merge(timestampsSchema)
-    .merge(userReferenceSchema);
-export type AuthenticationMethod = z.infer<typeof authenticationMethodSchema>;
-
-export const apiCategorySchema = z
-    .object({
-        id: z.number().int(),
-        name: z.string().trim().min(1),
-        description: nullableString(),
-        icon: nullableString(),
-    })
-    .merge(timestampsSchema)
-    .merge(userReferenceSchema);
-export type ApiCategory = z.infer<typeof apiCategorySchema>;
+export type Api = z.infer<typeof apiSchema>;
 
 export const apiTypeSchema = z
     .object({
@@ -399,63 +448,35 @@ export const apiStatusSchema = z
     .merge(userReferenceSchema);
 export type ApiStatus = z.infer<typeof apiStatusSchema>;
 
-export const apiSchema = z
+export const lifecycleSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
-        display_name: nullableString(),
         description: nullableString(),
-        url: nullableString(),
-        version: nullableString(),
-        protocol: z.nativeEnum(Protocol).nullable(),
-        document_specification: z
-            .record(z.string(), z.unknown())
-            .optional()
-            .nullable(),
-        released_at: nullableDate(),
-        deprecated_at: nullableDate(),
-        deprecation_reason: nullableString(),
-        access_policy_id: nullableNumber(),
-        authentication_method_id: nullableNumber(),
-        category_id: nullableNumber(),
-        status_id: nullableNumber(),
-        type_id: nullableNumber(),
-        deprecated_by: nullableNumber(),
+        approval_required: z.boolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
-export type Api = z.infer<typeof apiSchema>;
+export type Lifecycle = z.infer<typeof lifecycleSchema>;
 
-export const componentApiSchema = z
-    .object({
-        id: z.number().int(),
-        component_id: nullableNumber(),
-        api_id: nullableNumber(),
-        relationship_id: nullableNumber(),
-    })
-    .merge(timestampsSchema)
-    .merge(userReferenceSchema);
-export type ComponentApi = z.infer<typeof componentApiSchema>;
-
-// Infrastructure (Clusters and Nodes) --------------------------------------
-
-export const vendorSchema = z
+export const programmingLanguageSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
-        icon: nullableString(),
+        description: nullableString(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
-export type Vendor = z.infer<typeof vendorSchema>;
+export type ProgrammingLanguage = z.infer<typeof programmingLanguageSchema>;
+
+// Infrastructure Domain ----------------------------------------------------
 
 export const clusterTypeSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
-        icon: nullableString(),
-        is_enabled: nullableBoolean(),
-        vendor_id: nullableNumber(),
+        description: nullableString(),
+        licensing_model: z.enum(["open_source", "commercial", "hybrid"]),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
@@ -465,16 +486,12 @@ export const clusterSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
-        api_url: nullableString(),
-        cluster_uuid: nullableString(),
-        display_name: nullableString(),
-        full_version: nullableString(),
-        lifecycle_id: nullableNumber(),
-        tags: z.record(z.string(), z.unknown()).optional().nullable(),
-        timezone: nullableString(),
-        type_id: nullableNumber(),
-        url: nullableNumber(),
-        version: nullableString(),
+        description: nullableString(),
+        cluster_type_id: z.number().int(),
+        cluster_type: clusterTypeSchema.optional(),
+        version: z.string().trim().min(1),
+        endpoint: z.string().url(),
+        is_active: z.boolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
@@ -484,88 +501,65 @@ export const nodeSchema = z
     .object({
         id: z.number().int(),
         name: z.string().trim().min(1),
-        cpu_architecture: z.string().trim().min(1).default("x86"),
-        cpu_count: z.number().int().default(1),
-        cpu_sockets: z.number().int().default(1),
-        cpu_type: nullableString(),
-        discovery_source: nullableString(),
-        fqdn: nullableString(),
+        hostname: z.string().trim().min(1),
         ip_address: z.string().ip(),
-        is_virtual: z.boolean().default(true),
-        lifecycle_id: nullableNumber(),
-        mac_address: nullableString(),
-        mac_address_ipv6: nullableString(),
-        memory_bytes: nullableNumber(),
-        node_type: z.string().default("V"),
-        operational_status_id: nullableNumber(),
-        os: nullableString(),
-        os_version: nullableString(),
-        stm_enabled: nullableBoolean(),
-        timezone: nullableString(),
+        node_type: z.enum(["physical", "virtual", "cloud"]),
+        node_role: z.enum(["master", "worker", "etcd"]),
+        cpu_cores: z.number().int().positive(),
+        cpu_architecture: z.enum(["x86_64", "arm64", "arm", "ppc64le"]),
+        memory_bytes: z.number().int().positive(),
+        storage_bytes: z.number().int().positive(),
+        environment_id: z.number().int(),
+        is_active: z.boolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type Node = z.infer<typeof nodeSchema>;
 
-export const clusterNodeSchema = z
-    .object({
-        id: z.number().int(),
-        cluster_id: nullableNumber(),
-        node_id: nullableNumber(),
-        role: nullableString(),
-    })
-    .merge(timestampsSchema)
-    .merge(userReferenceSchema);
-export type ClusterNode = z.infer<typeof clusterNodeSchema>;
-
-export const serviceAccountSchema = z
-    .object({
-        id: z.number().int(),
-        name: z.string().trim().min(1),
-        namespace: nullableString(),
-    })
-    .merge(timestampsSchema)
-    .merge(userReferenceSchema);
-export type ServiceAccount = z.infer<typeof serviceAccountSchema>;
-
-export const serviceAccountTokenSchema = z
-    .object({
-        id: z.number().int(),
-        service_account_id: z.number().int(),
-        token: z.string().trim().min(1),
-        expires_at: z.string(),
-    })
-    .merge(timestampsSchema)
-    .merge(userReferenceSchema);
-export type ServiceAccountToken = z.infer<typeof serviceAccountTokenSchema>;
-
 export const clusterServiceAccountSchema = z
     .object({
         id: z.number().int(),
-        cluster_id: nullableNumber(),
-        service_account_id: nullableNumber(),
+        cluster_id: z.number().int(),
+        service_account_id: z.number().int(),
+        namespace: z.string().trim().min(1),
+        is_active: z.boolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type ClusterServiceAccount = z.infer<typeof clusterServiceAccountSchema>;
 
-// Links and Relationships --------------------------------------------------
+// Platform Domain ----------------------------------------------------------
 
-export const keyRelationshipSchema = z
+export const platformSchema = z
     .object({
         id: z.number().int(),
-        parent: z.string().trim().min(1),
-        child: z.string().trim().min(1),
+        name: z.string().trim().min(1),
         description: nullableString(),
+        vendor_id: nullableNumber(),
+        version: nullableString(),
+        url: nullableString(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
-export type KeyRelationship = z.infer<typeof keyRelationshipSchema>;
+export type Platform = z.infer<typeof platformSchema>;
+
+export const componentTypeSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+        icon: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ComponentType = z.infer<typeof componentTypeSchema>;
+
+// Integration Domain -------------------------------------------------------
 
 export const linkTypeSchema = z
     .object({
         id: z.number().int(),
-        name: nullableString(),
+        name: z.string().trim().min(1),
         description: nullableString(),
         icon: nullableString(),
     })
@@ -576,16 +570,85 @@ export type LinkType = z.infer<typeof linkTypeSchema>;
 export const linkSchema = z
     .object({
         id: z.number().int(),
-        type_id: nullableNumber(),
-        model_name: nullableString(),
-        model_id: nullableNumber(),
-        name: nullableString(),
+        name: z.string().trim().min(1),
         description: nullableString(),
-        url: nullableString(),
+        link_type_id: z.number().int(),
+        link_type: linkTypeSchema.optional(),
+        source_type: z.string().trim().min(1),
+        source_id: z.number().int(),
+        target_type: z.string().trim().min(1),
+        target_id: z.number().int(),
+        protocol: z.enum(["http", "https", "grpc", "tcp", "udp", "websocket"]),
+        communication_style: z.enum([
+            "synchronous",
+            "asynchronous",
+            "event_driven",
+            "batch",
+        ]),
+        endpoint: nullableString(),
+        is_active: z.boolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type Link = z.infer<typeof linkSchema>;
+
+// Security Domain Extended -------------------------------------------------
+
+export const serviceAccountTokenSchema = z
+    .object({
+        id: z.number().int(),
+        service_account_id: z.number().int(),
+        token: z.string().trim().min(1),
+        expires_at: nullableString(),
+        is_active: z.boolean(),
+        last_used_at: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ServiceAccountToken = z.infer<typeof serviceAccountTokenSchema>;
+
+// Enums --------------------------------------------------------------------
+
+export enum NodeType {
+    Physical = "physical",
+    Virtual = "virtual",
+    Cloud = "cloud",
+}
+
+export enum NodeRole {
+    Master = "master",
+    Worker = "worker",
+    Etcd = "etcd",
+}
+
+export enum CpuArchitecture {
+    X86_64 = "x86_64",
+    ARM64 = "arm64",
+    ARM = "arm",
+    PPC64LE = "ppc64le",
+}
+
+export enum Protocol {
+    HTTP = "http",
+    HTTPS = "https",
+    GRPC = "grpc",
+    TCP = "tcp",
+    UDP = "udp",
+    WebSocket = "websocket",
+}
+
+export enum CommunicationStyle {
+    Synchronous = "synchronous",
+    Asynchronous = "asynchronous",
+    EventDriven = "event_driven",
+    Batch = "batch",
+}
+
+export enum LicensingModel {
+    OpenSource = "open_source",
+    Commercial = "commercial",
+    Hybrid = "hybrid",
+}
 
 // Pagination ---------------------------------------------------------------
 
@@ -608,14 +671,6 @@ export const paginationLinksSchema = z.object({
 });
 export type PaginationLinks = z.infer<typeof paginationLinksSchema>;
 
-export interface PaginatedResponse<T> {
-    data: T[];
-    links: PaginationLinks;
-    meta: PaginationMeta;
-}
-
-// Helper functions for creating response schemas --------------------------
-
 export const createResourceResponseSchema = <T extends z.ZodTypeAny>(
     schema: T
 ) =>
@@ -632,9 +687,6 @@ export const createPaginatedResponseSchema = <T extends z.ZodTypeAny>(
         meta: paginationMetaSchema,
     });
 
-// Response Schemas ---------------------------------------------------------
-
-// APIs
 export const apiResponseSchema = createResourceResponseSchema(apiSchema);
 export type ApiResponse = z.infer<typeof apiResponseSchema>;
 
@@ -652,27 +704,6 @@ export type PaginatedApiTypeResponse = z.infer<
     typeof paginatedApiTypeResponseSchema
 >;
 
-export const apiStatusResponseSchema =
-    createResourceResponseSchema(apiStatusSchema);
-export type ApiStatusResponse = z.infer<typeof apiStatusResponseSchema>;
-
-export const paginatedApiStatusResponseSchema =
-    createPaginatedResponseSchema(apiStatusSchema);
-export type PaginatedApiStatusResponse = z.infer<
-    typeof paginatedApiStatusResponseSchema
->;
-
-export const apiCategoryResponseSchema =
-    createResourceResponseSchema(apiCategorySchema);
-export type ApiCategoryResponse = z.infer<typeof apiCategoryResponseSchema>;
-
-export const paginatedApiCategoryResponseSchema =
-    createPaginatedResponseSchema(apiCategorySchema);
-export type PaginatedApiCategoryResponse = z.infer<
-    typeof paginatedApiCategoryResponseSchema
->;
-
-// Lifecycles
 export const lifecycleResponseSchema =
     createResourceResponseSchema(lifecycleSchema);
 export type LifecycleResponse = z.infer<typeof lifecycleResponseSchema>;
@@ -683,7 +714,6 @@ export type PaginatedLifecycleResponse = z.infer<
     typeof paginatedLifecycleResponseSchema
 >;
 
-// Programming Languages
 export const programmingLanguageResponseSchema = createResourceResponseSchema(
     programmingLanguageSchema
 );
@@ -697,92 +727,8 @@ export type PaginatedProgrammingLanguageResponse = z.infer<
     typeof paginatedProgrammingLanguageResponseSchema
 >;
 
-// Frameworks
-export const frameworkResponseSchema =
-    createResourceResponseSchema(frameworkSchema);
-export type FrameworkResponse = z.infer<typeof frameworkResponseSchema>;
+// Infrastructure response schemas ------------------------------------------
 
-export const paginatedFrameworkResponseSchema =
-    createPaginatedResponseSchema(frameworkSchema);
-export type PaginatedFrameworkResponse = z.infer<
-    typeof paginatedFrameworkResponseSchema
->;
-
-// Platforms
-export const platformResponseSchema =
-    createResourceResponseSchema(platformSchema);
-export type PlatformResponse = z.infer<typeof platformResponseSchema>;
-
-export const paginatedPlatformResponseSchema =
-    createPaginatedResponseSchema(platformSchema);
-export type PaginatedPlatformResponse = z.infer<
-    typeof paginatedPlatformResponseSchema
->;
-
-// Components
-export const componentResponseSchema =
-    createResourceResponseSchema(componentSchema);
-export type ComponentResponse = z.infer<typeof componentResponseSchema>;
-
-export const paginatedComponentResponseSchema =
-    createPaginatedResponseSchema(componentSchema);
-export type PaginatedComponentResponse = z.infer<
-    typeof paginatedComponentResponseSchema
->;
-
-export const componentCategoryResponseSchema = createResourceResponseSchema(
-    componentCategorySchema
-);
-export type ComponentCategoryResponse = z.infer<
-    typeof componentCategoryResponseSchema
->;
-
-export const paginatedComponentCategoryResponseSchema =
-    createPaginatedResponseSchema(componentCategorySchema);
-export type PaginatedComponentCategoryResponse = z.infer<
-    typeof paginatedComponentCategoryResponseSchema
->;
-
-// Alias para backward compatibility con lib/api/platform.ts
-export const componentTypeResponseSchema = componentCategoryResponseSchema;
-export const paginatedComponentTypeResponseSchema =
-    paginatedComponentCategoryResponseSchema;
-
-// Environments
-export const environmentResponseSchema =
-    createResourceResponseSchema(environmentSchema);
-export type EnvironmentResponse = z.infer<typeof environmentResponseSchema>;
-
-export const paginatedEnvironmentResponseSchema =
-    createPaginatedResponseSchema(environmentSchema);
-export type PaginatedEnvironmentResponse = z.infer<
-    typeof paginatedEnvironmentResponseSchema
->;
-
-// Business Domain
-export const businessDomainResponseSchema =
-    createResourceResponseSchema(businessDomainSchema);
-export type BusinessDomainResponse = z.infer<
-    typeof businessDomainResponseSchema
->;
-
-export const paginatedBusinessDomainResponseSchema =
-    createPaginatedResponseSchema(businessDomainSchema);
-export type PaginatedBusinessDomainResponse = z.infer<
-    typeof paginatedBusinessDomainResponseSchema
->;
-
-export const businessTierResponseSchema =
-    createResourceResponseSchema(businessTierSchema);
-export type BusinessTierResponse = z.infer<typeof businessTierResponseSchema>;
-
-export const paginatedBusinessTierResponseSchema =
-    createPaginatedResponseSchema(businessTierSchema);
-export type PaginatedBusinessTierResponse = z.infer<
-    typeof paginatedBusinessTierResponseSchema
->;
-
-// Infrastructure
 export const clusterTypeResponseSchema =
     createResourceResponseSchema(clusterTypeSchema);
 export type ClusterTypeResponse = z.infer<typeof clusterTypeResponseSchema>;
@@ -810,16 +756,43 @@ export const paginatedNodeResponseSchema =
     createPaginatedResponseSchema(nodeSchema);
 export type PaginatedNodeResponse = z.infer<typeof paginatedNodeResponseSchema>;
 
-export const vendorResponseSchema = createResourceResponseSchema(vendorSchema);
-export type VendorResponse = z.infer<typeof vendorResponseSchema>;
-
-export const paginatedVendorResponseSchema =
-    createPaginatedResponseSchema(vendorSchema);
-export type PaginatedVendorResponse = z.infer<
-    typeof paginatedVendorResponseSchema
+export const clusterServiceAccountResponseSchema = createResourceResponseSchema(
+    clusterServiceAccountSchema
+);
+export type ClusterServiceAccountResponse = z.infer<
+    typeof clusterServiceAccountResponseSchema
 >;
 
-// Links
+export const paginatedClusterServiceAccountResponseSchema =
+    createPaginatedResponseSchema(clusterServiceAccountSchema);
+export type PaginatedClusterServiceAccountResponse = z.infer<
+    typeof paginatedClusterServiceAccountResponseSchema
+>;
+
+// Platform response schemas ------------------------------------------------
+
+export const platformResponseSchema =
+    createResourceResponseSchema(platformSchema);
+export type PlatformResponse = z.infer<typeof platformResponseSchema>;
+
+export const paginatedPlatformResponseSchema =
+    createPaginatedResponseSchema(platformSchema);
+export type PaginatedPlatformResponse = z.infer<
+    typeof paginatedPlatformResponseSchema
+>;
+
+export const componentTypeResponseSchema =
+    createResourceResponseSchema(componentTypeSchema);
+export type ComponentTypeResponse = z.infer<typeof componentTypeResponseSchema>;
+
+export const paginatedComponentTypeResponseSchema =
+    createPaginatedResponseSchema(componentTypeSchema);
+export type PaginatedComponentTypeResponse = z.infer<
+    typeof paginatedComponentTypeResponseSchema
+>;
+
+// Integration response schemas ---------------------------------------------
+
 export const linkTypeResponseSchema =
     createResourceResponseSchema(linkTypeSchema);
 export type LinkTypeResponse = z.infer<typeof linkTypeResponseSchema>;
@@ -837,7 +810,8 @@ export const paginatedLinkResponseSchema =
     createPaginatedResponseSchema(linkSchema);
 export type PaginatedLinkResponse = z.infer<typeof paginatedLinkResponseSchema>;
 
-// Service Account Tokens
+// Security response schemas ------------------------------------------------
+
 export const serviceAccountTokenResponseSchema = createResourceResponseSchema(
     serviceAccountTokenSchema
 );
@@ -851,60 +825,26 @@ export type PaginatedServiceAccountTokenResponse = z.infer<
     typeof paginatedServiceAccountTokenResponseSchema
 >;
 
-// Cluster Service Accounts
-export const clusterServiceAccountResponseSchema = createResourceResponseSchema(
-    clusterServiceAccountSchema
-);
-export type ClusterServiceAccountResponse = z.infer<
-    typeof clusterServiceAccountResponseSchema
->;
+export interface PaginatedResponse<T> {
+    data: T[];
+    links: PaginationLinks;
+    meta: PaginationMeta;
+}
 
-export const paginatedClusterServiceAccountResponseSchema =
-    createPaginatedResponseSchema(clusterServiceAccountSchema);
-export type PaginatedClusterServiceAccountResponse = z.infer<
-    typeof paginatedClusterServiceAccountResponseSchema
->;
+// Request payloads --------------------------------------------------------
 
-// Request Payloads ---------------------------------------------------------
-
-// APIs
 export interface CreateApiRequest {
     name: string;
-    display_name?: string;
     description?: string;
-    url?: string;
-    version?: string;
-    protocol?: Protocol;
-    document_specification?: Record<string, unknown>;
-    released_at?: string;
-    access_policy_id?: number;
-    authentication_method_id?: number;
-    category_id?: number;
-    status_id?: number;
-    type_id?: number;
+    api_type_id?: number;
+    lifecycle_id?: number;
+    api_status_id?: number;
+    programming_language_id?: number;
+    business_domain_category?: string;
+    discovery_source?: string;
 }
 
-export type UpdateApiRequest = Partial<CreateApiRequest> & {
-    deprecated_at?: string;
-    deprecated_by?: number;
-    deprecation_reason?: string;
-};
-
-export interface CreateApiAccessPolicyRequest {
-    name: string;
-    description?: string;
-}
-
-export type UpdateApiAccessPolicyRequest =
-    Partial<CreateApiAccessPolicyRequest>;
-
-export interface CreateAuthenticationMethodRequest {
-    name: string;
-    description?: string;
-}
-
-export type UpdateAuthenticationMethodRequest =
-    Partial<CreateAuthenticationMethodRequest>;
+export type UpdateApiRequest = Partial<CreateApiRequest>;
 
 export interface CreateApiTypeRequest {
     name: string;
@@ -913,183 +853,91 @@ export interface CreateApiTypeRequest {
 
 export type UpdateApiTypeRequest = Partial<CreateApiTypeRequest>;
 
-export interface CreateApiStatusRequest {
-    name: string;
-    description?: string;
-}
-
-export type UpdateApiStatusRequest = Partial<CreateApiStatusRequest>;
-
-export interface CreateApiCategoryRequest {
-    name: string;
-    description?: string;
-    icon?: string;
-}
-
-export type UpdateApiCategoryRequest = Partial<CreateApiCategoryRequest>;
-
-// Lifecycles
 export interface CreateLifecycleRequest {
     name: string;
     description?: string;
-    color?: string;
-    approval_required?: boolean;
+    approval_required: boolean;
 }
 
 export type UpdateLifecycleRequest = Partial<CreateLifecycleRequest>;
 
-// Programming Languages
 export interface CreateProgrammingLanguageRequest {
     name: string;
-    icon?: string;
-    url?: string;
-    is_enabled?: boolean;
+    description?: string;
 }
 
 export type UpdateProgrammingLanguageRequest =
     Partial<CreateProgrammingLanguageRequest>;
 
-// Frameworks
-export interface CreateFrameworkRequest {
-    name: string;
-    language_id: number;
-    description?: string;
-    icon?: string;
-    url?: string;
-    is_enabled?: boolean;
-}
+// Infrastructure request payloads ------------------------------------------
 
-export type UpdateFrameworkRequest = Partial<CreateFrameworkRequest>;
-
-// Platforms
-export interface CreatePlatformRequest {
-    name: string;
-    description?: string;
-    icon?: string;
-}
-
-export type UpdatePlatformRequest = Partial<CreatePlatformRequest>;
-
-// Components
-export interface CreateComponentRequest {
-    name: string;
-    slug: string;
-    description?: string;
-    display_name?: string;
-    type_id?: number;
-    platform_id?: number;
-    lifecycle_id?: number;
-    domain_id?: number;
-    tier_id?: number;
-    criticality_id?: number;
-    owner_id?: number;
-    status_id?: number;
-    operational_status_id?: number;
-    discovery_source?: DiscoverySource;
-    is_stateless?: boolean;
-    has_zero_downtime_deployment?: boolean;
-    tags?: Record<string, unknown>;
-}
-
-export type UpdateComponentRequest = Partial<CreateComponentRequest>;
-
-export interface CreateComponentCategoryRequest {
-    name: string;
-    description?: string;
-    icon?: string;
-    model?: string;
-}
-
-export type UpdateComponentCategoryRequest =
-    Partial<CreateComponentCategoryRequest>;
-
-// Environments
-export interface CreateEnvironmentRequest {
-    name: string;
-    description?: string;
-    label?: string;
-    prefix?: string;
-    suffix?: string;
-    url?: string;
-    owner_id?: number;
-    approval_required?: boolean;
-    display_in_matrix?: boolean;
-}
-
-export type UpdateEnvironmentRequest = Partial<CreateEnvironmentRequest>;
-
-// Business Domain
-export interface CreateBusinessDomainRequest {
-    name: string;
-    description?: string;
-    display_name?: string;
-    parent_id?: number;
-}
-
-export type UpdateBusinessDomainRequest = Partial<CreateBusinessDomainRequest>;
-
-export interface CreateBusinessTierRequest {
-    name: string;
-    code?: string;
-    description?: string;
-}
-
-export type UpdateBusinessTierRequest = Partial<CreateBusinessTierRequest>;
-
-// Infrastructure
 export interface CreateClusterTypeRequest {
     name: string;
     description?: string;
-    icon?: string;
-    vendor_id?: number;
-    is_enabled?: boolean;
+    licensing_model: "open_source" | "commercial" | "hybrid";
 }
 
 export type UpdateClusterTypeRequest = Partial<CreateClusterTypeRequest>;
 
 export interface CreateClusterRequest {
     name: string;
-    version?: string;
-    type_id?: number;
-    api_url?: string;
-    display_name?: string;
-    full_version?: string;
-    lifecycle_id?: number;
-    timezone?: string;
-    tags?: Record<string, unknown>;
+    description?: string;
+    cluster_type_id: number;
+    version: string;
+    endpoint: string;
+    is_active?: boolean;
 }
 
 export type UpdateClusterRequest = Partial<CreateClusterRequest>;
 
 export interface CreateNodeRequest {
     name: string;
+    hostname: string;
     ip_address: string;
-    fqdn?: string;
-    cpu_architecture?: string;
-    cpu_count?: number;
-    cpu_sockets?: number;
-    cpu_type?: string;
-    memory_bytes?: number;
-    os?: string;
-    os_version?: string;
-    node_type?: string;
-    is_virtual?: boolean;
-    lifecycle_id?: number;
-    operational_status_id?: number;
-    discovery_source?: string;
-    timezone?: string;
+    node_type: "physical" | "virtual" | "cloud";
+    node_role: "master" | "worker" | "etcd";
+    cpu_cores: number;
+    cpu_architecture: "x86_64" | "arm64" | "arm" | "ppc64le";
+    memory_bytes: number;
+    storage_bytes: number;
+    environment_id: number;
+    is_active?: boolean;
 }
 
 export type UpdateNodeRequest = Partial<CreateNodeRequest>;
 
-export interface CreateVendorRequest {
+export interface CreateClusterServiceAccountRequest {
+    cluster_id: number;
+    service_account_id: number;
+    namespace: string;
+    is_active?: boolean;
+}
+
+export type UpdateClusterServiceAccountRequest =
+    Partial<CreateClusterServiceAccountRequest>;
+
+// Platform request payloads ------------------------------------------------
+
+export interface CreatePlatformRequest {
     name: string;
+    description?: string;
+    vendor_id?: number;
+    version?: string;
+    url?: string;
+}
+
+export type UpdatePlatformRequest = Partial<CreatePlatformRequest>;
+
+export interface CreateComponentTypeRequest {
+    name: string;
+    description?: string;
     icon?: string;
 }
 
-export type UpdateVendorRequest = Partial<CreateVendorRequest>;
+export type UpdateComponentTypeRequest = Partial<CreateComponentTypeRequest>;
 
-// Links
+// Integration request payloads ---------------------------------------------
+
 export interface CreateLinkTypeRequest {
     name: string;
     description?: string;
@@ -1099,70 +947,33 @@ export interface CreateLinkTypeRequest {
 export type UpdateLinkTypeRequest = Partial<CreateLinkTypeRequest>;
 
 export interface CreateLinkRequest {
-    name?: string;
-    type_id?: number;
-    model_name?: string;
-    model_id?: number;
+    name: string;
     description?: string;
-    url?: string;
+    link_type_id: number;
+    source_type: string;
+    source_id: number;
+    target_type: string;
+    target_id: number;
+    protocol: "http" | "https" | "grpc" | "tcp" | "udp" | "websocket";
+    communication_style:
+        | "synchronous"
+        | "asynchronous"
+        | "event_driven"
+        | "batch";
+    endpoint?: string;
+    is_active?: boolean;
 }
 
 export type UpdateLinkRequest = Partial<CreateLinkRequest>;
 
-// Groups
-export interface CreateGroupRequest {
-    name: string;
-    description?: string;
-    email?: string;
-    icon?: string;
-    label?: string;
-    parent_id?: number;
-    type_id?: number;
+// Security request payloads ------------------------------------------------
+
+export interface CreateServiceAccountTokenRequest {
+    service_account_id: number;
+    token: string;
+    expires_at?: string;
+    is_active?: boolean;
 }
 
-export type UpdateGroupRequest = Partial<CreateGroupRequest>;
-
-export interface CreateGroupTypeRequest {
-    name: string;
-    description?: string;
-}
-
-export type UpdateGroupTypeRequest = Partial<CreateGroupTypeRequest>;
-
-// Releases and Deployments
-export interface CreateReleaseRequest {
-    component_id: number;
-    build_id?: number;
-    language_id?: number;
-    framework_id?: number;
-    url?: string;
-    digest_md5?: string;
-    digest_sha1?: string;
-    digest_sha256?: string;
-    sbom_ref?: string;
-    sbom_digest?: string;
-}
-
-export type UpdateReleaseRequest = Partial<CreateReleaseRequest>;
-
-export interface CreateDeploymentRequest {
-    release_id: number;
-    environment_id: number;
-    deployed_at: string;
-    deployed_by: number;
-    deployment_model?: string;
-    deployment_status?: string;
-}
-
-export type UpdateDeploymentRequest = Partial<CreateDeploymentRequest>;
-
-export interface CreateBuildRequest {
-    component_id?: number;
-    job_id: string;
-    launched_at: string;
-    launched_by?: number;
-    finished_at: string;
-    result?: string; // Backend usa string, no enum
-}
-
-export type UpdateBuildRequest = Partial<CreateBuildRequest>;
+export type UpdateServiceAccountTokenRequest =
+    Partial<CreateServiceAccountTokenRequest>;
