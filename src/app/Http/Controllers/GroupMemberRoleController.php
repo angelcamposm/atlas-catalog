@@ -40,26 +40,26 @@ class GroupMemberRoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param GroupMemberRole $groupMemberRole
+     * @param GroupMemberRole $member_role
      *
      * @return GroupMemberRoleResource
      */
-    public function show(GroupMemberRole $groupMemberRole): GroupMemberRoleResource
+    public function show(GroupMemberRole $member_role): GroupMemberRoleResource
     {
-        return new GroupMemberRoleResource($groupMemberRole);
+        return new GroupMemberRoleResource($member_role);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateGroupMemberRoleRequest $request
-     * @param GroupMemberRole $groupMemberRole
+     * @param GroupMemberRole $member_role
      *
      * @return GroupMemberRoleResource
      */
-    public function update(UpdateGroupMemberRoleRequest $request, GroupMemberRole $groupMemberRole): GroupMemberRoleResource
+    public function update(UpdateGroupMemberRoleRequest $request, GroupMemberRole $member_role): GroupMemberRoleResource
     {
-        $model = $groupMemberRole->update($request->validated());
+        $model = $member_role->update($request->validated());
 
         return new GroupMemberRoleResource($model);
     }
@@ -67,13 +67,13 @@ class GroupMemberRoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param GroupMemberRole $groupMemberRole
+     * @param GroupMemberRole $member_role
      *
      * @return Response
      */
-    public function destroy(GroupMemberRole $groupMemberRole): Response
+    public function destroy(GroupMemberRole $member_role): Response
     {
-        $groupMemberRole->delete();
+        $member_role->delete();
 
         return response()->noContent();
     }
