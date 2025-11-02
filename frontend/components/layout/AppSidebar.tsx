@@ -12,12 +12,6 @@ import {
     Search,
     ChevronDown,
     ChevronRight,
-    Inbox,
-    CheckSquare,
-    Plus,
-    Briefcase,
-    Hash,
-    BookOpen,
     Tag,
 } from "lucide-react";
 
@@ -59,120 +53,155 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
         });
     };
 
-    // Main navigation sections
+    // Main navigation sections - matching original project structure
     const menuSections: MenuSection[] = useMemo(
         () => [
             {
                 id: "main",
+                label: "Main",
                 items: [
                     {
-                        title: "Home",
+                        title: "Dashboard",
                         url: `/${locale}/dashboard`,
                         icon: Home,
                     },
                     {
-                        title: "Updates",
-                        url: `/${locale}/updates`,
-                        icon: Bell,
+                        title: "APIs",
+                        url: `/${locale}/apis`,
+                        icon: FileText,
+                        badge: "100+",
                     },
                     {
-                        title: "Inbox",
-                        url: `/${locale}/inbox`,
-                        icon: Inbox,
+                        title: "Lifecycles",
+                        url: `/${locale}/lifecycles`,
+                        icon: BarChart3,
                     },
                     {
-                        title: "Clients",
-                        url: `/${locale}/clients`,
-                        icon: Users,
-                        badge: "Beta",
-                    },
-                    {
-                        title: "My Tasks",
-                        url: `/${locale}/tasks`,
-                        icon: CheckSquare,
-                    },
-                ],
-            },
-            {
-                id: "workspaces",
-                label: "Workspaces",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Business Concepts",
-                        url: `/${locale}/workspaces/business-concepts`,
-                        icon: Briefcase,
-                    },
-                    {
-                        title: "KeenThemes Studio",
-                        url: `/${locale}/workspaces/keenthemes`,
-                        icon: Briefcase,
+                        title: "Types",
+                        url: `/${locale}/types`,
+                        icon: Tag,
                     },
                     {
                         title: "Teams",
                         url: `/${locale}/teams`,
                         icon: Users,
-                        badge: "Pro",
                     },
+                ],
+            },
+            {
+                id: "infrastructure",
+                label: "Infrastructure",
+                collapsible: true,
+                items: [
                     {
-                        title: "Reports",
-                        url: `/${locale}/analytics`,
+                        title: "Overview",
+                        url: `/${locale}/infrastructure`,
                         icon: BarChart3,
                     },
-                ],
-            },
-            {
-                id: "communities",
-                label: "Communities",
-                collapsible: true,
-                items: [
                     {
-                        title: "Designers Hub",
-                        url: `/${locale}/communities/designers`,
-                        icon: Hash,
+                        title: "Clusters",
+                        url: `/${locale}/infrastructure/clusters`,
+                        icon: Home,
                     },
                     {
-                        title: "React Js",
-                        url: `/${locale}/communities/react`,
-                        icon: Hash,
-                    },
-                    {
-                        title: "Node Js",
-                        url: `/${locale}/communities/node`,
-                        icon: Hash,
-                    },
-                ],
-            },
-            {
-                id: "resources",
-                label: "Resources",
-                collapsible: true,
-                items: [
-                    {
-                        title: "About Metronic",
-                        url: `/${locale}/resources/about`,
-                        icon: BookOpen,
-                    },
-                    {
-                        title: "Advertise",
-                        url: `/${locale}/resources/advertise`,
+                        title: "Cluster Types",
+                        url: `/${locale}/infrastructure/cluster-types`,
                         icon: Tag,
-                        badge: "Pro",
                     },
                     {
-                        title: "Help",
-                        url: `/${locale}/resources/help`,
+                        title: "Nodes",
+                        url: `/${locale}/infrastructure/nodes`,
+                        icon: Home,
+                    },
+                    {
+                        title: "Service Accounts",
+                        url: `/${locale}/infrastructure/cluster-service-accounts`,
+                        icon: Users,
+                    },
+                ],
+            },
+            {
+                id: "platform",
+                label: "Platform",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Overview",
+                        url: `/${locale}/platform`,
+                        icon: BarChart3,
+                    },
+                    {
+                        title: "Platforms",
+                        url: `/${locale}/platform/platforms`,
+                        icon: Home,
+                    },
+                    {
+                        title: "Component Types",
+                        url: `/${locale}/platform/component-types`,
+                        icon: Tag,
+                    },
+                ],
+            },
+            {
+                id: "integration",
+                label: "Integration",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Overview",
+                        url: `/${locale}/integration`,
+                        icon: BarChart3,
+                    },
+                    {
+                        title: "Links",
+                        url: `/${locale}/integration/links`,
                         icon: FileText,
                     },
                     {
-                        title: "Blog",
-                        url: `/${locale}/resources/blog`,
-                        icon: BookOpen,
+                        title: "Link Types",
+                        url: `/${locale}/integration/link-types`,
+                        icon: Tag,
+                    },
+                ],
+            },
+            {
+                id: "analytics",
+                label: "Analytics & Docs",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Analytics",
+                        url: `/${locale}/analytics`,
+                        icon: BarChart3,
+                        badge: "Pro",
                     },
                     {
-                        title: "Careers",
-                        url: `/${locale}/resources/careers`,
-                        icon: Briefcase,
+                        title: "Documentation",
+                        url: `/${locale}/documentation`,
+                        icon: FileText,
+                    },
+                    {
+                        title: "Security",
+                        url: `/${locale}/security`,
+                        icon: Users,
+                    },
+                ],
+            },
+            {
+                id: "system",
+                label: "System",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Notifications",
+                        url: `/${locale}/notifications`,
+                        icon: Bell,
+                        badge: "3",
+                    },
+                    {
+                        title: "Settings",
+                        url: `/${locale}/settings`,
+                        icon: Home,
                     },
                 ],
             },
@@ -226,9 +255,6 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                                     <span>{section.label}</span>
                                     {section.collapsible && (
                                         <div className="flex items-center gap-1">
-                                            {section.id === "communities" && (
-                                                <Plus className="h-3 w-3" />
-                                            )}
                                             {isCollapsed ? (
                                                 <ChevronRight className="h-3.5 w-3.5" />
                                             ) : (
