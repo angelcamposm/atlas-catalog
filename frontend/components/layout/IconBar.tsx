@@ -154,7 +154,7 @@ export function IconBar({
                 title="Configuración"
             >
                 <HiCog6Tooth className="h-5 w-5" />
-                
+
                 {/* Tooltip */}
                 <div className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-popover px-2.5 py-1.5 text-xs text-popover-foreground shadow-lg ring-1 ring-border group-hover:block">
                     Configuración

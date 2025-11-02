@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { IconBar } from "@/components/layout/IconBar";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import { ModuleSelector } from "@/components/layout/ModuleSelector";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { CommandKSearch } from "@/components/dashboard/CommandKSearch";
 import { Button } from "@/components/ui/Button";
@@ -135,17 +136,13 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
             <div className="flex flex-1 flex-col overflow-hidden">
                 {/* Primary Header Bar - Generic */}
                 <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-6">
-                    {/* Left side - Breadcrumb */}
+                    {/* Left side - Module Selector + Breadcrumb */}
                     <div className="flex items-center gap-4">
-                        {/* Project Name/Logo */}
-                        <div className="flex items-center gap-2">
-                            <div className="flex h-6 w-6 items-center justify-center rounded bg-primary text-xs font-bold text-primary-foreground">
-                                A
-                            </div>
-                            <span className="font-semibold text-foreground">
-                                Atlas Catalog
-                            </span>
-                        </div>
+                        {/* Module Selector */}
+                        <ModuleSelector userPermissions={[]} />
+
+                        {/* Separator */}
+                        <div className="h-6 w-px bg-border" />
 
                         {/* Breadcrumb */}
                         <div className="flex items-center gap-2 text-sm">

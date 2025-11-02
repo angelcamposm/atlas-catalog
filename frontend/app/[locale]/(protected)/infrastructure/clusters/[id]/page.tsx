@@ -3,10 +3,9 @@
 import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, Power, PowerOff } from "lucide-react";
+import { ArrowLeft, Edit, Trash2 } from "lucide-react";
 import { HiServerStack } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { clustersApi } from "@/lib/api/infrastructure";
 import type { ClusterResponse } from "@/types/api";
@@ -54,19 +53,13 @@ export default function ClusterDetailPage({
         }
     };
 
+    /* TODO: Implement when backend supports status toggle
     const handleToggleStatus = async () => {
         if (!cluster) return;
-
-        try {
-            await clustersApi.update(parseInt(id), {
-                is_active: !cluster.data.is_active,
-            });
-            loadCluster(); // Reload to get updated data
-        } catch (err) {
-            console.error("Error updating cluster status:", err);
-            alert("Failed to update cluster status");
-        }
+        // Cluster model doesn't have is_active field
+        console.warn("Cluster status toggle not implemented");
     };
+    */
 
     if (loading) {
         return (
@@ -129,23 +122,7 @@ export default function ClusterDetailPage({
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleToggleStatus}
-                    >
-                        {clusterData.is_active ? (
-                            <>
-                                <PowerOff className="mr-2 h-4 w-4" />
-                                Deactivate
-                            </>
-                        ) : (
-                            <>
-                                <Power className="mr-2 h-4 w-4" />
-                                Activate
-                            </>
-                        )}
-                    </Button>
+                    {/* TODO: Implement status toggle when backend supports it */}
                     <Button
                         variant="outline"
                         size="sm"
@@ -169,15 +146,6 @@ export default function ClusterDetailPage({
                 </div>
             </div>
 
-            {/* Status Badge */}
-            <div>
-                <Badge
-                    variant={clusterData.is_active ? "success" : "secondary"}
-                >
-                    {clusterData.is_active ? "Active" : "Inactive"}
-                </Badge>
-            </div>
-
             {/* Main Information */}
             <div className="grid gap-6 md:grid-cols-2">
                 {/* Basic Information */}
@@ -192,81 +160,94 @@ export default function ClusterDetailPage({
                             </label>
                             <p className="mt-1 text-base">{clusterData.name}</p>
                         </div>
-                        {clusterData.description && (
+                        {clusterData.display_name && (
                             <div>
                                 <label className="text-sm font-medium text-muted-foreground">
-                                    Description
+                                    Display Name
                                 </label>
                                 <p className="mt-1 text-base">
-                                    {clusterData.description}
+                                    {clusterData.display_name}
                                 </p>
                             </div>
                         )}
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">
-                                Version
-                            </label>
-                            <p className="mt-1 text-base">
-                                {clusterData.version}
-                            </p>
-                        </div>
-                        <div>
-                            <label className="text-sm font-medium text-muted-foreground">
-                                Endpoint
-                            </label>
-                            <p className="mt-1 break-all font-mono text-sm">
-                                {clusterData.endpoint}
-                            </p>
-                        </div>
+                        {clusterData.version && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    Version
+                                </label>
+                                <p className="mt-1 text-base">
+                                    {clusterData.version}
+                                </p>
+                            </div>
+                        )}
+                        {clusterData.full_version && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    Full Version
+                                </label>
+                                <p className="mt-1 text-base">
+                                    {clusterData.full_version}
+                                </p>
+                            </div>
+                        )}
+                        {clusterData.api_url && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    API URL
+                                </label>
+                                <p className="mt-1 break-all font-mono text-sm">
+                                    {clusterData.api_url}
+                                </p>
+                            </div>
+                        )}
+                        {clusterData.cluster_uuid && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    UUID
+                                </label>
+                                <p className="mt-1 font-mono text-sm">
+                                    {clusterData.cluster_uuid}
+                                </p>
+                            </div>
+                        )}
                     </CardContent>
                 </Card>
 
-                {/* Cluster Type Information */}
+                {/* Technical Information */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>Cluster Type</CardTitle>
+                        <CardTitle>Technical Details</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        {clusterData.cluster_type ? (
-                            <>
-                                <div>
-                                    <label className="text-sm font-medium text-muted-foreground">
-                                        Type Name
-                                    </label>
-                                    <p className="mt-1 text-base">
-                                        {clusterData.cluster_type.name}
-                                    </p>
-                                </div>
-                                {clusterData.cluster_type.description && (
-                                    <div>
-                                        <label className="text-sm font-medium text-muted-foreground">
-                                            Description
-                                        </label>
-                                        <p className="mt-1 text-base">
-                                            {
-                                                clusterData.cluster_type
-                                                    .description
-                                            }
-                                        </p>
-                                    </div>
-                                )}
-                                <div>
-                                    <label className="text-sm font-medium text-muted-foreground">
-                                        Licensing Model
-                                    </label>
-                                    <p className="mt-1">
-                                        <Badge variant="secondary">
-                                            {clusterData.cluster_type.licensing_model
-                                                .replace("_", " ")
-                                                .toUpperCase()}
-                                        </Badge>
-                                    </p>
-                                </div>
-                            </>
-                        ) : (
-                            <p className="text-sm text-muted-foreground">
-                                No cluster type information available
-                            </p>
+                        {clusterData.type_id && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    Type ID
+                                </label>
+                                <p className="mt-1 text-base">
+                                    {clusterData.type_id}
+                                </p>
+                            </div>
+                        )}
+                        {clusterData.lifecycle_id && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    Lifecycle ID
+                                </label>
+                                <p className="mt-1 text-base">
+                                    {clusterData.lifecycle_id}
+                                </p>
+                            </div>
+                        )}
+                        {clusterData.timezone && (
+                            <div>
+                                <label className="text-sm font-medium text-muted-foreground">
+                                    Timezone
+                                </label>
+                                <p className="mt-1 text-base">
+                                    {clusterData.timezone}
+                                </p>
+                            </div>
                         )}
                     </CardContent>
                 </Card>

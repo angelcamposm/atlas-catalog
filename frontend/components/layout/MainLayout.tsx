@@ -57,10 +57,10 @@ export function MainLayout({
                             orientation="vertical"
                             className="mr-2 h-4"
                         />
-                        
+
                         {/* Module Selector */}
                         <ModuleSelector userPermissions={userPermissions} />
-                        
+
                         <div className="ml-auto flex items-center gap-4">
                             <Navbar locale={locale} />
                         </div>
