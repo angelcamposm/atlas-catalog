@@ -40,26 +40,26 @@ class ClusterTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ClusterType $clusterType
+     * @param ClusterType $type
      *
      * @return ClusterTypeResource
      */
-    public function show(ClusterType $clusterType): ClusterTypeResource
+    public function show(ClusterType $type): ClusterTypeResource
     {
-        return new ClusterTypeResource($clusterType);
+        return new ClusterTypeResource($type);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateClusterTypeRequest $request
-     * @param ClusterType $clusterType
+     * @param ClusterType $type
      *
      * @return ClusterTypeResource
      */
-    public function update(UpdateClusterTypeRequest $request, ClusterType $clusterType): ClusterTypeResource
+    public function update(UpdateClusterTypeRequest $request, ClusterType $type): ClusterTypeResource
     {
-        $model = $clusterType->update($request->validated());
+        $model = $type->update($request->validated());
 
         return new ClusterTypeResource($model);
     }
@@ -67,13 +67,13 @@ class ClusterTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ClusterType $clusterType
+     * @param ClusterType $type
      *
      * @return Response
      */
-    public function destroy(ClusterType $clusterType): Response
+    public function destroy(ClusterType $type): Response
     {
-        $clusterType->delete();
+        $type->delete();
 
         return response()->noContent();
     }
