@@ -40,26 +40,26 @@ class ApiAccessPolicyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ApiAccessPolicy $apiAccessPolicy
+     * @param ApiAccessPolicy $access_policy
      *
      * @return ApiAccessPolicyResource
      */
-    public function show(ApiAccessPolicy $apiAccessPolicy): ApiAccessPolicyResource
+    public function show(ApiAccessPolicy $access_policy): ApiAccessPolicyResource
     {
-        return new ApiAccessPolicyResource($apiAccessPolicy);
+        return new ApiAccessPolicyResource($access_policy);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateApiAccessPolicyRequest $request
-     * @param ApiAccessPolicy $apiAccessPolicy
+     * @param ApiAccessPolicy $access_policy
      *
      * @return ApiAccessPolicyResource
      */
-    public function update(UpdateApiAccessPolicyRequest $request, ApiAccessPolicy $apiAccessPolicy): ApiAccessPolicyResource
+    public function update(UpdateApiAccessPolicyRequest $request, ApiAccessPolicy $access_policy): ApiAccessPolicyResource
     {
-        $model = $apiAccessPolicy->update($request->validated());
+        $model = $access_policy->update($request->validated());
 
         return new ApiAccessPolicyResource($model);
     }
@@ -67,13 +67,13 @@ class ApiAccessPolicyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ApiAccessPolicy $apiAccessPolicy
+     * @param ApiAccessPolicy $access_policy
      *
      * @return Response
      */
-    public function destroy(ApiAccessPolicy $apiAccessPolicy): Response
+    public function destroy(ApiAccessPolicy $access_policy): Response
     {
-        $apiAccessPolicy->delete();
+        $access_policy->delete();
 
         return response()->noContent();
     }
