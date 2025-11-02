@@ -38,7 +38,7 @@ final class CategorySeeder extends Seeder
                 'description' => $item['description'],
                 'icon' => $item['icon'],
                 'model' => $item['model'],
-                'parent_id' => $item['model'],
+                'parent_id' => $item['parent_id'],
             ],
         );
     }
