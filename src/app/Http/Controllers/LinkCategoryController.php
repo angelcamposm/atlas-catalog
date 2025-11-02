@@ -40,26 +40,26 @@ class LinkCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param LinkCategory $linkCategory
+     * @param LinkCategory $category
      *
      * @return CategoryResource
      */
-    public function show(LinkCategory $linkCategory): CategoryResource
+    public function show(LinkCategory $category): CategoryResource
     {
-        return new CategoryResource($linkCategory);
+        return new CategoryResource($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateCategoryRequest $request
-     * @param LinkCategory $linkCategory
+     * @param LinkCategory $category
      *
      * @return CategoryResource
      */
-    public function update(UpdateCategoryRequest $request, LinkCategory $linkCategory): CategoryResource
+    public function update(UpdateCategoryRequest $request, LinkCategory $category): CategoryResource
     {
-        $model = $linkCategory->update($request->validated());
+        $model = $category->update($request->validated());
 
         return new CategoryResource($model);
     }
@@ -67,13 +67,13 @@ class LinkCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param LinkCategory $linkCategory
+     * @param LinkCategory $category
      *
      * @return Response
      */
-    public function destroy(LinkCategory $linkCategory): Response
+    public function destroy(LinkCategory $category): Response
     {
-        $linkCategory->delete();
+        $category->delete();
 
         return response()->noContent();
     }
