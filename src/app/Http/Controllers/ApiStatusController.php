@@ -43,37 +43,37 @@ class ApiStatusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ApiStatus $apiStatus
+     * @param ApiStatus $status
      * @return ApiStatusResource
      */
-    public function show(ApiStatus $apiStatus): ApiStatusResource
+    public function show(ApiStatus $status): ApiStatusResource
     {
-        return new ApiStatusResource($apiStatus);
+        return new ApiStatusResource($status);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateApiStatusRequest $request
-     * @param ApiStatus $apiStatus
+     * @param ApiStatus $status
      * @return ApiStatusResource
      */
-    public function update(UpdateApiStatusRequest $request, ApiStatus $apiStatus): ApiStatusResource
+    public function update(UpdateApiStatusRequest $request, ApiStatus $status): ApiStatusResource
     {
-        $apiStatus->update($request->validated());
+        $status->update($request->validated());
 
-        return new ApiStatusResource($apiStatus);
+        return new ApiStatusResource($status);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param ApiStatus $apiStatus
+     * @param ApiStatus $status
      * @return Response
      */
-    public function destroy(ApiStatus $apiStatus): Response
+    public function destroy(ApiStatus $status): Response
     {
-        $apiStatus->delete();
+        $status->delete();
 
         return response()->noContent();
     }
