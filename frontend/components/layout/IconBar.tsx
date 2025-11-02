@@ -86,11 +86,11 @@ export function IconBar({
     };
 
     return (
-        <div className="flex h-full w-16 flex-col items-center border-r border-gray-800 bg-gray-950 py-4">
+        <div className="flex h-full w-16 flex-col items-center border-r border-border bg-card py-4">
             {/* Logo */}
             <Link
                 href={`/${locale}/dashboard`}
-                className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-linear-to-br from-blue-600 to-indigo-600 text-white transition-transform hover:scale-105"
+                className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-transform hover:scale-105"
             >
                 <span className="text-lg font-bold">A</span>
             </Link>
@@ -98,7 +98,7 @@ export function IconBar({
             {/* Toggle Sidebar Button */}
             <button
                 onClick={onToggleCollapse}
-                className="group mb-4 flex h-10 w-10 items-center justify-center rounded-lg text-gray-400 transition-all hover:bg-gray-800 hover:text-white"
+                className="group mb-4 flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
                 title={isCollapsed ? "Expandir menú" : "Contraer menú"}
             >
                 {isCollapsed ? (
@@ -120,17 +120,17 @@ export function IconBar({
                             href={item.href}
                             className={`group relative flex h-11 w-11 items-center justify-center rounded-lg transition-all ${
                                 active
-                                    ? "bg-blue-600 text-white shadow-lg shadow-blue-600/50"
-                                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/50"
+                                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                             }`}
                             title={item.label}
                         >
                             <Icon className="h-5 w-5" />
 
                             {/* Tooltip */}
-                            <div className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-gray-900 px-2 py-1 text-xs text-white shadow-lg group-hover:block">
+                            <div className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-popover px-2 py-1 text-xs text-popover-foreground shadow-lg ring-1 ring-border group-hover:block">
                                 {item.label}
-                                <div className="absolute right-full top-1/2 -mr-1 -mt-1 border-4 border-transparent border-r-gray-900" />
+                                <div className="absolute right-full top-1/2 -mr-1 -mt-1 border-4 border-transparent border-r-popover" />
                             </div>
                         </Link>
                     );
@@ -139,7 +139,7 @@ export function IconBar({
 
             {/* User Avatar */}
             <div className="mt-auto">
-                <button className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-indigo-600 text-sm font-semibold text-white ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-950 transition-transform hover:scale-105">
+                <button className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground ring-2 ring-border ring-offset-2 ring-offset-background transition-transform hover:scale-105">
                     JD
                 </button>
             </div>

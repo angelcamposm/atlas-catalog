@@ -215,22 +215,22 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
 
     return (
         <div
-            className={`flex h-full flex-col border-r border-gray-200 bg-white transition-all duration-300 dark:border-gray-800 dark:bg-gray-900 ${
+            className={`flex h-full flex-col border-r border-border bg-card transition-all duration-300 ${
                 isCollapsed ? "w-0 overflow-hidden" : "w-60"
             }`}
         >
             {/* Search */}
-            <div className="border-b border-gray-200 p-3 dark:border-gray-800">
+            <div className="border-b border-border p-3">
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <input
                         type="text"
                         placeholder="Search"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="h-9 w-full rounded-md border border-gray-200 bg-gray-50 pl-9 pr-12 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-blue-500 focus:bg-white dark:border-gray-700 dark:bg-gray-800 dark:focus:border-blue-500 dark:focus:bg-gray-900"
+                        className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-12 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-1 focus:ring-ring"
                     />
-                    <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-gray-200 bg-white px-1.5 py-0.5 text-xs font-medium text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                    <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-border bg-muted px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
                         ⌘K
                     </kbd>
                 </div>
@@ -250,7 +250,7 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                                         section.collapsible &&
                                         toggleSection(section.id)
                                     }
-                                    className="mb-1 flex w-full items-center justify-between px-2 py-1.5 text-xs font-medium text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                                    className="mb-1 flex w-full items-center justify-between px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
                                 >
                                     <span>{section.label}</span>
                                     {section.collapsible && (
@@ -278,28 +278,22 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                                                 href={item.url}
                                                 className={`group flex items-center gap-3 rounded-md px-2 py-2 text-sm transition-all ${
                                                     active
-                                                        ? "bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-white"
-                                                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"
+                                                        ? "bg-accent font-medium text-accent-foreground"
+                                                        : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
                                                 }`}
                                             >
                                                 <Icon
                                                     className={`h-5 w-5 shrink-0 ${
                                                         active
-                                                            ? "text-gray-900 dark:text-white"
-                                                            : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+                                                            ? "text-accent-foreground"
+                                                            : "text-muted-foreground group-hover:text-foreground"
                                                     }`}
                                                 />
                                                 <span className="flex-1">
                                                     {item.title}
                                                 </span>
                                                 {item.badge && (
-                                                    <span
-                                                        className={`rounded-md px-2 py-0.5 text-xs font-medium ${
-                                                            item.badge === "Pro"
-                                                                ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500"
-                                                                : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                                                        }`}
-                                                    >
+                                                    <span className="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                                                         {item.badge}
                                                     </span>
                                                 )}

@@ -134,7 +134,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
             {/* Main Content Area */}
             <div className="flex flex-1 flex-col overflow-hidden">
                 {/* Top Bar */}
-                <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center justify-between border-b border-gray-200 bg-white px-6 dark:border-gray-800 dark:bg-gray-900">
+                <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-6">
                     {/* Left side - Breadcrumb & View Tabs */}
                     <div className="flex items-center gap-6">
                         {/* Breadcrumb */}
@@ -145,13 +145,13 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                     className="flex items-center gap-2"
                                 >
                                     {index > 0 && (
-                                        <ChevronRight className="h-4 w-4 text-gray-400" />
+                                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
                                     )}
                                     <span
                                         className={
                                             index === breadcrumb.length - 1
-                                                ? "font-medium text-gray-900 dark:text-white"
-                                                : "text-gray-500 dark:text-gray-400"
+                                                ? "font-medium text-foreground"
+                                                : "text-muted-foreground"
                                         }
                                     >
                                         {item}
@@ -161,7 +161,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                         </div>
 
                         {/* View Mode Tabs */}
-                        <div className="hidden lg:flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 p-1 dark:border-gray-700 dark:bg-gray-800">
+                        <div className="hidden lg:flex items-center gap-1 rounded-lg border border-border bg-muted/50 p-1">
                             {viewModes.map((mode) => {
                                 const Icon = mode.icon;
                                 const isActive = currentView === mode.id;
@@ -172,8 +172,8 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                         onClick={() => setCurrentView(mode.id)}
                                         className={`flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium transition-all ${
                                             isActive
-                                                ? "bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white"
-                                                : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                                                ? "bg-background text-foreground shadow-sm"
+                                                : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
                                         }`}
                                     >
                                         <Icon className="h-4 w-4" />
@@ -209,7 +209,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                         </Button>
 
                         {/* Divider */}
-                        <div className="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-700" />
+                        <div className="mx-2 h-6 w-px bg-border" />
 
                         {/* Toggle Sidebar - Desktop */}
                         <Button
@@ -260,18 +260,14 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                 }
                             >
                                 <Bell className="h-4 w-4" />
-                                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
+                                <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs">
                                     3
                                 </span>
                             </Button>
                         </div>
 
                         {/* Add Button - Highlighted */}
-                        <Button
-                            variant="default"
-                            size="sm"
-                            className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700"
-                        >
+                        <Button variant="default" size="sm">
                             <Plus className="h-4 w-4" />
                             <span className="hidden sm:inline ml-2">Add</span>
                         </Button>
@@ -279,7 +275,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                         {/* User Avatar */}
                         <button
                             onClick={() => setShowProfileModal(true)}
-                            className="ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-indigo-600 text-sm font-semibold text-white ring-2 ring-gray-200 ring-offset-2 transition-transform hover:scale-105 dark:ring-gray-700 dark:ring-offset-gray-900"
+                            className="ml-2 flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-primary/80 to-primary text-sm font-semibold text-primary-foreground ring-2 ring-border ring-offset-2 ring-offset-background transition-transform hover:scale-105"
                         >
                             JD
                         </button>
