@@ -16,19 +16,21 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupMemberRoleController;
 use App\Http\Controllers\GroupTypeController;
 use App\Http\Controllers\LifecycleController;
+use App\Http\Controllers\LinkCategoryController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
-use App\Http\Controllers\ResourceTypeController;
+use App\Http\Controllers\ResourceCategoryController;
 use App\Http\Controllers\ServiceAccountController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     // API Domain
-    Route::apiResource('api-access-policies', ApiAccessPolicyController::class);
-    Route::apiResource('api-categories', ApiCategoryController::class);
-    Route::apiResource('api-statuses', ApiStatusController::class);
-    Route::apiResource('api-types', ApiTypeController::class);
+    Route::apiResource('apis/access-policies', ApiAccessPolicyController::class);
+    Route::apiResource('apis/categories', ApiCategoryController::class);
+    Route::apiResource('apis/statuses', ApiStatusController::class);
+    Route::apiResource('apis/types', ApiTypeController::class);
     Route::apiResource('apis', ApiController::class);
 
     // Business Domain
@@ -37,9 +39,13 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('environments', EnvironmentController::class);
     Route::apiResource('lifecycles', LifecycleController::class);
 
+    // Link Domain
+    Route::apiResource('links/categories', LinkCategoryController::class);
+    Route::apiResource('links', LinkController::class);
+
     // Resource Domain
+    Route::apiResource('resources/categories', ResourceCategoryController::class);
     Route::apiResource('resources', ResourceController::class);
-    Route::apiResource('resource-types', ResourceTypeController::class);
 
     // Security Domain
     Route::apiResource('authentication-methods', AuthenticationMethodController::class);
@@ -51,7 +57,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('vendors', VendorController::class);
 
     // Account Domain
+    Route::apiResource('groups/member-roles', GroupMemberRoleController::class);
+    Route::apiResource('groups/types', GroupTypeController::class);
     Route::apiResource('groups', GroupController::class);
-    Route::apiResource('group-member-roles', GroupMemberRoleController::class);
-    Route::apiResource('group-types', GroupTypeController::class);
 });
