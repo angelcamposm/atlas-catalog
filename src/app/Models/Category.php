@@ -19,15 +19,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $parent_id
  * @property int $created_by
  * @property int $updated_by
+ *
+ * @property-read User|null $creator The user who created this language entry.
+ * @property-read User|null $updater The user who last updated this language entry.
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
- *
- * @property-read User|null $creator The user who created this language entry.
- * @property-read User|null $updater The user who last updated this language entry.
  */
 #[ObservedBy(CategoryObserver::class)]
 class Category extends Model
