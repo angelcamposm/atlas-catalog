@@ -3,44 +3,27 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
 import {
     Home,
-    Database,
-    GitBranch,
-    Tag,
     Users,
-    Settings,
     BarChart3,
     FileText,
-    Shield,
     Bell,
-    Server,
-    Cpu,
-    Cable,
-    Box,
     Search,
     ChevronDown,
     ChevronRight,
+    Inbox,
+    CheckSquare,
+    Plus,
+    Briefcase,
+    Hash,
+    BookOpen,
+    Tag,
 } from "lucide-react";
-
-import {
-    Sidebar,
-    SidebarContent,
-    SidebarFooter,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { Input } from "@/components/ui/input";
-import packageJson from "@/package.json";
 
 interface AppSidebarProps {
     locale: string;
+    isCollapsed?: boolean;
 }
 
 interface MenuItem {
@@ -50,335 +33,276 @@ interface MenuItem {
     badge?: string;
 }
 
-interface MenuGroup {
+interface MenuSection {
     id: string;
-    label: string;
+    label?: string;
     items: MenuItem[];
+    collapsible?: boolean;
 }
 
-export function AppSidebar({ locale }: AppSidebarProps) {
-    const t = useTranslations("sidebar");
+export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
     const pathname = usePathname();
     const [searchQuery, setSearchQuery] = useState("");
-    const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(
+    const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
         new Set()
     );
 
-    const toggleGroup = (groupId: string) => {
-        setCollapsedGroups((prev) => {
+    const toggleSection = (sectionId: string) => {
+        setCollapsedSections((prev) => {
             const newSet = new Set(prev);
-            if (newSet.has(groupId)) {
-                newSet.delete(groupId);
+            if (newSet.has(sectionId)) {
+                newSet.delete(sectionId);
             } else {
-                newSet.add(groupId);
+                newSet.add(sectionId);
             }
             return newSet;
         });
     };
 
-    // Navigation items with golden ratio spacing consideration
-    const menuGroups: MenuGroup[] = useMemo(
+    // Main navigation sections
+    const menuSections: MenuSection[] = useMemo(
         () => [
             {
                 id: "main",
-                label: "Main",
                 items: [
                     {
-                        title: t("dashboard"),
+                        title: "Home",
                         url: `/${locale}/dashboard`,
                         icon: Home,
                     },
                     {
-                        title: t("apis"),
-                        url: `/${locale}/apis`,
-                        icon: Database,
-                        badge: "100+",
+                        title: "Updates",
+                        url: `/${locale}/updates`,
+                        icon: Bell,
                     },
                     {
-                        title: t("lifecycles"),
-                        url: `/${locale}/lifecycles`,
-                        icon: GitBranch,
+                        title: "Inbox",
+                        url: `/${locale}/inbox`,
+                        icon: Inbox,
                     },
                     {
-                        title: t("types"),
-                        url: `/${locale}/types`,
-                        icon: Tag,
+                        title: "Clients",
+                        url: `/${locale}/clients`,
+                        icon: Users,
+                        badge: "Beta",
                     },
                     {
-                        title: t("teams"),
+                        title: "My Tasks",
+                        url: `/${locale}/tasks`,
+                        icon: CheckSquare,
+                    },
+                ],
+            },
+            {
+                id: "workspaces",
+                label: "Workspaces",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Business Concepts",
+                        url: `/${locale}/workspaces/business-concepts`,
+                        icon: Briefcase,
+                    },
+                    {
+                        title: "KeenThemes Studio",
+                        url: `/${locale}/workspaces/keenthemes`,
+                        icon: Briefcase,
+                    },
+                    {
+                        title: "Teams",
                         url: `/${locale}/teams`,
                         icon: Users,
-                    },
-                ],
-            },
-            {
-                id: "infrastructure",
-                label: t("infrastructure"),
-                items: [
-                    {
-                        title: t("overview"),
-                        url: `/${locale}/infrastructure`,
-                        icon: BarChart3,
-                    },
-                    {
-                        title: t("clusters"),
-                        url: `/${locale}/infrastructure/clusters`,
-                        icon: Server,
-                    },
-                    {
-                        title: t("cluster_types"),
-                        url: `/${locale}/infrastructure/cluster-types`,
-                        icon: Tag,
-                    },
-                    {
-                        title: t("nodes"),
-                        url: `/${locale}/infrastructure/nodes`,
-                        icon: Cpu,
-                    },
-                    {
-                        title: t("service_accounts"),
-                        url: `/${locale}/infrastructure/cluster-service-accounts`,
-                        icon: Shield,
-                    },
-                ],
-            },
-            {
-                id: "platform",
-                label: t("platform"),
-                items: [
-                    {
-                        title: t("overview"),
-                        url: `/${locale}/platform`,
-                        icon: BarChart3,
-                    },
-                    {
-                        title: t("platforms"),
-                        url: `/${locale}/platform/platforms`,
-                        icon: Box,
-                    },
-                    {
-                        title: t("component_types"),
-                        url: `/${locale}/platform/component-types`,
-                        icon: Tag,
-                    },
-                ],
-            },
-            {
-                id: "integration",
-                label: t("integration"),
-                items: [
-                    {
-                        title: t("overview"),
-                        url: `/${locale}/integration`,
-                        icon: BarChart3,
-                    },
-                    {
-                        title: t("links"),
-                        url: `/${locale}/integration/links`,
-                        icon: Cable,
-                    },
-                    {
-                        title: t("link_types"),
-                        url: `/${locale}/integration/link-types`,
-                        icon: Tag,
-                    },
-                ],
-            },
-            {
-                id: "analytics",
-                label: "Analytics & Docs",
-                items: [
-                    {
-                        title: t("analytics"),
-                        url: `/${locale}/analytics`,
-                        icon: BarChart3,
                         badge: "Pro",
                     },
                     {
-                        title: t("documentation"),
-                        url: `/${locale}/documentation`,
-                        icon: FileText,
-                    },
-                    {
-                        title: t("security"),
-                        url: `/${locale}/security`,
-                        icon: Shield,
+                        title: "Reports",
+                        url: `/${locale}/analytics`,
+                        icon: BarChart3,
                     },
                 ],
             },
             {
-                id: "system",
-                label: "System",
+                id: "communities",
+                label: "Communities",
+                collapsible: true,
                 items: [
                     {
-                        title: t("notifications"),
-                        url: `/${locale}/notifications`,
-                        icon: Bell,
-                        badge: "3",
+                        title: "Designers Hub",
+                        url: `/${locale}/communities/designers`,
+                        icon: Hash,
                     },
                     {
-                        title: t("settings"),
-                        url: `/${locale}/settings`,
-                        icon: Settings,
+                        title: "React Js",
+                        url: `/${locale}/communities/react`,
+                        icon: Hash,
+                    },
+                    {
+                        title: "Node Js",
+                        url: `/${locale}/communities/node`,
+                        icon: Hash,
+                    },
+                ],
+            },
+            {
+                id: "resources",
+                label: "Resources",
+                collapsible: true,
+                items: [
+                    {
+                        title: "About Metronic",
+                        url: `/${locale}/resources/about`,
+                        icon: BookOpen,
+                    },
+                    {
+                        title: "Advertise",
+                        url: `/${locale}/resources/advertise`,
+                        icon: Tag,
+                        badge: "Pro",
+                    },
+                    {
+                        title: "Help",
+                        url: `/${locale}/resources/help`,
+                        icon: FileText,
+                    },
+                    {
+                        title: "Blog",
+                        url: `/${locale}/resources/blog`,
+                        icon: BookOpen,
+                    },
+                    {
+                        title: "Careers",
+                        url: `/${locale}/resources/careers`,
+                        icon: Briefcase,
                     },
                 ],
             },
         ],
-        [locale, t]
+        [locale]
     );
 
-    // Filter groups based on search query
-    const filteredGroups = useMemo(() => {
-        if (!searchQuery.trim()) {
-            return menuGroups;
-        }
-
-        const query = searchQuery.toLowerCase();
-        return menuGroups
-            .map((group) => ({
-                ...group,
-                items: group.items.filter((item) =>
-                    item.title.toLowerCase().includes(query)
-                ),
-            }))
-            .filter((group) => group.items.length > 0);
-    }, [menuGroups, searchQuery]);
+    const isActive = (url: string) => {
+        return pathname === url;
+    };
 
     return (
-        <Sidebar collapsible="icon" variant="sidebar">
-            {/* Header */}
-            <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href={`/${locale}`}>
-                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-gradient-blue-indigo text-sidebar-primary-foreground">
-                                    <span className="text-sm font-bold">A</span>
-                                </div>
-                                <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">
-                                        Atlas Catalog
-                                    </span>
-                                    <span className="truncate text-xs">
-                                        API Platform
-                                    </span>
-                                </div>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-
-                {/* Search Input */}
-                <div className="px-3 py-2">
-                    <div className="relative">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            type="search"
-                            placeholder={t("search") || "Search..."}
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="h-9 w-full rounded-md border bg-background pl-8 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                        />
-                    </div>
+        <div
+            className={`flex h-full flex-col border-r border-gray-200 bg-white transition-all duration-300 dark:border-gray-800 dark:bg-gray-900 ${
+                isCollapsed ? "w-0 overflow-hidden" : "w-60"
+            }`}
+        >
+            {/* Search */}
+            <div className="border-b border-gray-200 p-3 dark:border-gray-800">
+                <div className="relative">
+                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="h-9 w-full rounded-md border border-gray-200 bg-gray-50 pl-9 pr-12 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-blue-500 focus:bg-white dark:border-gray-700 dark:bg-gray-800 dark:focus:border-blue-500 dark:focus:bg-gray-900"
+                    />
+                    <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-gray-200 bg-white px-1.5 py-0.5 text-xs font-medium text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                        ⌘K
+                    </kbd>
                 </div>
-            </SidebarHeader>
+            </div>
 
-            {/* Content */}
-            <SidebarContent>
-                {filteredGroups.map((group) => {
-                    const isCollapsed = collapsedGroups.has(group.id);
-                    const hasActiveItem = group.items.some(
-                        (item) => pathname === item.url
-                    );
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto p-3">
+                {menuSections.map((section) => {
+                    const isCollapsed = collapsedSections.has(section.id);
 
                     return (
-                        <SidebarGroup key={group.id}>
-                            <SidebarGroupLabel
-                                className="flex cursor-pointer items-center justify-between hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md px-2 py-1.5 transition-colors"
-                                onClick={() => toggleGroup(group.id)}
-                            >
-                                <span className="flex items-center gap-2">
-                                    {group.label}
-                                    {hasActiveItem && !isCollapsed && (
-                                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        <div key={section.id} className="mb-4">
+                            {/* Section Label */}
+                            {section.label && (
+                                <button
+                                    onClick={() =>
+                                        section.collapsible &&
+                                        toggleSection(section.id)
+                                    }
+                                    className="mb-1 flex w-full items-center justify-between px-2 py-1.5 text-xs font-medium text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                                >
+                                    <span>{section.label}</span>
+                                    {section.collapsible && (
+                                        <div className="flex items-center gap-1">
+                                            {section.id === "communities" && (
+                                                <Plus className="h-3 w-3" />
+                                            )}
+                                            {isCollapsed ? (
+                                                <ChevronRight className="h-3.5 w-3.5" />
+                                            ) : (
+                                                <ChevronDown className="h-3.5 w-3.5" />
+                                            )}
+                                        </div>
                                     )}
-                                </span>
-                                {isCollapsed ? (
-                                    <ChevronRight className="h-4 w-4" />
-                                ) : (
-                                    <ChevronDown className="h-4 w-4" />
-                                )}
-                            </SidebarGroupLabel>
-
-                            {!isCollapsed && (
-                                <SidebarGroupContent>
-                                    <SidebarMenu>
-                                        {group.items.map((item) => {
-                                            const Icon = item.icon;
-                                            const isActive =
-                                                pathname === item.url;
-                                            return (
-                                                <SidebarMenuItem
-                                                    key={item.title}
-                                                >
-                                                    <SidebarMenuButton
-                                                        asChild
-                                                        isActive={isActive}
-                                                        tooltip={item.title}
-                                                    >
-                                                        <Link href={item.url}>
-                                                            <Icon />
-                                                            <span>
-                                                                {item.title}
-                                                            </span>
-                                                            {item.badge && (
-                                                                <span
-                                                                    className={`ml-auto rounded-full px-2 py-0.5 text-xs font-medium ${
-                                                                        item.badge ===
-                                                                        "Pro"
-                                                                            ? "bg-gradient-amber-orange text-white"
-                                                                            : item.badge ===
-                                                                              "100+"
-                                                                            ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
-                                                                            : "flex h-5 w-5 items-center justify-center bg-blue-600 text-white"
-                                                                    }`}
-                                                                >
-                                                                    {item.badge}
-                                                                </span>
-                                                            )}
-                                                        </Link>
-                                                    </SidebarMenuButton>
-                                                </SidebarMenuItem>
-                                            );
-                                        })}
-                                    </SidebarMenu>
-                                </SidebarGroupContent>
+                                </button>
                             )}
-                        </SidebarGroup>
+
+                            {/* Menu Items */}
+                            {!isCollapsed && (
+                                <div className="space-y-0.5">
+                                    {section.items.map((item) => {
+                                        const Icon = item.icon;
+                                        const active = isActive(item.url);
+
+                                        return (
+                                            <Link
+                                                key={item.url}
+                                                href={item.url}
+                                                className={`group flex items-center gap-3 rounded-md px-2 py-2 text-sm transition-all ${
+                                                    active
+                                                        ? "bg-gray-100 font-medium text-gray-900 dark:bg-gray-800 dark:text-white"
+                                                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/50 dark:hover:text-gray-200"
+                                                }`}
+                                            >
+                                                <Icon
+                                                    className={`h-5 w-5 shrink-0 ${
+                                                        active
+                                                            ? "text-gray-900 dark:text-white"
+                                                            : "text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-400"
+                                                    }`}
+                                                />
+                                                <span className="flex-1">
+                                                    {item.title}
+                                                </span>
+                                                {item.badge && (
+                                                    <span
+                                                        className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+                                                            item.badge === "Pro"
+                                                                ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-500"
+                                                                : "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+                                                        }`}
+                                                    >
+                                                        {item.badge}
+                                                    </span>
+                                                )}
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
                     );
                 })}
+            </nav>
 
-                {/* No results message */}
-                {searchQuery && filteredGroups.length === 0 && (
-                    <div className="px-4 py-8 text-center text-sm text-muted-foreground">
-                        No results found for &quot;{searchQuery}&quot;
+            {/* Footer - User */}
+            <div className="border-t border-gray-200 p-3 dark:border-gray-800">
+                <button className="flex w-full items-center gap-3 rounded-md px-2 py-2 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-indigo-600 text-sm font-semibold text-white">
+                        JD
                     </div>
-                )}
-            </SidebarContent>
-
-            {/* Footer - Version Info */}
-            <SidebarFooter>
-                <div className="px-4 py-3">
-                    <div className="flex items-center justify-between rounded-lg bg-gray-100 px-3 py-2 dark:bg-gray-800">
-                        <div className="text-xs text-gray-600 dark:text-gray-400">
-                            <span className="font-medium">Frontend</span>
+                    <div className="flex-1 text-left">
+                        <div className="text-sm font-medium text-gray-900 dark:text-white">
+                            John Doe
                         </div>
-                        <div className="rounded-full bg-gradient-blue-indigo px-2.5 py-0.5 text-xs font-semibold text-white">
-                            v{packageJson.version}
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                            john@example.com
                         </div>
                     </div>
-                </div>
-            </SidebarFooter>
-        </Sidebar>
+                </button>
+            </div>
+        </div>
     );
 }
