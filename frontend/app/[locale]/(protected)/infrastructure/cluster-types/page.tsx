@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { HiCube, HiPlus, HiPencil, HiTrash, HiXCircle } from "react-icons/hi2";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -11,6 +11,8 @@ import type { ClusterType, PaginatedResponse } from "@/types/api";
 
 export default function ClusterTypesPage() {
     const router = useRouter();
+    const params = useParams();
+    const locale = params.locale as string;
     const [clusterTypes, setClusterTypes] = useState<ClusterType[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -49,21 +51,6 @@ export default function ClusterTypesPage() {
         } catch (err) {
             console.error("Failed to delete cluster type:", err);
             alert("Failed to delete cluster type");
-        }
-    };
-
-    const getLicensingBadgeVariant = (
-        model: string
-    ): "success" | "secondary" | "primary" => {
-        switch (model) {
-            case "open_source":
-                return "success";
-            case "commercial":
-                return "primary";
-            case "hybrid":
-                return "secondary";
-            default:
-                return "secondary";
         }
     };
 
@@ -129,30 +116,21 @@ export default function ClusterTypesPage() {
                                     <h3 className="text-lg font-semibold text-foreground">
                                         {clusterType.name}
                                     </h3>
-                                    {clusterType.description && (
-                                        <p className="text-sm text-muted-foreground mt-1">
-                                            {clusterType.description}
-                                        </p>
-                                    )}
                                 </div>
-                            </div>
-
-                            {/* Licensing Model */}
-                            <div>
-                                <div className="text-xs font-medium text-muted-foreground mb-1">
-                                    Licensing Model
-                                </div>
-                                <Badge
-                                    variant={getLicensingBadgeVariant(
-                                        clusterType.licensing_model
-                                    )}
-                                    className="text-xs"
-                                >
-                                    {clusterType.licensing_model.replace(
-                                        "_",
-                                        " "
-                                    )}
-                                </Badge>
+                                {clusterType.is_enabled !== null && (
+                                    <Badge
+                                        variant={
+                                            clusterType.is_enabled
+                                                ? "success"
+                                                : "secondary"
+                                        }
+                                        className="text-xs"
+                                    >
+                                        {clusterType.is_enabled
+                                            ? "Enabled"
+                                            : "Disabled"}
+                                    </Badge>
+                                )}
                             </div>
 
                             {/* Metadata */}
@@ -163,12 +141,9 @@ export default function ClusterTypesPage() {
                                         {clusterType.id}
                                     </span>
                                 </div>
-                                <div>
-                                    Created:{" "}
-                                    {new Date(
-                                        clusterType.created_at
-                                    ).toLocaleDateString()}
-                                </div>
+                                {clusterType.vendor_id && (
+                                    <div>Vendor ID: {clusterType.vendor_id}</div>
+                                )}
                             </div>
 
                             {/* Actions */}
@@ -178,7 +153,7 @@ export default function ClusterTypesPage() {
                                     size="sm"
                                     onClick={() =>
                                         router.push(
-                                            `/infrastructure/cluster-types/${clusterType.id}/edit`
+                                            `/${locale}/infrastructure/cluster-types/${clusterType.id}/edit`
                                         )
                                     }
                                     className="flex-1 flex items-center gap-2"
