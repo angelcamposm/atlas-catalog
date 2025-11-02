@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $created_by
  * @property int $updated_by
  *
- * @property-read Collection<Api>|null $apis The APIs associated with this category.
+ * @property-read Collection<Api>|null $links The links associated with this category.
  * @property-read User|null $creator The user who created this language entry.
  * @property-read User|null $updater The user who last updated this language entry.
  *
