@@ -7,37 +7,104 @@ servers:
   - url: /api/v1
     description: API v1
 
+security:
+  - bearerAuth: []
+
+tags:
+  - name: APIs
+    description: Operations related to APIs in the catalog.
+  - name: API Access Policies
+    description: Manage API access policies.
+  - name: API Categories
+    description: Manage API categories.
+  - name: API Statuses
+    description: Manage API statuses.
+  - name: API Types
+    description: Manage API types.
+  - name: Authentication Methods
+    description: Manage authentication methods for services.
+  - name: Business Domains
+    description: Manage business domains.
+  - name: Business Tiers
+    description: Manage business tiers.
+  - name: Clusters
+    description: Manage clusters where services are deployed.
+  - name: Cluster Types
+    description: Manage types of clusters.
+  - name: Environments
+    description: Manage deployment environments (e.g., production, staging).
+  - name: Frameworks
+    description: Manage development frameworks.
+  - name: Groups
+    description: Manage user and service groups.
+  - name: Group Member Roles
+    description: Manage roles within groups.
+  - name: Group Types
+    description: Manage types of groups.
+  - name: Lifecycles
+    description: Manage service lifecycle statuses.
+  - name: Links
+    description: Manage external links related to resources.
+  - name: Link Categories
+    description: Manage categories for links.
+  - name: Nodes
+    description: Manage individual nodes or instances.
+  - name: Platforms
+    description: Manage deployment platforms.
+  - name: Programming Languages
+    description: Manage programming languages.
+  - name: Resources
+    description: Manage generic resources.
+  - name: Resource Categories
+    description: Manage categories for resources.
+  - name: Service Accounts
+    description: Manage service accounts for automation.
+  - name: Vendors
+    description: Manage third-party vendors.
+
 paths:
   # APIs
   /apis:
     get:
       tags: [APIs]
       summary: List APIs
-      description: Retrieves a list of APIs.
+      operationId: apis.index
       responses:
         '200':
           description: A list of APIs.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [APIs]
       summary: Create a new API
-      description: Adds a new API to the catalog.
+      operationId: apis.store
       requestBody:
         $ref: '#/components/requestBodies/Api'
       responses:
         '201':
           description: API created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/apis/{api}':
     get:
       tags: [APIs]
       summary: Get a specific API
+      operationId: apis.show
       parameters:
         - $ref: '#/components/parameters/api'
       responses:
         '200':
           description: API details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [APIs]
       summary: Update an API
+      operationId: apis.update
       parameters:
         - $ref: '#/components/parameters/api'
       requestBody:
@@ -45,43 +112,68 @@ paths:
       responses:
         '200':
           description: API updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [APIs]
       summary: Delete an API
+      operationId: apis.destroy
       parameters:
         - $ref: '#/components/parameters/api'
       responses:
         '204':
           description: API deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # API Access Policies
   /apis/access-policies:
     get:
       tags: [API Access Policies]
       summary: List API Access Policies
+      operationId: access-policies.index
       responses:
         '200':
           description: A list of API access policies.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [API Access Policies]
       summary: Create a new API Access Policy
+      operationId: access-policies.store
       requestBody:
         $ref: '#/components/requestBodies/ApiAccessPolicy'
       responses:
         '201':
           description: API Access Policy created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/apis/access-policies/{access_policy}':
     get:
       tags: [API Access Policies]
       summary: Get a specific API Access Policy
+      operationId: access-policies.show
       parameters:
         - $ref: '#/components/parameters/access_policy'
       responses:
         '200':
           description: API Access Policy details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [API Access Policies]
       summary: Update an API Access Policy
+      operationId: access-policies.update
       parameters:
         - $ref: '#/components/parameters/access_policy'
       requestBody:
@@ -89,43 +181,68 @@ paths:
       responses:
         '200':
           description: API Access Policy updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [API Access Policies]
       summary: Delete an API Access Policy
+      operationId: access-policies.destroy
       parameters:
         - $ref: '#/components/parameters/access_policy'
       responses:
         '204':
           description: API Access Policy deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # API Categories
   /apis/categories:
     get:
       tags: [API Categories]
       summary: List API Categories
+      operationId: categories.index
       responses:
         '200':
           description: A list of API categories.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [API Categories]
       summary: Create a new API Category
+      operationId: categories.store
       requestBody:
         $ref: '#/components/requestBodies/ApiCategory'
       responses:
         '201':
           description: API Category created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/apis/categories/{category}':
     get:
       tags: [API Categories]
       summary: Get a specific API Category
+      operationId: categories.show
       parameters:
         - $ref: '#/components/parameters/category'
       responses:
         '200':
           description: API Category details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [API Categories]
       summary: Update an API Category
+      operationId: categories.update
       parameters:
         - $ref: '#/components/parameters/category'
       requestBody:
@@ -133,43 +250,68 @@ paths:
       responses:
         '200':
           description: API Category updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [API Categories]
       summary: Delete an API Category
+      operationId: categories.destroy
       parameters:
         - $ref: '#/components/parameters/category'
       responses:
         '204':
           description: API Category deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # API Statuses
   /apis/statuses:
     get:
       tags: [API Statuses]
       summary: List API Statuses
+      operationId: statuses.index
       responses:
         '200':
           description: A list of API statuses.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [API Statuses]
       summary: Create a new API Status
+      operationId: statuses.store
       requestBody:
         $ref: '#/components/requestBodies/ApiStatus'
       responses:
         '201':
           description: API Status created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/apis/statuses/{status}':
     get:
       tags: [API Statuses]
       summary: Get a specific API Status
+      operationId: statuses.show
       parameters:
         - $ref: '#/components/parameters/status'
       responses:
         '200':
           description: API Status details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [API Statuses]
       summary: Update an API Status
+      operationId: statuses.update
       parameters:
         - $ref: '#/components/parameters/status'
       requestBody:
@@ -177,43 +319,68 @@ paths:
       responses:
         '200':
           description: API Status updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [API Statuses]
       summary: Delete an API Status
+      operationId: statuses.destroy
       parameters:
         - $ref: '#/components/parameters/status'
       responses:
         '204':
           description: API Status deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # API Types
   /apis/types:
     get:
       tags: [API Types]
       summary: List API Types
+      operationId: types.index
       responses:
         '200':
           description: A list of API types.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [API Types]
       summary: Create a new API Type
+      operationId: types.store
       requestBody:
         $ref: '#/components/requestBodies/ApiType'
       responses:
         '201':
           description: API Type created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/apis/types/{type}':
     get:
       tags: [API Types]
       summary: Get a specific API Type
+      operationId: types.show
       parameters:
         - $ref: '#/components/parameters/type'
       responses:
         '200':
           description: API Type details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [API Types]
       summary: Update an API Type
+      operationId: types.update
       parameters:
         - $ref: '#/components/parameters/type'
       requestBody:
@@ -221,43 +388,68 @@ paths:
       responses:
         '200':
           description: API Type updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [API Types]
       summary: Delete an API Type
+      operationId: types.destroy
       parameters:
         - $ref: '#/components/parameters/type'
       responses:
         '204':
           description: API Type deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Authentication Methods
   /authentication-methods:
     get:
       tags: [Authentication Methods]
       summary: List Authentication Methods
+      operationId: authentication-methods.index
       responses:
         '200':
           description: A list of Authentication Methods.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Authentication Methods]
       summary: Create a new Authentication Method
+      operationId: authentication-methods.store
       requestBody:
         $ref: '#/components/requestBodies/AuthenticationMethod'
       responses:
         '201':
           description: Authentication Method created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/authentication-methods/{authentication_method}':
     get:
       tags: [Authentication Methods]
       summary: Get a specific Authentication Method
+      operationId: authentication-methods.show
       parameters:
         - $ref: '#/components/parameters/authentication_method'
       responses:
         '200':
           description: Authentication Method details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Authentication Methods]
       summary: Update an Authentication Method
+      operationId: authentication-methods.update
       parameters:
         - $ref: '#/components/parameters/authentication_method'
       requestBody:
@@ -265,43 +457,68 @@ paths:
       responses:
         '200':
           description: Authentication Method updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Authentication Methods]
       summary: Delete an Authentication Method
+      operationId: authentication-methods.destroy
       parameters:
         - $ref: '#/components/parameters/authentication_method'
       responses:
         '204':
           description: Authentication Method deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Business Domains
   /business-domains:
     get:
       tags: [Business Domains]
       summary: List Business Domains
+      operationId: business-domains.index
       responses:
         '200':
           description: A list of Business Domains.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Business Domains]
       summary: Create a new Business Domain
+      operationId: business-domains.store
       requestBody:
         $ref: '#/components/requestBodies/BusinessDomain'
       responses:
         '201':
           description: Business Domain created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/business-domains/{business_domain}':
     get:
       tags: [Business Domains]
       summary: Get a specific Business Domain
+      operationId: business-domains.show
       parameters:
         - $ref: '#/components/parameters/business_domain'
       responses:
         '200':
           description: Business Domain details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Business Domains]
       summary: Update a Business Domain
+      operationId: business-domains.update
       parameters:
         - $ref: '#/components/parameters/business_domain'
       requestBody:
@@ -309,43 +526,68 @@ paths:
       responses:
         '200':
           description: Business Domain updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Business Domains]
       summary: Delete a Business Domain
+      operationId: business-domains.destroy
       parameters:
         - $ref: '#/components/parameters/business_domain'
       responses:
         '204':
           description: Business Domain deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Business Tiers
   /business-tiers:
     get:
       tags: [Business Tiers]
       summary: List Business Tiers
+      operationId: business-tiers.index
       responses:
         '200':
           description: A list of Business Tiers.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Business Tiers]
       summary: Create a new Business Tier
+      operationId: business-tiers.store
       requestBody:
         $ref: '#/components/requestBodies/BusinessTier'
       responses:
         '201':
           description: Business Tier created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/business-tiers/{business_tier}':
     get:
       tags: [Business Tiers]
       summary: Get a specific Business Tier
+      operationId: business-tiers.show
       parameters:
         - $ref: '#/components/parameters/business_tier'
       responses:
         '200':
           description: Business Tier details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Business Tiers]
       summary: Update a Business Tier
+      operationId: business-tiers.update
       parameters:
         - $ref: '#/components/parameters/business_tier'
       requestBody:
@@ -353,43 +595,68 @@ paths:
       responses:
         '200':
           description: Business Tier updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Business Tiers]
       summary: Delete a Business Tier
+      operationId: business-tiers.destroy
       parameters:
         - $ref: '#/components/parameters/business_tier'
       responses:
         '204':
           description: Business Tier deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Clusters
   /clusters:
     get:
       tags: [Clusters]
       summary: List Clusters
+      operationId: clusters.index
       responses:
         '200':
           description: A list of Clusters.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Clusters]
       summary: Create a new Cluster
+      operationId: clusters.store
       requestBody:
         $ref: '#/components/requestBodies/Cluster'
       responses:
         '201':
           description: Cluster created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/clusters/{cluster}':
     get:
       tags: [Clusters]
       summary: Get a specific Cluster
+      operationId: clusters.show
       parameters:
         - $ref: '#/components/parameters/cluster'
       responses:
         '200':
           description: Cluster details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Clusters]
       summary: Update a Cluster
+      operationId: clusters.update
       parameters:
         - $ref: '#/components/parameters/cluster'
       requestBody:
@@ -397,43 +664,68 @@ paths:
       responses:
         '200':
           description: Cluster updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Clusters]
       summary: Delete a Cluster
+      operationId: clusters.destroy
       parameters:
         - $ref: '#/components/parameters/cluster'
       responses:
         '204':
           description: Cluster deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Cluster Types
   /clusters/types:
     get:
       tags: [Cluster Types]
       summary: List Cluster Types
+      operationId: cluster-types.index
       responses:
         '200':
           description: A list of Cluster Types.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Cluster Types]
       summary: Create a new Cluster Type
+      operationId: cluster-types.store
       requestBody:
         $ref: '#/components/requestBodies/ClusterType'
       responses:
         '201':
           description: Cluster Type created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/clusters/types/{type}':
     get:
       tags: [Cluster Types]
       summary: Get a specific Cluster Type
+      operationId: cluster-types.show
       parameters:
         - $ref: '#/components/parameters/type'
       responses:
         '200':
           description: Cluster Type details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Cluster Types]
       summary: Update a Cluster Type
+      operationId: cluster-types.update
       parameters:
         - $ref: '#/components/parameters/type'
       requestBody:
@@ -441,43 +733,68 @@ paths:
       responses:
         '200':
           description: Cluster Type updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Cluster Types]
       summary: Delete a Cluster Type
+      operationId: cluster-types.destroy
       parameters:
         - $ref: '#/components/parameters/type'
       responses:
         '204':
           description: Cluster Type deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Environments
   /environments:
     get:
       tags: [Environments]
       summary: List Environments
+      operationId: environments.index
       responses:
         '200':
           description: A list of Environments.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Environments]
       summary: Create a new Environment
+      operationId: environments.store
       requestBody:
         $ref: '#/components/requestBodies/Environment'
       responses:
         '201':
           description: Environment created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/environments/{environment}':
     get:
       tags: [Environments]
       summary: Get a specific Environment
+      operationId: environments.show
       parameters:
         - $ref: '#/components/parameters/environment'
       responses:
         '200':
           description: Environment details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Environments]
       summary: Update an Environment
+      operationId: environments.update
       parameters:
         - $ref: '#/components/parameters/environment'
       requestBody:
@@ -485,43 +802,68 @@ paths:
       responses:
         '200':
           description: Environment updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Environments]
       summary: Delete an Environment
+      operationId: environments.destroy
       parameters:
         - $ref: '#/components/parameters/environment'
       responses:
         '204':
           description: Environment deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Frameworks
   /frameworks:
     get:
       tags: [Frameworks]
       summary: List Frameworks
+      operationId: frameworks.index
       responses:
         '200':
           description: A list of Frameworks.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Frameworks]
       summary: Create a new Framework
+      operationId: frameworks.store
       requestBody:
         $ref: '#/components/requestBodies/Framework'
       responses:
         '201':
           description: Framework created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/frameworks/{framework}':
     get:
       tags: [Frameworks]
       summary: Get a specific Framework
+      operationId: frameworks.show
       parameters:
         - $ref: '#/components/parameters/framework'
       responses:
         '200':
           description: Framework details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Frameworks]
       summary: Update a Framework
+      operationId: frameworks.update
       parameters:
         - $ref: '#/components/parameters/framework'
       requestBody:
@@ -529,43 +871,68 @@ paths:
       responses:
         '200':
           description: Framework updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Frameworks]
       summary: Delete a Framework
+      operationId: frameworks.destroy
       parameters:
         - $ref: '#/components/parameters/framework'
       responses:
         '204':
           description: Framework deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Groups
   /groups:
     get:
       tags: [Groups]
       summary: List Groups
+      operationId: groups.index
       responses:
         '200':
           description: A list of Groups.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Groups]
       summary: Create a new Group
+      operationId: groups.store
       requestBody:
         $ref: '#/components/requestBodies/Group'
       responses:
         '201':
           description: Group created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/groups/{group}':
     get:
       tags: [Groups]
       summary: Get a specific Group
+      operationId: groups.show
       parameters:
         - $ref: '#/components/parameters/group'
       responses:
         '200':
           description: Group details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Groups]
       summary: Update a Group
+      operationId: groups.update
       parameters:
         - $ref: '#/components/parameters/group'
       requestBody:
@@ -573,43 +940,68 @@ paths:
       responses:
         '200':
           description: Group updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Groups]
       summary: Delete a Group
+      operationId: groups.destroy
       parameters:
         - $ref: '#/components/parameters/group'
       responses:
         '204':
           description: Group deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Group Member Roles
   /groups/member-roles:
     get:
       tags: [Group Member Roles]
       summary: List Group Member Roles
+      operationId: member-roles.index
       responses:
         '200':
           description: A list of Group Member Roles.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Group Member Roles]
       summary: Create a new Group Member Role
+      operationId: member-roles.store
       requestBody:
         $ref: '#/components/requestBodies/GroupMemberRole'
       responses:
         '201':
           description: Group Member Role created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/groups/member-roles/{member_role}':
     get:
       tags: [Group Member Roles]
       summary: Get a specific Group Member Role
+      operationId: member-roles.show
       parameters:
         - $ref: '#/components/parameters/member_role'
       responses:
         '200':
           description: Group Member Role details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Group Member Roles]
       summary: Update a Group Member Role
+      operationId: member-roles.update
       parameters:
         - $ref: '#/components/parameters/member_role'
       requestBody:
@@ -617,43 +1009,68 @@ paths:
       responses:
         '200':
           description: Group Member Role updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Group Member Roles]
       summary: Delete a Group Member Role
+      operationId: member-roles.destroy
       parameters:
         - $ref: '#/components/parameters/member_role'
       responses:
         '204':
           description: Group Member Role deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Group Types
   /groups/types:
     get:
       tags: [Group Types]
       summary: List Group Types
+      operationId: group-types.index
       responses:
         '200':
           description: A list of Group Types.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Group Types]
       summary: Create a new Group Type
+      operationId: group-types.store
       requestBody:
         $ref: '#/components/requestBodies/GroupType'
       responses:
         '201':
           description: Group Type created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/groups/types/{type}':
     get:
       tags: [Group Types]
       summary: Get a specific Group Type
+      operationId: group-types.show
       parameters:
         - $ref: '#/components/parameters/type'
       responses:
         '200':
           description: Group Type details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Group Types]
       summary: Update a Group Type
+      operationId: group-types.update
       parameters:
         - $ref: '#/components/parameters/type'
       requestBody:
@@ -661,43 +1078,68 @@ paths:
       responses:
         '200':
           description: Group Type updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Group Types]
       summary: Delete a Group Type
+      operationId: group-types.destroy
       parameters:
         - $ref: '#/components/parameters/type'
       responses:
         '204':
           description: Group Type deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Lifecycles
   /lifecycles:
     get:
       tags: [Lifecycles]
       summary: List Lifecycles
+      operationId: lifecycles.index
       responses:
         '200':
           description: A list of Lifecycles.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Lifecycles]
       summary: Create a new Lifecycle
+      operationId: lifecycles.store
       requestBody:
         $ref: '#/components/requestBodies/Lifecycle'
       responses:
         '201':
           description: Lifecycle created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/lifecycles/{lifecycle}':
     get:
       tags: [Lifecycles]
       summary: Get a specific Lifecycle
+      operationId: lifecycles.show
       parameters:
         - $ref: '#/components/parameters/lifecycle'
       responses:
         '200':
           description: Lifecycle details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Lifecycles]
       summary: Update a Lifecycle
+      operationId: lifecycles.update
       parameters:
         - $ref: '#/components/parameters/lifecycle'
       requestBody:
@@ -705,43 +1147,68 @@ paths:
       responses:
         '200':
           description: Lifecycle updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Lifecycles]
       summary: Delete a Lifecycle
+      operationId: lifecycles.destroy
       parameters:
         - $ref: '#/components/parameters/lifecycle'
       responses:
         '204':
           description: Lifecycle deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Links
   /links:
     get:
       tags: [Links]
       summary: List Links
+      operationId: links.index
       responses:
         '200':
           description: A list of Links.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Links]
       summary: Create a new Link
+      operationId: links.store
       requestBody:
         $ref: '#/components/requestBodies/Link'
       responses:
         '201':
           description: Link created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/links/{link}':
     get:
       tags: [Links]
       summary: Get a specific Link
+      operationId: links.show
       parameters:
         - $ref: '#/components/parameters/link'
       responses:
         '200':
           description: Link details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Links]
       summary: Update a Link
+      operationId: links.update
       parameters:
         - $ref: '#/components/parameters/link'
       requestBody:
@@ -749,43 +1216,68 @@ paths:
       responses:
         '200':
           description: Link updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Links]
       summary: Delete a Link
+      operationId: links.destroy
       parameters:
         - $ref: '#/components/parameters/link'
       responses:
         '204':
           description: Link deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Link Categories
   /links/categories:
     get:
       tags: [Link Categories]
       summary: List Link Categories
+      operationId: link-categories.index
       responses:
         '200':
           description: A list of Link Categories.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Link Categories]
       summary: Create a new Link Category
+      operationId: link-categories.store
       requestBody:
         $ref: '#/components/requestBodies/LinkCategory'
       responses:
         '201':
           description: Link Category created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/links/categories/{category}':
     get:
       tags: [Link Categories]
       summary: Get a specific Link Category
+      operationId: link-categories.show
       parameters:
         - $ref: '#/components/parameters/category'
       responses:
         '200':
           description: Link Category details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Link Categories]
       summary: Update a Link Category
+      operationId: link-categories.update
       parameters:
         - $ref: '#/components/parameters/category'
       requestBody:
@@ -793,43 +1285,68 @@ paths:
       responses:
         '200':
           description: Link Category updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Link Categories]
       summary: Delete a Link Category
+      operationId: link-categories.destroy
       parameters:
         - $ref: '#/components/parameters/category'
       responses:
         '204':
           description: Link Category deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Nodes
   /nodes:
     get:
       tags: [Nodes]
       summary: List Nodes
+      operationId: nodes.index
       responses:
         '200':
           description: A list of Nodes.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Nodes]
       summary: Create a new Node
+      operationId: nodes.store
       requestBody:
         $ref: '#/components/requestBodies/Node'
       responses:
         '201':
           description: Node created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/nodes/{node}':
     get:
       tags: [Nodes]
       summary: Get a specific Node
+      operationId: nodes.show
       parameters:
         - $ref: '#/components/parameters/node'
       responses:
         '200':
           description: Node details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Nodes]
       summary: Update a Node
+      operationId: nodes.update
       parameters:
         - $ref: '#/components/parameters/node'
       requestBody:
@@ -837,43 +1354,68 @@ paths:
       responses:
         '200':
           description: Node updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Nodes]
       summary: Delete a Node
+      operationId: nodes.destroy
       parameters:
         - $ref: '#/components/parameters/node'
       responses:
         '204':
           description: Node deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Platforms
   /platforms:
     get:
       tags: [Platforms]
       summary: List Platforms
+      operationId: platforms.index
       responses:
         '200':
           description: A list of Platforms.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Platforms]
       summary: Create a new Platform
+      operationId: platforms.store
       requestBody:
         $ref: '#/components/requestBodies/Platform'
       responses:
         '201':
           description: Platform created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/platforms/{platform}':
     get:
       tags: [Platforms]
       summary: Get a specific Platform
+      operationId: platforms.show
       parameters:
         - $ref: '#/components/parameters/platform'
       responses:
         '200':
           description: Platform details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Platforms]
       summary: Update a Platform
+      operationId: platforms.update
       parameters:
         - $ref: '#/components/parameters/platform'
       requestBody:
@@ -881,43 +1423,68 @@ paths:
       responses:
         '200':
           description: Platform updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Platforms]
       summary: Delete a Platform
+      operationId: platforms.destroy
       parameters:
         - $ref: '#/components/parameters/platform'
       responses:
         '204':
           description: Platform deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Programming Languages
   /programming-languages:
     get:
       tags: [Programming Languages]
       summary: List Programming Languages
+      operationId: programming-languages.index
       responses:
         '200':
           description: A list of Programming Languages.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Programming Languages]
       summary: Create a new Programming Language
+      operationId: programming-languages.store
       requestBody:
         $ref: '#/components/requestBodies/ProgrammingLanguage'
       responses:
         '201':
           description: Programming Language created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/programming-languages/{programming_language}':
     get:
       tags: [Programming Languages]
       summary: Get a specific Programming Language
+      operationId: programming-languages.show
       parameters:
         - $ref: '#/components/parameters/programming_language'
       responses:
         '200':
           description: Programming Language details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Programming Languages]
       summary: Update a Programming Language
+      operationId: programming-languages.update
       parameters:
         - $ref: '#/components/parameters/programming_language'
       requestBody:
@@ -925,43 +1492,68 @@ paths:
       responses:
         '200':
           description: Programming Language updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Programming Languages]
       summary: Delete a Programming Language
+      operationId: programming-languages.destroy
       parameters:
         - $ref: '#/components/parameters/programming_language'
       responses:
         '204':
           description: Programming Language deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Resources
   /resources:
     get:
       tags: [Resources]
       summary: List Resources
+      operationId: resources.index
       responses:
         '200':
           description: A list of Resources.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Resources]
       summary: Create a new Resource
+      operationId: resources.store
       requestBody:
         $ref: '#/components/requestBodies/Resource'
       responses:
         '201':
           description: Resource created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/resources/{resource}':
     get:
       tags: [Resources]
       summary: Get a specific Resource
+      operationId: resources.show
       parameters:
         - $ref: '#/components/parameters/resource'
       responses:
         '200':
           description: Resource details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Resources]
       summary: Update a Resource
+      operationId: resources.update
       parameters:
         - $ref: '#/components/parameters/resource'
       requestBody:
@@ -969,43 +1561,68 @@ paths:
       responses:
         '200':
           description: Resource updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Resources]
       summary: Delete a Resource
+      operationId: resources.destroy
       parameters:
         - $ref: '#/components/parameters/resource'
       responses:
         '204':
           description: Resource deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Resource Categories
   /resources/categories:
     get:
       tags: [Resource Categories]
       summary: List Resource Categories
+      operationId: resource-categories.index
       responses:
         '200':
           description: A list of Resource Categories.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Resource Categories]
       summary: Create a new Resource Category
+      operationId: resource-categories.store
       requestBody:
         $ref: '#/components/requestBodies/ResourceCategory'
       responses:
         '201':
           description: Resource Category created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/resources/categories/{category}':
     get:
       tags: [Resource Categories]
       summary: Get a specific Resource Category
+      operationId: resource-categories.show
       parameters:
         - $ref: '#/components/parameters/category'
       responses:
         '200':
           description: Resource Category details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Resource Categories]
       summary: Update a Resource Category
+      operationId: resource-categories.update
       parameters:
         - $ref: '#/components/parameters/category'
       requestBody:
@@ -1013,43 +1630,68 @@ paths:
       responses:
         '200':
           description: Resource Category updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Resource Categories]
       summary: Delete a Resource Category
+      operationId: resource-categories.destroy
       parameters:
         - $ref: '#/components/parameters/category'
       responses:
         '204':
           description: Resource Category deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Service Accounts
   /service-accounts:
     get:
       tags: [Service Accounts]
       summary: List Service Accounts
+      operationId: service-accounts.index
       responses:
         '200':
           description: A list of Service Accounts.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Service Accounts]
       summary: Create a new Service Account
+      operationId: service-accounts.store
       requestBody:
         $ref: '#/components/requestBodies/ServiceAccount'
       responses:
         '201':
           description: Service Account created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/service-accounts/{service_account}':
     get:
       tags: [Service Accounts]
       summary: Get a specific Service Account
+      operationId: service-accounts.show
       parameters:
         - $ref: '#/components/parameters/service_account'
       responses:
         '200':
           description: Service Account details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Service Accounts]
       summary: Update a Service Account
+      operationId: service-accounts.update
       parameters:
         - $ref: '#/components/parameters/service_account'
       requestBody:
@@ -1057,43 +1699,68 @@ paths:
       responses:
         '200':
           description: Service Account updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Service Accounts]
       summary: Delete a Service Account
+      operationId: service-accounts.destroy
       parameters:
         - $ref: '#/components/parameters/service_account'
       responses:
         '204':
           description: Service Account deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
   # Vendors
   /vendors:
     get:
       tags: [Vendors]
       summary: List Vendors
+      operationId: vendors.index
       responses:
         '200':
           description: A list of Vendors.
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     post:
       tags: [Vendors]
       summary: Create a new Vendor
+      operationId: vendors.store
       requestBody:
         $ref: '#/components/requestBodies/Vendor'
       responses:
         '201':
           description: Vendor created successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   '/vendors/{vendor}':
     get:
       tags: [Vendors]
       summary: Get a specific Vendor
+      operationId: vendors.show
       parameters:
         - $ref: '#/components/parameters/vendor'
       responses:
         '200':
           description: Vendor details.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     put:
       tags: [Vendors]
       summary: Update a Vendor
+      operationId: vendors.update
       parameters:
         - $ref: '#/components/parameters/vendor'
       requestBody:
@@ -1101,16 +1768,34 @@ paths:
       responses:
         '200':
           description: Vendor updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags: [Vendors]
       summary: Delete a Vendor
+      operationId: vendors.destroy
       parameters:
         - $ref: '#/components/parameters/vendor'
       responses:
         '204':
           description: Vendor deleted successfully.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Enter your JWT token in the format: Bearer {token}"
+
   parameters:
     api: {name: api, in: path, required: true, schema: {type: integer}}
     access_policy: {name: access_policy, in: path, required: true, schema: {type: integer}}
@@ -1138,9 +1823,35 @@ components:
     Base:
       type: object
       properties:
-        id: {type: integer, readOnly: true}
-        name: {type: string}
-        description: {type: string, nullable: true}
+        id:
+          type: integer
+          readOnly: true
+          description: The unique identifier of the resource.
+          example: 42
+        name:
+          type: string
+          description: The name of the resource.
+          example: "My Resource Name"
+        description:
+          type: string
+          nullable: true
+          description: A short, optional description of the resource.
+          example: "This is a sample description."
+      required:
+        - name
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A human-readable error message.
+          example: "The given data was invalid."
+        errors:
+          type: object
+          description: An object containing validation errors for specific fields.
+          example:
+            name: ["The name field is required."]
 
     Api: {$ref: '#/components/schemas/Base'}
     ApiAccessPolicy: {$ref: '#/components/schemas/Base'}
@@ -1319,3 +2030,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Vendor'
+
+  responses:
+    NotFound:
+      description: The specified resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request body is invalid or missing required fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: An unexpected error occurred on the server.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
