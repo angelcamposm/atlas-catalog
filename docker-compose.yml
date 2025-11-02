@@ -1,24 +1,57 @@
 version: '3.8'
 name: atlas-catalog
 
+x-build-config: &build-config
+  build:
+    context: .
+    dockerfile: Dockerfile
+    platforms:
+      - linux/amd64
+    tags:
+      - "atlas-catalog:latest"
+
 services:
+
+  init-db:
+    <<: *build-config
+    command:
+      - /bin/sh
+      - -c
+      - "php artisan migrate --seed --force"
+    container_name: init-db
+    depends_on:
+      - postgres
+      - redis
+#    environment:
+#      DB_CONNECTION: pgsql
+#      DB_HOST: postgres
+#      DB_PORT: 5432
+#      DB_DATABASE: laravel
+#      DB_USERNAME: laravel
+#      DB_PASSWORD: secret
+    networks:
+      - catalog-network
 
   # PHP-FPM Application Service
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      tags:
-        - "atlas-catalog:latest"
+    <<: *build-config
     container_name: app
+    depends_on:
+      - init-db
     networks:
       - catalog-network
-    volumes:
-      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+#    volumes:
+#      - ./src:/var/www/html
 
   # Nginx Web Server
   nginx:
-    image: nginx:stable-alpine
+    build:
+      context: .
+      dockerfile: build/nginx/Dockerfile
+      tags:
+        - "atlas-gateway:latest"
     container_name: nginx
     depends_on:
       - app
@@ -32,12 +65,12 @@ services:
 
   # PostgreSQL Database Service
   postgres:
-    image: postgres:17.6-alpine3.22
     container_name: postgres
     environment:
       POSTGRES_DB: ${DB_DATABASE:-laravel}
       POSTGRES_USER: ${DB_USERNAME:-laravel}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    image: postgres:17.6-alpine3.22
     networks:
       - catalog-network
     ports:
@@ -48,10 +81,9 @@ services:
 
   # Redis Cache Service
   redis:
-    image: redis:8.2.1-alpine3.22
     container_name: redis
     environment: []
-    links: []
+    image: redis:8.2.1-alpine3.22
     networks:
       - catalog-network
     ports:
@@ -62,7 +94,6 @@ services:
 
   # RedisInsight GUI Service
   redis-insights:
-    image: redislabs/redisinsight:2.70.1
     container_name: redis-insights
     depends_on:
       - redis
@@ -78,6 +109,7 @@ services:
       - RI_REDIS_USERNAME=default
       - RI_REDIS_PASSWORD=
       - RI_REDIS_TLS=FALSE
+    image: redislabs/redisinsight:2.70.1
     links:
       - redis
     networks:
