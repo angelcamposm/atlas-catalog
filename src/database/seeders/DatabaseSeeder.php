@@ -52,7 +52,6 @@ class DatabaseSeeder extends Seeder
             ProgrammingLanguageSeeder::class,
             GroupMemberRoleSeeder::class,
             GroupTypeSeeder::class,
-            ResourceTypeSeeder::class,
             VendorSeeder::class,
         ]);
 

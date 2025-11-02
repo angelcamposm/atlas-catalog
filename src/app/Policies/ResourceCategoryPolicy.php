@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\ResourceType;
+use App\Models\ResourceCategory;
 use App\Models\User;
 
-class ResourceTypePolicy
+class ResourceCategoryPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -20,7 +20,7 @@ class ResourceTypePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, ResourceType $resourceType): bool
+    public function view(User $user, ResourceCategory $resourceCategory): bool
     {
         return true;
     }
@@ -36,7 +36,7 @@ class ResourceTypePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, ResourceType $resourceType): bool
+    public function update(User $user, ResourceCategory $resourceCategory): bool
     {
         return true;
     }
@@ -44,7 +44,7 @@ class ResourceTypePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, ResourceType $resourceType): bool
+    public function delete(User $user, ResourceCategory $resourceCategory): bool
     {
         return true;
     }
@@ -52,7 +52,7 @@ class ResourceTypePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, ResourceType $resourceType): bool
+    public function restore(User $user, ResourceCategory $resourceCategory): bool
     {
         return true;
     }
@@ -60,7 +60,7 @@ class ResourceTypePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, ResourceType $resourceType): bool
+    public function forceDelete(User $user, ResourceCategory $resourceCategory): bool
     {
         return true;
     }
