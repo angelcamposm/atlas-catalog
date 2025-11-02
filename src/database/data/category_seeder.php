@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 return [
     /*
+    | -------------------------------------------------------------------------
     | A list of common API categories.
+    | -------------------------------------------------------------------------
     |
     */
     [
@@ -135,7 +137,9 @@ return [
     ],
 
     /*
+    | -------------------------------------------------------------------------
     | A list of common link categories from an IT perspective.
+    | -------------------------------------------------------------------------
     |
     */
     [
@@ -224,7 +228,213 @@ return [
     ],
 
     /*
+    | -------------------------------------------------------------------------
+    | A list of common resource categories from an IT perspective.
+    | -------------------------------------------------------------------------
+    |
+    */
+    [
+        'name' => 'Database',
+        'description' => 'A structured system for organizing, storing, and retrieving data electronically, serving as the foundation for applications and information systems.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+    [
+        'name' => 'Block storage',
+        'description' => 'A technology used to store data in volumes known as blocks, common in SANs and cloud environments.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+    [
+        'name' => 'Cloud storage',
+        'description' => 'A general category for data storage in which digital data is stored in logical pools across multiple servers.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+    [
+        'name' => 'File storage',
+        'description' => 'A storage methodology where data is stored and organized in a hierarchical structure of files and folders.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+    [
+        'name' => 'Object storage',
+        'description' => 'A data storage architecture that manages data as objects, ideal for unstructured data.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+    [
+        'name' => 'Cache',
+        'description' => 'A high-speed data storage layer that stores a subset of data, typically transient, to serve future requests for that data more quickly.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+
+    /*
+    | Database
+    |
+    */
+    [
+        'name' => 'NoSQL database',
+        'description' => 'A non-relational database for flexible data models, such as key-value, document, or wide-column stores.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+    [
+        'name' => 'Graph database',
+        'description' => 'A database that uses graph structures with nodes and edges to represent and store data, ideal for relationship-heavy data.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+    [
+        'name' => 'Columnar database',
+        'description' => 'A database that stores data in columns rather than rows, optimized for fast query performance in analytical applications.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+    [
+        'name' => 'Relational database',
+        'description' => 'A database based on the relational model, storing data in tables with predefined schemas (e.g., MySQL, PostgreSQL).',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+    [
+        'name' => 'Document database',
+        'description' => 'A type of NoSQL database designed for storing and querying data as JSON-like documents.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+    [
+        'name' => 'Object-oriented database',
+        'description' => 'A database system that represents data as objects, as in object-oriented programming.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+    [
+        'name' => 'Time series database',
+        'description' => 'A database optimized for storing and querying time-stamped or time series data.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'database',
+    ],
+
+    /*
+    | Block storage
+    |
+    */
+    [
+        'name' => 'Amazon EBS',
+        'description' => 'Amazon Elastic Block Store (EBS), a high-performance block storage service for Amazon EC2.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'Block storage',
+    ],
+    [
+        'name' => 'Google Cloud Persistent Disk',
+        'description' => 'Durable and high-performance block storage for Google Cloud virtual machines.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'Block storage',
+    ],
+    [
+        'name' => 'Google Cloud Local SSD',
+        'description' => 'High-performance, ephemeral, local block storage for Google Cloud virtual machines.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'Block storage',
+    ],
+
+    /*
+    | File storage
+    |
+    */
+    [
+        'name' => 'Amazon EFS',
+        'description' => 'Amazon Elastic File System (EFS), a managed NFS file system for AWS.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'File storage',
+    ],
+    [
+        'name' => 'Amazon FSx',
+        'description' => 'A service to launch and run high-performance file systems in the cloud, supporting various file system types.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'File storage',
+    ],
+    [
+        'name' => 'Google Cloud Filestore',
+        'description' => 'A managed file storage service for applications that require a shared filesystem.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'File storage',
+    ],
+    [
+        'name' => 'PersistentVolume',
+        'description' => 'A piece of storage in a Kubernetes cluster that has been provisioned by an administrator or dynamically provisioned using Storage Classes.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'File storage',
+    ],
+    [
+        'name' => 'PersistentVolumeClaim',
+        'description' => 'A request for storage by a user in Kubernetes, abstracting the underlying storage provider.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'File storage',
+    ],
+
+    /*
+    | Object storage
+    |
+    */
+    [
+        'name' => 'Amazon S3',
+        'description' => 'Amazon Simple Storage Service (S3), a scalable object storage service for the cloud.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'Object storage',
+    ],
+    [
+        'name' => 'Google Cloud Storage',
+        'description' => 'Google Cloud\'s unified object storage service for live and archived data.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'Object storage',
+    ],
+    [
+        'name' => 'Object Bucket Claim',
+        'description' => 'A request for an object storage bucket in Kubernetes, abstracting the object storage provider.',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => 'Object storage',
+    ],
+
+    [
+        'name' => 'Persistent Volume Claim',
+        'description' => 'A request for storage by a user in Kubernetes, abstracting the underlying storage provider.',
+        'category' => 'storage',
+        'icon' => null,
+        'model' => 'resource',
+        'parent_id' => null,
+    ],
+
+    /*
+    | -------------------------------------------------------------------------
     | A list of common tool categories from an IT perspective.
+    | -------------------------------------------------------------------------
     |
     */
     [
