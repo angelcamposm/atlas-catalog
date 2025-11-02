@@ -2,12 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import {
-    HiServer,
-    HiLink,
-    HiCube,
-    HiChartBar,
-} from "react-icons/hi2";
+import { HiServer, HiLink, HiCube, HiChartBar } from "react-icons/hi2";
 import {
     Search,
     X,
@@ -55,40 +50,187 @@ export function CommandKSearch({
     const searchItems = useMemo<SearchItem[]>(
         () => [
             // Main Navigation
-            { id: "dashboard", title: "Dashboard", description: "Dashboard principal", url: `/${locale}/dashboard`, icon: Home, category: "Main" },
-            { id: "apis", title: "APIs", description: "Catálogo de APIs", url: `/${locale}/apis`, icon: FileText, category: "Main" },
-            { id: "lifecycles", title: "Lifecycles", description: "Gestión de lifecycles", url: `/${locale}/lifecycles`, icon: BookOpen, category: "Main" },
-            { id: "types", title: "Types", description: "Tipos de recursos", url: `/${locale}/types`, icon: FileText, category: "Main" },
-            { id: "teams", title: "Teams", description: "Equipos", url: `/${locale}/teams`, icon: Users, category: "Main" },
-            
+            {
+                id: "dashboard",
+                title: "Dashboard",
+                description: "Dashboard principal",
+                url: `/${locale}/dashboard`,
+                icon: Home,
+                category: "Main",
+            },
+            {
+                id: "apis",
+                title: "APIs",
+                description: "Catálogo de APIs",
+                url: `/${locale}/apis`,
+                icon: FileText,
+                category: "Main",
+            },
+            {
+                id: "lifecycles",
+                title: "Lifecycles",
+                description: "Gestión de lifecycles",
+                url: `/${locale}/lifecycles`,
+                icon: BookOpen,
+                category: "Main",
+            },
+            {
+                id: "types",
+                title: "Types",
+                description: "Tipos de recursos",
+                url: `/${locale}/types`,
+                icon: FileText,
+                category: "Main",
+            },
+            {
+                id: "teams",
+                title: "Teams",
+                description: "Equipos",
+                url: `/${locale}/teams`,
+                icon: Users,
+                category: "Main",
+            },
+
             // Infrastructure
-            { id: "infrastructure", title: "Infrastructure", description: "Vista general de infraestructura", url: `/${locale}/infrastructure`, icon: HiServer, category: "Infrastructure" },
-            { id: "clusters", title: "Clusters", description: "Gestión de clusters", url: `/${locale}/infrastructure/clusters`, icon: HiServer, category: "Infrastructure" },
-            { id: "cluster-types", title: "Cluster Types", description: "Tipos de clusters", url: `/${locale}/infrastructure/cluster-types`, icon: HiServer, category: "Infrastructure" },
-            { id: "nodes", title: "Nodes", description: "Gestión de nodos", url: `/${locale}/infrastructure/nodes`, icon: HiServer, category: "Infrastructure" },
-            { id: "service-accounts", title: "Service Accounts", description: "Cuentas de servicio", url: `/${locale}/infrastructure/cluster-service-accounts`, icon: Users, category: "Infrastructure" },
-            
+            {
+                id: "infrastructure",
+                title: "Infrastructure",
+                description: "Vista general de infraestructura",
+                url: `/${locale}/infrastructure`,
+                icon: HiServer,
+                category: "Infrastructure",
+            },
+            {
+                id: "clusters",
+                title: "Clusters",
+                description: "Gestión de clusters",
+                url: `/${locale}/infrastructure/clusters`,
+                icon: HiServer,
+                category: "Infrastructure",
+            },
+            {
+                id: "cluster-types",
+                title: "Cluster Types",
+                description: "Tipos de clusters",
+                url: `/${locale}/infrastructure/cluster-types`,
+                icon: HiServer,
+                category: "Infrastructure",
+            },
+            {
+                id: "nodes",
+                title: "Nodes",
+                description: "Gestión de nodos",
+                url: `/${locale}/infrastructure/nodes`,
+                icon: HiServer,
+                category: "Infrastructure",
+            },
+            {
+                id: "service-accounts",
+                title: "Service Accounts",
+                description: "Cuentas de servicio",
+                url: `/${locale}/infrastructure/cluster-service-accounts`,
+                icon: Users,
+                category: "Infrastructure",
+            },
+
             // Platform
-            { id: "platform", title: "Platform", description: "Vista general de plataforma", url: `/${locale}/platform`, icon: HiCube, category: "Platform" },
-            { id: "platforms", title: "Platforms", description: "Gestión de plataformas", url: `/${locale}/platform/platforms`, icon: HiCube, category: "Platform" },
-            { id: "component-types", title: "Component Types", description: "Tipos de componentes", url: `/${locale}/platform/component-types`, icon: HiCube, category: "Platform" },
-            
+            {
+                id: "platform",
+                title: "Platform",
+                description: "Vista general de plataforma",
+                url: `/${locale}/platform`,
+                icon: HiCube,
+                category: "Platform",
+            },
+            {
+                id: "platforms",
+                title: "Platforms",
+                description: "Gestión de plataformas",
+                url: `/${locale}/platform/platforms`,
+                icon: HiCube,
+                category: "Platform",
+            },
+            {
+                id: "component-types",
+                title: "Component Types",
+                description: "Tipos de componentes",
+                url: `/${locale}/platform/component-types`,
+                icon: HiCube,
+                category: "Platform",
+            },
+
             // Integration
-            { id: "integration", title: "Integration", description: "Vista general de integraciones", url: `/${locale}/integration`, icon: HiLink, category: "Integration" },
-            { id: "links", title: "Links", description: "Enlaces de integración", url: `/${locale}/integration/links`, icon: HiLink, category: "Integration" },
-            { id: "link-types", title: "Link Types", description: "Tipos de enlaces", url: `/${locale}/integration/link-types`, icon: HiLink, category: "Integration" },
-            
+            {
+                id: "integration",
+                title: "Integration",
+                description: "Vista general de integraciones",
+                url: `/${locale}/integration`,
+                icon: HiLink,
+                category: "Integration",
+            },
+            {
+                id: "links",
+                title: "Links",
+                description: "Enlaces de integración",
+                url: `/${locale}/integration/links`,
+                icon: HiLink,
+                category: "Integration",
+            },
+            {
+                id: "link-types",
+                title: "Link Types",
+                description: "Tipos de enlaces",
+                url: `/${locale}/integration/link-types`,
+                icon: HiLink,
+                category: "Integration",
+            },
+
             // Analytics & Docs
-            { id: "analytics", title: "Analytics", description: "Análisis y métricas", url: `/${locale}/analytics`, icon: HiChartBar, category: "Analytics" },
-            { id: "documentation", title: "Documentation", description: "Centro de documentación", url: `/${locale}/documentation`, icon: FileText, category: "Analytics" },
-            { id: "security", title: "Security", description: "Seguridad", url: `/${locale}/security`, icon: Settings, category: "Analytics" },
-            
+            {
+                id: "analytics",
+                title: "Analytics",
+                description: "Análisis y métricas",
+                url: `/${locale}/analytics`,
+                icon: HiChartBar,
+                category: "Analytics",
+            },
+            {
+                id: "documentation",
+                title: "Documentation",
+                description: "Centro de documentación",
+                url: `/${locale}/documentation`,
+                icon: FileText,
+                category: "Analytics",
+            },
+            {
+                id: "security",
+                title: "Security",
+                description: "Seguridad",
+                url: `/${locale}/security`,
+                icon: Settings,
+                category: "Analytics",
+            },
+
             // System
-            { id: "notifications", title: "Notifications", description: "Notificaciones", url: `/${locale}/notifications`, icon: Bell, category: "System" },
-            { id: "settings", title: "Settings", description: "Configuración del sistema", url: `/${locale}/settings`, icon: Settings, category: "System" },
+            {
+                id: "notifications",
+                title: "Notifications",
+                description: "Notificaciones",
+                url: `/${locale}/notifications`,
+                icon: Bell,
+                category: "System",
+            },
+            {
+                id: "settings",
+                title: "Settings",
+                description: "Configuración del sistema",
+                url: `/${locale}/settings`,
+                icon: Settings,
+                category: "System",
+            },
         ],
         [locale]
-    );    // Filter items based on query - memoized
+    ); // Filter items based on query - memoized
     const filteredItems = useMemo(() => {
         if (!query.trim()) return searchItems;
 
