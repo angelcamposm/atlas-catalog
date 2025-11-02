@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->create_initial_user();
         $this->run_base_seeders();
-        $this->create_sample_data();
+//        $this->create_sample_data();
     }
 
     private function create_initial_user(): void
@@ -41,12 +41,12 @@ class DatabaseSeeder extends Seeder
         // First-level models
         $this->call([
             ApiAccessPolicySeeder::class,
-            ApiCategorySeeder::class,
             ApiStatusSeeder::class,
             ApiTypeSeeder::class,
             AuthenticationMethodSeeder::class,
             BusinessDomainSeeder::class,
             BusinessTierSeeder::class,
+            CategorySeeder::class,
             EnvironmentSeeder::class,
             LifecycleSeeder::class,
             ProgrammingLanguageSeeder::class,
