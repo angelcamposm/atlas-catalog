@@ -20,6 +20,8 @@ use App\Http\Controllers\GroupTypeController;
 use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\LinkCategoryController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\NodeController;
+use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ResourceCategoryController;
@@ -57,7 +59,11 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('clusters/types', ClusterTypeController::class);
     Route::apiResource('clusters', ClusterController::class);
     Route::apiResource('frameworks', FrameworkController::class);
+    Route::apiResource('nodes', NodeController::class);
+    Route::apiResource('platforms', PlatformController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
+    Route::apiResource('resources/categories', ResourceCategoryController::class);
+    Route::apiResource('resources', ResourceController::class);
     Route::apiResource('vendors', VendorController::class);
 
     // Account Domain
