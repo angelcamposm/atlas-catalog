@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { AppSidebar } from "./AppSidebar";
+import { ModuleSelector } from "./ModuleSelector";
 import { Footer } from "./Footer";
 import {
     SidebarProvider,
@@ -16,6 +17,7 @@ interface MainLayoutProps {
     locale: string;
     showSidebar?: boolean;
     showFooter?: boolean;
+    userPermissions?: string[];
 }
 
 /**
@@ -27,6 +29,7 @@ export function MainLayout({
     locale,
     showSidebar = false,
     showFooter = true,
+    userPermissions = [],
 }: MainLayoutProps) {
     if (!showSidebar) {
         // Simple layout without sidebar
@@ -47,17 +50,18 @@ export function MainLayout({
             <div className="flex min-h-screen w-full bg-background">
                 <AppSidebar locale={locale} />
                 <SidebarInset className="flex flex-1 flex-col">
-                    {/* Header with trigger */}
-                    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4">
+                    {/* Header with Module Selector */}
+                    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-3 border-b bg-background px-4">
                         <SidebarTrigger className="-ml-1" />
                         <Separator
                             orientation="vertical"
                             className="mr-2 h-4"
                         />
-                        <div className="flex flex-1 items-center justify-between">
-                            <h1 className="text-lg font-semibold">
-                                Atlas Catalog
-                            </h1>
+                        
+                        {/* Module Selector */}
+                        <ModuleSelector userPermissions={userPermissions} />
+                        
+                        <div className="ml-auto flex items-center gap-4">
                             <Navbar locale={locale} />
                         </div>
                     </header>
