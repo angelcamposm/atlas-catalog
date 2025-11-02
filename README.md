@@ -13,6 +13,23 @@ Key features include:
 
 Whether you are a developer looking for service documentation, a platform engineer managing the ecosystem, or an architect designing new systems, Atlas Catalog provides the visibility and control needed to navigate your microservices landscape with confidence.
 
+## 🛠️ Tech Stack
+
+**Backend**:
+
+- Laravel 12.x
+- PHP 8.3+
+- SQLite/MySQL/PostgreSQL
+- RESTful API
+
+## System Architecture
+
+<img src="docs/images/system-architecture.png" width="800" alt="Atlas Catalog Architecture">
+
 ## License
 
 The Atlas Catalog is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Support Us
+
+Like this project! Star it on GitHub ⭐. Your support means a lot to us.
