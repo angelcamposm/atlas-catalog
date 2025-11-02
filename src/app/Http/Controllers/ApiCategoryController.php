@@ -40,26 +40,26 @@ class ApiCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ApiCategory $apiCategory
+     * @param ApiCategory $category
      *
      * @return CategoryResource
      */
-    public function show(ApiCategory $apiCategory): CategoryResource
+    public function show(ApiCategory $category): CategoryResource
     {
-        return new CategoryResource($apiCategory);
+        return new CategoryResource($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateCategoryRequest $request
-     * @param ApiCategory $apiCategory
+     * @param ApiCategory $category
      *
      * @return CategoryResource
      */
-    public function update(UpdateCategoryRequest $request, ApiCategory $apiCategory): CategoryResource
+    public function update(UpdateCategoryRequest $request, ApiCategory $category): CategoryResource
     {
-        $model = $apiCategory->update($request->validated());
+        $model = $category->update($request->validated());
 
         return new CategoryResource($model);
     }
@@ -67,13 +67,13 @@ class ApiCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ApiCategory $apiCategory
+     * @param ApiCategory $category
      *
      * @return Response
      */
-    public function destroy(ApiCategory $apiCategory): Response
+    public function destroy(ApiCategory $category): Response
     {
-        $apiCategory->delete();
+        $category->delete();
 
         return response()->noContent();
     }
