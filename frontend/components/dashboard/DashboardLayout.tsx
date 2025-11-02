@@ -133,10 +133,20 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
 
             {/* Main Content Area */}
             <div className="flex flex-1 flex-col overflow-hidden">
-                {/* Top Bar */}
+                {/* Primary Header Bar - Generic */}
                 <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center justify-between border-b border-border bg-background px-6">
-                    {/* Left side - Breadcrumb & View Tabs */}
-                    <div className="flex items-center gap-6">
+                    {/* Left side - Breadcrumb */}
+                    <div className="flex items-center gap-4">
+                        {/* Project Name/Logo */}
+                        <div className="flex items-center gap-2">
+                            <div className="flex h-6 w-6 items-center justify-center rounded bg-primary text-xs font-bold text-primary-foreground">
+                                A
+                            </div>
+                            <span className="font-semibold text-foreground">
+                                Atlas Catalog
+                            </span>
+                        </div>
+
                         {/* Breadcrumb */}
                         <div className="flex items-center gap-2 text-sm">
                             {breadcrumb.map((item, index) => (
@@ -151,7 +161,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                         className={
                                             index === breadcrumb.length - 1
                                                 ? "font-medium text-foreground"
-                                                : "text-muted-foreground"
+                                                : "text-muted-foreground hover:text-foreground cursor-pointer"
                                         }
                                     >
                                         {item}
@@ -159,58 +169,10 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                                 </div>
                             ))}
                         </div>
-
-                        {/* View Mode Tabs */}
-                        <div className="hidden lg:flex items-center gap-1 rounded-lg border border-border bg-muted/50 p-1">
-                            {viewModes.map((mode) => {
-                                const Icon = mode.icon;
-                                const isActive = currentView === mode.id;
-
-                                return (
-                                    <button
-                                        key={mode.id}
-                                        onClick={() => setCurrentView(mode.id)}
-                                        className={`flex items-center gap-2 rounded px-3 py-1.5 text-sm font-medium transition-all ${
-                                            isActive
-                                                ? "bg-background text-foreground shadow-sm"
-                                                : "text-muted-foreground hover:text-foreground hover:bg-muted/80"
-                                        }`}
-                                    >
-                                        <Icon className="h-4 w-4" />
-                                        <span className="hidden xl:inline">
-                                            {mode.label}
-                                        </span>
-                                    </button>
-                                );
-                            })}
-                        </div>
                     </div>
 
-                    {/* Right side - Actions */}
+                    {/* Right side - Global Actions */}
                     <div className="flex items-center gap-2">
-                        {/* Sort */}
-                        <Button variant="ghost" size="sm">
-                            <ArrowUpDown className="h-4 w-4" />
-                            <span className="hidden sm:inline ml-2">Sort</span>
-                        </Button>
-
-                        {/* View */}
-                        <Button variant="ghost" size="sm">
-                            <Eye className="h-4 w-4" />
-                            <span className="hidden sm:inline ml-2">View</span>
-                        </Button>
-
-                        {/* Filter */}
-                        <Button variant="ghost" size="sm">
-                            <SlidersHorizontal className="h-4 w-4" />
-                            <span className="hidden sm:inline ml-2">
-                                Filter
-                            </span>
-                        </Button>
-
-                        {/* Divider */}
-                        <div className="mx-2 h-6 w-px bg-border" />
-
                         {/* Toggle Sidebar - Desktop */}
                         <Button
                             variant="ghost"
@@ -281,6 +243,57 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                         </button>
                     </div>
                 </header>
+
+                {/* Secondary Header Bar - Contextual */}
+                <div className="sticky top-14 z-30 flex h-12 shrink-0 items-center justify-between border-b border-border bg-background/95 backdrop-blur-sm px-6">
+                    {/* Left side - View Mode Tabs */}
+                    <div className="flex items-center gap-1">
+                        {viewModes.map((mode) => {
+                            const Icon = mode.icon;
+                            const isActive = currentView === mode.id;
+
+                            return (
+                                <button
+                                    key={mode.id}
+                                    onClick={() => setCurrentView(mode.id)}
+                                    className={`flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium transition-all ${
+                                        isActive
+                                            ? "bg-muted text-foreground"
+                                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                    }`}
+                                >
+                                    <Icon className="h-4 w-4" />
+                                    <span className="hidden md:inline">
+                                        {mode.label}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Right side - Context Actions */}
+                    <div className="flex items-center gap-1">
+                        {/* Sort */}
+                        <Button variant="ghost" size="sm">
+                            <ArrowUpDown className="h-4 w-4" />
+                            <span className="hidden sm:inline ml-2">Sort</span>
+                        </Button>
+
+                        {/* View */}
+                        <Button variant="ghost" size="sm">
+                            <Eye className="h-4 w-4" />
+                            <span className="hidden sm:inline ml-2">View</span>
+                        </Button>
+
+                        {/* Filter */}
+                        <Button variant="ghost" size="sm">
+                            <SlidersHorizontal className="h-4 w-4" />
+                            <span className="hidden sm:inline ml-2">
+                                Filter
+                            </span>
+                        </Button>
+                    </div>
+                </div>
 
                 {/* Page Content - Scrollable */}
                 <main className="flex-1 overflow-y-auto">{children}</main>

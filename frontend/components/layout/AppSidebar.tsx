@@ -13,6 +13,7 @@ import {
     ChevronDown,
     ChevronRight,
     Tag,
+    Settings,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -201,7 +202,7 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                     {
                         title: "Settings",
                         url: `/${locale}/settings`,
-                        icon: Home,
+                        icon: Settings,
                     },
                 ],
             },
