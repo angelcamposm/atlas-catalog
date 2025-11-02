@@ -144,28 +144,6 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                 ],
             },
             {
-                id: "integration",
-                label: "Integration",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Overview",
-                        url: `/${locale}/integration`,
-                        icon: BarChart3,
-                    },
-                    {
-                        title: "Links",
-                        url: `/${locale}/integration/links`,
-                        icon: FileText,
-                    },
-                    {
-                        title: "Link Types",
-                        url: `/${locale}/integration/link-types`,
-                        icon: Tag,
-                    },
-                ],
-            },
-            {
                 id: "analytics",
                 label: "Analytics & Docs",
                 collapsible: true,
