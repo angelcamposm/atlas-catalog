@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { HiShieldCheck, HiDocumentText, HiSquares2X2, HiChevronDown, HiCheck } from "react-icons/hi2";
 import {
-    HiShieldCheck,
-    HiDocumentText,
-    HiSquares2X2,
-} from "react-icons/hi2";
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 interface Module {
     id: string;
@@ -55,16 +59,13 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
         availableModules[0] || allModules[0]
     );
 
-    const handleModuleChange = (moduleId: string) => {
-        const selectedModule = availableModules.find((m) => m.id === moduleId);
-        if (selectedModule) {
-            setActiveModule(selectedModule);
-            // Aquí puedes agregar lógica adicional como:
-            // - Actualizar el contexto global
-            // - Redirigir a la página del módulo
-            // - Notificar cambio a componentes hijos
-            console.log("Módulo cambiado a:", selectedModule.id);
-        }
+    const handleModuleChange = (module: Module) => {
+        setActiveModule(module);
+        // Aquí puedes agregar lógica adicional como:
+        // - Actualizar el contexto global
+        // - Redirigir a la página del módulo
+        // - Notificar cambio a componentes hijos
+        console.log("Módulo cambiado a:", module.id);
     };
 
     if (availableModules.length === 0) {
@@ -74,24 +75,52 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
     const ActiveIcon = activeModule.icon;
 
     return (
-        <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-card/50 px-3 py-2">
-                <ActiveIcon className="h-4 w-4 text-muted-foreground" />
-                <select
-                    value={activeModule.id}
-                    onChange={(e) => handleModuleChange(e.target.value)}
-                    className="border-none bg-transparent text-sm font-medium outline-none focus:outline-none"
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button 
+                    variant="ghost" 
+                    className="h-9 gap-2 px-3 hover:bg-accent"
                 >
-                    {availableModules.map((module) => (
-                        <option key={module.id} value={module.id}>
-                            {module.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            <span className="hidden text-xs text-muted-foreground md:block">
-                {activeModule.description}
-            </span>
-        </div>
+                    <ActiveIcon className="h-4 w-4" />
+                    <span className="font-medium">{activeModule.name}</span>
+                    <HiChevronDown className="h-4 w-4 opacity-50" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-64">
+                {availableModules.map((module) => {
+                    const ModuleIcon = module.icon;
+                    const isActive = activeModule.id === module.id;
+                    
+                    return (
+                        <DropdownMenuItem
+                            key={module.id}
+                            onClick={() => handleModuleChange(module)}
+                            className="flex items-start gap-3 px-3 py-2.5 cursor-pointer"
+                        >
+                            <ModuleIcon className={cn(
+                                "mt-0.5 h-4 w-4 shrink-0",
+                                isActive ? "text-primary" : "text-muted-foreground"
+                            )} />
+                            <div className="flex flex-1 flex-col gap-0.5">
+                                <div className="flex items-center justify-between">
+                                    <span className={cn(
+                                        "text-sm font-medium",
+                                        isActive && "text-primary"
+                                    )}>
+                                        {module.name}
+                                    </span>
+                                    {isActive && (
+                                        <HiCheck className="h-4 w-4 text-primary" />
+                                    )}
+                                </div>
+                                <span className="text-xs text-muted-foreground">
+                                    {module.description}
+                                </span>
+                            </div>
+                        </DropdownMenuItem>
+                    );
+                })}
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
 }
