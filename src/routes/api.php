@@ -10,6 +10,8 @@ use App\Http\Controllers\ApiTypeController;
 use App\Http\Controllers\AuthenticationMethodController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessTierController;
+use App\Http\Controllers\ClusterController;
+use App\Http\Controllers\ClusterTypeController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\GroupController;
@@ -52,6 +54,8 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('service-accounts', ServiceAccountController::class);
 
     // Technology Domain
+    Route::apiResource('clusters/types', ClusterTypeController::class);
+    Route::apiResource('clusters', ClusterController::class);
     Route::apiResource('frameworks', FrameworkController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
     Route::apiResource('vendors', VendorController::class);
