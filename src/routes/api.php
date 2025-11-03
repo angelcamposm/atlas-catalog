@@ -26,6 +26,7 @@ use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ResourceCategoryController;
 use App\Http\Controllers\ServiceAccountController;
+use App\Http\Controllers\ServiceStatusController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,9 @@ Route::prefix('v1')->group(function () {
     // Link Domain
     Route::apiResource('links/categories', LinkCategoryController::class);
     Route::apiResource('links', LinkController::class);
+
+    // Operation Domain
+    Route::apiResource('service-statuses', ServiceStatusController::class);
 
     // Resource Domain
     Route::apiResource('resources/categories', ResourceCategoryController::class);
