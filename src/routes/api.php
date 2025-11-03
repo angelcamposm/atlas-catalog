@@ -12,6 +12,7 @@ use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessTierController;
 use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\ClusterTypeController;
+use App\Http\Controllers\ComplianceStandardController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\GroupController;
@@ -43,6 +44,9 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('business-tiers', BusinessTierController::class);
     Route::apiResource('environments', EnvironmentController::class);
     Route::apiResource('lifecycles', LifecycleController::class);
+
+    // Compliance Domain
+    Route::apiResource('compliance-standards', ComplianceStandardController::class);
 
     // Link Domain
     Route::apiResource('links/categories', LinkCategoryController::class);

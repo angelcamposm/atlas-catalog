@@ -47,6 +47,7 @@ class DatabaseSeeder extends Seeder
             BusinessDomainSeeder::class,
             BusinessTierSeeder::class,
             CategorySeeder::class,
+            ComplianceStandardSeeder::class,
             EnvironmentSeeder::class,
             LifecycleSeeder::class,
             ProgrammingLanguageSeeder::class,
