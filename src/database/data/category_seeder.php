@@ -285,49 +285,49 @@ return [
         'description' => 'A non-relational database for flexible data models, such as key-value, document, or wide-column stores.',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
     [
         'name' => 'Graph database',
         'description' => 'A database that uses graph structures with nodes and edges to represent and store data, ideal for relationship-heavy data.',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
     [
         'name' => 'Columnar database',
         'description' => 'A database that stores data in columns rather than rows, optimized for fast query performance in analytical applications.',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
     [
         'name' => 'Relational database',
         'description' => 'A database based on the relational model, storing data in tables with predefined schemas (e.g., MySQL, PostgreSQL).',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
     [
         'name' => 'Document database',
         'description' => 'A type of NoSQL database designed for storing and querying data as JSON-like documents.',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
     [
         'name' => 'Object-oriented database',
         'description' => 'A database system that represents data as objects, as in object-oriented programming.',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
     [
         'name' => 'Time series database',
         'description' => 'A database optimized for storing and querying time-stamped or time series data.',
         'icon' => null,
         'model' => 'resource',
-        'parent_id' => 'database',
+        'parent_id' => 'Database',
     ],
 
     /*
@@ -420,15 +420,6 @@ return [
         'icon' => null,
         'model' => 'resource',
         'parent_id' => 'Object storage',
-    ],
-
-    [
-        'name' => 'Persistent Volume Claim',
-        'description' => 'A request for storage by a user in Kubernetes, abstracting the underlying storage provider.',
-        'category' => 'storage',
-        'icon' => null,
-        'model' => 'resource',
-        'parent_id' => null,
     ],
 
     /*

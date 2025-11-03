@@ -24,8 +24,15 @@ final class CategorySeeder extends Seeder
             $this->createModel($item);
         });
 
+        // Get the top-level categories
+        $categories = Category::select(['id', 'name'])->whereNull('parent_id')->get();
+
         // Then, create the child categories
-        $rows->whereNotNull('parent_id')->each(function ($item) {
+        $rows->whereNotNull('parent_id')->each(function ($item) use ($categories) {
+            $parent = $categories->where('name', $item['parent_id'])->first();
+            if ($parent) {
+                $item['parent_id'] = $parent->id;
+            }
             $this->createModel($item);
         });
     }

@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static inRandomOrder()
  * @method static paginate()
  * @method static pluck(string $string)
+ * @method static select(mixed $columns)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
 #[ObservedBy(CategoryObserver::class)]
