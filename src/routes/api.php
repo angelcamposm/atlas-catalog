@@ -18,6 +18,7 @@ use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupMemberRoleController;
 use App\Http\Controllers\GroupTypeController;
+use App\Http\Controllers\InfrastructureTypeController;
 use App\Http\Controllers\LifecycleController;
 use App\Http\Controllers\LinkCategoryController;
 use App\Http\Controllers\LinkController;
@@ -67,6 +68,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('clusters/types', ClusterTypeController::class);
     Route::apiResource('clusters', ClusterController::class);
     Route::apiResource('frameworks', FrameworkController::class);
+    Route::apiResource('infrastructure-types', InfrastructureTypeController::class);
     Route::apiResource('nodes', NodeController::class);
     Route::apiResource('platforms', PlatformController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
