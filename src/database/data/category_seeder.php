@@ -226,6 +226,13 @@ return [
         'model' => 'link',
         'parent_id' => null,
     ],
+    [
+        'name' => 'Other',
+        'description' => 'Miscellaneous links that do not fit into any other predefined category but are still relevant to the project or system.',
+        'icon' => null,
+        'model' => 'link',
+        'parent_id' => null,
+    ],
 
     /*
     | -------------------------------------------------------------------------
