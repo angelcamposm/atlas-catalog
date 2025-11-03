@@ -8,6 +8,7 @@ use App\Observers\InfrastructureTypeObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $updated_by
  * @property-read User|null $creator The user who created this language entry.
  * @property-read User|null $updater The user who last updated this language entry.
+ * @property-read Cluster[] $clusters The clusters associated with this infrastructure type.
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
@@ -57,4 +59,14 @@ class InfrastructureType extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the clusters associated with this infrastructure type.
+     *
+     * @return HasMany<Cluster>
+     */
+    public function clusters(): HasMany
+    {
+        return $this->hasMany(Cluster::class, 'infrastructure_type_id', 'id');
+    }
 }

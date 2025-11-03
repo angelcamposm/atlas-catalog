@@ -30,6 +30,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string|null $url
  * @property int $created_by
  * @property int $updated_by
+ * @property-read InfrastructureType|null $infrastructureType
+ * @property-read Lifecycle|null $lifecycle
+ * @property-read Node[] $nodes
+ * @property-read ServiceAccount[] $serviceAccount
+ * @property-read ClusterType|null $type
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
@@ -65,6 +70,7 @@ class Cluster extends Model
         'display_name',
         'full_version',
         'has_licensing',
+        'infrastructure_type_id',
         'licensing_model',
         'lifecycle_id',
         'tags',
@@ -96,6 +102,16 @@ class Cluster extends Model
     }
 
     /**
+     * Get the infrastructure type of the cluster.
+     *
+     * @return BelongsTo<InfrastructureType>
+     */
+    public function infrastructureType(): BelongsTo
+    {
+        return $this->belongsTo(InfrastructureType::class, 'infrastructure_type_id', 'id');
+    }
+
+    /**
      * Get the lifecycle of the cluster.
      *
      * @return BelongsTo<Lifecycle>
@@ -118,7 +134,7 @@ class Cluster extends Model
             foreignPivotKey: 'cluster_id',
             relatedPivotKey: 'node_id',
             parentKey: 'id',
-            relatedKey: 'id'
+            relatedKey: 'id',
         );
     }
 
