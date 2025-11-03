@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('display_name', 50)->nullable();
             $table->string('full_version', 50)->nullable();
             $table->boolean('has_licensing')->default(false);
+            $table->foreignId('infrastructure_type_id')->nullable()->constrained('infrastructure_types', 'id')->nullOnDelete();
             $table->string('licensing_model')->default(K8sLicensingModel::None->value);
             $table->foreignId('lifecycle_id')->nullable()->constrained('lifecycles', 'id')->nullOnDelete();
             $table->json('tags')->nullable();
