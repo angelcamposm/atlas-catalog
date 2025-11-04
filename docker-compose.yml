@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 name: atlas-catalog
 
 x-build-config: &build-config
@@ -11,7 +11,6 @@ x-build-config: &build-config
       - "atlas-catalog:latest"
 
 services:
-
   init-db:
     <<: *build-config
     command:
@@ -22,13 +21,13 @@ services:
     depends_on:
       - postgres
       - redis
-#    environment:
-#      DB_CONNECTION: pgsql
-#      DB_HOST: postgres
-#      DB_PORT: 5432
-#      DB_DATABASE: laravel
-#      DB_USERNAME: laravel
-#      DB_PASSWORD: secret
+    #    environment:
+    #      DB_CONNECTION: pgsql
+    #      DB_HOST: postgres
+    #      DB_PORT: 5432
+    #      DB_DATABASE: laravel
+    #      DB_USERNAME: laravel
+    #      DB_PASSWORD: secret
     networks:
       - catalog-network
 
@@ -42,8 +41,8 @@ services:
       - catalog-network
     ports:
       - "9000:9000"
-#    volumes:
-#      - ./src:/var/www/html
+  #    volumes:
+  #      - ./src:/var/www/html
 
   # Nginx Web Server
   nginx:
