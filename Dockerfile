@@ -18,6 +18,7 @@ WORKDIR /var/www/html
 COPY src/ ./
 
 RUN set -eux; \
+    mv -f .env.compose .env; \
 	composer install --no-dev --optimize-autoloader; \
 	chown -R www-data:www-data .;
 

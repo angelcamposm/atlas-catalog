@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Observers;
 
+use App\Models\Api;
 use App\Models\ApiCategory;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +23,10 @@ class ApiCategoryObserver
      */
     public function creating(ApiCategory $apiCategory): void
     {
+        if (is_null($apiCategory->model)) {
+            $apiCategory->model = strtolower(class_basename(Api::class));
+        }
+
         if (Auth::check() && is_null($apiCategory->created_by)) {
             $apiCategory->created_by = Auth::id();
         }
@@ -40,6 +45,10 @@ class ApiCategoryObserver
      */
     public function updating(ApiCategory $apiCategory): void
     {
+        if (is_null($apiCategory->model)) {
+            $apiCategory->model = strtolower(class_basename(Api::class));
+        }
+
         if (Auth::check() && is_null($apiCategory->updated_by)) {
             $apiCategory->updated_by = Auth::id();
         }

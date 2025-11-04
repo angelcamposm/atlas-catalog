@@ -11,60 +11,33 @@ use App\Http\Controllers\AuthenticationMethodController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessTierController;
 use App\Http\Controllers\ClusterController;
-use App\Http\Controllers\ClusterServiceAccountController;
 use App\Http\Controllers\ClusterTypeController;
-use App\Http\Controllers\ComponentTypeController;
+use App\Http\Controllers\ComplianceStandardController;
 use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\GroupMemberRoleController;
 use App\Http\Controllers\GroupTypeController;
+use App\Http\Controllers\InfrastructureTypeController;
 use App\Http\Controllers\LifecycleController;
+use App\Http\Controllers\LinkCategoryController;
 use App\Http\Controllers\LinkController;
-use App\Http\Controllers\LinkTypeController;
 use App\Http\Controllers\NodeController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceController;
-use App\Http\Controllers\ResourceTypeController;
+use App\Http\Controllers\ResourceCategoryController;
 use App\Http\Controllers\ServiceAccountController;
-use App\Http\Controllers\ServiceAccountTokenController;
+use App\Http\Controllers\ServiceStatusController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
-// Health Check Endpoint
-Route::get('health', function () {
-    try {
-        // Check database connection
-        \DB::connection()->getPdo();
-        
-        // Check Redis connection
-        \Cache::store('redis')->get('health-check');
-        
-        return response()->json([
-            'status' => 'healthy',
-            'timestamp' => now()->toIso8601String(),
-            'services' => [
-                'database' => 'up',
-                'redis' => 'up',
-                'api' => 'up',
-            ],
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'unhealthy',
-            'timestamp' => now()->toIso8601String(),
-            'error' => $e->getMessage(),
-        ], 503);
-    }
-});
-
 Route::prefix('v1')->group(function () {
     // API Domain
-    Route::apiResource('api-access-policies', ApiAccessPolicyController::class);
-    Route::apiResource('api-categories', ApiCategoryController::class);
-    Route::apiResource('api-statuses', ApiStatusController::class);
-    Route::apiResource('api-types', ApiTypeController::class);
+    Route::apiResource('apis/access-policies', ApiAccessPolicyController::class);
+    Route::apiResource('apis/categories', ApiCategoryController::class);
+    Route::apiResource('apis/statuses', ApiStatusController::class);
+    Route::apiResource('apis/types', ApiTypeController::class);
     Route::apiResource('apis', ApiController::class);
 
     // Business Domain
@@ -73,36 +46,38 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('environments', EnvironmentController::class);
     Route::apiResource('lifecycles', LifecycleController::class);
 
+    // Compliance Domain
+    Route::apiResource('compliance-standards', ComplianceStandardController::class);
+
+    // Link Domain
+    Route::apiResource('links/categories', LinkCategoryController::class);
+    Route::apiResource('links', LinkController::class);
+
+    // Operation Domain
+    Route::apiResource('service-statuses', ServiceStatusController::class);
+
     // Resource Domain
+    Route::apiResource('resources/categories', ResourceCategoryController::class);
     Route::apiResource('resources', ResourceController::class);
-    Route::apiResource('resource-types', ResourceTypeController::class);
 
     // Security Domain
     Route::apiResource('authentication-methods', AuthenticationMethodController::class);
     Route::apiResource('service-accounts', ServiceAccountController::class);
-    Route::apiResource('service-account-tokens', ServiceAccountTokenController::class);
 
     // Technology Domain
+    Route::apiResource('clusters/types', ClusterTypeController::class);
+    Route::apiResource('clusters', ClusterController::class);
     Route::apiResource('frameworks', FrameworkController::class);
+    Route::apiResource('infrastructure-types', InfrastructureTypeController::class);
+    Route::apiResource('nodes', NodeController::class);
+    Route::apiResource('platforms', PlatformController::class);
     Route::apiResource('programming-languages', ProgrammingLanguageController::class);
+    Route::apiResource('resources/categories', ResourceCategoryController::class);
+    Route::apiResource('resources', ResourceController::class);
     Route::apiResource('vendors', VendorController::class);
 
     // Account Domain
+    Route::apiResource('groups/member-roles', GroupMemberRoleController::class);
+    Route::apiResource('groups/types', GroupTypeController::class);
     Route::apiResource('groups', GroupController::class);
-    Route::apiResource('group-member-roles', GroupMemberRoleController::class);
-    Route::apiResource('group-types', GroupTypeController::class);
-
-    // Infrastructure Domain (Kubernetes/Clusters)
-    Route::apiResource('clusters', ClusterController::class);
-    Route::apiResource('cluster-types', ClusterTypeController::class);
-    Route::apiResource('cluster-service-accounts', ClusterServiceAccountController::class);
-    Route::apiResource('nodes', NodeController::class);
-
-    // Platform Domain
-    Route::apiResource('platforms', PlatformController::class);
-    Route::apiResource('component-types', ComponentTypeController::class);
-
-    // Integration Domain
-    Route::apiResource('links', LinkController::class);
-    Route::apiResource('link-types', LinkTypeController::class);
 });

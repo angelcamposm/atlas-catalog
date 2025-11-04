@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Models;
+
+use App\Observers\ResourceCategoryObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $description
+ * @property string $icon
+ * @property string $model
+ * @property int $parent_id
+ * @property int $created_by
+ * @property int $updated_by
+ *
+ * @property-read Collection<Api>|null $resources The resources associated with this category.
+ * @property-read User|null $creator The user who created this language entry.
+ * @property-read User|null $updater The user who last updated this language entry.
+ *
+ * @method static create(array $validated)
+ * @method static firstOrCreate(array $attributes = [], array $values = [])
+ * @method static inRandomOrder()
+ * @method static paginate()
+ * @method static pluck(string $string)
+ * @method static updateOrCreate(array $attributes = [], array $values = [])
+ */
+#[ObservedBy(ResourceCategoryObserver::class)]
+class ResourceCategory extends Category
+{
+    /**
+     * Bootstrap the model and its traits.
+     */
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::addGlobalScope(function ($query) {
+            $query->where('model', strtolower(class_basename(Resource::class)));
+        });
+    }
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        'model',
+    ];
+
+    /**
+     * Get the resources associated with this category.
+     *
+     * @return HasMany<resource>
+     */
+    public function resources(): HasMany
+    {
+        return $this->hasMany(Resource::class, 'category_id', 'id');
+    }
+}

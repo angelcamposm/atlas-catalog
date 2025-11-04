@@ -1,0 +1,62 @@
+name: apicurio-registry
+
+services:
+
+  # Apicurio Registry Frontend Service
+  frontend:
+    container_name: apicurio-registry-frontend
+    environment:
+      # Use the backend container's internal port (8080)
+      REGISTRY_API_URL: http://localhost:8085/apis/registry/v3
+      REGISTRY_FEATURE_READ_ONLY: false
+    image: apicurio/apicurio-registry-ui:3.1.1
+    networks:
+      - apicurio-network
+    ports:
+      - "8888:8080"
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  # Apicurio Registry Backend Service
+  backend:
+    container_name: apicurio-registry-backend
+    environment:
+      JAVA_OPTS: -Dapicurio.rest.mutability.artifact-version-content.enabled=true
+      APICURIO_STORAGE_KIND: sql
+      APICURIO_STORAGE_SQL_KIND: postgresql
+      APICURIO_DATASOURCE_URL: jdbc:postgresql://postgres:5432/apicurio
+      APICURIO_DATASOURCE_USERNAME: apicurio
+      APICURIO_DATASOURCE_PASSWORD: secret
+    image: apicurio/apicurio-registry:3.1.1
+    networks:
+      - apicurio-network
+    ports:
+      - "8085:8080"
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:17.6-alpine3.22
+    container_name: apicurio-postgres
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-apicurio}
+      POSTGRES_USER: ${DB_USERNAME:-apicurio}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    networks:
+      - apicurio-network
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  apicurio-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local

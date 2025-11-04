@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreApiCategoryRequest;
-use App\Http\Requests\UpdateApiCategoryRequest;
-use App\Http\Resources\ApiCategoryResource;
-use App\Http\Resources\ApiCategoryResourceCollection;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryResourceCollection;
 use App\Models\ApiCategory;
 use Illuminate\Http\Response;
 
@@ -16,64 +16,64 @@ class ApiCategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return ApiCategoryResourceCollection
+     * @return CategoryResourceCollection
      */
-    public function index(): ApiCategoryResourceCollection
+    public function index(): CategoryResourceCollection
     {
-        return new ApiCategoryResourceCollection(ApiCategory::paginate());
+        return new CategoryResourceCollection(ApiCategory::paginate());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreApiCategoryRequest $request
+     * @param StoreCategoryRequest $request
      *
-     * @return ApiCategoryResource
+     * @return CategoryResource
      */
-    public function store(StoreApiCategoryRequest $request): ApiCategoryResource
+    public function store(StoreCategoryRequest $request): CategoryResource
     {
         $model = ApiCategory::create($request->validated());
 
-        return new ApiCategoryResource($model);
+        return new CategoryResource($model);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param ApiCategory $apiCategory
+     * @param ApiCategory $category
      *
-     * @return ApiCategoryResource
+     * @return CategoryResource
      */
-    public function show(ApiCategory $apiCategory): ApiCategoryResource
+    public function show(ApiCategory $category): CategoryResource
     {
-        return new ApiCategoryResource($apiCategory);
+        return new CategoryResource($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateApiCategoryRequest $request
-     * @param ApiCategory $apiCategory
+     * @param UpdateCategoryRequest $request
+     * @param ApiCategory $category
      *
-     * @return ApiCategoryResource
+     * @return CategoryResource
      */
-    public function update(UpdateApiCategoryRequest $request, ApiCategory $apiCategory): ApiCategoryResource
+    public function update(UpdateCategoryRequest $request, ApiCategory $category): CategoryResource
     {
-        $model = $apiCategory->update($request->validated());
+        $model = $category->update($request->validated());
 
-        return new ApiCategoryResource($model);
+        return new CategoryResource($model);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param ApiCategory $apiCategory
+     * @param ApiCategory $category
      *
      * @return Response
      */
-    public function destroy(ApiCategory $apiCategory): Response
+    public function destroy(ApiCategory $category): Response
     {
-        $apiCategory->delete();
+        $category->delete();
 
         return response()->noContent();
     }

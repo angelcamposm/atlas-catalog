@@ -40,26 +40,26 @@ class BusinessDomainController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param BusinessDomain $businessDomain
+     * @param BusinessDomain $business_domain
      *
      * @return BusinessDomainResource
      */
-    public function show(BusinessDomain $businessDomain): BusinessDomainResource
+    public function show(BusinessDomain $business_domain): BusinessDomainResource
     {
-        return new BusinessDomainResource($businessDomain);
+        return new BusinessDomainResource($business_domain);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateBusinessDomainRequest $request
-     * @param BusinessDomain $businessDomain
+     * @param BusinessDomain $business_domain
      *
      * @return BusinessDomainResource
      */
-    public function update(UpdateBusinessDomainRequest $request, BusinessDomain $businessDomain): BusinessDomainResource
+    public function update(UpdateBusinessDomainRequest $request, BusinessDomain $business_domain): BusinessDomainResource
     {
-        $model = $businessDomain->update($request->validated());
+        $model = $business_domain->update($request->validated());
 
         return new BusinessDomainResource($model);
     }
@@ -67,13 +67,13 @@ class BusinessDomainController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param BusinessDomain $businessDomain
+     * @param BusinessDomain $business_domain
      *
      * @return Response
      */
-    public function destroy(BusinessDomain $businessDomain): Response
+    public function destroy(BusinessDomain $business_domain): Response
     {
-        $businessDomain->delete();
+        $business_domain->delete();
 
         return response()->noContent();
     }

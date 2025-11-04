@@ -40,26 +40,26 @@ class BusinessTierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param BusinessTier $businessTier
+     * @param BusinessTier $business_tier
      *
      * @return BusinessTierResource
      */
-    public function show(BusinessTier $businessTier): BusinessTierResource
+    public function show(BusinessTier $business_tier): BusinessTierResource
     {
-        return new BusinessTierResource($businessTier);
+        return new BusinessTierResource($business_tier);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateBusinessTierRequest $request
-     * @param BusinessTier $businessTier
+     * @param BusinessTier $business_tier
      *
      * @return BusinessTierResource
      */
-    public function update(UpdateBusinessTierRequest $request, BusinessTier $businessTier): BusinessTierResource
+    public function update(UpdateBusinessTierRequest $request, BusinessTier $business_tier): BusinessTierResource
     {
-        $model = $businessTier->update($request->validated());
+        $model = $business_tier->update($request->validated());
 
         return new BusinessTierResource($model);
     }
@@ -67,13 +67,13 @@ class BusinessTierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param BusinessTier $businessTier
+     * @param BusinessTier $business_tier
      *
      * @return Response
      */
-    public function destroy(BusinessTier $businessTier): Response
+    public function destroy(BusinessTier $business_tier): Response
     {
-        $businessTier->delete();
+        $business_tier->delete();
 
         return response()->noContent();
     }

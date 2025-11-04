@@ -1,32 +1,58 @@
-version: "3.8"
-name: atlas
+version: '3.8'
+name: atlas-catalog
+
+x-build-config: &build-config
+  build:
+    context: .
+    dockerfile: Dockerfile
+    platforms:
+      - linux/amd64
+    tags:
+      - "atlas-catalog:latest"
 
 services:
-  # PHP-FPM Application Service (Backend API)
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      tags:
-        - "atlas-catalog-backend:latest"
-    container_name: atlas-app
+
+  init-db:
+    <<: *build-config
+    command:
+      - /bin/sh
+      - -c
+      - "php artisan migrate --seed --force"
+    container_name: init-db
+    depends_on:
+      - postgres
+      - redis
+#    environment:
+#      DB_CONNECTION: pgsql
+#      DB_HOST: postgres
+#      DB_PORT: 5432
+#      DB_DATABASE: laravel
+#      DB_USERNAME: laravel
+#      DB_PASSWORD: secret
     networks:
       - catalog-network
-    volumes:
-      - ./src:/var/www/html
-    environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_DATABASE=${DB_DATABASE:-laravel}
-      - DB_USERNAME=${DB_USERNAME:-laravel}
-      - DB_PASSWORD=${DB_PASSWORD:-secret}
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
 
-  # Nginx Web Server (Backend API Gateway)
+  # PHP-FPM Application Service
+  app:
+    <<: *build-config
+    container_name: app
+    depends_on:
+      - init-db
+    networks:
+      - catalog-network
+    ports:
+      - "9000:9000"
+#    volumes:
+#      - ./src:/var/www/html
+
+  # Nginx Web Server
   nginx:
-    image: nginx:stable-alpine
-    container_name: atlas-nginx
+    build:
+      context: .
+      dockerfile: build/nginx/Dockerfile
+      tags:
+        - "atlas-gateway:latest"
+    container_name: nginx
     depends_on:
       - app
     networks:
@@ -37,33 +63,14 @@ services:
       - ./src:/var/www/html
       - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
-  # Next.js Frontend Service
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      tags:
-        - "atlas-catalog-frontend:latest"
-    container_name: atlas-frontend
-    depends_on:
-      - nginx
-    networks:
-      - catalog-network
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=http://nginx:8080/api
-    restart: unless-stopped
-
   # PostgreSQL Database Service
   postgres:
-    image: postgres:17.6-alpine3.22
     container_name: postgres
     environment:
       POSTGRES_DB: ${DB_DATABASE:-laravel}
       POSTGRES_USER: ${DB_USERNAME:-laravel}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    image: postgres:17.6-alpine3.22
     networks:
       - catalog-network
     ports:
@@ -74,10 +81,9 @@ services:
 
   # Redis Cache Service
   redis:
-    image: redis:8.2.1-alpine3.22
     container_name: redis
     environment: []
-    links: []
+    image: redis:8.2.1-alpine3.22
     networks:
       - catalog-network
     ports:
@@ -88,7 +94,6 @@ services:
 
   # RedisInsight GUI Service
   redis-insights:
-    image: redislabs/redisinsight:2.70.1
     container_name: redis-insights
     depends_on:
       - redis
@@ -104,6 +109,7 @@ services:
       - RI_REDIS_USERNAME=default
       - RI_REDIS_PASSWORD=
       - RI_REDIS_TLS=FALSE
+    image: redislabs/redisinsight:2.70.1
     links:
       - redis
     networks:

@@ -40,26 +40,26 @@ class AuthenticationMethodController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param AuthenticationMethod $authenticationMethod
+     * @param AuthenticationMethod $authentication_method
      *
      * @return AuthenticationMethodResource
      */
-    public function show(AuthenticationMethod $authenticationMethod): AuthenticationMethodResource
+    public function show(AuthenticationMethod $authentication_method): AuthenticationMethodResource
     {
-        return new AuthenticationMethodResource($authenticationMethod);
+        return new AuthenticationMethodResource($authentication_method);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateAuthenticationMethodRequest $request
-     * @param AuthenticationMethod $authenticationMethod
+     * @param AuthenticationMethod $authentication_method
      *
      * @return AuthenticationMethodResource
      */
-    public function update(UpdateAuthenticationMethodRequest $request, AuthenticationMethod $authenticationMethod): AuthenticationMethodResource
+    public function update(UpdateAuthenticationMethodRequest $request, AuthenticationMethod $authentication_method): AuthenticationMethodResource
     {
-        $model = $authenticationMethod->update($request->validated());
+        $model = $authentication_method->update($request->validated());
 
         return new AuthenticationMethodResource($model);
     }
@@ -67,13 +67,13 @@ class AuthenticationMethodController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param AuthenticationMethod $authenticationMethod
+     * @param AuthenticationMethod $authentication_method
      *
      * @return Response
      */
-    public function destroy(AuthenticationMethod $authenticationMethod): Response
+    public function destroy(AuthenticationMethod $authentication_method): Response
     {
-        $authenticationMethod->delete();
+        $authentication_method->delete();
 
         return response()->noContent();
     }

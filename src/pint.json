@@ -1,6 +1,7 @@
 {
   "preset": "psr12",
   "rules": {
+    "phpdoc_separation": false,
     "new_with_parentheses": false,
     "no_superfluous_phpdoc_tags": false
   }
