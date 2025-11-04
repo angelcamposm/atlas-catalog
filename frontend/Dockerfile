@@ -27,9 +27,13 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy all source files
 COPY . .
 
+# Accept build argument for API URL (used during build time)
+ARG NEXT_PUBLIC_API_URL=http://localhost:8080
+
 # Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Build the Next.js application
 # The standalone output will be in .next/standalone

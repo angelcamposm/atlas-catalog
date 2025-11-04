@@ -63,6 +63,27 @@ services:
       - ./src:/var/www/html
       - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
+  # Next.js Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://nginx:8080
+    container_name: frontend
+    depends_on:
+      - nginx
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    networks:
+      - catalog-network
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
   # PostgreSQL Database Service
   postgres:
     container_name: postgres

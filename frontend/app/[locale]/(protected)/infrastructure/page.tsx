@@ -45,11 +45,11 @@ export default function InfrastructureDashboardPage({
 
     const stats = {
         totalClusters: clusters.length,
-        activeClusters: clusters.filter((c) => c.is_active).length,
+        activeClusters: clusters.length, // Todos los clusters (no existe is_active en el modelo)
         totalNodes: nodes.length,
-        activeNodes: nodes.filter((n) => n.is_active).length,
-        masterNodes: nodes.filter((n) => n.node_role === "master").length,
-        workerNodes: nodes.filter((n) => n.node_role === "worker").length,
+        activeNodes: nodes.length, // Todos los nodos (no existe is_active en el modelo)
+        masterNodes: 0, // No existe node_role en el modelo
+        workerNodes: 0, // No existe node_role en el modelo
     };
 
     if (loading) {
@@ -217,16 +217,9 @@ export default function InfrastructureDashboardPage({
                                                     </p>
                                                 </div>
                                             </div>
-                                            <Badge
-                                                variant={
-                                                    cluster.is_active
-                                                        ? "success"
-                                                        : "secondary"
-                                                }
-                                            >
-                                                {cluster.is_active
-                                                    ? t("clusters.active")
-                                                    : t("clusters.inactive")}
+                                            <Badge variant="secondary">
+                                                {cluster.display_name ||
+                                                    cluster.name}
                                             </Badge>
                                         </div>
                                     </Link>
@@ -284,26 +277,13 @@ export default function InfrastructureDashboardPage({
                                                         {node.name}
                                                     </p>
                                                     <p className="text-xs text-muted-foreground">
-                                                        {node.hostname}
+                                                        {node.ip_address}
                                                     </p>
                                                 </div>
                                             </div>
                                             <div className="flex gap-2">
                                                 <Badge variant="secondary">
-                                                    {node.node_role === "master"
-                                                        ? t("nodes.master")
-                                                        : t("nodes.worker")}
-                                                </Badge>
-                                                <Badge
-                                                    variant={
-                                                        node.is_active
-                                                            ? "success"
-                                                            : "secondary"
-                                                    }
-                                                >
-                                                    {node.is_active
-                                                        ? t("nodes.active")
-                                                        : t("nodes.inactive")}
+                                                    {node.node_type || "Node"}
                                                 </Badge>
                                             </div>
                                         </div>

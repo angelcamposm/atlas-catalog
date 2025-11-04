@@ -71,7 +71,9 @@ export default function NodeDetailPage({
                     <p className="text-muted-foreground">Node not found</p>
                     <Button
                         variant="outline"
-                        onClick={() => router.push(`/${locale}/infrastructure/nodes`)}
+                        onClick={() =>
+                            router.push(`/${locale}/infrastructure/nodes`)
+                        }
                         className="mt-4"
                     >
                         Back to Nodes
@@ -167,7 +169,9 @@ export default function NodeDetailPage({
                             <label className="text-sm font-medium text-muted-foreground">
                                 Node Type
                             </label>
-                            <p className="mt-1 text-base">{nodeData.node_type}</p>
+                            <p className="mt-1 text-base">
+                                {nodeData.node_type}
+                            </p>
                         </div>
                     </CardContent>
                 </Card>
@@ -182,19 +186,25 @@ export default function NodeDetailPage({
                             <label className="text-sm font-medium text-muted-foreground">
                                 CPU Architecture
                             </label>
-                            <p className="mt-1 text-base">{nodeData.cpu_architecture}</p>
+                            <p className="mt-1 text-base">
+                                {nodeData.cpu_architecture}
+                            </p>
                         </div>
                         <div>
                             <label className="text-sm font-medium text-muted-foreground">
                                 CPU Count
                             </label>
-                            <p className="mt-1 text-base">{nodeData.cpu_count}</p>
+                            <p className="mt-1 text-base">
+                                {nodeData.cpu_count}
+                            </p>
                         </div>
                         <div>
                             <label className="text-sm font-medium text-muted-foreground">
                                 CPU Sockets
                             </label>
-                            <p className="mt-1 text-base">{nodeData.cpu_sockets}</p>
+                            <p className="mt-1 text-base">
+                                {nodeData.cpu_sockets}
+                            </p>
                         </div>
                         {nodeData.memory_bytes && (
                             <div>
@@ -202,7 +212,11 @@ export default function NodeDetailPage({
                                     Memory
                                 </label>
                                 <p className="mt-1 text-base">
-                                    {(nodeData.memory_bytes / (1024 ** 3)).toFixed(2)} GB
+                                    {(
+                                        nodeData.memory_bytes /
+                                        1024 ** 3
+                                    ).toFixed(2)}{" "}
+                                    GB
                                 </p>
                             </div>
                         )}

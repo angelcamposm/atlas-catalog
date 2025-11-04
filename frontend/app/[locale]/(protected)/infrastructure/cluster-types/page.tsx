@@ -142,7 +142,9 @@ export default function ClusterTypesPage() {
                                     </span>
                                 </div>
                                 {clusterType.vendor_id && (
-                                    <div>Vendor ID: {clusterType.vendor_id}</div>
+                                    <div>
+                                        Vendor ID: {clusterType.vendor_id}
+                                    </div>
                                 )}
                             </div>
 

@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { HiShieldCheck, HiDocumentText, HiSquares2X2, HiChevronDown, HiCheck } from "react-icons/hi2";
+import {
+    HiShieldCheck,
+    HiDocumentText,
+    HiSquares2X2,
+    HiChevronDown,
+    HiCheck,
+} from "react-icons/hi2";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -77,8 +83,8 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button 
-                    variant="ghost" 
+                <Button
+                    variant="ghost"
                     className="h-9 gap-2 px-3 hover:bg-accent"
                 >
                     <ActiveIcon className="h-4 w-4" />
@@ -90,23 +96,29 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
                 {availableModules.map((module) => {
                     const ModuleIcon = module.icon;
                     const isActive = activeModule.id === module.id;
-                    
+
                     return (
                         <DropdownMenuItem
                             key={module.id}
                             onClick={() => handleModuleChange(module)}
                             className="flex items-start gap-3 px-3 py-2.5 cursor-pointer"
                         >
-                            <ModuleIcon className={cn(
-                                "mt-0.5 h-4 w-4 shrink-0",
-                                isActive ? "text-primary" : "text-muted-foreground"
-                            )} />
+                            <ModuleIcon
+                                className={cn(
+                                    "mt-0.5 h-4 w-4 shrink-0",
+                                    isActive
+                                        ? "text-primary"
+                                        : "text-muted-foreground"
+                                )}
+                            />
                             <div className="flex flex-1 flex-col gap-0.5">
                                 <div className="flex items-center justify-between">
-                                    <span className={cn(
-                                        "text-sm font-medium",
-                                        isActive && "text-primary"
-                                    )}>
+                                    <span
+                                        className={cn(
+                                            "text-sm font-medium",
+                                            isActive && "text-primary"
+                                        )}
+                                    >
                                         {module.name}
                                     </span>
                                     {isActive && (
