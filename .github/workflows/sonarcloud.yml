@@ -28,14 +28,13 @@ jobs:
             -Dsonar.organization=
             -Dsonar.sources=src
             -Dsonar.tests=src/tests
-            #-Dsonar.verbose= # optional, default is false
-          # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
-            #-Dsonar.php.exclusions=
+            -Dsonar.verbose=false
             -Dsonar.php.frameworkDetection=true
             -Dsonar.coverage.exclusions=database/**/*.php
-            #-Dsonar.php.coverage.reportPaths=
-            #-Dsonar.php.tests.reportPath=
-            #-Dsonar.php.phpstan.reportPaths=
-            #-Dsonar.php.psalm.reportPaths=
             -Dsonar.scm.provider=git
+#           -Dsonar.php.exclusions=
+#           -Dsonar.php.coverage.reportPaths=
+#           -Dsonar.php.tests.reportPath=
+#           -Dsonar.php.phpstan.reportPaths=
+#           -Dsonar.php.psalm.reportPaths=
           projectBaseDir: .
