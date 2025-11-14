@@ -7,6 +7,7 @@ import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ModuleSelector } from "@/components/layout/ModuleSelector";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { CommandKSearch } from "@/components/dashboard/CommandKSearch";
+import { RouteProgressBar } from "@/components/layout/RouteProgressBar";
 import { Button } from "@/components/ui/Button";
 import {
     Bell,
@@ -120,6 +121,8 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
 
     return (
         <div className="flex h-screen w-full overflow-hidden bg-gray-50 dark:bg-gray-950">
+            <RouteProgressBar />
+
             {/* Icon Bar - Left */}
             <IconBar
                 locale={locale}

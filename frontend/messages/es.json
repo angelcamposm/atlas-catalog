@@ -239,6 +239,11 @@
     "title": "Catálogo de APIs",
     "errors": {
       "load": "No pudimos cargar las APIs. Inténtalo de nuevo."
+    },
+    "filters": {
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar por nombre o descripción",
+      "protocolLabel": "Protocolo"
     }
   },
   "infrastructure": {
