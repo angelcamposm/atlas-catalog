@@ -42,7 +42,7 @@ const buildApi = () => ({
     description: "Demo",
     access_policy_id: null,
     authentication_method_id: null,
-    protocol: "REST",
+    protocol: "http",
     document_specification: null,
     status_id: null,
     type_id: null,

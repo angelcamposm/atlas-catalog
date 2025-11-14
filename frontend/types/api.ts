@@ -420,7 +420,7 @@ export const apiSchema = z
         version: nullableString(),
         protocol: z.nativeEnum(Protocol).nullable(),
         document_specification: z
-            .record(z.string(), z.unknown())
+            .union([z.string(), z.record(z.string(), z.unknown())])
             .optional()
             .nullable(),
         released_at: nullableDate(),
