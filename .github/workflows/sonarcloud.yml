@@ -16,23 +16,22 @@ jobs:
 
     steps:
       - name: Analyze with SonarCloud
-
-        # You can pin the exact commit or the version.
-        # uses: SonarSource/sonarcloud-github-action@v2.2.0
-        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
-            # mandatory
             -Dsonar.projectKey=atlas-catalog
             -Dsonar.organization=
-            # Comma-separated paths to directories containing main source files.
-            #-Dsonar.sources= # optional, default is project base directory
-            # Comma-separated paths to directories containing test source files.
-            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
-            # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
-            #-Dsonar.verbose= # optional, default is false
-          # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
+            -Dsonar.sources=./src
+#            -Dsonar.tests=./src/tests
+            -Dsonar.verbose=false
+            -Dsonar.php.frameworkDetection=true
+            -Dsonar.coverage.exclusions=database/**/*.php
+            -Dsonar.scm.provider=git
+#           -Dsonar.php.exclusions=
+#           -Dsonar.php.coverage.reportPaths=
+#           -Dsonar.php.tests.reportPath=
+#           -Dsonar.php.phpstan.reportPaths=
+#           -Dsonar.php.psalm.reportPaths=
           projectBaseDir: .
