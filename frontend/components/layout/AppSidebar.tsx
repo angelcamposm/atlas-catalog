@@ -167,6 +167,19 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                 ],
             },
             {
+                id: "labs",
+                label: "Labs",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Component Demos",
+                        url: `/${locale}/components/demo`,
+                        icon: Home,
+                        badge: "New",
+                    },
+                ],
+            },
+            {
                 id: "system",
                 label: "System",
                 collapsible: true,
