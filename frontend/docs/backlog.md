@@ -311,23 +311,28 @@ Estos trabajos se centran en definir/generar componentes reutilizables de UI par
 
 ### Widgets de información / métricas
 
--   [ ] Crear `MetricWidget` genérico:
+-   [x] Crear `MetricWidget` genérico:
     -   Título, valor principal, subtítulo, descripción, icono opcional.
     -   Variantes de tamaño (small/medium) y estilos (estado correcto/alerta, etc.).
--   [ ] Crear contenedor `MetricsGrid` para organizar widgets en cuadrícula responsive.
+-   [x] Crear contenedor `MetricsGrid` para organizar widgets en cuadrícula responsive.
 -   [ ] Valorar uso de componentes de tarjeta ya existentes (`Card`, `CardHeader`, `CardContent`) para construir estos widgets.
 
 ### Timeline / actividad
 
--   [ ] Crear `ActivityTimeline` o componente similar para mostrar una línea temporal de eventos (inicialmente puede usar datos mock o representación simple).
--   [ ] Diseñar la API del componente para que luego pueda recibir datos reales de actividad.
+-   [x] Crear `ActivityTimeline` o componente similar para mostrar una línea temporal de eventos (inicialmente puede usar datos mock o representación simple).
+-   [x] Diseñar la API del componente para que luego pueda recibir datos reales de actividad.
+
+### Consola de salud (Events, readiness)
+
+-   [x] Crear bloque de "Eventos" tipo calendario horario inspirado en Compass (`EventsGrid`) con datos mock.
+-   [x] Crear tarjetas de readiness/resumen de salud (`ReadinessWidget`) para mostrar aprobados y elementos que requieren atención.
 
 ### Slots y extensibilidad
 
 -   [ ] Definir slots/props en `ComponentPageLayout` para secciones especiales como:
     -   "Config-as-code".
     -   "Dependencias de paquetes".
-    -   Otras tarjetas contextuales según el tipo de componente.
+    -   "Otras tarjetas contextuales según el tipo de componente".
 
 ### Theming y librerías de terceros
 

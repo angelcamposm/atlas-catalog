@@ -6,8 +6,12 @@ import { ComponentDescription } from "@/components/components/ComponentDescripti
 import { TagList } from "@/components/components/TagList";
 import { MetricWidget } from "@/components/components/MetricWidget";
 import { MetricsGrid } from "@/components/components/MetricsGrid";
+import { EventsGrid } from "@/components/components/EventsGrid";
+import { ReadinessWidget } from "@/components/components/ReadinessWidget";
 import { MetricChart } from "@/components/components/MetricChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ComponentSectionNav } from "@/components/components/ComponentSectionNav";
+import ActivityPanel from "@/components/components/ActivityPanel";
 
 export default function ComponentDemoPage() {
     const sidebar = (
@@ -60,6 +64,19 @@ export default function ComponentDemoPage() {
 
     return (
         <ComponentPageLayout header={header} sidebar={sidebar}>
+            <ComponentSectionNav
+                items={[
+                    { id: "overview", label: "Descripción" },
+                    { id: "docs", label: "Documentación" },
+                    { id: "dashboards", label: "Cuadros" },
+                    { id: "deps", label: "Dependencias" },
+                    { id: "metrics", label: "Métricas" },
+                ]}
+                initial="overview"
+                className="mb-4"
+            />
+
+            <ActivityPanel className="mb-6" />
             <ComponentDescription
                 description={
                     <>
@@ -74,6 +91,46 @@ export default function ComponentDemoPage() {
                     </>
                 }
             />
+
+            <div className="mt-6 grid gap-6 lg:grid-cols-[3fr_2fr]">
+                <EventsGrid
+                    rows={[
+                        {
+                            id: "design-system",
+                            component: "Design System",
+                            time: "14 Nov 10:00",
+                            status: "ok",
+                        },
+                        {
+                            id: "frontend-api-gateway",
+                            component: "Frontend API Gateway",
+                            time: "14 Nov 11:30",
+                            status: "ok",
+                        },
+                        {
+                            id: "mobile-ui",
+                            component: "Mobile App UI",
+                            time: "14 Nov 09:15",
+                            status: "warning",
+                        },
+                    ]}
+                />
+
+                <div className="space-y-3">
+                    <ReadinessWidget
+                        title="Component readiness"
+                        subtitle="Cuadro de mandos de estado con umbral"
+                        valueLabel="Cantidad de aprobados: 4"
+                        status="good"
+                    />
+                    <ReadinessWidget
+                        title="DevOps health"
+                        subtitle="Cuadro de mandos de estado con umbral"
+                        valueLabel="3 requieren atención"
+                        status="attention"
+                    />
+                </div>
+            </div>
 
             <Card>
                 <CardHeader>

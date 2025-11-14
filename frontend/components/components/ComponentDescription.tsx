@@ -17,13 +17,13 @@ export function ComponentDescription({
 }: ComponentDescriptionProps) {
     return (
         <Card className={cn("h-full", className)}>
-            <CardHeader>
-                <CardTitle className="text-base font-semibold">
+            <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-semibold tracking-tight">
                     {title}
                 </CardTitle>
             </CardHeader>
-            <CardContent>
-                <div className="space-y-2 text-sm leading-relaxed text-muted-foreground">
+            <CardContent className="pt-0">
+                <div className="max-h-56 overflow-auto rounded-md bg-muted/40 p-3 text-sm text-muted-foreground">
                     {description}
                 </div>
             </CardContent>

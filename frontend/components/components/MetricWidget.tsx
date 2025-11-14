@@ -33,12 +33,12 @@ export function MetricWidget({
     return (
         <Card className={cn("h-full", className)}>
             <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     {title}
                 </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-                <div className="text-2xl font-semibold text-foreground">
+                <div className="text-xl font-semibold text-foreground">
                     {value}
                 </div>
                 {description && (

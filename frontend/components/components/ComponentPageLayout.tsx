@@ -14,10 +14,10 @@ export function ComponentPageLayout({
     children,
 }: ComponentPageLayoutProps) {
     return (
-        <div className="container mx-auto p-6 space-y-6">
+        <div className="container mx-auto space-y-5 px-6 py-4">
             <div>{header}</div>
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
-                <div className="space-y-6">{children}</div>
+            <div className="grid gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
+                <div className="space-y-5">{children}</div>
                 <aside className="space-y-4">{sidebar}</aside>
             </div>
         </div>

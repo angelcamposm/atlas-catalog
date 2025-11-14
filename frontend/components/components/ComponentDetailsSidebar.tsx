@@ -2,6 +2,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/Badge";
+import SidebarOwnerTeamsCard from "@/components/components/SidebarOwnerTeamsCard";
+import SidebarReposChannelsCard from "@/components/components/SidebarReposChannelsCard";
 
 interface SidebarListItem {
     label: string;
@@ -69,9 +71,17 @@ export function ComponentDetailsSidebar({
 }: ComponentDetailsSidebarProps) {
     return (
         <div className="space-y-4">
-            <SidebarSection title="Equipo propietario" items={ownerTeams} />
-            <SidebarSection title="Canales de chat" items={chatChannels} />
-            <SidebarSection title="Repositorios" items={repositories} />
+            <SidebarOwnerTeamsCard
+                teams={(ownerTeams ?? []).map((o) => ({
+                    name: o.label,
+                    description: o.description,
+                    href: o.href,
+                }))}
+            />
+            <SidebarReposChannelsCard
+                chatChannels={chatChannels}
+                repositories={repositories}
+            />
             <SidebarSection title="Proyectos" items={projects} />
             <SidebarSection title="Paneles" items={dashboards} />
             <SidebarSection title="Otros enlaces" items={links} />
