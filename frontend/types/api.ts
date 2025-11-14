@@ -224,6 +224,17 @@ export const componentCategorySchema = z
     .merge(userReferenceSchema);
 export type ComponentCategory = z.infer<typeof componentCategorySchema>;
 
+export const componentTypeSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1).max(50),
+        description: nullableString(),
+        icon: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ComponentType = z.infer<typeof componentTypeSchema>;
+
 export const componentSchema = z
     .object({
         id: z.number().int(),
@@ -1063,15 +1074,19 @@ export type UpdateClusterRequest = Partial<CreateClusterRequest>;
 
 export interface CreateNodeRequest {
     name: string;
-    ip_address: string;
+    hostname?: string;
+    ip_address?: string;
+    mac_address?: string;
     fqdn?: string;
     cpu_architecture?: string;
-    cpu_count?: number;
+    cpu_cores?: number;
+    cpu_threads?: number;
     cpu_sockets?: number;
     cpu_type?: string;
+    smt_enabled?: boolean;
     memory_bytes?: number;
-    os?: string;
-    os_version?: string;
+    os: string;
+    os_version: string;
     node_type?: string;
     is_virtual?: boolean;
     lifecycle_id?: number;

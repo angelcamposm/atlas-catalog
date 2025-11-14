@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->create_initial_user();
         $this->run_base_seeders();
-//        $this->create_sample_data();
+        $this->create_sample_data();
     }
 
     private function create_initial_user(): void
@@ -73,9 +73,10 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
-        $this->call([
-            NodeSeeder::class,
-        ]);
+        // Temporarily disabled NodeSeeder due to factory error
+        // $this->call([
+        //     NodeSeeder::class,
+        // ]);
 
         // Reuse existing related models to avoid creating new ones for each API.
         $accessPolicyIds = ApiAccessPolicy::pluck('id');

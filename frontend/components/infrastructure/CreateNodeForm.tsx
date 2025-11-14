@@ -33,16 +33,18 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<CreateNodeRequest>({
         name: "",
-        hostname: "",
         ip_address: "",
-        node_type: "virtual",
-        node_role: "worker",
-        cpu_cores: 4,
-        cpu_architecture: "x86_64",
-        memory_bytes: 8589934592, // 8 GB
-        storage_bytes: 107374182400, // 100 GB
-        environment_id: 1,
-        is_active: true,
+        fqdn: "",
+        node_type: "",
+        cpu_type: "",
+        cpu_architecture: "",
+        cpu_cores: undefined,
+        cpu_threads: undefined,
+        cpu_sockets: undefined,
+        smt_enabled: false,
+        memory_bytes: undefined,
+        os: "",
+        os_version: "",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {

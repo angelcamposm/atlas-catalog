@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Server, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
+import { Server, ExternalLink } from "lucide-react";
 import { clustersApi } from "@/lib/api";
 import type { Cluster } from "@/types/api";
 import { Button } from "@/components/ui/Button";
@@ -129,63 +129,58 @@ export function ClusterList({
                                         <CardTitle className="text-lg">
                                             {cluster.name}
                                         </CardTitle>
-                                        {cluster.description && (
+                                        {cluster.display_name && (
                                             <CardDescription>
-                                                {cluster.description}
+                                                {cluster.display_name}
                                             </CardDescription>
                                         )}
                                     </div>
                                 </div>
-                                <Badge
-                                    variant={
-                                        cluster.is_active ? "success" : "danger"
-                                    }
-                                >
-                                    {cluster.is_active ? (
-                                        <CheckCircle2 className="mr-1 h-3 w-3" />
-                                    ) : (
-                                        <XCircle className="mr-1 h-3 w-3" />
-                                    )}
-                                    {cluster.is_active ? "Active" : "Inactive"}
-                                </Badge>
+                                <Badge variant="secondary">Cluster</Badge>
                             </div>
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Version
-                                    </p>
-                                    <p className="font-medium">
-                                        {cluster.version}
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Endpoint
-                                    </p>
-                                    <div className="flex items-center gap-1">
-                                        <p className="truncate font-medium">
-                                            {cluster.endpoint}
-                                        </p>
-                                        <a
-                                            href={cluster.endpoint}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            onClick={(e) => e.stopPropagation()}
-                                            className="text-blue-600 hover:text-blue-800 dark:text-blue-400"
-                                        >
-                                            <ExternalLink className="h-3 w-3" />
-                                        </a>
-                                    </div>
-                                </div>
-                                {cluster.cluster_type && (
+                                {cluster.version && (
                                     <div>
                                         <p className="text-sm text-muted-foreground">
-                                            Type
+                                            Version
                                         </p>
                                         <p className="font-medium">
-                                            {cluster.cluster_type.name}
+                                            {cluster.version}
+                                        </p>
+                                    </div>
+                                )}
+                                {cluster.api_url && (
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            API URL
+                                        </p>
+                                        <div className="flex items-center gap-1">
+                                            <p className="truncate font-medium">
+                                                {cluster.api_url}
+                                            </p>
+                                            <a
+                                                href={cluster.api_url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={(e) =>
+                                                    e.stopPropagation()
+                                                }
+                                                className="text-blue-600 hover:text-blue-800 dark:text-blue-400"
+                                            >
+                                                <ExternalLink className="h-3 w-3" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                )}
+                                {cluster.cluster_uuid && (
+                                    <div>
+                                        <p className="text-sm text-muted-foreground">
+                                            UUID
+                                        </p>
+                                        <p className="truncate font-mono text-sm font-medium">
+                                            {cluster.cluster_uuid}
                                         </p>
                                     </div>
                                 )}

@@ -84,6 +84,7 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
+                    id="module-selector-trigger"
                     variant="ghost"
                     className="h-9 gap-2 px-3 hover:bg-accent"
                 >

@@ -3,10 +3,9 @@
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Cable, Plus, ArrowRight, Activity, Zap } from "lucide-react";
+import { Cable, Plus, Activity, Zap } from "lucide-react";
 import { HiLink } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { linksApi } from "@/lib/api/integration";
@@ -40,17 +39,11 @@ export default function IntegrationDashboardPage({
 
     const stats = {
         totalLinks: links.length,
-        activeLinks: links.filter((l) => l.is_active).length,
-        synchronous: links.filter(
-            (l) => l.communication_style === "synchronous"
-        ).length,
-        asynchronous: links.filter(
-            (l) => l.communication_style === "asynchronous"
-        ).length,
-        httpProtocol: links.filter(
-            (l) => l.protocol === "http" || l.protocol === "https"
-        ).length,
-        grpcProtocol: links.filter((l) => l.protocol === "grpc").length,
+        activeLinks: links.length, // TODO: El campo is_active no existe en el modelo Link
+        synchronous: 0, // TODO: El campo communication_style no existe en el modelo Link
+        asynchronous: 0, // TODO: El campo communication_style no existe en el modelo Link
+        httpProtocol: 0, // TODO: El campo protocol no existe en el modelo Link
+        grpcProtocol: 0, // TODO: El campo protocol no existe en el modelo Link
     };
 
     if (loading) {
@@ -201,39 +194,25 @@ export default function IntegrationDashboardPage({
                                                     <p className="font-medium">
                                                         {link.name}
                                                     </p>
-                                                    <Badge
-                                                        variant={
-                                                            link.is_active
-                                                                ? "success"
-                                                                : "secondary"
-                                                        }
-                                                    >
-                                                        {link.is_active
-                                                            ? "Active"
-                                                            : "Inactive"}
-                                                    </Badge>
+                                                    {link.description && (
+                                                        <p className="text-sm text-muted-foreground">
+                                                            {link.description}
+                                                        </p>
+                                                    )}
                                                 </div>
                                                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                    <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                                                        {link.source_type}
-                                                    </span>
-                                                    <ArrowRight className="h-3 w-3" />
-                                                    <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                                                        {link.target_type}
-                                                    </span>
+                                                    {link.model_name && (
+                                                        <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                                            {link.model_name}
+                                                        </span>
+                                                    )}
+                                                    {link.url && (
+                                                        <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/30 dark:text-green-400">
+                                                            {link.url}
+                                                        </span>
+                                                    )}
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <Badge variant="secondary">
-                                                {link.protocol.toUpperCase()}
-                                            </Badge>
-                                            <Badge variant="primary">
-                                                {link.communication_style.replace(
-                                                    "_",
-                                                    " "
-                                                )}
-                                            </Badge>
                                         </div>
                                     </div>
                                 </Link>

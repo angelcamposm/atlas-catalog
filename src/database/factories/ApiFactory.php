@@ -30,21 +30,26 @@ class ApiFactory extends Factory
      */
     public function definition(): array
     {
+        $adjectives = ['Fast', 'Secure', 'Modern', 'Cloud', 'Smart', 'Advanced', 'Dynamic', 'Real-time', 'Mobile', 'Enterprise'];
+        $services = ['Payment', 'Auth', 'Data', 'Analytics', 'Notification', 'Storage', 'Search', 'Report', 'Social', 'Integration'];
+        
+        $name = $adjectives[array_rand($adjectives)] . ' ' . $services[array_rand($services)] . ' API';
+        
         return [
-            'name' => $this->faker->name,
-            'description' => $this->faker->sentence,
+            'name' => $name,
+            'description' => 'API for ' . strtolower($name) . ' services',
             'access_policy_id' => ApiAccessPolicy::inRandomOrder()->first()->id,
             'authentication_method_id' => AuthenticationMethod::inRandomOrder()->first()->id,
             'protocol' => 'http',
             'document_specification' => json_encode([
-                'title' => $this->faker->sentence,
-                'description' => $this->faker->paragraph,
-                'version' => $this->faker->semver(false, false),
+                'title' => $name,
+                'description' => 'Documentation for ' . $name,
+                'version' => '1.0.0',
             ]),
             'status_id' => ApiStatus::inRandomOrder()->first()->id,
             'type_id' => ApiType::inRandomOrder()->first()->id,
-            'url' => $this->faker->url(),
-            'version' => $this->faker->semver((bool) rand(0, 1), (bool) rand(0, 1)),
+            'url' => 'https://api.example.com/' . strtolower(str_replace(' ', '-', $name)),
+            'version' => '1.0.' . rand(0, 99),
         ];
     }
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { clustersApi, clusterTypesApi } from "@/lib/api";
-import type { CreateClusterRequest, ClusterType } from "@/types/api";
+import { clustersApi } from "@/lib/api";
+import type { CreateClusterRequest } from "@/types/api";
 import { Button } from "@/components/ui/Button";
 import {
     Card,
@@ -13,16 +13,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 
 interface CreateClusterFormProps {
     onSuccess?: () => void;
@@ -35,28 +26,14 @@ export function CreateClusterForm({
 }: CreateClusterFormProps) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [clusterTypes, setClusterTypes] = useState<ClusterType[]>([]);
     const [formData, setFormData] = useState<CreateClusterRequest>({
         name: "",
-        description: "",
-        cluster_type_id: 0,
+        display_name: "",
+        type_id: undefined,
         version: "",
-        endpoint: "",
-        is_active: true,
+        api_url: "",
+        lifecycle_id: undefined,
     });
-
-    useEffect(() => {
-        loadClusterTypes();
-    }, []);
-
-    const loadClusterTypes = async () => {
-        try {
-            const response = await clusterTypesApi.getAll(1);
-            setClusterTypes(response.data);
-        } catch (err) {
-            console.error("Error loading cluster types:", err);
-        }
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -76,7 +53,7 @@ export function CreateClusterForm({
 
     const handleChange = (
         field: keyof CreateClusterRequest,
-        value: string | number | boolean
+        value: string | number | boolean | undefined
     ) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
@@ -107,47 +84,38 @@ export function CreateClusterForm({
                         />
                     </div>
 
-                    {/* Description */}
+                    {/* Display Name */}
                     <div className="space-y-2">
-                        <Label htmlFor="description">Description</Label>
-                        <Textarea
-                            id="description"
-                            value={formData.description}
+                        <Label htmlFor="display_name">Display Name</Label>
+                        <Input
+                            id="display_name"
+                            value={formData.display_name || ""}
                             onChange={(
-                                e: React.ChangeEvent<HTMLTextAreaElement>
-                            ) => handleChange("description", e.target.value)}
-                            placeholder="Describe the cluster..."
-                            rows={3}
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => handleChange("display_name", e.target.value)}
+                            placeholder="Cluster display name"
                         />
                     </div>
 
-                    {/* Cluster Type */}
+                    {/* Cluster Type ID */}
                     <div className="space-y-2">
-                        <Label htmlFor="cluster_type_id">
-                            Cluster Type{" "}
-                            <span className="text-destructive">*</span>
-                        </Label>
-                        <Select
-                            value={formData.cluster_type_id.toString()}
-                            onValueChange={(value: string) =>
-                                handleChange("cluster_type_id", parseInt(value))
+                        <Label htmlFor="type_id">Cluster Type ID</Label>
+                        <Input
+                            id="type_id"
+                            type="number"
+                            value={formData.type_id || ""}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                                handleChange(
+                                    "type_id",
+                                    e.target.value
+                                        ? parseInt(e.target.value)
+                                        : undefined
+                                )
                             }
-                            required
-                        >
-                            <SelectTrigger>
-                                <SelectValue placeholder="Select a cluster type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {clusterTypes.map((type) => (
-                                    <SelectItem
-                                        key={type.id}
-                                        value={type.id.toString()}
-                                    >
-                                        {type.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                            placeholder="Type ID"
+                        />
                     </div>
 
                     {/* Version */}
@@ -166,35 +134,18 @@ export function CreateClusterForm({
                         />
                     </div>
 
-                    {/* Endpoint */}
+                    {/* API URL */}
                     <div className="space-y-2">
-                        <Label htmlFor="endpoint">
-                            Endpoint <span className="text-destructive">*</span>
-                        </Label>
+                        <Label htmlFor="api_url">API URL</Label>
                         <Input
-                            id="endpoint"
+                            id="api_url"
                             type="url"
-                            required
-                            value={formData.endpoint}
+                            value={formData.api_url || ""}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>
-                            ) => handleChange("endpoint", e.target.value)}
+                            ) => handleChange("api_url", e.target.value)}
                             placeholder="https://api.cluster.example.com"
                         />
-                    </div>
-
-                    {/* Is Active */}
-                    <div className="flex items-center space-x-2">
-                        <Switch
-                            id="is_active"
-                            checked={formData.is_active}
-                            onCheckedChange={(checked: boolean) =>
-                                handleChange("is_active", checked)
-                            }
-                        />
-                        <Label htmlFor="is_active" className="cursor-pointer">
-                            Active
-                        </Label>
                     </div>
 
                     {/* Actions */}

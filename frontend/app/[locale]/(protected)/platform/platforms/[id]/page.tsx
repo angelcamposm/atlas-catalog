@@ -3,7 +3,7 @@
 import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Edit, Trash2, ExternalLink } from "lucide-react";
+import { ArrowLeft, Edit, Trash2 } from "lucide-react";
 import { HiCube } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -114,14 +114,6 @@ export default function PlatformDetailPage({
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    {platformData.url && (
-                        <Link href={platformData.url} target="_blank">
-                            <Button variant="outline" size="sm">
-                                <ExternalLink className="mr-2 h-4 w-4" />
-                                Visit
-                            </Button>
-                        </Link>
-                    )}
                     <Button
                         variant="outline"
                         size="sm"
@@ -171,58 +163,15 @@ export default function PlatformDetailPage({
                                 </p>
                             </div>
                         )}
-                        {platformData.version && (
+                        {platformData.icon && (
                             <div>
                                 <label className="text-sm font-medium text-muted-foreground">
-                                    Version
+                                    Icon
                                 </label>
                                 <p className="mt-1 text-base">
-                                    {platformData.version}
+                                    {platformData.icon}
                                 </p>
                             </div>
-                        )}
-                        {platformData.url && (
-                            <div>
-                                <label className="text-sm font-medium text-muted-foreground">
-                                    URL
-                                </label>
-                                <p className="mt-1 break-all font-mono text-sm">
-                                    <a
-                                        href={platformData.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-primary hover:underline"
-                                    >
-                                        {platformData.url}
-                                    </a>
-                                </p>
-                            </div>
-                        )}
-                    </CardContent>
-                </Card>
-
-                {/* Vendor Information */}
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Vendor Information</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        {platformData.vendor_id ? (
-                            <div>
-                                <label className="text-sm font-medium text-muted-foreground">
-                                    Vendor ID
-                                </label>
-                                <p className="mt-1 text-base">
-                                    {platformData.vendor_id}
-                                </p>
-                                <p className="mt-2 text-sm text-muted-foreground">
-                                    Vendor details will be displayed here
-                                </p>
-                            </div>
-                        ) : (
-                            <p className="text-sm text-muted-foreground">
-                                No vendor information available
-                            </p>
                         )}
                     </CardContent>
                 </Card>

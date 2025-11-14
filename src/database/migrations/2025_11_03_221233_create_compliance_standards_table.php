@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('country_code', 3)->nullable();
             $table->string('description', 255)->nullable();
-            $table->string('display_name', 50)->nullable();
+            $table->string('display_name', 100)->nullable();
             $table->string('focus_area', 50)->nullable();
             $table->string('industry', 50)->nullable();
             $table->string('url', 255)->nullable();

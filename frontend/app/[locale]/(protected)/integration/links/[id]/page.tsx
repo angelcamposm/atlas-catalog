@@ -3,17 +3,9 @@
 import { use, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import {
-    ArrowLeft,
-    Edit,
-    Trash2,
-    Power,
-    PowerOff,
-    ArrowRight,
-} from "lucide-react";
+import { ArrowLeft, Edit, Trash2 } from "lucide-react";
 import { HiLink } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { linksApi } from "@/lib/api/integration";
 import type { LinkResponse } from "@/types/api";
@@ -63,19 +55,19 @@ export default function LinkDetailPage({
         }
     };
 
-    const handleToggleStatus = async () => {
-        if (!link) return;
-
-        try {
-            await linksApi.update(parseInt(id), {
-                is_active: !link.data.is_active,
-            });
-            loadLink(); // Reload to get updated data
-        } catch (err) {
-            console.error("Error updating link status:", err);
-            alert("Failed to update link status");
-        }
-    };
+    // TODO: Reactivar cuando el backend soporte campos adicionales en links
+    // const handleToggleStatus = async () => {
+    //     if (!link) return;
+    //     try {
+    //         await linksApi.update(parseInt(id), {
+    //             // Los campos como is_active no existen en el modelo Link actual
+    //         });
+    //         loadLink();
+    //     } catch (err) {
+    //         console.error("Error updating link status:", err);
+    //         alert("Failed to update link status");
+    //     }
+    // };
 
     if (loading) {
         return (
@@ -140,23 +132,7 @@ export default function LinkDetailPage({
                     </div>
                 </div>
                 <div className="flex gap-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleToggleStatus}
-                    >
-                        {linkData.is_active ? (
-                            <>
-                                <PowerOff className="mr-2 h-4 w-4" />
-                                Deactivate
-                            </>
-                        ) : (
-                            <>
-                                <Power className="mr-2 h-4 w-4" />
-                                Activate
-                            </>
-                        )}
-                    </Button>
+                    {/* TODO: Reactivar toggle cuando el backend lo soporte */}
                     <Button
                         variant="outline"
                         size="sm"
@@ -179,59 +155,6 @@ export default function LinkDetailPage({
                     </Button>
                 </div>
             </div>
-
-            {/* Status and Type Badges */}
-            <div className="flex gap-2">
-                <Badge variant={linkData.is_active ? "success" : "secondary"}>
-                    {linkData.is_active ? "Active" : "Inactive"}
-                </Badge>
-                <Badge variant="secondary">
-                    {linkData.protocol.toUpperCase()}
-                </Badge>
-                <Badge variant="primary">
-                    {linkData.communication_style
-                        .replace("_", " ")
-                        .toUpperCase()}
-                </Badge>
-            </div>
-
-            {/* Integration Flow */}
-            <Card>
-                <CardHeader>
-                    <CardTitle>Integration Flow</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex items-center justify-center gap-4 p-4">
-                        <div className="flex-1 text-center">
-                            <div className="rounded-lg border-2 border-dashed border-primary/50 bg-primary/5 p-4">
-                                <p className="text-sm font-medium text-muted-foreground">
-                                    Source
-                                </p>
-                                <p className="mt-1 text-lg font-semibold">
-                                    {linkData.source_type}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    ID: {linkData.source_id}
-                                </p>
-                            </div>
-                        </div>
-                        <ArrowRight className="h-8 w-8 text-muted-foreground" />
-                        <div className="flex-1 text-center">
-                            <div className="rounded-lg border-2 border-dashed border-green-500/50 bg-green-500/5 p-4">
-                                <p className="text-sm font-medium text-muted-foreground">
-                                    Target
-                                </p>
-                                <p className="mt-1 text-lg font-semibold">
-                                    {linkData.target_type}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    ID: {linkData.target_id}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </CardContent>
-            </Card>
 
             {/* Main Information */}
             <div className="grid gap-6 md:grid-cols-2">
@@ -257,49 +180,57 @@ export default function LinkDetailPage({
                                 </p>
                             </div>
                         )}
-                        {linkData.endpoint && (
+                        {linkData.url && (
                             <div>
                                 <label className="text-sm font-medium text-muted-foreground">
-                                    Endpoint
+                                    URL
                                 </label>
                                 <p className="mt-1 break-all font-mono text-sm">
-                                    {linkData.endpoint}
+                                    {linkData.url}
                                 </p>
                             </div>
                         )}
                     </CardContent>
                 </Card>
 
-                {/* Link Type Information */}
+                {/* Related Model Information */}
                 <Card>
                     <CardHeader>
-                        <CardTitle>Link Type</CardTitle>
+                        <CardTitle>Related Model</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        {linkData.link_type ? (
+                        {linkData.model_name && linkData.model_id ? (
                             <>
                                 <div>
                                     <label className="text-sm font-medium text-muted-foreground">
-                                        Type Name
+                                        Model Type
                                     </label>
                                     <p className="mt-1 text-base">
-                                        {linkData.link_type.name}
+                                        {linkData.model_name}
                                     </p>
                                 </div>
-                                {linkData.link_type.description && (
+                                <div>
+                                    <label className="text-sm font-medium text-muted-foreground">
+                                        Model ID
+                                    </label>
+                                    <p className="mt-1 text-base">
+                                        {linkData.model_id}
+                                    </p>
+                                </div>
+                                {linkData.type_id && (
                                     <div>
                                         <label className="text-sm font-medium text-muted-foreground">
-                                            Description
+                                            Type ID
                                         </label>
                                         <p className="mt-1 text-base">
-                                            {linkData.link_type.description}
+                                            {linkData.type_id}
                                         </p>
                                     </div>
                                 )}
                             </>
                         ) : (
                             <p className="text-sm text-muted-foreground">
-                                No link type information available
+                                No related model information available
                             </p>
                         )}
                     </CardContent>
