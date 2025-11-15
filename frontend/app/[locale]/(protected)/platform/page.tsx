@@ -197,7 +197,7 @@ export default function PlatformDashboardPage({
                                             {platform.name}
                                         </h3>
                                         {platform.description && (
-                                            <p className="mb-2 line-clamp-2 text-sm text-muted-foreground">
+                                            <p className="mb-2 line-clamp-3 text-sm text-muted-foreground">
                                                 {platform.description}
                                             </p>
                                         )}
