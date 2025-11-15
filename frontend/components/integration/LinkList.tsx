@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Cable, ArrowRight } from "lucide-react";
 import { linksApi } from "@/lib/api";
 import type { Link } from "@/types/api";
@@ -21,6 +22,7 @@ interface LinkListProps {
 }
 
 export function LinkList({ onSelectLink, showActions = true }: LinkListProps) {
+    const router = useRouter();
     const [links, setLinks] = useState<Link[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -199,7 +201,7 @@ export function LinkList({ onSelectLink, showActions = true }: LinkListProps) {
                                         size="sm"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            // TODO: Navigate to edit page
+                                            router.push(`/integration/links/${link.id}`);
                                         }}
                                     >
                                         Edit
