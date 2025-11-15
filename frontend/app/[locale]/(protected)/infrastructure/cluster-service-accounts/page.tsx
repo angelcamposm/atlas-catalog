@@ -123,8 +123,6 @@ export default function ClusterServiceAccountsPage() {
                                 <th className="p-4 font-semibold">
                                     Service Account
                                 </th>
-                                <th className="p-4 font-semibold">Namespace</th>
-                                <th className="p-4 font-semibold">Status</th>
                                 <th className="p-4 font-semibold">Created</th>
                                 <th className="p-4 font-semibold text-right">
                                     Actions
@@ -151,48 +149,6 @@ export default function ClusterServiceAccountsPage() {
                                         <div className="font-medium">
                                             SA #{account.service_account_id}
                                         </div>
-                                    </td>
-                                    {/* TODO: namespace no existe en ClusterServiceAccount - es una tabla pivot */}
-                                    {/* <td className="p-4">
-                                        <Badge
-                                            variant="secondary"
-                                            className="font-mono text-xs"
-                                        >
-                                            {account.namespace}
-                                        </Badge>
-                                    </td> */}
-                                    {/* TODO: is_active no existe en ClusterServiceAccount - es una tabla pivot */}
-                                    {/* <td className="p-4">
-                                        <button
-                                            onClick={() =>
-                                                toggleStatus(
-                                                    account.id,
-                                                    account.is_active
-                                                )
-                                            }
-                                            className="flex items-center gap-1.5"
-                                        >
-                                            {account.is_active ? (
-                                                <>
-                                                    <HiCheckCircle className="h-4 w-4 text-green-500" />
-                                                    <span className="text-sm text-green-600 dark:text-green-400">
-                                                        Active
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <HiXCircle className="h-4 w-4 text-gray-400" />
-                                                    <span className="text-sm text-muted-foreground">
-                                                        Inactive
-                                                    </span>
-                                                </>
-                                            )}
-                                        </button>
-                                    </td> */}
-                                    <td className="p-4">
-                                        <span className="text-sm text-muted-foreground">
-                                            Pivot table - no status
-                                        </span>
                                     </td>
                                     <td className="p-4 text-sm text-muted-foreground">
                                         {new Date(
