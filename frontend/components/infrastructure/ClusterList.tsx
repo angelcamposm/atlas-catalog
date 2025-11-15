@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Server, CheckCircle2, XCircle, ExternalLink } from "lucide-react";
 import { clustersApi } from "@/lib/api";
 import type { Cluster } from "@/types/api";
@@ -24,6 +25,7 @@ export function ClusterList({
     onSelectCluster,
     showActions = true,
 }: ClusterListProps) {
+    const router = useRouter();
     const [clusters, setClusters] = useState<Cluster[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -198,7 +200,7 @@ export function ClusterList({
                                         size="sm"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            // TODO: Navigate to edit page
+                                            router.push(`/infrastructure/clusters/${cluster.id}`);
                                         }}
                                     >
                                         Edit

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Box } from "lucide-react";
 import { platformsApi } from "@/lib/api";
 import type { Platform } from "@/types/api";
@@ -23,6 +24,7 @@ export function PlatformList({
     onSelectPlatform,
     showActions = true,
 }: PlatformListProps) {
+    const router = useRouter();
     const [platforms, setPlatforms] = useState<Platform[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -178,7 +180,7 @@ export function PlatformList({
                                         size="sm"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            // TODO: Navigate to edit page
+                                            router.push(`/platform/platforms/${platform.id}`);
                                         }}
                                     >
                                         Edit

@@ -89,7 +89,7 @@ export default function ApisPage() {
                         <CardContent>
                             <div className="space-y-3">
                                 {api.description && (
-                                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3">
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-4">
                                         {api.description}
                                     </p>
                                 )}

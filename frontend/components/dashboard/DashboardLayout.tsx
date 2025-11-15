@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import { IconBar } from "@/components/layout/IconBar";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ModuleSelector } from "@/components/layout/ModuleSelector";
@@ -34,6 +35,7 @@ type ViewMode = "list" | "kanban" | "calendar" | "dashboard";
 
 export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     const pathname = usePathname();
+    const { user } = useAuth();
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfileModal, setShowProfileModal] = useState(false);
     const [currentView, setCurrentView] = useState<ViewMode>("list");
@@ -76,11 +78,11 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
 
-    // Mock user data - TODO: Replace with real user data from auth context
-    const currentUser = {
-        name: "John Doe",
-        email: "john@example.com",
-        role: "Admin",
+    // User data from auth context
+    const currentUser = user || {
+        name: "Guest",
+        email: "guest@example.com",
+        role: "Guest",
     };
 
     // Get breadcrumb from pathname

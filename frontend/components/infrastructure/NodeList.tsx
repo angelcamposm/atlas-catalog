@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Cpu, CheckCircle2, XCircle } from "lucide-react";
 import { nodesApi } from "@/lib/api";
 import type { Node } from "@/types/api";
@@ -21,6 +22,7 @@ interface NodeListProps {
 }
 
 export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
+    const router = useRouter();
     const [nodes, setNodes] = useState<Node[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -248,7 +250,7 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                                         size="sm"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            // TODO: Navigate to edit page
+                                            router.push(`/infrastructure/nodes/${node.id}`);
                                         }}
                                     >
                                         Edit
