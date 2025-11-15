@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/Button";
 import {
     Card,
@@ -19,6 +20,7 @@ interface LoginFormProps {
 
 export function LoginForm({ locale }: LoginFormProps) {
     const router = useRouter();
+    const { login } = useAuth();
     const t = useTranslations("common");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,10 +31,14 @@ export function LoginForm({ locale }: LoginFormProps) {
         e.preventDefault();
         setIsLoading(true);
 
-        // Simular autenticación (por ahora solo navega al dashboard)
-        setTimeout(() => {
+        try {
+            await login(email, password);
             router.push(`/${locale}/dashboard`);
-        }, 1000);
+        } catch (error) {
+            console.error("Login failed:", error);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

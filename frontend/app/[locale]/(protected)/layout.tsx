@@ -1,4 +1,5 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { AuthProvider } from "@/contexts/AuthContext";
 import type { ReactNode } from "react";
 
 interface ProtectedLayoutProps {
@@ -12,5 +13,9 @@ export default async function ProtectedLayout({
 }: ProtectedLayoutProps) {
     const { locale } = await params;
 
-    return <DashboardLayout locale={locale}>{children}</DashboardLayout>;
+    return (
+        <AuthProvider>
+            <DashboardLayout locale={locale}>{children}</DashboardLayout>
+        </AuthProvider>
+    );
 }

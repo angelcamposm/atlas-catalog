@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import { HiXMark, HiCamera, HiUser } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
@@ -20,6 +21,7 @@ interface ProfileModalProps {
 
 export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
     const t = useTranslations("profile");
+    const { updateUser } = useAuth();
     const router = useRouter();
     const pathname = usePathname();
     const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,12 +53,16 @@ export function ProfileModal({ isOpen, onClose, user }: ProfileModalProps) {
     };
 
     const handleSave = () => {
-        // Por ahora solo mostramos una notificación
-        // TODO: Implementar guardado real cuando esté el backend
+        // Update user avatar in auth context
+        updateUser({ avatar: profileImage || undefined });
+        
+        // Show notification
         setShowSaveNotification(true);
         setTimeout(() => {
             setShowSaveNotification(false);
         }, 3000);
+        
+        // TODO: Implement actual API call when backend is ready
     };
 
     return (
