@@ -22,7 +22,7 @@ jobs:
         with:
           args:
             -Dsonar.projectKey=atlas-catalog
-            -Dsonar.organization=Angel Campos
+            -Dsonar.organization=angelcamposm
             -Dsonar.sources=src
             -Dsonar.verbose=false
             -Dsonar.php.frameworkDetection=true
