@@ -24,38 +24,38 @@ class NodeFactory extends Factory
     {
         $host = $this->getHostDetails();
 
-        $cpu = self::getCpuDetails();
+        $cpu = $this->getCpuDetails();
 
         return [
             'name' => $host->name,
-            'discovery_source' => self::getDiscoverySource(),
+            'discovery_source' => $this->getDiscoverySource(),
             'cpu_architecture' => $cpu->architecture,
             'cpu_sockets' => $cpu->sockets,
             'cpu_cores' => $cpu->cores,
             'cpu_threads' => $cpu->threads,
             'smt_enabled' => $cpu->smt_enabled,
-            'memory_bytes' => self::getMemoryBytes(),
+            'memory_bytes' => $this->getMemoryBytes(),
             'hostname' => $host->hostname,
             'fqdn' => $host->fqdn,
             'ip_address' => $this->faker->localIpv4(),
             'mac_address' => $this->faker->macAddress(),
-            'node_type' => ['H', 'P', 'U', 'V'][rand(0, 3)],
+            'node_type' => $this->faker->randomElements(['H', 'P', 'U', 'V']),
             'os' => $this->faker->linuxPlatformToken(),
             'os_version' => $this->faker->semver(),
             'timezone' => $this->faker->timezone,
         ];
     }
 
-    private static function getMemoryBytes(): int
+    private function getMemoryBytes(): int
     {
-        return [
+        return $this->faker->randomElement([
             MemoryBytes::gigabytes(8),
             MemoryBytes::gigabytes(16),
             MemoryBytes::gigabytes(24),
             MemoryBytes::gigabytes(32),
             MemoryBytes::gigabytes(48),
             MemoryBytes::gigabytes(64),
-        ][rand(0, 5)];
+        ])->value;
     }
 
     private function getHostDetails(): object
@@ -72,28 +72,28 @@ class NodeFactory extends Factory
         ];
     }
 
-    private static function getCpuCores(): int
+    private function getCpuCores(): int
     {
-        return [2,4,8,16][rand(0, 3)];
+        return $this->faker->randomElement([2, 4, 8, 16]);
     }
 
     private function getCpuDetails(): object
     {
-        $cores = self::getCpuCores();
-        $smt_enabled = (bool) rand(0, 1);
+        $cores = $this->getCpuCores();
+        $smt_enabled = $this->faker->boolean();
 
         if ($smt_enabled) {
             return (object) [
                 'architecture' => CpuArchitecture::X86_64->value,
                 'cores' => $cores,
                 'smt_enabled' => true,
-                'sockets' => [1,2][rand(0, 1)],
+                'sockets' => $this->faker->boolean(),
                 'threads' => $cores,
             ];
         }
 
         return (object) [
-            'architecture' => self::getCpuArchitecture(),
+            'architecture' => $this->getCpuArchitecture(),
             'cores' => $cores,
             'smt_enabled' => false,
             'sockets' => 1,
@@ -101,13 +101,13 @@ class NodeFactory extends Factory
         ];
     }
 
-    public static function getCpuArchitecture(): string
+    public function getCpuArchitecture(): string
     {
-        return CpuArchitecture::cases()[rand(0, 2)]->value;
+        return $this->faker->randomElement(CpuArchitecture::cases())->value;
     }
 
-    private static function getDiscoverySource(): string
+    private function getDiscoverySource(): string
     {
-        return DiscoverySource::cases()[rand(0, 2)]->value;
+        return $this->faker->randomElement(DiscoverySource::cases())->value;
     }
 }
