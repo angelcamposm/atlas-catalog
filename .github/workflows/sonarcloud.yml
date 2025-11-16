@@ -25,10 +25,10 @@ jobs:
           args:
             -Dsonar.projectKey=angelcamposm_atlas-catalog
             -Dsonar.organization=angelcamposm
-            -Dsonar.sources=src
+            -Dsonar.sources=.
             -Dsonar.verbose=false
             -Dsonar.php.frameworkDetection=true
             -Dsonar.coverage.exclusions=database/**/*.php
             -Dsonar.scm.provider=git
             -Dsonar.cpd.exclusions=database/**/*.php
-          projectBaseDir: .
+          projectBaseDir: ./src
