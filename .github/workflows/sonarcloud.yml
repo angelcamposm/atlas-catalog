@@ -24,14 +24,10 @@ jobs:
             -Dsonar.projectKey=atlas-catalog
             -Dsonar.organization=
             -Dsonar.sources=./src
-#            -Dsonar.tests=./src/tests
             -Dsonar.verbose=false
             -Dsonar.php.frameworkDetection=true
             -Dsonar.coverage.exclusions=database/**/*.php
             -Dsonar.scm.provider=git
-#           -Dsonar.php.exclusions=
-#           -Dsonar.php.coverage.reportPaths=
-#           -Dsonar.php.tests.reportPath=
 #           -Dsonar.php.phpstan.reportPaths=
 #           -Dsonar.php.psalm.reportPaths=
           projectBaseDir: .
