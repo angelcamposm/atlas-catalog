@@ -22,7 +22,6 @@ jobs:
         with:
           args:
             -Dsonar.projectKey=atlas-catalog
-            #-Dsonar.organization=
             -Dsonar.sources=src
             -Dsonar.verbose=false
             -Dsonar.php.frameworkDetection=true
