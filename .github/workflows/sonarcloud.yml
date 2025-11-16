@@ -11,6 +11,11 @@ permissions:
   pull-requests: read
 
 jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: pwd; ls -l
   Analysis:
     runs-on: ubuntu-latest
 
