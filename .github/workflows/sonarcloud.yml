@@ -28,4 +28,4 @@ jobs:
             -Dsonar.php.frameworkDetection=true
             -Dsonar.coverage.exclusions=database/**/*.php
             -Dsonar.scm.provider=git
-          projectBaseDir: .
+          projectBaseDir: /home/runner/work/atlas-catalog/atlas-catalog
