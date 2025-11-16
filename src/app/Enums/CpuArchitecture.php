@@ -20,7 +20,7 @@ enum CpuArchitecture: string
 
     public function displayName(): string
     {
-        return match($this) {
+        return match ($this) {
             self::ARM => 'ARM',
             self::ARM64 => 'ARM64',
             self::X86_64 => 'x86_64',
