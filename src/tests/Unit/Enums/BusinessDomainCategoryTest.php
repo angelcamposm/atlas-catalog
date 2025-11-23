@@ -14,25 +14,34 @@ use Tests\TestCase;
 class BusinessDomainCategoryTest extends TestCase
 {
     #[Test]
-    #[DataProvider('categoryProvider')]
+    #[DataProvider('categoryNameProvider')]
     public function it_returns_the_correct_display_name(BusinessDomainCategory $category, string $expectedName): void
     {
         $this->assertSame($expectedName, $category->displayName());
     }
 
     #[Test]
-    #[DataProvider('categoryProvider')]
-    public function it_returns_the_correct_color(BusinessDomainCategory $category, string $expectedName, string $expectedColor): void
+    #[DataProvider('categoryColorProvider')]
+    public function it_returns_the_correct_color(BusinessDomainCategory $category, string $expectedColor): void
     {
         $this->assertSame($expectedColor, $category->color());
     }
 
-    public static function categoryProvider(): array
+    public static function categoryColorProvider(): array
     {
         return [
-            'Core' => [BusinessDomainCategory::Core, 'Core', 'red'],
-            'Generic' => [BusinessDomainCategory::Generic, 'Generic', 'gray'],
-            'Supporting' => [BusinessDomainCategory::Supporting, 'Supporting', 'blue'],
+            'Core' => [BusinessDomainCategory::Core, 'red'],
+            'Generic' => [BusinessDomainCategory::Generic, 'gray'],
+            'Supporting' => [BusinessDomainCategory::Supporting, 'blue'],
+        ];
+    }
+
+    public static function categoryNameProvider(): array
+    {
+        return [
+            'Core' => [BusinessDomainCategory::Core, 'Core'],
+            'Generic' => [BusinessDomainCategory::Generic, 'Generic'],
+            'Supporting' => [BusinessDomainCategory::Supporting, 'Supporting'],
         ];
     }
 }
