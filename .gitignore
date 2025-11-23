@@ -7,4 +7,5 @@ src/public/storage/
 src/storage/
 src/vendor/
 src/.env
+src/.phpunit.result.cache
 **/*.sqlite
