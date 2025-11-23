@@ -1,10 +1,9 @@
 .idea/
 !iac/config/**/.gitkeep
-src/bootstrap/cace/
+src/bootstrap/cache/
 src/coverage/
 src/node_modules/
 src/public/storage/
-src/storage/
 src/vendor/
 src/.env
 src/.phpunit.result.cache
