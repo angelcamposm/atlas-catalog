@@ -52,22 +52,20 @@ jobs:
           tools: composer:v2
           coverage: xdebug
       - name: Setup Laravel environment
-        working-directory: ./src
         run: |
-          pwd
-          ls -lR
+          ls -la
           php -r "file_exists('.env') || copy('.env.example', '.env');"
           php artisan key:generate
-          mkdir -p database
           touch database/database.sqlite
           chmod -R 777 storage bootstrap/cache
-      - name: Run tests and generate reports
         working-directory: ./src
+      - name: Run tests and generate reports
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
           XDEBUG_MODE: coverage
         run: php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml
+        working-directory: ./src
       - name: Upload test reports artifact
         uses: actions/upload-artifact@v4
         with:
