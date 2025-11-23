@@ -54,6 +54,8 @@ jobs:
       - name: Setup Laravel environment
         working-directory: ./src
         run: |
+          pwd
+          ls -lR
           php -r "file_exists('.env') || copy('.env.example', '.env');"
           php artisan key:generate
           mkdir -p database
