@@ -14,33 +14,53 @@ use Tests\TestCase;
 class ProtocolTest extends TestCase
 {
     #[Test]
-    #[DataProvider('protocolProvider')]
+    #[DataProvider('protocolNameProvider')]
     public function it_returns_the_correct_display_name(Protocol $protocol, string $displayName): void
     {
         $this->assertSame($displayName, $protocol->displayName());
     }
 
     #[Test]
-    #[DataProvider('protocolProvider')]
-    public function it_correctly_identifies_if_a_protocol_is_secure(Protocol $protocol, string $displayName, bool $isSecure): void
+    #[DataProvider('protocolSecurityProvider')]
+    public function it_correctly_identifies_if_a_protocol_is_secure(Protocol $protocol, bool $isSecure): void
     {
         $this->assertSame($isSecure, $protocol->isSecure());
     }
 
     #[Test]
-    #[DataProvider('protocolProvider')]
-    public function it_returns_the_correct_default_port(Protocol $protocol, string $displayName, bool $isSecure, int $port): void
+    #[DataProvider('protocolPortProvider')]
+    public function it_returns_the_correct_default_port(Protocol $protocol, int $port): void
     {
         $this->assertSame($port, $protocol->defaultPort());
     }
 
-    public static function protocolProvider(): array
+    public static function protocolNameProvider(): array
     {
         return [
-            'HTTP' => [Protocol::Http, 'HTTP', false, 80],
-            'HTTPS' => [Protocol::Https, 'HTTPS', true, 443],
-            'WebSocket' => [Protocol::WebSocket, 'WebSocket', false, 80],
-            'WebSocket Secure' => [Protocol::Wss, 'WebSocket Secure', true, 443],
+            'HTTP' => [Protocol::Http, 'HTTP'],
+            'HTTPS' => [Protocol::Https, 'HTTPS'],
+            'WebSocket' => [Protocol::WebSocket, 'WebSocket'],
+            'WebSocket Secure' => [Protocol::Wss, 'WebSocket Secure'],
+        ];
+    }
+
+    public static function protocolSecurityProvider(): array
+    {
+        return [
+            'HTTP' => [Protocol::Http, false],
+            'HTTPS' => [Protocol::Https, true],
+            'WebSocket' => [Protocol::WebSocket, false],
+            'WebSocket Secure' => [Protocol::Wss, true],
+        ];
+    }
+
+    public static function protocolPortProvider(): array
+    {
+        return [
+            'HTTP' => [Protocol::Http, 80],
+            'HTTPS' => [Protocol::Https, 443],
+            'WebSocket' => [Protocol::WebSocket, 80],
+            'WebSocket Secure' => [Protocol::Wss, 443],
         ];
     }
 }
