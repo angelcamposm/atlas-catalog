@@ -23,7 +23,19 @@ class MemoryBytes
      * Get the total bytes for the given count.
      *
      * @param  int  $count
+     * @return int
+     */
+    public static function kilobytes(int $count = 1): int
+    {
+        self::validateCount($count);
+
+        return self::KILOBYTE * $count;
+    }
+
+    /**
+     * Get the total bytes for the given count.
      *
+     * @param  int  $count
      * @return int
      */
     public static function megabytes(int $count = 1): int
@@ -37,7 +49,6 @@ class MemoryBytes
      * Get the total bytes for the given count.
      *
      * @param  int  $count
-     *
      * @return int
      */
     public static function gigabytes(int $count = 1): int
@@ -51,14 +62,39 @@ class MemoryBytes
      * Get the total bytes for the given count.
      *
      * @param  int  $count
-     *
      * @return int
      */
-    public static function terabytes(int $count): int
+    public static function terabytes(int $count = 1): int
     {
         self::validateCount($count);
 
         return self::TERABYTE * $count;
+    }
+
+    /**
+     * Get the total bytes for the given count.
+     *
+     * @param  int  $count
+     * @return int
+     */
+    public static function petabytes(int $count = 1): int
+    {
+        self::validateCount($count);
+
+        return self::PETABYTE * $count;
+    }
+
+    /**
+     * Get the total bytes for the given count.
+     *
+     * @param  int  $count
+     * @return int
+     */
+    public static function exabytes(int $count = 1): int
+    {
+        self::validateCount($count);
+
+        return self::EXABYTE * $count;
     }
 
     /**
@@ -70,8 +106,8 @@ class MemoryBytes
      */
     public static function validateCount(int $count): void
     {
-        if ($count < 0) {
-            throw new InvalidArgumentException('Count must be greater than 0.');
+        if ($count < 1) {
+            throw new InvalidArgumentException('Count must be a positive integer.');
         }
     }
 }
