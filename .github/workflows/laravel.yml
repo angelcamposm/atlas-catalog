@@ -16,6 +16,8 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          persist-credentials: false
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -29,20 +31,12 @@ jobs:
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: ./src
 
-      - name: Copy environment file
-        run: cp .env.example .env
-        working-directory: ./src
-
-      - name: Generate app key
-        run: php artisan key:generate
-        working-directory: ./src
-
-      - name: Create database
-        run: touch database/database.sqlite
-        working-directory: ./src
-
-      - name: Fix permissions
-        run: chmod -R 777 storage bootstrap/cache
+      - name: Prepare environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          chmod -R 777 storage bootstrap/cache
         working-directory: ./src
 
       - name: Run tests and generate reports
@@ -50,7 +44,7 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
           XDEBUG_MODE: coverage
-        run: php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml
+        run: php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml --stop-on-failure
         working-directory: ./src
 
       - name: Analyze with SonarCloud
@@ -61,7 +55,7 @@ jobs:
         with:
           projectBaseDir: ./src
           args: >
-            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,routes/*.php,tests/**
+            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
             -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
             -Dsonar.exclusions=resources/**
             -Dsonar.organization=angelcamposm
