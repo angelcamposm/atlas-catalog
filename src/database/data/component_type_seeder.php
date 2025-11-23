@@ -24,11 +24,27 @@ return [
         'description' => 'A client-facing application accessed via a web browser, providing a user interface to interact with backend services.',
     ],
     [
+        'name' => 'Website',
+        'description' => 'A single web page or a collection of related web pages under a single domain.',
+    ],
+    [
         'name' => 'Micro Service',
         'description' => 'A small, autonomous service that works with other services to build a larger application, focused on a single business domain.',
     ],
     [
         'name' => 'Anti-Corruption Layer (ACL)',
         'description' => 'A layer of code that acts as a translator between a modern application and a legacy or external system, preventing the legacy design from "corrupting" the new model.',
+    ],
+    [
+        'name' => 'Data pipeline',
+        'description' => 'A sequence of tools and processes used to automate the transformation and movement of data from a source to a target system.',
+    ],
+    [
+        'name' => 'Library',
+        'description' => 'A software library, such as an npm module or a Java library',
+    ],
+    [
+        'name' => 'Other',
+        'description' => 'A catch-all category for components that do not fit into the predefined types, requiring custom classification or specialized handling.',
     ],
 ];
