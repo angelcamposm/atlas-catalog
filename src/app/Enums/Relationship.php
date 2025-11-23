@@ -35,9 +35,9 @@ enum Relationship: string
      *
      * For example, the opposite of `OwnedBy` is `OwnerOf`.
      */
-    public static function oppositeFor(Relationship $relationship): self
+    public function opposite(): Relationship
     {
-        return match ($relationship) {
+        return match ($this) {
             self::ApiConsumedBy => self::ConsumesApi,
             self::ConsumesApi => self::ApiConsumedBy,
             self::ApiProvidedBy => self::ProvidesApi,
