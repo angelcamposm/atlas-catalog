@@ -14,26 +14,36 @@ use Tests\TestCase;
 class NodeTypeTest extends TestCase
 {
     #[Test]
-    #[DataProvider('nodeTypeProvider')]
+    #[DataProvider('nodeTypeNameProvider')]
     public function it_returns_the_correct_display_name(NodeType $type, string $expectedName): void
     {
         $this->assertSame($expectedName, $type->displayName());
     }
 
     #[Test]
-    #[DataProvider('nodeTypeProvider')]
-    public function it_returns_the_correct_color(NodeType $type, string $expectedName, string $expectedColor): void
+    #[DataProvider('nodeTypeColorProvider')]
+    public function it_returns_the_correct_color(NodeType $type, string $expectedColor): void
     {
         $this->assertSame($expectedColor, $type->color());
     }
 
-    public static function nodeTypeProvider(): array
+    public static function nodeTypeColorProvider(): array
     {
         return [
-            'Hybrid' => [NodeType::Hybrid, 'Hybrid', 'purple'],
-            'Physical' => [NodeType::Physical, 'Physical', 'blue'],
-            'Unknown' => [NodeType::Unknown, 'Unknown', 'gray'],
-            'Virtual' => [NodeType::Virtual, 'Virtual', 'green'],
+            'Hybrid' => [NodeType::Hybrid, 'purple'],
+            'Physical' => [NodeType::Physical, 'blue'],
+            'Unknown' => [NodeType::Unknown, 'gray'],
+            'Virtual' => [NodeType::Virtual, 'green'],
+        ];
+    }
+
+    public static function nodeTypeNameProvider(): array
+    {
+        return [
+            'Hybrid' => [NodeType::Hybrid, 'Hybrid'],
+            'Physical' => [NodeType::Physical, 'Physical'],
+            'Unknown' => [NodeType::Unknown, 'Unknown'],
+            'Virtual' => [NodeType::Virtual, 'Virtual'],
         ];
     }
 }
