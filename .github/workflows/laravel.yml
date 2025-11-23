@@ -2,40 +2,105 @@ name: Laravel
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
-  laravel-tests:
-
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.4'
-    - uses: actions/checkout@v4
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      working-directory: ./src
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      working-directory: ./src
-    - name: Generate key
-      run: php artisan key:generate
-      working-directory: ./src
-    - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
-      working-directory: ./src
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
-      working-directory: ./src
-    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: php artisan test
-      working-directory: ./src
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: xdebug
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: src/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('src/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress
+        working-directory: ./src
+      - name: Upload workspace artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace
+          path: ./src
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download workspace artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace
+          path: ./src
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: xdebug
+      - name: Setup Laravel environment
+        working-directory: ./src
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php artisan key:generate
+          mkdir -p database
+          touch database/database.sqlite
+          chmod -R 777 storage bootstrap/cache
+      - name: Run tests and generate reports
+        working-directory: ./src
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+          XDEBUG_MODE: coverage
+        run: php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml
+      - name: Upload test reports artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            ./src/coverage.xml
+            ./src/test-results.xml
+
+  sonarcloud-analysis:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # SonarQube needs the full history to assign issues.
+      - name: Download workspace artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace
+          path: ./src
+      - name: Download test reports artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: ./src
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: ./src
+          args: >
+            -Dsonar.projectKey=angelcamposm_atlas-catalog
+            -Dsonar.organization=angelcamposm
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.php.tests.reportPath=test-results.xml
