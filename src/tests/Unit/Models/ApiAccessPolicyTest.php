@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\Api;
 use App\Models\ApiAccessPolicy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -21,6 +23,18 @@ class ApiAccessPolicyTest extends TestCase
     {
         $policy = ApiAccessPolicy::factory()->create();
         $this->assertInstanceOf(ApiAccessPolicy::class, $policy);
+    }
+
+    #[Test]
+    public function it_has_many_apis(): void
+    {
+        $policy = ApiAccessPolicy::factory()
+            ->has(Api::factory()->count(3), 'apis')
+            ->create();
+
+        $this->assertInstanceOf(Collection::class, $policy->apis);
+        $this->assertCount(3, $policy->apis);
+        $this->assertInstanceOf(Api::class, $policy->apis->first());
     }
 
     #[Test]
