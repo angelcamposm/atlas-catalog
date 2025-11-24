@@ -8,6 +8,7 @@ use App\Observers\VendorObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vendor extends Model
 {
     use BelongsToUser;
+    use HasFactory;
     use HasIcon;
 
     /**
