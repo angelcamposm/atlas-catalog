@@ -9,6 +9,7 @@ use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -57,4 +58,14 @@ class ApiAccessPolicy extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the APIs associated with this access policy.
+     *
+     * @return HasMany<Api>
+     */
+    public function apis(): HasMany
+    {
+        return $this->hasMany(Api::class, 'access_policy_id', 'id');
+    }
 }
