@@ -38,6 +38,14 @@ class ApiTypeTest extends TestCase
     }
 
     #[Test]
+    public function it_can_have_no_apis(): void
+    {
+        $type = ApiType::factory()->create();
+        $this->assertInstanceOf(Collection::class, $type->apis);
+        $this->assertCount(0, $type->apis);
+    }
+
+    #[Test]
     public function it_has_one_creator(): void
     {
         $user = User::factory()->create();
@@ -66,5 +74,19 @@ class ApiTypeTest extends TestCase
         $type = new ApiType($data);
 
         $this->assertEquals($data, $type->getAttributes());
+    }
+
+    #[Test]
+    public function it_is_not_fillable(): void
+    {
+        $data = [
+            'id' => 1,
+            'name' => 'Test Type',
+        ];
+
+        $type = new ApiType($data);
+
+        $this->assertNotEquals($data, $type->getAttributes());
+        $this->assertNull($type->getAttribute('id'));
     }
 }
