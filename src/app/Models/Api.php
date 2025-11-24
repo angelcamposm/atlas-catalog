@@ -59,8 +59,18 @@ class Api extends Model
     use BelongsToUser;
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string|null
+     */
     protected $table = 'apis';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'access_policy_id',
         'authentication_method_id',
@@ -82,6 +92,11 @@ class Api extends Model
         'version',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'document_specification' => 'array',
         'protocol' => Protocol::class,
@@ -131,26 +146,6 @@ class Api extends Model
     }
 
     /**
-     * Get the status associated with the API.
-     *
-     * @return BelongsTo<ApiStatus>
-     */
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(ApiStatus::class, 'status_id');
-    }
-
-    /**
-     * Get the type associated with the API.
-     *
-     * @return BelongsTo<ApiType>
-     */
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(ApiType::class, 'type_id');
-    }
-
-    /**
      * Get the user who deprecated the API.
      *
      * @return BelongsTo<User>
@@ -178,5 +173,25 @@ class Api extends Model
     public function isReleased(): bool
     {
         return $this->released_at !== null && $this->released_at->isPast();
+    }
+
+    /**
+     * Get the status associated with the API.
+     *
+     * @return BelongsTo<ApiStatus>
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(ApiStatus::class, 'status_id');
+    }
+
+    /**
+     * Get the type associated with the API.
+     *
+     * @return BelongsTo<ApiType>
+     */
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ApiType::class, 'type_id');
     }
 }
