@@ -38,6 +38,14 @@ class ApiCategoryTest extends TestCase
     }
 
     #[Test]
+    public function it_can_have_no_apis(): void
+    {
+        $category = ApiCategory::factory()->create();
+        $this->assertInstanceOf(Collection::class, $category->apis);
+        $this->assertCount(0, $category->apis);
+    }
+
+    #[Test]
     public function it_has_one_creator(): void
     {
         $user = User::factory()->create();
@@ -53,6 +61,42 @@ class ApiCategoryTest extends TestCase
         $category = ApiCategory::factory()->create(['updated_by' => $user->id]);
         $this->assertTrue($category->hasUpdater());
         $this->assertInstanceOf(User::class, $category->updater);
+    }
+
+    #[Test]
+    public function it_has_a_parent(): void
+    {
+        $parent = ApiCategory::factory()->create();
+        $child = ApiCategory::factory()->create(['parent_id' => $parent->id]);
+
+        $this->assertInstanceOf(ApiCategory::class, $child->parent);
+        $this->assertEquals($parent->id, $child->parent->id);
+    }
+
+    #[Test]
+    public function it_can_have_a_null_parent(): void
+    {
+        $category = ApiCategory::factory()->create(['parent_id' => null]);
+        $this->assertNull($category->parent);
+    }
+
+    #[Test]
+    public function it_has_children(): void
+    {
+        $parent = ApiCategory::factory()->create();
+        ApiCategory::factory()->count(3)->create(['parent_id' => $parent->id]);
+
+        $this->assertInstanceOf(Collection::class, $parent->children);
+        $this->assertCount(3, $parent->children);
+        $this->assertInstanceOf(ApiCategory::class, $parent->children->first());
+    }
+
+    #[Test]
+    public function it_can_have_no_children(): void
+    {
+        $category = ApiCategory::factory()->create();
+        $this->assertInstanceOf(Collection::class, $category->children);
+        $this->assertCount(0, $category->children);
     }
 
     #[Test]
@@ -72,5 +116,19 @@ class ApiCategoryTest extends TestCase
         $category = ApiCategory::first();
 
         $this->assertEquals('api', $category->model);
+    }
+
+    #[Test]
+    public function it_is_not_fillable(): void
+    {
+        $data = [
+            'id' => 1,
+            'name' => 'Test Category',
+        ];
+
+        $category = new ApiCategory($data);
+
+        $this->assertNotEquals($data, $category->getAttributes());
+        $this->assertNull($category->getAttribute('id'));
     }
 }
