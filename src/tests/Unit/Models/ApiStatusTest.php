@@ -56,6 +56,14 @@ class ApiStatusTest extends TestCase
     }
 
     #[Test]
+    public function it_can_have_no_apis(): void
+    {
+        $status = ApiStatus::factory()->create();
+        $this->assertInstanceOf(Collection::class, $status->apis);
+        $this->assertCount(0, $status->apis);
+    }
+
+    #[Test]
     public function it_is_fillable(): void
     {
         $data = [
@@ -68,5 +76,19 @@ class ApiStatusTest extends TestCase
         $status = new ApiStatus($data);
 
         $this->assertEquals($data, $status->getAttributes());
+    }
+
+    #[Test]
+    public function it_is_not_fillable(): void
+    {
+        $data = [
+            'id' => 1,
+            'name' => 'Test Status',
+        ];
+
+        $status = new ApiStatus($data);
+
+        $this->assertNotEquals($data, $status->getAttributes());
+        $this->assertNull($status->getAttribute('id'));
     }
 }
