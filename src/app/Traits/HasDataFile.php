@@ -15,7 +15,7 @@ trait HasDataFile
      */
     public static function getRows(): array
     {
-        return include_once database_path(self::getFilePath());
+        return include database_path(self::getFilePath());
     }
 
     /**
