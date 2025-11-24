@@ -54,6 +54,13 @@ class BusinessDomainTest extends TestCase
     }
 
     #[Test]
+    public function it_can_have_a_null_parent(): void
+    {
+        $domain = BusinessDomain::factory()->create(['parent_id' => null]);
+        $this->assertNull($domain->parent);
+    }
+
+    #[Test]
     public function it_has_children(): void
     {
         $parent = BusinessDomain::factory()->create();
@@ -62,6 +69,14 @@ class BusinessDomainTest extends TestCase
         $this->assertInstanceOf(Collection::class, $parent->children);
         $this->assertCount(3, $parent->children);
         $this->assertInstanceOf(BusinessDomain::class, $parent->children->first());
+    }
+
+    #[Test]
+    public function it_can_have_no_children(): void
+    {
+        $domain = BusinessDomain::factory()->create();
+        $this->assertInstanceOf(Collection::class, $domain->children);
+        $this->assertCount(0, $domain->children);
     }
 
     #[Test]
@@ -95,5 +110,19 @@ class BusinessDomainTest extends TestCase
         $domain = new BusinessDomain($data);
 
         $this->assertEquals($data, $domain->getAttributes());
+    }
+
+    #[Test]
+    public function it_is_not_fillable(): void
+    {
+        $data = [
+            'id' => 1,
+            'name' => 'Test Domain',
+        ];
+
+        $domain = new BusinessDomain($data);
+
+        $this->assertNotEquals($data, $domain->getAttributes());
+        $this->assertNull($domain->getAttribute('id'));
     }
 }
