@@ -7,8 +7,8 @@ namespace Tests\Unit\Models;
 use App\Models\Api;
 use App\Models\ApiAccessPolicy;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -26,6 +26,22 @@ class ApiAccessPolicyTest extends TestCase
     }
 
     #[Test]
+    public function it_has_one_creator(): void
+    {
+        $user = User::factory()->create();
+        $policy = ApiAccessPolicy::factory()->create(['created_by' => $user->id]);
+        $this->assertInstanceOf(User::class, $policy->creator);
+    }
+
+    #[Test]
+    public function it_has_one_updater(): void
+    {
+        $user = User::factory()->create();
+        $policy = ApiAccessPolicy::factory()->create(['updated_by' => $user->id]);
+        $this->assertInstanceOf(User::class, $policy->updater);
+    }
+
+    #[Test]
     public function it_has_many_apis(): void
     {
         $policy = ApiAccessPolicy::factory()
@@ -38,21 +54,11 @@ class ApiAccessPolicyTest extends TestCase
     }
 
     #[Test]
-    public function it_has_one_creator(): void
+    public function it_can_have_no_apis(): void
     {
-        $user = User::factory()->create();
-        $policy = ApiAccessPolicy::factory()->create(['created_by' => $user->id]);
-        $this->assertTrue($policy->hasCreator());
-        $this->assertInstanceOf(User::class, $policy->creator);
-    }
-
-    #[Test]
-    public function it_has_one_updater(): void
-    {
-        $user = User::factory()->create();
-        $policy = ApiAccessPolicy::factory()->create(['updated_by' => $user->id]);
-        $this->assertTrue($policy->hasUpdater());
-        $this->assertInstanceOf(User::class, $policy->updater);
+        $policy = ApiAccessPolicy::factory()->create();
+        $this->assertInstanceOf(Collection::class, $policy->apis);
+        $this->assertCount(0, $policy->apis);
     }
 
     #[Test]
@@ -68,5 +74,19 @@ class ApiAccessPolicyTest extends TestCase
         $policy = new ApiAccessPolicy($data);
 
         $this->assertEquals($data, $policy->getAttributes());
+    }
+
+    #[Test]
+    public function it_is_not_fillable(): void
+    {
+        $data = [
+            'id' => 1,
+            'name' => 'Test Policy',
+        ];
+
+        $policy = new ApiAccessPolicy($data);
+
+        $this->assertNotEquals($data, $policy->getAttributes());
+        $this->assertNull($policy->getAttribute('id'));
     }
 }
