@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Models\Api;
 use App\Models\ApiStatus;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -39,6 +41,18 @@ class ApiStatusTest extends TestCase
         $status = ApiStatus::factory()->create(['updated_by' => $user->id]);
         $this->assertTrue($status->hasUpdater());
         $this->assertInstanceOf(User::class, $status->updater);
+    }
+
+    #[Test]
+    public function it_has_many_apis(): void
+    {
+        $status = ApiStatus::factory()
+            ->has(Api::factory()->count(3), 'apis')
+            ->create();
+
+        $this->assertInstanceOf(Collection::class, $status->apis);
+        $this->assertCount(3, $status->apis);
+        $this->assertInstanceOf(Api::class, $status->apis->first());
     }
 
     #[Test]
