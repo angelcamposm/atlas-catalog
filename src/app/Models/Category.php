@@ -8,6 +8,7 @@ use App\Observers\CategoryObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use BelongsToUser;
+    use HasFactory;
     use HasRelatives;
 
     /**
