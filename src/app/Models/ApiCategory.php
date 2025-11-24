@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Observers\ApiCategoryObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -33,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ObservedBy(ApiCategoryObserver::class)]
 class ApiCategory extends Category
 {
+    use HasFactory;
+
     /**
      * Bootstrap the model and its traits.q
      *
