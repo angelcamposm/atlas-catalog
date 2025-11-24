@@ -38,6 +38,14 @@ class AuthenticationMethodTest extends TestCase
     }
 
     #[Test]
+    public function it_can_have_no_apis(): void
+    {
+        $method = AuthenticationMethod::factory()->create();
+        $this->assertInstanceOf(Collection::class, $method->apis);
+        $this->assertCount(0, $method->apis);
+    }
+
+    #[Test]
     public function it_has_one_creator(): void
     {
         $user = User::factory()->create();
@@ -68,5 +76,19 @@ class AuthenticationMethodTest extends TestCase
         $method = new AuthenticationMethod($data);
 
         $this->assertEquals($data, $method->getAttributes());
+    }
+
+    #[Test]
+    public function it_is_not_fillable(): void
+    {
+        $data = [
+            'id' => 1,
+            'name' => 'Test Method',
+        ];
+
+        $method = new AuthenticationMethod($data);
+
+        $this->assertNotEquals($data, $method->getAttributes());
+        $this->assertNull($method->getAttribute('id'));
     }
 }
