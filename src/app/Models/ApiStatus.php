@@ -9,6 +9,7 @@ use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -48,4 +49,14 @@ class ApiStatus extends Model
         'created_by',
         'updated_by',
     ];
+
+    /**
+     * Get the APIs associated with this status.
+     *
+     * @return HasMany<Api>
+     */
+    public function apis(): HasMany
+    {
+        return $this->hasMany(Api::class, 'status_id', 'id');
+    }
 }
