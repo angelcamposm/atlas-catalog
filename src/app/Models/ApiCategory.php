@@ -37,6 +37,15 @@ class ApiCategory extends Category
     use HasFactory;
 
     /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        'model',
+    ];
+
+    /**
      * Bootstrap the model and its traits.q
      *
      * @return void
@@ -49,15 +58,6 @@ class ApiCategory extends Category
             $query->where('model', strtolower(class_basename(Api::class)));
         });
     }
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<string>
-     */
-    protected $hidden = [
-        'model',
-    ];
 
     /**
      * Get the APIs associated with this category.
