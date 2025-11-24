@@ -45,7 +45,9 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
           XDEBUG_MODE: coverage
-        run: php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml --stop-on-failure
+        run: |
+          php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml --stop-on-failure
+          sed -i 's+/app/+app/+g' coverage.xml
         working-directory: ./src
 
       - name: Analyze with SonarCloud
