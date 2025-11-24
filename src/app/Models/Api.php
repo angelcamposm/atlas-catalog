@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\Protocol;
 use App\Observers\ApiObserver;
 use App\Traits\BelongsToUser;
+use DateTimeInterface;
 use Database\Factories\ApiFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,6 +88,17 @@ class Api extends Model
         'released_at' => 'datetime',
         'deprecated_at' => 'datetime',
     ];
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     *
+     * @param  DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
 
     /**
      * Get the access policy associated with the API.
