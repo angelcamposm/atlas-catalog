@@ -47,7 +47,7 @@ jobs:
           XDEBUG_MODE: coverage
         run: |
           php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml --stop-on-failure
-          sed -i 's+/tests/+tests/+g' test-results.xml
+          sed -i 's|/tests/|tests/|g' test-results.xml
         working-directory: ./src
 
       - name: Analyze with SonarCloud
