@@ -46,6 +46,7 @@ jobs:
           DB_DATABASE: database/database.sqlite
           XDEBUG_MODE: coverage
         run: |
+          pwd
           php artisan test --coverage-clover=coverage.xml --log-junit=junit.xml --stop-on-failure
         working-directory: ./src
 
