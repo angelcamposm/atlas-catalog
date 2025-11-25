@@ -62,3 +62,20 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: ./
+          args: >
+            -Dsonar.organization=angelcamposm
+            -Dsonar.projectBaseDir=/github/workspace
+            -Dsonar.projectKey=angelcamposm_atlas-catalog
+            -Dsonar.projectName=atlas-catalog
+            -Dsonar.projectVersion=1.0.0
+            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
+            -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
+            -Dsonar.exclusions=resources/**
+            -Dsonar.log.level=WARN
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.php.exclusions=vendor/**
+            -Dsonar.php.tests.reportPath=junit.xml
+            -Dsonar.scm.provider=git
+            -Dsonar.sources=src
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.tests=src/tests
