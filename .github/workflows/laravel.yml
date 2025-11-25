@@ -52,7 +52,6 @@ jobs:
       - name: Update paths
         run: |
           sed -i "s|/home/runner/work/atlas-catalog/atlas-catalog|/github/workspace|g" junit.xml
-          cat junit.xml
         working-directory: ./src
 
       - name: Analyze with SonarCloud
