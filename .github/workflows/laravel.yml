@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: ${{ env.GITHUB_WORKSPACE }}/src
+          projectBaseDir: /github/workspace
           args: >
             -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
             -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
@@ -66,4 +66,4 @@ jobs:
             -Dsonar.php.exclusions=vendor/**
             -Dsonar.php.tests.reportPath=src/junit.xml
             -Dsonar.projectKey=angelcamposm_atlas-catalog
-            -Dsonar.sources=.
+            -Dsonar.sources=./src
