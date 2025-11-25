@@ -8,6 +8,7 @@ use App\Observers\ClusterTypeObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ClusterType extends Model
 {
     use BelongsToUser;
+    use HasFactory;
     use HasIcon;
 
     /**

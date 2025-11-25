@@ -1,0 +1,69 @@
+name: Laravel
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: '0'
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: xdebug
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          tools: composer:v2
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+        working-directory: ./src
+
+      - name: Prepare environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          chmod -R 777 storage bootstrap/cache
+        working-directory: ./src
+
+      - name: Run tests and generate reports
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+          XDEBUG_MODE: coverage
+        run: |
+          php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml --stop-on-failure
+          sed -i 's|tests/|/tests/|g' test-results.xml
+        working-directory: ./src
+
+      - name: Analyze with SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: ./src
+          args: >
+            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
+            -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
+            -Dsonar.exclusions=resources/**
+            -Dsonar.organization=angelcamposm
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.php.exclusions=vendor/**
+            -Dsonar.php.tests.reportPath=test-results.xml
+            -Dsonar.projectKey=angelcamposm_atlas-catalog
+            -Dsonar.sources=.
