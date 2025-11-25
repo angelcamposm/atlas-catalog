@@ -76,6 +76,6 @@ jobs:
             -Dsonar.php.exclusions=vendor/**
             -Dsonar.php.tests.reportPath=junit.xml
             -Dsonar.scm.provider=git
-            -Dsonar.sources=src
+            -Dsonar.sources=src/app
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.tests=src/tests
