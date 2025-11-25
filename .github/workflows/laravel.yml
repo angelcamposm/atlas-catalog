@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: /home/runner/work/atlas-catalog/atlas-catalog/src
+          projectBaseDir: ${{ env.GITHUB_WORKSPACE }}
           args: >
             -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
             -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
