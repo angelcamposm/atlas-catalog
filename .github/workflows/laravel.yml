@@ -48,6 +48,9 @@ jobs:
         run: |
           pwd
           php artisan test --coverage-clover=coverage.xml --log-junit=junit.xml --stop-on-failure
+          cat junit.xml
+          sed -i "s|${{env.GITHUB_WORKSPACE}}|/github/workspace/src|g" junit.xml
+          cat junit.xml
         working-directory: ./src
 
       - name: Analyze with SonarCloud
