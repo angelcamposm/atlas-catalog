@@ -51,7 +51,7 @@ jobs:
 
       - name: Update paths
         run: |
-          sed -i "s|/home/runner/work/atlas-catalog/atlas-catalog/src/||g" junit.xml
+          sed -i "s|/home/runner/work/atlas-catalog/atlas-catalog|/github/workspace|g" junit.xml
           cat junit.xml
         working-directory: ./src
 
@@ -61,14 +61,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: /github/workspace
+          projectBaseDir: ./
           args: >
             -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
             -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
             -Dsonar.exclusions=resources/**
             -Dsonar.organization=angelcamposm
-            -Dsonar.php.coverage.reportPaths=src/coverage.xml
+            -Dsonar.php.coverage.reportPaths=coverage.xml
             -Dsonar.php.exclusions=vendor/**
-            -Dsonar.php.tests.reportPath=src/junit.xml
+            -Dsonar.php.tests.reportPath=junit.xml
             -Dsonar.projectKey=angelcamposm_atlas-catalog
             -Dsonar.sources=./src
