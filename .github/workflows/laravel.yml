@@ -68,7 +68,7 @@ jobs:
             -Dsonar.projectKey=angelcamposm_atlas-catalog
             -Dsonar.projectName=atlas-catalog
             -Dsonar.projectVersion=1.0.0
-            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
+            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php
             -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
             -Dsonar.exclusions=resources/**
             -Dsonar.log.level=WARN
