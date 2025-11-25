@@ -64,7 +64,6 @@ jobs:
           projectBaseDir: ./src
           args: >
             -Dsonar.organization=angelcamposm
-            -Dsonar.projectBaseDir=/github/workspace
             -Dsonar.projectKey=angelcamposm_atlas-catalog
             -Dsonar.projectName=atlas-catalog
             -Dsonar.projectVersion=1.0.0
