@@ -1,18 +1,30 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import { defaultLocale } from "@/i18n/config";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import "./globals.css";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+// Fuente para texto del cuerpo - Alta legibilidad
+const inter = Inter({
+    variable: "--font-inter",
     subsets: ["latin"],
+    display: "swap",
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+// Fuente para títulos - Elegante y moderna
+const plusJakarta = Plus_Jakarta_Sans({
+    variable: "--font-display",
     subsets: ["latin"],
+    display: "swap",
+    weight: ["400", "500", "600", "700", "800"],
+});
+
+// Fuente monoespaciada para código
+const jetbrainsMono = JetBrains_Mono({
+    variable: "--font-mono",
+    subsets: ["latin"],
+    display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +43,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} suppressHydrationWarning>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable} font-sans antialiased`}
             >
                 <ThemeProvider
                     attribute="class"

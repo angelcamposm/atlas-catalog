@@ -1,20 +1,45 @@
-import { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ClusterList } from "@/components/infrastructure";
+import { ClusterDetailSlideOver } from "@/components/infrastructure/ClusterDetailSlideOver";
+import type { Cluster } from "@/types/api";
 
-export const metadata: Metadata = {
-    title: "Clusters | Atlas Catalog",
-    description: "Manage Kubernetes clusters in your infrastructure",
-};
+export default function ClustersPage() {
+    const params = useParams();
+    const router = useRouter();
+    const locale = (params.locale as string) || "en";
 
-export default async function ClustersPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>;
-}) {
-    const { locale } = await params;
+    const [selectedCluster, setSelectedCluster] = useState<Cluster | null>(
+        null
+    );
+    const [slideOverOpen, setSlideOverOpen] = useState(false);
+
+    const handleSelectCluster = (cluster: Cluster) => {
+        setSelectedCluster(cluster);
+        setSlideOverOpen(true);
+    };
+
+    const handleCloseSlideOver = () => {
+        setSlideOverOpen(false);
+        // Delay clearing the cluster so the animation can complete
+        setTimeout(() => setSelectedCluster(null), 300);
+    };
+
+    const handleEditCluster = (cluster: Cluster) => {
+        router.push(`/${locale}/infrastructure/clusters/${cluster.id}/edit`);
+        handleCloseSlideOver();
+    };
+
+    const handleDeleteCluster = (cluster: Cluster) => {
+        // Refresh the page to reload the list
+        router.refresh();
+    };
+
     return (
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
@@ -36,7 +61,17 @@ export default async function ClustersPage({
             </div>
 
             {/* Cluster List */}
-            <ClusterList />
+            <ClusterList onSelectCluster={handleSelectCluster} />
+
+            {/* Cluster Detail SlideOver */}
+            <ClusterDetailSlideOver
+                cluster={selectedCluster}
+                open={slideOverOpen}
+                onClose={handleCloseSlideOver}
+                onEdit={handleEditCluster}
+                onDelete={handleDeleteCluster}
+                locale={locale}
+            />
         </div>
     );
 }

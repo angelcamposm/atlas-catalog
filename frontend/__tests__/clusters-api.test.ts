@@ -369,7 +369,9 @@ describe("Cluster Detail and Edit Operations", () => {
             expect(result.data.name).toBe("detail-test-cluster");
             expect(result.data.display_name).toBe("Detail Test Cluster");
             expect(result.data.version).toBe("1.29.0");
-            expect(result.data.cluster_uuid).toBe("123e4567-e89b-12d3-a456-426614174000");
+            expect(result.data.cluster_uuid).toBe(
+                "123e4567-e89b-12d3-a456-426614174000"
+            );
             expect(result.data.timezone).toBe("America/New_York");
         });
 
@@ -403,9 +405,13 @@ describe("Cluster Detail and Edit Operations", () => {
         });
 
         it("should handle non-existent cluster", async () => {
-            mockedApiClient.get.mockRejectedValueOnce(new Error("Cluster not found"));
+            mockedApiClient.get.mockRejectedValueOnce(
+                new Error("Cluster not found")
+            );
 
-            await expect(clustersApi.getById(999)).rejects.toThrow("Cluster not found");
+            await expect(clustersApi.getById(999)).rejects.toThrow(
+                "Cluster not found"
+            );
         });
     });
 
@@ -732,7 +738,9 @@ describe("Cluster Detail and Edit Operations", () => {
 
             await clustersApi.delete(1);
 
-            expect(mockedApiClient.delete).toHaveBeenCalledWith("/v1/clusters/1");
+            expect(mockedApiClient.delete).toHaveBeenCalledWith(
+                "/v1/clusters/1"
+            );
         });
 
         it("should handle delete of non-existent cluster", async () => {

@@ -4,6 +4,7 @@
     "description": "Plataforma centralizada para catalogar APIs."
   },
   "common": {
+    "all": "Todos",
     "viewApis": "Ver APIs",
     "manageTypes": "Gestionar Tipos",
     "viewLifecycles": "Ver Ciclos de Vida",

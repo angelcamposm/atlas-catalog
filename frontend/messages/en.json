@@ -4,6 +4,7 @@
     "description": "Centralized API catalog management system."
   },
   "common": {
+    "all": "All",
     "viewApis": "View APIs",
     "manageTypes": "Manage Types",
     "viewLifecycles": "View Lifecycles",

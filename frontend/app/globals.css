@@ -11,8 +11,12 @@ html {
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
+
+    /* Typography - Elegant fonts */
+    --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    --font-mono: var(--font-mono), ui-monospace, monospace;
+
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -67,9 +71,21 @@ html {
     --radius-lg: 1rem;
     --radius-xl: 1.5rem;
 
+    /* ============================================
+       TYPOGRAPHY HIERARCHY - Light Mode
+       ============================================ */
+
+    /* Primary Text - High contrast for main content */
+    --text-primary: #0f172a; /* slate-900 - Títulos principales */
+    --text-secondary: #1e293b; /* slate-800 - Subtítulos */
+    --text-body: #334155; /* slate-700 - Texto del cuerpo */
+    --text-muted: #64748b; /* slate-500 - Texto secundario */
+    --text-subtle: #94a3b8; /* slate-400 - Placeholders, hints */
+    --text-disabled: #cbd5e1; /* slate-300 - Texto deshabilitado */
+
     /* Colors - Light Mode */
     --background: #ffffff;
-    --foreground: #111827; /* neutral-900 */
+    --foreground: #334155; /* slate-700 - Mejor para lectura prolongada */
 
     /* Primary - Blue */
     --primary: #3b82f6; /* blue-500 */
@@ -91,10 +107,10 @@ html {
     --accent-50: #ecfdf5;
 
     /* Neutral */
-    --muted: #f3f4f6; /* neutral-100 */
-    --muted-foreground: #6b7280; /* neutral-500 */
-    --border: #e5e7eb; /* neutral-200 */
-    --input: #e5e7eb;
+    --muted: #f8fafc; /* slate-50 - Más suave */
+    --muted-foreground: #64748b; /* slate-500 */
+    --border: #e2e8f0; /* slate-200 */
+    --input: #e2e8f0;
     --ring: #3b82f6;
 
     /* Card */
@@ -133,41 +149,53 @@ html {
 }
 
 .dark {
-    --background: #030712; /* neutral-950 */
-    --foreground: #f9fafb; /* neutral-50 */
+    /* ============================================
+       TYPOGRAPHY HIERARCHY - Dark Mode
+       ============================================ */
+
+    /* Text hierarchy for dark mode */
+    --text-primary: #f8fafc; /* slate-50 - Títulos principales */
+    --text-secondary: #e2e8f0; /* slate-200 - Subtítulos */
+    --text-body: #cbd5e1; /* slate-300 - Texto del cuerpo */
+    --text-muted: #94a3b8; /* slate-400 - Texto secundario */
+    --text-subtle: #64748b; /* slate-500 - Placeholders, hints */
+    --text-disabled: #475569; /* slate-600 - Texto deshabilitado */
+
+    --background: #020617; /* slate-950 - Más profundo */
+    --foreground: #cbd5e1; /* slate-300 - Mejor para lectura */
 
     /* Primary - adjusted for dark mode */
     --primary: #60a5fa; /* blue-400 */
-    --primary-foreground: #030712;
+    --primary-foreground: #020617;
     --primary-50: #1e3a8a;
     --primary-600: #3b82f6;
 
     /* Secondary */
     --secondary: #818cf8; /* indigo-400 */
-    --secondary-foreground: #030712;
+    --secondary-foreground: #020617;
 
     /* Accent */
     --accent: #34d399; /* emerald-400 */
-    --accent-foreground: #030712;
+    --accent-foreground: #020617;
 
     /* Neutral */
-    --muted: #1f2937; /* neutral-800 */
-    --muted-foreground: #9ca3af; /* neutral-400 */
-    --border: rgba(255, 255, 255, 0.1);
-    --input: rgba(255, 255, 255, 0.15);
+    --muted: #0f172a; /* slate-900 */
+    --muted-foreground: #94a3b8; /* slate-400 */
+    --border: rgba(148, 163, 184, 0.1); /* slate-400 con opacidad */
+    --input: rgba(148, 163, 184, 0.15);
     --ring: #60a5fa;
 
     /* Card */
-    --card: #1f2937;
-    --card-foreground: #f9fafb;
+    --card: #0f172a; /* slate-900 */
+    --card-foreground: #e2e8f0;
 
     /* Popover */
-    --popover: #1f2937;
-    --popover-foreground: #f9fafb;
+    --popover: #0f172a;
+    --popover-foreground: #e2e8f0;
 
     /* Destructive */
     --destructive: #f87171; /* red-400 */
-    --destructive-foreground: #030712;
+    --destructive-foreground: #020617;
 
     /* Charts - adjusted for dark mode */
     --chart-1: #60a5fa;
@@ -177,13 +205,13 @@ html {
     --chart-5: #a78bfa;
 
     /* Sidebar */
-    --sidebar: #111827;
-    --sidebar-foreground: #f9fafb;
+    --sidebar: #0f172a;
+    --sidebar-foreground: #e2e8f0;
     --sidebar-primary: #60a5fa;
-    --sidebar-primary-foreground: #030712;
-    --sidebar-accent: #1f2937;
-    --sidebar-accent-foreground: #f9fafb;
-    --sidebar-border: rgba(255, 255, 255, 0.1);
+    --sidebar-primary-foreground: #020617;
+    --sidebar-accent: #1e293b;
+    --sidebar-accent-foreground: #e2e8f0;
+    --sidebar-border: rgba(148, 163, 184, 0.1);
     --sidebar-ring: #60a5fa;
 }
 
@@ -383,4 +411,175 @@ html {
     --card-foreground: #faf5ff;
     --popover: #581c87;
     --popover-foreground: #faf5ff;
+}
+
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+
+/* Display font for headings */
+.font-display {
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Text hierarchy classes */
+.text-heading-1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+}
+
+.text-heading-2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.text-heading-3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+}
+
+.text-heading-4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+}
+
+.text-heading-5 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.text-heading-6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+/* Body text styles */
+.text-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--text-body);
+}
+
+.text-body {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-body);
+}
+
+.text-body-sm {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-body);
+}
+
+/* Secondary/muted text */
+.text-secondary {
+    color: var(--text-muted);
+}
+
+.text-subtle {
+    color: var(--text-subtle);
+}
+
+/* Label styles */
+.text-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+}
+
+.text-label-sm {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* Caption styles */
+.text-caption {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+}
+
+/* Overline styles */
+.text-overline {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* Apply heading styles to standard h tags */
+h1,
+.h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+}
+
+h2,
+.h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+h3,
+.h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+}
+
+/* Improved paragraph readability */
+p {
+    line-height: 1.7;
+}
+
+/* Code blocks with better contrast */
+code,
+pre {
+    font-family: var(--font-mono);
 }

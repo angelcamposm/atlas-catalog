@@ -2,10 +2,18 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { HiCube, HiPlus, HiPencil, HiTrash, HiXCircle } from "react-icons/hi2";
+import {
+    HiCube,
+    HiPlus,
+    HiPencil,
+    HiTrash,
+    HiXCircle,
+    HiEye,
+} from "react-icons/hi2";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/card";
+import { ClusterTypeDetailSlideOver } from "@/components/infrastructure";
 import { clusterTypesApi } from "@/lib/api/infrastructure";
 import type { ClusterType, PaginatedResponse } from "@/types/api";
 
@@ -18,6 +26,9 @@ export default function ClusterTypesPage() {
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [selectedClusterType, setSelectedClusterType] =
+        useState<ClusterType | null>(null);
+    const [slideOverOpen, setSlideOverOpen] = useState(false);
 
     const loadClusterTypes = useCallback(async (page: number) => {
         try {
@@ -40,6 +51,11 @@ export default function ClusterTypesPage() {
         loadClusterTypes(currentPage);
     }, [currentPage, loadClusterTypes]);
 
+    const handleSelectClusterType = (clusterType: ClusterType) => {
+        setSelectedClusterType(clusterType);
+        setSlideOverOpen(true);
+    };
+
     const handleDelete = async (id: number) => {
         if (!confirm("Are you sure you want to delete this cluster type?")) {
             return;
@@ -48,6 +64,7 @@ export default function ClusterTypesPage() {
         try {
             await clusterTypesApi.delete(id);
             await loadClusterTypes(currentPage);
+            setSlideOverOpen(false);
         } catch (err) {
             console.error("Failed to delete cluster type:", err);
             alert("Failed to delete cluster type");
@@ -107,13 +124,17 @@ export default function ClusterTypesPage() {
                 {clusterTypes.map((clusterType) => (
                     <Card
                         key={clusterType.id}
-                        className="p-6 hover:shadow-lg transition-shadow"
+                        className="p-6 hover:shadow-lg transition-shadow cursor-pointer group"
+                        onClick={() => handleSelectClusterType(clusterType)}
                     >
                         <div className="space-y-4">
                             {/* Header */}
                             <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                    <h3 className="text-lg font-semibold text-foreground">
+                                <div className="flex items-center gap-3 flex-1">
+                                    <div className="p-2 rounded-lg bg-cyan-500/10 group-hover:bg-cyan-500/20 transition-colors">
+                                        <HiCube className="h-5 w-5 text-cyan-500" />
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                                         {clusterType.name}
                                     </h3>
                                 </div>
@@ -153,20 +174,35 @@ export default function ClusterTypesPage() {
                                 <Button
                                     variant="outline"
                                     size="sm"
-                                    onClick={() =>
-                                        router.push(
-                                            `/${locale}/infrastructure/cluster-types/${clusterType.id}/edit`
-                                        )
-                                    }
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleSelectClusterType(clusterType);
+                                    }}
                                     className="flex-1 flex items-center gap-2"
                                 >
-                                    <HiPencil className="h-4 w-4" />
-                                    Edit
+                                    <HiEye className="h-4 w-4" />
+                                    View
                                 </Button>
                                 <Button
                                     variant="outline"
                                     size="sm"
-                                    onClick={() => handleDelete(clusterType.id)}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        router.push(
+                                            `/${locale}/infrastructure/cluster-types/${clusterType.id}/edit`
+                                        );
+                                    }}
+                                    className="flex items-center gap-2"
+                                >
+                                    <HiPencil className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleDelete(clusterType.id);
+                                    }}
                                     className="text-destructive hover:text-destructive hover:border-destructive"
                                 >
                                     <HiTrash className="h-4 w-4" />
@@ -226,6 +262,15 @@ export default function ClusterTypesPage() {
                     </Button>
                 </div>
             )}
+
+            {/* Cluster Type Detail SlideOver */}
+            <ClusterTypeDetailSlideOver
+                clusterType={selectedClusterType}
+                open={slideOverOpen}
+                onClose={() => setSlideOverOpen(false)}
+                onDelete={(ct) => handleDelete(ct.id)}
+                locale={locale}
+            />
         </div>
     );
 }
