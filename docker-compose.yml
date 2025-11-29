@@ -16,18 +16,17 @@ services:
     command:
       - /bin/sh
       - -c
-      - "php artisan migrate --seed --force"
+      - "sleep 5; php artisan migrate --seed --force"
     container_name: init-db
     depends_on:
       - postgres
-      - redis
-#    environment:
-#      DB_CONNECTION: pgsql
-#      DB_HOST: postgres
-#      DB_PORT: 5432
-#      DB_DATABASE: laravel
-#      DB_USERNAME: laravel
-#      DB_PASSWORD: secret
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: atlas-catalog
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
     networks:
       - catalog-network
 
@@ -53,6 +52,7 @@ services:
       GF_ANALYTICS_ENABLED: 'true'
       GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
       GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: 'false'
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/provisioning/dashboards/home.json
       GF_DEFAULT_INSTANCE_NAME: grafana
       GF_EXPLORE_ENABLED: 'false'
       GF_HELP_ENABLED: 'false'
@@ -77,6 +77,8 @@ services:
       - "3000:3000"
     restart: unless-stopped
     volumes:
+      - ./build/grafana/datasources/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./build/grafana/dashboards/home.json:/etc/grafana/provisioning/dashboards/home.json
       - grafana-data:/var/lib/grafana
 
   # Nginx Web Server
@@ -102,9 +104,9 @@ services:
   postgres:
     container_name: postgres
     environment:
-      POSTGRES_DB: ${DB_DATABASE:-laravel}
-      POSTGRES_USER: ${DB_USERNAME:-laravel}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: atlas-catalog
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
     image: postgres:17.6-alpine3.22
     networks:
       - catalog-network

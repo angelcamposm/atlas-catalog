@@ -1,0 +1,72 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": false,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<div style=\"font-family: Arial, sans-serif; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;\">\n  <h1 style=\"color: #666;\">Welcome to Atlas Catalog</h1>\n  <p style=\"font-size: 1.2em;\">\n    Your central inventory for all internal IT assets.\n  </p>\n  <p>\n    <strong>Atlas Catalog</strong> provides a comprehensive and searchable directory of your organization's key infrastructure components. Use this dashboard to explore, discover, and manage your assets.\n  </p>\n  <hr>\n  <h3>Key Features:</h3>\n  <ul>\n    <li><strong>API Catalog:</strong> Discover and manage all internal and external APIs.</li>\n    <li><strong>Cluster Management:</strong> Get a clear overview of your clusters and their nodes.</li>\n    <li><strong>Infrastructure Inventory:</strong> Track business domains, vendors, and other critical assets.</li>\n    <li><strong>Search & Discovery:</strong> Easily find the information you need.</li>\n  </ul>\n  <p>\n    To get started, use the search bar at the top or navigate through the dashboards using the menu on the left.\n  </p>\n</div>",
+        "mode": "html"
+      },
+      "pluginVersion": "12.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    }
+  ],
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 42,
+  "tags": [
+    "home",
+    "atlas-catalog"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "hidden": true
+  },
+  "timezone": "browser",
+  "title": "Atlas Catalog Home",
+  "uid": "atlas-catalog-home",
+  "version": 2
+}
