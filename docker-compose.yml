@@ -1,4 +1,3 @@
-version: "3.8"
 name: atlas-catalog
 
 x-build-config: &build-config
@@ -11,6 +10,7 @@ x-build-config: &build-config
       - "atlas-catalog:latest"
 
 services:
+
   init-db:
     <<: *build-config
     command:
@@ -21,13 +21,13 @@ services:
     depends_on:
       - postgres
       - redis
-    #    environment:
-    #      DB_CONNECTION: pgsql
-    #      DB_HOST: postgres
-    #      DB_PORT: 5432
-    #      DB_DATABASE: laravel
-    #      DB_USERNAME: laravel
-    #      DB_PASSWORD: secret
+#    environment:
+#      DB_CONNECTION: pgsql
+#      DB_HOST: postgres
+#      DB_PORT: 5432
+#      DB_DATABASE: laravel
+#      DB_USERNAME: laravel
+#      DB_PASSWORD: secret
     networks:
       - catalog-network
 
@@ -41,8 +41,43 @@ services:
       - catalog-network
     ports:
       - "9000:9000"
-  #    volumes:
-  #      - ./src:/var/www/html
+    restart: unless-stopped
+#    volumes:
+#      - ./src:/var/www/html
+
+  grafana:
+    container_name: grafana
+    depends_on:
+      - postgres
+    environment:
+      GF_ANALYTICS_ENABLED: 'true'
+      GF_ANALYTICS_CHECK_FOR_UPDATES: 'false'
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: 'false'
+      GF_DEFAULT_INSTANCE_NAME: grafana
+      GF_EXPLORE_ENABLED: 'false'
+      GF_HELP_ENABLED: 'false'
+      GF_LOG_LEVEL: info
+      GF_LOG_MODE: console
+      GF_NEWS_NEWS_FEED_ENABLED: 'false'
+      GF_PLUGINS_ENABLE_ALPHA: 'false'
+      GF_PLUGINS_PLUGIN_ADMIN_ENABLED: 'false'
+      GF_PLUGINS_PREINSTALL_DISABLED: 'true'
+      GF_PUBLIC_DASHBOARDS_ENABLED: 'true'
+      GF_SECURITY_ADMIN_PASSWORD: secret
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ALLOW_EMBEDDING: 'true'
+      GF_SECURITY_DISABLE_GRAVATAR: 'true'
+      GF_UNIFIED_ALERTING_ENABLED: 'false'
+      GF_USERS_ALLOW_ORG_CREATE: 'false'
+      GF_USERS_ALLOW_SIGN_UP: 'false'
+    image: grafana/grafana:12.3.0-ubuntu
+    networks:
+      - catalog-network
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
 
   # Nginx Web Server
   nginx:
@@ -58,30 +93,10 @@ services:
       - catalog-network
     ports:
       - "8080:8080"
+    restart: unless-stopped
     volumes:
       - ./src:/var/www/html
       - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
-
-  # Next.js Frontend Service
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-      args:
-        - NEXT_PUBLIC_API_URL=http://nginx:8080
-    container_name: frontend
-    depends_on:
-      - nginx
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=http://localhost:8080
-    networks:
-      - catalog-network
-    ports:
-      - "3000:3000"
-    restart: unless-stopped
-    stdin_open: true
-    tty: true
 
   # PostgreSQL Database Service
   postgres:
@@ -145,6 +160,8 @@ networks:
     driver: bridge
 
 volumes:
+  grafana-data:
+    driver: local
   postgres-data:
     driver: local
   redis-data:

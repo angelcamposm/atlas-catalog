@@ -46,8 +46,12 @@ jobs:
           DB_DATABASE: database/database.sqlite
           XDEBUG_MODE: coverage
         run: |
-          php artisan test --coverage-clover=coverage.xml --log-junit=test-results.xml --stop-on-failure
-          sed -i 's|tests/|/tests/|g' test-results.xml
+          php artisan test --coverage-clover=coverage.xml --log-junit=junit.xml --stop-on-failure
+        working-directory: ./src
+
+      - name: Update paths
+        run: |
+          sed -i "s|/home/runner/work/atlas-catalog/atlas-catalog|/github/workspace|g" junit.xml
         working-directory: ./src
 
       - name: Analyze with SonarCloud
@@ -58,12 +62,18 @@ jobs:
         with:
           projectBaseDir: ./src
           args: >
-            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php,tests/**
+            -Dsonar.organization=angelcamposm
+            -Dsonar.projectKey=angelcamposm_atlas-catalog
+            -Dsonar.projectName=atlas-catalog
+            -Dsonar.projectVersion=1.0.0
+            -Dsonar.coverage.exclusions=bootstrap/**,config/*.php,database/**,public/index.php,routes/*.php
             -Dsonar.cpd.exclusions=config/*.php,database/**/*.php
             -Dsonar.exclusions=resources/**
-            -Dsonar.organization=angelcamposm
+            -Dsonar.log.level=WARN
             -Dsonar.php.coverage.reportPaths=coverage.xml
             -Dsonar.php.exclusions=vendor/**
-            -Dsonar.php.tests.reportPath=test-results.xml
-            -Dsonar.projectKey=angelcamposm_atlas-catalog
-            -Dsonar.sources=.
+            -Dsonar.php.tests.reportPath=junit.xml
+            -Dsonar.scm.provider=git
+            -Dsonar.sources=app
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.tests=tests
