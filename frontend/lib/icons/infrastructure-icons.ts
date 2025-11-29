@@ -17,18 +17,13 @@ import {
     FaDatabase,
     FaLayerGroup,
     FaProjectDiagram,
+    FaMicrochip,
+    FaGlobe,
+    FaDesktop,
+    FaThLarge,
+    FaRedhat,
 } from "react-icons/fa";
-import {
-    HiCloud,
-    HiServer,
-    HiCube,
-    HiGlobeAlt,
-    HiOfficeBuilding,
-    HiChip,
-    HiDesktopComputer,
-    HiCollection,
-} from "react-icons/hi2";
-import { SiKubernetes, SiOpenshift, SiVmware, SiProxmox } from "react-icons/si";
+import { SiKubernetes, SiVmware, SiProxmox } from "react-icons/si";
 import { IconType } from "react-icons";
 
 /**
@@ -36,25 +31,25 @@ import { IconType } from "react-icons";
  */
 export const INFRASTRUCTURE_TYPE_ICONS: Record<string, IconType> = {
     // Cloud providers
-    cloud: HiCloud,
+    cloud: FaCloud,
     aws: FaCloud,
     azure: FaCloud,
     gcp: FaCloud,
     google: FaCloud,
 
     // On-premise / Physical
-    "on-premise": HiOfficeBuilding,
-    "on-prem": HiOfficeBuilding,
-    onprem: HiOfficeBuilding,
-    physical: HiServer,
-    bare_metal: HiServer,
-    "bare-metal": HiServer,
-    baremetal: HiServer,
-    datacenter: HiOfficeBuilding,
+    "on-premise": FaBuilding,
+    "on-prem": FaBuilding,
+    onprem: FaBuilding,
+    physical: FaServer,
+    bare_metal: FaServer,
+    "bare-metal": FaServer,
+    baremetal: FaServer,
+    datacenter: FaBuilding,
 
     // Virtualization
-    virtual: HiCube,
-    virtualized: HiCube,
+    virtual: FaCubes,
+    virtualized: FaCubes,
     vmware: SiVmware,
     hyperv: FaCubes,
     "hyper-v": FaCubes,
@@ -64,13 +59,13 @@ export const INFRASTRUCTURE_TYPE_ICONS: Record<string, IconType> = {
     // Container / Edge
     container: FaDocker,
     containerized: FaDocker,
-    edge: HiChip,
+    edge: FaMicrochip,
 
     // Hybrid
-    hybrid: HiGlobeAlt,
+    hybrid: FaGlobe,
 
     // Default
-    default: HiServer,
+    default: FaServer,
 };
 
 /**
@@ -90,10 +85,10 @@ export const CLUSTER_TYPE_ICONS: Record<string, IconType> = {
     minikube: SiKubernetes,
     kind: SiKubernetes,
 
-    // OpenShift
-    openshift: SiOpenshift,
-    ocp: SiOpenshift,
-    okd: SiOpenshift,
+    // OpenShift (using RedHat icon as alternative)
+    openshift: FaRedhat,
+    ocp: FaRedhat,
+    okd: FaRedhat,
 
     // Other container orchestrators
     swarm: FaDocker,
