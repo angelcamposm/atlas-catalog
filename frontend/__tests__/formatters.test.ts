@@ -199,7 +199,8 @@ describe("Formatting Utilities", () => {
         });
 
         it("should truncate long strings", () => {
-            const longString = "This is a very long string that should be truncated";
+            const longString =
+                "This is a very long string that should be truncated";
             const result = truncate(longString, 20);
             expect(result.length).toBe(20);
             expect(result.endsWith("...")).toBe(true);
@@ -373,7 +374,9 @@ describe("Formatting Utilities", () => {
         });
 
         it("should handle URL with port", () => {
-            expect(formatHostname("http://localhost:3000/api")).toBe("localhost");
+            expect(formatHostname("http://localhost:3000/api")).toBe(
+                "localhost"
+            );
         });
 
         it("should return original string for invalid URL", () => {

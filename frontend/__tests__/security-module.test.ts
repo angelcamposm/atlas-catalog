@@ -143,7 +143,9 @@ describe("Security Module", () => {
 
                 const result = await serviceAccountsApi.getById(1);
 
-                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/service-accounts/1");
+                expect(mockedApiClient.get).toHaveBeenCalledWith(
+                    "/v1/service-accounts/1"
+                );
                 expect(result.data.name).toBe("ci-cd-service-account");
                 expect(result.data.namespace).toBe("production");
             });
@@ -238,7 +240,9 @@ describe("Security Module", () => {
 
             it("should handle deletion errors", async () => {
                 mockedApiClient.delete.mockRejectedValueOnce(
-                    new Error("Cannot delete service account with active tokens")
+                    new Error(
+                        "Cannot delete service account with active tokens"
+                    )
                 );
 
                 await expect(serviceAccountsApi.delete(1)).rejects.toThrow(
@@ -334,7 +338,10 @@ describe("Security Module", () => {
 
                 mockedApiClient.put.mockResolvedValueOnce(mockResponse);
 
-                const result = await serviceAccountTokensApi.update(1, updateData);
+                const result = await serviceAccountTokensApi.update(
+                    1,
+                    updateData
+                );
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
                     "/v1/service-account-tokens/1",

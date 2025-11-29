@@ -46,7 +46,9 @@ export function formatRelativeTime(
         if (isNaN(date.getTime())) return "-";
 
         const now = new Date();
-        const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+        const diffInSeconds = Math.floor(
+            (now.getTime() - date.getTime()) / 1000
+        );
 
         const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
 
@@ -204,7 +206,9 @@ export function formatDuration(ms: number | null | undefined): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     if (minutes < 60) {
-        return remainingSeconds > 0 ? `${minutes}m ${remainingSeconds}s` : `${minutes}m`;
+        return remainingSeconds > 0
+            ? `${minutes}m ${remainingSeconds}s`
+            : `${minutes}m`;
     }
 
     const hours = Math.floor(minutes / 60);
@@ -245,7 +249,7 @@ export function pluralize(
     singular: string,
     plural?: string
 ): string {
-    return count === 1 ? singular : (plural || `${singular}s`);
+    return count === 1 ? singular : plural || `${singular}s`;
 }
 
 /**

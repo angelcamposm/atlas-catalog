@@ -23,10 +23,7 @@ jest.mock("@/lib/api-client", () => ({
         }),
     },
     ApiError: class ApiError extends Error {
-        constructor(
-            message: string,
-            public status: number
-        ) {
+        constructor(message: string, public status: number) {
             super(message);
         }
     },
@@ -91,7 +88,11 @@ describe("APIs Module", () => {
         it("should fetch all APIs with pagination", async () => {
             const mockResponse = createPaginatedResponse([
                 createApiMock(),
-                createApiMock({ id: 2, name: "orders-api", display_name: "Orders API" }),
+                createApiMock({
+                    id: 2,
+                    name: "orders-api",
+                    display_name: "Orders API",
+                }),
             ]);
 
             mockedApiClient.get.mockResolvedValueOnce(mockResponse);
@@ -166,7 +167,10 @@ describe("APIs Module", () => {
 
             const result = await apisApi.create(createData);
 
-            expect(mockedApiClient.post).toHaveBeenCalledWith("/v1/apis", createData);
+            expect(mockedApiClient.post).toHaveBeenCalledWith(
+                "/v1/apis",
+                createData
+            );
             expect(result.data.name).toBe("new-api");
             expect(result.data.id).toBe(3);
         });
@@ -190,13 +194,18 @@ describe("APIs Module", () => {
 
             const result = await apisApi.create(createData);
 
-            expect(mockedApiClient.post).toHaveBeenCalledWith("/v1/apis", createData);
+            expect(mockedApiClient.post).toHaveBeenCalledWith(
+                "/v1/apis",
+                createData
+            );
             expect(result.data.display_name).toBe("Complete API");
             expect(result.data.version).toBe("2.0.0");
         });
 
         it("should handle API errors during creation", async () => {
-            mockedApiClient.post.mockRejectedValueOnce(new Error("API name already exists"));
+            mockedApiClient.post.mockRejectedValueOnce(
+                new Error("API name already exists")
+            );
 
             await expect(apisApi.create({ name: "duplicate" })).rejects.toThrow(
                 "API name already exists"
@@ -223,7 +232,10 @@ describe("APIs Module", () => {
 
             const result = await apisApi.update(1, updateData);
 
-            expect(mockedApiClient.put).toHaveBeenCalledWith("/v1/apis/1", updateData);
+            expect(mockedApiClient.put).toHaveBeenCalledWith(
+                "/v1/apis/1",
+                updateData
+            );
             expect(result.data.display_name).toBe("Updated API Name");
             expect(result.data.version).toBe("2.0.0");
         });
@@ -257,7 +269,9 @@ describe("APIs Module", () => {
         });
 
         it("should handle delete errors", async () => {
-            mockedApiClient.delete.mockRejectedValueOnce(new Error("API not found"));
+            mockedApiClient.delete.mockRejectedValueOnce(
+                new Error("API not found")
+            );
 
             await expect(apisApi.delete(999)).rejects.toThrow("API not found");
         });

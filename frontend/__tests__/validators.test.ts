@@ -89,8 +89,12 @@ describe("Validation Utilities", () => {
 
     describe("isValidUuid", () => {
         it("should return true for valid UUIDs", () => {
-            expect(isValidUuid("123e4567-e89b-12d3-a456-426614174000")).toBe(true);
-            expect(isValidUuid("550e8400-e29b-41d4-a716-446655440000")).toBe(true);
+            expect(isValidUuid("123e4567-e89b-12d3-a456-426614174000")).toBe(
+                true
+            );
+            expect(isValidUuid("550e8400-e29b-41d4-a716-446655440000")).toBe(
+                true
+            );
         });
 
         it("should return false for invalid UUIDs", () => {
@@ -428,7 +432,12 @@ describe("Validation Utilities", () => {
 
     describe("getAllValidationErrors", () => {
         it("should return all errors", () => {
-            const result = getAllValidationErrors([null, "Error 1", null, "Error 2"]);
+            const result = getAllValidationErrors([
+                null,
+                "Error 1",
+                null,
+                "Error 2",
+            ]);
             expect(result).toEqual(["Error 1", "Error 2"]);
         });
 
