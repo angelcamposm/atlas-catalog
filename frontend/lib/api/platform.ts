@@ -71,10 +71,14 @@ export const platformsApi = {
 };
 
 // Component Types ----------------------------------------------------------
+// TODO: Backend does not have /v1/component-types endpoint yet.
+// These calls will fail until the endpoint is implemented.
+// Consider using ComponentCategory or a different approach.
 
 export const componentTypesApi = {
     /**
      * Get all component types with pagination
+     * @deprecated Backend endpoint not yet implemented
      */
     getAll: async (page = 1): Promise<PaginatedComponentTypeResponse> => {
         const response = await apiClient.get<unknown>(

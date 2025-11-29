@@ -41,7 +41,7 @@ export const clusterTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedClusterTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/cluster-types${apiClient.buildQuery({ page })}`
+            `/v1/clusters/types${apiClient.buildQuery({ page })}`
         );
         return paginatedClusterTypeResponseSchema.parse(response);
     },
@@ -51,7 +51,7 @@ export const clusterTypesApi = {
      */
     getById: async (id: number): Promise<ClusterTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/cluster-types/${id}`
+            `/v1/clusters/types/${id}`
         );
         return clusterTypeResponseSchema.parse(response);
     },
@@ -63,7 +63,7 @@ export const clusterTypesApi = {
         data: CreateClusterTypeRequest
     ): Promise<ClusterTypeResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/cluster-types",
+            "/v1/clusters/types",
             data
         );
         return clusterTypeResponseSchema.parse(response);
@@ -77,7 +77,7 @@ export const clusterTypesApi = {
         data: UpdateClusterTypeRequest
     ): Promise<ClusterTypeResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/cluster-types/${id}`,
+            `/v1/clusters/types/${id}`,
             data
         );
         return clusterTypeResponseSchema.parse(response);
@@ -86,7 +86,7 @@ export const clusterTypesApi = {
     /**
      * Delete a cluster type
      */
-    delete: (id: number) => apiClient.delete(`/v1/cluster-types/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/clusters/types/${id}`),
 };
 
 // Clusters -----------------------------------------------------------------
@@ -185,10 +185,14 @@ export const nodesApi = {
 };
 
 // Cluster Service Accounts -------------------------------------------------
+// TODO: Backend has /v1/service-accounts but not /v1/cluster-service-accounts.
+// Cluster-Service Account relationship may need different endpoint structure.
+// These calls will fail until the endpoint is implemented.
 
 export const clusterServiceAccountsApi = {
     /**
      * Get all cluster service accounts with pagination
+     * @deprecated Backend endpoint not yet implemented
      */
     getAll: async (
         page = 1

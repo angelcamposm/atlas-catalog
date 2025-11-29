@@ -7,6 +7,14 @@ import {
     platformApi,
     integrationApi,
     securityApi,
+    apiExtendedApi,
+    businessApi,
+    technologyApi,
+    groupsApiComplete,
+    complianceApi,
+    resourcesApiComplete,
+    infrastructureTypesApi,
+    serviceAccountsApi,
 } from "@/lib/api";
 
 describe("New API Modules", () => {
@@ -92,6 +100,120 @@ describe("New API Modules", () => {
             expect(securityApi.serviceAccountTokens.create).toBeDefined();
             expect(securityApi.serviceAccountTokens.update).toBeDefined();
             expect(securityApi.serviceAccountTokens.delete).toBeDefined();
+        });
+    });
+
+    describe("API Extended API", () => {
+        it("exports all API extended APIs", () => {
+            expect(apiExtendedApi.categories).toBeDefined();
+            expect(apiExtendedApi.statuses).toBeDefined();
+            expect(apiExtendedApi.accessPolicies).toBeDefined();
+        });
+
+        it("has all CRUD methods for API categories", () => {
+            expect(apiExtendedApi.categories.getAll).toBeDefined();
+            expect(apiExtendedApi.categories.getById).toBeDefined();
+            expect(apiExtendedApi.categories.create).toBeDefined();
+            expect(apiExtendedApi.categories.update).toBeDefined();
+            expect(apiExtendedApi.categories.delete).toBeDefined();
+        });
+    });
+
+    describe("Business API", () => {
+        it("exports all business APIs", () => {
+            expect(businessApi.domains).toBeDefined();
+            expect(businessApi.tiers).toBeDefined();
+            expect(businessApi.environments).toBeDefined();
+        });
+
+        it("has all CRUD methods for business domains", () => {
+            expect(businessApi.domains.getAll).toBeDefined();
+            expect(businessApi.domains.getById).toBeDefined();
+            expect(businessApi.domains.create).toBeDefined();
+            expect(businessApi.domains.update).toBeDefined();
+            expect(businessApi.domains.delete).toBeDefined();
+        });
+    });
+
+    describe("Technology API", () => {
+        it("exports all technology APIs", () => {
+            expect(technologyApi.vendors).toBeDefined();
+            expect(technologyApi.frameworks).toBeDefined();
+            expect(technologyApi.authenticationMethods).toBeDefined();
+        });
+
+        it("has all CRUD methods for vendors", () => {
+            expect(technologyApi.vendors.getAll).toBeDefined();
+            expect(technologyApi.vendors.getById).toBeDefined();
+            expect(technologyApi.vendors.create).toBeDefined();
+            expect(technologyApi.vendors.update).toBeDefined();
+            expect(technologyApi.vendors.delete).toBeDefined();
+        });
+    });
+
+    describe("Groups API", () => {
+        it("exports all groups APIs", () => {
+            expect(groupsApiComplete.groups).toBeDefined();
+            expect(groupsApiComplete.types).toBeDefined();
+            expect(groupsApiComplete.memberRoles).toBeDefined();
+        });
+
+        it("has all CRUD methods for groups", () => {
+            expect(groupsApiComplete.groups.getAll).toBeDefined();
+            expect(groupsApiComplete.groups.getById).toBeDefined();
+            expect(groupsApiComplete.groups.create).toBeDefined();
+            expect(groupsApiComplete.groups.update).toBeDefined();
+            expect(groupsApiComplete.groups.delete).toBeDefined();
+        });
+    });
+
+    describe("Compliance API", () => {
+        it("exports all compliance APIs", () => {
+            expect(complianceApi.standards).toBeDefined();
+            expect(complianceApi.serviceStatuses).toBeDefined();
+        });
+
+        it("has all CRUD methods for compliance standards", () => {
+            expect(complianceApi.standards.getAll).toBeDefined();
+            expect(complianceApi.standards.getById).toBeDefined();
+            expect(complianceApi.standards.create).toBeDefined();
+            expect(complianceApi.standards.update).toBeDefined();
+            expect(complianceApi.standards.delete).toBeDefined();
+        });
+    });
+
+    describe("Resources API", () => {
+        it("exports all resources APIs", () => {
+            expect(resourcesApiComplete.resources).toBeDefined();
+            expect(resourcesApiComplete.categories).toBeDefined();
+        });
+
+        it("has all CRUD methods for resources", () => {
+            expect(resourcesApiComplete.resources.getAll).toBeDefined();
+            expect(resourcesApiComplete.resources.getById).toBeDefined();
+            expect(resourcesApiComplete.resources.create).toBeDefined();
+            expect(resourcesApiComplete.resources.update).toBeDefined();
+            expect(resourcesApiComplete.resources.delete).toBeDefined();
+        });
+    });
+
+    describe("Infrastructure Types API", () => {
+        it("has all CRUD methods", () => {
+            expect(infrastructureTypesApi.getAll).toBeDefined();
+            expect(infrastructureTypesApi.getById).toBeDefined();
+            expect(infrastructureTypesApi.create).toBeDefined();
+            expect(infrastructureTypesApi.update).toBeDefined();
+            expect(infrastructureTypesApi.delete).toBeDefined();
+        });
+    });
+
+    describe("Service Accounts API", () => {
+        it("has all CRUD methods", () => {
+            expect(serviceAccountsApi.getAll).toBeDefined();
+            expect(serviceAccountsApi.getById).toBeDefined();
+            expect(serviceAccountsApi.create).toBeDefined();
+            expect(serviceAccountsApi.update).toBeDefined();
+            expect(serviceAccountsApi.delete).toBeDefined();
         });
     });
 });

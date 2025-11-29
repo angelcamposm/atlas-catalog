@@ -25,49 +25,54 @@ import type {
 
 export const linkTypesApi = {
     /**
-     * Get all link types with pagination
+     * Get all link types (categories) with pagination
      */
     getAll: async (page = 1): Promise<PaginatedLinkTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/link-types${apiClient.buildQuery({ page })}`
+            `/v1/links/categories${apiClient.buildQuery({ page })}`
         );
         return paginatedLinkTypeResponseSchema.parse(response);
     },
 
     /**
-     * Get a single link type by ID
+     * Get a single link type (category) by ID
      */
     getById: async (id: number): Promise<LinkTypeResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/link-types/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/links/categories/${id}`
+        );
         return linkTypeResponseSchema.parse(response);
     },
 
     /**
-     * Create a new link type
+     * Create a new link type (category)
      */
     create: async (data: CreateLinkTypeRequest): Promise<LinkTypeResponse> => {
-        const response = await apiClient.post<unknown>("/v1/link-types", data);
-        return linkTypeResponseSchema.parse(response);
-    },
-
-    /**
-     * Update an existing link type
-     */
-    update: async (
-        id: number,
-        data: UpdateLinkTypeRequest
-    ): Promise<LinkTypeResponse> => {
-        const response = await apiClient.put<unknown>(
-            `/v1/link-types/${id}`,
+        const response = await apiClient.post<unknown>(
+            "/v1/links/categories",
             data
         );
         return linkTypeResponseSchema.parse(response);
     },
 
     /**
-     * Delete a link type
+     * Update an existing link type (category)
      */
-    delete: (id: number) => apiClient.delete(`/v1/link-types/${id}`),
+    update: async (
+        id: number,
+        data: UpdateLinkTypeRequest
+    ): Promise<LinkTypeResponse> => {
+        const response = await apiClient.put<unknown>(
+            `/v1/links/categories/${id}`,
+            data
+        );
+        return linkTypeResponseSchema.parse(response);
+    },
+
+    /**
+     * Delete a link type (category)
+     */
+    delete: (id: number) => apiClient.delete(`/v1/links/categories/${id}`),
 };
 
 // Links --------------------------------------------------------------------

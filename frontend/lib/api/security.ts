@@ -16,10 +16,14 @@ import type {
 } from "@/types/api";
 
 // Service Account Tokens ---------------------------------------------------
+// TODO: Backend has /v1/service-accounts but not /v1/service-account-tokens.
+// Service Account Tokens may be a nested resource under service-accounts.
+// These calls will fail until the endpoint structure is clarified.
 
 export const serviceAccountTokensApi = {
     /**
      * Get all service account tokens with pagination
+     * @deprecated Backend endpoint not yet implemented - consider /v1/service-accounts
      */
     getAll: async (page = 1): Promise<PaginatedServiceAccountTokenResponse> => {
         const response = await apiClient.get<unknown>(

@@ -13,6 +13,8 @@ A modern Next.js application for visualizing and managing API catalogs with inte
 -   **Typography**: [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin)
 -   **Internationalization**: [next-intl v4](https://next-intl.dev)
 -   **API Client**: Custom REST client with TypeScript types
+-   **Unit Testing**: [Jest](https://jestjs.io) + [Testing Library](https://testing-library.com)
+-   **E2E Testing**: [Playwright](https://playwright.dev)
 
 ## 📁 Project Structure
 
@@ -44,6 +46,12 @@ frontend/
 │   └── es.json              # Spanish translations
 ├── types/
 │   └── api.ts               # TypeScript API types
+├── __tests__/               # Unit tests (Jest)
+├── e2e/                     # E2E tests (Playwright)
+│   ├── auth/                # Authentication tests
+│   ├── infrastructure/      # Clusters, Nodes tests
+│   ├── integration/         # Links, APIs tests
+│   └── navigation/          # Navigation tests
 └── public/                  # Static assets
 ```
 
@@ -419,6 +427,86 @@ The Dockerfile uses multi-stage builds for optimized production images.
 3. Add translations for new features
 4. Test in both light and dark modes
 5. Ensure components are accessible
+6. Write unit tests for new API modules
+7. Add E2E tests for new user flows
+
+## 🧪 Testing
+
+Atlas Catalog uses a comprehensive testing strategy with **Jest** for unit tests and **Playwright** for E2E tests.
+
+### Unit Tests (Jest)
+
+Unit tests are located in `__tests__/` and test API modules, utilities, and component logic.
+
+```bash
+# Run all unit tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run specific test file
+npx jest --testPathPattern="clusters-api"
+```
+
+**Test coverage includes:**
+
+-   API client and modules (`lib/api/`)
+-   Zod schema validation
+-   Utility functions
+
+### E2E Tests (Playwright)
+
+E2E tests are located in `e2e/` and test complete user flows in a real browser.
+
+```bash
+# Run all E2E tests (headless)
+npm run test:e2e
+
+# Run E2E tests with UI mode (interactive)
+npm run test:e2e:ui
+
+# Run E2E tests in headed browser
+npm run test:e2e:headed
+
+# Debug E2E tests
+npm run test:e2e:debug
+
+# View test report
+npm run test:e2e:report
+```
+
+**E2E test structure:**
+
+```text
+e2e/
+├── fixtures.ts              # Shared test utilities & data
+├── auth/
+│   └── login.spec.ts        # Authentication flows
+├── infrastructure/
+│   └── clusters.spec.ts     # Cluster CRUD operations
+├── integration/
+│   └── links.spec.ts        # Links & APIs CRUD
+└── navigation/
+    └── sidebar.spec.ts      # Navigation & routing
+```
+
+**E2E tests cover:**
+
+-   🔐 Authentication (login, logout, protected routes)
+-   📋 CRUD operations (Clusters, Links, APIs)
+-   🧭 Navigation (sidebar, breadcrumbs, language switching)
+-   ✅ Form validation
+-   📱 Responsive behavior
+
+### Running Tests in CI
+
+```bash
+# Run all tests
+npm test && npm run test:e2e
+```
+
+Playwright is configured to start the dev server automatically when running E2E tests.
 
 ## 📄 License
 

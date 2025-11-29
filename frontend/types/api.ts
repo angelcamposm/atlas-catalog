@@ -161,6 +161,47 @@ export const serviceStatusSchema = z
     .merge(userReferenceSchema);
 export type ServiceStatus = z.infer<typeof serviceStatusSchema>;
 
+// Compliance Standards
+export const complianceStandardSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        display_name: nullableString(),
+        description: nullableString(),
+        country_code: nullableString(),
+        focus_area: nullableString(),
+        industry: nullableString(),
+        url: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ComplianceStandard = z.infer<typeof complianceStandardSchema>;
+
+// Infrastructure Types
+export const infrastructureTypeSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type InfrastructureType = z.infer<typeof infrastructureTypeSchema>;
+
+// Resource Categories
+export const resourceCategorySchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+        icon: nullableString(),
+        model: nullableString(),
+        parent_id: nullableNumber(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ResourceCategory = z.infer<typeof resourceCategorySchema>;
+
 export const operationalStatusSchema = z
     .object({
         id: z.number().int(),
@@ -480,11 +521,15 @@ export const clusterSchema = z
         cluster_uuid: nullableString(),
         display_name: nullableString(),
         full_version: nullableString(),
+        has_licensing: z.boolean().optional().nullable(),
+        infrastructure_type_id: nullableNumber(),
+        licensing_model: nullableString(),
         lifecycle_id: nullableNumber(),
-        tags: z.record(z.string(), z.unknown()).optional().nullable(),
+        tags: nullableString(),
         timezone: nullableString(),
         type_id: nullableNumber(),
-        url: nullableNumber(),
+        url: nullableString(),
+        vendor_id: nullableNumber(),
         version: nullableString(),
     })
     .merge(timestampsSchema)
@@ -878,6 +923,144 @@ export type PaginatedClusterServiceAccountResponse = z.infer<
     typeof paginatedClusterServiceAccountResponseSchema
 >;
 
+// API Access Policies
+export const apiAccessPolicyResponseSchema = createResourceResponseSchema(
+    apiAccessPolicySchema
+);
+export type ApiAccessPolicyResponse = z.infer<
+    typeof apiAccessPolicyResponseSchema
+>;
+
+export const paginatedApiAccessPolicyResponseSchema =
+    createPaginatedResponseSchema(apiAccessPolicySchema);
+export type PaginatedApiAccessPolicyResponse = z.infer<
+    typeof paginatedApiAccessPolicyResponseSchema
+>;
+
+// Authentication Methods
+export const authenticationMethodResponseSchema = createResourceResponseSchema(
+    authenticationMethodSchema
+);
+export type AuthenticationMethodResponse = z.infer<
+    typeof authenticationMethodResponseSchema
+>;
+
+export const paginatedAuthenticationMethodResponseSchema =
+    createPaginatedResponseSchema(authenticationMethodSchema);
+export type PaginatedAuthenticationMethodResponse = z.infer<
+    typeof paginatedAuthenticationMethodResponseSchema
+>;
+
+// Groups
+export const groupResponseSchema = createResourceResponseSchema(groupSchema);
+export type GroupResponse = z.infer<typeof groupResponseSchema>;
+
+export const paginatedGroupResponseSchema =
+    createPaginatedResponseSchema(groupSchema);
+export type PaginatedGroupResponse = z.infer<
+    typeof paginatedGroupResponseSchema
+>;
+
+export const groupTypeResponseSchema =
+    createResourceResponseSchema(groupTypeSchema);
+export type GroupTypeResponse = z.infer<typeof groupTypeResponseSchema>;
+
+export const paginatedGroupTypeResponseSchema =
+    createPaginatedResponseSchema(groupTypeSchema);
+export type PaginatedGroupTypeResponse = z.infer<
+    typeof paginatedGroupTypeResponseSchema
+>;
+
+export const groupMemberRoleResponseSchema = createResourceResponseSchema(
+    groupMemberRoleSchema
+);
+export type GroupMemberRoleResponse = z.infer<
+    typeof groupMemberRoleResponseSchema
+>;
+
+export const paginatedGroupMemberRoleResponseSchema =
+    createPaginatedResponseSchema(groupMemberRoleSchema);
+export type PaginatedGroupMemberRoleResponse = z.infer<
+    typeof paginatedGroupMemberRoleResponseSchema
+>;
+
+// Service Statuses
+export const serviceStatusResponseSchema =
+    createResourceResponseSchema(serviceStatusSchema);
+export type ServiceStatusResponse = z.infer<typeof serviceStatusResponseSchema>;
+
+export const paginatedServiceStatusResponseSchema =
+    createPaginatedResponseSchema(serviceStatusSchema);
+export type PaginatedServiceStatusResponse = z.infer<
+    typeof paginatedServiceStatusResponseSchema
+>;
+
+// Compliance Standards
+export const complianceStandardResponseSchema = createResourceResponseSchema(
+    complianceStandardSchema
+);
+export type ComplianceStandardResponse = z.infer<
+    typeof complianceStandardResponseSchema
+>;
+
+export const paginatedComplianceStandardResponseSchema =
+    createPaginatedResponseSchema(complianceStandardSchema);
+export type PaginatedComplianceStandardResponse = z.infer<
+    typeof paginatedComplianceStandardResponseSchema
+>;
+
+// Infrastructure Types
+export const infrastructureTypeResponseSchema = createResourceResponseSchema(
+    infrastructureTypeSchema
+);
+export type InfrastructureTypeResponse = z.infer<
+    typeof infrastructureTypeResponseSchema
+>;
+
+export const paginatedInfrastructureTypeResponseSchema =
+    createPaginatedResponseSchema(infrastructureTypeSchema);
+export type PaginatedInfrastructureTypeResponse = z.infer<
+    typeof paginatedInfrastructureTypeResponseSchema
+>;
+
+// Resource Categories
+export const resourceCategoryResponseSchema = createResourceResponseSchema(
+    resourceCategorySchema
+);
+export type ResourceCategoryResponse = z.infer<
+    typeof resourceCategoryResponseSchema
+>;
+
+export const paginatedResourceCategoryResponseSchema =
+    createPaginatedResponseSchema(resourceCategorySchema);
+export type PaginatedResourceCategoryResponse = z.infer<
+    typeof paginatedResourceCategoryResponseSchema
+>;
+
+// Resources
+export const resourceResponseSchema =
+    createResourceResponseSchema(resourceSchema);
+export type ResourceResponse = z.infer<typeof resourceResponseSchema>;
+
+export const paginatedResourceResponseSchema =
+    createPaginatedResponseSchema(resourceSchema);
+export type PaginatedResourceResponse = z.infer<
+    typeof paginatedResourceResponseSchema
+>;
+
+// Service Accounts
+export const serviceAccountResponseSchema =
+    createResourceResponseSchema(serviceAccountSchema);
+export type ServiceAccountResponse = z.infer<
+    typeof serviceAccountResponseSchema
+>;
+
+export const paginatedServiceAccountResponseSchema =
+    createPaginatedResponseSchema(serviceAccountSchema);
+export type PaginatedServiceAccountResponse = z.infer<
+    typeof paginatedServiceAccountResponseSchema
+>;
+
 // Request Payloads ---------------------------------------------------------
 
 // APIs
@@ -1066,14 +1249,20 @@ export type UpdateClusterTypeRequest = Partial<CreateClusterTypeRequest>;
 
 export interface CreateClusterRequest {
     name: string;
-    version?: string;
-    type_id?: number;
     api_url?: string;
+    cluster_uuid?: string;
     display_name?: string;
     full_version?: string;
+    has_licensing?: boolean;
+    licensing_model?: string;
     lifecycle_id?: number;
+    tags?: string;
     timezone?: string;
-    tags?: Record<string, unknown>;
+    type_id?: number;
+    vendor_id?: number;
+    infrastructure_type_id?: number;
+    version?: string;
+    url?: string;
 }
 
 export type UpdateClusterRequest = Partial<CreateClusterRequest>;
@@ -1169,6 +1358,73 @@ export interface CreateGroupTypeRequest {
 }
 
 export type UpdateGroupTypeRequest = Partial<CreateGroupTypeRequest>;
+
+export interface CreateGroupMemberRoleRequest {
+    name: string;
+    description?: string;
+}
+
+export type UpdateGroupMemberRoleRequest =
+    Partial<CreateGroupMemberRoleRequest>;
+
+// Service Statuses
+export interface CreateServiceStatusRequest {
+    name: string;
+}
+
+export type UpdateServiceStatusRequest = Partial<CreateServiceStatusRequest>;
+
+// Compliance Standards
+export interface CreateComplianceStandardRequest {
+    name: string;
+    display_name?: string;
+    description?: string;
+    country_code?: string;
+    focus_area?: string;
+    industry?: string;
+    url?: string;
+}
+
+export type UpdateComplianceStandardRequest =
+    Partial<CreateComplianceStandardRequest>;
+
+// Infrastructure Types
+export interface CreateInfrastructureTypeRequest {
+    name: string;
+    description?: string;
+}
+
+export type UpdateInfrastructureTypeRequest =
+    Partial<CreateInfrastructureTypeRequest>;
+
+// Resource Categories
+export interface CreateResourceCategoryRequest {
+    name: string;
+    description?: string;
+    icon?: string;
+    model?: string;
+    parent_id?: number;
+}
+
+export type UpdateResourceCategoryRequest =
+    Partial<CreateResourceCategoryRequest>;
+
+// Resources
+export interface CreateResourceRequest {
+    name: string;
+    url?: string;
+    type_id?: number;
+}
+
+export type UpdateResourceRequest = Partial<CreateResourceRequest>;
+
+// Service Accounts
+export interface CreateServiceAccountRequest {
+    name: string;
+    description?: string;
+}
+
+export type UpdateServiceAccountRequest = Partial<CreateServiceAccountRequest>;
 
 // Releases and Deployments
 export interface CreateReleaseRequest {
