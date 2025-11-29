@@ -34,6 +34,10 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import {
+    ClusterTypeIcon,
+    InfrastructureTypeIcon,
+} from "@/components/ui/TypeIcons";
 
 interface CreateClusterFormProps {
     onSuccess?: () => void;
@@ -179,7 +183,14 @@ export function CreateClusterForm({
                                         key={type.id}
                                         value={type.id.toString()}
                                     >
-                                        {type.name}
+                                        <span className="flex items-center gap-2">
+                                            <ClusterTypeIcon
+                                                name={type.name}
+                                                iconClass={type.icon}
+                                                size="sm"
+                                            />
+                                            {type.name}
+                                        </span>
                                     </SelectItem>
                                 ))}
                             </SelectContent>
@@ -212,7 +223,13 @@ export function CreateClusterForm({
                                         key={type.id}
                                         value={type.id.toString()}
                                     >
-                                        {type.name}
+                                        <span className="flex items-center gap-2">
+                                            <InfrastructureTypeIcon
+                                                name={type.name}
+                                                size="sm"
+                                            />
+                                            {type.name}
+                                        </span>
                                     </SelectItem>
                                 ))}
                             </SelectContent>
