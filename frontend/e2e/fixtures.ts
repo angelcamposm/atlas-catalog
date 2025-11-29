@@ -55,6 +55,15 @@ export const testData = {
         name: () => testData.uniqueName("test-link"),
         description: "Link created by E2E test",
     },
+
+    /**
+     * Sample Platform data
+     */
+    platform: {
+        name: `Test Platform ${Date.now()}`,
+        description: "Platform created by E2E test",
+        icon: "server",
+    },
 };
 
 /**

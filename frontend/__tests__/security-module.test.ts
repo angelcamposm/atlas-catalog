@@ -300,6 +300,7 @@ describe("Security Module", () => {
             it("should create a new service account token", async () => {
                 const createData = {
                     service_account_id: 1,
+                    name: "new-token",
                     token: "sak_new_token_value",
                     expires_at: "2025-12-31T23:59:59Z",
                 };

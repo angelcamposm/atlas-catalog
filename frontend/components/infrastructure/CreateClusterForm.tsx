@@ -63,10 +63,16 @@ export function CreateClusterForm({
         infrastructure_type_id: undefined,
         vendor_id: undefined,
         has_licensing: false,
-        licensing_model: "",
+        licensing_model: "none",
         timezone: "",
         cluster_uuid: "",
     });
+
+    // Valid licensing models from backend K8sLicensingModel enum
+    const licensingModels = [
+        { value: "none", label: "None" },
+        { value: "openshift", label: "OpenShift" },
+    ];
 
     useEffect(() => {
         loadFormData();
@@ -341,19 +347,26 @@ export function CreateClusterForm({
                             <Label htmlFor="licensing_model">
                                 Licensing Model
                             </Label>
-                            <Input
-                                id="licensing_model"
-                                value={formData.licensing_model || ""}
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) =>
-                                    handleChange(
-                                        "licensing_model",
-                                        e.target.value
-                                    )
+                            <Select
+                                value={formData.licensing_model || "none"}
+                                onValueChange={(value) =>
+                                    handleChange("licensing_model", value)
                                 }
-                                placeholder="e.g., PAYG, Enterprise"
-                            />
+                            >
+                                <SelectTrigger id="licensing_model">
+                                    <SelectValue placeholder="Select licensing model" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {licensingModels.map((model) => (
+                                        <SelectItem
+                                            key={model.value}
+                                            value={model.value}
+                                        >
+                                            {model.label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
                         </div>
                     )}
 

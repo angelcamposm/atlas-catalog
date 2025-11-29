@@ -181,9 +181,10 @@ describe("Platform Module", () => {
         });
 
         describe("platformsApi.create", () => {
-            it("should create a new platform with required fields", async () => {
+            it("should create a platform with minimum required fields", async () => {
                 const createData = {
                     name: "new-platform",
+                    icon: "default-icon",
                 };
 
                 const mockResponse = {
@@ -232,7 +233,7 @@ describe("Platform Module", () => {
                 );
 
                 await expect(
-                    platformsApi.create({ name: "duplicate" })
+                    platformsApi.create({ name: "duplicate", icon: "icon" })
                 ).rejects.toThrow("Platform name already exists");
             });
         });

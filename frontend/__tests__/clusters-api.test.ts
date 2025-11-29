@@ -48,7 +48,7 @@ const createClusterMock = (overrides = {}) => ({
     vendor_id: 1,
     infrastructure_type_id: 1,
     has_licensing: true,
-    licensing_model: "Enterprise",
+    licensing_model: "openshift",
     timezone: "UTC",
     tags: "production,kubernetes", // Tags is a string in the backend
     created_at: "2024-01-01T00:00:00Z",
@@ -167,7 +167,7 @@ describe("Clusters API", () => {
                 infrastructure_type_id: 3,
                 vendor_id: 4,
                 has_licensing: true,
-                licensing_model: "Enterprise",
+                licensing_model: "openshift",
                 timezone: "UTC",
                 cluster_uuid: "550e8400-e29b-41d4-a716-446655440000",
             };
@@ -189,7 +189,7 @@ describe("Clusters API", () => {
             );
             expect(result.data.name).toBe("full-cluster");
             expect(result.data.has_licensing).toBe(true);
-            expect(result.data.licensing_model).toBe("Enterprise");
+            expect(result.data.licensing_model).toBe("openshift");
         });
 
         it("should handle API errors during creation", async () => {

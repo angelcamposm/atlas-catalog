@@ -161,9 +161,7 @@ describe("Integration Module", () => {
             it("should create a new link with required fields", async () => {
                 const createData = {
                     name: "new-link",
-                    type_id: 1,
-                    model_name: "Api",
-                    model_id: 1,
+                    url: "https://example.com/link",
                 };
 
                 const mockResponse = {
@@ -182,15 +180,12 @@ describe("Integration Module", () => {
                     createData
                 );
                 expect(result.data.name).toBe("new-link");
-                expect(result.data.model_name).toBe("Api");
             });
 
             it("should create a link with optional description", async () => {
                 const createData = {
                     name: "documented-link",
-                    type_id: 2,
-                    model_name: "Api",
-                    model_id: 1,
+                    url: "https://example.com/documented-link",
                     description: "API publishes messages to this queue",
                 };
 
@@ -205,7 +200,7 @@ describe("Integration Module", () => {
                 expect(result.data.description).toBe(
                     "API publishes messages to this queue"
                 );
-                expect(result.data.type_id).toBe(2);
+                expect(result.data.name).toBe("documented-link");
             });
         });
 

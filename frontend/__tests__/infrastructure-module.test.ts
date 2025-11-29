@@ -43,7 +43,7 @@ const createClusterMock = (overrides = {}) => ({
     cluster_type_id: 1,
     lifecycle_id: 2,
     has_licensing: true,
-    licensing_model: "subscription",
+    licensing_model: "openshift",
     vendor_id: 1,
     infrastructure_type_id: 1,
     tags: null,
@@ -71,7 +71,7 @@ const createClusterTypeMock = (overrides = {}) => ({
 const createNodeMock = (overrides = {}) => ({
     id: 1,
     name: "node-01",
-    cpu_architecture: "x86",
+    cpu_architecture: "x86-64",
     cpu_count: 8,
     cpu_sockets: 2,
     cpu_type: "Intel Xeon",
@@ -206,7 +206,7 @@ describe("Infrastructure Module", () => {
                     cluster_type_id: 1,
                     lifecycle_id: 1,
                     has_licensing: true,
-                    licensing_model: "perpetual",
+                    licensing_model: "openshift",
                     vendor_id: 2,
                     infrastructure_type_id: 1,
                     tags: "production,critical",
@@ -446,8 +446,12 @@ describe("Infrastructure Module", () => {
             it("should create a new node", async () => {
                 const createData = {
                     name: "node-03",
+                    cpu_cores: 4,
+                    cpu_threads: 8,
+                    os: "Linux",
+                    os_version: "Ubuntu 22.04",
                     ip_address: "192.168.1.103",
-                    cpu_architecture: "x86",
+                    cpu_architecture: "x86-64",
                     is_virtual: true,
                 };
 

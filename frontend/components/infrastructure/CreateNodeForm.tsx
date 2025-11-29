@@ -33,17 +33,19 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<CreateNodeRequest>({
         name: "",
-        ip_address: "",
-        fqdn: "",
+        cpu_cores: 1,
+        cpu_threads: 1,
         os: "",
         os_version: "",
-        cpu_architecture: "x86_64",
-        cpu_cores: undefined,
+        ip_address: "",
+        fqdn: "",
+        cpu_architecture: "x86-64",
         cpu_sockets: undefined,
         cpu_type: "",
         is_virtual: true,
         memory_bytes: undefined,
         node_type: "V",
+        discovery_source: "Manual",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -173,6 +175,8 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 <SelectContent>
                                     <SelectItem value="V">Virtual</SelectItem>
                                     <SelectItem value="P">Physical</SelectItem>
+                                    <SelectItem value="H">Hybrid</SelectItem>
+                                    <SelectItem value="U">Unknown</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -183,7 +187,7 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                 CPU Architecture
                             </Label>
                             <Select
-                                value={formData.cpu_architecture ?? "x86_64"}
+                                value={formData.cpu_architecture ?? "x86-64"}
                                 onValueChange={(value: string) =>
                                     handleChange("cpu_architecture", value)
                                 }
@@ -192,23 +196,27 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="x86_64">
-                                        x86_64
+                                    <SelectItem value="x86-64">
+                                        x86-64
                                     </SelectItem>
                                     <SelectItem value="arm64">ARM64</SelectItem>
-                                    <SelectItem value="x86">x86</SelectItem>
+                                    <SelectItem value="arm">ARM</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
 
                         {/* CPU Cores */}
                         <div className="space-y-2">
-                            <Label htmlFor="cpu_cores">CPU Cores</Label>
+                            <Label htmlFor="cpu_cores">
+                                CPU Cores{" "}
+                                <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="cpu_cores"
                                 type="number"
+                                required
                                 min={1}
-                                value={formData.cpu_cores ?? ""}
+                                value={formData.cpu_cores}
                                 onChange={(
                                     e: React.ChangeEvent<HTMLInputElement>
                                 ) =>
@@ -216,10 +224,36 @@ export function CreateNodeForm({ onSuccess, onCancel }: CreateNodeFormProps) {
                                         "cpu_cores",
                                         e.target.value
                                             ? parseInt(e.target.value)
-                                            : undefined
+                                            : 1
                                     )
                                 }
                                 placeholder="e.g., 4"
+                            />
+                        </div>
+
+                        {/* CPU Threads */}
+                        <div className="space-y-2">
+                            <Label htmlFor="cpu_threads">
+                                CPU Threads{" "}
+                                <span className="text-destructive">*</span>
+                            </Label>
+                            <Input
+                                id="cpu_threads"
+                                type="number"
+                                required
+                                min={1}
+                                value={formData.cpu_threads}
+                                onChange={(
+                                    e: React.ChangeEvent<HTMLInputElement>
+                                ) =>
+                                    handleChange(
+                                        "cpu_threads",
+                                        e.target.value
+                                            ? parseInt(e.target.value)
+                                            : 1
+                                    )
+                                }
+                                placeholder="e.g., 8"
                             />
                         </div>
 

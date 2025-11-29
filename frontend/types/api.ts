@@ -21,8 +21,8 @@ export const timestampsSchema = z.object({
 export type Timestamps = z.infer<typeof timestampsSchema>;
 
 export const userReferenceSchema = z.object({
-    created_by: z.number().int().nullable(),
-    updated_by: z.number().int().nullable(),
+    created_by: z.number().int().nullable().optional(),
+    updated_by: z.number().int().nullable().optional(),
 });
 export type UserReference = z.infer<typeof userReferenceSchema>;
 
@@ -1127,8 +1127,8 @@ export type UpdateApiCategoryRequest = Partial<CreateApiCategoryRequest>;
 // Lifecycles
 export interface CreateLifecycleRequest {
     name: string;
+    color: string; // Required by backend
     description?: string;
-    color?: string;
     approval_required?: boolean;
 }
 
@@ -1148,10 +1148,10 @@ export type UpdateProgrammingLanguageRequest =
 // Frameworks
 export interface CreateFrameworkRequest {
     name: string;
-    language_id: number;
+    language_id: number; // Required by backend
+    icon: string; // Required by backend
+    url: string; // Required by backend
     description?: string;
-    icon?: string;
-    url?: string;
     is_enabled?: boolean;
 }
 
@@ -1161,7 +1161,7 @@ export type UpdateFrameworkRequest = Partial<CreateFrameworkRequest>;
 export interface CreatePlatformRequest {
     name: string;
     description?: string;
-    icon?: string;
+    icon: string; // Required by backend
 }
 
 export type UpdatePlatformRequest = Partial<CreatePlatformRequest>;
@@ -1269,19 +1269,19 @@ export type UpdateClusterRequest = Partial<CreateClusterRequest>;
 
 export interface CreateNodeRequest {
     name: string;
+    cpu_cores: number; // Required by backend
+    cpu_threads: number; // Required by backend
+    os: string; // Required by backend
+    os_version: string; // Required by backend
     hostname?: string;
     ip_address?: string;
     mac_address?: string;
     fqdn?: string;
     cpu_architecture?: string;
-    cpu_cores?: number;
-    cpu_threads?: number;
     cpu_sockets?: number;
     cpu_type?: string;
     smt_enabled?: boolean;
     memory_bytes?: number;
-    os: string;
-    os_version: string;
     node_type?: string;
     is_virtual?: boolean;
     lifecycle_id?: number;
@@ -1329,12 +1329,9 @@ export interface CreateLinkTypeRequest {
 export type UpdateLinkTypeRequest = Partial<CreateLinkTypeRequest>;
 
 export interface CreateLinkRequest {
-    name?: string;
-    type_id?: number;
-    model_name?: string;
-    model_id?: number;
+    name: string; // Required by backend
+    url: string; // Required by backend
     description?: string;
-    url?: string;
 }
 
 export type UpdateLinkRequest = Partial<CreateLinkRequest>;
@@ -1421,6 +1418,7 @@ export type UpdateResourceRequest = Partial<CreateResourceRequest>;
 // Service Accounts
 export interface CreateServiceAccountRequest {
     name: string;
+    namespace?: string;
     description?: string;
 }
 

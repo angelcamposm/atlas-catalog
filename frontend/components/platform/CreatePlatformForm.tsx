@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { IconPicker } from "@/components/ui/IconPicker";
 
 interface CreatePlatformFormProps {
     onSuccess?: () => void;
@@ -97,17 +98,12 @@ export function CreatePlatformForm({
                     </div>
 
                     {/* Icon */}
-                    <div className="space-y-2">
-                        <Label htmlFor="icon">Icon</Label>
-                        <Input
-                            id="icon"
-                            value={formData.icon ?? ""}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                            ) => handleChange("icon", e.target.value)}
-                            placeholder="e.g., server-icon"
-                        />
-                    </div>
+                    <IconPicker
+                        value={formData.icon}
+                        onChange={(value) => handleChange("icon", value)}
+                        required
+                        disabled={loading}
+                    />
 
                     {/* Actions */}
                     <div className="flex gap-2 pt-4">
