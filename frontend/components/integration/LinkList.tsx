@@ -124,7 +124,7 @@ export function LinkList({ onSelectLink, showActions = true }: LinkListProps) {
                                     </div>
                                     <div>
                                         <CardTitle className="text-lg">
-                                            {link.name}
+                                            {link.name ?? `Link #${link.id}`}
                                         </CardTitle>
                                         {link.description && (
                                             <CardDescription>
@@ -133,64 +133,61 @@ export function LinkList({ onSelectLink, showActions = true }: LinkListProps) {
                                         )}
                                     </div>
                                 </div>
-                                {link.link_type && (
+                                {link.type_id && (
                                     <Badge variant="secondary">
-                                        {link.link_type.name}
+                                        Type ID: {link.type_id}
                                     </Badge>
                                 )}
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex items-center gap-4">
-                                {/* Source */}
-                                <div className="flex-1">
+                            <div className="grid grid-cols-2 gap-4">
+                                {/* Model Info */}
+                                <div>
                                     <p className="text-sm text-muted-foreground mb-1">
-                                        Source
+                                        Model
                                     </p>
                                     <div className="flex items-center gap-2">
-                                        <Badge variant="primary">
-                                            {link.source_type}
-                                        </Badge>
-                                        <span className="text-sm font-medium">
-                                            ID: {link.source_id}
-                                        </span>
+                                        {link.model_name && (
+                                            <Badge variant="primary">
+                                                {link.model_name}
+                                            </Badge>
+                                        )}
+                                        {link.model_id && (
+                                            <span className="text-sm font-medium">
+                                                ID: {link.model_id}
+                                            </span>
+                                        )}
+                                        {!link.model_name && !link.model_id && (
+                                            <span className="text-sm text-muted-foreground">
+                                                N/A
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
 
-                                {/* Arrow */}
-                                <ArrowRight className="h-5 w-5 text-muted-foreground shrink-0" />
-
-                                {/* Target */}
-                                <div className="flex-1">
+                                {/* URL */}
+                                <div>
                                     <p className="text-sm text-muted-foreground mb-1">
-                                        Target
+                                        URL
                                     </p>
-                                    <div className="flex items-center gap-2">
-                                        <Badge variant="warning">
-                                            {link.target_type}
-                                        </Badge>
-                                        <span className="text-sm font-medium">
-                                            ID: {link.target_id}
+                                    {link.url ? (
+                                        <a
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sm text-blue-600 hover:underline dark:text-blue-400 truncate block"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                            {link.url}
+                                        </a>
+                                    ) : (
+                                        <span className="text-sm text-muted-foreground">
+                                            N/A
                                         </span>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
-
-                            {/* Protocol & Communication Style */}
-                            {(link.protocol || link.communication_style) && (
-                                <div className="mt-4 flex gap-2">
-                                    {link.protocol && (
-                                        <Badge variant="secondary">
-                                            {link.protocol.toUpperCase()}
-                                        </Badge>
-                                    )}
-                                    {link.communication_style && (
-                                        <Badge variant="secondary">
-                                            {link.communication_style}
-                                        </Badge>
-                                    )}
-                                </div>
-                            )}
 
                             {showActions && (
                                 <div className="mt-4 flex gap-2">

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { linksApi, linkTypesApi } from "@/lib/api";
 import type { CreateLinkRequest, LinkType } from "@/types/api";
-import { Protocol, CommunicationStyle } from "@/types/api";
 import { Button } from "@/components/ui/Button";
 import {
     Card,
@@ -36,13 +35,10 @@ export function CreateLinkForm({ onSuccess, onCancel }: CreateLinkFormProps) {
     const [formData, setFormData] = useState<CreateLinkRequest>({
         name: "",
         description: "",
-        link_type_id: 0,
-        source_type: "",
-        source_id: 0,
-        target_type: "",
-        target_id: 0,
-        protocol: "https",
-        communication_style: "synchronous",
+        type_id: undefined,
+        model_name: "",
+        model_id: undefined,
+        url: "",
     });
 
     useEffect(() => {
@@ -76,7 +72,7 @@ export function CreateLinkForm({ onSuccess, onCancel }: CreateLinkFormProps) {
 
     const handleChange = (
         field: keyof CreateLinkRequest,
-        value: string | number
+        value: string | number | undefined
     ) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
@@ -84,26 +80,23 @@ export function CreateLinkForm({ onSuccess, onCancel }: CreateLinkFormProps) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Create New Integration Link</CardTitle>
+                <CardTitle>Create New Link</CardTitle>
                 <CardDescription>
-                    Create a new integration link between components
+                    Create a new link between components
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Name */}
                     <div className="space-y-2">
-                        <Label htmlFor="name">
-                            Name <span className="text-destructive">*</span>
-                        </Label>
+                        <Label htmlFor="name">Name</Label>
                         <Input
                             id="name"
-                            required
-                            value={formData.name}
+                            value={formData.name ?? ""}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>
                             ) => handleChange("name", e.target.value)}
-                            placeholder="e.g., API to Database Connection"
+                            placeholder="e.g., API Integration"
                         />
                     </div>
 
@@ -112,36 +105,36 @@ export function CreateLinkForm({ onSuccess, onCancel }: CreateLinkFormProps) {
                         <Label htmlFor="description">Description</Label>
                         <Textarea
                             id="description"
-                            value={formData.description}
+                            value={formData.description ?? ""}
                             onChange={(
                                 e: React.ChangeEvent<HTMLTextAreaElement>
                             ) => handleChange("description", e.target.value)}
-                            placeholder="Describe the integration link..."
+                            placeholder="Describe the link..."
                             rows={3}
                         />
                     </div>
 
                     {/* Link Type */}
                     <div className="space-y-2">
-                        <Label htmlFor="link_type_id">
-                            Link Type{" "}
-                            <span className="text-destructive">*</span>
-                        </Label>
+                        <Label htmlFor="type_id">Link Type</Label>
                         <Select
-                            value={formData.link_type_id.toString()}
-                            onValueChange={(value: string) =>
-                                handleChange("link_type_id", parseInt(value))
+                            value={
+                                formData.type_id
+                                    ? String(formData.type_id)
+                                    : undefined
                             }
-                            required
+                            onValueChange={(value) =>
+                                handleChange("type_id", parseInt(value))
+                            }
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Select a link type" />
+                                <SelectValue placeholder="Select link type" />
                             </SelectTrigger>
                             <SelectContent>
                                 {linkTypes.map((type) => (
                                     <SelectItem
                                         key={type.id}
-                                        value={type.id.toString()}
+                                        value={String(type.id)}
                                     >
                                         {type.name}
                                     </SelectItem>
@@ -150,173 +143,52 @@ export function CreateLinkForm({ onSuccess, onCancel }: CreateLinkFormProps) {
                         </Select>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        {/* Source Type */}
-                        <div className="space-y-2">
-                            <Label htmlFor="source_type">
-                                Source Type{" "}
-                                <span className="text-destructive">*</span>
-                            </Label>
-                            <Input
-                                id="source_type"
-                                required
-                                value={formData.source_type}
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) =>
-                                    handleChange("source_type", e.target.value)
-                                }
-                                placeholder="e.g., Api"
-                            />
-                        </div>
+                    {/* URL */}
+                    <div className="space-y-2">
+                        <Label htmlFor="url">URL</Label>
+                        <Input
+                            id="url"
+                            type="url"
+                            value={formData.url ?? ""}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => handleChange("url", e.target.value)}
+                            placeholder="https://example.com/link"
+                        />
+                    </div>
 
-                        {/* Source ID */}
-                        <div className="space-y-2">
-                            <Label htmlFor="source_id">
-                                Source ID{" "}
-                                <span className="text-destructive">*</span>
-                            </Label>
-                            <Input
-                                id="source_id"
-                                type="number"
-                                required
-                                min="1"
-                                value={formData.source_id}
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) =>
-                                    handleChange(
-                                        "source_id",
-                                        parseInt(e.target.value)
-                                    )
-                                }
-                            />
-                        </div>
+                    {/* Model Name */}
+                    <div className="space-y-2">
+                        <Label htmlFor="model_name">Model Name</Label>
+                        <Input
+                            id="model_name"
+                            value={formData.model_name ?? ""}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) => handleChange("model_name", e.target.value)}
+                            placeholder="e.g., Component"
+                        />
+                    </div>
 
-                        {/* Target Type */}
-                        <div className="space-y-2">
-                            <Label htmlFor="target_type">
-                                Target Type{" "}
-                                <span className="text-destructive">*</span>
-                            </Label>
-                            <Input
-                                id="target_type"
-                                required
-                                value={formData.target_type}
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) =>
-                                    handleChange("target_type", e.target.value)
-                                }
-                                placeholder="e.g., Database"
-                            />
-                        </div>
-
-                        {/* Target ID */}
-                        <div className="space-y-2">
-                            <Label htmlFor="target_id">
-                                Target ID{" "}
-                                <span className="text-destructive">*</span>
-                            </Label>
-                            <Input
-                                id="target_id"
-                                type="number"
-                                required
-                                min="1"
-                                value={formData.target_id}
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>
-                                ) =>
-                                    handleChange(
-                                        "target_id",
-                                        parseInt(e.target.value)
-                                    )
-                                }
-                            />
-                        </div>
-
-                        {/* Protocol */}
-                        <div className="space-y-2">
-                            <Label htmlFor="protocol">
-                                Protocol{" "}
-                                <span className="text-destructive">*</span>
-                            </Label>
-                            <Select
-                                value={formData.protocol}
-                                onValueChange={(value: string) =>
-                                    handleChange("protocol", value as Protocol)
-                                }
-                                required
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select protocol" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value={Protocol.HTTP}>
-                                        HTTP
-                                    </SelectItem>
-                                    <SelectItem value={Protocol.HTTPS}>
-                                        HTTPS
-                                    </SelectItem>
-                                    <SelectItem value={Protocol.GRPC}>
-                                        gRPC
-                                    </SelectItem>
-                                    <SelectItem value={Protocol.TCP}>
-                                        TCP
-                                    </SelectItem>
-                                    <SelectItem value={Protocol.UDP}>
-                                        UDP
-                                    </SelectItem>
-                                    <SelectItem value={Protocol.WebSocket}>
-                                        WebSocket
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        {/* Communication Style */}
-                        <div className="space-y-2">
-                            <Label htmlFor="communication_style">
-                                Communication Style{" "}
-                                <span className="text-destructive">*</span>
-                            </Label>
-                            <Select
-                                value={formData.communication_style}
-                                onValueChange={(value: string) =>
-                                    handleChange(
-                                        "communication_style",
-                                        value as CommunicationStyle
-                                    )
-                                }
-                                required
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select style" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem
-                                        value={CommunicationStyle.Synchronous}
-                                    >
-                                        Synchronous
-                                    </SelectItem>
-                                    <SelectItem
-                                        value={CommunicationStyle.Asynchronous}
-                                    >
-                                        Asynchronous
-                                    </SelectItem>
-                                    <SelectItem
-                                        value={CommunicationStyle.EventDriven}
-                                    >
-                                        Event-Driven
-                                    </SelectItem>
-                                    <SelectItem
-                                        value={CommunicationStyle.Batch}
-                                    >
-                                        Batch
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
+                    {/* Model ID */}
+                    <div className="space-y-2">
+                        <Label htmlFor="model_id">Model ID</Label>
+                        <Input
+                            id="model_id"
+                            type="number"
+                            value={formData.model_id ?? ""}
+                            onChange={(
+                                e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
+                                handleChange(
+                                    "model_id",
+                                    e.target.value
+                                        ? parseInt(e.target.value)
+                                        : undefined
+                                )
+                            }
+                            placeholder="e.g., 1"
+                        />
                     </div>
 
                     {/* Actions */}

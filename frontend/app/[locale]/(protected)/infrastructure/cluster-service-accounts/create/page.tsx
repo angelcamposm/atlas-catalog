@@ -7,7 +7,10 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { clusterServiceAccountsApi, clustersApi } from "@/lib/api/infrastructure";
+import {
+    clusterServiceAccountsApi,
+    clustersApi,
+} from "@/lib/api/infrastructure";
 import type { Cluster } from "@/types/api";
 
 export default function CreateClusterServiceAccountPage() {
@@ -17,8 +20,6 @@ export default function CreateClusterServiceAccountPage() {
     const [formData, setFormData] = useState({
         cluster_id: "",
         service_account_id: "",
-        namespace: "default",
-        is_active: true,
     });
 
     useEffect(() => {
@@ -36,14 +37,12 @@ export default function CreateClusterServiceAccountPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         try {
             setLoading(true);
             await clusterServiceAccountsApi.create({
                 cluster_id: parseInt(formData.cluster_id),
                 service_account_id: parseInt(formData.service_account_id),
-                namespace: formData.namespace,
-                is_active: formData.is_active,
             });
             router.push("/infrastructure/cluster-service-accounts");
         } catch (error) {
@@ -112,7 +111,8 @@ export default function CreateClusterServiceAccountPage() {
                     {/* Service Account ID */}
                     <div className="space-y-2">
                         <Label htmlFor="service_account_id">
-                            Service Account ID <span className="text-destructive">*</span>
+                            Service Account ID{" "}
+                            <span className="text-destructive">*</span>
                         </Label>
                         <Input
                             id="service_account_id"
@@ -130,48 +130,6 @@ export default function CreateClusterServiceAccountPage() {
                         <p className="text-xs text-muted-foreground">
                             Numeric ID of the service account
                         </p>
-                    </div>
-
-                    {/* Namespace */}
-                    <div className="space-y-2">
-                        <Label htmlFor="namespace">
-                            Namespace <span className="text-destructive">*</span>
-                        </Label>
-                        <Input
-                            id="namespace"
-                            type="text"
-                            required
-                            value={formData.namespace}
-                            onChange={(e) =>
-                                setFormData({
-                                    ...formData,
-                                    namespace: e.target.value,
-                                })
-                            }
-                            placeholder="default"
-                        />
-                        <p className="text-xs text-muted-foreground">
-                            Kubernetes namespace for this service account
-                        </p>
-                    </div>
-
-                    {/* Active Status */}
-                    <div className="flex items-center space-x-2">
-                        <input
-                            type="checkbox"
-                            id="is_active"
-                            checked={formData.is_active}
-                            onChange={(e) =>
-                                setFormData({
-                                    ...formData,
-                                    is_active: e.target.checked,
-                                })
-                            }
-                            className="h-4 w-4 rounded border-gray-300"
-                        />
-                        <Label htmlFor="is_active" className="cursor-pointer">
-                            Active
-                        </Label>
                     </div>
 
                     {/* Actions */}

@@ -141,32 +141,20 @@ export function PlatformList({
                             <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
                                 <div>
                                     <p className="text-sm text-muted-foreground">
-                                        Version
+                                        Icon
                                     </p>
                                     <p className="font-medium">
-                                        {platform.version || "N/A"}
+                                        {platform.icon || "N/A"}
                                     </p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">
-                                        URL
+                                        Created
                                     </p>
                                     <p className="font-medium truncate text-sm">
-                                        {platform.url ? (
-                                            <a
-                                                href={platform.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-blue-600 hover:underline dark:text-blue-400"
-                                                onClick={(e) =>
-                                                    e.stopPropagation()
-                                                }
-                                            >
-                                                {platform.url}
-                                            </a>
-                                        ) : (
-                                            "N/A"
-                                        )}
+                                        {new Date(
+                                            platform.created_at
+                                        ).toLocaleDateString()}
                                     </p>
                                 </div>
                             </div>

@@ -158,7 +158,7 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                                             {node.name}
                                         </CardTitle>
                                         <CardDescription>
-                                            {node.hostname} ({node.ip_address})
+                                            {node.fqdn ?? node.ip_address}
                                         </CardDescription>
                                     </div>
                                 </div>
@@ -168,40 +168,32 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                                             node.node_type
                                         )}
                                     >
-                                        {node.node_type}
-                                    </Badge>
-                                    <Badge
-                                        variant={getNodeRoleColor(
-                                            node.node_role
-                                        )}
-                                    >
-                                        {node.node_role}
+                                        {node.node_type === "V"
+                                            ? "Virtual"
+                                            : "Physical"}
                                     </Badge>
                                     <Badge
                                         variant={
-                                            node.is_active
-                                                ? "success"
-                                                : "danger"
+                                            node.is_virtual
+                                                ? "secondary"
+                                                : "primary"
                                         }
                                     >
-                                        {node.is_active ? (
-                                            <CheckCircle2 className="mr-1 h-3 w-3" />
-                                        ) : (
-                                            <XCircle className="mr-1 h-3 w-3" />
-                                        )}
-                                        {node.is_active ? "Active" : "Inactive"}
+                                        {node.is_virtual
+                                            ? "Virtual"
+                                            : "Physical"}
                                     </Badge>
                                 </div>
                             </div>
                         </CardHeader>
                         <CardContent>
-                            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+                            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                                 <div>
                                     <p className="text-sm text-muted-foreground">
                                         CPU
                                     </p>
                                     <p className="font-medium">
-                                        {node.cpu_cores} cores
+                                        {node.cpu_count} cores
                                     </p>
                                     <p className="text-xs text-muted-foreground">
                                         {node.cpu_architecture}
@@ -212,31 +204,26 @@ export function NodeList({ onSelectNode, showActions = true }: NodeListProps) {
                                         Memory
                                     </p>
                                     <p className="font-medium">
-                                        {formatBytes(node.memory_bytes)}
+                                        {node.memory_bytes
+                                            ? formatBytes(node.memory_bytes)
+                                            : "N/A"}
                                     </p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">
-                                        Storage
+                                        OS
                                     </p>
                                     <p className="font-medium">
-                                        {formatBytes(node.storage_bytes)}
+                                        {node.os ?? "N/A"}{" "}
+                                        {node.os_version ?? ""}
                                     </p>
                                 </div>
                                 <div>
                                     <p className="text-sm text-muted-foreground">
-                                        Type
+                                        IP Address
                                     </p>
-                                    <p className="font-medium capitalize">
-                                        {node.node_type}
-                                    </p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-muted-foreground">
-                                        Role
-                                    </p>
-                                    <p className="font-medium capitalize">
-                                        {node.node_role}
+                                    <p className="font-medium">
+                                        {node.ip_address}
                                     </p>
                                 </div>
                             </div>

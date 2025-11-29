@@ -30,8 +30,7 @@ export function CreatePlatformForm({
     const [formData, setFormData] = useState<CreatePlatformRequest>({
         name: "",
         description: "",
-        version: "",
-        url: "",
+        icon: "",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -97,30 +96,16 @@ export function CreatePlatformForm({
                         />
                     </div>
 
-                    {/* Version */}
+                    {/* Icon */}
                     <div className="space-y-2">
-                        <Label htmlFor="version">Version</Label>
+                        <Label htmlFor="icon">Icon</Label>
                         <Input
-                            id="version"
-                            value={formData.version}
+                            id="icon"
+                            value={formData.icon ?? ""}
                             onChange={(
                                 e: React.ChangeEvent<HTMLInputElement>
-                            ) => handleChange("version", e.target.value)}
-                            placeholder="e.g., 1.0.0"
-                        />
-                    </div>
-
-                    {/* URL */}
-                    <div className="space-y-2">
-                        <Label htmlFor="url">URL</Label>
-                        <Input
-                            id="url"
-                            type="url"
-                            value={formData.url}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>
-                            ) => handleChange("url", e.target.value)}
-                            placeholder="https://platform.example.com"
+                            ) => handleChange("icon", e.target.value)}
+                            placeholder="e.g., server-icon"
                         />
                     </div>
 

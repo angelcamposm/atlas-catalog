@@ -7,9 +7,9 @@ import { PageHeader } from "@/components/layout/PageHeader";
 interface ComponentHeaderProps {
     title: string;
     statusLabel?: string;
-    statusVariant?: "default" | "success" | "warning" | "destructive";
+    statusVariant?: "primary" | "secondary" | "success" | "warning" | "danger";
     levelLabel?: string;
-    levelVariant?: "outline" | "secondary" | "default";
+    levelVariant?: "primary" | "secondary" | "success" | "warning" | "danger";
     actions?: ReactNode;
     subtitle?: string;
 }
@@ -17,27 +17,32 @@ interface ComponentHeaderProps {
 export function ComponentHeader({
     title,
     statusLabel,
-    statusVariant = "default",
+    statusVariant = "primary",
     levelLabel,
     levelVariant = "secondary",
     actions,
     subtitle,
 }: ComponentHeaderProps) {
+    const badges = (
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+            {statusLabel && (
+                <Badge variant={statusVariant}>{statusLabel}</Badge>
+            )}
+            {levelLabel && <Badge variant={levelVariant}>{levelLabel}</Badge>}
+        </div>
+    );
+
     return (
         <PageHeader
             title={title}
             subtitle={subtitle}
             icon={undefined}
-            actions={actions}
-        >
-            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-                {statusLabel && (
-                    <Badge variant={statusVariant}>{statusLabel}</Badge>
-                )}
-                {levelLabel && (
-                    <Badge variant={levelVariant}>{levelLabel}</Badge>
-                )}
-            </div>
-        </PageHeader>
+            actions={
+                <>
+                    {badges}
+                    {actions}
+                </>
+            }
+        />
     );
 }

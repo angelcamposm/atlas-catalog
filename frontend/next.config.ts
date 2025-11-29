@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     /* config options here */
     output: "standalone", // Required for Docker deployment
 
+    // Set the root directory to silence lockfile warning
+    outputFileTracingRoot: __dirname,
+
     // Optional: Configure environment variables
     env: {
         NEXT_PUBLIC_API_URL:

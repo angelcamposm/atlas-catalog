@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export interface TagItem {
     label: string;
-    variant?: "default" | "secondary" | "outline";
+    variant?: "primary" | "secondary" | "success" | "warning" | "danger";
 }
 
 interface TagListProps {
@@ -26,7 +26,7 @@ export function TagList({ tags, className }: TagListProps) {
             {tags.map((tag) => (
                 <Badge
                     key={tag.label}
-                    variant={tag.variant ?? "outline"}
+                    variant={tag.variant ?? "secondary"}
                     className="rounded-full px-2.5 py-0.5 text-[0.7rem] uppercase tracking-wide"
                 >
                     {tag.label}

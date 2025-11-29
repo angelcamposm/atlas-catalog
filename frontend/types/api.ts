@@ -758,6 +758,8 @@ export type PaginatedComponentCategoryResponse = z.infer<
 export const componentTypeResponseSchema = componentCategoryResponseSchema;
 export const paginatedComponentTypeResponseSchema =
     paginatedComponentCategoryResponseSchema;
+export type ComponentTypeResponse = ComponentCategoryResponse;
+export type PaginatedComponentTypeResponse = PaginatedComponentCategoryResponse;
 
 // Environments
 export const environmentResponseSchema =
@@ -1014,6 +1016,10 @@ export interface CreateComponentCategoryRequest {
 export type UpdateComponentCategoryRequest =
     Partial<CreateComponentCategoryRequest>;
 
+// Alias para backward compatibility con lib/api/platform.ts
+export type CreateComponentTypeRequest = CreateComponentCategoryRequest;
+export type UpdateComponentTypeRequest = UpdateComponentCategoryRequest;
+
 // Environments
 export interface CreateEnvironmentRequest {
     name: string;
@@ -1096,6 +1102,26 @@ export interface CreateNodeRequest {
 }
 
 export type UpdateNodeRequest = Partial<CreateNodeRequest>;
+
+// Cluster Service Accounts
+export interface CreateClusterServiceAccountRequest {
+    cluster_id: number;
+    service_account_id: number;
+}
+
+export type UpdateClusterServiceAccountRequest =
+    Partial<CreateClusterServiceAccountRequest>;
+
+// Service Account Tokens
+export interface CreateServiceAccountTokenRequest {
+    service_account_id: number;
+    name: string;
+    token?: string;
+    expires_at?: string;
+}
+
+export type UpdateServiceAccountTokenRequest =
+    Partial<CreateServiceAccountTokenRequest>;
 
 export interface CreateVendorRequest {
     name: string;

@@ -87,15 +87,7 @@ export default function ApiDetailPage() {
 
     const sidebar = (
         <ComponentDetailsSidebar
-            ownerTeams={
-                api.owner
-                    ? [
-                          {
-                              label: api.owner.name ?? "Equipo propietario",
-                          },
-                      ]
-                    : []
-            }
+            ownerTeams={[]}
             chatChannels={[]}
             repositories={[]}
             projects={[]}
@@ -163,14 +155,6 @@ export default function ApiDetailPage() {
                                     URL base
                                 </span>
                                 <div className="truncate">{api.url}</div>
-                            </div>
-                        )}
-                        {api.communication_style && (
-                            <div>
-                                <span className="text-xs font-medium uppercase text-muted-foreground">
-                                    Estilo de comunicación
-                                </span>
-                                <div>{api.communication_style}</div>
                             </div>
                         )}
                     </div>
