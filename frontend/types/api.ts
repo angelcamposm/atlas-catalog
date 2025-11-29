@@ -409,7 +409,7 @@ export const apiSchema = z
         version: nullableString(),
         protocol: z.nativeEnum(Protocol).nullable(),
         document_specification: z
-            .record(z.string(), z.unknown())
+            .union([z.record(z.string(), z.unknown()), z.string()])
             .optional()
             .nullable(),
         released_at: nullableDate(),
@@ -582,6 +582,7 @@ export const linkSchema = z
         name: nullableString(),
         description: nullableString(),
         url: nullableString(),
+        is_active: nullableBoolean(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
@@ -875,7 +876,7 @@ export interface CreateApiRequest {
     url?: string;
     version?: string;
     protocol?: Protocol;
-    document_specification?: Record<string, unknown>;
+    document_specification?: Record<string, unknown> | string;
     released_at?: string;
     access_policy_id?: number;
     authentication_method_id?: number;
@@ -1105,6 +1106,7 @@ export interface CreateLinkRequest {
     model_id?: number;
     description?: string;
     url?: string;
+    is_active?: boolean;
 }
 
 export type UpdateLinkRequest = Partial<CreateLinkRequest>;

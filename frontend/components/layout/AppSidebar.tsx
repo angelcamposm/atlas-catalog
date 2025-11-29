@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -15,6 +15,7 @@ import {
     Tag,
     Settings,
 } from "lucide-react";
+import { apisApi } from "@/lib/api";
 
 interface AppSidebarProps {
     locale: string;
@@ -41,6 +42,31 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
         new Set()
     );
+    const [apiCount, setApiCount] = useState<number | null>(null);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadApiCount = async () => {
+            try {
+                const response = await apisApi.getAll(1);
+                if (isMounted) {
+                    setApiCount(response.meta?.total ?? 0);
+                }
+            } catch (error) {
+                console.error("Failed to load API count for sidebar:", error);
+                if (isMounted) {
+                    setApiCount(0);
+                }
+            }
+        };
+
+        loadApiCount();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const toggleSection = (sectionId: string) => {
         setCollapsedSections((prev) => {
@@ -70,7 +96,8 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                         title: "APIs",
                         url: `/${locale}/apis`,
                         icon: FileText,
-                        badge: "100+",
+                        badge:
+                            apiCount !== null ? apiCount.toString() : undefined,
                     },
                     {
                         title: "Lifecycles",
@@ -185,7 +212,7 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                 ],
             },
         ],
-        [locale]
+        [locale, apiCount]
     );
 
     const isActive = (url: string) => {

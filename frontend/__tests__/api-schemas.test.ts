@@ -42,7 +42,7 @@ const buildApi = () => ({
     description: "Demo",
     access_policy_id: null,
     authentication_method_id: null,
-    protocol: "REST",
+    protocol: "https",
     document_specification: null,
     status_id: null,
     type_id: null,
@@ -62,6 +62,16 @@ describe("api schemas", () => {
     it("parses a valid API response", () => {
         const result = apiResponseSchema.parse({ data: buildApi() });
         expect(result.data.name).toBe("Catalog API");
+    });
+
+    it("accepts string document specifications", () => {
+        const result = apiResponseSchema.parse({
+            data: {
+                ...buildApi(),
+                document_specification: "openapi", // backend can send plain string
+            },
+        });
+        expect(result.data.document_specification).toBe("openapi");
     });
 
     it("rejects an invalid API response", () => {

@@ -1,15 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Metadata } from "next";
 import {
     Server,
-    Cube,
+    Boxes,
     Link as LinkIcon,
     Tag,
     GitBranch,
     BarChart3,
-    TrendingUp,
     Activity,
 } from "lucide-react";
 import {
@@ -57,7 +55,9 @@ export default function DashboardPage() {
                 ] = await Promise.all([
                     apisApi.getAll(1).catch(() => ({ meta: { total: 0 } })),
                     clustersApi.getAll(1).catch(() => ({ meta: { total: 0 } })),
-                    platformsApi.getAll(1).catch(() => ({ meta: { total: 0 } })),
+                    platformsApi
+                        .getAll(1)
+                        .catch(() => ({ meta: { total: 0 } })),
                     linksApi.getAll(1).catch(() => ({ meta: { total: 0 } })),
                     apiTypesApi.getAll(1).catch(() => ({ meta: { total: 0 } })),
                     lifecyclesApi
@@ -109,7 +109,7 @@ export default function DashboardPage() {
         {
             title: "Platforms",
             value: stats.platforms,
-            icon: Cube,
+            icon: Boxes,
             color: "text-purple-600 dark:text-purple-400",
             bgColor: "bg-purple-100 dark:bg-purple-900/30",
         },
@@ -159,7 +159,9 @@ export default function DashboardPage() {
                                 <CardTitle className="text-sm font-medium text-muted-foreground">
                                     {stat.title}
                                 </CardTitle>
-                                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
+                                <div
+                                    className={`p-2 rounded-lg ${stat.bgColor}`}
+                                >
                                     <Icon className={`h-5 w-5 ${stat.color}`} />
                                 </div>
                             </CardHeader>
@@ -211,7 +213,7 @@ export default function DashboardPage() {
                             href="/platform/platforms"
                             className="flex items-center gap-3 p-4 rounded-lg border hover:bg-accent transition-colors"
                         >
-                            <Cube className="h-5 w-5 text-purple-600" />
+                            <Boxes className="h-5 w-5 text-purple-600" />
                             <div>
                                 <div className="font-medium">Platforms</div>
                                 <div className="text-sm text-muted-foreground">

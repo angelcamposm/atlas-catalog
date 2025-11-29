@@ -6,11 +6,11 @@ import { HiCube, HiPlus, HiPencil, HiTrash } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/card";
 import { componentTypesApi } from "@/lib/api/platform";
-import type { ComponentType, PaginatedResponse } from "@/types/api";
+import type { Component, PaginatedResponse } from "@/types/api";
 
 export default function ComponentTypesPage() {
     const router = useRouter();
-    const [componentTypes, setComponentTypes] = useState<ComponentType[]>([]);
+    const [componentTypes, setComponentTypes] = useState<Component[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +20,7 @@ export default function ComponentTypesPage() {
         try {
             setLoading(true);
             setError(null);
-            const response: PaginatedResponse<ComponentType> =
+            const response: PaginatedResponse<Component> =
                 await componentTypesApi.getAll(page);
             setComponentTypes(response.data);
             setCurrentPage(response.meta.current_page);

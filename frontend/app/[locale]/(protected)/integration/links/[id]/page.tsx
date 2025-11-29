@@ -185,49 +185,30 @@ export default function LinkDetailPage({
                 <Badge variant={linkData.is_active ? "success" : "secondary"}>
                     {linkData.is_active ? "Active" : "Inactive"}
                 </Badge>
-                <Badge variant="secondary">
-                    {linkData.protocol.toUpperCase()}
-                </Badge>
-                <Badge variant="primary">
-                    {linkData.communication_style
-                        .replace("_", " ")
-                        .toUpperCase()}
-                </Badge>
             </div>
 
-            {/* Integration Flow */}
+            {/* Model Information */}
             <Card>
                 <CardHeader>
-                    <CardTitle>Integration Flow</CardTitle>
+                    <CardTitle>Model Information</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="flex items-center justify-center gap-4 p-4">
-                        <div className="flex-1 text-center">
-                            <div className="rounded-lg border-2 border-dashed border-primary/50 bg-primary/5 p-4">
-                                <p className="text-sm font-medium text-muted-foreground">
-                                    Source
-                                </p>
-                                <p className="mt-1 text-lg font-semibold">
-                                    {linkData.source_type}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    ID: {linkData.source_id}
-                                </p>
-                            </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">
+                                Model Name
+                            </label>
+                            <p className="mt-1 text-base">
+                                {linkData.model_name || "N/A"}
+                            </p>
                         </div>
-                        <ArrowRight className="h-8 w-8 text-muted-foreground" />
-                        <div className="flex-1 text-center">
-                            <div className="rounded-lg border-2 border-dashed border-green-500/50 bg-green-500/5 p-4">
-                                <p className="text-sm font-medium text-muted-foreground">
-                                    Target
-                                </p>
-                                <p className="mt-1 text-lg font-semibold">
-                                    {linkData.target_type}
-                                </p>
-                                <p className="text-sm text-muted-foreground">
-                                    ID: {linkData.target_id}
-                                </p>
-                            </div>
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">
+                                Model ID
+                            </label>
+                            <p className="mt-1 text-base">
+                                {linkData.model_id || "N/A"}
+                            </p>
                         </div>
                     </div>
                 </CardContent>
@@ -257,13 +238,13 @@ export default function LinkDetailPage({
                                 </p>
                             </div>
                         )}
-                        {linkData.endpoint && (
+                        {linkData.url && (
                             <div>
                                 <label className="text-sm font-medium text-muted-foreground">
-                                    Endpoint
+                                    URL
                                 </label>
                                 <p className="mt-1 break-all font-mono text-sm">
-                                    {linkData.endpoint}
+                                    {linkData.url}
                                 </p>
                             </div>
                         )}
@@ -276,32 +257,14 @@ export default function LinkDetailPage({
                         <CardTitle>Link Type</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        {linkData.link_type ? (
-                            <>
-                                <div>
-                                    <label className="text-sm font-medium text-muted-foreground">
-                                        Type Name
-                                    </label>
-                                    <p className="mt-1 text-base">
-                                        {linkData.link_type.name}
-                                    </p>
-                                </div>
-                                {linkData.link_type.description && (
-                                    <div>
-                                        <label className="text-sm font-medium text-muted-foreground">
-                                            Description
-                                        </label>
-                                        <p className="mt-1 text-base">
-                                            {linkData.link_type.description}
-                                        </p>
-                                    </div>
-                                )}
-                            </>
-                        ) : (
-                            <p className="text-sm text-muted-foreground">
-                                No link type information available
+                        <div>
+                            <label className="text-sm font-medium text-muted-foreground">
+                                Type ID
+                            </label>
+                            <p className="mt-1 text-base">
+                                {linkData.type_id || "N/A"}
                             </p>
-                        )}
+                        </div>
                     </CardContent>
                 </Card>
             </div>

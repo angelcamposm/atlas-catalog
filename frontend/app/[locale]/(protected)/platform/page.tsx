@@ -39,9 +39,8 @@ export default function PlatformDashboardPage({
 
     const stats = {
         totalPlatforms: platforms.length,
-        withVendor: platforms.filter((p) => p.vendor_id).length,
-        withUrl: platforms.filter((p) => p.url).length,
-        withVersion: platforms.filter((p) => p.version).length,
+        withIcon: platforms.filter((p) => p.icon).length,
+        withDescription: platforms.filter((p) => p.description).length,
     };
 
     if (loading) {
@@ -73,7 +72,7 @@ export default function PlatformDashboardPage({
             />
 
             {/* Stats Grid */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {/* Total Platforms */}
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -92,56 +91,38 @@ export default function PlatformDashboardPage({
                     </CardContent>
                 </Card>
 
-                {/* With Vendor */}
+                {/* With Icon */}
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            {t("stats.withVendor")}
+                            Con Icono
                         </CardTitle>
                         <Package className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {stats.withVendor}
+                            {stats.withIcon}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            {t("stats.vendorAssigned")}
+                            Plataformas con icono asignado
                         </p>
                     </CardContent>
                 </Card>
 
-                {/* With URL */}
+                {/* With Description */}
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
-                            {t("stats.withUrl")}
+                            Con Descripción
                         </CardTitle>
                         <Layers className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {stats.withUrl}
+                            {stats.withDescription}
                         </div>
                         <p className="text-xs text-muted-foreground">
-                            {t("stats.externalLinks")}
-                        </p>
-                    </CardContent>
-                </Card>
-
-                {/* With Version */}
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            {t("stats.withVersion")}
-                        </CardTitle>
-                        <Package className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">
-                            {stats.withVersion}
-                        </div>
-                        <p className="text-xs text-muted-foreground">
-                            {t("stats.versionTracked")}
+                            Plataformas documentadas
                         </p>
                     </CardContent>
                 </Card>
@@ -187,9 +168,9 @@ export default function PlatformDashboardPage({
                                     <div className="rounded-lg border p-4 transition-all hover:border-purple-500 hover:shadow-md">
                                         <div className="mb-3 flex items-start justify-between">
                                             <HiCube className="h-8 w-8 text-purple-600" />
-                                            {platform.version && (
-                                                <span className="rounded-full bg-purple-100 px-2 py-1 text-xs font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-                                                    {platform.version}
+                                            {platform.icon && (
+                                                <span className="text-2xl">
+                                                    {platform.icon}
                                                 </span>
                                             )}
                                         </div>
@@ -199,11 +180,6 @@ export default function PlatformDashboardPage({
                                         {platform.description && (
                                             <p className="mb-2 line-clamp-3 text-sm text-muted-foreground">
                                                 {platform.description}
-                                            </p>
-                                        )}
-                                        {platform.url && (
-                                            <p className="truncate text-xs text-purple-600 dark:text-purple-400">
-                                                {platform.url}
                                             </p>
                                         )}
                                     </div>
