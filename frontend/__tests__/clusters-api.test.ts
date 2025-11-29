@@ -329,3 +329,420 @@ describe("Cluster Types API", () => {
         });
     });
 });
+
+/**
+ * Tests for Cluster Detail and Edit functionality
+ */
+describe("Cluster Detail and Edit Operations", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    describe("Cluster Detail (getById)", () => {
+        it("should fetch complete cluster details with all fields", async () => {
+            const mockResponse = {
+                data: createClusterMock({
+                    id: 5,
+                    name: "detail-test-cluster",
+                    display_name: "Detail Test Cluster",
+                    version: "1.29.0",
+                    full_version: "1.29.0-gke.1",
+                    api_url: "https://api.detail.example.com",
+                    url: "https://detail.example.com",
+                    cluster_uuid: "123e4567-e89b-12d3-a456-426614174000",
+                    type_id: 2,
+                    lifecycle_id: 3,
+                    vendor_id: 2,
+                    infrastructure_type_id: 2,
+                    has_licensing: false,
+                    licensing_model: "none",
+                    timezone: "America/New_York",
+                }),
+            };
+
+            mockedApiClient.get.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.getById(5);
+
+            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/clusters/5");
+            expect(result.data.id).toBe(5);
+            expect(result.data.name).toBe("detail-test-cluster");
+            expect(result.data.display_name).toBe("Detail Test Cluster");
+            expect(result.data.version).toBe("1.29.0");
+            expect(result.data.cluster_uuid).toBe("123e4567-e89b-12d3-a456-426614174000");
+            expect(result.data.timezone).toBe("America/New_York");
+        });
+
+        it("should handle cluster with minimal data", async () => {
+            const mockResponse = {
+                data: createClusterMock({
+                    id: 6,
+                    name: "minimal-cluster",
+                    display_name: null,
+                    version: null,
+                    api_url: null,
+                    url: null,
+                    cluster_uuid: null,
+                    type_id: null,
+                    lifecycle_id: null,
+                    vendor_id: null,
+                    infrastructure_type_id: null,
+                    has_licensing: null,
+                    licensing_model: null,
+                    timezone: null,
+                }),
+            };
+
+            mockedApiClient.get.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.getById(6);
+
+            expect(result.data.name).toBe("minimal-cluster");
+            expect(result.data.display_name).toBeNull();
+            expect(result.data.version).toBeNull();
+        });
+
+        it("should handle non-existent cluster", async () => {
+            mockedApiClient.get.mockRejectedValueOnce(new Error("Cluster not found"));
+
+            await expect(clustersApi.getById(999)).rejects.toThrow("Cluster not found");
+        });
+    });
+
+    describe("Cluster Edit (update)", () => {
+        it("should update cluster name", async () => {
+            const updateData = {
+                name: "renamed-cluster",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    id: 1,
+                    name: "renamed-cluster",
+                    updated_at: "2024-02-01T00:00:00Z",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(mockedApiClient.put).toHaveBeenCalledWith(
+                "/v1/clusters/1",
+                updateData
+            );
+            expect(result.data.name).toBe("renamed-cluster");
+        });
+
+        it("should update cluster display name", async () => {
+            const updateData = {
+                display_name: "New Display Name",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    display_name: "New Display Name",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.display_name).toBe("New Display Name");
+        });
+
+        it("should update cluster version", async () => {
+            const updateData = {
+                version: "1.30.0",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    version: "1.30.0",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.version).toBe("1.30.0");
+        });
+
+        it("should update cluster URLs", async () => {
+            const updateData = {
+                api_url: "https://new-api.example.com",
+                url: "https://new-console.example.com",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    api_url: "https://new-api.example.com",
+                    url: "https://new-console.example.com",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.api_url).toBe("https://new-api.example.com");
+            expect(result.data.url).toBe("https://new-console.example.com");
+        });
+
+        it("should update cluster type", async () => {
+            const updateData = {
+                type_id: 3,
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    type_id: 3,
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.type_id).toBe(3);
+        });
+
+        it("should update cluster infrastructure type", async () => {
+            const updateData = {
+                infrastructure_type_id: 2,
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    infrastructure_type_id: 2,
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.infrastructure_type_id).toBe(2);
+        });
+
+        it("should update cluster vendor", async () => {
+            const updateData = {
+                vendor_id: 3,
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    vendor_id: 3,
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.vendor_id).toBe(3);
+        });
+
+        it("should update cluster lifecycle", async () => {
+            const updateData = {
+                lifecycle_id: 4,
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    lifecycle_id: 4,
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.lifecycle_id).toBe(4);
+        });
+
+        it("should update cluster licensing settings", async () => {
+            const updateData = {
+                has_licensing: true,
+                licensing_model: "openshift",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    has_licensing: true,
+                    licensing_model: "openshift",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.has_licensing).toBe(true);
+            expect(result.data.licensing_model).toBe("openshift");
+        });
+
+        it("should disable licensing", async () => {
+            const updateData = {
+                has_licensing: false,
+                licensing_model: "none",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    has_licensing: false,
+                    licensing_model: "none",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.has_licensing).toBe(false);
+            expect(result.data.licensing_model).toBe("none");
+        });
+
+        it("should update cluster timezone", async () => {
+            const updateData = {
+                timezone: "Europe/Madrid",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    timezone: "Europe/Madrid",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.timezone).toBe("Europe/Madrid");
+        });
+
+        it("should update cluster UUID", async () => {
+            const newUuid = "987fcdeb-51a2-3bc4-d567-891011121314";
+            const updateData = {
+                cluster_uuid: newUuid,
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    cluster_uuid: newUuid,
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(result.data.cluster_uuid).toBe(newUuid);
+        });
+
+        it("should update multiple fields at once", async () => {
+            const updateData = {
+                name: "multi-update-cluster",
+                display_name: "Multi Update Test",
+                version: "1.31.0",
+                type_id: 2,
+                lifecycle_id: 3,
+                infrastructure_type_id: 2,
+                has_licensing: true,
+                licensing_model: "openshift",
+                timezone: "UTC",
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    ...updateData,
+                    updated_at: "2024-03-01T00:00:00Z",
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData);
+
+            expect(mockedApiClient.put).toHaveBeenCalledWith(
+                "/v1/clusters/1",
+                updateData
+            );
+            expect(result.data.name).toBe("multi-update-cluster");
+            expect(result.data.display_name).toBe("Multi Update Test");
+            expect(result.data.version).toBe("1.31.0");
+            expect(result.data.type_id).toBe(2);
+            expect(result.data.lifecycle_id).toBe(3);
+        });
+
+        it("should clear optional fields by setting to null", async () => {
+            const updateData = {
+                display_name: null,
+                version: null,
+                api_url: null,
+            };
+
+            const mockResponse = {
+                data: createClusterMock({
+                    display_name: null,
+                    version: null,
+                    api_url: null,
+                }),
+            };
+
+            mockedApiClient.put.mockResolvedValueOnce(mockResponse);
+
+            const result = await clustersApi.update(1, updateData as any);
+
+            expect(result.data.display_name).toBeNull();
+            expect(result.data.version).toBeNull();
+            expect(result.data.api_url).toBeNull();
+        });
+
+        it("should handle update errors gracefully", async () => {
+            const updateData = { name: "error-test" };
+
+            mockedApiClient.put.mockRejectedValueOnce(
+                new Error("Update failed: validation error")
+            );
+
+            await expect(clustersApi.update(1, updateData)).rejects.toThrow(
+                "Update failed: validation error"
+            );
+        });
+
+        it("should handle update of non-existent cluster", async () => {
+            const updateData = { name: "ghost-cluster" };
+
+            mockedApiClient.put.mockRejectedValueOnce(
+                new Error("Cluster not found")
+            );
+
+            await expect(clustersApi.update(999, updateData)).rejects.toThrow(
+                "Cluster not found"
+            );
+        });
+    });
+
+    describe("Cluster Delete", () => {
+        it("should delete a cluster by ID", async () => {
+            mockedApiClient.delete.mockResolvedValueOnce(undefined);
+
+            await clustersApi.delete(1);
+
+            expect(mockedApiClient.delete).toHaveBeenCalledWith("/v1/clusters/1");
+        });
+
+        it("should handle delete of non-existent cluster", async () => {
+            mockedApiClient.delete.mockRejectedValueOnce(
+                new Error("Cluster not found")
+            );
+
+            await expect(clustersApi.delete(999)).rejects.toThrow(
+                "Cluster not found"
+            );
+        });
+    });
+});
