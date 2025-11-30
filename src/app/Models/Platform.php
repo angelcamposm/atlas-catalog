@@ -8,6 +8,7 @@ use App\Observers\PlatformObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -55,4 +56,14 @@ class Platform extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the components that belong to this platform.
+     *
+     * @return HasMany<Component>
+     */
+    public function components(): HasMany
+    {
+        return $this->hasMany(Component::class, 'platform_id');
+    }
 }

@@ -93,6 +93,16 @@ class Component extends Model
     }
 
     /**
+     * Get the platform of the component
+     *
+     * @return BelongsTo<Platform>
+     */
+    public function platform(): BelongsTo
+    {
+        return $this->belongsTo(Platform::class, 'platform_id', 'id');
+    }
+
+    /**
      * Get the status of the component
      *
      * @return BelongsTo<ServiceStatus>
