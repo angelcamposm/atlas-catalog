@@ -66,6 +66,6 @@ class BusinessTier extends Model
      */
     public function components(): HasMany
     {
-        return $this->hasMany(Component::class, 'domain_id', 'id');
+        return $this->hasMany(Component::class, 'tier_id', 'id');
     }
 }
