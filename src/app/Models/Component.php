@@ -91,4 +91,14 @@ class Component extends Model
     {
         return $this->belongsTo(ServiceStatus::class, 'status_id', 'id');
     }
+
+    /**
+     * Get the business tier of the component
+     *
+     * @return BelongsTo<BusinessTier>
+     */
+    public function tier(): BelongsTo
+    {
+        return $this->belongsTo(BusinessTier::class, 'tier_id', 'id');
+    }
 }
