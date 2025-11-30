@@ -10,6 +10,7 @@ use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -70,4 +71,14 @@ class Component extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the status of the component
+     *
+     * @return BelongsTo<ServiceStatus>
+     */
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(ServiceStatus::class, 'status_id', 'id');
+    }
 }
