@@ -83,6 +83,16 @@ class Component extends Model
     }
 
     /**
+     * Get the lifecycle of the component
+     *
+     * @return BelongsTo<Lifecycle>
+     */
+    public function lifecycle(): BelongsTo
+    {
+        return $this->belongsTo(Lifecycle::class, 'lifecycle_id', 'id');
+    }
+
+    /**
      * Get the status of the component
      *
      * @return BelongsTo<ServiceStatus>

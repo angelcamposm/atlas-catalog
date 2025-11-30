@@ -9,6 +9,7 @@ use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -61,6 +62,16 @@ class Lifecycle extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the components that belong to this lifecycle.
+     *
+     * @return HasMany<Component>
+     */
+    public function components(): HasMany
+    {
+        return $this->hasMany(Component::class, 'lifecycle_id');
+    }
 
     /**
      * Check if the lifecycle requires approval.
