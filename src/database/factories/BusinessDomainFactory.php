@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\BusinessDomainCategory;
 use App\Models\BusinessDomain;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<BusinessDomain>
@@ -30,8 +32,8 @@ class BusinessDomainFactory extends Factory
         return [
             'name' => $this->faker->unique()->word(),
             'display_name' => $this->faker->words(3, true),
-            'description' => $this->faker->sentence(),
-            'category' => $this->faker->word(),
+            'description' => Str::substr($this->faker->sentence(), 0, 250),
+            'category' => $this->faker->randomElement(BusinessDomainCategory::cases()),
             'is_active' => $this->faker->boolean(),
             'parent_id' => null,
             'created_by' => User::factory(),
