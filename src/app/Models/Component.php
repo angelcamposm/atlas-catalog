@@ -73,6 +73,16 @@ class Component extends Model
     ];
 
     /**
+     * Get the business domain of the component
+     *
+     * @return BelongsTo<BusinessDomain>
+     */
+    public function businessDomain(): BelongsTo
+    {
+        return $this->belongsTo(BusinessDomain::class, 'domain_id', 'id');
+    }
+
+    /**
      * Get the status of the component
      *
      * @return BelongsTo<ServiceStatus>
