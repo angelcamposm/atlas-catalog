@@ -20,10 +20,22 @@ enum CpuArchitecture: string
 
     public function displayName(): string
     {
-        return match($this) {
+        return match ($this) {
             self::ARM => 'ARM',
             self::ARM64 => 'ARM64',
-            self::X86_64 => 'x86_64',
+            self::X86_64 => 'x86-64',
+        };
+    }
+
+    /**
+     * Returns the bitness of the architecture (32 or 64).
+     */
+    public function bits(): int
+    {
+        return match ($this) {
+            self::ARM => 32,
+            self::ARM64 => 64,
+            self::X86_64 => 64,
         };
     }
 }

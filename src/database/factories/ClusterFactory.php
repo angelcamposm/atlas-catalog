@@ -5,12 +5,20 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\K8sLicensingModel;
+use App\Models\Cluster;
 use App\Models\ClusterType;
+use App\Models\InfrastructureType;
 use App\Models\Lifecycle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClusterFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<Cluster>
+     */
+    protected $model = Cluster::class;
     /**
      * Define the model's default state.
      *
@@ -20,9 +28,6 @@ class ClusterFactory extends Factory
     {
         $version = $this->faker->semver(true, true);
 
-        $lifecycle = Lifecycle::pluck('id');
-        $type = ClusterType::pluck('id');
-
         return [
             'name' => $this->getClusterName(),
             'api_url' => $this->getApiUrl(),
@@ -30,11 +35,12 @@ class ClusterFactory extends Factory
             'display_name' => fn (array $attributes) => ucwords(str_replace('-', ' ', $attributes['name'])),
             'full_version' => 'v'.$version.'-'.$this->faker->word.'+'.$this->faker->md5(),
             'has_licensing' => $this->faker->boolean,
+            'infrastructure_type_id' => InfrastructureType::factory(),
             'licensing_model' => $this->faker->randomElement(K8sLicensingModel::cases()),
-            'lifecycle_id' => $this->faker->randomElement($lifecycle),
+            'lifecycle_id' => Lifecycle::factory(),
             'tags' => $this->getTags(),
             'timezone' => $this->faker->timezone,
-            'type_id' => $this->faker->randomElement($type),
+            'type_id' => ClusterType::factory(),
             'version' => $version,
             'url' => $this->faker->url,
         ];

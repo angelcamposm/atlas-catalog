@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('compliance_standards', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
+            $table->string('name', 60)->unique();
             $table->string('country_code', 3)->nullable();
             $table->string('description', 255)->nullable();
             $table->string('display_name', 100)->nullable();

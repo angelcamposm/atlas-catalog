@@ -24,11 +24,24 @@ enum NodeType: string
 
     public function displayName(): string
     {
-        return match($this) {
+        return match ($this) {
             self::Hybrid => 'Hybrid',
             self::Physical => 'Physical',
             self::Unknown => 'Unknown',
             self::Virtual => 'Virtual',
+        };
+    }
+
+    /**
+     * Returns a color associated with the node type for UI purposes.
+     */
+    public function color(): string
+    {
+        return match ($this) {
+            self::Hybrid => 'purple',
+            self::Physical => 'blue',
+            self::Virtual => 'green',
+            self::Unknown => 'gray',
         };
     }
 }

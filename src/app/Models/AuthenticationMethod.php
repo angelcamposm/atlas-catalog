@@ -7,7 +7,9 @@ namespace App\Models;
 use App\Observers\AuthenticationMethodObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -27,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class AuthenticationMethod extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -55,4 +58,14 @@ class AuthenticationMethod extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the APIs associated with this authentication method.
+     *
+     * @return HasMany<Api>
+     */
+    public function apis(): HasMany
+    {
+        return $this->hasMany(Api::class, 'authentication_method_id', 'id');
+    }
 }

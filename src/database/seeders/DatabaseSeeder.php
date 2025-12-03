@@ -1,12 +1,6 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Api;
-use App\Models\ApiAccessPolicy;
-use App\Models\ApiStatus;
-use App\Models\ApiType;
-use App\Models\AuthenticationMethod;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

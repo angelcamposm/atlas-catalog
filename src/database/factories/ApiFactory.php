@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Protocol;
 use App\Models\Api;
 use App\Models\ApiAccessPolicy;
+use App\Models\ApiCategory;
 use App\Models\ApiStatus;
 use App\Models\ApiType;
 use App\Models\AuthenticationMethod;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Api>
@@ -19,7 +24,7 @@ class ApiFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<TModel>
+     * @var class-string<Model>
      */
     protected $model = Api::class;
 
@@ -30,26 +35,25 @@ class ApiFactory extends Factory
      */
     public function definition(): array
     {
-        $adjectives = ['Fast', 'Secure', 'Modern', 'Cloud', 'Smart', 'Advanced', 'Dynamic', 'Real-time', 'Mobile', 'Enterprise'];
-        $services = ['Payment', 'Auth', 'Data', 'Analytics', 'Notification', 'Storage', 'Search', 'Report', 'Social', 'Integration'];
-        
-        $name = $adjectives[array_rand($adjectives)] . ' ' . $services[array_rand($services)] . ' API';
-        
         return [
-            'name' => $name,
-            'description' => 'API for ' . strtolower($name) . ' services',
-            'access_policy_id' => ApiAccessPolicy::inRandomOrder()->first()->id,
-            'authentication_method_id' => AuthenticationMethod::inRandomOrder()->first()->id,
-            'protocol' => 'http',
-            'document_specification' => json_encode([
-                'title' => $name,
-                'description' => 'Documentation for ' . $name,
-                'version' => '1.0.0',
-            ]),
-            'status_id' => ApiStatus::inRandomOrder()->first()->id,
-            'type_id' => ApiType::inRandomOrder()->first()->id,
-            'url' => 'https://api.example.com/' . strtolower(str_replace(' ', '-', $name)),
-            'version' => '1.0.' . rand(0, 99),
+            'name' => $this->faker->name(),
+            'access_policy_id' => ApiAccessPolicy::factory(),
+            'authentication_method_id' => AuthenticationMethod::factory(),
+            'category_id' => ApiCategory::factory(),
+            'deprecated_at' => $this->faker->date(),
+            'deprecated_by' => User::factory(),
+            'deprecation_reason' => $this->faker->sentence(),
+            'description' => Str::limit($this->faker->sentence(), 255),
+            'display_name' => $this->faker->name(),
+            'document_specification' => $this->faker->text(),
+            'protocol' => $this->faker->randomElement(Protocol::cases()),
+            'released_at' => $this->faker->date(),
+            'status_id' => ApiStatus::factory(),
+            'type_id' => ApiType::factory(),
+            'url' => $this->faker->url(),
+            'version' => $this->faker->semver(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

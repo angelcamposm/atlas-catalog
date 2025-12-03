@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Observers\ApiCategoryObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -33,6 +34,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[ObservedBy(ApiCategoryObserver::class)]
 class ApiCategory extends Category
 {
+    use HasFactory;
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<string>
+     */
+    protected $hidden = [
+        'model',
+    ];
+
     /**
      * Bootstrap the model and its traits.q
      *
@@ -46,15 +58,6 @@ class ApiCategory extends Category
             $query->where('model', strtolower(class_basename(Api::class)));
         });
     }
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<string>
-     */
-    protected $hidden = [
-        'model',
-    ];
 
     /**
      * Get the APIs associated with this category.

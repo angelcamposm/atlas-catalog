@@ -21,7 +21,7 @@ class ServiceAccountTokenFactory extends Factory
     {
         return [
             'token' => bcrypt($this->faker->text(250)),
-            'expires_at' => now()->addDays(rand(1, 30)),
+            'expires_at' => now()->addDays($this->faker->randomElement(range(1, 30))),
         ];
     }
 }

@@ -14,6 +14,7 @@ import {
     ChevronRight,
     Tag,
     Settings,
+    Workflow,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -175,6 +176,12 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                         title: "Component Demos",
                         url: `/${locale}/components/demo`,
                         icon: Home,
+                        badge: "New",
+                    },
+                    {
+                        title: "Diagrams",
+                        url: `/${locale}/showcase/diagrams`,
+                        icon: Workflow,
                         badge: "New",
                     },
                 ],

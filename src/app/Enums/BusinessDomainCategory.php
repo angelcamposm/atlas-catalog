@@ -19,4 +19,28 @@ enum BusinessDomainCategory: string
     case Core = 'C';
     case Generic = 'G';
     case Supporting = 'S';
+
+    /**
+     * Returns the human-readable name of the category.
+     */
+    public function displayName(): string
+    {
+        return match ($this) {
+            self::Core => 'Core',
+            self::Generic => 'Generic',
+            self::Supporting => 'Supporting',
+        };
+    }
+
+    /**
+     * Returns a color associated with the category for UI purposes.
+     */
+    public function color(): string
+    {
+        return match ($this) {
+            self::Core => 'red',
+            self::Supporting => 'blue',
+            self::Generic => 'gray',
+        };
+    }
 }

@@ -1,5 +1,12 @@
 <p align="center"><img src="docs/images/logo.png" width="680" alt="Atlas Catalog Logo"></p>
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=coverage)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
+
+
 ## About Atlas Catalog
 
 Atlas Catalog is a modern, RESTful API designed to serve as a centralized and comprehensive inventory for all microservices, APIs, and digital assets within an organization. Built on Laravel, it provides a robust and scalable solution for discovering, managing, and understanding the complex landscape of a distributed architecture.

@@ -22,4 +22,37 @@ enum CommunicationStyle: string
      * Examples: Message Queues (RabbitMQ), Event Streams (Kafka).
      */
     case Asynchronous = 'asynchronous';
+
+    /**
+     * Returns the human-readable name of the style.
+     */
+    public function displayName(): string
+    {
+        return match ($this) {
+            self::Synchronous => 'Synchronous',
+            self::Asynchronous => 'Asynchronous',
+        };
+    }
+
+    /**
+     * Returns a detailed description of the style.
+     */
+    public function description(): string
+    {
+        return match ($this) {
+            self::Synchronous => 'A synchronous, request/response style of communication where the client sends a request and waits for a response.',
+            self::Asynchronous => 'An asynchronous, event-driven style of communication where the client sends an event or message without waiting for a direct response.',
+        };
+    }
+
+    /**
+     * Returns an icon name associated with the style for UI purposes.
+     */
+    public function icon(): string
+    {
+        return match ($this) {
+            self::Synchronous => 'sync',
+            self::Asynchronous => 'paper-plane',
+        };
+    }
 }

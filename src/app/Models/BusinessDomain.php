@@ -8,7 +8,9 @@ use App\Observers\BusinessDomainObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -33,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessDomain extends Model
 {
     use BelongsToUser;
+    use HasFactory;
     use HasRelatives;
 
     /**
@@ -66,6 +69,16 @@ class BusinessDomain extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the components that belong to this business domain.
+     *
+     * @return HasMany<Component>
+     */
+    public function components(): HasMany
+    {
+        return $this->hasMany(Component::class, 'domain_id', 'id');
+    }
 
     /**
      * Check if the business domain is active.
