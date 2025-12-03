@@ -15,6 +15,8 @@ import {
     Tag,
     Settings,
     Workflow,
+    FileCode,
+    PanelRightOpen,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -182,6 +184,18 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                         title: "Diagrams",
                         url: `/${locale}/showcase/diagrams`,
                         icon: Workflow,
+                        badge: "New",
+                    },
+                    {
+                        title: "Markdown",
+                        url: `/${locale}/showcase/markdown`,
+                        icon: FileCode,
+                        badge: "New",
+                    },
+                    {
+                        title: "Slide Panel",
+                        url: `/${locale}/showcase/slide-panel`,
+                        icon: PanelRightOpen,
                         badge: "New",
                     },
                 ],
