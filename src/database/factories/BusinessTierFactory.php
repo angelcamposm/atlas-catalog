@@ -28,7 +28,7 @@ class BusinessTierFactory extends Factory
      */
     public function definition(): array
     {
-        $tierName = fake()->randomElement(['Bronze', 'Silver', 'Gold', 'Platinum', 'Enterprise', 'Foundation', 'Professional']);
+        $tierName = $this->faker->randomElement(['Bronze', 'Silver', 'Gold', 'Platinum', 'Enterprise', 'Foundation', 'Professional']);
 
         return [
             'name' => "{$tierName} Tier",
