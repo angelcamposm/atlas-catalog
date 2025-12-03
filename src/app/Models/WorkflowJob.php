@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
+ * @property int $component_id
  * @property string $name
  * @property string $display_name
  * @property string $description
@@ -81,5 +82,25 @@ class WorkflowJob extends Model
     public function component(): BelongsTo
     {
         return $this->belongsTo(Component::class, 'component_id', 'id');
+    }
+
+    /**
+     * Check if the workflow job has a component.
+     *
+     * @return bool
+     */
+    public function hasComponent(): bool
+    {
+        return $this->component_id !== null;
+    }
+
+    /**
+     * Check if the workflow job is enabled.
+     *
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->is_enabled;
     }
 }
