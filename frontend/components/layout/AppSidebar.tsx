@@ -17,6 +17,7 @@ import {
     Workflow,
     FileCode,
     PanelRightOpen,
+    Inbox,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -196,6 +197,12 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                         title: "Slide Panel",
                         url: `/${locale}/showcase/slide-panel`,
                         icon: PanelRightOpen,
+                        badge: "New",
+                    },
+                    {
+                        title: "Empty State",
+                        url: `/${locale}/showcase/empty-state`,
+                        icon: Inbox,
                         badge: "New",
                     },
                 ],
