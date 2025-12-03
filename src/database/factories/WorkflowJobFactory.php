@@ -29,16 +29,16 @@ class WorkflowJobFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->words(3, true);
+        $name = $this->faker->words(3, true);
 
         return [
             'name' => $name,
             'component_id' => Component::factory(),
             'display_name' => $name,
-            'description' => fake()->sentence(),
-            'discovery_source' => fake()->randomElement(DiscoverySource::cases()),
-            'is_enabled' => fake()->boolean(),
-            'url' => fake()->url(),
+            'description' => $this->faker->sentence(),
+            'discovery_source' => $this->faker->randomElement(DiscoverySource::cases()),
+            'is_enabled' => $this->faker->boolean(),
+            'url' => $this->faker->url(),
             'created_by' => User::factory(),
             'updated_by' => User::factory(),
         ];
