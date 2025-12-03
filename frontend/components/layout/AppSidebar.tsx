@@ -165,6 +165,12 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                         icon: FileText,
                     },
                     {
+                        title: "API Docs",
+                        url: `/${locale}/documentation/api`,
+                        icon: FileCode,
+                        badge: "Swagger",
+                    },
+                    {
                         title: "Security",
                         url: `/${locale}/security`,
                         icon: Users,
