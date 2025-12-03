@@ -437,17 +437,17 @@ console.log("Hello, Markdown!");
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-background">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b shadow-sm">
+            <div className="bg-card border-b border-border shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <div className="flex items-center gap-3 mb-2">
-                        <HiOutlineDocumentText className="w-10 h-10 text-teal-600" />
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        <HiOutlineDocumentText className="w-10 h-10 text-primary" />
+                        <h1 className="text-3xl font-bold text-foreground">
                             Markdown Renderer
                         </h1>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                         Componente para renderizar contenido Markdown con
                         soporte completo para GitHub Flavored Markdown, syntax
                         highlighting y estilos responsivos.
@@ -457,7 +457,7 @@ console.log("Hello, Markdown!");
 
             <div className="max-w-7xl mx-auto px-4 py-8">
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 mb-6 bg-white dark:bg-gray-800 p-2 rounded-lg border">
+                <div className="flex flex-wrap gap-2 mb-6 bg-card p-2 rounded-lg border border-border">
                     {tabs.map((tab) => {
                         const Icon = tab.icon;
                         return (
@@ -466,8 +466,8 @@ console.log("Hello, Markdown!");
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                                     activeTab === tab.id
-                                        ? "bg-teal-600 text-white"
-                                        : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                        ? "bg-primary text-primary-foreground"
+                                        : "text-muted-foreground hover:bg-muted"
                                 }`}
                             >
                                 <Icon className="w-4 h-4" />
@@ -482,8 +482,8 @@ console.log("Hello, Markdown!");
                     {/* Source / Editor Section */}
                     <section>
                         <div className="flex items-center gap-2 mb-3">
-                            <HiOutlineCodeBracket className="w-5 h-5 text-gray-500" />
-                            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            <HiOutlineCodeBracket className="w-5 h-5 text-muted-foreground" />
+                            <h2 className="text-lg font-semibold text-foreground">
                                 {activeTab === "editor"
                                     ? "Editor"
                                     : "Código Fuente (Markdown)"}
@@ -517,8 +517,8 @@ console.log("Hello, Markdown!");
 
                     {/* Divider */}
                     <div className="flex items-center gap-4">
-                        <div className="flex-1 border-t border-gray-200 dark:border-gray-700" />
-                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                        <div className="flex-1 border-t border-border" />
+                        <span className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                             <svg
                                 className="w-4 h-4"
                                 fill="none"
@@ -534,19 +534,19 @@ console.log("Hello, Markdown!");
                             </svg>
                             Vista Previa
                         </span>
-                        <div className="flex-1 border-t border-gray-200 dark:border-gray-700" />
+                        <div className="flex-1 border-t border-border" />
                     </div>
 
                     {/* Preview Section - Clean, integrated look */}
                     <section>
                         <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2">
-                                <HiOutlineDocumentText className="w-5 h-5 text-teal-600" />
-                                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                <HiOutlineDocumentText className="w-5 h-5 text-primary" />
+                                <h2 className="text-lg font-semibold text-foreground">
                                     Renderizado
                                 </h2>
                             </div>
-                            <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                            <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
                                 GitHub Flavored Markdown
                             </span>
                         </div>
@@ -554,9 +554,9 @@ console.log("Hello, Markdown!");
                         {/* Preview content - flows naturally */}
                         <article
                             className="prose prose-slate dark:prose-invert max-w-none 
-                            bg-white dark:bg-gray-800/50 
+                            bg-card 
                             rounded-xl p-8 
-                            border border-gray-100 dark:border-gray-800
+                            border border-border
                             shadow-sm"
                         >
                             <MarkdownRenderer content={getTabContent()} />
@@ -565,17 +565,17 @@ console.log("Hello, Markdown!");
                 </div>
 
                 {/* Usage Section */}
-                <div className="mt-12 bg-white dark:bg-gray-800 rounded-lg border p-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="mt-12 bg-card rounded-lg border border-border p-6">
+                    <h2 className="text-2xl font-semibold text-foreground mb-4">
                         Cómo Usar el Componente
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                    <p className="text-muted-foreground mb-4">
                         El componente{" "}
-                        <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-pink-600 dark:text-pink-400">
+                        <code className="px-1.5 py-0.5 bg-muted rounded text-primary">
                             MarkdownRenderer
                         </code>{" "}
                         acepta una prop{" "}
-                        <code className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 rounded text-pink-600 dark:text-pink-400">
+                        <code className="px-1.5 py-0.5 bg-muted rounded text-primary">
                             content
                         </code>{" "}
                         con el texto en formato Markdown.
@@ -630,13 +630,13 @@ console.log("Hello, Markdown!");
                     ].map((feature, idx) => (
                         <div
                             key={idx}
-                            className="bg-white dark:bg-gray-800 rounded-lg border p-4"
+                            className="bg-card rounded-lg border border-border p-4"
                         >
                             <div className="text-2xl mb-2">{feature.icon}</div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white">
+                            <h3 className="font-semibold text-foreground">
                                 {feature.title}
                             </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-muted-foreground">
                                 {feature.description}
                             </p>
                         </div>

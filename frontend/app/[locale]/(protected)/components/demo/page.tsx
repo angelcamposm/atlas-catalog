@@ -292,7 +292,7 @@ export default function ComponentDemoPage() {
                     </div>
                 }
                 icon={<HiServerStack className="h-5 w-5" />}
-                status={<Badge variant="success">Activo</Badge>}
+                status={{ label: "Activo", variant: "success" }}
                 breadcrumbs={[{ label: "Componentes" }, { label: "Demo" }]}
             >
                 {/* Tabs Demo */}
@@ -315,7 +315,7 @@ export default function ComponentDemoPage() {
                         },
                     ]}
                     activeTab={demoTab}
-                    onTabChange={setDemoTab}
+                    onChange={setDemoTab}
                 />
 
                 {demoTab === "overview" && (
@@ -386,7 +386,7 @@ export default function ComponentDemoPage() {
                             />
                         </SlideOverSection>
 
-                        <SlideOverDivider label="Opciones Avanzadas" />
+                        <SlideOverDivider />
 
                         <SlideOverSection
                             title="Tamaños Disponibles"

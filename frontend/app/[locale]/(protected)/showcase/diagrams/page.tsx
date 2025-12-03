@@ -239,14 +239,14 @@ const erDiagram = `erDiagram
 
 export default function DiagramsShowcasePage() {
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-background">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b shadow-sm">
+            <div className="bg-card border-b border-border shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 py-8">
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <h1 className="text-3xl font-bold text-foreground">
                         Componentes de Visualización
                     </h1>
-                    <p className="mt-2 text-gray-600 dark:text-gray-300">
+                    <p className="mt-2 text-muted-foreground">
                         Componentes reutilizables para mostrar código, diagramas
                         de flujo y arquitecturas.
                     </p>
@@ -257,12 +257,12 @@ export default function DiagramsShowcasePage() {
                 {/* Code Block Section */}
                 <section>
                     <div className="flex items-center gap-3 mb-6">
-                        <HiOutlineCodeBracket className="w-8 h-8 text-blue-600" />
-                        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <HiOutlineCodeBracket className="w-8 h-8 text-primary" />
+                        <h2 className="text-2xl font-semibold text-foreground">
                             Code Block
                         </h2>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    <p className="text-muted-foreground mb-6">
                         Componente para mostrar código con syntax highlighting,
                         números de línea y botón de copiar. Soporta múltiples
                         lenguajes y temas claro/oscuro.
@@ -270,7 +270,7 @@ export default function DiagramsShowcasePage() {
 
                     <div className="grid gap-6">
                         <div>
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 TypeScript
                             </h3>
                             <CodeBlock
@@ -282,7 +282,7 @@ export default function DiagramsShowcasePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 Python
                             </h3>
                             <CodeBlock
@@ -294,7 +294,7 @@ export default function DiagramsShowcasePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 cURL / Bash
                             </h3>
                             <CodeBlock
@@ -305,11 +305,11 @@ export default function DiagramsShowcasePage() {
                             />
                         </div>
 
-                        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg border">
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                        <div className="p-4 bg-card rounded-lg border border-border">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 Inline Code
                             </h3>
-                            <p className="text-gray-600 dark:text-gray-300">
+                            <p className="text-muted-foreground">
                                 También puedes usar{" "}
                                 <InlineCode>código inline</InlineCode> para
                                 referencias rápidas como{" "}
@@ -324,12 +324,12 @@ export default function DiagramsShowcasePage() {
                 {/* Flow Diagram Section */}
                 <section>
                     <div className="flex items-center gap-3 mb-6">
-                        <HiOutlineRectangleGroup className="w-8 h-8 text-green-600" />
-                        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <HiOutlineRectangleGroup className="w-8 h-8 text-accent" />
+                        <h2 className="text-2xl font-semibold text-foreground">
                             Flow Diagram (React Flow)
                         </h2>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    <p className="text-muted-foreground mb-6">
                         Diagrama interactivo de flujo construido con React Flow.
                         Soporta nodos personalizados para servicios, bases de
                         datos, colas y APIs externas. Los nodos son
@@ -372,12 +372,12 @@ export default function DiagramsShowcasePage() {
                         ].map((item) => (
                             <div
                                 key={item.type}
-                                className="flex items-center gap-2 p-2 bg-white dark:bg-gray-800 rounded border"
+                                className="flex items-center gap-2 p-2 bg-card rounded border border-border"
                             >
                                 <div
                                     className={`w-3 h-3 rounded bg-${item.color}-500`}
                                 />
-                                <span className="text-sm text-gray-600 dark:text-gray-300">
+                                <span className="text-sm text-muted-foreground">
                                     {item.label}
                                 </span>
                             </div>
@@ -388,12 +388,12 @@ export default function DiagramsShowcasePage() {
                 {/* Mermaid Section */}
                 <section>
                     <div className="flex items-center gap-3 mb-6">
-                        <HiOutlineArrowsRightLeft className="w-8 h-8 text-purple-600" />
-                        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <HiOutlineArrowsRightLeft className="w-8 h-8 text-secondary" />
+                        <h2 className="text-2xl font-semibold text-foreground">
                             Mermaid Diagrams
                         </h2>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    <p className="text-muted-foreground mb-6">
                         Diagramas generados con Mermaid.js. Ideales para
                         diagramas de secuencia, arquitectura, ER y más. Se
                         pueden definir en formato texto.
@@ -401,7 +401,7 @@ export default function DiagramsShowcasePage() {
 
                     <div className="grid gap-8">
                         <div>
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 Diagrama de Secuencia
                             </h3>
                             <MermaidDiagram
@@ -412,7 +412,7 @@ export default function DiagramsShowcasePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 Arquitectura del Sistema
                             </h3>
                             <MermaidDiagram
@@ -423,7 +423,7 @@ export default function DiagramsShowcasePage() {
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-3">
+                            <h3 className="text-lg font-medium text-foreground mb-3">
                                 Diagrama Entidad-Relación
                             </h3>
                             <MermaidDiagram
@@ -436,8 +436,8 @@ export default function DiagramsShowcasePage() {
                 </section>
 
                 {/* Usage Examples */}
-                <section className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                <section className="bg-card rounded-lg border border-border p-6">
+                    <h2 className="text-2xl font-semibold text-foreground mb-4">
                         Uso de los Componentes
                     </h2>
 

@@ -10,7 +10,7 @@ RUN set -eux; \
 		libzip-dev \
 		unzip \
 		; \
-	docker-php-ext-install -j "$(nproc)" pdo_pgsql pgsql zip; \
+	docker-php-ext-install -j "$(nproc)" pdo_pgsql pgsql zip pcntl; \
 	rm -rf /var/lib/apt/lists/*;
 
 WORKDIR /var/www/html

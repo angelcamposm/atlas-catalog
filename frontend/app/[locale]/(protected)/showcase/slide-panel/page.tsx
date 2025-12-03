@@ -114,12 +114,12 @@ function PanelContent({ service }: { service: (typeof services)[0] }) {
             {/* Service Info */}
             <div>
                 <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-foreground">
                         {service.name}
                     </h4>
                     <StatusBadge status={service.status} />
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                     Versión: {service.version}
                 </p>
             </div>
@@ -132,14 +132,11 @@ function PanelContent({ service }: { service: (typeof services)[0] }) {
                     { label: "Uptime", value: "99.9%" },
                     { label: "Errores", value: "0.1%" },
                 ].map((stat) => (
-                    <div
-                        key={stat.label}
-                        className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3"
-                    >
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <div key={stat.label} className="bg-muted rounded-lg p-3">
+                        <p className="text-xs text-muted-foreground">
                             {stat.label}
                         </p>
-                        <p className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <p className="text-lg font-semibold text-foreground">
                             {stat.value}
                         </p>
                     </div>
@@ -148,7 +145,7 @@ function PanelContent({ service }: { service: (typeof services)[0] }) {
 
             {/* Documentation */}
             <div>
-                <h4 className="font-medium text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                <h4 className="font-medium text-foreground mb-3 flex items-center gap-2">
                     <HiOutlineDocumentText className="w-4 h-4" />
                     Documentación
                 </h4>
@@ -187,13 +184,13 @@ export default function SlidePanelShowcasePage() {
                 fullScreen={true}
             >
                 {/* Main Content - Full Screen */}
-                <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-900">
+                <div className="h-full flex flex-col bg-background">
                     {/* Toolbar */}
-                    <div className="shrink-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
+                    <div className="shrink-0 bg-card border-b border-border px-4 py-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <HiOutlineViewColumns className="w-6 h-6 text-indigo-600" />
-                                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                <HiOutlineViewColumns className="w-6 h-6 text-primary" />
+                                <h1 className="text-lg font-semibold text-foreground">
                                     Slide Panel - Full Screen Demo
                                 </h1>
                             </div>
@@ -202,8 +199,8 @@ export default function SlidePanelShowcasePage() {
                                     onClick={() => setIsPanelOpen(!isPanelOpen)}
                                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                                         isPanelOpen
-                                            ? "bg-indigo-600 text-white"
-                                            : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                                            ? "bg-primary text-primary-foreground"
+                                            : "bg-muted text-muted-foreground"
                                     }`}
                                 >
                                     Panel: {isPanelOpen ? "ON" : "OFF"}
@@ -216,13 +213,13 @@ export default function SlidePanelShowcasePage() {
                                                 : "right"
                                         )
                                     }
-                                    className="px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                                    className="px-3 py-1.5 rounded-lg text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
                                 >
                                     {panelPosition === "right" ? "→" : "←"}
                                 </button>
                                 <button
                                     onClick={() => setIsFullScreen(false)}
-                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
                                 >
                                     <HiOutlineArrowsPointingIn className="w-4 h-4" />
                                     Salir
@@ -235,8 +232,8 @@ export default function SlidePanelShowcasePage() {
                     <div className="flex-1 overflow-auto p-6">
                         <div className="max-w-4xl mx-auto">
                             <div className="flex items-center gap-2 mb-6">
-                                <HiOutlineListBullet className="w-6 h-6 text-gray-500" />
-                                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                                <HiOutlineListBullet className="w-6 h-6 text-muted-foreground" />
+                                <h2 className="text-xl font-semibold text-foreground">
                                     Servicios Disponibles
                                 </h2>
                             </div>
@@ -251,16 +248,16 @@ export default function SlidePanelShowcasePage() {
                                         }}
                                         className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                                             selectedService.id === service.id
-                                                ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20"
-                                                : "border-transparent bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600"
+                                                ? "border-primary bg-primary/10"
+                                                : "border-transparent bg-card hover:border-border"
                                         }`}
                                     >
                                         <div className="flex items-center justify-between">
                                             <div>
-                                                <h4 className="font-medium text-gray-900 dark:text-white">
+                                                <h4 className="font-medium text-foreground">
                                                     {service.name}
                                                 </h4>
-                                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                <p className="text-sm text-muted-foreground">
                                                     v{service.version}
                                                 </p>
                                             </div>
@@ -272,8 +269,8 @@ export default function SlidePanelShowcasePage() {
                                 ))}
                             </div>
 
-                            <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                                <p className="text-sm text-blue-700 dark:text-blue-300">
+                            <div className="mt-8 p-4 bg-primary/10 rounded-lg border border-primary/20">
+                                <p className="text-sm text-primary">
                                     💡 <strong>Modo Full Screen:</strong> El
                                     contenido ocupa toda la pantalla disponible.
                                     El panel lateral empuja el contenido y todo
@@ -289,17 +286,17 @@ export default function SlidePanelShowcasePage() {
 
     // Render normal con documentación
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-background">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b shadow-sm">
+            <div className="bg-card border-b border-border shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <div className="flex items-center gap-3 mb-2">
-                        <HiOutlineViewColumns className="w-10 h-10 text-indigo-600" />
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        <HiOutlineViewColumns className="w-10 h-10 text-primary" />
+                        <h1 className="text-3xl font-bold text-foreground">
                             Slide Panel
                         </h1>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                         Panel lateral que empuja el contenido en lugar de
                         superponerse. Ideal para mostrar detalles,
                         configuraciones o documentación.
@@ -331,8 +328,8 @@ export default function SlidePanelShowcasePage() {
                 </div>
 
                 {/* Controls */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <div className="bg-card rounded-lg border border-border p-4">
+                    <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
                         <HiOutlineCog6Tooth className="w-5 h-5" />
                         Controles de Demo
                     </h2>
@@ -341,8 +338,8 @@ export default function SlidePanelShowcasePage() {
                             onClick={() => setIsPanelOpen(!isPanelOpen)}
                             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                 isPanelOpen
-                                    ? "bg-indigo-600 text-white"
-                                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                                    ? "bg-primary text-primary-foreground"
+                                    : "bg-muted text-muted-foreground"
                             }`}
                         >
                             Panel: {isPanelOpen ? "Abierto" : "Cerrado"}
@@ -353,7 +350,7 @@ export default function SlidePanelShowcasePage() {
                                     panelPosition === "right" ? "left" : "right"
                                 )
                             }
-                            className="px-4 py-2 rounded-lg font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                            className="px-4 py-2 rounded-lg font-medium bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
                         >
                             Posición:{" "}
                             {panelPosition === "right"
@@ -364,12 +361,12 @@ export default function SlidePanelShowcasePage() {
                 </div>
 
                 {/* Embedded Demo */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg border overflow-hidden">
-                    <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50">
-                        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <div className="bg-card rounded-lg border border-border overflow-hidden">
+                    <div className="p-4 border-b border-border bg-muted">
+                        <h2 className="text-lg font-semibold text-foreground">
                             Demo Embebida
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                             Vista previa del componente. Para ver el efecto
                             completo, usa el modo Full Screen.
                         </p>
@@ -386,10 +383,10 @@ export default function SlidePanelShowcasePage() {
                             position={panelPosition}
                         >
                             {/* Main Content - Service List */}
-                            <div className="h-full p-6 bg-gray-50 dark:bg-gray-900 overflow-auto">
+                            <div className="h-full p-6 bg-background overflow-auto">
                                 <div className="flex items-center gap-2 mb-4">
-                                    <HiOutlineListBullet className="w-5 h-5 text-gray-500" />
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    <HiOutlineListBullet className="w-5 h-5 text-muted-foreground" />
+                                    <h3 className="text-lg font-semibold text-foreground">
                                         Servicios
                                     </h3>
                                 </div>
@@ -405,16 +402,16 @@ export default function SlidePanelShowcasePage() {
                                             className={`w-full text-left p-3 rounded-lg border-2 transition-all ${
                                                 selectedService.id ===
                                                 service.id
-                                                    ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20"
-                                                    : "border-transparent bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-600"
+                                                    ? "border-primary bg-primary/10"
+                                                    : "border-transparent bg-card hover:border-border"
                                             }`}
                                         >
                                             <div className="flex items-center justify-between">
                                                 <div>
-                                                    <h4 className="font-medium text-gray-900 dark:text-white text-sm">
+                                                    <h4 className="font-medium text-foreground text-sm">
                                                         {service.name}
                                                     </h4>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                    <p className="text-xs text-muted-foreground">
                                                         v{service.version}
                                                     </p>
                                                 </div>
@@ -431,8 +428,8 @@ export default function SlidePanelShowcasePage() {
                 </div>
 
                 {/* Usage Code */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="bg-card rounded-lg border border-border p-6">
+                    <h2 className="text-2xl font-semibold text-foreground mb-4">
                         Cómo Usar el Componente
                     </h2>
                     <CodeBlock
@@ -483,13 +480,13 @@ export default function SlidePanelShowcasePage() {
                     ].map((feature, idx) => (
                         <div
                             key={idx}
-                            className="bg-white dark:bg-gray-800 rounded-lg border p-4"
+                            className="bg-card rounded-lg border border-border p-4"
                         >
                             <div className="text-2xl mb-2">{feature.icon}</div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white">
+                            <h3 className="font-semibold text-foreground">
                                 {feature.title}
                             </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-muted-foreground">
                                 {feature.description}
                             </p>
                         </div>

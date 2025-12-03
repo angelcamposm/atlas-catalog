@@ -18,6 +18,7 @@ import {
     FileCode,
     PanelRightOpen,
     Inbox,
+    Loader,
 } from "lucide-react";
 
 interface AppSidebarProps {
@@ -203,6 +204,12 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                         title: "Empty State",
                         url: `/${locale}/showcase/empty-state`,
                         icon: Inbox,
+                        badge: "New",
+                    },
+                    {
+                        title: "Loading",
+                        url: `/${locale}/showcase/loading`,
+                        icon: Loader,
                         badge: "New",
                     },
                 ],

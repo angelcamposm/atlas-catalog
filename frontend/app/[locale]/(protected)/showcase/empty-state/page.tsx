@@ -123,17 +123,17 @@ export default function EmptyStateShowcasePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="min-h-screen bg-background">
             {/* Header */}
-            <div className="bg-white dark:bg-gray-800 border-b shadow-sm">
+            <div className="bg-card border-b border-border shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 py-8">
                     <div className="flex items-center gap-3 mb-2">
-                        <HiOutlineInboxStack className="w-10 h-10 text-indigo-600" />
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                        <HiOutlineInboxStack className="w-10 h-10 text-primary" />
+                        <h1 className="text-3xl font-bold text-foreground">
                             Empty State
                         </h1>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300">
+                    <p className="text-muted-foreground">
                         Componente reutilizable para mostrar estados vacíos con
                         ilustración, texto explicativo y acciones.
                     </p>
@@ -142,7 +142,7 @@ export default function EmptyStateShowcasePage() {
 
             <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
                 {/* Tabs */}
-                <div className="flex flex-wrap gap-2 bg-white dark:bg-gray-800 p-2 rounded-lg border">
+                <div className="flex flex-wrap gap-2 bg-card p-2 rounded-lg border border-border">
                     {[
                         { id: "basic", label: "Tipos Básicos" },
                         { id: "variants", label: "Variantes" },
@@ -155,8 +155,8 @@ export default function EmptyStateShowcasePage() {
                             onClick={() => setActiveTab(tab.id as DemoType)}
                             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                                 activeTab === tab.id
-                                    ? "bg-indigo-600 text-white"
-                                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                    ? "bg-primary text-primary-foreground"
+                                    : "text-muted-foreground hover:bg-muted"
                             }`}
                         >
                             {tab.label}
@@ -167,8 +167,8 @@ export default function EmptyStateShowcasePage() {
                 {/* Basic Types */}
                 {activeTab === "basic" && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-4">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 type=&quot;empty&quot;
                             </h3>
                             <EmptyState
@@ -181,8 +181,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-4">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 type=&quot;no-results&quot;
                             </h3>
                             <EmptyState
@@ -195,8 +195,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-4">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 type=&quot;error&quot;
                             </h3>
                             <EmptyState
@@ -210,8 +210,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-4">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 type=&quot;offline&quot;
                             </h3>
                             <EmptyState
@@ -225,8 +225,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-4">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 type=&quot;server-error&quot;
                             </h3>
                             <EmptyState
@@ -240,8 +240,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-4">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 type=&quot;no-data&quot;
                             </h3>
                             <EmptyState
@@ -257,8 +257,8 @@ export default function EmptyStateShowcasePage() {
                 {/* Pre-configured Variants */}
                 {activeTab === "variants" && (
                     <div className="space-y-6">
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">
                                 EmptyList
                             </h3>
                             <EmptyList
@@ -267,8 +267,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">
                                 NoSearchResults
                             </h3>
                             <NoSearchResults
@@ -277,8 +277,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">
                                 ErrorState
                             </h3>
                             <ErrorState
@@ -288,8 +288,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">
                                 OfflineState
                             </h3>
                             <OfflineState
@@ -298,8 +298,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">
                                 ServerErrorState
                             </h3>
                             <ServerErrorState
@@ -313,8 +313,8 @@ export default function EmptyStateShowcasePage() {
                 {/* Custom Icons */}
                 {activeTab === "custom" && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 Carrito vacío
                             </h3>
                             <EmptyState
@@ -329,8 +329,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 Sin notificaciones
                             </h3>
                             <EmptyState
@@ -343,8 +343,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 Lanzamiento próximo
                             </h3>
                             <EmptyState
@@ -361,8 +361,8 @@ export default function EmptyStateShowcasePage() {
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                 Con contenido adicional
                             </h3>
                             <EmptyState
@@ -389,18 +389,18 @@ export default function EmptyStateShowcasePage() {
                 {/* SVG Custom */}
                 {activeTab === "svg" && (
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-lg border border-indigo-200 dark:border-indigo-800 p-4">
-                            <h3 className="text-lg font-semibold text-indigo-900 dark:text-indigo-100 mb-2">
+                        <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20 p-4">
+                            <h3 className="text-lg font-semibold text-foreground mb-2">
                                 🎨 SVG Personalizados
                             </h3>
-                            <p className="text-indigo-700 dark:text-indigo-300 text-sm">
+                            <p className="text-muted-foreground text-sm">
                                 Puedes usar SVGs generados por IA (como ChatGPT,
                                 Claude, etc.) pasándolos como string en la prop{" "}
-                                <code className="bg-indigo-100 dark:bg-indigo-800 px-1 rounded">
+                                <code className="bg-muted px-1 rounded">
                                     svgContent
                                 </code>
                                 , o cargar desde una URL con{" "}
-                                <code className="bg-indigo-100 dark:bg-indigo-800 px-1 rounded">
+                                <code className="bg-muted px-1 rounded">
                                     svgUrl
                                 </code>
                                 .
@@ -408,8 +408,8 @@ export default function EmptyStateShowcasePage() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                            <div className="bg-card rounded-lg border border-border p-6">
+                                <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                     SVG: Cohete 🚀
                                 </h3>
                                 <EmptyState
@@ -423,8 +423,8 @@ export default function EmptyStateShowcasePage() {
                                 />
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                            <div className="bg-card rounded-lg border border-border p-6">
+                                <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                     SVG: Caja vacía 📦
                                 </h3>
                                 <EmptyState
@@ -438,8 +438,8 @@ export default function EmptyStateShowcasePage() {
                                 />
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                            <div className="bg-card rounded-lg border border-border p-6">
+                                <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                     SVG: Búsqueda 🔍
                                 </h3>
                                 <EmptyState
@@ -453,8 +453,8 @@ export default function EmptyStateShowcasePage() {
                                 />
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                            <div className="bg-card rounded-lg border border-border p-6">
+                                <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                     SVG: Error de conexión ☁️
                                 </h3>
                                 <EmptyState
@@ -469,8 +469,8 @@ export default function EmptyStateShowcasePage() {
                                 />
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                            <div className="bg-card rounded-lg border border-border p-6">
+                                <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                     SVG: Carpeta vacía 📁
                                 </h3>
                                 <EmptyState
@@ -484,8 +484,8 @@ export default function EmptyStateShowcasePage() {
                                 />
                             </div>
 
-                            <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+                            <div className="bg-card rounded-lg border border-border p-6">
+                                <h3 className="text-sm font-medium text-muted-foreground mb-4">
                                     Con iconClassName personalizado
                                 </h3>
                                 <EmptyState
@@ -499,8 +499,8 @@ export default function EmptyStateShowcasePage() {
                         </div>
 
                         {/* Código de ejemplo */}
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <div className="bg-card rounded-lg border border-border p-6">
+                            <h3 className="text-lg font-semibold text-foreground mb-4">
                                 Cómo usar SVG personalizado
                             </h3>
                             <CodeBlock
@@ -537,9 +537,9 @@ const mySvg = \`<svg viewBox="0 0 120 120" fill="none">
                 {/* Sizes */}
                 {activeTab === "sizes" && (
                     <div className="space-y-8">
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border">
-                            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                                <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <div className="bg-card rounded-lg border border-border">
+                            <div className="p-4 border-b border-border">
+                                <h3 className="font-semibold text-foreground">
                                     size=&quot;sm&quot;
                                 </h3>
                             </div>
@@ -553,9 +553,9 @@ const mySvg = \`<svg viewBox="0 0 120 120" fill="none">
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border">
-                            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                                <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <div className="bg-card rounded-lg border border-border">
+                            <div className="p-4 border-b border-border">
+                                <h3 className="font-semibold text-foreground">
                                     size=&quot;md&quot; (default)
                                 </h3>
                             </div>
@@ -569,9 +569,9 @@ const mySvg = \`<svg viewBox="0 0 120 120" fill="none">
                             />
                         </div>
 
-                        <div className="bg-white dark:bg-gray-800 rounded-lg border">
-                            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                                <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <div className="bg-card rounded-lg border border-border">
+                            <div className="p-4 border-b border-border">
+                                <h3 className="font-semibold text-foreground">
                                     size=&quot;lg&quot;
                                 </h3>
                             </div>
@@ -588,8 +588,8 @@ const mySvg = \`<svg viewBox="0 0 120 120" fill="none">
                 )}
 
                 {/* Usage Code */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg border p-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                <div className="bg-card rounded-lg border border-border p-6">
+                    <h2 className="text-2xl font-semibold text-foreground mb-4">
                         Cómo Usar el Componente
                     </h2>
                     <CodeBlock
@@ -642,13 +642,13 @@ const mySvg = \`<svg viewBox="0 0 120 120" fill="none">
                     ].map((feature, idx) => (
                         <div
                             key={idx}
-                            className="bg-white dark:bg-gray-800 rounded-lg border p-4"
+                            className="bg-card rounded-lg border border-border p-4"
                         >
                             <div className="text-2xl mb-2">{feature.icon}</div>
-                            <h3 className="font-semibold text-gray-900 dark:text-white">
+                            <h3 className="font-semibold text-foreground">
                                 {feature.title}
                             </h3>
-                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                            <p className="text-sm text-muted-foreground">
                                 {feature.description}
                             </p>
                         </div>
