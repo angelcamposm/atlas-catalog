@@ -28,9 +28,9 @@ class PlatformFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->words(2, true),
-            'description' => fake()->sentence(),
-            'icon' => fake()->word() . '.svg',
+            'name' => $this->faker->words(2, true),
+            'description' => $this->faker->sentence(),
+            'icon' => $this->faker->word() . '.svg',
             'created_by' => User::factory(),
             'updated_by' => User::factory(),
         ];
