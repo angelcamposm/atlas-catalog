@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -102,5 +103,25 @@ class WorkflowJob extends Model
     public function isEnabled(): bool
     {
         return $this->is_enabled;
+    }
+
+    /**
+     * Check if the workflow job has workflow runs.
+     *
+     * @return bool
+     */
+    public function hasWorkflowRuns(): bool
+    {
+        return $this->workflowRuns()->exists();
+    }
+
+    /**
+     * Get the workflow runs associated with this WorkflowJob.
+     *
+     * @return HasMany<WorkflowRun>
+     */
+    public function workflowRuns(): HasMany
+    {
+        return $this->hasMany(WorkflowRun::class, 'workflow_job_id', 'id');
     }
 }
