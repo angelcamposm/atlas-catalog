@@ -13,7 +13,10 @@ import {
 
 // Importar dinámicamente para evitar SSR
 const SwaggerUIWrapper = dynamic(
-    () => import("@/components/ui/swagger-ui").then((mod) => mod.SwaggerUIWrapper),
+    () =>
+        import("@/components/ui/swagger-ui").then(
+            (mod) => mod.SwaggerUIWrapper
+        ),
     {
         ssr: false,
         loading: () => (
@@ -26,10 +29,13 @@ const SwaggerUIWrapper = dynamic(
 
 export default function ApiDocumentationPage() {
     const [copied, setCopied] = useState(false);
-    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+    const apiBaseUrl =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
     const copySpecUrl = () => {
-        navigator.clipboard.writeText(`${window.location.origin}/api/openapi.yml`);
+        navigator.clipboard.writeText(
+            `${window.location.origin}/api/openapi.yml`
+        );
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
@@ -102,19 +108,25 @@ export default function ApiDocumentationPage() {
             <div className="max-w-7xl mx-auto px-4 py-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="bg-card rounded-lg border border-border p-4">
-                        <div className="text-sm text-muted-foreground">Base URL</div>
+                        <div className="text-sm text-muted-foreground">
+                            Base URL
+                        </div>
                         <code className="text-sm font-mono text-foreground">
                             {apiBaseUrl}/api/v1
                         </code>
                     </div>
                     <div className="bg-card rounded-lg border border-border p-4">
-                        <div className="text-sm text-muted-foreground">Autenticación</div>
+                        <div className="text-sm text-muted-foreground">
+                            Autenticación
+                        </div>
                         <code className="text-sm font-mono text-foreground">
                             Bearer Token (JWT)
                         </code>
                     </div>
                     <div className="bg-card rounded-lg border border-border p-4">
-                        <div className="text-sm text-muted-foreground">Formato</div>
+                        <div className="text-sm text-muted-foreground">
+                            Formato
+                        </div>
                         <code className="text-sm font-mono text-foreground">
                             JSON (application/json)
                         </code>
@@ -137,15 +149,25 @@ export default function ApiDocumentationPage() {
                     {[
                         { label: "APIs", tag: "APIs", count: "CRUD" },
                         { label: "Clusters", tag: "Clusters", count: "CRUD" },
-                        { label: "Lifecycles", tag: "Lifecycles", count: "CRUD" },
-                        { label: "Environments", tag: "Environments", count: "CRUD" },
+                        {
+                            label: "Lifecycles",
+                            tag: "Lifecycles",
+                            count: "CRUD",
+                        },
+                        {
+                            label: "Environments",
+                            tag: "Environments",
+                            count: "CRUD",
+                        },
                     ].map((item) => (
                         <a
                             key={item.tag}
                             href={`#operations-tag-${item.tag}`}
                             className="flex items-center justify-between p-4 bg-card rounded-lg border border-border hover:border-primary/50 hover:bg-muted/50 transition-colors"
                         >
-                            <span className="font-medium text-foreground">{item.label}</span>
+                            <span className="font-medium text-foreground">
+                                {item.label}
+                            </span>
                             <span className="text-xs px-2 py-1 bg-primary/10 text-primary rounded">
                                 {item.count}
                             </span>
