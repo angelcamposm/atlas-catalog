@@ -18,7 +18,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
+ * @property string $description
+ * @property string $email
+ * @property string $icon
+ * @property string $label
  * @property string $name
+ * @property int $parent_id
+ * @property int $type_id
  * @property int $created_by
  * @property int $updated_by
  *
