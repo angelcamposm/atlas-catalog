@@ -30,6 +30,7 @@ class UpdateClusterRequest extends FormRequest
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('clusters')->ignore($this->cluster)],
             'api_url' => ['sometimes', 'nullable', 'string', 'url', 'max:255'],
             'cluster_uuid' => ['sometimes', 'nullable', 'string', 'max:255'],
+            'description' => ['sometimes', 'nullable', 'string', 'max:255'],
             'display_name' => ['sometimes', 'nullable', 'string', 'max:50'],
             'full_version' => ['sometimes', 'nullable', 'string', 'max:50'],
             'has_licensing' => ['sometimes', 'boolean'],

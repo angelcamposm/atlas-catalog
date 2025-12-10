@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('api_url', 255)->nullable();
             $table->string('cluster_uuid', 255)->nullable();
+            $table->string('description', 255)->nullable();
             $table->string('display_name', 50)->nullable();
             $table->string('full_version', 50)->nullable();
             $table->boolean('has_licensing')->default(false);
