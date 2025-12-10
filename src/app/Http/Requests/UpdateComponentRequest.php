@@ -36,6 +36,7 @@ class UpdateComponentRequest extends FormRequest
             'display_name' => ['sometimes', 'nullable', 'string', 'max:255'],
             'domain_id' => ['sometimes', 'nullable', 'integer', 'exists:business_domains,id'],
             'has_zero_downtime_deployments' => ['sometimes', 'boolean'],
+            'is_exposed' => ['sometimes', 'boolean'],
             'is_stateless' => ['sometimes', 'boolean'],
             'lifecycle_id' => ['sometimes', 'nullable', 'integer', 'exists:lifecycles,id'],
             'owner_id' => ['sometimes', 'nullable', 'integer', 'exists:teams,id'],
