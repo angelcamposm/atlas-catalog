@@ -9,6 +9,7 @@ return [
         'approval_required' => false,
         'description' => 'Environment for active development and testing by the development team.',
         'display_in_matrix' => true,
+        'is_production_environment' => false,
         'sort_order' => 10,
     ],
     [
@@ -17,6 +18,7 @@ return [
         'approval_required' => false,
         'description' => 'Environment dedicated to testing integration between different systems and components.',
         'display_in_matrix' => true,
+        'is_production_environment' => false,
         'sort_order' => 20,
     ],
     [
@@ -25,6 +27,7 @@ return [
         'approval_required' => false,
         'description' => 'Environment for quality assurance and user acceptance testing.',
         'display_in_matrix' => true,
+        'is_production_environment' => false,
         'sort_order' => 30,
     ],
     [
@@ -33,6 +36,7 @@ return [
         'approval_required' => false,
         'description' => 'A pre-production environment that mirrors the production setup.',
         'display_in_matrix' => true,
+        'is_production_environment' => false,
         'sort_order' => 40,
     ],
     [
@@ -41,6 +45,7 @@ return [
         'approval_required' => true,
         'description' => 'The live environment accessed by end-users.',
         'display_in_matrix' => true,
+        'is_production_environment' => true,
         'sort_order' => 50,
     ],
     [
@@ -49,6 +54,7 @@ return [
         'approval_required' => false,
         'description' => 'An isolated environment for experimentation and testing without affecting other environments.',
         'display_in_matrix' => false,
+        'is_production_environment' => false,
         'sort_order' => 0,
     ],
 ];

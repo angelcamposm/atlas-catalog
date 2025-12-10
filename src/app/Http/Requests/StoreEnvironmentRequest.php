@@ -31,6 +31,7 @@ class StoreEnvironmentRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:255'],
             'display_in_matrix' => ['sometimes', 'boolean'],
             'display_name' => ['nullable', 'string', 'max:50'],
+            'is_production_environment' => ['sometimes', 'boolean'],
             'owner_id' => ['nullable', 'integer', 'exists:users,id'],
             'prefix' => ['nullable', 'string', 'max:3'],
             'sort_order' => ['sometimes', 'integer'],
