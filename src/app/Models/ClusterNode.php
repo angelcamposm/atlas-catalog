@@ -30,7 +30,7 @@ class ClusterNode extends Pivot
     protected $table = 'cluster_node';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
