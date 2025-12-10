@@ -8,9 +8,11 @@ use App\Observers\ComponentObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -34,6 +36,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Group|null $owner The owner of the component.
  * @property-read Lifecycle|null $lifecycle The lifecycle of the component.
  * @property-read Platform|null $platform The platform of the component.
+ * @property-read Collection<int, System> $systems
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
@@ -126,6 +129,26 @@ class Component extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(ServiceStatus::class, 'status_id', 'id');
+    }
+
+    /**
+     * The systems that belong to the component.
+     *
+     * @return BelongsToMany<System>
+     */
+    public function systems(): BelongsToMany
+    {
+        return $this->belongsToMany(System::class, 'system_components');
+    }
+
+    /**
+     * Check if the component has systems.
+     *
+     * @return bool
+     */
+    public function hasSystems(): bool
+    {
+        return $this->systems()->exists();
     }
 
     /**

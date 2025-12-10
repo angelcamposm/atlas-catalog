@@ -8,8 +8,10 @@ use App\Observers\SystemObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\SystemFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -29,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property-read User|null $creator The user who created this language entry.
  * @property-read User|null $updater The user who last updated this language entry.
+ * @property-read Collection<int, Component> $components
  *
  * @use HasFactory<SystemFactory>
  */
@@ -68,4 +71,24 @@ class System extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * The components that belong to the system.
+     *
+     * @return BelongsToMany<Component>
+     */
+    public function components(): BelongsToMany
+    {
+        return $this->belongsToMany(Component::class, 'system_components');
+    }
+
+    /**
+     * Check if the system has components.
+     *
+     * @return bool
+     */
+    public function hasComponents(): bool
+    {
+        return $this->components()->exists();
+    }
 }
