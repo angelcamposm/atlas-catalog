@@ -33,19 +33,19 @@ class ComponentFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->words(3, true);
+        $name = $this->faker->words(3, true);
 
         return [
             'name' => Str::slug($name),
-            'description' => fake()->sentence(),
-            'discovery_source' => fake()->randomElement(DiscoverySource::cases()),
+            'description' => $this->faker->sentence(),
+            'discovery_source' => $this->faker->randomElement(DiscoverySource::cases()),
             'display_name' => $name,
 //            'domain_id' => BusinessDomain::factory(),
-            'is_stateless' => fake()->boolean(),
+            'is_stateless' => $this->faker->boolean(),
             'owner_id' => Group::factory(),
 //            'platform_id' => Platform::factory(),
             'slug' => Str::slug($name),
-            'tags' => json_encode(fake()->words(3)),
+            'tags' => json_encode($this->faker->words(3)),
 //            'tier_id' => BusinessTier::factory(),
             'created_by' => User::factory(),
             'updated_by' => User::factory(),

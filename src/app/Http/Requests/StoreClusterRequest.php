@@ -25,6 +25,7 @@ class StoreClusterRequest extends FormRequest
             'name' => ['required', 'string', 'max:50', 'unique:clusters,name'],
             'api_url' => ['nullable', 'string', 'url', 'max:255'],
             'cluster_uuid' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
             'display_name' => ['nullable', 'string', 'max:50'],
             'full_version' => ['nullable', 'string', 'max:50'],
             'has_licensing' => ['sometimes', 'boolean'],

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('description', 255)->nullable();
             $table->boolean('display_in_matrix')->default(false);
             $table->string('display_name', 50)->nullable();
+            $table->boolean('is_production_environment')->default(false);
             $table->foreignId('owner_id')->nullable()->constrained('users', 'id')->onDelete('cascade');
             $table->string('prefix', 3)->nullable();
             $table->integer('sort_order')->default(0);

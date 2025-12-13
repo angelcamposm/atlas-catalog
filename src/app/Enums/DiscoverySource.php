@@ -17,6 +17,8 @@ namespace App\Enums;
  * - Manual: Indicates a manually initiated discovery.
  * - Pipeline: Indicates a discovery initiated through a CI-CD pipeline.
  * - Scan: Indicates a discovery initiated by a scanning process.
+ * @method static cases()
+ * @method static values()
  */
 enum DiscoverySource: string
 {

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property bool $display_in_matrix
  * @property string $display_name
+ * @property bool $is_production_environment
  * @property string $name
  * @property int $owner_id
  * @property string $prefix
@@ -45,7 +46,7 @@ class Environment extends Model
     protected $table = 'environments';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -56,6 +57,7 @@ class Environment extends Model
         'description',
         'display_in_matrix',
         'display_name',
+        'is_production_environment',
         'owner_id',
         'prefix',
         'sort_order',

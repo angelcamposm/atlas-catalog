@@ -30,24 +30,24 @@ class NodeFactory extends Factory
      */
     public function definition(): array
     {
-        $name = strtolower(fake()->domainWord());
-        $domain = fake()->domainWord();
-        $tld = fake()->tld();
+        $name = strtolower($this->faker->domainWord());
+        $domain = $this->faker->domainWord();
+        $tld = $this->faker->tld();
         $fqdn = "$name.$domain.$tld";
 
-        $cores = fake()->randomElement([2, 4, 8, 16]);
-        $smt_enabled = fake()->boolean();
+        $cores = $this->faker->randomElement([2, 4, 8, 16]);
+        $smt_enabled = $this->faker->boolean();
         $threads = $smt_enabled ? $cores : 0;
 
         return [
             'name' => $name,
-            'discovery_source' => fake()->randomElement(DiscoverySource::cases()),
-            'cpu_architecture' => fake()->randomElement(CpuArchitecture::cases()),
-            'cpu_sockets' => fake()->boolean(),
+            'discovery_source' => $this->faker->randomElement(DiscoverySource::cases()),
+            'cpu_architecture' => $this->faker->randomElement(CpuArchitecture::cases()),
+            'cpu_sockets' => $this->faker->boolean(),
             'cpu_cores' => $cores,
             'cpu_threads' => $threads,
             'smt_enabled' => $smt_enabled,
-            'memory_bytes' => fake()->randomElement([
+            'memory_bytes' => $this->faker->randomElement([
                 MemoryBytes::gigabytes(8),
                 MemoryBytes::gigabytes(16),
                 MemoryBytes::gigabytes(24),
@@ -57,12 +57,12 @@ class NodeFactory extends Factory
             ]),
             'hostname' => $name,
             'fqdn' => $fqdn,
-            'ip_address' => fake()->localIpv4(),
-            'mac_address' => fake()->macAddress(),
-            'node_type' => fake()->randomElement(NodeType::cases()),
-            'os' => fake()->linuxPlatformToken(),
-            'os_version' => fake()->semver(),
-            'timezone' => fake()->timezone(),
+            'ip_address' => $this->faker->localIpv4(),
+            'mac_address' => $this->faker->macAddress(),
+            'node_type' => $this->faker->randomElement(NodeType::cases()),
+            'os' => $this->faker->linuxPlatformToken(),
+            'os_version' => $this->faker->semver(),
+            'timezone' => $this->faker->timezone(),
         ];
     }
 

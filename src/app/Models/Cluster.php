@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $id
  * @property string|null $api_url
  * @property string|null $cluster_uuid
+ * @property string|null $description
  * @property string|null $display_name
  * @property string|null $full_version
  * @property bool $has_licensing
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read InfrastructureType|null $infrastructureType
  * @property-read Lifecycle|null $lifecycle
  * @property-read Node[] $nodes
+ * @property-read ServiceAccount[] $serviceAccounts
  * @property-read ServiceAccount[] $serviceAccount
  * @property-read ClusterType|null $type
  *
@@ -59,7 +61,7 @@ class Cluster extends Model
     protected $table = 'clusters';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

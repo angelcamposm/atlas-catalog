@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('display_name')->nullable();
             $table->foreignId('domain_id')->nullable()->constrained('business_domains', 'id')->nullOnDelete();
             $table->boolean('has_zero_downtime_deployments')->default(false);
+            $table->boolean('is_exposed')->default(false);
             $table->boolean('is_stateless')->default(true);
             $table->foreignId('lifecycle_id')->nullable()->constrained('lifecycles', 'id')->nullOnDelete();
             $table->foreignId('owner_id')->nullable()->constrained('groups', 'id')->nullOnDelete();

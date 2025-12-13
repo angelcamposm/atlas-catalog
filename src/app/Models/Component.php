@@ -8,25 +8,42 @@ use App\Observers\ComponentObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
  * @property string $name
+ * @property string $description
+ * @property string $discovery_source
+ * @property string $display_name
+ * @property int $domain_id
+ * @property bool $is_exposed
+ * @property bool $is_stateless
+ * @property int $lifecycle_id
+ * @property int $platform_id
+ * @property int $tier_id
+ * @property string $slug
+ * @property string $tags
  * @property int $created_by
  * @property int $updated_by
+ * @property-read User|null $creator The user who created this language entry.
+ * @property-read User|null $updater The user who last updated this language entry.
+ * @property-read BusinessDomain|null $businessDomain The business domain of the component.
+ * @property-read Group|null $owner The owner of the component.
+ * @property-read Lifecycle|null $lifecycle The lifecycle of the component.
+ * @property-read Platform|null $platform The platform of the component.
+ * @property-read Collection<int, System> $systems
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
- *
- * @property-read User|null $creator The user who created this language entry.
- * @property-read User|null $updater The user who last updated this language entry.
- *
  * @use HasFactory<ComponentFactory>
  */
 #[ObservedBy(ComponentObserver::class)]
@@ -43,7 +60,7 @@ class Component extends Model
     protected $table = 'components';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -53,6 +70,8 @@ class Component extends Model
         'discovery_source',
         'display_name',
         'domain_id',
+        'lifecycle_id',
+        'is_exposed',
         'is_stateless',
         'owner_id',
         'platform_id',
@@ -110,6 +129,26 @@ class Component extends Model
     public function status(): BelongsTo
     {
         return $this->belongsTo(ServiceStatus::class, 'status_id', 'id');
+    }
+
+    /**
+     * The systems that belong to the component.
+     *
+     * @return BelongsToMany<System>
+     */
+    public function systems(): BelongsToMany
+    {
+        return $this->belongsToMany(System::class, 'system_components');
+    }
+
+    /**
+     * Check if the component has systems.
+     *
+     * @return bool
+     */
+    public function hasSystems(): bool
+    {
+        return $this->systems()->exists();
     }
 
     /**
