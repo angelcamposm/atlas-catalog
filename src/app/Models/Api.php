@@ -52,6 +52,8 @@ use Illuminate\Support\Carbon;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ApiFactory>
  */
 #[ObservedBy(ApiObserver::class)]
 class Api extends Model
@@ -67,7 +69,7 @@ class Api extends Model
     protected $table = 'apis';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
