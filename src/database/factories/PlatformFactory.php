@@ -31,8 +31,6 @@ class PlatformFactory extends Factory
             'name' => $this->faker->words(2, true),
             'description' => $this->faker->sentence(),
             'icon' => $this->faker->word() . '.svg',
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }
