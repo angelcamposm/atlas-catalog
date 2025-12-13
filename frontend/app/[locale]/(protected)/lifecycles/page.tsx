@@ -11,6 +11,9 @@ import {
     HiOutlineSquares2X2,
     HiOutlineListBullet,
     HiOutlineArrowsUpDown,
+    HiOutlineRectangleGroup,
+    HiOutlineChevronDown,
+    HiOutlineChevronUp,
 } from "react-icons/hi2";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
 import type { Lifecycle } from "@/types/api";
@@ -23,6 +26,11 @@ import {
     LifecycleFormModal,
     type LifecycleFormData,
 } from "@/components/lifecycles";
+import {
+    FlowDiagram,
+    createNode,
+    createEdge,
+} from "@/components/ui/flow-diagram";
 import { cn } from "@/lib/utils";
 
 // ============================================================================
@@ -141,6 +149,132 @@ const mockComponentCounts: Record<number, number> = {
 };
 
 // ============================================================================
+// Lifecycle Flow Diagram Configuration
+// ============================================================================
+
+// Color map for lifecycle flow nodes
+const lifecycleNodeColors: Record<string, { bg: string; border: string; text: string }> = {
+    blue: {
+        bg: "bg-blue-50 dark:bg-blue-900/30",
+        border: "border-blue-400 dark:border-blue-500",
+        text: "text-blue-700 dark:text-blue-300",
+    },
+    yellow: {
+        bg: "bg-yellow-50 dark:bg-yellow-900/30",
+        border: "border-yellow-400 dark:border-yellow-500",
+        text: "text-yellow-700 dark:text-yellow-300",
+    },
+    orange: {
+        bg: "bg-orange-50 dark:bg-orange-900/30",
+        border: "border-orange-400 dark:border-orange-500",
+        text: "text-orange-700 dark:text-orange-300",
+    },
+    green: {
+        bg: "bg-green-50 dark:bg-green-900/30",
+        border: "border-green-400 dark:border-green-500",
+        text: "text-green-700 dark:text-green-300",
+    },
+    red: {
+        bg: "bg-red-50 dark:bg-red-900/30",
+        border: "border-red-400 dark:border-red-500",
+        text: "text-red-700 dark:text-red-300",
+    },
+    gray: {
+        bg: "bg-gray-50 dark:bg-gray-800/30",
+        border: "border-gray-400 dark:border-gray-500",
+        text: "text-gray-700 dark:text-gray-300",
+    },
+    purple: {
+        bg: "bg-purple-50 dark:bg-purple-900/30",
+        border: "border-purple-400 dark:border-purple-500",
+        text: "text-purple-700 dark:text-purple-300",
+    },
+    indigo: {
+        bg: "bg-indigo-50 dark:bg-indigo-900/30",
+        border: "border-indigo-400 dark:border-indigo-500",
+        text: "text-indigo-700 dark:text-indigo-300",
+    },
+};
+
+// Flow diagram nodes representing lifecycle stages
+const lifecycleFlowNodes = [
+    createNode(
+        "development",
+        "Development",
+        { x: 0, y: 150 },
+        { type: "service", status: "healthy", description: "Fase inicial" }
+    ),
+    createNode(
+        "testing",
+        "Testing",
+        { x: 200, y: 50 },
+        { type: "service", status: "healthy", description: "Pruebas QA" }
+    ),
+    createNode(
+        "beta",
+        "Beta",
+        { x: 200, y: 250 },
+        { type: "service", status: "warning", description: "Usuarios beta" }
+    ),
+    createNode(
+        "staging",
+        "Staging",
+        { x: 400, y: 100 },
+        { type: "service", status: "warning", description: "Pre-producción" }
+    ),
+    createNode(
+        "preview",
+        "Preview",
+        { x: 400, y: 200 },
+        { type: "event", status: "unknown", description: "Vista previa" }
+    ),
+    createNode(
+        "production",
+        "Production",
+        { x: 600, y: 150 },
+        { type: "api", status: "healthy", description: "En vivo" }
+    ),
+    createNode(
+        "deprecated",
+        "Deprecated",
+        { x: 800, y: 100 },
+        { type: "external", status: "error", description: "Obsoleto" }
+    ),
+    createNode(
+        "retired",
+        "Retired",
+        { x: 800, y: 200 },
+        { type: "database", status: "unknown", description: "Retirado" }
+    ),
+];
+
+// Flow diagram edges representing transitions
+const lifecycleFlowEdges = [
+    // From Development
+    createEdge("development", "testing", { animated: true }),
+    createEdge("development", "beta", { animated: true }),
+    // From Testing
+    createEdge("testing", "staging"),
+    // From Beta
+    createEdge("beta", "staging"),
+    createEdge("beta", "preview"),
+    // From Staging/Preview to Production
+    createEdge("staging", "production", { 
+        animated: true,
+        style: { stroke: "#22c55e", strokeWidth: 2 } 
+    }),
+    createEdge("preview", "production"),
+    // From Production to end states
+    createEdge("production", "deprecated", {
+        style: { stroke: "#ef4444", strokeWidth: 2 }
+    }),
+    // From Deprecated to Retired
+    createEdge("deprecated", "retired", {
+        style: { stroke: "#6b7280", strokeDasharray: "5,5" }
+    }),
+];
+
+// ============================================================================
 // Sort Options
 // ============================================================================
 
@@ -171,6 +305,7 @@ export default function LifecyclesPage() {
     const [sortField, setSortField] = useState<SortField>("name");
     const [sortOrder, setSortOrder] = useState<SortOrder>("asc");
     const [showSortDropdown, setShowSortDropdown] = useState(false);
+    const [showFlowDiagram, setShowFlowDiagram] = useState(true);
 
     // Modal state
     const [showCreateModal, setShowCreateModal] = useState(false);
@@ -556,6 +691,78 @@ export default function LifecyclesPage() {
                                 Algunos estados pueden requerir aprobación antes de la transición.
                             </p>
                         </div>
+                    </div>
+
+                    {/* Flow Diagram Section */}
+                    <div className="rounded-xl border border-border bg-card overflow-hidden">
+                        {/* Collapsible Header */}
+                        <button
+                            onClick={() => setShowFlowDiagram(!showFlowDiagram)}
+                            className="w-full flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+                                    <HiOutlineRectangleGroup className="h-5 w-5" />
+                                </div>
+                                <div className="text-left">
+                                    <h3 className="font-semibold text-foreground">
+                                        Flujo de Transiciones
+                                    </h3>
+                                    <p className="text-sm text-muted-foreground">
+                                        Visualiza las transiciones posibles entre estados
+                                    </p>
+                                </div>
+                            </div>
+                            {showFlowDiagram ? (
+                                <HiOutlineChevronUp className="h-5 w-5 text-muted-foreground" />
+                            ) : (
+                                <HiOutlineChevronDown className="h-5 w-5 text-muted-foreground" />
+                            )}
+                        </button>
+
+                        {/* Diagram Content */}
+                        {showFlowDiagram && (
+                            <div className="border-t border-border">
+                                <FlowDiagram
+                                    nodes={lifecycleFlowNodes}
+                                    edges={lifecycleFlowEdges}
+                                    height="350px"
+                                    showMiniMap={false}
+                                    showControls={true}
+                                    showBackground={true}
+                                    fitView={true}
+                                    interactive={true}
+                                />
+                                {/* Legend */}
+                                <div className="flex flex-wrap items-center gap-4 px-4 py-3 bg-muted/30 border-t border-border text-xs text-muted-foreground">
+                                    <span className="font-medium">Leyenda:</span>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-2 h-2 rounded-full bg-blue-500" />
+                                        <span>Desarrollo</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-2 h-2 rounded-full bg-yellow-500" />
+                                        <span>Pruebas</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-2 h-2 rounded-full bg-green-500" />
+                                        <span>Producción</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-2 h-2 rounded-full bg-red-500" />
+                                        <span>Deprecado</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <div className="w-2 h-2 rounded-full bg-gray-500" />
+                                        <span>Retirado</span>
+                                    </div>
+                                    <span className="ml-4 border-l border-border pl-4">
+                                        ─▶ Transición normal | 
+                                        <span className="text-green-600 dark:text-green-400 ml-1">─▶</span> Requiere aprobación
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {/* Content */}
