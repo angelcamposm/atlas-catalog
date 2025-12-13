@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Observers\ClusterTypeObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasIcon;
+use Database\Factories\ClusterTypeFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ClusterTypeFactory>
  */
 #[ObservedBy(ClusterTypeObserver::class)]
 class ClusterType extends Model
@@ -43,7 +46,7 @@ class ClusterType extends Model
     protected $table = 'cluster_types';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
