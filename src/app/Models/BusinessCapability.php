@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\StrategicValue;
 use App\Observers\BusinessCapabilityObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
@@ -24,7 +25,12 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
+ * @method static hasChildren()
+ * @method static hasParent()
  * @method static inRandomOrder()
+ * @method static isRoot()
+ * @method static onlyChildren()
+ * @method static onlyParents()
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
@@ -64,5 +70,14 @@ class BusinessCapability extends Model
      */
     protected $hidden = [
         //
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'strategic_value' => StrategicValue::class,
     ];
 }
