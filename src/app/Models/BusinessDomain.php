@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Observers\BusinessDomainObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
+use Database\Factories\BusinessDomainFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<BusinessDomainFactory>
  */
 #[ObservedBy(BusinessDomainObserver::class)]
 class BusinessDomain extends Model
