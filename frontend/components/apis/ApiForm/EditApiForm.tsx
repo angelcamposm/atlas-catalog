@@ -175,9 +175,10 @@ export function EditApiForm({ api, onSuccess, onCancel }: EditApiFormProps) {
                     type_id: formData.type_id ?? undefined,
                     status_id: formData.status_id ?? undefined,
                     category_id: formData.category_id ?? undefined,
-                    document_specification: formData.document_specification.trim() 
-                        ? JSON.parse(formData.document_specification.trim()) 
-                        : undefined,
+                    document_specification:
+                        formData.document_specification.trim()
+                            ? JSON.parse(formData.document_specification.trim())
+                            : undefined,
                 };
 
                 await apisApi.update(api.id, submitData);

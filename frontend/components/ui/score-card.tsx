@@ -69,7 +69,10 @@ const DEFAULT_THRESHOLDS = {
 function calculateScore(rules: ScoreRule[]): number {
     if (rules.length === 0) return 0;
 
-    const totalWeight = rules.reduce((acc, rule) => acc + (rule.weight || 1), 0);
+    const totalWeight = rules.reduce(
+        (acc, rule) => acc + (rule.weight || 1),
+        0
+    );
     const passedWeight = rules
         .filter((rule) => rule.passed)
         .reduce((acc, rule) => acc + (rule.weight || 1), 0);
@@ -263,7 +266,10 @@ export function ScoreCard({
 }: ScoreCardProps) {
     const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
     const score = calculateScore(rules);
-    const level = getScoreLevel(score, { ...DEFAULT_THRESHOLDS, ...thresholds });
+    const level = getScoreLevel(score, {
+        ...DEFAULT_THRESHOLDS,
+        ...thresholds,
+    });
     const config = levelConfig[level];
 
     const passedCount = rules.filter((r) => r.passed).length;
@@ -341,14 +347,18 @@ export function ScoreCard({
                             {Object.entries(groupedRules).map(
                                 ([category, categoryRules]) => (
                                     <div key={category}>
-                                        {Object.keys(groupedRules).length > 1 && (
+                                        {Object.keys(groupedRules).length >
+                                            1 && (
                                             <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                                                 {category}
                                             </h4>
                                         )}
                                         <div className="space-y-2">
                                             {categoryRules.map((rule) => (
-                                                <RuleItem key={rule.id} rule={rule} />
+                                                <RuleItem
+                                                    key={rule.id}
+                                                    rule={rule}
+                                                />
                                             ))}
                                         </div>
                                     </div>
@@ -400,7 +410,8 @@ export function MiniScoreCard({
             onClick={onClick}
             className={cn(
                 "bg-card rounded-lg border p-4 transition-all",
-                onClick && "cursor-pointer hover:border-primary/50 hover:shadow-md",
+                onClick &&
+                    "cursor-pointer hover:border-primary/50 hover:shadow-md",
                 className
             )}
         >
@@ -410,7 +421,12 @@ export function MiniScoreCard({
                         {title}
                     </h4>
                     <div className="flex items-baseline gap-2 mt-1">
-                        <span className={cn("text-2xl font-bold", config.textColor)}>
+                        <span
+                            className={cn(
+                                "text-2xl font-bold",
+                                config.textColor
+                            )}
+                        >
                             {score}%
                         </span>
                         <span
@@ -434,8 +450,12 @@ export function MiniScoreCard({
                         )}
                     >
                         {trend === "up" && <HiChevronUp className="h-4 w-4" />}
-                        {trend === "down" && <HiChevronDown className="h-4 w-4" />}
-                        {trend === "neutral" && <HiMinusCircle className="h-4 w-4" />}
+                        {trend === "down" && (
+                            <HiChevronDown className="h-4 w-4" />
+                        )}
+                        {trend === "neutral" && (
+                            <HiMinusCircle className="h-4 w-4" />
+                        )}
                         {trendValue && <span>{trendValue}</span>}
                     </div>
                 )}

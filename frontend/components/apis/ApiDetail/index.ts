@@ -18,7 +18,10 @@ export type { ApiDocsProps } from "./ApiDocs";
 
 // API Dependencies
 export { ApiDependencies, ApiDependenciesSkeleton } from "./ApiDependencies";
-export type { ApiDependenciesProps, DependencyRelation } from "./ApiDependencies";
+export type {
+    ApiDependenciesProps,
+    DependencyRelation,
+} from "./ApiDependencies";
 
 // API Metadata
 export { ApiMetadata, ApiMetadataSkeleton } from "./ApiMetadata";

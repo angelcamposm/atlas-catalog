@@ -58,30 +58,142 @@ function formatValue(
 function extractMetadataFields(api: Api): MetadataField[] {
     return [
         // Identity
-        { key: "id", label: "ID", value: api.id, type: "id", copyable: true, group: "identity" },
-        { key: "name", label: "Nombre técnico", value: api.name, type: "string", copyable: true, group: "identity" },
-        { key: "display_name", label: "Nombre para mostrar", value: api.display_name, type: "string", group: "identity" },
-        { key: "version", label: "Versión", value: api.version, type: "string", copyable: true, group: "identity" },
-        { key: "protocol", label: "Protocolo", value: api.protocol, type: "string", group: "identity" },
-        { key: "url", label: "URL", value: api.url, type: "string", copyable: true, group: "identity" },
+        {
+            key: "id",
+            label: "ID",
+            value: api.id,
+            type: "id",
+            copyable: true,
+            group: "identity",
+        },
+        {
+            key: "name",
+            label: "Nombre técnico",
+            value: api.name,
+            type: "string",
+            copyable: true,
+            group: "identity",
+        },
+        {
+            key: "display_name",
+            label: "Nombre para mostrar",
+            value: api.display_name,
+            type: "string",
+            group: "identity",
+        },
+        {
+            key: "version",
+            label: "Versión",
+            value: api.version,
+            type: "string",
+            copyable: true,
+            group: "identity",
+        },
+        {
+            key: "protocol",
+            label: "Protocolo",
+            value: api.protocol,
+            type: "string",
+            group: "identity",
+        },
+        {
+            key: "url",
+            label: "URL",
+            value: api.url,
+            type: "string",
+            copyable: true,
+            group: "identity",
+        },
 
         // Relations
-        { key: "type_id", label: "Tipo de API (ID)", value: api.type_id, type: "id", group: "relations" },
-        { key: "status_id", label: "Estado (ID)", value: api.status_id, type: "id", group: "relations" },
-        { key: "category_id", label: "Categoría (ID)", value: api.category_id, type: "id", group: "relations" },
-        { key: "authentication_method_id", label: "Método Auth (ID)", value: api.authentication_method_id, type: "id", group: "relations" },
-        { key: "access_policy_id", label: "Política Acceso (ID)", value: api.access_policy_id, type: "id", group: "relations" },
+        {
+            key: "type_id",
+            label: "Tipo de API (ID)",
+            value: api.type_id,
+            type: "id",
+            group: "relations",
+        },
+        {
+            key: "status_id",
+            label: "Estado (ID)",
+            value: api.status_id,
+            type: "id",
+            group: "relations",
+        },
+        {
+            key: "category_id",
+            label: "Categoría (ID)",
+            value: api.category_id,
+            type: "id",
+            group: "relations",
+        },
+        {
+            key: "authentication_method_id",
+            label: "Método Auth (ID)",
+            value: api.authentication_method_id,
+            type: "id",
+            group: "relations",
+        },
+        {
+            key: "access_policy_id",
+            label: "Política Acceso (ID)",
+            value: api.access_policy_id,
+            type: "id",
+            group: "relations",
+        },
 
         // Dates
-        { key: "released_at", label: "Fecha de lanzamiento", value: api.released_at, type: "date", group: "dates" },
-        { key: "deprecated_at", label: "Fecha de deprecación", value: api.deprecated_at, type: "date", group: "dates" },
-        { key: "created_at", label: "Creado", value: api.created_at, type: "date", group: "dates" },
-        { key: "updated_at", label: "Actualizado", value: api.updated_at, type: "date", group: "dates" },
+        {
+            key: "released_at",
+            label: "Fecha de lanzamiento",
+            value: api.released_at,
+            type: "date",
+            group: "dates",
+        },
+        {
+            key: "deprecated_at",
+            label: "Fecha de deprecación",
+            value: api.deprecated_at,
+            type: "date",
+            group: "dates",
+        },
+        {
+            key: "created_at",
+            label: "Creado",
+            value: api.created_at,
+            type: "date",
+            group: "dates",
+        },
+        {
+            key: "updated_at",
+            label: "Actualizado",
+            value: api.updated_at,
+            type: "date",
+            group: "dates",
+        },
 
         // Other
-        { key: "created_by", label: "Creado por", value: api.created_by, type: "id", group: "other" },
-        { key: "updated_by", label: "Actualizado por", value: api.updated_by, type: "id", group: "other" },
-        { key: "deprecated_by", label: "Deprecado por", value: api.deprecated_by, type: "id", group: "other" },
+        {
+            key: "created_by",
+            label: "Creado por",
+            value: api.created_by,
+            type: "id",
+            group: "other",
+        },
+        {
+            key: "updated_by",
+            label: "Actualizado por",
+            value: api.updated_by,
+            type: "id",
+            group: "other",
+        },
+        {
+            key: "deprecated_by",
+            label: "Deprecado por",
+            value: api.deprecated_by,
+            type: "id",
+            group: "other",
+        },
     ];
 }
 
@@ -160,7 +272,12 @@ interface MetadataGroupProps {
     defaultOpen?: boolean;
 }
 
-function MetadataGroup({ title, icon: Icon, fields, defaultOpen = true }: MetadataGroupProps) {
+function MetadataGroup({
+    title,
+    icon: Icon,
+    fields,
+    defaultOpen = true,
+}: MetadataGroupProps) {
     const [isOpen, setIsOpen] = useState(defaultOpen);
 
     const nonEmptyFields = fields.filter(

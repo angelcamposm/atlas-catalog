@@ -58,7 +58,9 @@ function InfoRow({ label, value, copyable }: InfoRowProps) {
 
     return (
         <div className="flex items-start justify-between py-2.5 border-b border-gray-100 dark:border-gray-700/50 last:border-0">
-            <span className="text-sm text-gray-500 dark:text-gray-400">{label}</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+                {label}
+            </span>
             <div className="flex items-center gap-2">
                 <span className="text-sm text-gray-900 dark:text-white font-medium text-right">
                     {value || "—"}
@@ -154,14 +156,23 @@ export function ApiOverview({
             )}
 
             {/* Basic Info */}
-            <InfoSection icon={HiOutlineInformationCircle} title="Información Básica">
+            <InfoSection
+                icon={HiOutlineInformationCircle}
+                title="Información Básica"
+            >
                 <div className="space-y-0">
                     <InfoRow label="Nombre" value={api.name} copyable />
                     {api.display_name && (
-                        <InfoRow label="Nombre para mostrar" value={api.display_name} />
+                        <InfoRow
+                            label="Nombre para mostrar"
+                            value={api.display_name}
+                        />
                     )}
                     <InfoRow label="Versión" value={api.version} copyable />
-                    <InfoRow label="Protocolo" value={api.protocol?.toUpperCase()} />
+                    <InfoRow
+                        label="Protocolo"
+                        value={api.protocol?.toUpperCase()}
+                    />
                     <InfoRow label="URL" value={api.url} copyable />
                 </div>
             </InfoSection>
@@ -177,12 +188,17 @@ export function ApiOverview({
                             lifecycle ? (
                                 <span
                                     className="inline-flex items-center gap-1.5"
-                                    style={{ color: lifecycle.color || undefined }}
+                                    style={{
+                                        color: lifecycle.color || undefined,
+                                    }}
                                 >
                                     {lifecycle.color && (
                                         <span
                                             className="w-2 h-2 rounded-full"
-                                            style={{ backgroundColor: lifecycle.color }}
+                                            style={{
+                                                backgroundColor:
+                                                    lifecycle.color,
+                                            }}
                                         />
                                     )}
                                     {lifecycle.name}
@@ -191,7 +207,10 @@ export function ApiOverview({
                         }
                     />
                     {api.category_id && (
-                        <InfoRow label="Categoría ID" value={String(api.category_id)} />
+                        <InfoRow
+                            label="Categoría ID"
+                            value={String(api.category_id)}
+                        />
                     )}
                 </div>
             </InfoSection>
@@ -205,7 +224,9 @@ export function ApiOverview({
                             owner ? (
                                 <span className="flex items-center gap-2">
                                     {owner.icon && (
-                                        <span className="text-lg">{owner.icon}</span>
+                                        <span className="text-lg">
+                                            {owner.icon}
+                                        </span>
                                     )}
                                     {owner.name}
                                 </span>
@@ -213,15 +234,23 @@ export function ApiOverview({
                         }
                     />
                     {owner?.email && (
-                        <InfoRow label="Email del equipo" value={owner.email} copyable />
+                        <InfoRow
+                            label="Email del equipo"
+                            value={owner.email}
+                            copyable
+                        />
                     )}
                     <InfoRow
                         label="Creado por"
-                        value={api.created_by ? `Usuario #${api.created_by}` : null}
+                        value={
+                            api.created_by ? `Usuario #${api.created_by}` : null
+                        }
                     />
                     <InfoRow
                         label="Actualizado por"
-                        value={api.updated_by ? `Usuario #${api.updated_by}` : null}
+                        value={
+                            api.updated_by ? `Usuario #${api.updated_by}` : null
+                        }
                     />
                 </div>
             </InfoSection>
@@ -241,7 +270,9 @@ export function ApiOverview({
                     <InfoRow
                         label="Política de Acceso ID"
                         value={
-                            api.access_policy_id ? String(api.access_policy_id) : null
+                            api.access_policy_id
+                                ? String(api.access_policy_id)
+                                : null
                         }
                     />
                     <InfoRow
@@ -256,12 +287,17 @@ export function ApiOverview({
                         label="Fecha de Deprecación"
                         value={
                             api.deprecated_at
-                                ? new Date(api.deprecated_at).toLocaleDateString()
+                                ? new Date(
+                                      api.deprecated_at
+                                  ).toLocaleDateString()
                                 : null
                         }
                     />
                     {api.deprecation_reason && (
-                        <InfoRow label="Motivo de Deprecación" value={api.deprecation_reason} />
+                        <InfoRow
+                            label="Motivo de Deprecación"
+                            value={api.deprecation_reason}
+                        />
                     )}
                 </div>
             </InfoSection>

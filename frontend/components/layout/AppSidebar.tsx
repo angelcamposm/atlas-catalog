@@ -51,7 +51,11 @@ interface MenuSection {
     collapsible?: boolean;
 }
 
-export function AppSidebar({ locale, isCollapsed = false, onSearchClick }: AppSidebarProps) {
+export function AppSidebar({
+    locale,
+    isCollapsed = false,
+    onSearchClick,
+}: AppSidebarProps) {
     const pathname = usePathname();
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
         new Set()
@@ -356,12 +360,15 @@ export function AppSidebar({ locale, isCollapsed = false, onSearchClick }: AppSi
                                     {section.items.map((item) => {
                                         const Icon = item.icon;
                                         const active = isActive(item.url);
-                                        
+
                                         // Badge color styles
                                         const badgeColors = {
-                                            default: "bg-primary/10 text-primary",
-                                            success: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-                                            warning: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+                                            default:
+                                                "bg-primary/10 text-primary",
+                                            success:
+                                                "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+                                            warning:
+                                                "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
                                             danger: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
                                             info: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
                                         };
@@ -387,7 +394,14 @@ export function AppSidebar({ locale, isCollapsed = false, onSearchClick }: AppSi
                                                     {item.title}
                                                 </span>
                                                 {item.badge && (
-                                                    <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${badgeColors[item.badgeColor || "default"]}`}>
+                                                    <span
+                                                        className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+                                                            badgeColors[
+                                                                item.badgeColor ||
+                                                                    "default"
+                                                            ]
+                                                        }`}
+                                                    >
                                                         {item.badge}
                                                     </span>
                                                 )}

@@ -27,7 +27,9 @@ type DocFormat = "openapi" | "yaml" | "json" | "unknown";
 // Helper Functions
 // ============================================================================
 
-function detectDocFormat(spec: string | Record<string, unknown> | null | undefined): DocFormat {
+function detectDocFormat(
+    spec: string | Record<string, unknown> | null | undefined
+): DocFormat {
     if (!spec) return "unknown";
 
     if (typeof spec === "object") {
@@ -87,7 +89,11 @@ interface SwaggerUIPlaceholderProps {
     url?: string | null;
 }
 
-function SwaggerUIPlaceholder({ spec, format, url }: SwaggerUIPlaceholderProps) {
+function SwaggerUIPlaceholder({
+    spec,
+    format,
+    url,
+}: SwaggerUIPlaceholderProps) {
     // Note: In a real implementation, you would integrate with swagger-ui-react
     // or redoc for proper OpenAPI rendering
 
@@ -98,12 +104,17 @@ function SwaggerUIPlaceholder({ spec, format, url }: SwaggerUIPlaceholderProps) 
                 <HiOutlineDocumentText className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                 <div>
                     <h4 className="font-medium text-blue-800 dark:text-blue-200">
-                        Especificación {format === "openapi" ? "OpenAPI" : format.toUpperCase()}
+                        Especificación{" "}
+                        {format === "openapi"
+                            ? "OpenAPI"
+                            : format.toUpperCase()}
                     </h4>
                     <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
                         {format === "openapi"
                             ? "Esta API tiene una especificación OpenAPI/Swagger. Para una visualización interactiva completa, considera integrar swagger-ui-react o Redoc."
-                            : "Se ha detectado documentación en formato " + format.toUpperCase() + "."}
+                            : "Se ha detectado documentación en formato " +
+                              format.toUpperCase() +
+                              "."}
                     </p>
                     {url && (
                         <a
@@ -163,7 +174,10 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
 
         document.addEventListener("fullscreenchange", handleFullscreenChange);
         return () =>
-            document.removeEventListener("fullscreenchange", handleFullscreenChange);
+            document.removeEventListener(
+                "fullscreenchange",
+                handleFullscreenChange
+            );
     }, []);
 
     // No documentation available
@@ -181,9 +195,9 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
                         Sin documentación
                     </h3>
                     <p className="text-gray-500 dark:text-gray-400 max-w-md">
-                        Esta API no tiene especificación de documentación adjunta.
-                        Considera añadir una especificación OpenAPI o Swagger para
-                        mejorar la documentación.
+                        Esta API no tiene especificación de documentación
+                        adjunta. Considera añadir una especificación OpenAPI o
+                        Swagger para mejorar la documentación.
                     </p>
                 </div>
             </div>
@@ -219,7 +233,11 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
                         "hover:bg-gray-100 dark:hover:bg-gray-700",
                         "text-gray-500 dark:text-gray-400"
                     )}
-                    title={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
+                    title={
+                        isFullscreen
+                            ? "Salir de pantalla completa"
+                            : "Pantalla completa"
+                    }
                 >
                     {isFullscreen ? (
                         <HiOutlineArrowsPointingIn className="w-5 h-5" />
@@ -230,7 +248,12 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
             </div>
 
             {/* Content */}
-            <div className={cn("p-4", isFullscreen && "h-[calc(100%-60px)] overflow-auto")}>
+            <div
+                className={cn(
+                    "p-4",
+                    isFullscreen && "h-[calc(100%-60px)] overflow-auto"
+                )}
+            >
                 {docFormat === "unknown" ? (
                     <div className="flex items-start gap-3 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
                         <HiOutlineExclamationTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
@@ -239,8 +262,9 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
                                 Formato no reconocido
                             </h4>
                             <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
-                                No se pudo determinar el formato de la especificación.
-                                Se muestra el contenido en bruto.
+                                No se pudo determinar el formato de la
+                                especificación. Se muestra el contenido en
+                                bruto.
                             </p>
                         </div>
                     </div>

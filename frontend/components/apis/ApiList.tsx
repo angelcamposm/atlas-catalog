@@ -92,7 +92,7 @@ function sortApis(apis: Api[], field: SortField, order: SortOrder): Api[] {
 // ============================================================================
 
 /** View mode toggle */
-function ViewToggle({
+export function ViewToggle({
     viewMode,
     onChange,
 }: {
@@ -130,7 +130,7 @@ function ViewToggle({
 }
 
 /** Sort dropdown */
-function SortDropdown({
+export function SortDropdown({
     sortField,
     sortOrder,
     onSortChange,
@@ -144,12 +144,16 @@ function SortDropdown({
 
     React.useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
                 setIsOpen(false);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     const currentOption = sortOptions.find((opt) => opt.value === sortField);
@@ -177,7 +181,10 @@ function SortDropdown({
                             key={option.value}
                             onClick={() => {
                                 if (sortField === option.value) {
-                                    onSortChange(option.value, sortOrder === "asc" ? "desc" : "asc");
+                                    onSortChange(
+                                        option.value,
+                                        sortOrder === "asc" ? "desc" : "asc"
+                                    );
                                 } else {
                                     onSortChange(option.value, "asc");
                                 }
@@ -245,7 +252,9 @@ export function ApiList({
                 )}
                 <div
                     className={cn(
-                        viewMode === "grid" ? `grid gap-4 ${gridColsClass[columns]}` : "space-y-3"
+                        viewMode === "grid"
+                            ? `grid gap-4 ${gridColsClass[columns]}`
+                            : "space-y-3"
                     )}
                 >
                     {Array.from({ length: 6 }).map((_, i) => (
@@ -277,10 +286,14 @@ export function ApiList({
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         {showViewToggle && (
-                            <ViewToggle viewMode={viewMode} onChange={setViewMode} />
+                            <ViewToggle
+                                viewMode={viewMode}
+                                onChange={setViewMode}
+                            />
                         )}
                         <span className="text-sm text-muted-foreground">
-                            {sortedApis.length} API{sortedApis.length !== 1 ? "s" : ""}
+                            {sortedApis.length} API
+                            {sortedApis.length !== 1 ? "s" : ""}
                         </span>
                     </div>
                     {showSort && (

@@ -57,7 +57,9 @@ function DependencyCard({ dependency, locale }: DependencyCardProps) {
 
     return (
         <Link
-            href={`/${locale}/components/${dependency.componentSlug || dependency.componentId}`}
+            href={`/${locale}/components/${
+                dependency.componentSlug || dependency.componentId
+            }`}
             className={cn(
                 "group flex items-center gap-4 p-4",
                 "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg",
@@ -131,7 +133,9 @@ export function ApiDependencies({
     locale,
     className,
 }: ApiDependenciesProps) {
-    const [filter, setFilter] = useState<"all" | "consumer" | "provider">("all");
+    const [filter, setFilter] = useState<"all" | "consumer" | "provider">(
+        "all"
+    );
 
     // Transform componentApis to dependencies
     const dependencies: DependencyRelation[] = componentApis
@@ -143,7 +147,10 @@ export function ApiDependencies({
             return {
                 id: ca.id,
                 componentId: ca.component_id!,
-                componentName: component?.name || component?.display_name || `Componente #${ca.component_id}`,
+                componentName:
+                    component?.name ||
+                    component?.display_name ||
+                    `Componente #${ca.component_id}`,
                 componentSlug: component?.slug || String(ca.component_id),
                 type: "consumer" as const,
                 relationshipId: ca.relationship_id ?? undefined,
@@ -155,8 +162,12 @@ export function ApiDependencies({
             ? dependencies
             : dependencies.filter((d) => d.type === filter);
 
-    const consumerCount = dependencies.filter((d) => d.type === "consumer").length;
-    const providerCount = dependencies.filter((d) => d.type === "provider").length;
+    const consumerCount = dependencies.filter(
+        (d) => d.type === "consumer"
+    ).length;
+    const providerCount = dependencies.filter(
+        (d) => d.type === "provider"
+    ).length;
 
     return (
         <div className={cn("space-y-4", className)}>
@@ -220,11 +231,15 @@ export function ApiDependencies({
                     <HiOutlineInformationCircle className="w-5 h-5 text-gray-400 shrink-0 mt-0.5" />
                     <div className="text-sm text-gray-600 dark:text-gray-300">
                         <p>
-                            <strong className="text-gray-900 dark:text-white">Consumidores:</strong>{" "}
+                            <strong className="text-gray-900 dark:text-white">
+                                Consumidores:
+                            </strong>{" "}
                             Componentes que utilizan esta API.
                         </p>
                         <p className="mt-1">
-                            <strong className="text-gray-900 dark:text-white">Proveedores:</strong>{" "}
+                            <strong className="text-gray-900 dark:text-white">
+                                Proveedores:
+                            </strong>{" "}
                             Componentes que exponen o implementan esta API.
                         </p>
                     </div>

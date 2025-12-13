@@ -185,7 +185,10 @@ export function CommandPalette({
     const saveRecent = useCallback((id: string) => {
         setRecentItems((prev) => {
             const updated = [id, ...prev.filter((i) => i !== id)].slice(0, 5);
-            localStorage.setItem("command-palette-recent", JSON.stringify(updated));
+            localStorage.setItem(
+                "command-palette-recent",
+                JSON.stringify(updated)
+            );
             return updated;
         });
     }, []);
@@ -404,13 +407,16 @@ export function CommandPalette({
                                     </div>
                                     {items.map((item) => {
                                         const index = currentIndex++;
-                                        const isSelected = index === selectedIndex;
+                                        const isSelected =
+                                            index === selectedIndex;
 
                                         return (
                                             <button
                                                 key={item.id}
                                                 data-index={index}
-                                                onClick={() => handleItemClick(item)}
+                                                onClick={() =>
+                                                    handleItemClick(item)
+                                                }
                                                 className={cn(
                                                     "w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors",
                                                     isSelected
@@ -458,17 +464,24 @@ export function CommandPalette({
                 <div className="flex items-center justify-between px-4 py-2 border-t bg-muted/50 text-xs text-muted-foreground">
                     <div className="flex items-center gap-4">
                         <span className="flex items-center gap-1">
-                            <kbd className="px-1.5 py-0.5 bg-muted rounded">↑</kbd>
-                            <kbd className="px-1.5 py-0.5 bg-muted rounded">↓</kbd>
+                            <kbd className="px-1.5 py-0.5 bg-muted rounded">
+                                ↑
+                            </kbd>
+                            <kbd className="px-1.5 py-0.5 bg-muted rounded">
+                                ↓
+                            </kbd>
                             to navigate
                         </span>
                         <span className="flex items-center gap-1">
-                            <kbd className="px-1.5 py-0.5 bg-muted rounded">↵</kbd>
+                            <kbd className="px-1.5 py-0.5 bg-muted rounded">
+                                ↵
+                            </kbd>
                             to select
                         </span>
                     </div>
                     <span>
-                        {flatItems.length} result{flatItems.length !== 1 ? "s" : ""}
+                        {flatItems.length} result
+                        {flatItems.length !== 1 ? "s" : ""}
                     </span>
                 </div>
             </div>

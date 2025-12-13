@@ -38,15 +38,21 @@ export interface ApiHeaderProps {
 // Protocol Badge Component
 // ============================================================================
 
-function ProtocolBadge({ protocol }: { protocol: Protocol | null | undefined }) {
+function ProtocolBadge({
+    protocol,
+}: {
+    protocol: Protocol | null | undefined;
+}) {
     const config = {
         [Protocol.HTTP]: {
             label: "HTTP",
-            className: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
+            className:
+                "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
         },
         [Protocol.HTTPS]: {
             label: "HTTPS",
-            className: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
+            className:
+                "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300",
         },
     };
 
@@ -60,11 +66,17 @@ function ProtocolBadge({ protocol }: { protocol: Protocol | null | undefined }) 
 
     const { label, className } = config[protocol] || {
         label: protocol,
-        className: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+        className:
+            "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
     };
 
     return (
-        <span className={cn("px-2.5 py-1 text-xs font-medium rounded-full", className)}>
+        <span
+            className={cn(
+                "px-2.5 py-1 text-xs font-medium rounded-full",
+                className
+            )}
+        >
             {label}
         </span>
     );
@@ -116,20 +128,29 @@ interface ActionsMenuProps {
     apiUrl?: string | null;
 }
 
-function ActionsMenu({ onEdit, onDelete, onDuplicate, apiUrl }: ActionsMenuProps) {
+function ActionsMenu({
+    onEdit,
+    onDelete,
+    onDuplicate,
+    apiUrl,
+}: ActionsMenuProps) {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     // Close on click outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
                 setIsOpen(false);
             }
         };
 
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     const actions = [
@@ -241,7 +262,8 @@ export function ApiHeader({
                             API Deprecada
                         </h4>
                         <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
-                            Esta API fue marcada como deprecada el {deprecatedDate}.
+                            Esta API fue marcada como deprecada el{" "}
+                            {deprecatedDate}.
                             {api.deprecation_reason && (
                                 <> Motivo: {api.deprecation_reason}</>
                             )}
@@ -289,17 +311,26 @@ export function ApiHeader({
 
                         {/* Meta info */}
                         <div className="flex items-center gap-4 mt-3 flex-wrap">
-                            <StatusBadge status={apiStatus} lifecycle={lifecycle} />
+                            <StatusBadge
+                                status={apiStatus}
+                                lifecycle={lifecycle}
+                            />
 
                             {apiType && (
                                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                                    Tipo: <span className="font-medium">{apiType.name}</span>
+                                    Tipo:{" "}
+                                    <span className="font-medium">
+                                        {apiType.name}
+                                    </span>
                                 </span>
                             )}
 
                             {owner && (
                                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                                    Owner: <span className="font-medium">{owner.name}</span>
+                                    Owner:{" "}
+                                    <span className="font-medium">
+                                        {owner.name}
+                                    </span>
                                 </span>
                             )}
                         </div>
@@ -324,11 +355,15 @@ export function ApiHeader({
                             <span className="flex items-center gap-1">
                                 <HiOutlineClock className="w-3.5 h-3.5" />
                                 Creada:{" "}
-                                {new Date(api.created_at).toLocaleDateString(locale)}
+                                {new Date(api.created_at).toLocaleDateString(
+                                    locale
+                                )}
                             </span>
                             <span>
                                 Actualizada:{" "}
-                                {new Date(api.updated_at).toLocaleDateString(locale)}
+                                {new Date(api.updated_at).toLocaleDateString(
+                                    locale
+                                )}
                             </span>
                         </div>
                     </div>

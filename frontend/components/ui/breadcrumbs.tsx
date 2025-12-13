@@ -81,7 +81,8 @@ export function useAutoBreadcrumbs(
             currentPath += `/${segment}`;
             const label =
                 defaultLabels[segment] ||
-                segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, " ");
+                segment.charAt(0).toUpperCase() +
+                    segment.slice(1).replace(/-/g, " ");
             items.push({
                 label,
                 href: currentPath,
@@ -107,7 +108,7 @@ export function Breadcrumbs({
     className,
 }: BreadcrumbsProps) {
     const pathname = usePathname();
-    
+
     // Try to extract locale from pathname
     const localeMatch = pathname.match(/^\/([a-z]{2})\//);
     const locale = localeMatch ? localeMatch[1] : "en";
@@ -171,7 +172,8 @@ export function Breadcrumbs({
                 {/* Items */}
                 {displayItems.map((item, index) => {
                     const isLast = index === displayItems.length - 1;
-                    const isCollapsedIndicator = hasCollapsed && item.label === "...";
+                    const isCollapsedIndicator =
+                        hasCollapsed && item.label === "...";
 
                     return (
                         <React.Fragment key={index}>
@@ -196,7 +198,9 @@ export function Breadcrumbs({
                                                 ? "font-medium text-foreground"
                                                 : "text-muted-foreground"
                                         )}
-                                        aria-current={isLast ? "page" : undefined}
+                                        aria-current={
+                                            isLast ? "page" : undefined
+                                        }
                                     >
                                         {item.icon}
                                         <span>{item.label}</span>
@@ -236,10 +240,14 @@ export function AutoBreadcrumbs({
     ...props
 }: AutoBreadcrumbsProps) {
     const items = useAutoBreadcrumbs(locale, customLabels);
-    
+
     return (
         <Breadcrumbs
-            items={[...items.slice(0, -1), ...additionalItems, items[items.length - 1]].filter(Boolean)}
+            items={[
+                ...items.slice(0, -1),
+                ...additionalItems,
+                items[items.length - 1],
+            ].filter(Boolean)}
             homeHref={`/${locale}/dashboard`}
             {...props}
         />

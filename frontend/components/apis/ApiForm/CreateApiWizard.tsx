@@ -9,12 +9,7 @@ import { apiStatusesApi } from "@/lib/api";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
 import { groupsApi } from "@/lib/api/groups";
 import { Protocol } from "@/types/api";
-import type {
-    ApiType,
-    ApiStatus,
-    Lifecycle,
-    Group,
-} from "@/types/api";
+import type { ApiType, ApiStatus, Lifecycle, Group } from "@/types/api";
 import {
     HiOutlineArrowLeft,
     HiOutlineArrowRight,
@@ -159,7 +154,11 @@ export function CreateApiWizard({
                                 typeof api.document_specification === "string"
                                     ? api.document_specification
                                     : api.document_specification
-                                    ? JSON.stringify(api.document_specification, null, 2)
+                                    ? JSON.stringify(
+                                          api.document_specification,
+                                          null,
+                                          2
+                                      )
                                     : null,
                         });
                     } catch (err) {
@@ -251,8 +250,8 @@ export function CreateApiWizard({
                 type_id: formData.type_id ?? undefined,
                 status_id: formData.status_id ?? undefined,
                 category_id: formData.category_id ?? undefined,
-                document_specification: formData.document_specification 
-                    ? JSON.parse(formData.document_specification) 
+                document_specification: formData.document_specification
+                    ? JSON.parse(formData.document_specification)
                     : undefined,
             };
 
@@ -534,7 +533,9 @@ export function CreateApiWizard({
                                 name="protocol"
                                 value={protocol}
                                 checked={formData.protocol === protocol}
-                                onChange={() => updateField("protocol", protocol)}
+                                onChange={() =>
+                                    updateField("protocol", protocol)
+                                }
                                 className="sr-only"
                             />
                             <span
@@ -651,9 +652,9 @@ export function CreateApiWizard({
                             Asignación de propietario
                         </h4>
                         <p className="mt-1 text-sm text-blue-700 dark:text-blue-300">
-                            Selecciona el equipo responsable de mantener y gestionar
-                            esta API. El propietario recibirá notificaciones sobre
-                            cambios y problemas.
+                            Selecciona el equipo responsable de mantener y
+                            gestionar esta API. El propietario recibirá
+                            notificaciones sobre cambios y problemas.
                         </p>
                     </div>
                 </div>
@@ -702,8 +703,8 @@ export function CreateApiWizard({
                             Documentación opcional
                         </h4>
                         <p className="mt-1 text-sm text-amber-700 dark:text-amber-300">
-                            Puedes pegar aquí tu especificación OpenAPI/Swagger en
-                            formato JSON o YAML. También puedes añadirla o
+                            Puedes pegar aquí tu especificación OpenAPI/Swagger
+                            en formato JSON o YAML. También puedes añadirla o
                             actualizarla más tarde.
                         </p>
                     </div>

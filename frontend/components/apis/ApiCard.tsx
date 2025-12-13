@@ -32,6 +32,10 @@ export interface ApiCardProps {
     viewMode?: "grid" | "list";
     /** Show actions menu */
     showActions?: boolean;
+    /** Whether this card is currently selected */
+    isSelected?: boolean;
+    /** On click callback - if provided, prevents default navigation */
+    onClick?: (api: Api) => void;
     /** On edit callback */
     onEdit?: (api: Api) => void;
     /** On delete callback */
@@ -46,7 +50,10 @@ export interface ApiCardProps {
 // Helpers
 // ============================================================================
 
-const protocolConfig: Record<string, { icon: React.ReactNode; color: string; label: string }> = {
+const protocolConfig: Record<
+    string,
+    { icon: React.ReactNode; color: string; label: string }
+> = {
     http: {
         icon: <HiGlobeAlt className="h-4 w-4" />,
         color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
@@ -91,7 +98,11 @@ function isDeprecated(api: Api): boolean {
 function formatDate(date: string | Date | null | undefined): string {
     if (!date) return "";
     const d = new Date(date);
-    return d.toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" });
+    return d.toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+    });
 }
 
 // ============================================================================
@@ -115,12 +126,16 @@ function ActionsMenu({
 
     React.useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
                 setIsOpen(false);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
+        return () =>
+            document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
     return (
@@ -189,6 +204,8 @@ export function ApiCard({
     locale,
     viewMode = "grid",
     showActions = true,
+    isSelected = false,
+    onClick,
     onEdit,
     onDelete,
     onDuplicate,
@@ -197,17 +214,34 @@ export function ApiCard({
     const protocolCfg = getProtocolConfig(api.protocol);
     const deprecated = isDeprecated(api);
 
+    // Handle card click - either custom onClick or navigate to detail
+    const handleCardClick = (e: React.MouseEvent) => {
+        if (onClick) {
+            e.preventDefault();
+            onClick(api);
+        }
+    };
+
     if (viewMode === "list") {
         return (
             <div
+                onClick={handleCardClick}
                 className={cn(
                     "group flex items-center gap-4 rounded-lg border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-sm",
                     deprecated && "opacity-70",
+                    onClick && "cursor-pointer",
+                    isSelected &&
+                        "ring-2 ring-primary border-primary bg-primary/5 dark:bg-primary/10",
                     className
                 )}
             >
                 {/* Icon */}
-                <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg", protocolCfg.color)}>
+                <div
+                    className={cn(
+                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+                        protocolCfg.color
+                    )}
+                >
                     {protocolCfg.icon}
                 </div>
 
@@ -270,7 +304,12 @@ export function ApiCard({
                         </a>
                     )}
                     {showActions && (
-                        <ActionsMenu api={api} onEdit={onEdit} onDelete={onDelete} onDuplicate={onDuplicate} />
+                        <ActionsMenu
+                            api={api}
+                            onEdit={onEdit}
+                            onDelete={onDelete}
+                            onDuplicate={onDuplicate}
+                        />
                     )}
                 </div>
             </div>
@@ -280,19 +319,33 @@ export function ApiCard({
     // Grid view
     return (
         <div
+            onClick={handleCardClick}
             className={cn(
                 "group relative flex flex-col rounded-xl border bg-card p-4 transition-all hover:border-primary/50 hover:shadow-md",
                 deprecated && "opacity-70",
+                onClick && "cursor-pointer",
+                isSelected &&
+                    "ring-2 ring-primary border-primary bg-primary/5 dark:bg-primary/10",
                 className
             )}
         >
             {/* Header */}
             <div className="flex items-start justify-between gap-2">
-                <div className={cn("flex h-10 w-10 shrink-0 items-center justify-center rounded-lg", protocolCfg.color)}>
+                <div
+                    className={cn(
+                        "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+                        protocolCfg.color
+                    )}
+                >
                     {protocolCfg.icon}
                 </div>
                 {showActions && (
-                    <ActionsMenu api={api} onEdit={onEdit} onDelete={onDelete} onDuplicate={onDuplicate} />
+                    <ActionsMenu
+                        api={api}
+                        onEdit={onEdit}
+                        onDelete={onDelete}
+                        onDuplicate={onDuplicate}
+                    />
                 )}
             </div>
 
@@ -313,7 +366,9 @@ export function ApiCard({
                 </div>
                 {deprecated && (
                     <Badge variant="warning" className="text-xs mt-1">
-                        Deprecated {api.deprecated_at && `• ${formatDate(api.deprecated_at)}`}
+                        Deprecated{" "}
+                        {api.deprecated_at &&
+                            `• ${formatDate(api.deprecated_at)}`}
                     </Badge>
                 )}
             </div>
@@ -363,7 +418,11 @@ export function ApiCard({
 }
 
 /** Skeleton loader for ApiCard */
-export function ApiCardSkeleton({ viewMode = "grid" }: { viewMode?: "grid" | "list" }) {
+export function ApiCardSkeleton({
+    viewMode = "grid",
+}: {
+    viewMode?: "grid" | "list";
+}) {
     if (viewMode === "list") {
         return (
             <div className="flex items-center gap-4 rounded-lg border bg-card p-4 animate-pulse">

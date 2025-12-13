@@ -105,10 +105,12 @@ function TabContent({
     activeTab,
     api,
     loading,
+    locale,
 }: {
     activeTab: TabId;
     api: ApiResponse["data"] | null;
     loading: boolean;
+    locale: string;
 }) {
     if (loading) {
         return (
@@ -129,7 +131,9 @@ function TabContent({
         <div className="p-4 sm:p-6">
             {activeTab === "overview" && <ApiOverview api={api} />}
             {activeTab === "docs" && <ApiDocs api={api} />}
-            {activeTab === "dependencies" && <ApiDependencies api={api} />}
+            {activeTab === "dependencies" && (
+                <ApiDependencies api={api} locale={locale} />
+            )}
             {activeTab === "metadata" && <ApiMetadata api={api} />}
         </div>
     );
@@ -158,6 +162,7 @@ export default function ApiDetailPage() {
 
     const idParam = params?.id;
     const apiId = typeof idParam === "string" ? parseInt(idParam, 10) : NaN;
+    const locale = (params?.locale as string) || "es";
 
     // Get initial tab from URL or default to overview
     const tabParam = searchParams?.get("tab") as TabId | null;
@@ -202,7 +207,9 @@ export default function ApiDetailPage() {
                 setData(response);
             } catch (err) {
                 console.error("Error loading API detail:", err);
-                setError("No se ha podido cargar esta API. Por favor, inténtalo de nuevo.");
+                setError(
+                    "No se ha podido cargar esta API. Por favor, inténtalo de nuevo."
+                );
             } finally {
                 setLoading(false);
             }
@@ -234,7 +241,9 @@ export default function ApiDetailPage() {
             router.push("/apis");
         } catch (err) {
             console.error("Error deleting API:", err);
-            alert("No se ha podido eliminar la API. Por favor, inténtalo de nuevo.");
+            alert(
+                "No se ha podido eliminar la API. Por favor, inténtalo de nuevo."
+            );
         }
     }, [router, apiId]);
 
@@ -264,7 +273,12 @@ export default function ApiDetailPage() {
                             onTabChange={handleTabChange}
                             disabled
                         />
-                        <TabContent activeTab={activeTab} api={null} loading />
+                        <TabContent
+                            activeTab={activeTab}
+                            api={null}
+                            loading
+                            locale={locale}
+                        />
                     </div>
                 </div>
             </div>
@@ -278,7 +292,10 @@ export default function ApiDetailPage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg mt-6 mx-4">
                         <ErrorState
-                            message={error ?? "No se ha encontrado la API solicitada."}
+                            message={
+                                error ??
+                                "No se ha encontrado la API solicitada."
+                            }
                         />
                     </div>
                 </div>
@@ -295,6 +312,7 @@ export default function ApiDetailPage() {
                 <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                     <ApiHeader
                         api={api}
+                        locale={locale}
                         onEdit={handleEdit}
                         onDelete={handleDelete}
                         onDuplicate={handleDuplicate}
@@ -307,7 +325,12 @@ export default function ApiDetailPage() {
                         activeTab={activeTab}
                         onTabChange={handleTabChange}
                     />
-                    <TabContent activeTab={activeTab} api={api} loading={false} />
+                    <TabContent
+                        activeTab={activeTab}
+                        api={api}
+                        loading={false}
+                        locale={locale}
+                    />
                 </div>
             </div>
         </div>

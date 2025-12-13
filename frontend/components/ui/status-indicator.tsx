@@ -252,11 +252,7 @@ export function StatusIndicator({
             )}
         >
             <span
-                className={cn(
-                    "rounded-full",
-                    dotSizes[size],
-                    config.dotColor
-                )}
+                className={cn("rounded-full", dotSizes[size], config.dotColor)}
             />
             {showLabel && (
                 <span

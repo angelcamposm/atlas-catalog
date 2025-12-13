@@ -130,9 +130,20 @@ const entityTypeConfig: Record<EntityType, EntityTypeConfig> = {
     },
 };
 
-export type EntityStatus = "active" | "deprecated" | "draft" | "retired" | "warning";
+export type EntityStatus =
+    | "active"
+    | "deprecated"
+    | "draft"
+    | "retired"
+    | "warning";
 
-const statusConfig: Record<EntityStatus, { label: string; variant: "success" | "warning" | "danger" | "secondary" | "primary" }> = {
+const statusConfig: Record<
+    EntityStatus,
+    {
+        label: string;
+        variant: "success" | "warning" | "danger" | "secondary" | "primary";
+    }
+> = {
     active: { label: "Active", variant: "success" },
     deprecated: { label: "Deprecated", variant: "warning" },
     draft: { label: "Draft", variant: "secondary" },
@@ -225,7 +236,9 @@ export function EntityCard({
 
     const baseClassName = cn(
         "group relative flex flex-col rounded-xl border bg-card text-card-foreground shadow-sm transition-all duration-200",
-        href || onClick ? "cursor-pointer hover:shadow-md hover:border-primary/50" : "",
+        href || onClick
+            ? "cursor-pointer hover:shadow-md hover:border-primary/50"
+            : "",
         config.borderColor,
         sizeClasses[size],
         className

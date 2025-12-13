@@ -290,9 +290,7 @@ export interface QuickStatProps {
 export function QuickStat({ label, value, icon, className }: QuickStatProps) {
     return (
         <div className={cn("flex items-center gap-2", className)}>
-            {icon && (
-                <span className="text-muted-foreground">{icon}</span>
-            )}
+            {icon && <span className="text-muted-foreground">{icon}</span>}
             <span className="text-sm text-muted-foreground">{label}:</span>
             <span className="text-sm font-semibold">{value}</span>
         </div>
