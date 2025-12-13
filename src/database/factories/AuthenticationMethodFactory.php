@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\AuthenticationMethod;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @extends Factory<AuthenticationMethod>
@@ -17,7 +15,7 @@ class AuthenticationMethodFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<Model>
+     * @var class-string<AuthenticationMethod>
      */
     protected $model = AuthenticationMethod::class;
 
@@ -31,8 +29,6 @@ class AuthenticationMethodFactory extends Factory
         return [
             'name' => $this->faker->unique()->word,
             'description' => $this->faker->sentence,
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }
