@@ -11,6 +11,7 @@ use Database\Factories\BusinessDomainFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -81,6 +82,16 @@ class BusinessDomain extends Model
     public function components(): HasMany
     {
         return $this->hasMany(Component::class, 'domain_id', 'id');
+    }
+
+    /**
+     * Get the entities associated with this business domain.
+     *
+     * @return BelongsToMany<Entity>
+     */
+    public function entities(): BelongsToMany
+    {
+        return $this->belongsToMany(Entity::class, 'business_domain_entities', 'business_domain_id');
     }
 
     /**
