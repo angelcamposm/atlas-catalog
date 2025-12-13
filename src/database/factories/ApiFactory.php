@@ -51,8 +51,6 @@ class ApiFactory extends Factory
             'type_id' => ApiType::factory(),
             'url' => $this->faker->url(),
             'version' => $this->faker->semver(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }
