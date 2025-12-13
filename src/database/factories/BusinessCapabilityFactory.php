@@ -28,7 +28,7 @@ class BusinessCapabilityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->slug(3),
+            'name' => $this->faker->unique()->slug(2),
             'description' => $this->faker->text(250),
             'strategic_value' => $this->faker->randomElement(StrategicValue::cases()),
         ];
