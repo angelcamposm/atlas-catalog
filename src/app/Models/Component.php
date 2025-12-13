@@ -103,6 +103,16 @@ class Component extends Model
     }
 
     /**
+     * Get the entities associated with the component
+     *
+     * @return BelongsToMany<Entity>
+     */
+    public function entities(): BelongsToMany
+    {
+        return $this->belongsToMany(Entity::class, 'component_entities');
+    }
+
+    /**
      * Get the lifecycle of the component
      *
      * @return BelongsTo<Lifecycle>
