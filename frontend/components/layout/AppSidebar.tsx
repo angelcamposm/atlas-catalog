@@ -4,26 +4,36 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-    Home,
-    Users,
-    BarChart3,
-    FileText,
-    Bell,
-    Search,
-    ChevronDown,
-    ChevronRight,
-    Tag,
-    Settings,
-    Workflow,
-    FileCode,
-    PanelRightOpen,
-    Inbox,
-    Loader,
-} from "lucide-react";
+    HiHome,
+    HiUsers,
+    HiChartBar,
+    HiDocumentText,
+    HiBell,
+    HiMagnifyingGlass,
+    HiChevronDown,
+    HiChevronRight,
+    HiTag,
+    HiCog6Tooth,
+    HiArrowsRightLeft,
+    HiCodeBracket,
+    HiViewColumns,
+    HiInbox,
+    HiArrowPath,
+    HiServerStack,
+    HiCpuChip,
+    HiSquares2X2,
+    HiCube,
+    HiLink,
+    HiBookOpen,
+    HiShieldCheck,
+    HiBeaker,
+    HiCommandLine,
+} from "react-icons/hi2";
 
 interface AppSidebarProps {
     locale: string;
     isCollapsed?: boolean;
+    onSearchClick?: () => void;
 }
 
 interface MenuItem {
@@ -31,6 +41,7 @@ interface MenuItem {
     url: string;
     icon: React.ComponentType<{ className?: string }>;
     badge?: string;
+    badgeColor?: "default" | "success" | "warning" | "danger" | "info";
 }
 
 interface MenuSection {
@@ -40,9 +51,8 @@ interface MenuSection {
     collapsible?: boolean;
 }
 
-export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
+export function AppSidebar({ locale, isCollapsed = false, onSearchClick }: AppSidebarProps) {
     const pathname = usePathname();
-    const [searchQuery, setSearchQuery] = useState("");
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
         new Set()
     );
@@ -59,38 +69,51 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
         });
     };
 
-    // Main navigation sections - matching original project structure
+    // Main navigation sections - structured like Backstage/Port.io
     const menuSections: MenuSection[] = useMemo(
         () => [
             {
-                id: "main",
-                label: "Main",
+                id: "catalog",
+                label: "Catalog",
                 items: [
                     {
                         title: "Dashboard",
                         url: `/${locale}/dashboard`,
-                        icon: Home,
+                        icon: HiHome,
                     },
                     {
                         title: "APIs",
                         url: `/${locale}/apis`,
-                        icon: FileText,
+                        icon: HiCodeBracket,
                         badge: "100+",
+                        badgeColor: "info" as const,
+                    },
+                    {
+                        title: "API Types",
+                        url: `/${locale}/types`,
+                        icon: HiTag,
                     },
                     {
                         title: "Lifecycles",
                         url: `/${locale}/lifecycles`,
-                        icon: BarChart3,
+                        icon: HiArrowsRightLeft,
                     },
-                    {
-                        title: "Types",
-                        url: `/${locale}/types`,
-                        icon: Tag,
-                    },
+                ],
+            },
+            {
+                id: "ownership",
+                label: "Ownership",
+                collapsible: true,
+                items: [
                     {
                         title: "Teams",
                         url: `/${locale}/teams`,
-                        icon: Users,
+                        icon: HiUsers,
+                    },
+                    {
+                        title: "Members",
+                        url: `/${locale}/members`,
+                        icon: HiUsers,
                     },
                 ],
             },
@@ -102,27 +125,27 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                     {
                         title: "Overview",
                         url: `/${locale}/infrastructure`,
-                        icon: BarChart3,
+                        icon: HiChartBar,
                     },
                     {
                         title: "Clusters",
                         url: `/${locale}/infrastructure/clusters`,
-                        icon: Home,
+                        icon: HiServerStack,
                     },
                     {
                         title: "Cluster Types",
                         url: `/${locale}/infrastructure/cluster-types`,
-                        icon: Tag,
+                        icon: HiTag,
                     },
                     {
                         title: "Nodes",
                         url: `/${locale}/infrastructure/nodes`,
-                        icon: Home,
+                        icon: HiCpuChip,
                     },
                     {
                         title: "Service Accounts",
                         url: `/${locale}/infrastructure/cluster-service-accounts`,
-                        icon: Users,
+                        icon: HiShieldCheck,
                     },
                 ],
             },
@@ -134,46 +157,77 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                     {
                         title: "Overview",
                         url: `/${locale}/platform`,
-                        icon: BarChart3,
+                        icon: HiChartBar,
                     },
                     {
                         title: "Platforms",
                         url: `/${locale}/platform/platforms`,
-                        icon: Home,
+                        icon: HiSquares2X2,
                     },
                     {
                         title: "Component Types",
                         url: `/${locale}/platform/component-types`,
-                        icon: Tag,
+                        icon: HiCube,
+                    },
+                ],
+            },
+            {
+                id: "integration",
+                label: "Integration",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Overview",
+                        url: `/${locale}/integration`,
+                        icon: HiChartBar,
+                    },
+                    {
+                        title: "Links",
+                        url: `/${locale}/integration/links`,
+                        icon: HiLink,
+                    },
+                    {
+                        title: "Link Types",
+                        url: `/${locale}/integration/link-types`,
+                        icon: HiTag,
+                    },
+                ],
+            },
+            {
+                id: "docs",
+                label: "Documentation",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Tech Docs",
+                        url: `/${locale}/documentation`,
+                        icon: HiBookOpen,
+                    },
+                    {
+                        title: "API Reference",
+                        url: `/${locale}/documentation/api`,
+                        icon: HiCodeBracket,
+                        badge: "OpenAPI",
+                        badgeColor: "success" as const,
                     },
                 ],
             },
             {
                 id: "analytics",
-                label: "Analytics & Docs",
+                label: "Analytics",
                 collapsible: true,
                 items: [
                     {
-                        title: "Analytics",
+                        title: "Insights",
                         url: `/${locale}/analytics`,
-                        icon: BarChart3,
+                        icon: HiChartBar,
                         badge: "Pro",
-                    },
-                    {
-                        title: "Documentation",
-                        url: `/${locale}/documentation`,
-                        icon: FileText,
-                    },
-                    {
-                        title: "API Docs",
-                        url: `/${locale}/documentation/api`,
-                        icon: FileCode,
-                        badge: "Swagger",
+                        badgeColor: "warning" as const,
                     },
                     {
                         title: "Security",
                         url: `/${locale}/security`,
-                        icon: Users,
+                        icon: HiShieldCheck,
                     },
                 ],
             },
@@ -185,37 +239,37 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                     {
                         title: "Component Demos",
                         url: `/${locale}/components/demo`,
-                        icon: Home,
+                        icon: HiBeaker,
                         badge: "New",
                     },
                     {
                         title: "Diagrams",
                         url: `/${locale}/showcase/diagrams`,
-                        icon: Workflow,
+                        icon: HiArrowsRightLeft,
                         badge: "New",
                     },
                     {
                         title: "Markdown",
                         url: `/${locale}/showcase/markdown`,
-                        icon: FileCode,
+                        icon: HiDocumentText,
                         badge: "New",
                     },
                     {
                         title: "Slide Panel",
                         url: `/${locale}/showcase/slide-panel`,
-                        icon: PanelRightOpen,
+                        icon: HiViewColumns,
                         badge: "New",
                     },
                     {
                         title: "Empty State",
                         url: `/${locale}/showcase/empty-state`,
-                        icon: Inbox,
+                        icon: HiInbox,
                         badge: "New",
                     },
                     {
                         title: "Loading",
                         url: `/${locale}/showcase/loading`,
-                        icon: Loader,
+                        icon: HiArrowPath,
                         badge: "New",
                     },
                 ],
@@ -228,13 +282,14 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                     {
                         title: "Notifications",
                         url: `/${locale}/notifications`,
-                        icon: Bell,
+                        icon: HiBell,
                         badge: "3",
+                        badgeColor: "danger" as const,
                     },
                     {
                         title: "Settings",
                         url: `/${locale}/settings`,
-                        icon: Settings,
+                        icon: HiCog6Tooth,
                     },
                 ],
             },
@@ -252,21 +307,18 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                 isCollapsed ? "w-0 overflow-hidden" : "w-60"
             }`}
         >
-            {/* Search */}
+            {/* Search - triggers CommandPalette */}
             <div className="border-b border-border p-3">
-                <div className="relative">
-                    <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-12 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-1 focus:ring-ring"
-                    />
-                    <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-border bg-muted px-1.5 py-0.5 text-xs font-medium text-muted-foreground">
+                <button
+                    onClick={onSearchClick}
+                    className="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                >
+                    <HiMagnifyingGlass className="h-4 w-4 shrink-0" />
+                    <span className="flex-1 text-left">Search...</span>
+                    <kbd className="pointer-events-none rounded border border-border bg-muted px-1.5 py-0.5 text-xs font-medium">
                         ⌘K
                     </kbd>
-                </div>
+                </button>
             </div>
 
             {/* Navigation */}
@@ -283,15 +335,15 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                                         section.collapsible &&
                                         toggleSection(section.id)
                                     }
-                                    className="mb-1 flex w-full items-center justify-between px-2 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+                                    className="mb-1 flex w-full items-center justify-between px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
                                 >
                                     <span>{section.label}</span>
                                     {section.collapsible && (
                                         <div className="flex items-center gap-1">
                                             {isCollapsed ? (
-                                                <ChevronRight className="h-3.5 w-3.5" />
+                                                <HiChevronRight className="h-3.5 w-3.5" />
                                             ) : (
-                                                <ChevronDown className="h-3.5 w-3.5" />
+                                                <HiChevronDown className="h-3.5 w-3.5" />
                                             )}
                                         </div>
                                     )}
@@ -304,6 +356,15 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                                     {section.items.map((item) => {
                                         const Icon = item.icon;
                                         const active = isActive(item.url);
+                                        
+                                        // Badge color styles
+                                        const badgeColors = {
+                                            default: "bg-primary/10 text-primary",
+                                            success: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+                                            warning: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400",
+                                            danger: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+                                            info: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+                                        };
 
                                         return (
                                             <Link
@@ -326,7 +387,7 @@ export function AppSidebar({ locale, isCollapsed = false }: AppSidebarProps) {
                                                     {item.title}
                                                 </span>
                                                 {item.badge && (
-                                                    <span className="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                                    <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${badgeColors[item.badgeColor || "default"]}`}>
                                                         {item.badge}
                                                     </span>
                                                 )}
