@@ -2,8 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\DiscoverySource;
+use App\Models\BusinessCapability;
 use App\Models\Component;
+use App\Models\System;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'atlas:generate-fake-data')]
@@ -44,16 +49,32 @@ class GenerateFakeDataCommand extends Command
      */
     public function handle(): int
     {
-        $this->generateComponents();
+        $components = $this->getComponentFactory();
+
+        System::factory($this->option('quantity'))
+            ->has($components, 'components')
+            ->has(BusinessCapability::factory(), 'businessCapabilities')
+            ->create();
 
         return self::SUCCESS;
     }
 
-    private function generateComponents(): void
+    private function getComponentFactory(): Factory
     {
-        //TODO: Expand this method to generate relationships, etc...
-
-        Component::factory($this->option('quantity'))
-            ->create();
+        return Component::factory()
+            ->count()
+            ->state(new Sequence(
+                ['discovery_source' => DiscoverySource::Manual],
+                ['discovery_source' => DiscoverySource::Pipeline],
+                ['discovery_source' => DiscoverySource::Scan],
+            ))
+            ->state(new Sequence(
+                ['is_stateless' => true],
+                ['is_stateless' => false],
+            ))
+            ->state(new Sequence(
+                ['is_exposed' => true],
+                ['is_exposed' => false],
+            ));
     }
 }
