@@ -21,7 +21,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->unique()->name,
             'description' => $this->faker->sentence,
             'email' => $this->faker->companyEmail,
             'icon' => null,
