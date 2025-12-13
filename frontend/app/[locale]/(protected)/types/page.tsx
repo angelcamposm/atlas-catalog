@@ -17,7 +17,11 @@ import type { ApiType } from "@/types/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/Button";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ApiTypeCard, ApiTypeCardSkeleton, ApiTypeFormModal } from "@/components/api-types";
+import {
+    ApiTypeCard,
+    ApiTypeCardSkeleton,
+    ApiTypeFormModal,
+} from "@/components/api-types";
 import { cn } from "@/lib/utils";
 
 // ============================================================================
@@ -36,7 +40,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 1,
         name: "REST API",
-        description: "Representational State Transfer - APIs basadas en recursos HTTP con métodos estándar (GET, POST, PUT, DELETE). Ideal para servicios web escalables y stateless.",
+        description:
+            "Representational State Transfer - APIs basadas en recursos HTTP con métodos estándar (GET, POST, PUT, DELETE). Ideal para servicios web escalables y stateless.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -45,7 +50,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 2,
         name: "GraphQL",
-        description: "Lenguaje de consulta flexible para APIs que permite solicitar exactamente los datos necesarios. Perfecto para aplicaciones con requisitos de datos complejos.",
+        description:
+            "Lenguaje de consulta flexible para APIs que permite solicitar exactamente los datos necesarios. Perfecto para aplicaciones con requisitos de datos complejos.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -54,7 +60,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 3,
         name: "gRPC",
-        description: "Framework RPC de alto rendimiento usando Protocol Buffers. Excelente para microservicios con comunicación de baja latencia y streaming bidireccional.",
+        description:
+            "Framework RPC de alto rendimiento usando Protocol Buffers. Excelente para microservicios con comunicación de baja latencia y streaming bidireccional.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -63,7 +70,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 4,
         name: "WebSocket",
-        description: "Protocolo de comunicación bidireccional en tiempo real. Ideal para aplicaciones de chat, notificaciones en vivo y dashboards en tiempo real.",
+        description:
+            "Protocolo de comunicación bidireccional en tiempo real. Ideal para aplicaciones de chat, notificaciones en vivo y dashboards en tiempo real.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -72,7 +80,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 5,
         name: "SOAP",
-        description: "Simple Object Access Protocol - Protocolo basado en XML para intercambio de información estructurada. Usado en integraciones empresariales legacy.",
+        description:
+            "Simple Object Access Protocol - Protocolo basado en XML para intercambio de información estructurada. Usado en integraciones empresariales legacy.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -81,7 +90,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 6,
         name: "Webhook",
-        description: "Callbacks HTTP para notificaciones en tiempo real. Permite a los sistemas recibir actualizaciones automáticas cuando ocurren eventos específicos.",
+        description:
+            "Callbacks HTTP para notificaciones en tiempo real. Permite a los sistemas recibir actualizaciones automáticas cuando ocurren eventos específicos.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -90,7 +100,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 7,
         name: "Event-Driven",
-        description: "APIs basadas en eventos asincrónicos usando message brokers (Kafka, RabbitMQ). Perfectas para arquitecturas desacopladas y procesamiento de alto volumen.",
+        description:
+            "APIs basadas en eventos asincrónicos usando message brokers (Kafka, RabbitMQ). Perfectas para arquitecturas desacopladas y procesamiento de alto volumen.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -99,7 +110,8 @@ const exampleApiTypes: ApiType[] = [
     {
         id: 8,
         name: "OpenAPI/Swagger",
-        description: "APIs RESTful documentadas con especificación OpenAPI. Facilita la generación automática de clientes, documentación y validación de contratos.",
+        description:
+            "APIs RESTful documentadas con especificación OpenAPI. Facilita la generación automática de clientes, documentación y validación de contratos.",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
         created_by: 1,
@@ -110,12 +122,12 @@ const exampleApiTypes: ApiType[] = [
 // Mock API counts per type
 const mockApiCounts: Record<number, number> = {
     1: 24, // REST
-    2: 8,  // GraphQL
-    3: 5,  // gRPC
-    4: 3,  // WebSocket
+    2: 8, // GraphQL
+    3: 5, // gRPC
+    4: 3, // WebSocket
     5: 12, // SOAP
-    6: 6,  // Webhook
-    7: 4,  // Event-Driven
+    6: 6, // Webhook
+    7: 4, // Event-Driven
     8: 15, // OpenAPI
 };
 
@@ -162,7 +174,7 @@ export default function ApiTypesPage() {
             setLoading(true);
             setError(null);
             const response = await apiTypesApi.getAll();
-            
+
             if (response.data.length === 0) {
                 // If no data from backend, use examples
                 setApiTypes(exampleApiTypes);
@@ -176,7 +188,9 @@ export default function ApiTypesPage() {
             // On error, use example data
             setApiTypes(exampleApiTypes);
             setUseExampleData(true);
-            setError("No se pudo conectar al backend. Mostrando datos de ejemplo.");
+            setError(
+                "No se pudo conectar al backend. Mostrando datos de ejemplo."
+            );
         } finally {
             setLoading(false);
         }
@@ -232,87 +246,102 @@ export default function ApiTypesPage() {
         void loadApiTypes();
     }, [loadApiTypes]);
 
-    const handleCreate = useCallback(async (data: { name: string; description?: string | null }) => {
-        if (useExampleData) {
-            // Simulate creation with example data
-            const newType: ApiType = {
-                id: Math.max(...apiTypes.map((t) => t.id)) + 1,
-                name: data.name,
-                description: data.description,
-                created_at: new Date().toISOString(),
-                updated_at: new Date().toISOString(),
-                created_by: 1,
-                updated_by: 1,
-            };
-            setApiTypes((prev) => [...prev, newType]);
-            setShowCreateModal(false);
-            return;
-        }
+    const handleCreate = useCallback(
+        async (data: { name: string; description?: string | null }) => {
+            if (useExampleData) {
+                // Simulate creation with example data
+                const newType: ApiType = {
+                    id: Math.max(...apiTypes.map((t) => t.id)) + 1,
+                    name: data.name,
+                    description: data.description,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                    created_by: 1,
+                    updated_by: 1,
+                };
+                setApiTypes((prev) => [...prev, newType]);
+                setShowCreateModal(false);
+                return;
+            }
 
-        try {
-            setIsSubmitting(true);
-            await apiTypesApi.create({
-                name: data.name,
-                description: data.description || undefined,
-            });
-            await loadApiTypes();
-            setShowCreateModal(false);
-        } catch (err) {
-            console.error("Error creating API Type:", err);
-        } finally {
-            setIsSubmitting(false);
-        }
-    }, [apiTypes, loadApiTypes, useExampleData]);
+            try {
+                setIsSubmitting(true);
+                await apiTypesApi.create({
+                    name: data.name,
+                    description: data.description || undefined,
+                });
+                await loadApiTypes();
+                setShowCreateModal(false);
+            } catch (err) {
+                console.error("Error creating API Type:", err);
+            } finally {
+                setIsSubmitting(false);
+            }
+        },
+        [apiTypes, loadApiTypes, useExampleData]
+    );
 
-    const handleUpdate = useCallback(async (data: { name: string; description?: string | null }) => {
-        if (!editingType) return;
+    const handleUpdate = useCallback(
+        async (data: { name: string; description?: string | null }) => {
+            if (!editingType) return;
 
-        if (useExampleData) {
-            // Simulate update with example data
-            setApiTypes((prev) =>
-                prev.map((t) =>
-                    t.id === editingType.id
-                        ? { ...t, ...data, updated_at: new Date().toISOString() }
-                        : t
-                )
-            );
-            setEditingType(null);
-            return;
-        }
+            if (useExampleData) {
+                // Simulate update with example data
+                setApiTypes((prev) =>
+                    prev.map((t) =>
+                        t.id === editingType.id
+                            ? {
+                                  ...t,
+                                  ...data,
+                                  updated_at: new Date().toISOString(),
+                              }
+                            : t
+                    )
+                );
+                setEditingType(null);
+                return;
+            }
 
-        try {
-            setIsSubmitting(true);
-            await apiTypesApi.update(editingType.id, {
-                name: data.name,
-                description: data.description || undefined,
-            });
-            await loadApiTypes();
-            setEditingType(null);
-        } catch (err) {
-            console.error("Error updating API Type:", err);
-        } finally {
-            setIsSubmitting(false);
-        }
-    }, [editingType, loadApiTypes, useExampleData]);
+            try {
+                setIsSubmitting(true);
+                await apiTypesApi.update(editingType.id, {
+                    name: data.name,
+                    description: data.description || undefined,
+                });
+                await loadApiTypes();
+                setEditingType(null);
+            } catch (err) {
+                console.error("Error updating API Type:", err);
+            } finally {
+                setIsSubmitting(false);
+            }
+        },
+        [editingType, loadApiTypes, useExampleData]
+    );
 
-    const handleDelete = useCallback(async (type: ApiType) => {
-        if (!confirm(`¿Estás seguro de que deseas eliminar "${type.name}"?`)) {
-            return;
-        }
+    const handleDelete = useCallback(
+        async (type: ApiType) => {
+            if (
+                !confirm(`¿Estás seguro de que deseas eliminar "${type.name}"?`)
+            ) {
+                return;
+            }
 
-        if (useExampleData) {
-            // Simulate deletion with example data
-            setApiTypes((prev) => prev.filter((t) => t.id !== type.id));
-            return;
-        }
+            if (useExampleData) {
+                // Simulate deletion with example data
+                setApiTypes((prev) => prev.filter((t) => t.id !== type.id));
+                return;
+            }
 
-        try {
-            await apiTypesApi.delete(type.id);
-            await loadApiTypes();
-        } catch (err) {
-            console.error("Error deleting API Type:", err);
-        }
-    }, [loadApiTypes, useExampleData]);
+            try {
+                await apiTypesApi.delete(type.id);
+                await loadApiTypes();
+            } catch (err) {
+                console.error("Error deleting API Type:", err);
+            }
+        },
+        [loadApiTypes, useExampleData]
+    );
 
     const handleSortSelect = (field: SortField) => {
         if (field === sortField) {
@@ -387,10 +416,7 @@ export default function ApiTypesPage() {
                         disabled={loading}
                     >
                         <HiOutlineArrowPath
-                            className={cn(
-                                "h-4 w-4",
-                                loading && "animate-spin"
-                            )}
+                            className={cn("h-4 w-4", loading && "animate-spin")}
                         />
                     </Button>
 
@@ -399,11 +425,15 @@ export default function ApiTypesPage() {
                         <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => setShowSortDropdown(!showSortDropdown)}
+                            onClick={() =>
+                                setShowSortDropdown(!showSortDropdown)
+                            }
                             className="gap-2"
                         >
                             <HiOutlineArrowsUpDown className="h-4 w-4" />
-                            <span className="hidden sm:inline">{currentSortLabel}</span>
+                            <span className="hidden sm:inline">
+                                {currentSortLabel}
+                            </span>
                             <span className="text-xs text-muted-foreground">
                                 {sortOrder === "asc" ? "↑" : "↓"}
                             </span>
@@ -419,16 +449,21 @@ export default function ApiTypesPage() {
                                     {sortOptions.map((option) => (
                                         <button
                                             key={option.field}
-                                            onClick={() => handleSortSelect(option.field)}
+                                            onClick={() =>
+                                                handleSortSelect(option.field)
+                                            }
                                             className={cn(
                                                 "w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-muted transition-colors",
-                                                sortField === option.field && "bg-muted"
+                                                sortField === option.field &&
+                                                    "bg-muted"
                                             )}
                                         >
                                             <span>{option.label}</span>
                                             {sortField === option.field && (
                                                 <span className="text-xs text-muted-foreground">
-                                                    {sortOrder === "asc" ? "↑" : "↓"}
+                                                    {sortOrder === "asc"
+                                                        ? "↑"
+                                                        : "↓"}
                                                 </span>
                                             )}
                                         </button>
@@ -500,7 +535,10 @@ export default function ApiTypesPage() {
                             )}
                         >
                             {Array.from({ length: 8 }).map((_, i) => (
-                                <ApiTypeCardSkeleton key={i} viewMode={viewMode} />
+                                <ApiTypeCardSkeleton
+                                    key={i}
+                                    viewMode={viewMode}
+                                />
                             ))}
                         </div>
                     ) : filteredAndSortedTypes.length === 0 ? (
@@ -515,7 +553,9 @@ export default function ApiTypesPage() {
                                     : "Aún no hay tipos de API registrados. Comienza creando el primero."}
                             </p>
                             {!searchQuery && (
-                                <Button onClick={() => setShowCreateModal(true)}>
+                                <Button
+                                    onClick={() => setShowCreateModal(true)}
+                                >
                                     <HiOutlinePlus className="w-5 h-5 mr-2" />
                                     Crear primer tipo
                                 </Button>

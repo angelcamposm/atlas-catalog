@@ -49,7 +49,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 1,
         name: "Development",
-        description: "Fase inicial de desarrollo. APIs en construcción, sujetas a cambios frecuentes. No usar en producción.",
+        description:
+            "Fase inicial de desarrollo. APIs en construcción, sujetas a cambios frecuentes. No usar en producción.",
         color: "blue",
         approval_required: false,
         created_at: new Date().toISOString(),
@@ -60,7 +61,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 2,
         name: "Testing",
-        description: "Fase de pruebas y QA. La API está siendo probada internamente. Puede contener bugs conocidos.",
+        description:
+            "Fase de pruebas y QA. La API está siendo probada internamente. Puede contener bugs conocidos.",
         color: "yellow",
         approval_required: false,
         created_at: new Date().toISOString(),
@@ -71,7 +73,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 3,
         name: "Staging",
-        description: "Pre-producción. La API está casi lista para producción. Requiere aprobación para ser promovida.",
+        description:
+            "Pre-producción. La API está casi lista para producción. Requiere aprobación para ser promovida.",
         color: "orange",
         approval_required: true,
         created_at: new Date().toISOString(),
@@ -82,7 +85,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 4,
         name: "Production",
-        description: "En producción. API estable y disponible para consumo. Cambios requieren proceso de aprobación riguroso.",
+        description:
+            "En producción. API estable y disponible para consumo. Cambios requieren proceso de aprobación riguroso.",
         color: "green",
         approval_required: true,
         created_at: new Date().toISOString(),
@@ -93,7 +97,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 5,
         name: "Deprecated",
-        description: "API obsoleta. Se recomienda migrar a una versión más reciente. Soporte limitado disponible.",
+        description:
+            "API obsoleta. Se recomienda migrar a una versión más reciente. Soporte limitado disponible.",
         color: "red",
         approval_required: false,
         created_at: new Date().toISOString(),
@@ -104,7 +109,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 6,
         name: "Retired",
-        description: "API retirada. Ya no está disponible para uso. Toda la funcionalidad ha sido migrada o eliminada.",
+        description:
+            "API retirada. Ya no está disponible para uso. Toda la funcionalidad ha sido migrada o eliminada.",
         color: "gray",
         approval_required: false,
         created_at: new Date().toISOString(),
@@ -115,7 +121,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 7,
         name: "Beta",
-        description: "Versión beta para usuarios seleccionados. Funcionalidad casi completa pero puede tener cambios menores.",
+        description:
+            "Versión beta para usuarios seleccionados. Funcionalidad casi completa pero puede tener cambios menores.",
         color: "purple",
         approval_required: true,
         created_at: new Date().toISOString(),
@@ -126,7 +133,8 @@ const exampleLifecycles: Lifecycle[] = [
     {
         id: 8,
         name: "Preview",
-        description: "Vista previa de próximas características. Solo para evaluación, no para uso en producción.",
+        description:
+            "Vista previa de próximas características. Solo para evaluación, no para uso en producción.",
         color: "indigo",
         approval_required: false,
         created_at: new Date().toISOString(),
@@ -139,13 +147,13 @@ const exampleLifecycles: Lifecycle[] = [
 // Mock component counts per lifecycle
 const mockComponentCounts: Record<number, number> = {
     1: 15, // Development
-    2: 8,  // Testing
-    3: 4,  // Staging
+    2: 8, // Testing
+    3: 4, // Staging
     4: 32, // Production
-    5: 6,  // Deprecated
-    6: 3,  // Retired
-    7: 2,  // Beta
-    8: 5,  // Preview
+    5: 6, // Deprecated
+    6: 3, // Retired
+    7: 2, // Beta
+    8: 5, // Preview
 };
 
 // ============================================================================
@@ -153,7 +161,10 @@ const mockComponentCounts: Record<number, number> = {
 // ============================================================================
 
 // Color map for lifecycle flow nodes
-const lifecycleNodeColors: Record<string, { bg: string; border: string; text: string }> = {
+const lifecycleNodeColors: Record<
+    string,
+    { bg: string; border: string; text: string }
+> = {
     blue: {
         bg: "bg-blue-50 dark:bg-blue-900/30",
         border: "border-blue-400 dark:border-blue-500",
@@ -259,18 +270,18 @@ const lifecycleFlowEdges = [
     createEdge("beta", "staging"),
     createEdge("beta", "preview"),
     // From Staging/Preview to Production
-    createEdge("staging", "production", { 
+    createEdge("staging", "production", {
         animated: true,
-        style: { stroke: "#22c55e", strokeWidth: 2 } 
+        style: { stroke: "#22c55e", strokeWidth: 2 },
     }),
     createEdge("preview", "production"),
     // From Production to end states
     createEdge("production", "deprecated", {
-        style: { stroke: "#ef4444", strokeWidth: 2 }
+        style: { stroke: "#ef4444", strokeWidth: 2 },
     }),
     // From Deprecated to Retired
     createEdge("deprecated", "retired", {
-        style: { stroke: "#6b7280", strokeDasharray: "5,5" }
+        style: { stroke: "#6b7280", strokeDasharray: "5,5" },
     }),
 ];
 
@@ -309,7 +320,9 @@ export default function LifecyclesPage() {
 
     // Modal state
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const [editingLifecycle, setEditingLifecycle] = useState<Lifecycle | null>(null);
+    const [editingLifecycle, setEditingLifecycle] = useState<Lifecycle | null>(
+        null
+    );
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     // Load Lifecycles
@@ -332,7 +345,9 @@ export default function LifecyclesPage() {
             // On error, use example data
             setLifecycles(exampleLifecycles);
             setUseExampleData(true);
-            setError("No se pudo conectar al backend. Mostrando datos de ejemplo.");
+            setError(
+                "No se pudo conectar al backend. Mostrando datos de ejemplo."
+            );
         } finally {
             setLoading(false);
         }
@@ -482,7 +497,9 @@ export default function LifecyclesPage() {
 
             if (useExampleData) {
                 // Simulate deletion with example data
-                setLifecycles((prev) => prev.filter((l) => l.id !== lifecycle.id));
+                setLifecycles((prev) =>
+                    prev.filter((l) => l.id !== lifecycle.id)
+                );
                 return;
             }
 
@@ -549,7 +566,8 @@ export default function LifecyclesPage() {
 
                     {/* Stats */}
                     <span className="text-sm text-muted-foreground whitespace-nowrap">
-                        {filteredAndSortedLifecycles.length} de {lifecycles.length}
+                        {filteredAndSortedLifecycles.length} de{" "}
+                        {lifecycles.length}
                     </span>
 
                     {useExampleData && (
@@ -569,10 +587,7 @@ export default function LifecyclesPage() {
                         disabled={loading}
                     >
                         <HiOutlineArrowPath
-                            className={cn(
-                                "h-4 w-4",
-                                loading && "animate-spin"
-                            )}
+                            className={cn("h-4 w-4", loading && "animate-spin")}
                         />
                     </Button>
 
@@ -581,7 +596,9 @@ export default function LifecyclesPage() {
                         <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => setShowSortDropdown(!showSortDropdown)}
+                            onClick={() =>
+                                setShowSortDropdown(!showSortDropdown)
+                            }
                             className="gap-2"
                         >
                             <HiOutlineArrowsUpDown className="h-4 w-4" />
@@ -687,8 +704,10 @@ export default function LifecyclesPage() {
                                 Estados del Ciclo de Vida
                             </p>
                             <p className="text-blue-700 dark:text-blue-300 mt-1">
-                                Los estados definen las etapas por las que pasa un componente o API durante su desarrollo.
-                                Algunos estados pueden requerir aprobación antes de la transición.
+                                Los estados definen las etapas por las que pasa
+                                un componente o API durante su desarrollo.
+                                Algunos estados pueden requerir aprobación antes
+                                de la transición.
                             </p>
                         </div>
                     </div>
@@ -709,7 +728,8 @@ export default function LifecyclesPage() {
                                         Flujo de Transiciones
                                     </h3>
                                     <p className="text-sm text-muted-foreground">
-                                        Visualiza las transiciones posibles entre estados
+                                        Visualiza las transiciones posibles
+                                        entre estados
                                     </p>
                                 </div>
                             </div>
@@ -735,7 +755,9 @@ export default function LifecyclesPage() {
                                 />
                                 {/* Legend */}
                                 <div className="flex flex-wrap items-center gap-4 px-4 py-3 bg-muted/30 border-t border-border text-xs text-muted-foreground">
-                                    <span className="font-medium">Leyenda:</span>
+                                    <span className="font-medium">
+                                        Leyenda:
+                                    </span>
                                     <div className="flex items-center gap-1.5">
                                         <div className="w-2 h-2 rounded-full bg-blue-500" />
                                         <span>Desarrollo</span>
@@ -757,8 +779,11 @@ export default function LifecyclesPage() {
                                         <span>Retirado</span>
                                     </div>
                                     <span className="ml-4 border-l border-border pl-4">
-                                        ─▶ Transición normal | 
-                                        <span className="text-green-600 dark:text-green-400 ml-1">─▶</span> Requiere aprobación
+                                        ─▶ Transición normal |
+                                        <span className="text-green-600 dark:text-green-400 ml-1">
+                                            ─▶
+                                        </span>{" "}
+                                        Requiere aprobación
                                     </span>
                                 </div>
                             </div>
@@ -775,7 +800,10 @@ export default function LifecyclesPage() {
                             )}
                         >
                             {Array.from({ length: 8 }).map((_, i) => (
-                                <LifecycleCardSkeleton key={i} viewMode={viewMode} />
+                                <LifecycleCardSkeleton
+                                    key={i}
+                                    viewMode={viewMode}
+                                />
                             ))}
                         </div>
                     ) : filteredAndSortedLifecycles.length === 0 ? (
@@ -790,7 +818,9 @@ export default function LifecyclesPage() {
                                     : "Aún no hay estados de ciclo de vida definidos. Comienza creando el primero."}
                             </p>
                             {!searchQuery && (
-                                <Button onClick={() => setShowCreateModal(true)}>
+                                <Button
+                                    onClick={() => setShowCreateModal(true)}
+                                >
                                     <HiOutlinePlus className="w-5 h-5 mr-2" />
                                     Crear primer estado
                                 </Button>

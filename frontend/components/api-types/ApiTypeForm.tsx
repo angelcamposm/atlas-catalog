@@ -40,7 +40,9 @@ export function ApiTypeForm({
     mode,
 }: ApiTypeFormProps) {
     const [name, setName] = useState(initialData?.name || "");
-    const [description, setDescription] = useState(initialData?.description || "");
+    const [description, setDescription] = useState(
+        initialData?.description || ""
+    );
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     const validate = (): boolean => {
@@ -125,7 +127,8 @@ export function ApiTypeForm({
                     disabled={isLoading}
                 />
                 <p className="text-xs text-muted-foreground">
-                    Proporciona una descripción clara para ayudar a otros usuarios a entender cuándo usar este tipo.
+                    Proporciona una descripción clara para ayudar a otros
+                    usuarios a entender cuándo usar este tipo.
                 </p>
             </div>
 
@@ -155,7 +158,8 @@ export function ApiTypeForm({
 // Modal Wrapper
 // ============================================================================
 
-export interface ApiTypeFormModalProps extends Omit<ApiTypeFormProps, "onCancel"> {
+export interface ApiTypeFormModalProps
+    extends Omit<ApiTypeFormProps, "onCancel"> {
     isOpen: boolean;
     onClose: () => void;
     title?: string;
@@ -169,7 +173,11 @@ export function ApiTypeFormModal({
 }: ApiTypeFormModalProps) {
     if (!isOpen) return null;
 
-    const modalTitle = title || (formProps.mode === "create" ? "Crear Tipo de API" : "Editar Tipo de API");
+    const modalTitle =
+        title ||
+        (formProps.mode === "create"
+            ? "Crear Tipo de API"
+            : "Editar Tipo de API");
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">

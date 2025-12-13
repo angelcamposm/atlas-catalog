@@ -60,7 +60,9 @@ export function LifecycleForm({
 }: LifecycleFormProps) {
     const [name, setName] = useState(initialData?.name || "");
     const [color, setColor] = useState(initialData?.color || "blue");
-    const [description, setDescription] = useState(initialData?.description || "");
+    const [description, setDescription] = useState(
+        initialData?.description || ""
+    );
     const [approvalRequired, setApprovalRequired] = useState(
         initialData?.approval_required ?? false
     );
@@ -145,7 +147,10 @@ export function LifecycleForm({
                             onClick={() => {
                                 setColor(option.value);
                                 if (errors.color) {
-                                    setErrors((prev) => ({ ...prev, color: "" }));
+                                    setErrors((prev) => ({
+                                        ...prev,
+                                        color: "",
+                                    }));
                                 }
                             }}
                             className={cn(
@@ -168,7 +173,8 @@ export function LifecycleForm({
                     <p className="text-sm text-red-500">{errors.color}</p>
                 )}
                 <p className="text-xs text-muted-foreground">
-                    El color ayuda a identificar visualmente el estado del ciclo de vida.
+                    El color ayuda a identificar visualmente el estado del ciclo
+                    de vida.
                 </p>
             </div>
 
@@ -206,7 +212,8 @@ export function LifecycleForm({
                             Requiere aprobación
                         </label>
                         <p className="text-xs text-muted-foreground mt-0.5">
-                            Activar si los cambios a este estado requieren aprobación
+                            Activar si los cambios a este estado requieren
+                            aprobación
                         </p>
                     </div>
                     <button
@@ -225,7 +232,9 @@ export function LifecycleForm({
                         <span
                             className={cn(
                                 "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200",
-                                approvalRequired ? "translate-x-5" : "translate-x-0"
+                                approvalRequired
+                                    ? "translate-x-5"
+                                    : "translate-x-0"
                             )}
                         />
                     </button>
@@ -241,7 +250,8 @@ export function LifecycleForm({
                     <div
                         className={cn(
                             "w-3 h-3 rounded-full",
-                            colorOptions.find((c) => c.value === color)?.class || "bg-gray-500"
+                            colorOptions.find((c) => c.value === color)
+                                ?.class || "bg-gray-500"
                         )}
                     />
                     <span className="font-medium text-foreground">
@@ -281,7 +291,8 @@ export function LifecycleForm({
 // Modal Wrapper
 // ============================================================================
 
-export interface LifecycleFormModalProps extends Omit<LifecycleFormProps, "onCancel"> {
+export interface LifecycleFormModalProps
+    extends Omit<LifecycleFormProps, "onCancel"> {
     isOpen: boolean;
     onClose: () => void;
     title?: string;
@@ -295,7 +306,11 @@ export function LifecycleFormModal({
 }: LifecycleFormModalProps) {
     if (!isOpen) return null;
 
-    const modalTitle = title || (formProps.mode === "create" ? "Crear Estado de Ciclo de Vida" : "Editar Estado");
+    const modalTitle =
+        title ||
+        (formProps.mode === "create"
+            ? "Crear Estado de Ciclo de Vida"
+            : "Editar Estado");
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">

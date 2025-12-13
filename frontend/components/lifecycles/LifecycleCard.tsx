@@ -41,7 +41,10 @@ export interface LifecycleCardProps {
 // Predefined Colors Configuration
 // ============================================================================
 
-const predefinedColors: Record<string, { bg: string; text: string; border: string }> = {
+const predefinedColors: Record<
+    string,
+    { bg: string; text: string; border: string }
+> = {
     blue: {
         bg: "bg-blue-500",
         text: "text-blue-600 dark:text-blue-400",
@@ -274,7 +277,9 @@ function GridCard({
 
             {/* Approval badge */}
             <div className="mb-3">
-                <ApprovalBadge required={lifecycle.approval_required ?? false} />
+                <ApprovalBadge
+                    required={lifecycle.approval_required ?? false}
+                />
             </div>
 
             {/* Footer - Components count */}
@@ -314,10 +319,7 @@ function ListCard({
         >
             {/* Color indicator */}
             <div
-                className={cn(
-                    "w-1 h-12 rounded-full shrink-0",
-                    colorConfig.bg
-                )}
+                className={cn("w-1 h-12 rounded-full shrink-0", colorConfig.bg)}
             />
 
             {/* Icon */}
@@ -336,7 +338,9 @@ function ListCard({
                     <h3 className="font-semibold text-foreground truncate">
                         {lifecycle.name}
                     </h3>
-                    <ApprovalBadge required={lifecycle.approval_required ?? false} />
+                    <ApprovalBadge
+                        required={lifecycle.approval_required ?? false}
+                    />
                 </div>
                 <p className="text-sm text-muted-foreground truncate">
                     {lifecycle.description || "Sin descripción"}
