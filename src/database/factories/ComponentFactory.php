@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\DiscoverySource;
-use App\Models\BusinessDomain;
-use App\Models\BusinessTier;
 use App\Models\Component;
 use App\Models\Group;
-use App\Models\Platform;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -33,7 +30,7 @@ class ComponentFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->words(3, true);
+        $name = $this->faker->unique()->slug(3);
 
         return [
             'name' => Str::slug($name),
