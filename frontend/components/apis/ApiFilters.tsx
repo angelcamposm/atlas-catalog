@@ -36,6 +36,8 @@ export interface ApiFiltersProps {
     className?: string;
     collapsed?: boolean;
     onCollapsedChange?: (collapsed: boolean) => void;
+    /** When true, hides the search bar and filter toggle (use when they're in a separate toolbar) */
+    hideSearchBar?: boolean;
 }
 
 // Default filter state
@@ -129,14 +131,15 @@ function MultiSelectDropdown({
                 <span
                     className={cn(
                         "truncate",
-                        selected.length === 0 && "text-gray-400 dark:text-gray-500"
+                        selected.length === 0 &&
+                            "text-gray-400 dark:text-gray-500"
                     )}
                 >
                     {selected.length === 0
                         ? placeholder
                         : selectedLabels.length <= 2
-                          ? selectedLabels.join(", ")
-                          : `${selectedLabels.length} seleccionados`}
+                        ? selectedLabels.join(", ")
+                        : `${selectedLabels.length} seleccionados`}
                 </span>
                 <HiOutlineChevronDown
                     className={cn(
@@ -300,6 +303,7 @@ export function ApiFilters({
     className,
     collapsed = false,
     onCollapsedChange,
+    hideSearchBar = false,
 }: ApiFiltersProps) {
     // Count active filters (excluding search)
     const activeFilterCount =
@@ -312,7 +316,10 @@ export function ApiFilters({
 
     // Update individual filter
     const updateFilter = useCallback(
-        <K extends keyof ApiFiltersState>(key: K, value: ApiFiltersState[K]) => {
+        <K extends keyof ApiFiltersState>(
+            key: K,
+            value: ApiFiltersState[K]
+        ) => {
             onFiltersChange({ ...filters, [key]: value });
         },
         [filters, onFiltersChange]
@@ -325,7 +332,8 @@ export function ApiFilters({
 
     // Get labels for active filters
     const getFilterLabels = useCallback(() => {
-        const labels: { key: string; label: string; onRemove: () => void }[] = [];
+        const labels: { key: string; label: string; onRemove: () => void }[] =
+            [];
 
         // Types
         filters.types.forEach((typeId) => {
@@ -417,67 +425,64 @@ export function ApiFilters({
         }
 
         return labels;
-    }, [
-        filters,
-        apiTypes,
-        apiStatuses,
-        lifecycles,
-        owners,
-        updateFilter,
-    ]);
+    }, [filters, apiTypes, apiStatuses, lifecycles, owners, updateFilter]);
 
     const filterLabels = getFilterLabels();
 
     return (
         <div className={cn("space-y-4", className)}>
-            {/* Search and Toggle Header */}
-            <div className="flex items-center gap-3">
-                {/* Search Input */}
-                <div className="relative flex-1">
-                    <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder="Buscar APIs..."
-                        value={filters.search}
-                        onChange={(e) => updateFilter("search", e.target.value)}
-                        className={cn(
-                            "w-full pl-9 pr-4 py-2 text-sm",
-                            "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg",
-                            "placeholder:text-gray-400 dark:placeholder:text-gray-500",
-                            "focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+            {/* Search and Toggle Header - Only show if not hidden by toolbar */}
+            {!hideSearchBar && (
+                <div className="flex items-center gap-3">
+                    {/* Search Input */}
+                    <div className="relative flex-1">
+                        <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Buscar APIs..."
+                            value={filters.search}
+                            onChange={(e) =>
+                                updateFilter("search", e.target.value)
+                            }
+                            className={cn(
+                                "w-full pl-9 pr-4 py-2 text-sm",
+                                "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg",
+                                "placeholder:text-gray-400 dark:placeholder:text-gray-500",
+                                "focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500"
+                            )}
+                        />
+                        {filters.search && (
+                            <button
+                                type="button"
+                                onClick={() => updateFilter("search", "")}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                            >
+                                <HiOutlineXMark className="w-4 h-4" />
+                            </button>
                         )}
-                    />
-                    {filters.search && (
-                        <button
-                            type="button"
-                            onClick={() => updateFilter("search", "")}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                        >
-                            <HiOutlineXMark className="w-4 h-4" />
-                        </button>
-                    )}
-                </div>
+                    </div>
 
-                {/* Filter Toggle Button */}
-                <button
-                    type="button"
-                    onClick={() => onCollapsedChange?.(!collapsed)}
-                    className={cn(
-                        "flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors",
-                        collapsed
-                            ? "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
-                            : "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
-                    )}
-                >
-                    <HiOutlineFunnel className="w-4 h-4" />
-                    <span>Filtros</span>
-                    {activeFilterCount > 0 && (
-                        <span className="px-1.5 py-0.5 text-xs font-semibold bg-primary-500 text-white rounded-full">
-                            {activeFilterCount}
-                        </span>
-                    )}
-                </button>
-            </div>
+                    {/* Filter Toggle Button */}
+                    <button
+                        type="button"
+                        onClick={() => onCollapsedChange?.(!collapsed)}
+                        className={cn(
+                            "flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+                            collapsed
+                                ? "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                                : "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
+                        )}
+                    >
+                        <HiOutlineFunnel className="w-4 h-4" />
+                        <span>Filtros</span>
+                        {activeFilterCount > 0 && (
+                            <span className="px-1.5 py-0.5 text-xs font-semibold bg-primary-500 text-white rounded-full">
+                                {activeFilterCount}
+                            </span>
+                        )}
+                    </button>
+                </div>
+            )}
 
             {/* Active Filter Badges */}
             {filterLabels.length > 0 && (
@@ -508,7 +513,9 @@ export function ApiFilters({
                             label="Tipo de API"
                             options={apiTypes}
                             selected={filters.types}
-                            onChange={(selected) => updateFilter("types", selected)}
+                            onChange={(selected) =>
+                                updateFilter("types", selected)
+                            }
                             placeholder="Seleccionar tipos..."
                         />
 
@@ -517,7 +524,9 @@ export function ApiFilters({
                             label="Estado"
                             options={apiStatuses}
                             selected={filters.statuses}
-                            onChange={(selected) => updateFilter("statuses", selected)}
+                            onChange={(selected) =>
+                                updateFilter("statuses", selected)
+                            }
                             placeholder="Seleccionar estados..."
                         />
 
@@ -526,7 +535,9 @@ export function ApiFilters({
                             label="Ciclo de Vida"
                             options={lifecycles}
                             selected={filters.lifecycles}
-                            onChange={(selected) => updateFilter("lifecycles", selected)}
+                            onChange={(selected) =>
+                                updateFilter("lifecycles", selected)
+                            }
                             placeholder="Seleccionar ciclos..."
                         />
 
@@ -535,7 +546,9 @@ export function ApiFilters({
                             label="Propietario"
                             options={owners}
                             selected={filters.owners}
-                            onChange={(selected) => updateFilter("owners", selected)}
+                            onChange={(selected) =>
+                                updateFilter("owners", selected)
+                            }
                             placeholder="Seleccionar propietarios..."
                         />
                     </div>
@@ -544,11 +557,15 @@ export function ApiFilters({
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-gray-200 dark:border-gray-700">
                         <ProtocolFilter
                             selected={filters.protocols}
-                            onChange={(selected) => updateFilter("protocols", selected)}
+                            onChange={(selected) =>
+                                updateFilter("protocols", selected)
+                            }
                         />
                         <DeprecationFilter
                             value={filters.deprecated}
-                            onChange={(value) => updateFilter("deprecated", value)}
+                            onChange={(value) =>
+                                updateFilter("deprecated", value)
+                            }
                         />
                     </div>
                 </div>
@@ -634,7 +651,9 @@ export function CompactFilterBar({
 // Hook for URL Sync (optional)
 // ============================================================================
 
-export function useApiFiltersWithUrl(initialFilters: ApiFiltersState = defaultFilters) {
+export function useApiFiltersWithUrl(
+    initialFilters: ApiFiltersState = defaultFilters
+) {
     // Parse URL params on mount only
     const getInitialFiltersFromUrl = (): ApiFiltersState => {
         if (typeof window === "undefined") return initialFilters;
@@ -646,29 +665,46 @@ export function useApiFiltersWithUrl(initialFilters: ApiFiltersState = defaultFi
         if (search) urlFilters.search = search;
 
         const types = params.get("types");
-        if (types) urlFilters.types = types.split(",").map(Number).filter(Boolean);
+        if (types)
+            urlFilters.types = types.split(",").map(Number).filter(Boolean);
 
         const statuses = params.get("statuses");
         if (statuses)
-            urlFilters.statuses = statuses.split(",").map(Number).filter(Boolean);
+            urlFilters.statuses = statuses
+                .split(",")
+                .map(Number)
+                .filter(Boolean);
 
         const lifecycles = params.get("lifecycles");
         if (lifecycles)
-            urlFilters.lifecycles = lifecycles.split(",").map(Number).filter(Boolean);
+            urlFilters.lifecycles = lifecycles
+                .split(",")
+                .map(Number)
+                .filter(Boolean);
 
         const protocols = params.get("protocols");
         if (protocols)
-            urlFilters.protocols = protocols.split(",").filter(Boolean) as Protocol[];
+            urlFilters.protocols = protocols
+                .split(",")
+                .filter(Boolean) as Protocol[];
 
-        const deprecated = params.get("deprecated") as "all" | "active" | "deprecated";
-        if (deprecated && ["all", "active", "deprecated"].includes(deprecated)) {
+        const deprecated = params.get("deprecated") as
+            | "all"
+            | "active"
+            | "deprecated";
+        if (
+            deprecated &&
+            ["all", "active", "deprecated"].includes(deprecated)
+        ) {
             urlFilters.deprecated = deprecated;
         }
 
         return { ...initialFilters, ...urlFilters };
     };
 
-    const [filters, setFilters] = useState<ApiFiltersState>(getInitialFiltersFromUrl);
+    const [filters, setFilters] = useState<ApiFiltersState>(
+        getInitialFiltersFromUrl
+    );
 
     return { filters, setFilters };
 }
