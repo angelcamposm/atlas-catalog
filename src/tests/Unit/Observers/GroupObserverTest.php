@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Tests\Unit\Observers;
 
 use App\Models\User;
+use App\Observers\GroupObserver;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -16,6 +18,7 @@ use Tests\TestCase;
  *
  * Verifies that model observers automatically populate audit fields.
  */
+#[CoversClass(GroupObserver::class)]
 class GroupObserverTest extends TestCase
 {
     use RefreshDatabase;
