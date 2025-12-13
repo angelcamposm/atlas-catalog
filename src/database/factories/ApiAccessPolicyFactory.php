@@ -29,8 +29,6 @@ class ApiAccessPolicyFactory extends Factory
         return [
             'name' => $this->faker->unique()->word,
             'description' => $this->faker->sentence,
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }
