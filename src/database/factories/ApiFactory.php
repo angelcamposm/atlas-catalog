@@ -13,7 +13,6 @@ use App\Models\ApiType;
 use App\Models\AuthenticationMethod;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -24,7 +23,7 @@ class ApiFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<Model>
+     * @var class-string<Api>
      */
     protected $model = Api::class;
 
