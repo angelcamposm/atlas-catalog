@@ -36,11 +36,11 @@ class CategoryObserver
     }
 
     /**
-     * Handle the Category "creating" event.
+     * Handle the Category "updating" event.
      */
     public function updating(Category $category): void
     {
-        if (Auth::check() && is_null($category->updated_by)) {
+        if (Auth::check()) {
             $category->updated_by = Auth::id();
         }
     }

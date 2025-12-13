@@ -36,11 +36,11 @@ class ComponentObserver
     }
 
     /**
-     * Handle the Component "creating" event.
+     * Handle the Component "updating" event.
      */
     public function updating(Component $component): void
     {
-        if (Auth::check() && is_null($component->updated_by)) {
+        if (Auth::check()) {
             $component->updated_by = Auth::id();
         }
     }

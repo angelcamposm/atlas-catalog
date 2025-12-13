@@ -36,11 +36,11 @@ class LinkObserver
     }
 
     /**
-     * Handle the Link "creating" event.
+     * Handle the Link "updating" event.
      */
     public function updating(Link $link): void
     {
-        if (Auth::check() && is_null($link->updated_by)) {
+        if (Auth::check()) {
             $link->updated_by = Auth::id();
         }
     }

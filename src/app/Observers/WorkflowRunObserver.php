@@ -36,11 +36,11 @@ class WorkflowRunObserver
     }
 
     /**
-     * Handle the WorkflowRun "creating" event.
+     * Handle the WorkflowRun "updating" event.
      */
     public function updating(WorkflowRun $workflowRun): void
     {
-        if (Auth::check() && is_null($workflowRun->updated_by)) {
+        if (Auth::check()) {
             $workflowRun->updated_by = Auth::id();
         }
     }

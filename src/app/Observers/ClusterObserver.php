@@ -36,11 +36,11 @@ class ClusterObserver
     }
 
     /**
-     * Handle the Cluster "creating" event.
+     * Handle the Cluster "updating" event.
      */
     public function updating(Cluster $cluster): void
     {
-        if (Auth::check() && is_null($cluster->updated_by)) {
+        if (Auth::check()) {
             $cluster->updated_by = Auth::id();
         }
     }

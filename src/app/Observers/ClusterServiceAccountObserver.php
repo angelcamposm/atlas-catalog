@@ -36,11 +36,11 @@ class ClusterServiceAccountObserver
     }
 
     /**
-     * Handle the ClusterServiceAccount "creating" event.
+     * Handle the ClusterServiceAccount "updating" event.
      */
     public function updating(ClusterServiceAccount $clusterServiceAccount): void
     {
-        if (Auth::check() && is_null($clusterServiceAccount->updated_by)) {
+        if (Auth::check()) {
             $clusterServiceAccount->updated_by = Auth::id();
         }
     }

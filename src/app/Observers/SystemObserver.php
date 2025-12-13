@@ -36,11 +36,11 @@ class SystemObserver
     }
 
     /**
-     * Handle the System "creating" event.
+     * Handle the System "updating" event.
      */
     public function updating(System $system): void
     {
-        if (Auth::check() && is_null($system->updated_by)) {
+        if (Auth::check()) {
             $system->updated_by = Auth::id();
         }
     }

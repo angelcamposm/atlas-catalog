@@ -36,11 +36,11 @@ class ApiObserver
     }
 
     /**
-     * Handle the Api "creating" event.
+     * Handle the Api "updating" event.
      */
     public function updating(Api $api): void
     {
-        if (Auth::check() && is_null($api->updated_by)) {
+        if (Auth::check()) {
             $api->updated_by = Auth::id();
         }
     }

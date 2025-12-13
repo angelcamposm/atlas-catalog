@@ -40,11 +40,11 @@ class BusinessDomainObserver
     }
 
     /**
-     * Handle the BusinessDomain "creating" event.
+     * Handle the BusinessDomain "updating" event.
      */
     public function updating(BusinessDomain $businessDomain): void
     {
-        if (Auth::check() && is_null($businessDomain->updated_by)) {
+        if (Auth::check()) {
             $businessDomain->updated_by = Auth::id();
         }
     }

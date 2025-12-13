@@ -36,11 +36,11 @@ class ServiceAccountTokenObserver
     }
 
     /**
-     * Handle the ServiceAccountToken "creating" event.
+     * Handle the ServiceAccountToken "updating" event.
      */
     public function updating(ServiceAccountToken $serviceAccountToken): void
     {
-        if (Auth::check() && is_null($serviceAccountToken->updated_by)) {
+        if (Auth::check()) {
             $serviceAccountToken->updated_by = Auth::id();
         }
     }

@@ -36,11 +36,11 @@ class LifecycleObserver
     }
 
     /**
-     * Handle the Lifecycle "creating" event.
+     * Handle the Lifecycle "updating" event.
      */
     public function updating(Lifecycle $lifecycle): void
     {
-        if (Auth::check() && is_null($lifecycle->updated_by)) {
+        if (Auth::check()) {
             $lifecycle->updated_by = Auth::id();
         }
     }

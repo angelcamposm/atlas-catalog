@@ -36,11 +36,11 @@ class ServiceAccountObserver
     }
 
     /**
-     * Handle the ServiceAccount "creating" event.
+     * Handle the ServiceAccount "updating" event.
      */
     public function updating(ServiceAccount $serviceAccount): void
     {
-        if (Auth::check() && is_null($serviceAccount->updated_by)) {
+        if (Auth::check()) {
             $serviceAccount->updated_by = Auth::id();
         }
     }

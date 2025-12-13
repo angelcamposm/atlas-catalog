@@ -36,11 +36,11 @@ class InfrastructureTypeObserver
     }
 
     /**
-     * Handle the InfrastructureType "creating" event.
+     * Handle the InfrastructureType "updating" event.
      */
     public function updating(InfrastructureType $infrastructureType): void
     {
-        if (Auth::check() && is_null($infrastructureType->updated_by)) {
+        if (Auth::check()) {
             $infrastructureType->updated_by = Auth::id();
         }
     }

@@ -36,11 +36,11 @@ class FrameworkObserver
     }
 
     /**
-     * Handle the Framework "creating" event.
+     * Handle the Framework "updating" event.
      */
     public function updating(Framework $framework): void
     {
-        if (Auth::check() && is_null($framework->updated_by)) {
+        if (Auth::check()) {
             $framework->updated_by = Auth::id();
         }
     }

@@ -36,11 +36,11 @@ class BusinessCapabilityObserver
     }
 
     /**
-     * Handle the BusinessCapability "creating" event.
+     * Handle the BusinessCapability "updating" event.
      */
     public function updating(BusinessCapability $businessCapability): void
     {
-        if (Auth::check() && is_null($businessCapability->updated_by)) {
+        if (Auth::check()) {
             $businessCapability->updated_by = Auth::id();
         }
     }

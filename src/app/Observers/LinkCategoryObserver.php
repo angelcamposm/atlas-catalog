@@ -41,7 +41,7 @@ class LinkCategoryObserver
     }
 
     /**
-     * Handle the LinkCategory "creating" event.
+     * Handle the LinkCategory "updating" event.
      */
     public function updating(LinkCategory $linkCategory): void
     {
@@ -49,7 +49,7 @@ class LinkCategoryObserver
             $linkCategory->model = strtolower(class_basename(Link::class));
         }
 
-        if (Auth::check() && is_null($linkCategory->updated_by)) {
+        if (Auth::check()) {
             $linkCategory->updated_by = Auth::id();
         }
     }

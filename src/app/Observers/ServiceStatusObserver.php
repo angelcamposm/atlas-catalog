@@ -36,11 +36,11 @@ class ServiceStatusObserver
     }
 
     /**
-     * Handle the ServiceStatus "creating" event.
+     * Handle the ServiceStatus "updating" event.
      */
     public function updating(ServiceStatus $serviceStatus): void
     {
-        if (Auth::check() && is_null($serviceStatus->updated_by)) {
+        if (Auth::check()) {
             $serviceStatus->updated_by = Auth::id();
         }
     }
