@@ -21,8 +21,8 @@ class SystemFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'display_name' => $this->faker->sentence(),
-            'description' => $this->faker->sentence(),
+            'display_name' => $this->faker->text(50),
+            'description' => $this->faker->text(250),
         ];
     }
 }
