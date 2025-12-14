@@ -29,7 +29,7 @@ class ClusterTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word(),
+            'name' => $this->faker->unique()->name(),
             'icon' => $this->faker->word() . '.svg',
             'is_enabled' => $this->faker->boolean(),
             'vendor_id' => Vendor::factory(),
