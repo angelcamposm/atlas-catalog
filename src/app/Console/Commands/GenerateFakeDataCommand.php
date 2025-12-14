@@ -49,12 +49,10 @@ class GenerateFakeDataCommand extends Command
      */
     public function handle(): int
     {
-        $components = $this->getComponentFactory();
-
-        System::factory($this->option('quantity'))
-            ->has($components, 'components')
-            ->has(BusinessCapability::factory(), 'businessCapabilities')
-            ->create();
+        $this->info('Generating fake data...');
+        $this->create_clusters_fake_data();
+        $this->create_groups_fake_data();
+        $this->create_systems_fake_data();
 
         return self::SUCCESS;
     }
@@ -62,7 +60,7 @@ class GenerateFakeDataCommand extends Command
     private function getComponentFactory(): Factory
     {
         return Component::factory()
-            ->count()
+            ->count(1)
             ->state(new Sequence(
                 ['discovery_source' => DiscoverySource::Manual],
                 ['discovery_source' => DiscoverySource::Pipeline],
@@ -76,5 +74,29 @@ class GenerateFakeDataCommand extends Command
                 ['is_exposed' => true],
                 ['is_exposed' => false],
             ));
+    }
+
+    public function create_systems_fake_data(): void
+    {
+        $this->info('Creating fake data for systems domain...');
+
+        $components = $this->getComponentFactory();
+
+        System::factory($this->option('quantity'))
+            ->has($components, 'components')
+            ->has(BusinessCapability::factory(), 'businessCapabilities')
+            ->create();
+    }
+
+    private function create_clusters_fake_data(): void
+    {
+        //TODO: implement this method
+        $this->info('Creating fake data for clusters domain...');
+    }
+
+    private function create_groups_fake_data(): void
+    {
+        //TODO: implement this method
+        $this->info('Creating fake data for groups domain...');
     }
 }
