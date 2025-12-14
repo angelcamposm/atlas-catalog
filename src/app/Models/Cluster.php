@@ -145,7 +145,7 @@ class Cluster extends Model
      *
      * @return BelongsToMany<ServiceAccount>
      */
-    public function serviceAccount(): BelongsToMany
+    public function serviceAccounts(): BelongsToMany
     {
         return $this->belongsToMany(
             related: ServiceAccount::class,
