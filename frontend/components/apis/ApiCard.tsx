@@ -44,6 +44,11 @@ export interface ApiCardProps {
     onDuplicate?: (api: Api) => void;
     /** Additional className */
     className?: string;
+    apiTypes?: { id: number; name: string }[];
+    apiStatuses?: { id: number; name: string }[];
+    apiCategories?: { id: number; name: string }[];
+    accessPolicies?: { id: number; name: string }[];
+    authenticationMethods?: { id: number; name: string }[];
 }
 
 // ============================================================================
@@ -210,6 +215,11 @@ export function ApiCard({
     onDelete,
     onDuplicate,
     className,
+    apiTypes,
+    apiStatuses,
+    apiCategories,
+    accessPolicies,
+    authenticationMethods,
 }: ApiCardProps) {
     const protocolCfg = getProtocolConfig(api.protocol);
     const deprecated = isDeprecated(api);
@@ -361,6 +371,28 @@ export function ApiCard({
                     {api.version && (
                         <Badge variant="secondary" className="text-xs">
                             v{api.version}
+                        </Badge>
+                    )}
+                </div>
+                {/* Small metadata badges */}
+                <div className="mt-1 flex items-center gap-2 flex-wrap">
+                    {api.type_id && apiTypes && (
+                        <Badge className="text-xs">
+                            {apiTypes.find((t) => t.id === api.type_id)?.name ||
+                                `Type ${api.type_id}`}
+                        </Badge>
+                    )}
+                    {api.status_id && apiStatuses && (
+                        <Badge className="text-xs">
+                            {apiStatuses.find((s) => s.id === api.status_id)
+                                ?.name || `Status ${api.status_id}`}
+                        </Badge>
+                    )}
+                    {api.access_policy_id && accessPolicies && (
+                        <Badge className="text-xs">
+                            {accessPolicies.find(
+                                (p) => p.id === api.access_policy_id
+                            )?.name || `Policy ${api.access_policy_id}`}
                         </Badge>
                     )}
                 </div>

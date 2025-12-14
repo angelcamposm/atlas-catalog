@@ -5,7 +5,12 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { apisApi } from "@/lib/api/apis";
 import { apiTypesApi } from "@/lib/api/api-types";
-import { apiStatusesApi } from "@/lib/api";
+import {
+    apiStatusesApi,
+    apiCategoriesApi,
+    apiAccessPoliciesApi,
+} from "@/lib/api";
+import { authenticationMethodsApi } from "@/lib/api/technology";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
 import { Protocol } from "@/types/api";
 import type { Api, ApiType, ApiStatus, Lifecycle } from "@/types/api";
@@ -40,6 +45,8 @@ export function EditApiForm({ api, onSuccess, onCancel }: EditApiFormProps) {
         protocol: api.protocol ?? Protocol.HTTPS,
         type_id: api.type_id ?? null,
         status_id: api.status_id ?? null,
+        access_policy_id: (api as any).access_policy_id ?? null,
+        authentication_method_id: (api as any).authentication_method_id ?? null,
         category_id: api.category_id ?? null,
         document_specification:
             typeof api.document_specification === "string"
@@ -57,6 +64,11 @@ export function EditApiForm({ api, onSuccess, onCancel }: EditApiFormProps) {
     // Options data
     const [apiTypes, setApiTypes] = useState<ApiType[]>([]);
     const [apiStatuses, setApiStatuses] = useState<ApiStatus[]>([]);
+    const [apiCategories, setApiCategories] = useState<any[]>([]);
+    const [apiAccessPolicies, setApiAccessPolicies] = useState<any[]>([]);
+    const [authenticationMethods, setAuthenticationMethods] = useState<any[]>(
+        []
+    );
     const [lifecycles, setLifecycles] = useState<Lifecycle[]>([]);
     const [loadingOptions, setLoadingOptions] = useState(true);
 
@@ -65,15 +77,29 @@ export function EditApiForm({ api, onSuccess, onCancel }: EditApiFormProps) {
         const loadOptions = async () => {
             try {
                 setLoadingOptions(true);
-                const [typesRes, statusesRes, lifecyclesRes] =
-                    await Promise.all([
-                        apiTypesApi.getAll().catch(() => ({ data: [] })),
-                        apiStatusesApi.getAll().catch(() => ({ data: [] })),
-                        lifecyclesApi.getAll().catch(() => ({ data: [] })),
-                    ]);
+                const [
+                    typesRes,
+                    statusesRes,
+                    categoriesRes,
+                    accessesRes,
+                    authRes,
+                    lifecyclesRes,
+                ] = await Promise.all([
+                    apiTypesApi.getAll().catch(() => ({ data: [] })),
+                    apiStatusesApi.getAll().catch(() => ({ data: [] })),
+                    apiCategoriesApi.getAll().catch(() => ({ data: [] })),
+                    apiAccessPoliciesApi.getAll().catch(() => ({ data: [] })),
+                    authenticationMethodsApi
+                        .getAll()
+                        .catch(() => ({ data: [] })),
+                    lifecyclesApi.getAll().catch(() => ({ data: [] })),
+                ]);
 
                 setApiTypes(typesRes.data || []);
                 setApiStatuses(statusesRes.data || []);
+                setApiCategories(categoriesRes.data || []);
+                setApiAccessPolicies(accessesRes.data || []);
+                setAuthenticationMethods(authRes.data || []);
                 setLifecycles(lifecyclesRes.data || []);
             } catch (err) {
                 console.error("Error loading form options:", err);
@@ -174,6 +200,10 @@ export function EditApiForm({ api, onSuccess, onCancel }: EditApiFormProps) {
                     protocol: formData.protocol || undefined,
                     type_id: formData.type_id ?? undefined,
                     status_id: formData.status_id ?? undefined,
+                    access_policy_id:
+                        (formData as any).access_policy_id ?? undefined,
+                    authentication_method_id:
+                        (formData as any).authentication_method_id ?? undefined,
                     category_id: formData.category_id ?? undefined,
                     document_specification:
                         formData.document_specification.trim()

@@ -42,31 +42,40 @@ export interface ApiDetailPanelProps {
     onClose?: () => void;
     onEdit?: (api: Api) => void;
     onViewFull?: (api: Api) => void;
+    apiTypes?: { id: number; name: string }[];
+    apiStatuses?: { id: number; name: string }[];
+    apiCategories?: { id: number; name: string }[];
+    accessPolicies?: { id: number; name: string }[];
+    authenticationMethods?: { id: number; name: string }[];
 }
 
 // ============================================================================
 // Helper Components
 // ============================================================================
 
-function StatusBadge({ statusId }: { statusId: number | null | undefined }) {
-    const statusMap: Record<
-        number,
-        {
-            label: string;
-            variant: "primary" | "secondary" | "success" | "warning" | "danger";
-        }
-    > = {
-        1: { label: "Draft", variant: "secondary" },
-        2: { label: "Published", variant: "success" },
-        3: { label: "Deprecated", variant: "warning" },
-        4: { label: "Retired", variant: "danger" },
-        5: { label: "Blocked", variant: "danger" },
-    };
+function StatusBadge({
+    statusId,
+    statuses,
+}: {
+    statusId: number | null | undefined;
+    statuses?: { id: number; name: string }[];
+}) {
+    if (!statusId) return <span className="text-muted-foreground">—</span>;
 
-    const status = statusId ? statusMap[statusId] : null;
-    if (!status) return <span className="text-muted-foreground">—</span>;
+    const statusName = statuses?.find((s) => s.id === statusId)?.name;
+    if (!statusName) return <span className="text-muted-foreground">—</span>;
 
-    return <Badge variant={status.variant}>{status.label}</Badge>;
+    // Map a few common names to variants
+    const variant =
+        statusName.toLowerCase() === "published"
+            ? "success"
+            : statusName.toLowerCase() === "deprecated"
+            ? "warning"
+            : statusName.toLowerCase() === "draft"
+            ? "secondary"
+            : "primary";
+
+    return <Badge variant={variant as any}>{statusName}</Badge>;
 }
 
 function ProtocolBadge({ protocol }: { protocol: string | null | undefined }) {
@@ -97,24 +106,16 @@ function ProtocolBadge({ protocol }: { protocol: string | null | undefined }) {
     );
 }
 
-function TypeBadge({ typeId }: { typeId: number | null | undefined }) {
-    const typeMap: Record<number, string> = {
-        1: "REST",
-        2: "GraphQL",
-        3: "gRPC",
-        4: "SOAP",
-        5: "WebSockets",
-        6: "Webhooks",
-        7: "JSON-RPC",
-        8: "XML-RPC",
-        9: "Avro",
-    };
-
-    return (
-        <span className="font-medium">
-            {typeId ? typeMap[typeId] || `Type ${typeId}` : "—"}
-        </span>
-    );
+function TypeBadge({
+    typeId,
+    apiTypes,
+}: {
+    typeId: number | null | undefined;
+    apiTypes?: { id: number; name: string }[];
+}) {
+    if (!typeId) return <span className="text-muted-foreground">—</span>;
+    const typeName = apiTypes?.find((t) => t.id === typeId)?.name;
+    return <span className="font-medium">{typeName || `Type ${typeId}`}</span>;
 }
 
 function CopyButton({ text }: { text: string }) {
@@ -154,28 +155,7 @@ function formatDate(date: string | Date | null | undefined): string {
 }
 
 // Maps
-const accessPolicyMap: Record<number, string> = {
-    1: "Public API",
-    2: "Internal API",
-    3: "Partner API",
-    4: "Composite API",
-};
-
-const authMethodMap: Record<number, string> = {
-    1: "API Key",
-    2: "OAuth 2.0",
-    3: "OpenID Connect (OIDC)",
-    4: "JWT Bearer Token",
-};
-
-const typeMap: Record<number, string> = {
-    1: "REST",
-    2: "GraphQL",
-    3: "gRPC",
-    4: "SOAP",
-    5: "WebSockets",
-    6: "Webhooks",
-};
+// Note: accessPolicies, authenticationMethods and types can be passed in via props to the panel.
 
 // ============================================================================
 // Section Components
@@ -211,7 +191,19 @@ function Field({ label, value }: { label: string; value: React.ReactNode }) {
 // Tab Components
 // ============================================================================
 
-function OverviewTab({ api }: { api: Api }) {
+function OverviewTab({
+    api,
+    apiTypes,
+    apiStatuses,
+    accessPolicies,
+    authenticationMethods,
+}: {
+    api: Api;
+    apiTypes?: { id: number; name: string }[];
+    apiStatuses?: { id: number; name: string }[];
+    accessPolicies?: { id: number; name: string }[];
+    authenticationMethods?: { id: number; name: string }[];
+}) {
     return (
         <div className="space-y-6">
             {/* Description */}
@@ -233,11 +225,21 @@ function OverviewTab({ api }: { api: Api }) {
                     />
                     <Field
                         label="Tipo"
-                        value={<TypeBadge typeId={api.type_id} />}
+                        value={
+                            <TypeBadge
+                                typeId={api.type_id}
+                                apiTypes={apiTypes}
+                            />
+                        }
                     />
                     <Field
                         label="Estado"
-                        value={<StatusBadge statusId={api.status_id} />}
+                        value={
+                            <StatusBadge
+                                statusId={api.status_id}
+                                statuses={apiStatuses}
+                            />
+                        }
                     />
                 </div>
             </Section>
@@ -291,8 +293,9 @@ function OverviewTab({ api }: { api: Api }) {
                         label="Política de Acceso"
                         value={
                             api.access_policy_id
-                                ? accessPolicyMap[api.access_policy_id] ||
-                                  `Policy ${api.access_policy_id}`
+                                ? accessPolicies?.find(
+                                      (p) => p.id === api.access_policy_id
+                                  )?.name || `Policy ${api.access_policy_id}`
                                 : "—"
                         }
                     />
@@ -300,7 +303,10 @@ function OverviewTab({ api }: { api: Api }) {
                         label="Autenticación"
                         value={
                             api.authentication_method_id
-                                ? authMethodMap[api.authentication_method_id] ||
+                                ? authenticationMethods?.find(
+                                      (a) =>
+                                          a.id === api.authentication_method_id
+                                  )?.name ||
                                   `Method ${api.authentication_method_id}`
                                 : "—"
                         }
@@ -368,7 +374,21 @@ function DocsTab({ api }: { api: Api }) {
     );
 }
 
-function MetadataTab({ api }: { api: Api }) {
+function MetadataTab({
+    api,
+    apiTypes,
+    apiStatuses,
+    apiCategories,
+    accessPolicies,
+    authenticationMethods,
+}: {
+    api: Api;
+    apiTypes?: { id: number; name: string }[];
+    apiStatuses?: { id: number; name: string }[];
+    apiCategories?: { id: number; name: string }[];
+    accessPolicies?: { id: number; name: string }[];
+    authenticationMethods?: { id: number; name: string }[];
+}) {
     const metadata = [
         { label: "ID", value: String(api.id) },
         { label: "Nombre técnico", value: api.name },
@@ -376,24 +396,41 @@ function MetadataTab({ api }: { api: Api }) {
         { label: "Versión", value: api.version || "—" },
         { label: "Protocolo", value: api.protocol?.toUpperCase() || "—" },
         { label: "URL", value: api.url || "—" },
-        { label: "Tipo ID", value: api.type_id ? String(api.type_id) : "—" },
         {
-            label: "Estado ID",
-            value: api.status_id ? String(api.status_id) : "—",
-        },
-        {
-            label: "Política de Acceso ID",
-            value: api.access_policy_id ? String(api.access_policy_id) : "—",
-        },
-        {
-            label: "Método Auth ID",
-            value: api.authentication_method_id
-                ? String(api.authentication_method_id)
+            label: "Tipo",
+            value: api.type_id
+                ? apiTypes?.find((t) => t.id === api.type_id)?.name ||
+                  String(api.type_id)
                 : "—",
         },
         {
-            label: "Categoría ID",
-            value: api.category_id ? String(api.category_id) : "—",
+            label: "Estado",
+            value: api.status_id
+                ? apiStatuses?.find((s) => s.id === api.status_id)?.name ||
+                  String(api.status_id)
+                : "—",
+        },
+        {
+            label: "Política de Acceso",
+            value: api.access_policy_id
+                ? accessPolicies?.find((p) => p.id === api.access_policy_id)
+                      ?.name || String(api.access_policy_id)
+                : "—",
+        },
+        {
+            label: "Método Auth",
+            value: api.authentication_method_id
+                ? authenticationMethods?.find(
+                      (a) => a.id === api.authentication_method_id
+                  )?.name || String(api.authentication_method_id)
+                : "—",
+        },
+        {
+            label: "Categoría",
+            value: api.category_id
+                ? apiCategories?.find((c) => c.id === api.category_id)?.name ||
+                  String(api.category_id)
+                : "—",
         },
         { label: "Creado", value: formatDate(api.created_at) },
         { label: "Actualizado", value: formatDate(api.updated_at) },
@@ -575,9 +612,26 @@ export function ApiDetailPanel({
                     activeTab === "docs" ? "flex flex-col" : "overflow-y-auto"
                 }`}
             >
-                {activeTab === "overview" && <OverviewTab api={api} />}
+                {activeTab === "overview" && (
+                    <OverviewTab
+                        api={api}
+                        apiTypes={apiTypes}
+                        apiStatuses={apiStatuses}
+                        accessPolicies={accessPolicies}
+                        authenticationMethods={authenticationMethods}
+                    />
+                )}
                 {activeTab === "docs" && <DocsTab api={api} />}
-                {activeTab === "metadata" && <MetadataTab api={api} />}
+                {activeTab === "metadata" && (
+                    <MetadataTab
+                        api={api}
+                        apiTypes={apiTypes}
+                        apiStatuses={apiStatuses}
+                        apiCategories={apiCategories}
+                        accessPolicies={accessPolicies}
+                        authenticationMethods={authenticationMethods}
+                    />
+                )}
             </div>
 
             {/* Footer Actions */}

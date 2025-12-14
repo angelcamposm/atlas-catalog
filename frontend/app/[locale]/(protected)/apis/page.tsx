@@ -12,9 +12,14 @@ import {
 } from "react-icons/hi2";
 import { apisApi } from "@/lib/api/apis";
 import { apiTypesApi } from "@/lib/api/api-types";
-import { apiStatusesApi } from "@/lib/api/api-extended";
+import {
+    apiStatusesApi,
+    apiCategoriesApi,
+    apiAccessPoliciesApi,
+} from "@/lib/api/api-extended";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
 import { groupsApi } from "@/lib/api/groups";
+import { authenticationMethodsApi } from "@/lib/api/technology";
 import type { Api, ApiType, ApiStatus, Lifecycle, Group } from "@/types/api";
 import { Protocol } from "@/types/api";
 import { Card, CardContent } from "@/components/ui/card";
@@ -61,6 +66,11 @@ export default function ApisPage() {
     // Filter options data
     const [apiTypes, setApiTypes] = useState<ApiType[]>([]);
     const [apiStatuses, setApiStatuses] = useState<ApiStatus[]>([]);
+    const [apiCategories, setApiCategories] = useState<any[]>([]);
+    const [apiAccessPolicies, setApiAccessPolicies] = useState<any[]>([]);
+    const [authenticationMethods, setAuthenticationMethods] = useState<any[]>(
+        []
+    );
     const [lifecycles, setLifecycles] = useState<Lifecycle[]>([]);
     const [owners, setOwners] = useState<Group[]>([]);
 
@@ -95,16 +105,29 @@ export default function ApisPage() {
     // Load filter options
     const loadFilterOptions = useCallback(async () => {
         try {
-            const [typesRes, statusesRes, lifecyclesRes, groupsRes] =
-                await Promise.all([
-                    apiTypesApi.getAll(),
-                    apiStatusesApi.getAll(),
-                    lifecyclesApi.getAll(),
-                    groupsApi.getAll(),
-                ]);
+            const [
+                typesRes,
+                statusesRes,
+                categoriesRes,
+                accessesRes,
+                authRes,
+                lifecyclesRes,
+                groupsRes,
+            ] = await Promise.all([
+                apiTypesApi.getAll(),
+                apiStatusesApi.getAll(),
+                apiCategoriesApi.getAll(),
+                apiAccessPoliciesApi.getAll(),
+                authenticationMethodsApi.getAll(),
+                lifecyclesApi.getAll(),
+                groupsApi.getAll(),
+            ]);
 
             setApiTypes(typesRes.data);
             setApiStatuses(statusesRes.data);
+            setApiCategories(categoriesRes.data);
+            setApiAccessPolicies(accessesRes.data);
+            setAuthenticationMethods(authRes.data);
             setLifecycles(lifecyclesRes.data);
             setOwners(groupsRes.data);
         } catch (err) {
@@ -279,6 +302,11 @@ export default function ApisPage() {
                     onClose={handleCloseSlideOver}
                     onEdit={handleEditApi}
                     onViewFull={handleViewFullApi}
+                    apiTypes={apiTypes}
+                    apiStatuses={apiStatuses}
+                    apiCategories={apiCategories}
+                    accessPolicies={apiAccessPolicies}
+                    authenticationMethods={authenticationMethods}
                 />
             }
             panelWidth="420px"
@@ -400,6 +428,13 @@ export default function ApisPage() {
                                         onDelete={() => handleDeleteApi(api)}
                                         onDuplicate={() =>
                                             handleDuplicateApi(api)
+                                        }
+                                        apiTypes={apiTypes}
+                                        apiStatuses={apiStatuses}
+                                        apiCategories={apiCategories}
+                                        accessPolicies={apiAccessPolicies}
+                                        authenticationMethods={
+                                            authenticationMethods
                                         }
                                     />
                                 ))}

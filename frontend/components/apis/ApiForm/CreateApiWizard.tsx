@@ -5,9 +5,14 @@ import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { apisApi } from "@/lib/api/apis";
 import { apiTypesApi } from "@/lib/api/api-types";
-import { apiStatusesApi } from "@/lib/api";
+import {
+    apiStatusesApi,
+    apiCategoriesApi,
+    apiAccessPoliciesApi,
+} from "@/lib/api";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
 import { groupsApi } from "@/lib/api/groups";
+import { authenticationMethodsApi } from "@/lib/api/technology";
 import { Protocol } from "@/types/api";
 import type { ApiType, ApiStatus, Lifecycle, Group } from "@/types/api";
 import {
@@ -112,6 +117,11 @@ export function CreateApiWizard({
     // Options data
     const [apiTypes, setApiTypes] = useState<ApiType[]>([]);
     const [apiStatuses, setApiStatuses] = useState<ApiStatus[]>([]);
+    const [apiCategories, setApiCategories] = useState<any[]>([]);
+    const [apiAccessPolicies, setApiAccessPolicies] = useState<any[]>([]);
+    const [authenticationMethods, setAuthenticationMethods] = useState<any[]>(
+        []
+    );
     const [lifecycles, setLifecycles] = useState<Lifecycle[]>([]);
     const [groups, setGroups] = useState<Group[]>([]);
     const [loadingOptions, setLoadingOptions] = useState(true);
@@ -121,16 +131,31 @@ export function CreateApiWizard({
         const loadOptions = async () => {
             try {
                 setLoadingOptions(true);
-                const [typesRes, statusesRes, lifecyclesRes, groupsRes] =
-                    await Promise.all([
-                        apiTypesApi.getAll().catch(() => ({ data: [] })),
-                        apiStatusesApi.getAll().catch(() => ({ data: [] })),
-                        lifecyclesApi.getAll().catch(() => ({ data: [] })),
-                        groupsApi.getAll().catch(() => ({ data: [] })),
-                    ]);
+                const [
+                    typesRes,
+                    statusesRes,
+                    categoriesRes,
+                    accessesRes,
+                    authRes,
+                    lifecyclesRes,
+                    groupsRes,
+                ] = await Promise.all([
+                    apiTypesApi.getAll().catch(() => ({ data: [] })),
+                    apiStatusesApi.getAll().catch(() => ({ data: [] })),
+                    apiCategoriesApi.getAll().catch(() => ({ data: [] })),
+                    apiAccessPoliciesApi.getAll().catch(() => ({ data: [] })),
+                    authenticationMethodsApi
+                        .getAll()
+                        .catch(() => ({ data: [] })),
+                    lifecyclesApi.getAll().catch(() => ({ data: [] })),
+                    groupsApi.getAll().catch(() => ({ data: [] })),
+                ]);
 
                 setApiTypes(typesRes.data || []);
                 setApiStatuses(statusesRes.data || []);
+                setApiCategories(categoriesRes.data || []);
+                setApiAccessPolicies(accessesRes.data || []);
+                setAuthenticationMethods(authRes.data || []);
                 setLifecycles(lifecyclesRes.data || []);
                 setGroups(groupsRes.data || []);
 
@@ -149,6 +174,9 @@ export function CreateApiWizard({
                             type_id: api.type_id ?? null,
                             status_id: api.status_id ?? null,
                             category_id: api.category_id ?? null,
+                            access_policy_id: api.access_policy_id ?? null,
+                            authentication_method_id:
+                                api.authentication_method_id ?? null,
                             owner_id: null, // Don't copy owner
                             document_specification:
                                 typeof api.document_specification === "string"
@@ -250,6 +278,10 @@ export function CreateApiWizard({
                 type_id: formData.type_id ?? undefined,
                 status_id: formData.status_id ?? undefined,
                 category_id: formData.category_id ?? undefined,
+                access_policy_id:
+                    (formData as any).access_policy_id ?? undefined,
+                authentication_method_id:
+                    (formData as any).authentication_method_id ?? undefined,
                 document_specification: formData.document_specification
                     ? JSON.parse(formData.document_specification)
                     : undefined,
@@ -607,6 +639,60 @@ export function CreateApiWizard({
                     {apiStatuses.map((status) => (
                         <option key={status.id} value={status.id}>
                             {status.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div>
+                <label
+                    htmlFor="access_policy_id"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                    Política de Acceso
+                </label>
+                <select
+                    id="access_policy_id"
+                    value={(formData as any).access_policy_id ?? ""}
+                    onChange={(e) =>
+                        updateField(
+                            "access_policy_id" as any,
+                            e.target.value ? parseInt(e.target.value, 10) : null
+                        )
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                    <option value="">Seleccionar política...</option>
+                    {apiAccessPolicies.map((p) => (
+                        <option key={p.id} value={p.id}>
+                            {p.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div>
+                <label
+                    htmlFor="authentication_method_id"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                    Método de Autenticación
+                </label>
+                <select
+                    id="authentication_method_id"
+                    value={(formData as any).authentication_method_id ?? ""}
+                    onChange={(e) =>
+                        updateField(
+                            "authentication_method_id" as any,
+                            e.target.value ? parseInt(e.target.value, 10) : null
+                        )
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                >
+                    <option value="">Seleccionar método...</option>
+                    {authenticationMethods.map((a) => (
+                        <option key={a.id} value={a.id}>
+                            {a.name}
                         </option>
                     ))}
                 </select>
