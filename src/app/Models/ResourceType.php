@@ -41,7 +41,7 @@ class ResourceType extends Model
     protected $table = 'resource_types';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
