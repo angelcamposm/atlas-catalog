@@ -30,7 +30,7 @@ class NodeFactory extends Factory
      */
     public function definition(): array
     {
-        $name = strtolower($this->faker->domainWord());
+        $name = strtolower($this->faker->unique()->name());
         $domain = $this->faker->domainWord();
         $tld = $this->faker->tld();
         $fqdn = "$name.$domain.$tld";
@@ -57,8 +57,8 @@ class NodeFactory extends Factory
             ]),
             'hostname' => $name,
             'fqdn' => $fqdn,
-            'ip_address' => $this->faker->localIpv4(),
-            'mac_address' => $this->faker->macAddress(),
+            'ip_address' => $this->faker->unique()->localIpv4(),
+            'mac_address' => $this->faker->unique()->macAddress(),
             'node_type' => $this->faker->randomElement(NodeType::cases()),
             'os' => $this->faker->linuxPlatformToken(),
             'os_version' => $this->faker->semver(),
