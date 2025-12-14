@@ -92,6 +92,11 @@ class Component extends Model
         //
     ];
 
+    public function apis(): BelongsToMany
+    {
+        return $this->belongsToMany(Api::class, 'component_apis');
+    }
+
     /**
      * Get the business domain of the component
      *
