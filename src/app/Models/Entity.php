@@ -70,7 +70,7 @@ class Entity extends Model
      *
      * @return HasMany<EntityAttribute>
      */
-    public function properties(): HasMany
+    public function attributes(): HasMany
     {
         return $this->hasMany(EntityAttribute::class, 'entity_id');
     }
