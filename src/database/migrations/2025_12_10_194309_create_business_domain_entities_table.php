@@ -17,10 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('business_domain_id')->references('id')->on('business_domains')->cascadeOnDelete();
             $table->foreignId('entity_id')->references('id')->on('entities')->cascadeOnDelete();
-            $table->timestamp('created_at')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
-            $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
         });
     }
 
