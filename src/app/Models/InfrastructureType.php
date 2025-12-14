@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\InfrastructureTypeObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\InfrastructureTypeFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<InfrastructureTypeFactory>
  */
 #[ObservedBy(InfrastructureTypeObserver::class)]
 class InfrastructureType extends Model
@@ -42,7 +45,7 @@ class InfrastructureType extends Model
     protected $table = 'infrastructure_types';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
