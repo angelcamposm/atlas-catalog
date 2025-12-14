@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -67,6 +68,16 @@ class ClusterType extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the clusters associated with this cluster type.
+     *
+     * @return HasMany<Cluster>
+     */
+    public function cluster(): HasMany
+    {
+        return $this->hasMany(Cluster::class, 'type_id', 'id');
+    }
 
     /**
      * Check if the cluster type is enabled.
