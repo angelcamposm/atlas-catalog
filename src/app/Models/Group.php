@@ -56,7 +56,7 @@ class Group extends Model
     protected $table = 'groups';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -79,7 +79,8 @@ class Group extends Model
      */
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'group_members')->withPivot('role_id');
+        return $this->belongsToMany(User::class, 'group_members')
+            ->withPivot(['is_active', 'role_id']);
     }
 
     /**
