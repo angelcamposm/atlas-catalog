@@ -113,6 +113,16 @@ class Component extends Model
     }
 
     /**
+     * Get the group that owns this component
+     *
+     * @return BelongsTo<Group>
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Group::class, 'owner_id', 'id');
+    }
+
+    /**
      * Get the lifecycle of the component
      *
      * @return BelongsTo<Lifecycle>
