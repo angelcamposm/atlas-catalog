@@ -28,13 +28,16 @@ class BusinessDomainFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->name();
+
         return [
-            'name' => $this->faker->unique()->word(),
-            'display_name' => $this->faker->words(3, true),
+            'name' => Str::lower($name),
+            'display_name' => $name,
             'description' => Str::substr($this->faker->sentence(), 0, 250),
             'category' => $this->faker->randomElement(BusinessDomainCategory::cases()),
             'is_active' => $this->faker->boolean(),
             'parent_id' => null,
+            'slug' => Str::slug($name),
         ];
     }
 
