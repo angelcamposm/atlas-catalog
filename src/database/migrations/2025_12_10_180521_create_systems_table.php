@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('display_name', 50)->nullable();
             $table->string('description', 255)->nullable();
-            $table->foreignId('owner_id')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->foreignId('owner_id')->nullable()->constrained('groups', 'id')->nullOnDelete();
             $table->string('tags', 255)->nullable();
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
