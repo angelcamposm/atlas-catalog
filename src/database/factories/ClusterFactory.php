@@ -26,7 +26,7 @@ class ClusterFactory extends Factory
      */
     public function definition(): array
     {
-        $version = $this->faker->semver(true, true);
+        $version = $this->faker->semver();
 
         return [
             'name' => $this->getClusterName(),
