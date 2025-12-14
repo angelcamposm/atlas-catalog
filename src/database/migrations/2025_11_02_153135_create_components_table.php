@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('owner_id')->nullable()->constrained('groups', 'id')->nullOnDelete();
             $table->foreignId('platform_id')->nullable()->constrained('platforms', 'id')->nullOnDelete();
             $table->string('slug')->unique();
+            $table->foreignId('status_id')->nullable()->constrained('service_statuses', 'id')->nullOnDelete();
             $table->json('tags')->nullable();
             $table->foreignId('tier_id')->nullable()->constrained('business_tiers', 'id')->nullOnDelete();
             $table->timestamp('created_at')->nullable();
