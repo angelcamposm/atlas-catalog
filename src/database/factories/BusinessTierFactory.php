@@ -31,7 +31,7 @@ class BusinessTierFactory extends Factory
         $tierName = $this->faker->randomElement(['Bronze', 'Silver', 'Gold', 'Platinum', 'Enterprise', 'Foundation', 'Professional']);
 
         return [
-            'name' => "{$tierName} Tier",
+            'name' => "{$tierName} Tier ".$this->faker->randomNumber(),
             'code' => $this->faker->unique()->regexify('[A-Z]{1}[0-9]{1}'),
             'description' => Str::substr($this->faker->sentence(), 0, 250),
             'created_by' => User::factory(),
