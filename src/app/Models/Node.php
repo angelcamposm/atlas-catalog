@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $updated_by
  *
  * @method static create(array $validated)
+ * @method static factory($count = null, $state = [])
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
@@ -41,7 +42,7 @@ class Node extends Model
     protected $table = 'nodes';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
