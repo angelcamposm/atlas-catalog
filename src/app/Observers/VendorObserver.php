@@ -36,11 +36,11 @@ class VendorObserver
     }
 
     /**
-     * Handle the Vendor "creating" event.
+     * Handle the Vendor "updating" event.
      */
     public function updating(Vendor $vendor): void
     {
-        if (Auth::check() && is_null($vendor->updated_by)) {
+        if (Auth::check()) {
             $vendor->updated_by = Auth::id();
         }
     }

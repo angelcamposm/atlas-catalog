@@ -36,11 +36,11 @@ class ApiTypeObserver
     }
 
     /**
-     * Handle the ApiType "creating" event.
+     * Handle the ApiType "updating" event.
      */
     public function updating(ApiType $apiType): void
     {
-        if (Auth::check() && is_null($apiType->updated_by)) {
+        if (Auth::check()) {
             $apiType->updated_by = Auth::id();
         }
     }

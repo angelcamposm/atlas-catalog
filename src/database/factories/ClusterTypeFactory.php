@@ -33,8 +33,6 @@ class ClusterTypeFactory extends Factory
             'icon' => $this->faker->word() . '.svg',
             'is_enabled' => $this->faker->boolean(),
             'vendor_id' => Vendor::factory(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 

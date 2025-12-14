@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
-            $table->foreignId('category_id')->constrained('categories', 'id')->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained('categories', 'id')->nullOnDelete();
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();

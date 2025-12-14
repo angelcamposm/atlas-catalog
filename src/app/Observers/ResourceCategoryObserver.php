@@ -41,7 +41,7 @@ class ResourceCategoryObserver
     }
 
     /**
-     * Handle the ResourceCategory "creating" event.
+     * Handle the ResourceCategory "updating" event.
      */
     public function updating(ResourceCategory $resourceCategory): void
     {
@@ -49,7 +49,7 @@ class ResourceCategoryObserver
             $resourceCategory->model = strtolower(class_basename(Resource::class));
         }
 
-        if (Auth::check() && is_null($resourceCategory->updated_by)) {
+        if (Auth::check()) {
             $resourceCategory->updated_by = Auth::id();
         }
     }

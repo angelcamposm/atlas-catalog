@@ -36,11 +36,11 @@ class WorkflowJobObserver
     }
 
     /**
-     * Handle the WorkflowJob "creating" event.
+     * Handle the WorkflowJob "updating" event.
      */
     public function updating(WorkflowJob $workflowJob): void
     {
-        if (Auth::check() && is_null($workflowJob->updated_by)) {
+        if (Auth::check()) {
             $workflowJob->updated_by = Auth::id();
         }
     }

@@ -31,8 +31,6 @@ class VendorFactory extends Factory
             'name' => $this->faker->unique()->company(),
             'icon' => $this->faker->word() . '.svg',
             'url' => $this->faker->url(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }

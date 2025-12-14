@@ -36,11 +36,11 @@ class ProgrammingLanguageObserver
     }
 
     /**
-     * Handle the ProgrammingLanguage "creating" event.
+     * Handle the ProgrammingLanguage "updating" event.
      */
     public function updating(ProgrammingLanguage $programmingLanguage): void
     {
-        if (Auth::check() && is_null($programmingLanguage->updated_by)) {
+        if (Auth::check()) {
             $programmingLanguage->updated_by = Auth::id();
         }
     }

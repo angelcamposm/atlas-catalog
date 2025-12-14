@@ -36,11 +36,11 @@ class ComponentTypeObserver
     }
 
     /**
-     * Handle the ComponentType "creating" event.
+     * Handle the ComponentType "updating" event.
      */
     public function updating(ComponentType $componentType): void
     {
-        if (Auth::check() && is_null($componentType->updated_by)) {
+        if (Auth::check()) {
             $componentType->updated_by = Auth::id();
         }
     }

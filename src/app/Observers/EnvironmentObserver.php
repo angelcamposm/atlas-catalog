@@ -36,11 +36,11 @@ class EnvironmentObserver
     }
 
     /**
-     * Handle the Environment "creating" event.
+     * Handle the Environment "updating" event.
      */
     public function updating(Environment $environment): void
     {
-        if (Auth::check() && is_null($environment->updated_by)) {
+        if (Auth::check()) {
             $environment->updated_by = Auth::id();
         }
     }

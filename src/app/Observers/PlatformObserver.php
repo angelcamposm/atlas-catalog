@@ -36,11 +36,11 @@ class PlatformObserver
     }
 
     /**
-     * Handle the Platform "creating" event.
+     * Handle the Platform "updating" event.
      */
     public function updating(Platform $platform): void
     {
-        if (Auth::check() && is_null($platform->updated_by)) {
+        if (Auth::check()) {
             $platform->updated_by = Auth::id();
         }
     }

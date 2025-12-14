@@ -36,11 +36,11 @@ class AuthenticationMethodObserver
     }
 
     /**
-     * Handle the AuthenticationMethod "creating" event.
+     * Handle the AuthenticationMethod "updating" event.
      */
     public function updating(AuthenticationMethod $authenticationMethod): void
     {
-        if (Auth::check() && is_null($authenticationMethod->updated_by)) {
+        if (Auth::check()) {
             $authenticationMethod->updated_by = Auth::id();
         }
     }

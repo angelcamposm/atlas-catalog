@@ -22,7 +22,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $tags
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
+ * @method static factory($count = null, $state = [])
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
@@ -71,6 +73,16 @@ class System extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * The business capabilities that belong to the system.
+     *
+     * @return BelongsToMany<BusinessCapability>
+     */
+    public function businessCapabilities(): BelongsToMany
+    {
+        return $this->belongsToMany(BusinessCapability::class, 'system_business_capabilities');
+    }
 
     /**
      * The components that belong to the system.

@@ -36,11 +36,11 @@ class GroupMemberRoleObserver
     }
 
     /**
-     * Handle the GroupMemberRole "creating" event.
+     * Handle the GroupMemberRole "updating" event.
      */
     public function updating(GroupMemberRole $groupMemberRole): void
     {
-        if (Auth::check() && is_null($groupMemberRole->updated_by)) {
+        if (Auth::check()) {
             $groupMemberRole->updated_by = Auth::id();
         }
     }

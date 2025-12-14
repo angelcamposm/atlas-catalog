@@ -2,8 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\DiscoverySource;
+use App\Models\BusinessCapability;
 use App\Models\Component;
+use App\Models\System;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'atlas:generate-fake-data')]
@@ -44,16 +49,54 @@ class GenerateFakeDataCommand extends Command
      */
     public function handle(): int
     {
-        $this->generateComponents();
+        $this->info('Generating fake data...');
+        $this->create_clusters_fake_data();
+        $this->create_groups_fake_data();
+        $this->create_systems_fake_data();
 
         return self::SUCCESS;
     }
 
-    private function generateComponents(): void
+    private function getComponentFactory(): Factory
     {
-        //TODO: Expand this method to generate relationships, etc...
+        return Component::factory()
+            ->count(1)
+            ->state(new Sequence(
+                ['discovery_source' => DiscoverySource::Manual],
+                ['discovery_source' => DiscoverySource::Pipeline],
+                ['discovery_source' => DiscoverySource::Scan],
+            ))
+            ->state(new Sequence(
+                ['is_stateless' => true],
+                ['is_stateless' => false],
+            ))
+            ->state(new Sequence(
+                ['is_exposed' => true],
+                ['is_exposed' => false],
+            ));
+    }
 
-        Component::factory($this->option('quantity'))
+    public function create_systems_fake_data(): void
+    {
+        $this->info('Creating fake data for systems domain...');
+
+        $components = $this->getComponentFactory();
+
+        System::factory($this->option('quantity'))
+            ->has($components, 'components')
+            ->has(BusinessCapability::factory(), 'businessCapabilities')
             ->create();
+    }
+
+    private function create_clusters_fake_data(): void
+    {
+        //TODO: implement this method
+        $this->info('Creating fake data for clusters domain...');
+    }
+
+    private function create_groups_fake_data(): void
+    {
+        //TODO: implement this method
+        $this->info('Creating fake data for groups domain...');
     }
 }

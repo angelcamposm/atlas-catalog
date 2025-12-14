@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Models\ApiStatus;
@@ -34,11 +36,11 @@ class ApiStatusObserver
     }
 
     /**
-     * Handle the ApiAccessPolicy "creating" event.
+     * Handle the ApiAccessPolicy "updating" event.
      */
     public function updating(ApiStatus $apiStatus): void
     {
-        if (Auth::check() && is_null($apiStatus->updated_by)) {
+        if (Auth::check()) {
             $apiStatus->updated_by = Auth::id();
         }
     }

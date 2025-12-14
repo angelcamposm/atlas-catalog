@@ -42,13 +42,13 @@ class Resource extends Model
     protected $table = 'resources';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
         'name',
-        'type_id',
+        'category_id',
         'created_by',
         'updated_by',
     ];

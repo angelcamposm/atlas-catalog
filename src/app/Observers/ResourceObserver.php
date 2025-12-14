@@ -36,11 +36,11 @@ class ResourceObserver
     }
 
     /**
-     * Handle the Resource "creating" event.
+     * Handle the Resource "updating" event.
      */
     public function updating(Resource $resource): void
     {
-        if (Auth::check() && is_null($resource->updated_by)) {
+        if (Auth::check()) {
             $resource->updated_by = Auth::id();
         }
     }

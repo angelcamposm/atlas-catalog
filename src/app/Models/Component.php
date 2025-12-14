@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection<int, System> $systems
  *
  * @method static create(array $validated)
+ * @method static factory($count = null, $state = [])
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
  * @method static paginate()
@@ -99,6 +100,16 @@ class Component extends Model
     public function businessDomain(): BelongsTo
     {
         return $this->belongsTo(BusinessDomain::class, 'domain_id', 'id');
+    }
+
+    /**
+     * Get the entities associated with the component
+     *
+     * @return BelongsToMany<Entity>
+     */
+    public function entities(): BelongsToMany
+    {
+        return $this->belongsToMany(Entity::class, 'component_entities');
     }
 
     /**

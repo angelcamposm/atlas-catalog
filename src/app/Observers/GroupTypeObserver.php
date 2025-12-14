@@ -36,11 +36,11 @@ class GroupTypeObserver
     }
 
     /**
-     * Handle the GroupType "creating" event.
+     * Handle the GroupType "updating" event.
      */
     public function updating(GroupType $groupType): void
     {
-        if (Auth::check() && is_null($groupType->updated_by)) {
+        if (Auth::check()) {
             $groupType->updated_by = Auth::id();
         }
     }

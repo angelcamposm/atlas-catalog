@@ -6,7 +6,6 @@ namespace Database\Factories;
 
 use App\Enums\BusinessDomainCategory;
 use App\Models\BusinessDomain;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -36,8 +35,6 @@ class BusinessDomainFactory extends Factory
             'category' => $this->faker->randomElement(BusinessDomainCategory::cases()),
             'is_active' => $this->faker->boolean(),
             'parent_id' => null,
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 
@@ -62,6 +59,27 @@ class BusinessDomainFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_active' => false,
+        ]);
+    }
+
+    public function core(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'category' => BusinessDomainCategory::Core->value,
+        ]);
+    }
+
+    public function generic(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'category' => BusinessDomainCategory::Generic->value,
+        ]);
+    }
+
+    public function supporting(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'category' => BusinessDomainCategory::Supporting->value,
         ]);
     }
 }

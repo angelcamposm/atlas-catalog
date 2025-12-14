@@ -13,7 +13,6 @@ use App\Models\ApiType;
 use App\Models\AuthenticationMethod;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
@@ -24,7 +23,7 @@ class ApiFactory extends Factory
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<Model>
+     * @var class-string<Api>
      */
     protected $model = Api::class;
 
@@ -52,8 +51,6 @@ class ApiFactory extends Factory
             'type_id' => ApiType::factory(),
             'url' => $this->faker->url(),
             'version' => $this->faker->semver(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }

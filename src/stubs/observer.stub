@@ -36,11 +36,11 @@ class {{ class }}
     }
 
     /**
-     * Handle the {{ model }} "creating" event.
+     * Handle the {{ model }} "updating" event.
      */
     public function updating({{ model }} ${{ modelVariable }}): void
     {
-        if (Auth::check() && is_null(${{ modelVariable }}->updated_by)) {
+        if (Auth::check()) {
             ${{ modelVariable }}->updated_by = Auth::id();
         }
     }

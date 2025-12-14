@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Resource;
-use App\Models\ResourceType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +21,7 @@ class ResourceFactory extends Factory
     {
         return [
             'name' => $this->faker->domainWord,
-            'type_id' => ResourceType::pluck('id')->random(1),
+            'category_id' => null,
         ];
     }
 }

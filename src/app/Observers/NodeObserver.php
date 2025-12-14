@@ -36,11 +36,11 @@ class NodeObserver
     }
 
     /**
-     * Handle the Node "creating" event.
+     * Handle the Node "updating" event.
      */
     public function updating(Node $node): void
     {
-        if (Auth::check() && is_null($node->updated_by)) {
+        if (Auth::check()) {
             $node->updated_by = Auth::id();
         }
     }

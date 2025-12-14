@@ -36,11 +36,11 @@ class ComplianceStandardObserver
     }
 
     /**
-     * Handle the ComplianceStandard "creating" event.
+     * Handle the ComplianceStandard "updating" event.
      */
     public function updating(ComplianceStandard $complianceStandard): void
     {
-        if (Auth::check() && is_null($complianceStandard->updated_by)) {
+        if (Auth::check()) {
             $complianceStandard->updated_by = Auth::id();
         }
     }

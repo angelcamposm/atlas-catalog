@@ -36,11 +36,11 @@ class ApiAccessPolicyObserver
     }
 
     /**
-     * Handle the ApiAccessPolicy "creating" event.
+     * Handle the ApiAccessPolicy "updating" event.
      */
     public function updating(ApiAccessPolicy $apiAccessPolicy): void
     {
-        if (Auth::check() && is_null($apiAccessPolicy->updated_by)) {
+        if (Auth::check()) {
             $apiAccessPolicy->updated_by = Auth::id();
         }
     }

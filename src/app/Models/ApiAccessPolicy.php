@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\ApiAccessPolicyObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\ApiAccessPolicyFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $array, array $array1)
+ *
+ * @use HasFactory<ApiAccessPolicyFactory>
  */
 #[ObservedBy(ApiAccessPolicyObserver::class)]
 class ApiAccessPolicy extends Model
@@ -39,7 +42,7 @@ class ApiAccessPolicy extends Model
     protected $table = 'api_access_policies';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

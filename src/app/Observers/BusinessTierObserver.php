@@ -36,11 +36,11 @@ class BusinessTierObserver
     }
 
     /**
-     * Handle the BusinessTier "creating" event.
+     * Handle the BusinessTier "updating" event.
      */
     public function updating(BusinessTier $businessTier): void
     {
-        if (Auth::check() && is_null($businessTier->updated_by)) {
+        if (Auth::check()) {
             $businessTier->updated_by = Auth::id();
         }
     }

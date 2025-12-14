@@ -36,11 +36,11 @@ class GroupMemberObserver
     }
 
     /**
-     * Handle the GroupMember "creating" event.
+     * Handle the GroupMember "updating" event.
      */
     public function updating(GroupMember $groupMember): void
     {
-        if (Auth::check() && is_null($groupMember->updated_by)) {
+        if (Auth::check()) {
             $groupMember->updated_by = Auth::id();
         }
     }

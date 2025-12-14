@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Observers\EnvironmentObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\EnvironmentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,12 +33,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<EnvironmentFactory>
  */
 #[ObservedBy(EnvironmentObserver::class)]
 class Environment extends Model
 {
-    //
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.

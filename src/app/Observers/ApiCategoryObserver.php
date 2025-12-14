@@ -41,7 +41,7 @@ class ApiCategoryObserver
     }
 
     /**
-     * Handle the ApiCategory "creating" event.
+     * Handle the ApiCategory "updating" event.
      */
     public function updating(ApiCategory $apiCategory): void
     {
@@ -49,7 +49,7 @@ class ApiCategoryObserver
             $apiCategory->model = strtolower(class_basename(Api::class));
         }
 
-        if (Auth::check() && is_null($apiCategory->updated_by)) {
+        if (Auth::check()) {
             $apiCategory->updated_by = Auth::id();
         }
     }

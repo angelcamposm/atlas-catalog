@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\ApiStatusObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\ApiStatusFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ApiStatusFactory>
  */
 #[ObservedBy(ApiStatusObserver::class)]
 class ApiStatus extends Model
