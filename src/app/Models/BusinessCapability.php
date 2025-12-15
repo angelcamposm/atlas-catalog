@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\StrategicValue;
+use App\Http\Resources\BusinessCapabilityResource;
+use App\Http\Resources\BusinessCapabilityResourceCollection;
 use App\Observers\BusinessCapabilityObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
+use Database\Factories\BusinessCapabilityFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -34,8 +40,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<BusinessCapabilityFactory>
  */
 #[ObservedBy(BusinessCapabilityObserver::class)]
+#[UseResource(BusinessCapabilityResource::class)]
+#[UseResourceCollection(BusinessCapabilityResourceCollection::class)]
 class BusinessCapability extends Model
 {
     use BelongsToUser;
@@ -73,11 +83,24 @@ class BusinessCapability extends Model
     ];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'strategic_value' => StrategicValue::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'strategic_value' => StrategicValue::class,
+        ];
+    }
+
+    /**
+     * Get the system that provides this business capability.
+     *
+     * @return BelongsToMany
+     */
+    public function systems(): BelongsToMany
+    {
+        return $this->belongsToMany(System::class, 'system_business_capabilities', 'business_capability_id', 'system_id');
+    }
 }
