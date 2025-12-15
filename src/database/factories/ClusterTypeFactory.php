@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\ClusterType;
-use App\Models\User;
-use App\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -29,10 +27,9 @@ class ClusterTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word(),
+            'name' => $this->faker->unique()->name(),
             'icon' => $this->faker->word() . '.svg',
             'is_enabled' => $this->faker->boolean(),
-            'vendor_id' => Vendor::factory(),
         ];
     }
 

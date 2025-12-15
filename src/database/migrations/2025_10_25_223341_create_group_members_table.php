@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('systems', function (Blueprint $table) {
+        Schema::create('group_members', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
-            $table->string('display_name', 50)->nullable();
-            $table->string('description', 255)->nullable();
-            $table->foreignId('owner_id')->nullable()->constrained('groups', 'id')->nullOnDelete();
-            $table->string('tags', 255)->nullable();
+            $table->foreignId('group_id')->nullable()->constrained('groups', 'id')->nullOnDelete();
+            $table->boolean('is_active')->default(true);
+            $table->foreignId('role_id')->nullable()->constrained('group_member_roles', 'id')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('systems');
+        Schema::dropIfExists('group_members');
     }
 };

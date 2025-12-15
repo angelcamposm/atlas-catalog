@@ -6,9 +6,6 @@ namespace Database\Factories;
 
 use App\Enums\K8sLicensingModel;
 use App\Models\Cluster;
-use App\Models\ClusterType;
-use App\Models\InfrastructureType;
-use App\Models\Lifecycle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClusterFactory extends Factory
@@ -26,21 +23,19 @@ class ClusterFactory extends Factory
      */
     public function definition(): array
     {
-        $version = $this->faker->semver(true, true);
+        $version = $this->faker->semver();
 
         return [
             'name' => $this->getClusterName(),
             'api_url' => $this->getApiUrl(),
             'cluster_uuid' => $this->faker->uuid,
+            'description' => $this->faker->text(250),
             'display_name' => fn (array $attributes) => ucwords(str_replace('-', ' ', $attributes['name'])),
-            'full_version' => 'v'.$version.'-'.$this->faker->word.'+'.$this->faker->md5(),
+            'full_version' => 'v'.$version.'+'.$this->faker->md5(),
             'has_licensing' => $this->faker->boolean,
-            'infrastructure_type_id' => InfrastructureType::factory(),
             'licensing_model' => $this->faker->randomElement(K8sLicensingModel::cases()),
-            'lifecycle_id' => Lifecycle::factory(),
             'tags' => $this->getTags(),
             'timezone' => $this->faker->timezone,
-            'type_id' => ClusterType::factory(),
             'version' => $version,
             'url' => $this->faker->url,
         ];

@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\LifecycleObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\LifecycleFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +27,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<LifecycleFactory>
  */
 #[ObservedBy(LifecycleObserver::class)]
 class Lifecycle extends Model
@@ -41,7 +44,7 @@ class Lifecycle extends Model
     protected $table = 'lifecycles';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

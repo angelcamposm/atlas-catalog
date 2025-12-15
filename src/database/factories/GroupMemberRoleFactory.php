@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\InfrastructureType;
+use App\Models\GroupMemberRole;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends Factory<InfrastructureType>
+ * @extends Factory<GroupMemberRole>
  */
-class InfrastructureTypeFactory extends Factory
+class GroupMemberRoleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
-     * @var class-string<Model>
+     * @var class-string<GroupMemberRole>
      */
-    protected $model = InfrastructureType::class;
+    protected $model = GroupMemberRole::class;
 
     /**
      * Define the model's default state.
@@ -29,7 +28,7 @@ class InfrastructureTypeFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->name(),
-            'description' => $this->faker->sentence,
+            'description' => $this->faker->text(250),
         ];
     }
 }

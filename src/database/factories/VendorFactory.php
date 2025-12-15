@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,8 +28,13 @@ class VendorFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->company(),
-            'icon' => $this->faker->word() . '.svg',
+            'icon' => self::icon(),
             'url' => $this->faker->url(),
         ];
+    }
+
+    public static function icon(): string
+    {
+        return fake()->word().'.svg';
     }
 }

@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Observers\GroupMemberRoleObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\GroupMemberRoleFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,11 +24,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<GroupMemberRoleFactory>
  */
 #[ObservedBy(GroupMemberRoleObserver::class)]
 class GroupMemberRole extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -36,7 +41,7 @@ class GroupMemberRole extends Model
     protected $table = 'group_member_roles';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

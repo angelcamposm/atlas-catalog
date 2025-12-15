@@ -145,7 +145,7 @@ class Cluster extends Model
      *
      * @return BelongsToMany<ServiceAccount>
      */
-    public function serviceAccount(): BelongsToMany
+    public function serviceAccounts(): BelongsToMany
     {
         return $this->belongsToMany(
             related: ServiceAccount::class,
@@ -162,7 +162,7 @@ class Cluster extends Model
      *
      * @return BelongsTo<ClusterType>
      */
-    public function type(): BelongsTo
+    public function clusterType(): BelongsTo
     {
         return $this->belongsTo(ClusterType::class, 'type_id', 'id');
     }

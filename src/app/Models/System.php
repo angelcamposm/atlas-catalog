@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -102,5 +103,15 @@ class System extends Model
     public function hasComponents(): bool
     {
         return $this->components()->exists();
+    }
+
+    /**
+     * Get the group that owns this system
+     *
+     * @return BelongsTo<Group>
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Group::class, 'owner_id', 'id');
     }
 }

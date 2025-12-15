@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Observers\ServiceStatusObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\ServiceStatusFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -25,11 +27,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ServiceStatusFactory>
  */
 #[ObservedBy(ServiceStatusObserver::class)]
 class ServiceStatus extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -39,7 +44,7 @@ class ServiceStatus extends Model
     protected $table = 'service_statuses';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

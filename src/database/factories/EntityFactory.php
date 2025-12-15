@@ -20,7 +20,7 @@ class EntityFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->slug(1),
+            'name' => $this->faker->unique()->name(),
             'description' => $this->faker->sentence(),
             'is_aggregate' => $this->faker->boolean(25),
             'is_aggregate_root' => $this->faker->boolean(10)

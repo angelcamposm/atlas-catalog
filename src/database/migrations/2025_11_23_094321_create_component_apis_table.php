@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('business_domain_entities', function (Blueprint $table) {
+        Schema::create('component_apis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('business_domain_id')->references('id')->on('business_domains')->cascadeOnDelete();
-            $table->foreignId('entity_id')->references('id')->on('entities')->cascadeOnDelete();
+            $table->foreignId('component_id')->nullable()->constrained('components', 'id')->nullOnDelete();
+            $table->foreignId('api_id')->nullable()->constrained('apis', 'id')->nullOnDelete();
+            $table->string('relationship', 50)->default('uses');
         });
     }
 
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('business_domain_entities');
+        Schema::dropIfExists('component_apis');
     }
 };

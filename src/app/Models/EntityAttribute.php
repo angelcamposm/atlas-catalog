@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Observers\InfrastructureTypeObserver;
+use App\Observers\EntityAttributeObserver;
 use App\Traits\BelongsToUser;
-use Database\Factories\InfrastructureTypeFactory;
+use Database\Factories\EntityAttributeFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property string $description
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
- * @property-read User|null $creator The user who created this language entry.
- * @property-read User|null $updater The user who last updated this language entry.
- * @property-read Cluster[] $clusters The clusters associated with this infrastructure type.
- *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -29,20 +23,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  *
- * @use HasFactory<InfrastructureTypeFactory>
+ * @property-read User|null $creator The user who created this language entry.
+ * @property-read User|null $updater The user who last updated this language entry.
+ *
+ * @use HasFactory<EntityAttributeFactory>
  */
-#[ObservedBy(InfrastructureTypeObserver::class)]
-class InfrastructureType extends Model
+#[ObservedBy(EntityAttributeObserver::class)]
+class EntityAttribute extends Model
 {
-    use BelongsToUser;
     use HasFactory;
+    use BelongsToUser;
 
     /**
      * The table associated with the model.
      *
      * @var string|null
      */
-    protected $table = 'infrastructure_types';
+    protected $table = 'entity_attributes';
 
     /**
      * The attributes that are mass-assignable.
@@ -50,8 +47,10 @@ class InfrastructureType extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'entity_id',
         'name',
         'description',
+        'type',
         'created_by',
         'updated_by',
     ];
@@ -64,14 +63,4 @@ class InfrastructureType extends Model
     protected $hidden = [
         //
     ];
-
-    /**
-     * Get the clusters associated with this infrastructure type.
-     *
-     * @return HasMany<Cluster>
-     */
-    public function clusters(): HasMany
-    {
-        return $this->hasMany(Cluster::class, 'infrastructure_type_id', 'id');
-    }
 }

@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\System;
+use App\Models\Group;
+use App\Models\GroupMember;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<System>
+ * @extends Factory<GroupMember>
  */
-class SystemFactory extends Factory
+class GroupMemberFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,10 +22,10 @@ class SystemFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(3, true),
-            'display_name' => $this->faker->text(50),
-            'description' => $this->faker->text(250),
-            'tags' => json_encode($this->faker->words(3)),
+            'group_id' => Group::factory(),
+            'is_active' => true,
+            'role_id' => null,
+            'user_id' => User::factory()
         ];
     }
 }

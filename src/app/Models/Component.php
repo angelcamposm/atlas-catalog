@@ -92,6 +92,11 @@ class Component extends Model
         //
     ];
 
+    public function apis(): BelongsToMany
+    {
+        return $this->belongsToMany(Api::class, 'component_apis');
+    }
+
     /**
      * Get the business domain of the component
      *
@@ -110,6 +115,16 @@ class Component extends Model
     public function entities(): BelongsToMany
     {
         return $this->belongsToMany(Entity::class, 'component_entities');
+    }
+
+    /**
+     * Get the group that owns this component
+     *
+     * @return BelongsTo<Group>
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Group::class, 'owner_id', 'id');
     }
 
     /**
