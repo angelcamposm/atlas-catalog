@@ -71,6 +71,20 @@ export const groupsApi = {
      * Delete a group
      */
     delete: (id: number) => apiClient.delete(`/v1/groups/${id}`),
+
+    /**
+     * Get members of a group
+     */
+    getMembers: async (id: number) => {
+        const response = await apiClient.get<unknown>(
+            `/v1/groups/${id}/members`
+        );
+        // Support either { data: [...] } or direct array response
+        // Return as an array of users
+        return (response as any).data
+            ? (response as any).data
+            : (response as any);
+    },
 };
 
 // Group Types --------------------------------------------------------------

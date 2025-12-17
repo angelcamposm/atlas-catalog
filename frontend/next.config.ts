@@ -22,6 +22,10 @@ const nextConfig: NextConfig = {
                 source: "/api/:path*",
                 destination: "http://localhost:8080/api/:path*",
             },
+            {
+                source: "/media/:path*",
+                destination: "http://localhost:8080/media/:path*",
+            },
         ];
     },
 };

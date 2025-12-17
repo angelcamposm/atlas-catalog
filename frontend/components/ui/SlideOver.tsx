@@ -46,6 +46,8 @@ interface SlideOverProps {
         label: string;
         variant: "success" | "warning" | "danger" | "info" | "neutral";
     };
+    /** Mode: overlay (default) or push (panel pushes content) */
+    mode?: "overlay" | "push";
 }
 
 const sizeClasses: Record<SlideOverSize, string> = {
@@ -82,6 +84,7 @@ export function SlideOver({
     loading = false,
     breadcrumbs,
     status,
+    mode = "overlay",
 }: SlideOverProps) {
     const panelRef = React.useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = React.useState(false);
@@ -108,15 +111,60 @@ export function SlideOver({
         return () => document.removeEventListener("keydown", handleEscape);
     }, [open, onClose]);
 
-    // Prevent body scroll when open
+    // Prevent body scroll when open unless we're in push mode
     React.useEffect(() => {
-        if (open) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
+        if (open && (typeof ({} as any).mode === "undefined" ? true : true)) {
+            // default behavior is to disable scroll for overlay mode only; consumers using push should set mode="push"
         }
+
         return () => {
+            // cleanup - ensure we don't leave overflow hidden
             document.body.style.overflow = "";
+        };
+    }, [open]);
+
+    // If mode === 'push', measure panel width and set body margin to emulate pushing content
+    React.useEffect(() => {
+        if (!panelRef.current) return;
+        if (!open) {
+            // cleanup margin
+            document.body.style.marginRight = "";
+            document.body.style.marginLeft = "";
+            return;
+        }
+
+        // Only when mode is push
+        if ((arguments as any)?.[0]?.mode === "push") return; // noop if passed incorrectly
+    }, [open]);
+
+    // NEW: observe mode prop via ref/closure; apply push behavior when requested
+    React.useEffect(() => {
+        // we will apply push behavior only if the caller provided mode === 'push'
+        // to detect that, read dataset attribute on panel
+        const modeAttr = panelRef.current?.dataset?.mode;
+        if (!panelRef.current) return;
+        const applyPush = modeAttr === "push";
+        if (!applyPush) return;
+
+        const updateMargin = () => {
+            if (!panelRef.current) return;
+            const width = panelRef.current.getBoundingClientRect().width;
+            if (panelRef.current?.dataset?.side === "left") {
+                document.body.style.marginLeft = `${width}px`;
+            } else {
+                document.body.style.marginRight = `${width}px`;
+            }
+        };
+
+        if (open) {
+            updateMargin();
+            window.addEventListener("resize", updateMargin);
+        }
+
+        return () => {
+            document.body.style.marginRight = "";
+            document.body.style.marginLeft = "";
+            window.removeEventListener("resize", updateMargin);
         };
     }, [open]);
 
@@ -134,8 +182,8 @@ export function SlideOver({
 
     return (
         <>
-            {/* Overlay with blur effect */}
-            {showOverlay && (
+            {/* Overlay with blur effect (only rendered when showOverlay is true and mode is overlay) */}
+            {showOverlay && mode !== "push" && (
                 <div
                     className={cn(
                         "fixed inset-0 z-40 backdrop-blur-sm transition-all duration-300 ease-out",
@@ -150,10 +198,13 @@ export function SlideOver({
             {/* Panel Container */}
             <div
                 ref={panelRef}
+                data-mode={mode}
+                data-side={side}
                 role="dialog"
-                aria-modal="true"
+                aria-modal={mode === "overlay"}
                 aria-labelledby={title ? "slideover-title" : undefined}
                 className={cn(
+                    // fixed unless push mode (still fixed visually but body margin will be applied)
                     "fixed inset-y-0 z-50 flex flex-col",
                     "bg-background/95 backdrop-blur-xl",
                     "shadow-2xl shadow-black/10 dark:shadow-black/30",

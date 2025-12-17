@@ -6,9 +6,6 @@ import { usePathname } from "next/navigation";
 import {
     HiHome,
     HiUsers,
-    HiChartBar,
-    HiDocumentText,
-    HiBell,
     HiMagnifyingGlass,
     HiChevronDown,
     HiChevronRight,
@@ -16,18 +13,30 @@ import {
     HiCog6Tooth,
     HiArrowsRightLeft,
     HiCodeBracket,
-    HiViewColumns,
-    HiInbox,
-    HiArrowPath,
     HiServerStack,
-    HiCpuChip,
     HiSquares2X2,
     HiCube,
-    HiLink,
-    HiBookOpen,
-    HiShieldCheck,
-    HiBeaker,
     HiCommandLine,
+    HiDocumentText,
+    HiArrowsPointingOut,
+    HiRectangleStack,
+    HiExclamationCircle,
+    HiArrowPath,
+    HiCloud,
+    HiCircleStack,
+    HiCpuChip,
+    HiGlobeAlt,
+    HiLink,
+    HiShieldCheck,
+    HiKey,
+    HiClipboardDocumentCheck,
+    HiWrenchScrewdriver,
+    HiUserGroup,
+    HiStar,
+    HiChartBar,
+    HiRectangleGroup,
+    HiBuildingOffice2,
+    HiQueueList,
 } from "react-icons/hi2";
 
 interface AppSidebarProps {
@@ -49,6 +58,7 @@ interface MenuSection {
     label?: string;
     items: MenuItem[];
     collapsible?: boolean;
+    defaultCollapsed?: boolean;
 }
 
 export function AppSidebar({
@@ -57,8 +67,10 @@ export function AppSidebar({
     onSearchClick,
 }: AppSidebarProps) {
     const pathname = usePathname();
+
+    // Initialize with admin section collapsed by default
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
-        new Set()
+        new Set(["admin", "examples"])
     );
 
     const toggleSection = (sectionId: string) => {
@@ -73,12 +85,13 @@ export function AppSidebar({
         });
     };
 
-    // Main navigation sections - structured like Backstage/Port.io
+    // Main navigation sections - Improved structure over Backstage
     const menuSections: MenuSection[] = useMemo(
         () => [
+            // ==================== OVERVIEW ====================
             {
-                id: "catalog",
-                label: "Catalog",
+                id: "overview",
+                label: "Overview",
                 items: [
                     {
                         title: "Dashboard",
@@ -86,16 +99,99 @@ export function AppSidebar({
                         icon: HiHome,
                     },
                     {
+                        title: "Analytics",
+                        url: `/${locale}/analytics`,
+                        icon: HiChartBar,
+                    },
+                ],
+            },
+            // ==================== CATALOG ====================
+            {
+                id: "catalog",
+                label: "Catalog",
+                items: [
+                    {
                         title: "APIs",
                         url: `/${locale}/apis`,
                         icon: HiCodeBracket,
-                        badge: "100+",
+                        badge: "24",
                         badgeColor: "info" as const,
                     },
                     {
-                        title: "API Types",
-                        url: `/${locale}/types`,
-                        icon: HiTag,
+                        title: "Resources",
+                        url: `/${locale}/resources`,
+                        icon: HiCircleStack,
+                    },
+                    {
+                        title: "Links",
+                        url: `/${locale}/links`,
+                        icon: HiLink,
+                    },
+                ],
+            },
+            // ==================== INFRASTRUCTURE ====================
+            {
+                id: "infrastructure",
+                label: "Infrastructure",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Platforms",
+                        url: `/${locale}/platform`,
+                        icon: HiCloud,
+                    },
+                    {
+                        title: "Clusters",
+                        url: `/${locale}/infrastructure/clusters`,
+                        icon: HiServerStack,
+                    },
+                    {
+                        title: "Nodes",
+                        url: `/${locale}/infrastructure/nodes`,
+                        icon: HiCpuChip,
+                    },
+                    {
+                        title: "Environments",
+                        url: `/${locale}/business/environments`,
+                        icon: HiGlobeAlt,
+                    },
+                ],
+            },
+            // ==================== ORGANIZATION ====================
+            {
+                id: "organization",
+                label: "Organization",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Teams",
+                        url: `/${locale}/teams`,
+                        icon: HiUsers,
+                        badge: "8",
+                        badgeColor: "info" as const,
+                    },
+                    {
+                        title: "Service Accounts",
+                        url: `/${locale}/security/service-accounts`,
+                        icon: HiUserGroup,
+                    },
+                ],
+            },
+            // ==================== TAXONOMY ====================
+            {
+                id: "taxonomy",
+                label: "Taxonomy",
+                collapsible: true,
+                items: [
+                    {
+                        title: "Business Domains",
+                        url: `/${locale}/business/domains`,
+                        icon: HiBuildingOffice2,
+                    },
+                    {
+                        title: "Business Tiers",
+                        url: `/${locale}/taxonomy/business-tiers`,
+                        icon: HiStar,
                     },
                     {
                         title: "Lifecycles",
@@ -104,196 +200,127 @@ export function AppSidebar({
                     },
                 ],
             },
+            // ==================== TECHNOLOGY ====================
             {
-                id: "ownership",
-                label: "Ownership",
+                id: "technology",
+                label: "Technology",
                 collapsible: true,
                 items: [
                     {
-                        title: "Teams",
-                        url: `/${locale}/teams`,
-                        icon: HiUsers,
+                        title: "Vendors",
+                        url: `/${locale}/technology/vendors`,
+                        icon: HiCube,
                     },
                     {
-                        title: "Members",
-                        url: `/${locale}/members`,
-                        icon: HiUsers,
+                        title: "Frameworks",
+                        url: `/${locale}/technology/frameworks`,
+                        icon: HiCommandLine,
+                    },
+                    {
+                        title: "Languages",
+                        url: `/${locale}/technology/languages`,
+                        icon: HiCodeBracket,
                     },
                 ],
             },
+            // ==================== SECURITY ====================
             {
-                id: "infrastructure",
-                label: "Infrastructure",
+                id: "security",
+                label: "Security",
                 collapsible: true,
                 items: [
                     {
-                        title: "Overview",
-                        url: `/${locale}/infrastructure`,
-                        icon: HiChartBar,
+                        title: "Auth Methods",
+                        url: `/${locale}/security/auth-methods`,
+                        icon: HiKey,
                     },
                     {
-                        title: "Clusters",
-                        url: `/${locale}/infrastructure/clusters`,
-                        icon: HiServerStack,
+                        title: "Access Policies",
+                        url: `/${locale}/security/access-policies`,
+                        icon: HiShieldCheck,
+                    },
+                    {
+                        title: "Compliance",
+                        url: `/${locale}/security/compliance`,
+                        icon: HiClipboardDocumentCheck,
+                    },
+                ],
+            },
+            // ==================== ADMINISTRATION ====================
+            {
+                id: "admin",
+                label: "Administration",
+                collapsible: true,
+                defaultCollapsed: true,
+                items: [
+                    {
+                        title: "API Types",
+                        url: `/${locale}/types`,
+                        icon: HiTag,
+                    },
+                    {
+                        title: "API Statuses",
+                        url: `/${locale}/admin/api-statuses`,
+                        icon: HiQueueList,
+                    },
+                    {
+                        title: "API Categories",
+                        url: `/${locale}/admin/api-categories`,
+                        icon: HiRectangleGroup,
                     },
                     {
                         title: "Cluster Types",
                         url: `/${locale}/infrastructure/cluster-types`,
-                        icon: HiTag,
+                        icon: HiServerStack,
                     },
                     {
-                        title: "Nodes",
-                        url: `/${locale}/infrastructure/nodes`,
-                        icon: HiCpuChip,
+                        title: "Group Types",
+                        url: `/${locale}/admin/group-types`,
+                        icon: HiUsers,
                     },
                     {
-                        title: "Service Accounts",
-                        url: `/${locale}/infrastructure/cluster-service-accounts`,
-                        icon: HiShieldCheck,
-                    },
-                ],
-            },
-            {
-                id: "platform",
-                label: "Platform",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Overview",
-                        url: `/${locale}/platform`,
-                        icon: HiChartBar,
-                    },
-                    {
-                        title: "Platforms",
-                        url: `/${locale}/platform/platforms`,
-                        icon: HiSquares2X2,
-                    },
-                    {
-                        title: "Component Types",
-                        url: `/${locale}/platform/component-types`,
-                        icon: HiCube,
-                    },
-                ],
-            },
-            {
-                id: "integration",
-                label: "Integration",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Overview",
-                        url: `/${locale}/integration`,
-                        icon: HiChartBar,
-                    },
-                    {
-                        title: "Links",
-                        url: `/${locale}/integration/links`,
-                        icon: HiLink,
-                    },
-                    {
-                        title: "Link Types",
-                        url: `/${locale}/integration/link-types`,
-                        icon: HiTag,
-                    },
-                ],
-            },
-            {
-                id: "docs",
-                label: "Documentation",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Tech Docs",
-                        url: `/${locale}/documentation`,
-                        icon: HiBookOpen,
-                    },
-                    {
-                        title: "API Reference",
-                        url: `/${locale}/documentation/api`,
-                        icon: HiCodeBracket,
-                        badge: "OpenAPI",
-                        badgeColor: "success" as const,
-                    },
-                ],
-            },
-            {
-                id: "analytics",
-                label: "Analytics",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Insights",
-                        url: `/${locale}/analytics`,
-                        icon: HiChartBar,
-                        badge: "Pro",
-                        badgeColor: "warning" as const,
-                    },
-                    {
-                        title: "Security",
-                        url: `/${locale}/security`,
-                        icon: HiShieldCheck,
-                    },
-                ],
-            },
-            {
-                id: "labs",
-                label: "Labs",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Component Demos",
-                        url: `/${locale}/components/demo`,
-                        icon: HiBeaker,
-                        badge: "New",
-                    },
-                    {
-                        title: "Diagrams",
-                        url: `/${locale}/showcase/diagrams`,
-                        icon: HiArrowsRightLeft,
-                        badge: "New",
-                    },
-                    {
-                        title: "Markdown",
-                        url: `/${locale}/showcase/markdown`,
-                        icon: HiDocumentText,
-                        badge: "New",
-                    },
-                    {
-                        title: "Slide Panel",
-                        url: `/${locale}/showcase/slide-panel`,
-                        icon: HiViewColumns,
-                        badge: "New",
-                    },
-                    {
-                        title: "Empty State",
-                        url: `/${locale}/showcase/empty-state`,
-                        icon: HiInbox,
-                        badge: "New",
-                    },
-                    {
-                        title: "Loading",
-                        url: `/${locale}/showcase/loading`,
-                        icon: HiArrowPath,
-                        badge: "New",
-                    },
-                ],
-            },
-            {
-                id: "system",
-                label: "System",
-                collapsible: true,
-                items: [
-                    {
-                        title: "Notifications",
-                        url: `/${locale}/notifications`,
-                        icon: HiBell,
-                        badge: "3",
-                        badgeColor: "danger" as const,
+                        title: "Member Roles",
+                        url: `/${locale}/admin/member-roles`,
+                        icon: HiUserGroup,
                     },
                     {
                         title: "Settings",
                         url: `/${locale}/settings`,
                         icon: HiCog6Tooth,
+                    },
+                ],
+            },
+            // ==================== EXAMPLES (Dev Only) ====================
+            {
+                id: "examples",
+                label: "Examples",
+                collapsible: true,
+                defaultCollapsed: true,
+                items: [
+                    {
+                        title: "Diagrams",
+                        url: `/${locale}/showcase/diagrams`,
+                        icon: HiArrowsPointingOut,
+                    },
+                    {
+                        title: "Empty State",
+                        url: `/${locale}/showcase/empty-state`,
+                        icon: HiExclamationCircle,
+                    },
+                    {
+                        title: "Loading",
+                        url: `/${locale}/showcase/loading`,
+                        icon: HiArrowPath,
+                    },
+                    {
+                        title: "Markdown",
+                        url: `/${locale}/showcase/markdown`,
+                        icon: HiDocumentText,
+                    },
+                    {
+                        title: "Slide Panel",
+                        url: `/${locale}/showcase/slide-panel`,
+                        icon: HiRectangleStack,
                     },
                 ],
             },

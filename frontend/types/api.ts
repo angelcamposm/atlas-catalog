@@ -496,6 +496,7 @@ export const vendorSchema = z
         id: z.number().int(),
         name: z.string().trim().min(1),
         icon: nullableString(),
+        url: nullableString(),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);

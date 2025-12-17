@@ -513,6 +513,11 @@ export function ApiDetailPanel({
     onClose,
     onEdit,
     onViewFull,
+    apiTypes,
+    apiStatuses,
+    apiCategories,
+    accessPolicies,
+    authenticationMethods,
 }: ApiDetailPanelProps) {
     const [activeTab, setActiveTab] = useState("overview");
     const [prevApiId, setPrevApiId] = useState<number | null | undefined>(
@@ -539,7 +544,9 @@ export function ApiDetailPanel({
         );
     }
 
-    const typeName = api.type_id ? typeMap[api.type_id] || "API" : "API";
+    const typeName = api.type_id
+        ? apiTypes?.find((t) => t.id === api.type_id)?.name || "API"
+        : "API";
 
     return (
         <div className="h-full flex flex-col">

@@ -42,6 +42,8 @@ interface ApiFormData {
     type_id: number | null;
     status_id: number | null;
     category_id: number | null;
+    access_policy_id: number | null;
+    authentication_method_id: number | null;
 
     // Step 3: Ownership
     owner_id: number | null;
@@ -105,6 +107,8 @@ export function CreateApiWizard({
         type_id: null,
         status_id: null,
         category_id: null,
+        access_policy_id: null,
+        authentication_method_id: null,
         owner_id: null,
         document_specification: null,
     });
@@ -829,7 +833,7 @@ export function CreateApiWizard({
     );
 
     return (
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto pb-8">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">

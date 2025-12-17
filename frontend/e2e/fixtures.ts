@@ -92,7 +92,11 @@ export const helpers = {
      */
     navigateViaSidebar: async (page: Page, menuItems: string[]) => {
         for (const item of menuItems) {
-            await page.getByRole("link", { name: item }).click();
+            const locator = page.getByRole("link", {
+                name: new RegExp(item, "i"),
+            });
+            await locator.waitFor({ timeout: 10000 });
+            await locator.click();
         }
     },
 };
