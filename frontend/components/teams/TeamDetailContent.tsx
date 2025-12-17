@@ -1,23 +1,75 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import {
     HiOutlineEnvelope,
     HiOutlineTag,
     HiOutlineCalendar,
     HiOutlineUser,
+    HiOutlineUserGroup,
+    HiOutlineLink,
+    HiOutlineFolder,
+    HiOutlineBuildingOffice2,
 } from "react-icons/hi2";
-import type { Group, User } from "@/types/api";
+import type { Group, GroupType, User } from "@/types/api";
+import { groupsApi, groupTypesApi } from "@/lib/api/groups";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
 
 interface Props {
     team: Group;
-    members?: import("@/types/api").User[] | null;
+    members?: User[] | null;
+    locale?: string;
 }
 
-export function TeamDetailContent({ team, members }: Props) {
+export function TeamDetailContent({ team, members, locale = "es" }: Props) {
+    const [groupType, setGroupType] = useState<GroupType | null>(null);
+    const [parentGroup, setParentGroup] = useState<Group | null>(null);
+    const [childGroups, setChildGroups] = useState<Group[]>([]);
+    const [loadingRelations, setLoadingRelations] = useState(true);
+
+    useEffect(() => {
+        async function loadRelatedData() {
+            setLoadingRelations(true);
+            try {
+                // Load group type if type_id exists
+                if (team.type_id) {
+                    try {
+                        const typeResponse = await groupTypesApi.getById(team.type_id);
+                        setGroupType(typeResponse.data);
+                    } catch (e) {
+                        console.warn("Could not load group type:", e);
+                    }
+                }
+
+                // Load parent group if parent_id exists
+                if (team.parent_id) {
+                    try {
+                        const parentResponse = await groupsApi.getById(team.parent_id);
+                        setParentGroup(parentResponse.data);
+                    } catch (e) {
+                        console.warn("Could not load parent group:", e);
+                    }
+                }
+
+                // Load all groups to find children
+                try {
+                    const allGroups = await groupsApi.getAll();
+                    const children = allGroups.data.filter(g => g.parent_id === team.id);
+                    setChildGroups(children);
+                } catch (e) {
+                    console.warn("Could not load child groups:", e);
+                }
+            } finally {
+                setLoadingRelations(false);
+            }
+        }
+
+        loadRelatedData();
+    }, [team]);
+
     const getIconColor = (icon: string | null | undefined) => {
         const colors: Record<string, string> = {
             server: "bg-blue-500",
@@ -33,6 +85,20 @@ export function TeamDetailContent({ team, members }: Props) {
         return colors[icon || "default"] || colors.default;
     };
 
+    const getMemberColor = (id: number) => {
+        const colors = [
+            "bg-blue-500",
+            "bg-green-500",
+            "bg-purple-500",
+            "bg-orange-500",
+            "bg-cyan-500",
+            "bg-pink-500",
+            "bg-indigo-500",
+            "bg-amber-500",
+        ];
+        return colors[id % colors.length];
+    };
+
     const formatDate = (dateString: string | null) => {
         if (!dateString) return "N/A";
         return new Date(dateString).toLocaleDateString("es-ES", {
@@ -44,12 +110,13 @@ export function TeamDetailContent({ team, members }: Props) {
 
     return (
         <div className="space-y-6">
+            {/* Header Card */}
             <Card>
                 <CardContent className="pt-6">
                     <div className="flex items-start gap-6">
                         <div
                             className={cn(
-                                "flex h-20 w-20 items-center justify-center rounded-xl text-white",
+                                "flex h-20 w-20 items-center justify-center rounded-xl text-white shrink-0",
                                 getIconColor(team.icon)
                             )}
                         >
@@ -57,14 +124,19 @@ export function TeamDetailContent({ team, members }: Props) {
                                 {(team.label || team.name).charAt(0)}
                             </span>
                         </div>
-                        <div className="flex-1">
-                            <div className="flex items-center gap-3">
+                        <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-3 flex-wrap">
                                 <h1 className="text-2xl font-bold">
                                     {team.label || team.name}
                                 </h1>
-                                {team.type_id && (
+                                {groupType && (
                                     <Badge variant="secondary">
-                                        Tipo {team.type_id}
+                                        {groupType.name}
+                                    </Badge>
+                                )}
+                                {team.parent_id && (
+                                    <Badge variant="outline">
+                                        Sub-equipo
                                     </Badge>
                                 )}
                             </div>
@@ -80,6 +152,88 @@ export function TeamDetailContent({ team, members }: Props) {
                     </div>
                 </CardContent>
             </Card>
+
+            {/* Hierarchy Section - Parent Group */}
+            {parentGroup && (
+                <Card>
+                    <CardHeader className="pb-3">
+                        <CardTitle className="flex items-center gap-2 text-lg">
+                            <HiOutlineBuildingOffice2 className="h-5 w-5" />
+                            Equipo Padre
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Link
+                            href={`/${locale}/teams/${parentGroup.id}`}
+                            className="flex items-center gap-3 rounded-lg border p-3 hover:bg-muted/50 transition-colors"
+                        >
+                            <div
+                                className={cn(
+                                    "flex h-10 w-10 items-center justify-center rounded-lg text-white",
+                                    getIconColor(parentGroup.icon)
+                                )}
+                            >
+                                <span className="text-lg font-bold">
+                                    {(parentGroup.label || parentGroup.name).charAt(0)}
+                                </span>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="font-medium truncate">
+                                    {parentGroup.label || parentGroup.name}
+                                </p>
+                                <p className="text-sm text-muted-foreground truncate">
+                                    @{parentGroup.name}
+                                </p>
+                            </div>
+                            <HiOutlineLink className="h-4 w-4 text-muted-foreground" />
+                        </Link>
+                    </CardContent>
+                </Card>
+            )}
+
+            {/* Sub-teams Section */}
+            {childGroups.length > 0 && (
+                <Card>
+                    <CardHeader className="pb-3">
+                        <CardTitle className="flex items-center gap-2 text-lg">
+                            <HiOutlineFolder className="h-5 w-5" />
+                            Sub-equipos
+                            <Badge variant="secondary" className="ml-2">
+                                {childGroups.length}
+                            </Badge>
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-2">
+                            {childGroups.map((child) => (
+                                <Link
+                                    key={child.id}
+                                    href={`/${locale}/teams/${child.id}`}
+                                    className="flex items-center gap-3 rounded-lg border p-3 hover:bg-muted/50 transition-colors"
+                                >
+                                    <div
+                                        className={cn(
+                                            "flex h-8 w-8 items-center justify-center rounded-lg text-white text-sm",
+                                            getIconColor(child.icon)
+                                        )}
+                                    >
+                                        {(child.label || child.name).charAt(0)}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="font-medium truncate">
+                                            {child.label || child.name}
+                                        </p>
+                                        <p className="text-xs text-muted-foreground truncate">
+                                            {child.description || "Sin descripción"}
+                                        </p>
+                                    </div>
+                                    <HiOutlineLink className="h-4 w-4 text-muted-foreground" />
+                                </Link>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <Card>
@@ -126,20 +280,26 @@ export function TeamDetailContent({ team, members }: Props) {
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">
+                                    Tipo
+                                </p>
+                                <p>
+                                    {groupType ? groupType.name : (team.type_id ? `ID: ${team.type_id}` : "N/A")}
+                                </p>
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium text-muted-foreground">
                                     Icon
                                 </p>
                                 <p className="font-mono">
                                     {team.icon || "N/A"}
                                 </p>
                             </div>
-                            {team.parent_id && (
+                            {team.label && (
                                 <div>
                                     <p className="text-sm font-medium text-muted-foreground">
-                                        Parent ID
+                                        Etiqueta
                                     </p>
-                                    <p className="font-mono">
-                                        {team.parent_id}
-                                    </p>
+                                    <p>{team.label}</p>
                                 </div>
                             )}
                         </div>
@@ -150,43 +310,64 @@ export function TeamDetailContent({ team, members }: Props) {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2 text-lg">
+                            <HiOutlineUserGroup className="h-5 w-5" />
                             Miembros
+                            {members && members.length > 0 && (
+                                <Badge variant="secondary" className="ml-2">
+                                    {members.length}
+                                </Badge>
+                            )}
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
                         {members && members.length > 0 ? (
-                            <ul className="space-y-3">
+                            <div className="space-y-2">
                                 {members.map((m: User) => (
-                                    <li
+                                    <Link
                                         key={m.id}
-                                        className="flex items-center justify-between gap-3"
+                                        href={`/${locale}/profile`}
+                                        className="flex items-center gap-3 rounded-lg border p-3 hover:bg-muted/50 transition-colors"
                                     >
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-sm font-semibold">
-                                                {m.name
-                                                    ? m.name
-                                                          .charAt(0)
-                                                          .toUpperCase()
-                                                    : "?"}
-                                            </div>
-                                            <div>
-                                                <div className="text-sm font-medium">
-                                                    {m.name ||
-                                                        m.email ||
-                                                        `user ${m.id}`}
-                                                </div>
-                                                <div className="text-xs text-muted-foreground">
-                                                    {m.email || "-"}
-                                                </div>
-                                            </div>
+                                        <div
+                                            className={cn(
+                                                "flex h-10 w-10 items-center justify-center rounded-full text-white font-semibold",
+                                                getMemberColor(m.id)
+                                            )}
+                                        >
+                                            {m.name
+                                                ? m.name.charAt(0).toUpperCase()
+                                                : "?"}
                                         </div>
-                                    </li>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="font-medium truncate">
+                                                {m.name || m.email || `Usuario ${m.id}`}
+                                            </p>
+                                            {m.email && (
+                                                <p className="text-xs text-muted-foreground truncate flex items-center gap-1">
+                                                    <HiOutlineEnvelope className="h-3 w-3 shrink-0" />
+                                                    {m.email}
+                                                </p>
+                                            )}
+                                        </div>
+                                        {m.is_active === false && (
+                                            <Badge variant="secondary" className="text-xs">
+                                                Inactivo
+                                            </Badge>
+                                        )}
+                                        <HiOutlineLink className="h-4 w-4 text-muted-foreground shrink-0" />
+                                    </Link>
                                 ))}
-                            </ul>
+                            </div>
                         ) : (
-                            <p className="text-sm text-muted-foreground">
-                                No hay miembros asignados
-                            </p>
+                            <div className="text-center py-6">
+                                <HiOutlineUserGroup className="h-12 w-12 mx-auto text-muted-foreground/50 mb-2" />
+                                <p className="text-sm text-muted-foreground">
+                                    No hay miembros asignados
+                                </p>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    Los miembros aparecerán aquí cuando se añadan al equipo
+                                </p>
+                            </div>
                         )}
                     </CardContent>
                 </Card>

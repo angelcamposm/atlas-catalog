@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import {
     HiHome,
     HiUsers,
+    HiUser,
     HiMagnifyingGlass,
     HiChevronDown,
     HiChevronRight,
@@ -282,6 +283,11 @@ export function AppSidebar({
                         title: "Member Roles",
                         url: `/${locale}/admin/member-roles`,
                         icon: HiUserGroup,
+                    },
+                    {
+                        title: "My Profile",
+                        url: `/${locale}/profile`,
+                        icon: HiUser,
                     },
                     {
                         title: "Settings",

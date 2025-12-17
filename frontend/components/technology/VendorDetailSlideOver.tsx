@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import {
     HiOutlineBuildingOffice,
     HiOutlineGlobeAlt,
@@ -14,6 +13,12 @@ import type { Vendor } from "@/types/api";
 import { SlideOver } from "@/components/ui/SlideOver";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { VendorIcon } from "@/components/ui/TypeIcons";
+import {
+    hasVendorIcon,
+    getVendorBgColor,
+} from "@/lib/icons/vendor-icons";
+import { cn } from "@/lib/utils";
 
 // Base URL for SVG icons served by backend
 const ICON_BASE_URL =
@@ -78,11 +83,26 @@ export function VendorDetailSlideOver({
             open={open}
             onClose={onClose}
             title={vendor ? vendor.name : "Proveedor"}
-            mode="push"
-            showOverlay={false}
+            mode="overlay"
+            showOverlay={true}
             side="right"
             size="lg"
-            icon={<HiOutlineBuildingOffice className="h-6 w-6 text-primary" />}
+            icon={
+                vendor && hasVendorIcon(vendor.name) ? (
+                    <div
+                        className={cn(
+                            "rounded-lg p-2",
+                            getVendorBgColor(vendor.name)
+                        )}
+                    >
+                        <VendorIcon name={vendor.name} size="lg" />
+                    </div>
+                ) : (
+                    <div className="rounded-lg bg-primary/10 p-2">
+                        <HiOutlineBuildingOffice className="h-6 w-6 text-primary" />
+                    </div>
+                )
+            }
             loading={loading}
             footer={
                 <div className="flex items-center justify-end gap-2">
@@ -113,7 +133,19 @@ export function VendorDetailSlideOver({
                     <Card>
                         <CardContent className="pt-6">
                             <div className="flex items-start gap-4">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-white dark:bg-gray-800 border shadow-sm overflow-hidden">
+                                <div
+                                    className={cn(
+                                        "flex h-16 w-16 items-center justify-center rounded-xl overflow-hidden",
+                                        vendor.icon && !iconError
+                                            ? "bg-white dark:bg-gray-800 border shadow-sm"
+                                            : hasVendorIcon(vendor.name)
+                                            ? cn(
+                                                  "border shadow-sm",
+                                                  getVendorBgColor(vendor.name)
+                                              )
+                                            : "bg-gradient-to-br from-blue-500 to-blue-600"
+                                    )}
+                                >
                                     {vendor.icon && !iconError ? (
                                         <img
                                             src={getIconUrl(vendor.icon) || ""}
@@ -121,8 +153,15 @@ export function VendorDetailSlideOver({
                                             className="h-12 w-12 object-contain"
                                             onError={() => setIconError(true)}
                                         />
+                                    ) : hasVendorIcon(vendor.name) ? (
+                                        <VendorIcon
+                                            name={vendor.name}
+                                            size="xl"
+                                        />
                                     ) : (
-                                        <HiOutlineBuildingOffice className="h-8 w-8 text-muted-foreground" />
+                                        <span className="text-2xl font-bold text-white">
+                                            {vendor.name.charAt(0).toUpperCase()}
+                                        </span>
                                     )}
                                 </div>
                                 <div className="flex-1">

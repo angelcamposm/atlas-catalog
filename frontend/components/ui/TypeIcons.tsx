@@ -6,6 +6,10 @@ import {
     getInfrastructureTypeIcon,
     getIconColorClass,
 } from "@/lib/icons/infrastructure-icons";
+import {
+    getVendorIcon,
+    getVendorIconColor,
+} from "@/lib/icons/vendor-icons";
 
 interface TypeIconProps {
     name: string;
@@ -37,11 +41,11 @@ export function ClusterTypeIcon({
 
     return (
         <span
-            className={cn("inline-flex items-center gap-1.5", className)}
+            className={cn("inline-flex items-center gap-1.5")}
             title={name}
         >
             <IconComponent
-                className={cn(sizeClasses[size], colorClass)}
+                className={cn(sizeClasses[size], className || colorClass)}
                 aria-hidden="true"
             />
             {showLabel && <span className="truncate">{name}</span>}
@@ -63,11 +67,11 @@ export function InfrastructureTypeIcon({
 
     return (
         <span
-            className={cn("inline-flex items-center gap-1.5", className)}
+            className={cn("inline-flex items-center gap-1.5")}
             title={name}
         >
             <IconComponent
-                className={cn(sizeClasses[size], colorClass)}
+                className={cn(sizeClasses[size], className || colorClass)}
                 aria-hidden="true"
             />
             {showLabel && <span className="truncate">{name}</span>}
@@ -126,6 +130,37 @@ export function TypeBadge({
             {showLabel && (
                 <span className="truncate text-sm font-medium">{name}</span>
             )}
+        </span>
+    );
+}
+
+/**
+ * Displays an icon for a Vendor
+ * Uses react-icons based on vendor name patterns
+ */
+interface VendorIconProps {
+    name: string;
+    size?: "sm" | "md" | "lg" | "xl";
+    className?: string;
+    showLabel?: boolean;
+}
+
+export function VendorIcon({
+    name,
+    size = "md",
+    className,
+    showLabel = false,
+}: VendorIconProps) {
+    const IconComponent = getVendorIcon(name);
+    const colorClass = getVendorIconColor(name);
+
+    return (
+        <span className={cn("inline-flex items-center gap-1.5")} title={name}>
+            <IconComponent
+                className={cn(sizeClasses[size], className || colorClass)}
+                aria-hidden="true"
+            />
+            {showLabel && <span className="truncate">{name}</span>}
         </span>
     );
 }

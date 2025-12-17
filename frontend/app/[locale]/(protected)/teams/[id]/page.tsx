@@ -144,7 +144,7 @@ export default function TeamDetailPage() {
                 </div>
             </div>
 
-            <TeamDetailContent team={team} members={members} />
+            <TeamDetailContent team={team} members={members} locale={locale} />
         </div>
     );
 }

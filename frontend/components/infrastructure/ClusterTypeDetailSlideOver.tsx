@@ -13,6 +13,8 @@ import {
     SlideOverTabs,
     SlideOverDivider,
 } from "@/components/ui/SlideOver";
+import { VendorIcon } from "@/components/ui/TypeIcons";
+import { hasVendorIcon } from "@/lib/icons/vendor-icons";
 import { vendorsApi } from "@/lib/api";
 import type { ClusterType, Vendor } from "@/types/api";
 
@@ -252,10 +254,17 @@ export function ClusterTypeDetailSlideOver({
                     >
                         {vendor ? (
                             <>
-                                <SlideOverField
-                                    label="Vendor Name"
-                                    value={vendor.name}
-                                />
+                                <div className="flex items-center justify-between py-1">
+                                    <span className="text-xs text-muted-foreground">Vendor Name</span>
+                                    <div className="flex items-center gap-2">
+                                        {hasVendorIcon(vendor.name) ? (
+                                            <VendorIcon name={vendor.name} className="h-5 w-5" />
+                                        ) : (
+                                            <Building2 className="h-5 w-5 text-muted-foreground" />
+                                        )}
+                                        <span className="text-sm font-medium">{vendor.name}</span>
+                                    </div>
+                                </div>
                                 <SlideOverField
                                     label="Vendor ID"
                                     value={vendor.id.toString()}

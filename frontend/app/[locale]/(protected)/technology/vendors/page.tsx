@@ -17,7 +17,12 @@ import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import { getIconUrl, getColorByIndex } from "@/lib/utils/icons";
+import { getIconUrl } from "@/lib/utils/icons";
+import { VendorIcon } from "@/components/ui/TypeIcons";
+import {
+    getVendorBgColor,
+    hasVendorIcon,
+} from "@/lib/icons/vendor-icons";
 import VendorDetailSlideOver from "@/components/technology/VendorDetailSlideOver";
 
 type ViewMode = "grid" | "list";
@@ -149,7 +154,7 @@ export default function VendorsPage() {
             {/* Vendors Grid View */}
             {viewMode === "grid" && (
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {vendors.map((vendor, index) => (
+                    {vendors.map((vendor) => (
                         <Card
                             key={vendor.id}
                             className="group cursor-pointer transition-all hover:shadow-md overflow-hidden"
@@ -159,14 +164,18 @@ export default function VendorsPage() {
                                 <div className="flex items-start gap-3 overflow-hidden">
                                     <div
                                         className={cn(
-                                            "flex h-12 w-12 items-center justify-center rounded-lg overflow-hidden flex-shrink-0",
+                                            "flex h-12 w-12 items-center justify-center rounded-lg overflow-hidden shrink-0",
                                             vendor.icon &&
                                                 !iconErrors.has(vendor.id)
                                                 ? "bg-white dark:bg-gray-800 border shadow-sm"
-                                                : cn(
-                                                      "text-white",
-                                                      getColorByIndex(index)
+                                                : hasVendorIcon(vendor.name)
+                                                ? cn(
+                                                      "border shadow-sm",
+                                                      getVendorBgColor(
+                                                          vendor.name
+                                                      )
                                                   )
+                                                : "bg-gradient-to-br from-blue-500 to-blue-600 text-white"
                                         )}
                                     >
                                         {vendor.icon &&
@@ -181,6 +190,11 @@ export default function VendorsPage() {
                                                 onError={() =>
                                                     handleIconError(vendor.id)
                                                 }
+                                            />
+                                        ) : hasVendorIcon(vendor.name) ? (
+                                            <VendorIcon
+                                                name={vendor.name}
+                                                size="lg"
                                             />
                                         ) : (
                                             <span className="text-lg font-bold">
@@ -222,7 +236,7 @@ export default function VendorsPage() {
             {viewMode === "list" && (
                 <Card>
                     <div className="divide-y">
-                        {vendors.map((vendor, index) => (
+                        {vendors.map((vendor) => (
                             <div
                                 key={vendor.id}
                                 className="flex items-center gap-4 px-6 py-5 cursor-pointer hover:bg-muted/50 transition-colors"
@@ -230,14 +244,16 @@ export default function VendorsPage() {
                             >
                                 <div
                                     className={cn(
-                                        "flex h-10 w-10 items-center justify-center rounded-lg overflow-hidden flex-shrink-0",
+                                        "flex h-10 w-10 items-center justify-center rounded-lg overflow-hidden shrink-0",
                                         vendor.icon &&
                                             !iconErrors.has(vendor.id)
                                             ? "bg-white dark:bg-gray-800 border shadow-sm"
-                                            : cn(
-                                                  "text-white",
-                                                  getColorByIndex(index)
+                                            : hasVendorIcon(vendor.name)
+                                            ? cn(
+                                                  "border shadow-sm",
+                                                  getVendorBgColor(vendor.name)
                                               )
+                                            : "bg-gradient-to-br from-blue-500 to-blue-600 text-white"
                                     )}
                                 >
                                     {vendor.icon &&
@@ -249,6 +265,11 @@ export default function VendorsPage() {
                                             onError={() =>
                                                 handleIconError(vendor.id)
                                             }
+                                        />
+                                    ) : hasVendorIcon(vendor.name) ? (
+                                        <VendorIcon
+                                            name={vendor.name}
+                                            size="md"
                                         />
                                     ) : (
                                         <span className="text-sm font-bold">

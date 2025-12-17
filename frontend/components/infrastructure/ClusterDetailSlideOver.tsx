@@ -14,6 +14,7 @@ import {
     Shield,
     Calendar,
     User,
+    Building2,
 } from "lucide-react";
 import {
     HiServerStack,
@@ -33,7 +34,9 @@ import {
 import {
     ClusterTypeIcon,
     InfrastructureTypeIcon,
+    VendorIcon,
 } from "@/components/ui/TypeIcons";
+import { hasVendorIcon } from "@/lib/icons/vendor-icons";
 import {
     clustersApi,
     clusterTypesApi,
@@ -339,11 +342,19 @@ export function ClusterDetailSlideOver({
                                 variant="code"
                                 size="sm"
                             />
-                            <SlideOverField
-                                label="Vendor"
-                                value={vendor?.name}
-                                size="sm"
-                            />
+                            {vendor && (
+                                <div className="flex items-center justify-between py-1">
+                                    <span className="text-xs text-muted-foreground">Vendor</span>
+                                    <div className="flex items-center gap-2">
+                                        {hasVendorIcon(vendor.name) ? (
+                                            <VendorIcon name={vendor.name} className="h-4 w-4" />
+                                        ) : (
+                                            <Building2 className="h-4 w-4 text-muted-foreground" />
+                                        )}
+                                        <span className="text-sm font-medium">{vendor.name}</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </SlideOverSection>
 

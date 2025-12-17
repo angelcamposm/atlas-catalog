@@ -17,6 +17,8 @@ import type {
     Vendor,
     Cluster,
 } from "@/types/api";
+import { VendorIcon } from "@/components/ui/TypeIcons";
+import { hasVendorIcon } from "@/lib/icons/vendor-icons";
 import { Button } from "@/components/ui/Button";
 import {
     Card,
@@ -260,7 +262,12 @@ export function EditClusterForm({
                                         key={vendor.id}
                                         value={vendor.id.toString()}
                                     >
-                                        {vendor.name}
+                                        <span className="flex items-center gap-2">
+                                            {hasVendorIcon(vendor.name) && (
+                                                <VendorIcon name={vendor.name} className="h-4 w-4" />
+                                            )}
+                                            {vendor.name}
+                                        </span>
                                     </SelectItem>
                                 ))}
                             </SelectContent>
