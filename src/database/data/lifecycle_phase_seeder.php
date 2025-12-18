@@ -10,7 +10,8 @@ return [
     ],
     [
         'name' => 'Plan',
-        'description' => 'The application or component is still in the planning state and is not clear whether it will be implemented or developed.'
+        'description' => 'The application or component is still in the planning state and is not clear whether it will be implemented or developed.',
+        'color' => '',
     ],
     [
         'name' => 'Phase in',
