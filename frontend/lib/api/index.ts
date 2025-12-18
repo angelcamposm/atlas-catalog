@@ -55,6 +55,22 @@ export { infrastructureTypesApi } from "./infrastructure-types";
 // Platform Domain
 export { platformApi, platformsApi, componentTypesApi } from "./platform";
 
+// Components Domain
+export {
+    componentsApi,
+    componentTypesApi as componentTypesApiComplete,
+    getComponentDisplayName,
+    getOperationalStatusColor,
+    getCriticalityColor,
+    getTierLabel,
+} from "./components";
+export type {
+    ComponentsQueryParams,
+    CreateComponentData,
+    UpdateComponentData,
+    ComponentWithRelations,
+} from "./components";
+
 // Integration Domain
 export { integrationApi, linkTypesApi, linksApi } from "./integration";
 
