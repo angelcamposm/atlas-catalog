@@ -284,7 +284,10 @@ export function ApiCard({
                     </div>
                     {api.description && (
                         <p className="text-sm text-muted-foreground line-clamp-1 mt-0.5">
-                            <Highlight text={api.description} query={searchQuery} />
+                            <Highlight
+                                text={api.description}
+                                query={searchQuery}
+                            />
                         </p>
                     )}
                 </div>

@@ -242,7 +242,7 @@ export const apiDependenciesApi = {
         void apiId;
         void componentId;
         void relationship;
-        
+
         try {
             // TODO: When backend implements this endpoint, use:
             // const response = await apiClient.post<unknown>(`/v1/apis/${apiId}/components`, {
@@ -278,7 +278,7 @@ export const apiDependenciesApi = {
         // Store params for future use
         void apiId;
         void componentId;
-        
+
         try {
             // TODO: When backend implements this endpoint, use:
             // await apiClient.delete(`/v1/apis/${apiId}/components/${componentId}`);
@@ -350,7 +350,9 @@ export function getRelationshipLabel(
 /**
  * Get a color class for a relationship type badge
  */
-export function getRelationshipColor(relationship: ApiRelationshipType): string {
+export function getRelationshipColor(
+    relationship: ApiRelationshipType
+): string {
     const colors: Record<ApiRelationshipType, string> = {
         uses: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
         provides:

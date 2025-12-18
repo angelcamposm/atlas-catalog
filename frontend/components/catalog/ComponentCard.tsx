@@ -83,8 +83,7 @@ function getTypeIcon(typeName?: string): React.ReactNode {
 }
 
 const typeColorMap: Record<string, string> = {
-    service:
-        "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+    service: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
     microservice:
         "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
     api: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
@@ -92,8 +91,7 @@ const typeColorMap: Record<string, string> = {
         "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400",
     database:
         "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400",
-    default:
-        "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
+    default: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
 };
 
 function getTypeColor(typeName?: string): string {
@@ -216,7 +214,9 @@ export function ComponentCard({
     operationalStatuses,
 }: ComponentCardProps) {
     const displayName = getComponentDisplayName(component);
-    const typeName = componentTypes?.find((t) => t.id === component.type_id)?.name;
+    const typeName = componentTypes?.find(
+        (t) => t.id === component.type_id
+    )?.name;
     const typeIcon = getTypeIcon(typeName);
     const typeColor = getTypeColor(typeName);
     const lifecycleName = lifecycles?.find(
@@ -260,7 +260,9 @@ export function ComponentCard({
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                         <Link
-                            href={`/${locale}/components/${component.slug || component.id}`}
+                            href={`/${locale}/components/${
+                                component.slug || component.id
+                            }`}
                             className="font-semibold text-foreground hover:text-primary truncate"
                         >
                             <Highlight text={displayName} query={searchQuery} />
@@ -330,7 +332,9 @@ export function ComponentCard({
                 {/* Actions */}
                 <div className="flex items-center gap-1 shrink-0">
                     <Link
-                        href={`/${locale}/components/${component.slug || component.id}`}
+                        href={`/${locale}/components/${
+                            component.slug || component.id
+                        }`}
                         className="p-1.5 rounded-md hover:bg-muted transition-colors"
                     >
                         <HiEye className="h-5 w-5 text-muted-foreground" />
@@ -384,7 +388,9 @@ export function ComponentCard({
             <div className="mt-3">
                 <div className="flex items-center gap-2 flex-wrap">
                     <Link
-                        href={`/${locale}/components/${component.slug || component.id}`}
+                        href={`/${locale}/components/${
+                            component.slug || component.id
+                        }`}
                         className="font-semibold text-foreground hover:text-primary line-clamp-1"
                     >
                         <Highlight text={displayName} query={searchQuery} />
@@ -425,7 +431,10 @@ export function ComponentCard({
             {/* Description */}
             {component.description && (
                 <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
-                    <Highlight text={component.description} query={searchQuery} />
+                    <Highlight
+                        text={component.description}
+                        query={searchQuery}
+                    />
                 </p>
             )}
 
@@ -448,7 +457,9 @@ export function ComponentCard({
             {/* Footer actions */}
             <div className="mt-auto pt-4 border-t flex items-center justify-between">
                 <Link
-                    href={`/${locale}/components/${component.slug || component.id}`}
+                    href={`/${locale}/components/${
+                        component.slug || component.id
+                    }`}
                     className="text-xs font-medium text-primary hover:underline"
                 >
                     Ver detalles →

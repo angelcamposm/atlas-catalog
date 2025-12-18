@@ -45,7 +45,10 @@ function splitByQuery(
         return [{ text, isMatch: false }];
     }
 
-    const regex = new RegExp(`(${escapeRegExp(query)})`, ignoreCase ? "gi" : "g");
+    const regex = new RegExp(
+        `(${escapeRegExp(query)})`,
+        ignoreCase ? "gi" : "g"
+    );
     const parts = text.split(regex);
 
     return parts

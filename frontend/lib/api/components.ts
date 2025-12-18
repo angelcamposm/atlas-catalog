@@ -124,7 +124,9 @@ export const componentsApi = {
             searchParams.set("sort_order", params.sort_order);
 
         const queryString = searchParams.toString();
-        const url = queryString ? `/v1/components?${queryString}` : "/v1/components";
+        const url = queryString
+            ? `/v1/components?${queryString}`
+            : "/v1/components";
 
         return apiClient.get<PaginatedResponse<Component>>(url);
     },
@@ -132,7 +134,9 @@ export const componentsApi = {
     /**
      * Get a single component by ID
      */
-    async getById(id: number): Promise<ResourceResponse<ComponentWithRelations>> {
+    async getById(
+        id: number
+    ): Promise<ResourceResponse<ComponentWithRelations>> {
         return apiClient.get<ResourceResponse<ComponentWithRelations>>(
             `/v1/components/${id}`
         );
@@ -141,7 +145,9 @@ export const componentsApi = {
     /**
      * Get a single component by slug
      */
-    async getBySlug(slug: string): Promise<ResourceResponse<ComponentWithRelations>> {
+    async getBySlug(
+        slug: string
+    ): Promise<ResourceResponse<ComponentWithRelations>> {
         return apiClient.get<ResourceResponse<ComponentWithRelations>>(
             `/v1/components/slug/${slug}`
         );
@@ -248,8 +254,11 @@ export function getComponentDisplayName(component: Component): string {
 /**
  * Get badge color based on operational status
  */
-export function getOperationalStatusColor(statusId: number | null | undefined): string {
-    if (!statusId) return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+export function getOperationalStatusColor(
+    statusId: number | null | undefined
+): string {
+    if (!statusId)
+        return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
 
     // Common operational status mappings
     const statusColors: Record<number, string> = {
@@ -266,8 +275,11 @@ export function getOperationalStatusColor(statusId: number | null | undefined): 
 /**
  * Get badge color based on criticality
  */
-export function getCriticalityColor(criticalityId: number | null | undefined): string {
-    if (!criticalityId) return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+export function getCriticalityColor(
+    criticalityId: number | null | undefined
+): string {
+    if (!criticalityId)
+        return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
 
     const criticalityColors: Record<number, string> = {
         1: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400", // Critical

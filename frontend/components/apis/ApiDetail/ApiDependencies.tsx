@@ -20,7 +20,10 @@ import {
     getRelationshipLabel,
     getRelationshipColor,
 } from "@/lib/api/api-dependencies";
-import type { ApiDependencies as ApiDependenciesData, ApiRelation } from "@/lib/api/api-dependencies";
+import type {
+    ApiDependencies as ApiDependenciesData,
+    ApiRelation,
+} from "@/lib/api/api-dependencies";
 
 // ============================================================================
 // Types
@@ -34,7 +37,7 @@ export interface ApiDependenciesProps {
     components?: Component[];
     locale: string;
     className?: string;
-    /** 
+    /**
      * When true, fetches dependencies from the API endpoint.
      * When false, uses provided componentApis/components props.
      * @default true
@@ -72,13 +75,13 @@ function DependencyCard({ dependency, locale }: DependencyCardProps) {
     const relationshipLabel = relationshipType
         ? getRelationshipLabel(relationshipType)
         : dependency.type === "consumer"
-          ? "Consume"
-          : "Provee";
+        ? "Consume"
+        : "Provee";
     const relationshipColor = relationshipType
         ? getRelationshipColor(relationshipType)
         : dependency.type === "consumer"
-          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-          : "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20";
+        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+        : "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20";
 
     // Descripción según el tipo de relación
     const getDescription = () => {
@@ -187,7 +190,7 @@ export function ApiDependencies({
     // Auto-load dependencies from API
     const loadDependencies = useCallback(async () => {
         if (!autoLoad) return;
-        
+
         try {
             setLoading(true);
             const data = await apiDependenciesApi.getDependencies(api.id);
@@ -212,34 +215,43 @@ export function ApiDependencies({
     ): DependencyRelation => ({
         id: relation.id,
         componentId: relation.component.id,
-        componentName: relation.component.display_name || relation.component.name,
+        componentName:
+            relation.component.display_name || relation.component.name,
         componentSlug: relation.component.slug || String(relation.component.id),
         type,
         relationship: relation.relationship,
     });
 
     // Get dependencies from API data or from props
-    const dependencies: DependencyRelation[] = autoLoad && apiData
-        ? [
-            ...apiData.consumers.map((r) => transformApiRelation(r, "consumer")),
-            ...apiData.providers.map((r) => transformApiRelation(r, "provider")),
-          ]
-        : componentApis
-            .filter((ca) => ca.api_id === api.id && ca.component_id)
-            .map((ca) => {
-                const component = components.find((c) => c.id === ca.component_id);
-                return {
-                    id: ca.id,
-                    componentId: ca.component_id!,
-                    componentName:
-                        component?.name ||
-                        component?.display_name ||
-                        `Componente #${ca.component_id}`,
-                    componentSlug: component?.slug || String(ca.component_id),
-                    type: "consumer" as const,
-                    relationshipId: ca.relationship_id ?? undefined,
-                };
-            });
+    const dependencies: DependencyRelation[] =
+        autoLoad && apiData
+            ? [
+                  ...apiData.consumers.map((r) =>
+                      transformApiRelation(r, "consumer")
+                  ),
+                  ...apiData.providers.map((r) =>
+                      transformApiRelation(r, "provider")
+                  ),
+              ]
+            : componentApis
+                  .filter((ca) => ca.api_id === api.id && ca.component_id)
+                  .map((ca) => {
+                      const component = components.find(
+                          (c) => c.id === ca.component_id
+                      );
+                      return {
+                          id: ca.id,
+                          componentId: ca.component_id!,
+                          componentName:
+                              component?.name ||
+                              component?.display_name ||
+                              `Componente #${ca.component_id}`,
+                          componentSlug:
+                              component?.slug || String(ca.component_id),
+                          type: "consumer" as const,
+                          relationshipId: ca.relationship_id ?? undefined,
+                      };
+                  });
 
     const filteredDependencies =
         filter === "all"
@@ -302,8 +314,9 @@ export function ApiDependencies({
                             Funcionalidad en desarrollo
                         </h4>
                         <p className="text-sm text-amber-700 dark:text-amber-400">
-                            La visualización de dependencias estará disponible próximamente.
-                            Esta sección mostrará los componentes que consumen o proveen esta API.
+                            La visualización de dependencias estará disponible
+                            próximamente. Esta sección mostrará los componentes
+                            que consumen o proveen esta API.
                         </p>
                     </div>
                 </div>

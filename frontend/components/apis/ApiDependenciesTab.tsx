@@ -157,7 +157,9 @@ function DependencySection({
                 <Icon
                     className={cn(
                         "h-5 w-5",
-                        type === "consumer" ? "text-purple-500" : "text-green-500"
+                        type === "consumer"
+                            ? "text-purple-500"
+                            : "text-green-500"
                     )}
                 />
                 <h4 className="text-sm font-semibold">{title}</h4>
@@ -223,8 +225,9 @@ function NotImplementedBanner() {
                     Funcionalidad en desarrollo
                 </h4>
                 <p className="text-sm text-amber-700 dark:text-amber-400">
-                    La visualización de dependencias estará disponible próximamente.
-                    Esta sección mostrará los componentes que consumen o proveen esta API.
+                    La visualización de dependencias estará disponible
+                    próximamente. Esta sección mostrará los componentes que
+                    consumen o proveen esta API.
                 </p>
             </div>
         </div>
@@ -235,8 +238,13 @@ function NotImplementedBanner() {
 // Main Component
 // ============================================================================
 
-export function ApiDependenciesTab({ apiId, locale = "es" }: ApiDependenciesTabProps) {
-    const [dependencies, setDependencies] = useState<ApiDependencies | null>(null);
+export function ApiDependenciesTab({
+    apiId,
+    locale = "es",
+}: ApiDependenciesTabProps) {
+    const [dependencies, setDependencies] = useState<ApiDependencies | null>(
+        null
+    );
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -274,7 +282,8 @@ export function ApiDependenciesTab({ apiId, locale = "es" }: ApiDependenciesTabP
     // Check if we have real data or just the placeholder
     const hasRealData =
         dependencies &&
-        (dependencies.consumers.length > 0 || dependencies.providers.length > 0);
+        (dependencies.consumers.length > 0 ||
+            dependencies.providers.length > 0);
 
     return (
         <div className="space-y-6">
@@ -338,7 +347,9 @@ export function ApiDependenciesTab({ apiId, locale = "es" }: ApiDependenciesTabP
             <div className="space-y-3">
                 <div className="flex items-center gap-2">
                     <HiOutlineLink className="h-5 w-5 text-muted-foreground" />
-                    <h4 className="text-sm font-semibold">Grafo de Dependencias</h4>
+                    <h4 className="text-sm font-semibold">
+                        Grafo de Dependencias
+                    </h4>
                     <Badge variant="outline" className="text-xs">
                         Próximamente
                     </Badge>
@@ -350,7 +361,8 @@ export function ApiDependenciesTab({ apiId, locale = "es" }: ApiDependenciesTabP
                             Visualización gráfica de dependencias
                         </p>
                         <p className="text-xs text-muted-foreground/70 mt-1">
-                            Esta característica estará disponible en una versión futura
+                            Esta característica estará disponible en una versión
+                            futura
                         </p>
                     </div>
                 </div>

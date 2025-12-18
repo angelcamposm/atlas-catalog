@@ -96,7 +96,10 @@ function getTypeColor(typeId: number | null | undefined): string {
         5: "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400",
         6: "bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-400",
     };
-    return colors[typeId ?? 0] || "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+    return (
+        colors[typeId ?? 0] ||
+        "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+    );
 }
 
 // ============================================================================
@@ -169,7 +172,9 @@ function ComponentHeader({
     locale: string;
 }) {
     const TypeIcon = getTypeIcon(component.type_id);
-    const statusColor = getOperationalStatusColor(component.operational_status_id);
+    const statusColor = getOperationalStatusColor(
+        component.operational_status_id
+    );
 
     return (
         <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
@@ -192,7 +197,9 @@ function ComponentHeader({
                                 getTypeColor(component.type_id)
                             )}
                         >
-                            {React.createElement(TypeIcon, { className: "w-8 h-8" })}
+                            {React.createElement(TypeIcon, {
+                                className: "w-8 h-8",
+                            })}
                         </div>
                         <div>
                             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
@@ -338,7 +345,13 @@ function OverviewContent({ component }: { component: Component }) {
                             Stateless
                         </dt>
                         <dd>
-                            <Badge variant={component.is_stateless ? "success" : "secondary"}>
+                            <Badge
+                                variant={
+                                    component.is_stateless
+                                        ? "success"
+                                        : "secondary"
+                                }
+                            >
                                 {component.is_stateless ? "Sí" : "No"}
                             </Badge>
                         </dd>
@@ -476,9 +489,7 @@ function ApisContent({
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">
-                    APIs ({apis.length})
-                </h3>
+                <h3 className="text-lg font-semibold">APIs ({apis.length})</h3>
             </div>
             <div className="grid gap-4">
                 {apis.map((api) => (
@@ -533,9 +544,15 @@ function MetadataContent({ component }: { component: Component }) {
         { key: "platform_id", value: component.platform_id },
         { key: "tier_id", value: component.tier_id },
         { key: "status_id", value: component.status_id },
-        { key: "operational_status_id", value: component.operational_status_id },
+        {
+            key: "operational_status_id",
+            value: component.operational_status_id,
+        },
         { key: "criticality_id", value: component.criticality_id },
-        { key: "is_stateless", value: component.is_stateless ? "true" : "false" },
+        {
+            key: "is_stateless",
+            value: component.is_stateless ? "true" : "false",
+        },
         {
             key: "has_zero_downtime_deployment",
             value: component.has_zero_downtime_deployment ? "true" : "false",
@@ -547,7 +564,9 @@ function MetadataContent({ component }: { component: Component }) {
     return (
         <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-                <h3 className="text-lg font-semibold">Metadatos del componente</h3>
+                <h3 className="text-lg font-semibold">
+                    Metadatos del componente
+                </h3>
             </div>
             <div className="divide-y divide-gray-200 dark:divide-gray-700">
                 {metadata.map(({ key, value }) => (
@@ -658,7 +677,9 @@ export default function ComponentDetailPage() {
 
     const [activeTab, setActiveTab] = useState<TabId>(initialTab);
     const [component, setComponent] = useState<Component | null>(null);
-    const [componentType, setComponentType] = useState<ComponentType | undefined>();
+    const [componentType, setComponentType] = useState<
+        ComponentType | undefined
+    >();
     const [lifecycle, setLifecycle] = useState<Lifecycle | undefined>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);

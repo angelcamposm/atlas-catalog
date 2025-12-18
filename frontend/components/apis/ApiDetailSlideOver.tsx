@@ -548,7 +548,9 @@ export function ApiDetailSlideOver({
             <div className="mt-4">
                 {activeTab === "overview" && <OverviewTab api={api} />}
                 {activeTab === "docs" && <DocsTab api={api} />}
-                {activeTab === "dependencies" && <ApiDependenciesTab apiId={api.id} />}
+                {activeTab === "dependencies" && (
+                    <ApiDependenciesTab apiId={api.id} />
+                )}
                 {activeTab === "metadata" && <MetadataTab api={api} />}
             </div>
         </SlideOver>

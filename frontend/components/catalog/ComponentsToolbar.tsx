@@ -139,9 +139,7 @@ function componentsToCSV(components: Component[]): string {
 
     const csvContent = [
         headers.join(","),
-        ...rows.map((row) =>
-            row.map((cell) => `"${cell}"`).join(",")
-        ),
+        ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
     ].join("\n");
 
     return csvContent;
@@ -239,7 +237,11 @@ export function ComponentsToolbar({
                 "application/json"
             );
         } else {
-            downloadFile(componentsToCSV(components), `${filename}.csv`, "text/csv");
+            downloadFile(
+                componentsToCSV(components),
+                `${filename}.csv`,
+                "text/csv"
+            );
         }
 
         setShowExportMenu(false);
@@ -512,7 +514,9 @@ export function ComponentsToolbar({
                                             (t) => t.id === filters.typeId
                                         )?.name || filters.typeId
                                     }`}
-                                    onRemove={() => updateFilter("typeId", null)}
+                                    onRemove={() =>
+                                        updateFilter("typeId", null)
+                                    }
                                 />
                             )}
                             {filters.lifecycleId && (
@@ -530,10 +534,13 @@ export function ComponentsToolbar({
                             {filters.tierId && (
                                 <FilterBadge
                                     label={`Tier: ${
-                                        tiers.find((t) => t.id === filters.tierId)
-                                            ?.name || filters.tierId
+                                        tiers.find(
+                                            (t) => t.id === filters.tierId
+                                        )?.name || filters.tierId
                                     }`}
-                                    onRemove={() => updateFilter("tierId", null)}
+                                    onRemove={() =>
+                                        updateFilter("tierId", null)
+                                    }
                                 />
                             )}
                             {filters.operationalStatusId && (
@@ -546,7 +553,10 @@ export function ComponentsToolbar({
                                         )?.name || filters.operationalStatusId
                                     }`}
                                     onRemove={() =>
-                                        updateFilter("operationalStatusId", null)
+                                        updateFilter(
+                                            "operationalStatusId",
+                                            null
+                                        )
                                     }
                                 />
                             )}

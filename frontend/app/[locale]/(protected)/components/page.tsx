@@ -46,8 +46,9 @@ export default function ComponentsPage() {
     >([]);
 
     // Filter state
-    const [filters, setFilters] =
-        useState<ComponentFilters>(defaultComponentFilters);
+    const [filters, setFilters] = useState<ComponentFilters>(
+        defaultComponentFilters
+    );
 
     // Load components
     const loadComponents = useCallback(async (page: number) => {
@@ -121,8 +122,12 @@ export default function ComponentsPage() {
             result = result.filter(
                 (component) =>
                     component.name?.toLowerCase().includes(searchLower) ||
-                    component.description?.toLowerCase().includes(searchLower) ||
-                    component.display_name?.toLowerCase().includes(searchLower) ||
+                    component.description
+                        ?.toLowerCase()
+                        .includes(searchLower) ||
+                    component.display_name
+                        ?.toLowerCase()
+                        .includes(searchLower) ||
                     component.slug?.toLowerCase().includes(searchLower)
             );
         }
@@ -152,14 +157,16 @@ export default function ComponentsPage() {
         if (filters.operationalStatusId !== null) {
             result = result.filter(
                 (component) =>
-                    component.operational_status_id === filters.operationalStatusId
+                    component.operational_status_id ===
+                    filters.operationalStatusId
             );
         }
 
         // Apply criticality filter
         if (filters.criticalityId !== null) {
             result = result.filter(
-                (component) => component.criticality_id === filters.criticalityId
+                (component) =>
+                    component.criticality_id === filters.criticalityId
             );
         }
 

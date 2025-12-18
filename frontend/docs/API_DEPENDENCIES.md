@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Esta funcionalidad permite visualizar las relaciones entre APIs y Componentes del catálogo. 
+Esta funcionalidad permite visualizar las relaciones entre APIs y Componentes del catálogo.
 Muestra qué componentes consumen (usan) o proveen (exponen) cada API.
 
 ## Estado Actual
@@ -26,18 +26,18 @@ frontend/components/apis/
 ```typescript
 // Tipos de relación soportados
 type ApiRelationshipType =
-    | "uses"        // Componente usa esta API
-    | "provides"    // Componente provee/expone esta API
-    | "consumes"    // Componente consume esta API
-    | "implements"  // Componente implementa esta especificación API
-    | "depends_on"  // Componente depende de esta API
-    | "owns";       // Componente gestiona/es dueño de esta API
+    | "uses" // Componente usa esta API
+    | "provides" // Componente provee/expone esta API
+    | "consumes" // Componente consume esta API
+    | "implements" // Componente implementa esta especificación API
+    | "depends_on" // Componente depende de esta API
+    | "owns"; // Componente gestiona/es dueño de esta API
 
 // Estructura de respuesta esperada
 interface ApiDependencies {
     api_id: number;
-    consumers: ApiRelation[];      // Componentes que consumen
-    providers: ApiRelation[];      // Componentes que proveen
+    consumers: ApiRelation[]; // Componentes que consumen
+    providers: ApiRelation[]; // Componentes que proveen
     total_consumers: number;
     total_providers: number;
 }
@@ -60,6 +60,7 @@ GET /api/v1/apis/{id}/dependencies
 ```
 
 **Response esperado:**
+
 ```json
 {
     "api_id": 1,
@@ -101,6 +102,7 @@ GET /api/v1/apis/{id}/consumers
 ```
 
 **Response:**
+
 ```json
 {
     "data": [
@@ -120,6 +122,7 @@ GET /api/v1/apis/{id}/providers
 ```
 
 **Response:**
+
 ```json
 {
     "data": [
@@ -139,6 +142,7 @@ GET /api/v1/components/{id}/apis
 ```
 
 **Response:**
+
 ```json
 {
     "data": [
@@ -163,6 +167,7 @@ POST /api/v1/apis/{id}/components
 ```
 
 **Request:**
+
 ```json
 {
     "component_id": 10,
@@ -188,7 +193,7 @@ CREATE TABLE component_apis (
     relationship VARCHAR(50) DEFAULT 'uses',
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    
+
     FOREIGN KEY (component_id) REFERENCES components(id) ON DELETE CASCADE,
     FOREIGN KEY (api_id) REFERENCES apis(id) ON DELETE CASCADE,
     UNIQUE KEY unique_component_api (component_id, api_id)
@@ -216,7 +221,7 @@ class ApiDependenciesController extends Controller
             ->orWhere('relationship', 'consumes')
             ->with('component')
             ->get();
-            
+
         $providers = $api->componentApis()
             ->where('relationship', 'provides')
             ->orWhere('relationship', 'owns')
@@ -251,10 +256,10 @@ Route::prefix('v1')->group(function () {
 ### Importar el módulo
 
 ```typescript
-import { 
+import {
     apiDependenciesApi,
     getRelationshipLabel,
-    getRelationshipColor 
+    getRelationshipColor,
 } from "@/lib/api";
 ```
 
@@ -263,15 +268,15 @@ import {
 ```typescript
 const dependencies = await apiDependenciesApi.getDependencies(apiId);
 
-console.log(dependencies.consumers);  // Componentes que consumen
-console.log(dependencies.providers);  // Componentes que proveen
+console.log(dependencies.consumers); // Componentes que consumen
+console.log(dependencies.providers); // Componentes que proveen
 ```
 
 ### Usar utilidades de display
 
 ```typescript
-const label = getRelationshipLabel("uses");      // "Usa"
-const color = getRelationshipColor("provides");  // "bg-green-100 ..."
+const label = getRelationshipLabel("uses"); // "Usa"
+const color = getRelationshipColor("provides"); // "bg-green-100 ..."
 ```
 
 ## Componentes UI
@@ -283,7 +288,7 @@ Para usar en SlideOver panels:
 ```tsx
 import { ApiDependenciesTab } from "@/components/apis";
 
-<ApiDependenciesTab apiId={api.id} locale="es" />
+<ApiDependenciesTab apiId={api.id} locale="es" />;
 ```
 
 ### ApiDependencies (página completa)
@@ -293,12 +298,12 @@ Para usar en páginas de detalle:
 ```tsx
 import { ApiDependencies } from "@/components/apis";
 
-<ApiDependencies 
+<ApiDependencies
     api={api}
     componentApis={componentApis}
     components={components}
     locale="es"
-/>
+/>;
 ```
 
 ## Próximos Pasos

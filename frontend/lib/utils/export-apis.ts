@@ -89,10 +89,7 @@ function formatDateValue(value: unknown): string {
 /**
  * Converts APIs data to JSON format
  */
-export function apisToJSON(
-    apis: Api[],
-    options: ExportOptions = {}
-): string {
+export function apisToJSON(apis: Api[], options: ExportOptions = {}): string {
     const { fields = DEFAULT_FIELDS, includeMetadata = true } = options;
 
     const fieldsToUse = includeMetadata ? fields : EXPORT_FIELDS_BASIC;
@@ -117,10 +114,7 @@ export function apisToJSON(
 /**
  * Converts APIs data to CSV format
  */
-export function apisToCSV(
-    apis: Api[],
-    options: ExportOptions = {}
-): string {
+export function apisToCSV(apis: Api[], options: ExportOptions = {}): string {
     const { fields = DEFAULT_FIELDS, includeMetadata = true } = options;
 
     const fieldsToUse = includeMetadata ? fields : EXPORT_FIELDS_BASIC;

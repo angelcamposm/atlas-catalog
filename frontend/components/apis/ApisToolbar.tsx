@@ -270,9 +270,14 @@ export function ApisToolbar({
                 {apis && apis.length > 0 && (
                     <div className="relative">
                         <button
-                            onClick={() => setShowExportDropdown(!showExportDropdown)}
+                            onClick={() =>
+                                setShowExportDropdown(!showExportDropdown)
+                            }
                             onBlur={() =>
-                                setTimeout(() => setShowExportDropdown(false), 150)
+                                setTimeout(
+                                    () => setShowExportDropdown(false),
+                                    150
+                                )
                             }
                             className={cn(
                                 "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors",
