@@ -64,7 +64,7 @@ class GenerateSystemsFakeDataCommand extends Command
         $this->info('Creating fake data for systems domain...');
 
         System::factory()
-            ->count(1)
+            ->count($this->option('quantity'))
             ->has(Component::factory()
                 ->count(rand(1, 9))
                 ->for(BusinessDomain::factory(), 'businessDomain')
