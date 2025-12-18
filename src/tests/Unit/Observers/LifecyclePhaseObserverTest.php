@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Observers;
 
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use App\Models\User;
-use App\Observers\LifecycleObserver;
+use App\Observers\LifecyclePhaseObserver;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[CoversClass(LifecycleObserver::class)]
-class LifecycleObserverTest extends TestCase
+#[CoversClass(LifecyclePhaseObserver::class)]
+class LifecyclePhaseObserverTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -30,7 +30,7 @@ class LifecycleObserverTest extends TestCase
     #[Test]
     public function it_fills_created_by_with_authenticated_user_id_on_creation(): void
     {
-        $model = Lifecycle::factory()->create();
+        $model = LifecyclePhase::factory()->create();
 
         $this->assertNotNull($model->created_by);
         $this->assertEquals($this->user->id, $model->created_by);
@@ -39,7 +39,7 @@ class LifecycleObserverTest extends TestCase
     #[Test]
     public function test_updating_sets_updated_by(): void
     {
-        $model = Lifecycle::factory()->create();
+        $model = LifecyclePhase::factory()->create();
 
         $this->assertNull($model->updated_by);
 
@@ -58,7 +58,7 @@ class LifecycleObserverTest extends TestCase
     {
         $user2 = User::factory()->create();
 
-        $model = Lifecycle::factory()->create(['created_by' => $user2->id]);
+        $model = LifecyclePhase::factory()->create(['created_by' => $user2->id]);
 
         $this->assertEquals($user2->id, $model->created_by);
     }

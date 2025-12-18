@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use App\Traits\HasDataFile;
 use Illuminate\Database\Seeder;
 
-final class LifecycleSeeder extends Seeder
+final class LifecyclePhaseSeeder extends Seeder
 {
     use HasDataFile;
 
@@ -18,7 +18,7 @@ final class LifecycleSeeder extends Seeder
     public function run(): void
     {
         collect(self::getRows())->each(function ($item) {
-            Lifecycle::updateOrCreate(
+            LifecyclePhase::updateOrCreate(
                 ['name' => $item['name']],
                 [
                     'description' => $item['description'],

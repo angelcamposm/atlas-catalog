@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ComponentResourceCollection;
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use Illuminate\Http\Request;
 
-class LifecycleComponentController extends Controller
+class LifecyclePhaseComponentController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, Lifecycle $lifecycle): ComponentResourceCollection
+    public function __invoke(Request $request, LifecyclePhase $lifecycle): ComponentResourceCollection
     {
         $components = $lifecycle->components()->paginate();
 

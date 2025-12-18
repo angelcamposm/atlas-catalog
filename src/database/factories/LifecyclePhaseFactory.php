@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @extends Factory<Lifecycle>
+ * @extends Factory<LifecyclePhase>
  */
-class LifecycleFactory extends Factory
+class LifecyclePhaseFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var class-string<Model>
      */
-    protected $model = Lifecycle::class;
+    protected $model = LifecyclePhase::class;
 
     /**
      * Define the model's default state.

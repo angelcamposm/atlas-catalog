@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lifecycles', function (Blueprint $table) {
+        Schema::create('lifecycle_phases', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
             $table->boolean('approval_required')->default(false);
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lifecycles');
+        Schema::dropIfExists('lifecycle_phases');
     }
 };

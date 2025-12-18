@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Http\Resources\LifecycleResource;
-use App\Http\Resources\LifecycleResourceCollection;
-use App\Observers\LifecycleObserver;
+use App\Http\Resources\LifecyclePhaseResource;
+use App\Http\Resources\LifecyclePhaseResourceCollection;
+use App\Observers\LifecyclePhaseObserver;
 use App\Traits\BelongsToUser;
-use Database\Factories\LifecycleFactory;
+use Database\Factories\LifecyclePhaseFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
@@ -33,11 +33,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
  */
-#[ObservedBy(LifecycleObserver::class)]
-#[UseFactory(LifecycleFactory::class)]
-#[UseResource(LifecycleResource::class)]
-#[UseResourceCollection(LifecycleResourceCollection::class)]
-class Lifecycle extends Model
+#[ObservedBy(LifecyclePhaseObserver::class)]
+#[UseFactory(LifecyclePhaseFactory::class)]
+#[UseResource(LifecyclePhaseResource::class)]
+#[UseResourceCollection(LifecyclePhaseResourceCollection::class)]
+class LifecyclePhase extends Model
 {
     use BelongsToUser;
     use HasFactory;
@@ -47,7 +47,7 @@ class Lifecycle extends Model
      *
      * @var string|null
      */
-    protected $table = 'lifecycles';
+    protected $table = 'lifecycle_phases';
 
     /**
      * The attributes that are mass-assignable.
