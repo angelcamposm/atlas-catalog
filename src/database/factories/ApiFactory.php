@@ -34,21 +34,23 @@ class ApiFactory extends Factory
      */
     public function definition(): array
     {
+        $name = $this->faker->unique()->sentence(4);
+
         return [
-            'name' => $this->faker->name(),
-            'access_policy_id' => ApiAccessPolicy::factory(),
-            'authentication_method_id' => AuthenticationMethod::factory(),
-            'category_id' => ApiCategory::factory(),
+            'name' => Str::slug($name),
+//            'access_policy_id' => ApiAccessPolicy::factory(),
+//            'authentication_method_id' => AuthenticationMethod::factory(),
+//            'category_id' => ApiCategory::factory(),
             'deprecated_at' => $this->faker->date(),
             'deprecated_by' => User::factory(),
             'deprecation_reason' => $this->faker->sentence(),
             'description' => Str::limit($this->faker->sentence(), 255),
-            'display_name' => $this->faker->name(),
+            'display_name' => $name,
             'document_specification' => $this->faker->text(),
             'protocol' => $this->faker->randomElement(Protocol::cases()),
             'released_at' => $this->faker->date(),
-            'status_id' => ApiStatus::factory(),
-            'type_id' => ApiType::factory(),
+//            'status_id' => ApiStatus::factory(),
+//            'type_id' => ApiType::factory(),
             'url' => $this->faker->url(),
             'version' => $this->faker->semver(),
         ];
