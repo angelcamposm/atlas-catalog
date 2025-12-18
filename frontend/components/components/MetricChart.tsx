@@ -56,10 +56,10 @@ export function MetricChart({ title, data, valueLabel }: MetricChartProps) {
                                 fontSize: 12,
                             }}
                             labelStyle={{ fontWeight: 500 }}
-                            formatter={(value: number) =>
+                            formatter={(value) =>
                                 valueLabel
-                                    ? [`${value} ${valueLabel}`, ""]
-                                    : [value, ""]
+                                    ? [`${value ?? 0} ${valueLabel}`, ""]
+                                    : [value ?? 0, ""]
                             }
                         />
                         <Line

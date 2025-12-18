@@ -1,6 +1,12 @@
 interface BadgeProps {
     children: React.ReactNode;
-    variant?: "primary" | "secondary" | "success" | "warning" | "danger";
+    variant?:
+        | "primary"
+        | "secondary"
+        | "success"
+        | "warning"
+        | "danger"
+        | "outline";
     className?: string;
 }
 
@@ -19,6 +25,8 @@ export function Badge({
         warning:
             "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
         danger: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+        outline:
+            "bg-transparent border border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300",
     };
 
     return (

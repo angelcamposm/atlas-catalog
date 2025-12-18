@@ -124,14 +124,22 @@ export function ClusterList({
     };
 
     // Get lifecycle status badge variant
-    const getLifecycleVariant = (lifecycle: Lifecycle | undefined) => {
+    const getLifecycleVariant = (
+        lifecycle: Lifecycle | undefined
+    ):
+        | "primary"
+        | "secondary"
+        | "success"
+        | "warning"
+        | "danger"
+        | "outline" => {
         if (!lifecycle) return "secondary";
         const name = lifecycle.name.toLowerCase();
         if (name.includes("prod")) return "success";
         if (name.includes("staging") || name.includes("test")) return "warning";
-        if (name.includes("dev")) return "info";
+        if (name.includes("dev")) return "primary";
         if (name.includes("deprecated") || name.includes("retired"))
-            return "destructive";
+            return "danger";
         return "secondary";
     };
 

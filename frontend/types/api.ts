@@ -547,7 +547,7 @@ export const nodeSchema = z
         cpu_type: nullableString(),
         discovery_source: nullableString(),
         fqdn: nullableString(),
-        ip_address: z.string().ip(),
+        ip_address: z.string().includes(".").or(z.string().includes(":")),
         is_virtual: z.boolean().default(true),
         lifecycle_id: nullableNumber(),
         mac_address: nullableString(),
