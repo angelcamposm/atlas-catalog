@@ -9,8 +9,12 @@ return [
         'color' => 'primary',
     ],
     [
-        'name' => 'In development',
-        'description' => 'A new component that is currently in development phase.',
+        'name' => 'Plan',
+        'description' => 'The application or component is still in the planning state and is not clear whether it will be implemented or developed.'
+    ],
+    [
+        'name' => 'Phase in',
+        'description' => 'A new component or application that is currently in development phase.',
         'color' => 'warning',
     ],
     [
@@ -19,23 +23,18 @@ return [
         'color' => '',
     ],
     [
-        'name' => 'In maintenance',
-        'description' => 'The application does not receive new features but undergoes maintenance activities.',
-        'color' => 'secondary',
-    ],
-    [
-        'name' => 'In retirement',
+        'name' => 'Phase out',
         'description' => 'The application is officially retired from service.',
         'color' => 'dark',
     ],
     [
-        'name' => 'In production',
-        'description' => 'An established, owned, maintained component',
+        'name' => 'Active',
+        'description' => 'The application or component is productive and in use.',
         'color' => 'success',
     ],
     [
-        'name' => 'Obsolete',
-        'description' => 'A component that is at the end of its lifecycle, and may disappear at a later point in time',
+        'name' => 'End of life',
+        'description' => 'The application or component is at the end of its lifecycle, can not be used anymore, and may disappear at a later point in time.',
         'color' => 'danger',
     ],
 ];
