@@ -128,13 +128,27 @@ class Component extends Model
     }
 
     /**
-     * Get the lifecycle of the component
+     * Get the lifecycle phases of the component.
      *
-     * @return BelongsTo<LifecyclePhase>
+     * This relationship is constrained to select only the 'id' and 'name' fields
+     * from the lifecycle_phases table for performance and clarity.
+     *
+     * @return BelongsToMany
      */
-    public function lifecycle(): BelongsTo
+    public function lifecyclePhases(): BelongsToMany
     {
-        return $this->belongsTo(LifecyclePhase::class, 'lifecycle_id', 'id');
+        return $this->belongsToMany(LifecyclePhase::class, 'component_lifecycle_phases')
+            ->as('phase_details')
+            ->select([
+                'lifecycle_phases.id',
+                'lifecycle_phases.name',
+                'lifecycle_phases.approval_required',
+                'lifecycle_phases.color',
+            ])
+            ->withPivot([
+                'transitioned_at',
+                'notes',
+            ]);
     }
 
     /**
