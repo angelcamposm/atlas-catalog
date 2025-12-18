@@ -23,7 +23,8 @@ return new class extends Migration
             $table->boolean('has_zero_downtime_deployments')->default(false);
             $table->boolean('is_exposed')->default(false);
             $table->boolean('is_stateless')->default(true);
-            $table->foreignId('lifecycle_id')->nullable()->constrained('lifecycles', 'id')->nullOnDelete();
+            $table->foreignId('lifecycle_id')->nullable()->constrained('lifecycle_phases', 'id')->nullOnDelete();
+            $table->date('end_of_life_at')->nullable();
             $table->foreignId('owner_id')->nullable()->constrained('groups', 'id')->nullOnDelete();
             $table->foreignId('platform_id')->nullable()->constrained('platforms', 'id')->nullOnDelete();
             $table->string('slug')->unique();
