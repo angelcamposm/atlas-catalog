@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
     HiOutlineArrowsRightLeft,
@@ -9,9 +9,18 @@ import {
     HiOutlineCpuChip,
     HiOutlineChevronRight,
     HiOutlineInformationCircle,
+    HiOutlineExclamationTriangle,
+    HiOutlineArrowDownTray,
+    HiOutlineArrowUpTray,
 } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
 import type { Api, Component, ComponentApi } from "@/types/api";
+import {
+    apiDependenciesApi,
+    getRelationshipLabel,
+    getRelationshipColor,
+} from "@/lib/api/api-dependencies";
+import type { ApiDependencies as ApiDependenciesData, ApiRelation } from "@/lib/api/api-dependencies";
 
 // ============================================================================
 // Types
@@ -19,10 +28,18 @@ import type { Api, Component, ComponentApi } from "@/types/api";
 
 export interface ApiDependenciesProps {
     api: Api;
+    /** @deprecated Use auto-loading from API instead */
     componentApis?: ComponentApi[];
+    /** @deprecated Use auto-loading from API instead */
     components?: Component[];
     locale: string;
     className?: string;
+    /** 
+     * When true, fetches dependencies from the API endpoint.
+     * When false, uses provided componentApis/components props.
+     * @default true
+     */
+    autoLoad?: boolean;
 }
 
 export interface DependencyRelation {
@@ -31,6 +48,7 @@ export interface DependencyRelation {
     componentName: string;
     componentSlug: string;
     type: "consumer" | "provider";
+    relationship?: string;
     relationshipId?: number;
 }
 
@@ -49,11 +67,41 @@ function DependencyCard({ dependency, locale }: DependencyCardProps) {
             ? HiOutlineArrowLongRight
             : HiOutlineArrowLongLeft;
 
-    const typeLabel = dependency.type === "consumer" ? "Consume" : "Provee";
-    const typeColor =
-        dependency.type === "consumer"
-            ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-            : "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20";
+    // Usar la información de relación específica si está disponible
+    const relationshipType = dependency.relationship;
+    const relationshipLabel = relationshipType
+        ? getRelationshipLabel(relationshipType)
+        : dependency.type === "consumer"
+          ? "Consume"
+          : "Provee";
+    const relationshipColor = relationshipType
+        ? getRelationshipColor(relationshipType)
+        : dependency.type === "consumer"
+          ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+          : "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20";
+
+    // Descripción según el tipo de relación
+    const getDescription = () => {
+        if (relationshipType) {
+            switch (relationshipType) {
+                case "consumer":
+                    return "Este componente consume esta API";
+                case "provider":
+                    return "Este componente provee esta API";
+                case "owner":
+                    return "Este componente es dueño de esta API";
+                case "subscriber":
+                    return "Este componente está suscrito a esta API";
+                case "maintainer":
+                    return "Este componente mantiene esta API";
+                default:
+                    return `Relación: ${relationshipType}`;
+            }
+        }
+        return dependency.type === "consumer"
+            ? "Este componente consume esta API"
+            : "Esta API es provista por este componente";
+    };
 
     return (
         <Link
@@ -80,19 +128,15 @@ function DependencyCard({ dependency, locale }: DependencyCardProps) {
                     <span
                         className={cn(
                             "px-2 py-0.5 text-xs font-medium rounded-full shrink-0",
-                            typeColor
+                            relationshipColor
                         )}
                     >
-                        {typeLabel}
+                        {relationshipLabel}
                     </span>
                 </div>
                 <div className="flex items-center gap-1 mt-1 text-sm text-gray-500 dark:text-gray-400">
                     <IconComponent className="w-4 h-4" />
-                    <span>
-                        {dependency.type === "consumer"
-                            ? "Este componente consume esta API"
-                            : "Esta API es provista por este componente"}
-                    </span>
+                    <span>{getDescription()}</span>
                 </div>
             </div>
 
@@ -132,30 +176,70 @@ export function ApiDependencies({
     components = [],
     locale,
     className,
+    autoLoad = true,
 }: ApiDependenciesProps) {
     const [filter, setFilter] = useState<"all" | "consumer" | "provider">(
         "all"
     );
+    const [apiData, setApiData] = useState<ApiDependenciesData | null>(null);
+    const [loading, setLoading] = useState(autoLoad);
 
-    // Transform componentApis to dependencies
-    const dependencies: DependencyRelation[] = componentApis
-        .filter((ca) => ca.api_id === api.id && ca.component_id)
-        .map((ca) => {
-            const component = components.find((c) => c.id === ca.component_id);
-            // Simplified: treating all relations as consumer for now
-            // In a real app, you'd determine this from relationship_id
-            return {
-                id: ca.id,
-                componentId: ca.component_id!,
-                componentName:
-                    component?.name ||
-                    component?.display_name ||
-                    `Componente #${ca.component_id}`,
-                componentSlug: component?.slug || String(ca.component_id),
-                type: "consumer" as const,
-                relationshipId: ca.relationship_id ?? undefined,
-            };
-        });
+    // Auto-load dependencies from API
+    const loadDependencies = useCallback(async () => {
+        if (!autoLoad) return;
+        
+        try {
+            setLoading(true);
+            const data = await apiDependenciesApi.getDependencies(api.id);
+            setApiData(data);
+        } catch (error) {
+            console.error("Error loading API dependencies:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, [api.id, autoLoad]);
+
+    useEffect(() => {
+        if (autoLoad) {
+            loadDependencies();
+        }
+    }, [loadDependencies, autoLoad]);
+
+    // Transform API data to dependencies format
+    const transformApiRelation = (
+        relation: ApiRelation,
+        type: "consumer" | "provider"
+    ): DependencyRelation => ({
+        id: relation.id,
+        componentId: relation.component.id,
+        componentName: relation.component.display_name || relation.component.name,
+        componentSlug: relation.component.slug || String(relation.component.id),
+        type,
+        relationship: relation.relationship,
+    });
+
+    // Get dependencies from API data or from props
+    const dependencies: DependencyRelation[] = autoLoad && apiData
+        ? [
+            ...apiData.consumers.map((r) => transformApiRelation(r, "consumer")),
+            ...apiData.providers.map((r) => transformApiRelation(r, "provider")),
+          ]
+        : componentApis
+            .filter((ca) => ca.api_id === api.id && ca.component_id)
+            .map((ca) => {
+                const component = components.find((c) => c.id === ca.component_id);
+                return {
+                    id: ca.id,
+                    componentId: ca.component_id!,
+                    componentName:
+                        component?.name ||
+                        component?.display_name ||
+                        `Componente #${ca.component_id}`,
+                    componentSlug: component?.slug || String(ca.component_id),
+                    type: "consumer" as const,
+                    relationshipId: ca.relationship_id ?? undefined,
+                };
+            });
 
     const filteredDependencies =
         filter === "all"
@@ -169,8 +253,62 @@ export function ApiDependencies({
         (d) => d.type === "provider"
     ).length;
 
+    // Show loading skeleton
+    if (loading) {
+        return <ApiDependenciesSkeleton />;
+    }
+
     return (
-        <div className={cn("space-y-4", className)}>
+        <div className={cn("space-y-6", className)}>
+            {/* Summary Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
+                    <div className="flex items-center gap-2">
+                        <HiOutlineArrowDownTray className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                        <span className="text-sm font-medium text-purple-800 dark:text-purple-300">
+                            Consumidores
+                        </span>
+                    </div>
+                    <p className="text-2xl font-bold text-purple-900 dark:text-purple-200 mt-1">
+                        {consumerCount}
+                    </p>
+                    <p className="text-xs text-purple-600 dark:text-purple-400 mt-0.5">
+                        Componentes que usan esta API
+                    </p>
+                </div>
+
+                <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
+                    <div className="flex items-center gap-2">
+                        <HiOutlineArrowUpTray className="h-5 w-5 text-green-600 dark:text-green-400" />
+                        <span className="text-sm font-medium text-green-800 dark:text-green-300">
+                            Proveedores
+                        </span>
+                    </div>
+                    <p className="text-2xl font-bold text-green-900 dark:text-green-200 mt-1">
+                        {providerCount}
+                    </p>
+                    <p className="text-xs text-green-600 dark:text-green-400 mt-0.5">
+                        Componentes que exponen esta API
+                    </p>
+                </div>
+            </div>
+
+            {/* Banner if no real data */}
+            {autoLoad && dependencies.length === 0 && (
+                <div className="flex items-start gap-3 p-4 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                    <HiOutlineExclamationTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                    <div className="space-y-1">
+                        <h4 className="text-sm font-medium text-amber-800 dark:text-amber-300">
+                            Funcionalidad en desarrollo
+                        </h4>
+                        <p className="text-sm text-amber-700 dark:text-amber-400">
+                            La visualización de dependencias estará disponible próximamente.
+                            Esta sección mostrará los componentes que consumen o proveen esta API.
+                        </p>
+                    </div>
+                </div>
+            )}
+
             {/* Header with filters */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-3">
