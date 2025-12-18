@@ -11,9 +11,14 @@ import {
     HiOutlineXMark,
     HiOutlinePlus,
     HiOutlineArrowPath,
+    HiOutlineArrowDownTray,
+    HiOutlineDocumentText,
+    HiOutlineTableCells,
 } from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+import type { Api } from "@/types/api";
+import { exportApis, type ExportFormat } from "@/lib/utils/export-apis";
 
 // ============================================================================
 // Types
@@ -45,6 +50,8 @@ interface ApisToolbarProps {
     // Actions
     onRefresh?: () => void;
     isLoading?: boolean;
+    // Export
+    apis?: Api[];
 }
 
 // ============================================================================
@@ -77,8 +84,10 @@ export function ApisToolbar({
     totalCount,
     onRefresh,
     isLoading,
+    apis,
 }: ApisToolbarProps) {
     const [showSortDropdown, setShowSortDropdown] = useState(false);
+    const [showExportDropdown, setShowExportDropdown] = useState(false);
 
     const handleSortSelect = (field: SortField) => {
         if (field === sortField) {
@@ -88,6 +97,13 @@ export function ApisToolbar({
             onSortChange(field, "asc");
         }
         setShowSortDropdown(false);
+    };
+
+    const handleExport = (format: ExportFormat) => {
+        if (apis && apis.length > 0) {
+            exportApis(apis, format);
+        }
+        setShowExportDropdown(false);
     };
 
     const currentSortLabel =
@@ -249,6 +265,52 @@ export function ApisToolbar({
                         <HiOutlineListBullet className="h-4 w-4" />
                     </button>
                 </div>
+
+                {/* Export Button */}
+                {apis && apis.length > 0 && (
+                    <div className="relative">
+                        <button
+                            onClick={() => setShowExportDropdown(!showExportDropdown)}
+                            onBlur={() =>
+                                setTimeout(() => setShowExportDropdown(false), 150)
+                            }
+                            className={cn(
+                                "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium transition-colors",
+                                "border border-border text-foreground hover:bg-muted"
+                            )}
+                            title="Exportar APIs"
+                        >
+                            <HiOutlineArrowDownTray className="h-4 w-4" />
+                            <span className="hidden sm:inline">Exportar</span>
+                        </button>
+
+                        {/* Export Dropdown */}
+                        {showExportDropdown && (
+                            <>
+                                <div
+                                    className="fixed inset-0 z-40"
+                                    onClick={() => setShowExportDropdown(false)}
+                                />
+                                <div className="absolute right-0 mt-1 w-40 bg-popover border border-border rounded-md shadow-lg z-50 py-1">
+                                    <button
+                                        onClick={() => handleExport("json")}
+                                        className="w-full px-3 py-2 text-left text-sm hover:bg-muted transition-colors flex items-center gap-2"
+                                    >
+                                        <HiOutlineDocumentText className="h-4 w-4" />
+                                        Exportar JSON
+                                    </button>
+                                    <button
+                                        onClick={() => handleExport("csv")}
+                                        className="w-full px-3 py-2 text-left text-sm hover:bg-muted transition-colors flex items-center gap-2"
+                                    >
+                                        <HiOutlineTableCells className="h-4 w-4" />
+                                        Exportar CSV
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                )}
 
                 {/* Separator */}
                 <div className="h-5 w-px bg-border mx-1" />

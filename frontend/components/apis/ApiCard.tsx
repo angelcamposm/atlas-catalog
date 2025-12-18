@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
+import { Highlight } from "@/components/ui/highlight";
 import {
     HiCodeBracket,
     HiGlobeAlt,
@@ -34,6 +35,8 @@ export interface ApiCardProps {
     showActions?: boolean;
     /** Whether this card is currently selected */
     isSelected?: boolean;
+    /** Search query to highlight in text */
+    searchQuery?: string;
     /** On click callback - if provided, prevents default navigation */
     onClick?: (api: Api) => void;
     /** On edit callback */
@@ -210,6 +213,7 @@ export function ApiCard({
     viewMode = "grid",
     showActions = true,
     isSelected = false,
+    searchQuery = "",
     onClick,
     onEdit,
     onDelete,
@@ -231,6 +235,9 @@ export function ApiCard({
             onClick(api);
         }
     };
+
+    // Display name for highlighting
+    const displayName = api.display_name || api.name;
 
     if (viewMode === "list") {
         return (
@@ -262,7 +269,7 @@ export function ApiCard({
                             href={`/${locale}/apis/${api.id}`}
                             className="font-semibold text-foreground hover:text-primary truncate"
                         >
-                            {api.display_name || api.name}
+                            <Highlight text={displayName} query={searchQuery} />
                         </Link>
                         {api.version && (
                             <Badge variant="secondary" className="text-xs">
@@ -277,7 +284,7 @@ export function ApiCard({
                     </div>
                     {api.description && (
                         <p className="text-sm text-muted-foreground line-clamp-1 mt-0.5">
-                            {api.description}
+                            <Highlight text={api.description} query={searchQuery} />
                         </p>
                     )}
                 </div>
@@ -366,7 +373,7 @@ export function ApiCard({
                         href={`/${locale}/apis/${api.id}`}
                         className="font-semibold text-foreground hover:text-primary line-clamp-1"
                     >
-                        {api.display_name || api.name}
+                        <Highlight text={displayName} query={searchQuery} />
                     </Link>
                     {api.version && (
                         <Badge variant="secondary" className="text-xs">
@@ -408,7 +415,7 @@ export function ApiCard({
             {/* Description */}
             {api.description && (
                 <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
-                    {api.description}
+                    <Highlight text={api.description} query={searchQuery} />
                 </p>
             )}
 
