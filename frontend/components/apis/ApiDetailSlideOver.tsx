@@ -22,9 +22,11 @@ import {
     HiOutlineArrowTopRightOnSquare,
     HiOutlineClipboard,
     HiOutlineCheck,
+    HiOutlineArrowsRightLeft,
 } from "react-icons/hi2";
 import type { Api } from "@/types/api";
 import { cn } from "@/lib/utils";
+import { ApiDependenciesTab } from "./ApiDependenciesTab";
 
 // ============================================================================
 // Types
@@ -456,6 +458,11 @@ export function ApiDetailSlideOver({
             icon: <HiOutlineDocumentText className="w-4 h-4" />,
         },
         {
+            id: "dependencies",
+            label: "Dependencias",
+            icon: <HiOutlineArrowsRightLeft className="w-4 h-4" />,
+        },
+        {
             id: "metadata",
             label: "Metadatos",
             icon: <HiOutlineTableCells className="w-4 h-4" />,
@@ -541,6 +548,7 @@ export function ApiDetailSlideOver({
             <div className="mt-4">
                 {activeTab === "overview" && <OverviewTab api={api} />}
                 {activeTab === "docs" && <DocsTab api={api} />}
+                {activeTab === "dependencies" && <ApiDependenciesTab apiId={api.id} />}
                 {activeTab === "metadata" && <MetadataTab api={api} />}
             </div>
         </SlideOver>

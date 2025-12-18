@@ -51,5 +51,8 @@ export type {
 export { ApiDetailPanel } from "./ApiDetailPanel";
 export type { ApiDetailPanelProps } from "./ApiDetailPanel";
 
+// API Dependencies Tab (for SlideOver - prepared for backend integration)
+export { ApiDependenciesTab } from "./ApiDependenciesTab";
+
 // API Form Components
 export { CreateApiWizard, EditApiForm } from "./ApiForm";

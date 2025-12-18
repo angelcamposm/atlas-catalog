@@ -77,3 +77,18 @@ export {
     resourcesApi,
     resourceCategoriesApi,
 } from "./resources";
+
+// API Dependencies (Component-API relationships)
+export {
+    apiDependenciesApi,
+    getRelationshipLabel,
+    getRelationshipColor,
+    getRelationshipIcon,
+} from "./api-dependencies";
+export type {
+    ApiRelationshipType,
+    ApiDependency,
+    ApiRelation,
+    ApiDependencies,
+    DependencyComponent,
+} from "./api-dependencies";
