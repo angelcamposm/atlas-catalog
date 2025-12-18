@@ -7,7 +7,7 @@ namespace Tests\Unit\Models;
 use App\Models\Cluster;
 use App\Models\ClusterType;
 use App\Models\InfrastructureType;
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use App\Models\Node;
 use App\Models\ServiceAccount;
 use App\Models\User;
@@ -65,7 +65,7 @@ class ClusterTest extends TestCase
     public function it_belongs_to_a_lifecycle(): void
     {
         $cluster = Cluster::factory()->create();
-        $this->assertInstanceOf(Lifecycle::class, $cluster->lifecycle);
+        $this->assertInstanceOf(LifecyclePhase::class, $cluster->lifecycle);
     }
 
     #[Test]
@@ -155,7 +155,7 @@ class ClusterTest extends TestCase
             'has_licensing' => true,
             'infrastructure_type_id' => InfrastructureType::factory()->create()->id,
             'licensing_model' => 'premium',
-            'lifecycle_id' => Lifecycle::factory()->create()->id,
+            'lifecycle_id' => LifecyclePhase::factory()->create()->id,
             'tags' => 'tag1,tag2',
             'timezone' => 'UTC',
             'vendor_id' => 1,

@@ -6,7 +6,7 @@ use App\Enums\NodeRole;
 use App\Models\Cluster;
 use App\Models\ClusterType;
 use App\Models\InfrastructureType;
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use App\Models\Node;
 use App\Models\ServiceAccount;
 use App\Models\ServiceAccountToken;
@@ -112,7 +112,7 @@ class GenerateClustersFakeDataCommand extends Command
                 relationship: 'clusterType'
             )
             ->for(InfrastructureType::factory(), 'infrastructureType')
-            ->for(Lifecycle::factory(), 'lifecycle')
+            ->for(LifecyclePhase::factory(), 'lifecycle')
             ->has($service_account, 'serviceAccounts')
             ->hasAttached($worker_nodes, ['role' => NodeRole::Worker], 'nodes')
             ->hasAttached($master_nodes, ['role' => NodeRole::Master], 'nodes')

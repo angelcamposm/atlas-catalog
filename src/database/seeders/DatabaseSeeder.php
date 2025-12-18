@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             ComplianceStandardSeeder::class,
             EnvironmentSeeder::class,
             InfrastructureTypeSeeder::class,
-            LifecycleSeeder::class,
+            LifecyclePhaseSeeder::class,
             ProgrammingLanguageSeeder::class,
             GroupMemberRoleSeeder::class,
             GroupTypeSeeder::class,

@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read User|null $updater The user who last updated this language entry.
  * @property-read BusinessDomain|null $businessDomain The business domain of the component.
  * @property-read Group|null $owner The owner of the component.
- * @property-read Lifecycle|null $lifecycle The lifecycle of the component.
+ * @property-read LifecyclePhase|null $lifecycle The lifecycle of the component.
  * @property-read Platform|null $platform The platform of the component.
  * @property-read Collection<int, System> $systems
  *
@@ -130,11 +130,11 @@ class Component extends Model
     /**
      * Get the lifecycle of the component
      *
-     * @return BelongsTo<Lifecycle>
+     * @return BelongsTo<LifecyclePhase>
      */
     public function lifecycle(): BelongsTo
     {
-        return $this->belongsTo(Lifecycle::class, 'lifecycle_id', 'id');
+        return $this->belongsTo(LifecyclePhase::class, 'lifecycle_id', 'id');
     }
 
     /**

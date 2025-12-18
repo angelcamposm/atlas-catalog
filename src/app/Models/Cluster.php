@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $created_by
  * @property int $updated_by
  * @property-read InfrastructureType|null $infrastructureType
- * @property-read Lifecycle|null $lifecycle
+ * @property-read LifecyclePhase|null $lifecycle
  * @property-read Node[] $nodes
  * @property-read ServiceAccount[] $serviceAccounts
  * @property-read ServiceAccount[] $serviceAccount
@@ -116,11 +116,11 @@ class Cluster extends Model
     /**
      * Get the lifecycle of the cluster.
      *
-     * @return BelongsTo<Lifecycle>
+     * @return BelongsTo<LifecyclePhase>
      */
     public function lifecycle(): BelongsTo
     {
-        return $this->belongsTo(Lifecycle::class, 'lifecycle_id', 'id');
+        return $this->belongsTo(LifecyclePhase::class, 'lifecycle_id', 'id');
     }
 
     /**
