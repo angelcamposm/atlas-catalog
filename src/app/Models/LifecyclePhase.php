@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Attributes\UseResource;
 use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -75,11 +75,16 @@ class LifecyclePhase extends Model
     /**
      * Get the components that belong to this lifecycle.
      *
-     * @return HasMany<Component>
+     * @return BelongsToMany
      */
-    public function components(): HasMany
+    public function components(): BelongsToMany
     {
-        return $this->hasMany(Component::class, 'lifecycle_id');
+        return $this->belongsToMany(Component::class, 'component_lifecycle_phases')
+            ->as('phase_details')
+            ->withPivot([
+                'transitioned_at',
+                'notes',
+            ]);
     }
 
     /**
