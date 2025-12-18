@@ -463,6 +463,13 @@ export function AppSidebar({
                         </div>
                     </div>
                 </button>
+                {/* App Version */}
+                <div className="mt-2 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+                    <span>Atlas Catalog</span>
+                    <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px]">
+                        v{process.env.NEXT_PUBLIC_APP_VERSION || "0.0.0"}
+                    </span>
+                </div>
             </div>
         </div>
     );

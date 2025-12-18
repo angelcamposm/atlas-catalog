@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+// Import package.json to get the version
+import packageJson from "./package.json";
+
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
@@ -13,6 +16,7 @@ const nextConfig: NextConfig = {
     // Optional: Configure environment variables
     env: {
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || "/api",
+        NEXT_PUBLIC_APP_VERSION: packageJson.version,
     },
 
     // Proxy API requests to backend to avoid CORS issues in development
