@@ -7,12 +7,7 @@
  */
 
 import { apiClient } from "../api-client";
-import type {
-    Component,
-    ComponentType,
-    PaginatedResponse,
-    ResourceResponse,
-} from "@/types/api";
+import type { Component, ComponentType, PaginatedResponse } from "@/types/api";
 
 // ============================================================================
 // Types
@@ -134,10 +129,8 @@ export const componentsApi = {
     /**
      * Get a single component by ID
      */
-    async getById(
-        id: number
-    ): Promise<ResourceResponse<ComponentWithRelations>> {
-        return apiClient.get<ResourceResponse<ComponentWithRelations>>(
+    async getById(id: number): Promise<{ data: ComponentWithRelations }> {
+        return apiClient.get<{ data: ComponentWithRelations }>(
             `/v1/components/${id}`
         );
     },
@@ -145,10 +138,8 @@ export const componentsApi = {
     /**
      * Get a single component by slug
      */
-    async getBySlug(
-        slug: string
-    ): Promise<ResourceResponse<ComponentWithRelations>> {
-        return apiClient.get<ResourceResponse<ComponentWithRelations>>(
+    async getBySlug(slug: string): Promise<{ data: ComponentWithRelations }> {
+        return apiClient.get<{ data: ComponentWithRelations }>(
             `/v1/components/slug/${slug}`
         );
     },
@@ -156,13 +147,8 @@ export const componentsApi = {
     /**
      * Create a new component
      */
-    async create(
-        data: CreateComponentData
-    ): Promise<ResourceResponse<Component>> {
-        return apiClient.post<ResourceResponse<Component>>(
-            "/v1/components",
-            data
-        );
+    async create(data: CreateComponentData): Promise<{ data: Component }> {
+        return apiClient.post<{ data: Component }>("/v1/components", data);
     },
 
     /**
@@ -171,11 +157,8 @@ export const componentsApi = {
     async update(
         id: number,
         data: UpdateComponentData
-    ): Promise<ResourceResponse<Component>> {
-        return apiClient.put<ResourceResponse<Component>>(
-            `/v1/components/${id}`,
-            data
-        );
+    ): Promise<{ data: Component }> {
+        return apiClient.put<{ data: Component }>(`/v1/components/${id}`, data);
     },
 
     /**
@@ -233,8 +216,8 @@ export const componentTypesApi = {
     /**
      * Get a single component type by ID
      */
-    async getById(id: number): Promise<ResourceResponse<ComponentType>> {
-        return apiClient.get<ResourceResponse<ComponentType>>(
+    async getById(id: number): Promise<{ data: ComponentType }> {
+        return apiClient.get<{ data: ComponentType }>(
             `/v1/component-types/${id}`
         );
     },

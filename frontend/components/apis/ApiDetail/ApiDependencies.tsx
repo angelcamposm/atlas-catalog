@@ -23,6 +23,7 @@ import {
 import type {
     ApiDependencies as ApiDependenciesData,
     ApiRelation,
+    ApiRelationshipType,
 } from "@/lib/api/api-dependencies";
 
 // ============================================================================
@@ -71,7 +72,9 @@ function DependencyCard({ dependency, locale }: DependencyCardProps) {
             : HiOutlineArrowLongLeft;
 
     // Usar la información de relación específica si está disponible
-    const relationshipType = dependency.relationship;
+    const relationshipType = dependency.relationship as
+        | ApiRelationshipType
+        | undefined;
     const relationshipLabel = relationshipType
         ? getRelationshipLabel(relationshipType)
         : dependency.type === "consumer"
@@ -87,16 +90,18 @@ function DependencyCard({ dependency, locale }: DependencyCardProps) {
     const getDescription = () => {
         if (relationshipType) {
             switch (relationshipType) {
-                case "consumer":
+                case "consumes":
                     return "Este componente consume esta API";
-                case "provider":
+                case "provides":
                     return "Este componente provee esta API";
-                case "owner":
+                case "owns":
                     return "Este componente es dueño de esta API";
-                case "subscriber":
-                    return "Este componente está suscrito a esta API";
-                case "maintainer":
-                    return "Este componente mantiene esta API";
+                case "uses":
+                    return "Este componente usa esta API";
+                case "implements":
+                    return "Este componente implementa esta API";
+                case "depends_on":
+                    return "Este componente depende de esta API";
                 default:
                     return `Relación: ${relationshipType}`;
             }
