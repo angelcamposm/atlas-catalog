@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             ApiStatusSeeder::class,
             ApiTypeSeeder::class,
             AuthenticationMethodSeeder::class,
+            BusinessCapabilitySeeder::class,
             BusinessDomainSeeder::class,
             BusinessTierSeeder::class,
             CategorySeeder::class,
