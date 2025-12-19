@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\LifecyclePhase;
 use App\Traits\HasDataFile;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 final class LifecyclePhaseSeeder extends Seeder
 {
@@ -21,7 +22,7 @@ final class LifecyclePhaseSeeder extends Seeder
             LifecyclePhase::updateOrCreate(
                 ['name' => $item['name']],
                 [
-                    'description' => $item['description'],
+                    'description' => Str::limit($item['description'], 255),
                     'color' => $item['color'],
                 ],
             );
