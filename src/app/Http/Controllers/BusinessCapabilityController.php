@@ -18,9 +18,15 @@ class BusinessCapabilityController extends Controller
     use AllowedRelationships;
 
     /**
-     * Define the allowed relationships for the show method.
+     * List of allowed relationships that can be eagerly loaded for BusinessCapability resources.
      *
-     * @var array<int, string>
+     * These relationships can be included in API responses by passing them via the 'with' query parameter.
+     * Available relationships:
+     * - children: Child business capabilities in the hierarchy
+     * - creator: User who created the business capability
+     * - parent: Parent business capability in the hierarchy
+     * - systems: Systems associated with this business capability
+     * - updater: User who last updated the business capability
      */
     public const array ALLOWED_RELATIONSHIPS = [
         'children',
