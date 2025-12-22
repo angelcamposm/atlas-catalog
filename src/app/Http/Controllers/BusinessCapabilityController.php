@@ -9,10 +9,27 @@ use App\Http\Requests\UpdateBusinessCapabilityRequest;
 use App\Http\Resources\BusinessCapabilityResource;
 use App\Http\Resources\BusinessCapabilityResourceCollection;
 use App\Models\BusinessCapability;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BusinessCapabilityController extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * Define the allowed relationships for the show method.
+     *
+     * @var array<int, string>
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'children',
+        'creator',
+        'parent',
+        'systems',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +57,18 @@ class BusinessCapabilityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param BusinessCapability $businessCapability
+     * @param  Request             $request
+     * @param  BusinessCapability  $businessCapability
      *
      * @return BusinessCapabilityResource
      */
-    public function show(BusinessCapability $businessCapability): BusinessCapabilityResource
+    public function show(Request $request, BusinessCapability $businessCapability): BusinessCapabilityResource
     {
+        if ($request->has('with')) {
+            $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
+            $businessCapability->load($allowedRelationships);
+        }
+
         return new BusinessCapabilityResource($businessCapability);
     }
 
