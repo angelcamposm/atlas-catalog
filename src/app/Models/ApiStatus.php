@@ -42,7 +42,7 @@ class ApiStatus extends Model
     protected $table = 'api_statuses';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
