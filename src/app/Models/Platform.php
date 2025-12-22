@@ -66,6 +66,6 @@ class Platform extends Model
      */
     public function components(): HasMany
     {
-        return $this->hasMany(Component::class, 'platform_id');
+        return $this->hasMany(Component::class, 'platform_id', 'id');
     }
 }
