@@ -49,6 +49,8 @@ trait AllowedRelationships
             }
         }
 
+        sort($validatedRelationships, SORT_STRING);
+
         return $validatedRelationships;
     }
 
@@ -56,6 +58,7 @@ trait AllowedRelationships
      * Retrieves the ALLOWED_RELATIONSHIPS constant from the calling class.
      *
      * @return string[] The list of allowed relationships.
+     *
      * @throws LogicException If the constant is defined but is not an array.
      */
     private static function getDefinedAllowedRelationships(): array
