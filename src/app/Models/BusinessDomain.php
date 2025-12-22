@@ -12,6 +12,7 @@ use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
 use Database\Factories\BusinessDomainFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
 use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,6 +42,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @use HasFactory<BusinessDomainFactory>
  */
 #[ObservedBy(BusinessDomainObserver::class)]
+#[UseFactory(BusinessDomainFactory::class)]
 #[UseResource(BusinessDomainResource::class)]
 #[UseResourceCollection(BusinessDomainResourceCollection::class)]
 class BusinessDomain extends Model
