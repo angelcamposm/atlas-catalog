@@ -36,7 +36,6 @@ class DatabaseSeeder extends Seeder
     {
         // First-level models
         $this->call([
-            ApiAccessPolicySeeder::class,
             ApiStatusSeeder::class,
             ApiTypeSeeder::class,
             AuthenticationMethodSeeder::class,
