@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ApiAccessPolicy;
 use App\Enums\Protocol;
+use App\Http\Resources\ApiResource;
+use App\Http\Resources\ApiResourceCollection;
 use App\Observers\ApiObserver;
 use App\Traits\BelongsToUser;
 use DateTimeInterface;
 use Database\Factories\ApiFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,7 +43,6 @@ use Illuminate\Support\Carbon;
  * @property int|null $created_by
  * @property int|null $updated_by
  *
- * @property-read ApiAccessPolicy|null $accessPolicy
  * @property-read AuthenticationMethod|null $authenticationMethod
  * @property-read ApiCategory|null $category
  * @property-read ApiStatus|null $status
@@ -57,6 +62,9 @@ use Illuminate\Support\Carbon;
  * @use HasFactory<ApiFactory>
  */
 #[ObservedBy(ApiObserver::class)]
+#[UseFactory(ApiFactory::class)]
+#[UseResource(ApiResource::class)]
+#[UseResourceCollection(ApiResourceCollection::class)]
 class Api extends Model
 {
     use BelongsToUser;
@@ -75,7 +83,7 @@ class Api extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'access_policy_id',
+        'access_policy',
         'authentication_method_id',
         'category_id',
         'deprecated_at',
@@ -101,6 +109,7 @@ class Api extends Model
      * @var array
      */
     protected $casts = [
+        'access_policy' => ApiAccessPolicy::class,
         'document_specification' => 'array',
         'protocol' => Protocol::class,
         'released_at' => 'datetime',
@@ -116,16 +125,6 @@ class Api extends Model
     protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
-    }
-
-    /**
-     * Get the access policy associated with the API.
-     *
-     * @return BelongsTo<ApiAccessPolicy>
-     */
-    public function accessPolicy(): BelongsTo
-    {
-        return $this->belongsTo(ApiAccessPolicy::class, 'access_policy_id');
     }
 
     /**
