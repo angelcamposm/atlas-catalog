@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Resources\EntityResource;
+use App\Http\Resources\EntityResourceCollection;
 use App\Observers\EntityObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\EntityFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -30,6 +36,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @use HasFactory<EntityFactory>
  */
 #[ObservedBy(EntityObserver::class)]
+#[UseFactory(EntityFactory::class)]
+#[UseResource(EntityResource::class)]
+#[UseResourceCollection(EntityResourceCollection::class)]
 class Entity extends Model
 {
     use HasFactory;
