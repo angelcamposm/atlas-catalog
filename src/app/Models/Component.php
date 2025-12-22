@@ -102,7 +102,7 @@ class Component extends Model
      *
      * @return BelongsTo<BusinessDomain>
      */
-    public function businessDomain(): BelongsTo
+    public function domain(): BelongsTo
     {
         return $this->belongsTo(BusinessDomain::class, 'domain_id', 'id');
     }
