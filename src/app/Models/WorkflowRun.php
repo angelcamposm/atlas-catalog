@@ -51,7 +51,7 @@ class WorkflowRun extends Model
     protected $table = 'workflow_runs';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
