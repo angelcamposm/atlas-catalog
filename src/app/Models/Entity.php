@@ -83,4 +83,14 @@ class Entity extends Model
     {
         return $this->hasMany(EntityAttribute::class, 'entity_id');
     }
+
+    /**
+     * Get the components that belong to this entity.
+     *
+     * @return BelongsToMany<Component>
+     */
+    public function components(): BelongsToMany
+    {
+        return $this->belongsToMany(Component::class, 'component_entities', 'entity_id', 'component_id');
+    }
 }
