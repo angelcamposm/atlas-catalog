@@ -87,6 +87,6 @@ class ServiceAccount extends Model
      */
     public function tokens(): HasMany
     {
-        return $this->hasMany(ServiceAccount::class, 'service_account_id', 'id');
+        return $this->hasMany(ServiceAccountToken::class, 'service_account_id', 'id');
     }
 }
