@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Carbon;
 
 /**
@@ -87,6 +88,19 @@ class WorkflowRun extends Model
         'status' => WorkflowRunResult::class,
         'started_at' => 'datetime',
     ];
+
+    /**
+     * Get the commit information associated with this workflow run.
+     *
+     * Each workflow run may have one commit that triggered or is associated with the run,
+     * containing details such as author, commit message, SHA, and repository information.
+     *
+     * @return HasOne<WorkflowRunCommit>
+     */
+    public function commit(): HasOne
+    {
+        return $this->hasOne(WorkflowRunCommit::class, 'workflow_run_id', 'id');
+    }
 
     /**
      * Get the workflow job associated with this run.
