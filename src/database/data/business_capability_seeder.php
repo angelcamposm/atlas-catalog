@@ -126,12 +126,6 @@ return [
         'parent_name' => 'Asset Management',
     ],
     [
-        'name' => '',
-        'description' => 'Placeholder for undefined asset management capability.',
-        'strategic_value' => null,
-        'parent_name' => 'Asset Management Strategy and Planning',
-    ],
-    [
         'name' => 'Asset Demand Management',
         'description' => 'Forecasts and manages the organizational demand for asset capacity and performance.',
         'strategic_value' => null,
