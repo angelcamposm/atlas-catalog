@@ -12,6 +12,7 @@ use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
 use Database\Factories\BusinessCapabilityFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
 use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -44,6 +45,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @use HasFactory<BusinessCapabilityFactory>
  */
 #[ObservedBy(BusinessCapabilityObserver::class)]
+#[UseFactory(BusinessCapabilityFactory::class)]
 #[UseResource(BusinessCapabilityResource::class)]
 #[UseResourceCollection(BusinessCapabilityResourceCollection::class)]
 class BusinessCapability extends Model
