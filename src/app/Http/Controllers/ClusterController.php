@@ -9,18 +9,43 @@ use App\Http\Requests\UpdateClusterRequest;
 use App\Http\Resources\ClusterResource;
 use App\Http\Resources\ClusterResourceCollection;
 use App\Models\Cluster;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ClusterController extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * List of relationships that can be eagerly loaded with cluster resources.
+     *
+     * @var array<int, string>
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'creator',
+        'infrastructure_type',
+        'lifecycle',
+        'nodes',
+        'service_accounts',
+        'type',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return ClusterResourceCollection
      */
-    public function index(): ClusterResourceCollection
+    public function index(Request $request): ClusterResourceCollection
     {
-        return new ClusterResourceCollection(Cluster::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new ClusterResourceCollection(Cluster::with($relationships)->paginate());
     }
 
     /**
@@ -40,12 +65,18 @@ class ClusterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Cluster $cluster
+     * @param  Request  $request
+     * @param  Cluster  $cluster
      *
      * @return ClusterResource
      */
-    public function show(Cluster $cluster): ClusterResource
+    public function show(Request $request, Cluster $cluster): ClusterResource
     {
+        if ($request->has('with')) {
+            $requestedRelationships = $request->get('with');
+            $cluster->load(self::filterAllowedRelationships($requestedRelationships));
+        }
+
         return new ClusterResource($cluster);
     }
 
