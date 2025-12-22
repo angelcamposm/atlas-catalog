@@ -44,7 +44,7 @@ class ProgrammingLanguage extends Model
     protected $table = 'programming_languages';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
