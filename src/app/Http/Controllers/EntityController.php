@@ -9,10 +9,33 @@ use App\Http\Requests\UpdateEntityRequest;
 use App\Http\Resources\EntityResource;
 use App\Http\Resources\EntityResourceCollection;
 use App\Models\Entity;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class EntityController extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * The relationships that are allowed to be eagerly loaded for the Entity model.
+     *
+     * These relationships can be included in API responses by passing them via the 'with' query parameter.
+     * Available relationships:
+     * - attributes: Entity attributes
+     * - components: Software components associated with this entity
+     * - creator: User who created the business capability
+     * - updater: User who last updated the business capability
+ *
+     * @var array<int, string>
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'attributes',
+        'components',
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +63,18 @@ class EntityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Entity $entity
+     * @param  Request  $request
+     * @param  Entity   $entity
      *
      * @return EntityResource
      */
-    public function show(Entity $entity): EntityResource
+    public function show(Request $request, Entity $entity): EntityResource
     {
+        if ($request->has('with')) {
+            $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
+            $entity->load($allowedRelationships);
+        }
+
         return new EntityResource($entity);
     }
 
