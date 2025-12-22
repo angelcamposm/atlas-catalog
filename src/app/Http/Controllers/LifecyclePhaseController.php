@@ -9,10 +9,19 @@ use App\Http\Requests\UpdateLifecyclePhaseRequest;
 use App\Http\Resources\LifecyclePhaseResource;
 use App\Http\Resources\LifecyclePhaseResourceCollection;
 use App\Models\LifecyclePhase;
+use App\Traits\AllowedRelationships;
 use Illuminate\Http\Response;
 
 class LifecyclePhaseController extends Controller
 {
+    use AllowedRelationships;
+
+    public const array ALLOWED_RELATIONSHIPS = [
+        'components',
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
