@@ -37,7 +37,7 @@ class ComplianceStandard extends Model
     protected $table = 'compliance_standards';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
