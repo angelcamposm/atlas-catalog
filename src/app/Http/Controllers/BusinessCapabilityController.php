@@ -39,11 +39,17 @@ class BusinessCapabilityController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return BusinessCapabilityResourceCollection
      */
-    public function index(): BusinessCapabilityResourceCollection
+    public function index(Request $request): BusinessCapabilityResourceCollection
     {
-        return new BusinessCapabilityResourceCollection(BusinessCapability::paginate());
+        $requestedRelationships = $request->has('with')
+                ? self::filterAllowedRelationships($request->get('with'))
+                : [];
+
+        return new BusinessCapabilityResourceCollection(BusinessCapability::with($requestedRelationships)->paginate());
     }
 
     /**
