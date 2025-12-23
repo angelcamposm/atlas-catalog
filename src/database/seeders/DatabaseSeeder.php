@@ -45,11 +45,13 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ComplianceStandardSeeder::class,
             EnvironmentSeeder::class,
-            InfrastructureTypeSeeder::class,
-            LifecyclePhaseSeeder::class,
-            ProgrammingLanguageSeeder::class,
             GroupMemberRoleSeeder::class,
             GroupTypeSeeder::class,
+            InfrastructureTypeSeeder::class,
+            LifecyclePhaseSeeder::class,
+            PlatformSeeder::class,
+            ProgrammingLanguageSeeder::class,
+            ServiceStatusSeeder::class,
             VendorSeeder::class,
         ]);
 
