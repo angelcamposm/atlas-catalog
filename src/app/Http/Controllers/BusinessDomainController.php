@@ -40,11 +40,17 @@ class BusinessDomainController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return BusinessDomainResourceCollection
      */
-    public function index(): BusinessDomainResourceCollection
+    public function index(Request $request): BusinessDomainResourceCollection
     {
-        return new BusinessDomainResourceCollection(BusinessDomain::paginate());
+        $requestedRelationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new BusinessDomainResourceCollection(BusinessDomain::with($requestedRelationships)->paginate());
     }
 
     /**
