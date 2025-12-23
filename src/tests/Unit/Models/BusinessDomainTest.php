@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
+use App\Enums\BusinessDomainCategory;
 use App\Models\BusinessDomain;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -100,7 +101,7 @@ class BusinessDomainTest extends TestCase
             'name' => 'Test Domain',
             'display_name' => 'Test Domain',
             'description' => 'This is a test domain.',
-            'category' => 'Test Category',
+            'category' => BusinessDomainCategory::Core->value,
             'is_active' => true,
             'parent_id' => BusinessDomain::factory()->create()->id,
             'created_by' => User::factory()->create()->id,
