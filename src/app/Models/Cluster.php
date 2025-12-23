@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Resources\ClusterResource;
+use App\Http\Resources\ClusterResourceCollection;
 use App\Observers\ClusterObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\ClusterFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,6 +53,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @use HasFactory<ClusterFactory>
  */
 #[ObservedBy(ClusterObserver::class)]
+#[UseFactory(ClusterFactory::class)]
+#[UseResource(ClusterResource::class)]
+#[UseResourceCollection(ClusterResourceCollection::class)]
 class Cluster extends Model
 {
     use BelongsToUser;
@@ -145,7 +153,7 @@ class Cluster extends Model
      *
      * @return BelongsToMany<ServiceAccount>
      */
-    public function serviceAccounts(): BelongsToMany
+    public function service_accounts(): BelongsToMany
     {
         return $this->belongsToMany(
             related: ServiceAccount::class,
@@ -162,7 +170,7 @@ class Cluster extends Model
      *
      * @return BelongsTo<ClusterType>
      */
-    public function clusterType(): BelongsTo
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ClusterType::class, 'type_id', 'id');
     }
