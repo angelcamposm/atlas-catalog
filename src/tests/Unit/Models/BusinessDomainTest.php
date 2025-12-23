@@ -101,7 +101,7 @@ class BusinessDomainTest extends TestCase
             'name' => 'Test Domain',
             'display_name' => 'Test Domain',
             'description' => 'This is a test domain.',
-            'category' => BusinessDomainCategory::Core->value,
+            'category' => fake()->randomElement(BusinessDomainCategory::cases())->value,
             'is_active' => true,
             'parent_id' => BusinessDomain::factory()->create()->id,
             'created_by' => User::factory()->create()->id,
