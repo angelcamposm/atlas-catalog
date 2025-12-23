@@ -1,12 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Traits\AllowedRelationships;
 use Illuminate\Http\Request;
 
 class {{ class }} extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * List of allowed relationships that can be eagerly loaded for {{ class }} resources.
+     *
+     * These relationships can be included in API responses by passing them via the 'with' query parameter.
+     * Available relationships:
+     * - creator: User who created the {{ class }}
+     * - updater: User who last updated the {{ class }}
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      */
