@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum InfrastructureType: string
+/**
+ * Enum representing various deployment models for IT infrastructure.
+ */
+enum DeploymentModel: string
 {
     case OnPremise = 'on-premise';
     case PublicCloud = 'public-cloud';
