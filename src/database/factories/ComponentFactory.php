@@ -44,8 +44,6 @@ class ComponentFactory extends Factory
             'slug' => Str::slug($name),
             'tags' => json_encode($this->faker->words(3)),
 //            'tier_id' => BusinessTier::factory(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 
