@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\WorkflowRunResult;
 use App\Observers\WorkflowRunObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\WorkflowRunFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,8 @@ use Illuminate\Support\Carbon;
  * @property-read User|null $creator The user who created this language entry.
  * @property-read User|null $updater The user who last updated this language entry.
  * @property-read WorkflowJob $workflowJob The workflow job associated with this run.
+ *
+ * @use HasFactory<WorkflowRunFactory>
  */
 #[ObservedBy(WorkflowRunObserver::class)]
 class WorkflowRun extends Model
