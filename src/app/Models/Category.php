@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Observers\CategoryObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
+use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static pluck(string $string)
  * @method static select(mixed $columns)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<CategoryFactory>
  */
 #[ObservedBy(CategoryObserver::class)]
 class Category extends Model
