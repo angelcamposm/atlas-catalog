@@ -13,6 +13,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class LinkFactory extends Factory
 {
     /**
+     * The name of the factory's corresponding model.
+     *
+     * @var class-string<Link>
+     */
+    protected $model = Link::class;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>

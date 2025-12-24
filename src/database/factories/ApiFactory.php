@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\ApiAccessPolicy;
 use App\Enums\Protocol;
 use App\Models\Api;
-use App\Models\ApiAccessPolicy;
 use App\Models\ApiCategory;
 use App\Models\ApiStatus;
 use App\Models\ApiType;
@@ -38,9 +38,9 @@ class ApiFactory extends Factory
 
         return [
             'name' => Str::slug($name),
-//            'access_policy_id' => ApiAccessPolicy::factory(),
-//            'authentication_method_id' => AuthenticationMethod::factory(),
-//            'category_id' => ApiCategory::factory(),
+            'access_policy' => $this->faker->randomElement(ApiAccessPolicy::cases()),
+            'authentication_method_id' => AuthenticationMethod::factory(),
+            'category_id' => ApiCategory::factory(),
             'deprecated_at' => $this->faker->date(),
             'deprecated_by' => User::factory(),
             'deprecation_reason' => $this->faker->sentence(),
@@ -49,8 +49,8 @@ class ApiFactory extends Factory
             'document_specification' => $this->faker->text(),
             'protocol' => $this->faker->randomElement(Protocol::cases()),
             'released_at' => $this->faker->date(),
-//            'status_id' => ApiStatus::factory(),
-//            'type_id' => ApiType::factory(),
+            'status_id' => ApiStatus::factory(),
+            'type_id' => ApiType::factory(),
             'url' => $this->faker->url(),
             'version' => $this->faker->semver(),
         ];
