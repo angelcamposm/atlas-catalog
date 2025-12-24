@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Observers\WorkflowRunCommitObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\WorkflowRunCommitFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $name
  * @property int $created_by
  * @property int $updated_by
+ *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
  * @method static inRandomOrder()
@@ -24,11 +27,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property-read User|null $creator The user who created this language entry.
  * @property-read User|null $updater The user who last updated this language entry.
+ *
+ * @use HasFactory<WorkflowRunCommitFactory>
  */
 #[ObservedBy(WorkflowRunCommitObserver::class)]
 class WorkflowRunCommit extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.

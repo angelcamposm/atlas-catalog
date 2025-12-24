@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\WorkflowRun;
 use App\Models\WorkflowRunCommit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
