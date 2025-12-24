@@ -8,6 +8,7 @@ use App\Observers\ProgrammingLanguageObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasIcon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
@@ -29,12 +30,15 @@ use Illuminate\Support\Collection;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ProgrammingLanguageFactory>
  */
 #[ObservedBy(ProgrammingLanguageObserver::class)]
 class ProgrammingLanguage extends Model
 {
     use BelongsToUser;
     use HasIcon;
+    use HasFactory;
 
     /**
      * The table associated with the model.
