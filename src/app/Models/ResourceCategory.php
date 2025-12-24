@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Observers\ResourceCategoryObserver;
+use Database\Factories\ResourceCategoryFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -29,10 +31,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ResourceCategoryFactory>
  */
 #[ObservedBy(ResourceCategoryObserver::class)]
 class ResourceCategory extends Category
 {
+    use HasFactory;
+
     /**
      * Bootstrap the model and its traits.
      */
