@@ -36,7 +36,9 @@ class StrictTypeTest extends TestCase
         $files = [];
 
         $paths = [
-            'app'.DIRECTORY_SEPARATOR.'controllers',
+            'app'.DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'Controllers',
+            'app'.DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'Requests',
+            'app'.DIRECTORY_SEPARATOR.'Http'.DIRECTORY_SEPARATOR.'Resources',
             'app'.DIRECTORY_SEPARATOR.'Enums',
             'app'.DIRECTORY_SEPARATOR.'Helpers',
             'app'.DIRECTORY_SEPARATOR.'Models',

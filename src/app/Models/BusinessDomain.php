@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\BusinessDomainCategory;
+use App\Http\Resources\BusinessDomainResource;
+use App\Http\Resources\BusinessDomainResourceCollection;
 use App\Observers\BusinessDomainObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasRelatives;
 use Database\Factories\BusinessDomainFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
- * @property string $category
+ * @property BusinessDomainCategory $category
  * @property string|null $description
  * @property string $display_name
  * @property bool $is_active
@@ -36,6 +42,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @use HasFactory<BusinessDomainFactory>
  */
 #[ObservedBy(BusinessDomainObserver::class)]
+#[UseFactory(BusinessDomainFactory::class)]
+#[UseResource(BusinessDomainResource::class)]
+#[UseResourceCollection(BusinessDomainResourceCollection::class)]
 class BusinessDomain extends Model
 {
     use BelongsToUser;
@@ -73,6 +82,18 @@ class BusinessDomain extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'category' => BusinessDomainCategory::class,
+        ];
+    }
 
     /**
      * Get the components that belong to this business domain.

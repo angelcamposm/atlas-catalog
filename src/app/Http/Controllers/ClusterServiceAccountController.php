@@ -4,77 +4,32 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClusterServiceAccountRequest;
-use App\Http\Requests\UpdateClusterServiceAccountRequest;
-use App\Http\Resources\ClusterServiceAccountResource;
-use App\Http\Resources\ClusterServiceAccountResourceCollection;
-use App\Models\ClusterServiceAccount;
-use Illuminate\Http\Response;
+use App\Http\Resources\ServiceAccountResourceCollection;
+use App\Models\Cluster;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 
 class ClusterServiceAccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return ClusterServiceAccountResourceCollection
-     */
-    public function index(): ClusterServiceAccountResourceCollection
-    {
-        return new ClusterServiceAccountResourceCollection(ClusterServiceAccount::paginate());
-    }
+    use AllowedRelationships;
+
+    public const array ALLOWED_RELATIONSHIPS = [
+        'creator',
+        'tokens',
+        'updater',
+    ];
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreClusterServiceAccountRequest $request
-     *
-     * @return ClusterServiceAccountResource
+     * Handle the incoming request.
      */
-    public function store(StoreClusterServiceAccountRequest $request): ClusterServiceAccountResource
+    public function __invoke(Request $request, Cluster $cluster): ServiceAccountResourceCollection
     {
-        $model = ClusterServiceAccount::create($request->validated());
+        $requestedRelationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
 
-        return new ClusterServiceAccountResource($model);
-    }
+        $service_accounts = $cluster->service_accounts()->with($requestedRelationships)->paginate();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param ClusterServiceAccount $clusterServiceAccount
-     *
-     * @return ClusterServiceAccountResource
-     */
-    public function show(ClusterServiceAccount $clusterServiceAccount): ClusterServiceAccountResource
-    {
-        return new ClusterServiceAccountResource($clusterServiceAccount);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateClusterServiceAccountRequest $request
-     * @param ClusterServiceAccount $clusterServiceAccount
-     *
-     * @return ClusterServiceAccountResource
-     */
-    public function update(UpdateClusterServiceAccountRequest $request, ClusterServiceAccount $clusterServiceAccount): ClusterServiceAccountResource
-    {
-        $model = $clusterServiceAccount->update($request->validated());
-
-        return new ClusterServiceAccountResource($model);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param ClusterServiceAccount $clusterServiceAccount
-     *
-     * @return Response
-     */
-    public function destroy(ClusterServiceAccount $clusterServiceAccount): Response
-    {
-        $clusterServiceAccount->delete();
-
-        return response()->noContent();
+        return new ServiceAccountResourceCollection($service_accounts);
     }
 }

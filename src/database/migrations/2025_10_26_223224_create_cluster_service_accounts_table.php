@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cluster_service_account', function (Blueprint $table) {
+        Schema::create('cluster_service_accounts', function (Blueprint $table) {
             $table->foreignId('cluster_id')->constrained('clusters', 'id')->cascadeOnDelete();
             $table->foreignId('service_account_id')->constrained('service_accounts', 'id')->cascadeOnDelete();
-            $table->timestamp('created_at')->nullable();
-            $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
-            $table->timestamp('updated_at')->nullable();
-            $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cluster_service_account');
+        Schema::dropIfExists('cluster_service_accounts');
     }
 };

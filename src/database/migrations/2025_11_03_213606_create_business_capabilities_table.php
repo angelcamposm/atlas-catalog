@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('business_capabilities', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
+            $table->string('name', 100)->unique();
             $table->string('description', 255)->nullable();
             $table->tinyInteger('strategic_value')->nullable()->comment('How critical is this to the business?');
             $table->foreignId('parent_id')->nullable()->references('id')->on('business_capabilities')->nullOnDelete();

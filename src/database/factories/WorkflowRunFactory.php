@@ -39,8 +39,6 @@ class WorkflowRunFactory extends Factory
             'url' => $this->faker->url(),
             'started_at' => $this->faker->dateTimeBetween('-1 hour', 'now'),
             'started_by' => User::factory(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 

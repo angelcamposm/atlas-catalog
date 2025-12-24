@@ -9,18 +9,40 @@ use {{ namespacedRequests }}
 use App\Http\Resources\{{ model }}Resource;
 use App\Http\Resources\{{ model }}ResourceCollection;
 use {{ namespacedModel }};
+use App\Traits\AllowedRelationships;
 use Illuminate\Http\Response;
 
 class {{ class }} extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * List of allowed relationships that can be eagerly loaded for {{ class }} resources.
+     *
+     * These relationships can be included in API responses by passing them via the 'with' query parameter.
+     * Available relationships:
+     * - creator: User who created the {{ class }}
+     * - updater: User who last updated the {{ class }}
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return {{ model }}ResourceCollection
      */
-    public function index(): {{ model }}ResourceCollection
+    public function index(Request $request): {{ model }}ResourceCollection
     {
-        return new {{ model }}ResourceCollection({{ model }}::paginate());
+        $requestedRelationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new {{ model }}ResourceCollection({{ model }}::with($requestedRelationships)->paginate());
     }
 
     /**
@@ -40,12 +62,18 @@ class {{ class }} extends Controller
     /**
      * Display the specified resource.
      *
-     * @param {{ model }} ${{ modelVariable }}
+     * @param  Request  $request
+     * @param  {{ model }}  ${{ modelVariable }}
      *
      * @return {{ model }}Resource
      */
-    public function show({{ model }} ${{ modelVariable }}): {{ model }}Resource
+    public function show(Request $request, {{ model }} ${{ modelVariable }}): {{ model }}Resource
     {
+        if ($request->has('with')) {
+            $requestedRelationships = self::filterAllowedRelationships($request->get('with'));
+            ${{ modelVariable }}->load($allowedRelationships);
+        }
+
         return new {{ model }}Resource(${{ modelVariable }});
     }
 

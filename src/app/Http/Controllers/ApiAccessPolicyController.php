@@ -4,77 +4,62 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreApiAccessPolicyRequest;
-use App\Http\Requests\UpdateApiAccessPolicyRequest;
-use App\Http\Resources\ApiAccessPolicyResource;
-use App\Http\Resources\ApiAccessPolicyResourceCollection;
-use App\Models\ApiAccessPolicy;
-use Illuminate\Http\Response;
+use App\Enums\ApiAccessPolicy;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApiAccessPolicyController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return ApiAccessPolicyResourceCollection
      */
-    public function index(): ApiAccessPolicyResourceCollection
+    public function index(): JsonResponse
     {
-        return new ApiAccessPolicyResourceCollection(ApiAccessPolicy::paginate());
-    }
+        $items = [];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreApiAccessPolicyRequest $request
-     *
-     * @return ApiAccessPolicyResource
-     */
-    public function store(StoreApiAccessPolicyRequest $request): ApiAccessPolicyResource
-    {
-        $model = ApiAccessPolicy::create($request->validated());
+        foreach (ApiAccessPolicy::cases() as $apiAccessPolicy) {
+            $items[] = [
+                'id' => $apiAccessPolicy->value,
+                'name' => $apiAccessPolicy->name,
+                'display_name' => $apiAccessPolicy->displayName(),
+                'description' => $apiAccessPolicy->description(),
+            ];
+        }
 
-        return new ApiAccessPolicyResource($model);
+        return response()->json([
+            'data' => $items,
+            'kind' => 'Enum'
+        ], Response::HTTP_OK);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param ApiAccessPolicy $access_policy
+     * @param  Request  $request
+     * @param  int      $id
      *
-     * @return ApiAccessPolicyResource
+     * @return JsonResource|JsonResponse
      */
-    public function show(ApiAccessPolicy $access_policy): ApiAccessPolicyResource
+    public function show(Request $request, int $id): JsonResource|JsonResponse
     {
-        return new ApiAccessPolicyResource($access_policy);
-    }
+        $apiAccessPolicy = ApiAccessPolicy::tryFrom($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateApiAccessPolicyRequest $request
-     * @param ApiAccessPolicy $access_policy
-     *
-     * @return ApiAccessPolicyResource
-     */
-    public function update(UpdateApiAccessPolicyRequest $request, ApiAccessPolicy $access_policy): ApiAccessPolicyResource
-    {
-        $model = $access_policy->update($request->validated());
+        if (!$apiAccessPolicy) {
+            return response()->json([
+                'error' => 'ApiAccessPolicy not found',
+            ], Response::HTTP_NOT_FOUND);
+        }
 
-        return new ApiAccessPolicyResource($model);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param ApiAccessPolicy $access_policy
-     *
-     * @return Response
-     */
-    public function destroy(ApiAccessPolicy $access_policy): Response
-    {
-        $access_policy->delete();
-
-        return response()->noContent();
+        return response()->json([
+            'data' => [
+                'id' => $apiAccessPolicy->value,
+                'name' => $apiAccessPolicy->name,
+                'display_name' => $apiAccessPolicy->displayName(),
+                'description' => $apiAccessPolicy->description(),
+            ],
+            'kind' => 'Enum',
+        ], Response::HTTP_OK);
     }
 }

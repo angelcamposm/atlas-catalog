@@ -38,7 +38,7 @@ class Platform extends Model
     protected $table = 'platforms';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
@@ -66,6 +66,6 @@ class Platform extends Model
      */
     public function components(): HasMany
     {
-        return $this->hasMany(Component::class, 'platform_id');
+        return $this->hasMany(Component::class, 'platform_id', 'id');
     }
 }

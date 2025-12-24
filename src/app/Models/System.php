@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Resources\SystemResource;
+use App\Http\Resources\SystemResourceCollection;
 use App\Observers\SystemObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\SystemFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,6 +43,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @use HasFactory<SystemFactory>
  */
 #[ObservedBy(SystemObserver::class)]
+#[UseResource(SystemResource::class)]
+#[UseResourceCollection(SystemResourceCollection::class)]
 class System extends Model
 {
     use HasFactory;

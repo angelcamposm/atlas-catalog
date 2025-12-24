@@ -34,8 +34,6 @@ class BusinessTierFactory extends Factory
             'name' => "{$tierName} Tier ".$this->faker->randomNumber(),
             'code' => $this->faker->unique()->regexify('[A-Z]{1}[0-9]{1}'),
             'description' => Str::substr($this->faker->sentence(), 0, 250),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }

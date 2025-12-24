@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @property int $id
  * @property string $name
- * @property int $type_id
+ * @property int $category_id
  * @property int $created_by
  * @property int $updated_by
  *
@@ -65,10 +65,10 @@ class Resource extends Model
     /**
      * Get the resource type.
      *
-     * @return BelongsTo<ResourceType>
+     * @return BelongsTo<ResourceCategory>
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(ResourceType::class, 'type_id', 'id');
+        return $this->belongsTo(ResourceCategory::class, 'category_id', 'id');
     }
 }

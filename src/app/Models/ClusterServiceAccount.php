@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Observers\ClusterServiceAccountObserver;
 use App\Traits\BelongsToUser;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
@@ -17,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property string $updated_at
  * @property int $updated_by
  */
-#[ObservedBy(ClusterServiceAccountObserver::class)]
 class ClusterServiceAccount extends Pivot
 {
     use BelongsToUser;
@@ -27,10 +24,10 @@ class ClusterServiceAccount extends Pivot
      *
      * @var string|null
      */
-    protected $table = 'cluster_service_account';
+    protected $table = 'cluster_service_accounts';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Observers\ComponentTypeObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\ComponentTypeFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,11 +23,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ComponentTypeFactory>
  */
 #[ObservedBy(ComponentTypeObserver::class)]
 class ComponentType extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -35,7 +40,7 @@ class ComponentType extends Model
     protected $table = 'component_types';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

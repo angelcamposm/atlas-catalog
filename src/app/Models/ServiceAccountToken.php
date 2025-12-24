@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -75,6 +76,29 @@ class ServiceAccountToken extends Model
     protected $hidden = [
         'token',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'masked_token'
+    ];
+
+    /**
+     * Get a masked version of the token value for display purposes.
+     *
+     * Returns the first 16 characters followed by '...' and the last 16 characters
+     * of the token to provide a partially visible token value while keeping the
+     * full token secure.
+     *
+     * @return string The masked token value.
+     */
+    public function getMaskedTokenAttribute(): string
+    {
+        return Str::limit($this->token, 18, '...').Str::limit(Str::reverse($this->token), 20, null);
+    }
 
     /**
      * Scope a query to only include expired tokens.

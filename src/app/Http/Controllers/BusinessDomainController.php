@@ -9,18 +9,48 @@ use App\Http\Requests\UpdateBusinessDomainRequest;
 use App\Http\Resources\BusinessDomainResource;
 use App\Http\Resources\BusinessDomainResourceCollection;
 use App\Models\BusinessDomain;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BusinessDomainController extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * Defines the list of relationships that can be eagerly loaded for BusinessDomain resources.
+     *
+     * Allowed relationships:
+     * - children: Child business domains in the hierarchy
+     * - components: Software components associated with this domain
+     * - creator: User who created this business domain
+     * - entities: Data entities belonging to this domain
+     * - parent: Parent business domain in the hierarchy
+     * - updater: User who last updated this business domain
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'children',
+        'components',
+        'creator',
+        'entities',
+        'parent',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return BusinessDomainResourceCollection
      */
-    public function index(): BusinessDomainResourceCollection
+    public function index(Request $request): BusinessDomainResourceCollection
     {
-        return new BusinessDomainResourceCollection(BusinessDomain::paginate());
+        $requestedRelationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new BusinessDomainResourceCollection(BusinessDomain::with($requestedRelationships)->paginate());
     }
 
     /**
@@ -40,12 +70,18 @@ class BusinessDomainController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param BusinessDomain $business_domain
+     * @param  Request         $request
+     * @param  BusinessDomain  $business_domain
      *
      * @return BusinessDomainResource
      */
-    public function show(BusinessDomain $business_domain): BusinessDomainResource
+    public function show(Request $request, BusinessDomain $business_domain): BusinessDomainResource
     {
+        if ($request->has('with')) {
+            $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
+            $business_domain->load($allowedRelationships);
+        }
+
         return new BusinessDomainResource($business_domain);
     }
 

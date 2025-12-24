@@ -7,7 +7,9 @@ namespace App\Models;
 use App\Observers\FrameworkObserver;
 use App\Traits\BelongsToUser;
 use App\Traits\HasIcon;
+use Database\Factories\FrameworkFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -30,12 +32,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<FrameworkFactory>
  */
 #[ObservedBy(FrameworkObserver::class)]
 class Framework extends Model
 {
     use BelongsToUser;
     use HasIcon;
+    use HasFactory;
 
     /**
      * The table associated with the model.
@@ -45,7 +50,7 @@ class Framework extends Model
     protected $table = 'frameworks';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

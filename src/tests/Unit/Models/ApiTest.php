@@ -6,7 +6,7 @@ namespace Tests\Unit\Models;
 
 use App\Enums\Protocol;
 use App\Models\Api;
-use App\Models\ApiAccessPolicy;
+use App\Enums\ApiAccessPolicy;
 use App\Models\ApiCategory;
 use App\Models\ApiStatus;
 use App\Models\ApiType;
@@ -27,7 +27,7 @@ class ApiTest extends TestCase
     public function it_has_one_access_policy(): void
     {
         $api = Api::factory()->create();
-        $this->assertInstanceOf(ApiAccessPolicy::class, $api->accessPolicy);
+        $this->assertInstanceOf(ApiAccessPolicy::class, $api->access_policy);
     }
 
     #[Test]
@@ -136,7 +136,7 @@ class ApiTest extends TestCase
     public function it_is_fillable(): void
     {
         $data = [
-            'access_policy_id' => ApiAccessPolicy::factory()->create()->id,
+            'access_policy' => ApiAccessPolicy::InternalApi->value,
             'authentication_method_id' => AuthenticationMethod::factory()->create()->id,
             'category_id' => ApiCategory::factory()->create()->id,
             'deprecated_at' => now()->toDateTimeString(),

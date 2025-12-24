@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Http\Resources\ClusterResource;
+use App\Http\Resources\ClusterResourceCollection;
 use App\Observers\ClusterObserver;
 use App\Traits\BelongsToUser;
 use Database\Factories\ClusterFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,7 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int $created_by
  * @property int $updated_by
  * @property-read InfrastructureType|null $infrastructureType
- * @property-read Lifecycle|null $lifecycle
+ * @property-read LifecyclePhase|null $lifecycle
  * @property-read Node[] $nodes
  * @property-read ServiceAccount[] $serviceAccounts
  * @property-read ServiceAccount[] $serviceAccount
@@ -48,6 +53,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @use HasFactory<ClusterFactory>
  */
 #[ObservedBy(ClusterObserver::class)]
+#[UseFactory(ClusterFactory::class)]
+#[UseResource(ClusterResource::class)]
+#[UseResourceCollection(ClusterResourceCollection::class)]
 class Cluster extends Model
 {
     use BelongsToUser;
@@ -116,11 +124,11 @@ class Cluster extends Model
     /**
      * Get the lifecycle of the cluster.
      *
-     * @return BelongsTo<Lifecycle>
+     * @return BelongsTo<LifecyclePhase>
      */
     public function lifecycle(): BelongsTo
     {
-        return $this->belongsTo(Lifecycle::class, 'lifecycle_id', 'id');
+        return $this->belongsTo(LifecyclePhase::class, 'lifecycle_id', 'id');
     }
 
     /**
@@ -147,8 +155,7 @@ class Cluster extends Model
      */
     public function serviceAccounts(): BelongsToMany
     {
-        return $this->belongsToMany(
-            related: ServiceAccount::class,
+        return $this->belongsToMany(ServiceAccount::class,
             table: ClusterServiceAccount::class,
             foreignPivotKey: 'cluster_id',
             relatedPivotKey: 'service_account_id',
@@ -162,7 +169,7 @@ class Cluster extends Model
      *
      * @return BelongsTo<ClusterType>
      */
-    public function clusterType(): BelongsTo
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ClusterType::class, 'type_id', 'id');
     }

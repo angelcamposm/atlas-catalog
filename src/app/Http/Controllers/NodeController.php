@@ -9,18 +9,34 @@ use App\Http\Requests\UpdateNodeRequest;
 use App\Http\Resources\NodeResource;
 use App\Http\Resources\NodeResourceCollection;
 use App\Models\Node;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class NodeController extends Controller
 {
+    use AllowedRelationships;
+
+    public const array ALLOWED_RELATIONSHIPS = [
+        'cluster',
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return NodeResourceCollection
      */
-    public function index(): NodeResourceCollection
+    public function index(Request $request): NodeResourceCollection
     {
-        return new NodeResourceCollection(Node::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new NodeResourceCollection(Node::with($relationships)->paginate());
     }
 
     /**
@@ -40,12 +56,18 @@ class NodeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Node $node
+     * @param  Request  $request
+     * @param  Node     $node
      *
      * @return NodeResource
      */
-    public function show(Node $node): NodeResource
+    public function show(Request $request, Node $node): NodeResource
     {
+        if ($request->has('with')) {
+            $requestedRelationships = $request->get('with');
+            $node->load(self::filterAllowedRelationships($requestedRelationships));
+        }
+
         return new NodeResource($node);
     }
 

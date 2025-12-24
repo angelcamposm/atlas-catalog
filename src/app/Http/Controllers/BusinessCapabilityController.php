@@ -9,18 +9,47 @@ use App\Http\Requests\UpdateBusinessCapabilityRequest;
 use App\Http\Resources\BusinessCapabilityResource;
 use App\Http\Resources\BusinessCapabilityResourceCollection;
 use App\Models\BusinessCapability;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class BusinessCapabilityController extends Controller
 {
+    use AllowedRelationships;
+
+    /**
+     * List of allowed relationships that can be eagerly loaded for BusinessCapability resources.
+     *
+     * These relationships can be included in API responses by passing them via the 'with' query parameter.
+     * Available relationships:
+     * - children: Child business capabilities in the hierarchy
+     * - creator: User who created the business capability
+     * - parent: Parent business capability in the hierarchy
+     * - systems: Systems associated with this business capability
+     * - updater: User who last updated the business capability
+     */
+    public const array ALLOWED_RELATIONSHIPS = [
+        'children',
+        'creator',
+        'parent',
+        'systems',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return BusinessCapabilityResourceCollection
      */
-    public function index(): BusinessCapabilityResourceCollection
+    public function index(Request $request): BusinessCapabilityResourceCollection
     {
-        return new BusinessCapabilityResourceCollection(BusinessCapability::paginate());
+        $requestedRelationships = $request->has('with')
+                ? self::filterAllowedRelationships($request->get('with'))
+                : [];
+
+        return new BusinessCapabilityResourceCollection(BusinessCapability::with($requestedRelationships)->paginate());
     }
 
     /**
@@ -40,12 +69,18 @@ class BusinessCapabilityController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param BusinessCapability $businessCapability
+     * @param  Request             $request
+     * @param  BusinessCapability  $businessCapability
      *
      * @return BusinessCapabilityResource
      */
-    public function show(BusinessCapability $businessCapability): BusinessCapabilityResource
+    public function show(Request $request, BusinessCapability $businessCapability): BusinessCapabilityResource
     {
+        if ($request->has('with')) {
+            $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
+            $businessCapability->load($allowedRelationships);
+        }
+
         return new BusinessCapabilityResource($businessCapability);
     }
 

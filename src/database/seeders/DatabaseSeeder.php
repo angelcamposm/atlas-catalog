@@ -45,20 +45,22 @@ class DatabaseSeeder extends Seeder
     {
         // First-level models
         $this->call([
-            ApiAccessPolicySeeder::class,
             ApiStatusSeeder::class,
             ApiTypeSeeder::class,
             AuthenticationMethodSeeder::class,
+            BusinessCapabilitySeeder::class,
             BusinessDomainSeeder::class,
             BusinessTierSeeder::class,
             CategorySeeder::class,
             ComplianceStandardSeeder::class,
             EnvironmentSeeder::class,
-            InfrastructureTypeSeeder::class,
-            LifecycleSeeder::class,
-            ProgrammingLanguageSeeder::class,
             GroupMemberRoleSeeder::class,
             GroupTypeSeeder::class,
+            InfrastructureTypeSeeder::class,
+            LifecyclePhaseSeeder::class,
+            PlatformSeeder::class,
+            ProgrammingLanguageSeeder::class,
+            ServiceStatusSeeder::class,
             VendorSeeder::class,
         ]);
 

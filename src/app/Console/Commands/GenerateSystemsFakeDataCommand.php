@@ -14,12 +14,11 @@ use App\Models\Component;
 use App\Models\Entity;
 use App\Models\EntityAttribute;
 use App\Models\Group;
-use App\Models\Lifecycle;
+use App\Models\LifecyclePhase;
 use App\Models\Platform;
 use App\Models\ServiceStatus;
 use App\Models\System;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Symfony\Component\Console\Attribute\AsCommand;
 
@@ -64,12 +63,12 @@ class GenerateSystemsFakeDataCommand extends Command
         $this->info('Creating fake data for systems domain...');
 
         System::factory()
-            ->count(1)
+            ->count($this->option('quantity'))
             ->has(Component::factory()
                 ->count(rand(1, 9))
                 ->for(BusinessDomain::factory(), 'businessDomain')
                 ->for(BusinessTier::factory(), 'tier')
-                ->for(Lifecycle::factory(), 'lifecycle')
+                ->for(LifecyclePhase::factory(), 'lifecycle')
                 ->for(Platform::factory(), 'platform')
                 ->for(ServiceStatus::factory(), 'status')
                 ->has(Entity::factory()

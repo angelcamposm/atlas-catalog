@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\WorkflowJobObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\WorkflowJobFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Component $component The component associated with this language entry.
  * @property-read User|null $creator The user who created this language entry.
  * @property-read User|null $updater The user who last updated this language entry.
+ *
+ * @use HasFactory<WorkflowJobFactory>
  */
 #[ObservedBy(WorkflowJobObserver::class)]
 class WorkflowJob extends Model
@@ -50,7 +53,7 @@ class WorkflowJob extends Model
     protected $table = 'workflow_jobs';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */

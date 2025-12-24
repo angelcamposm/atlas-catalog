@@ -27,7 +27,6 @@ use Illuminate\Support\Carbon;
  * @property int $created_by
  * @property Carbon|null $updated_at
  * @property int $updated_by
- * @property-read LinkType|null $type The type of this link.
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
@@ -52,7 +51,7 @@ class Link extends Model
     protected $table = 'links';
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass-assignable.
      *
      * @var array<int, string>
      */
