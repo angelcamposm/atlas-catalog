@@ -6,7 +6,9 @@ namespace App\Models;
 
 use App\Observers\ComplianceStandardObserver;
 use App\Traits\BelongsToUser;
+use Database\Factories\ComplianceStandardFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,11 +25,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ *
+ * @use HasFactory<ComplianceStandardFactory>
  */
 #[ObservedBy(ComplianceStandardObserver::class)]
 class ComplianceStandard extends Model
 {
     use BelongsToUser;
+    use HasFactory;
 
     /**
      * The table associated with the model.
