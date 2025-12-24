@@ -50,7 +50,9 @@ class ClusterTest extends TestCase
     #[Test]
     public function it_belongs_to_an_infrastructure_type(): void
     {
-        $cluster = Cluster::factory()->create();
+        $cluster = Cluster::factory()->create([
+            'infrastructure_type_id' => InfrastructureType::factory()->create()->id
+        ]);
         $this->assertInstanceOf(InfrastructureType::class, $cluster->infrastructureType);
     }
 
@@ -64,7 +66,9 @@ class ClusterTest extends TestCase
     #[Test]
     public function it_belongs_to_a_lifecycle(): void
     {
-        $cluster = Cluster::factory()->create();
+        $cluster = Cluster::factory()->create([
+            'lifecycle_id' => LifecyclePhase::factory()->create()->id,
+        ]);
         $this->assertInstanceOf(LifecyclePhase::class, $cluster->lifecycle);
     }
 
@@ -78,7 +82,9 @@ class ClusterTest extends TestCase
     #[Test]
     public function it_belongs_to_a_type(): void
     {
-        $cluster = Cluster::factory()->create();
+        $cluster = Cluster::factory()->create([
+            'type_id' => ClusterType::factory()->create()->id
+        ]);
         $this->assertInstanceOf(ClusterType::class, $cluster->type);
     }
 
@@ -113,20 +119,23 @@ class ClusterTest extends TestCase
     public function it_has_many_service_accounts(): void
     {
         $cluster = Cluster::factory()
-            ->has(ServiceAccount::factory()->count(2), 'serviceAccount')
+            ->has(ServiceAccount::factory()->count(2), 'serviceAccounts')
             ->create();
 
-        $this->assertInstanceOf(Collection::class, $cluster->serviceAccount);
-        $this->assertCount(2, $cluster->serviceAccount);
-        $this->assertInstanceOf(ServiceAccount::class, $cluster->serviceAccount->first());
+        // Access the relationship property, not the method, to get the Collection
+        $this->assertInstanceOf(Collection::class, $cluster->serviceAccounts);
+        $this->assertCount(2, $cluster->serviceAccounts);
+        $this->assertInstanceOf(ServiceAccount::class, $cluster->serviceAccounts->first());
     }
 
     #[Test]
     public function it_can_have_no_service_accounts(): void
     {
         $cluster = Cluster::factory()->create();
-        $this->assertInstanceOf(Collection::class, $cluster->serviceAccount);
-        $this->assertCount(0, $cluster->serviceAccount);
+
+        // Access the relationship property, not the method, to get the Collection
+        $this->assertInstanceOf(Collection::class, $cluster->serviceAccounts);
+        $this->assertCount(0, $cluster->serviceAccounts);
     }
 
     #[Test]
