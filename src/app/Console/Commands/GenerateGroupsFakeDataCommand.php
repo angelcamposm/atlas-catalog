@@ -54,18 +54,29 @@ class GenerateGroupsFakeDataCommand extends Command
 
         $quantity = (int) $this->option('quantity');
 
-        Group::factory()
-            ->count($quantity)
-            ->for(GroupType::factory(), 'type')
-            ->hasAttached(User::factory()
-                ->count(rand(1, 10)),
-                [
-                    'is_active' => true,
-                    'role_id' => GroupMemberRole::factory()->create()->id,
-                ],
-                'members'
-            )
-            ->create();
+        $progressBar = $this->output->createProgressBar($quantity);
+
+        $progressBar->start();
+
+        for ($i = 0; $i < $quantity; $i++) {
+
+            Group::factory()
+                ->count($quantity)
+                ->for(GroupType::factory(), 'type')
+                ->hasAttached(User::factory()
+                    ->count(rand(1, 10)),
+                    [
+                        'is_active' => true,
+                        'role_id' => GroupMemberRole::factory()->create()->id,
+                    ],
+                    'members'
+                )
+                ->create();
+
+            $progressBar->advance();
+        }
+
+        $this->output->newLine();
 
         return self::SUCCESS;
     }
