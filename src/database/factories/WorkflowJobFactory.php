@@ -39,8 +39,6 @@ class WorkflowJobFactory extends Factory
             'discovery_source' => $this->faker->randomElement(DiscoverySource::cases()),
             'is_enabled' => $this->faker->boolean(),
             'url' => $this->faker->url(),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 
