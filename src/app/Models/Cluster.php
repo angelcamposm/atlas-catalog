@@ -153,10 +153,9 @@ class Cluster extends Model
      *
      * @return BelongsToMany<ServiceAccount>
      */
-    public function service_accounts(): BelongsToMany
+    public function serviceAccounts(): BelongsToMany
     {
-        return $this->belongsToMany(
-            related: ServiceAccount::class,
+        return $this->belongsToMany(ServiceAccount::class,
             table: ClusterServiceAccount::class,
             foreignPivotKey: 'cluster_id',
             relatedPivotKey: 'service_account_id',
