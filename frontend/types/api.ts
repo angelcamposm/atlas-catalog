@@ -1471,6 +1471,33 @@ export interface CreateServiceModelRequest {
 
 export type UpdateServiceModelRequest = Partial<CreateServiceModelRequest>;
 
+// Business Capabilities
+export interface CreateBusinessCapabilityRequest {
+    name: string;
+    description?: string;
+    parent_id?: number;
+}
+
+export type UpdateBusinessCapabilityRequest = Partial<CreateBusinessCapabilityRequest>;
+
+// Entities
+export interface CreateEntityRequest {
+    name: string;
+    description?: string;
+    is_enabled?: boolean;
+    domain_id?: number;
+}
+
+export type UpdateEntityRequest = Partial<CreateEntityRequest>;
+
+// Systems
+export interface CreateSystemRequest {
+    name: string;
+    description?: string;
+}
+
+export type UpdateSystemRequest = Partial<CreateSystemRequest>;
+
 // Service Models (nuevo en backend)
 export const serviceModelSchema = z
     .object({

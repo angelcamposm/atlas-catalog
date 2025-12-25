@@ -96,6 +96,13 @@ export {
 // Service Models Domain
 export { serviceModelsApi } from "./service-models";
 
+// Architecture Domain
+export {
+    businessCapabilitiesApi,
+    entitiesApi,
+    systemsApi,
+} from "./architecture";
+
 // API Dependencies (Component-API relationships)
 export {
     apiDependenciesApi,
