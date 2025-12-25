@@ -35,7 +35,7 @@ export const apiCategoriesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiCategoryResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/apis/categories${apiClient.buildQuery({ page })}`
+            `/v1/catalog/apis/categories${apiClient.buildQuery({ page })}`
         );
         return paginatedApiCategoryResponseSchema.parse(response);
     },
@@ -45,7 +45,7 @@ export const apiCategoriesApi = {
      */
     getById: async (id: number): Promise<ApiCategoryResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/apis/categories/${id}`
+            `/v1/catalog/apis/categories/${id}`
         );
         return apiCategoryResponseSchema.parse(response);
     },
@@ -57,7 +57,7 @@ export const apiCategoriesApi = {
         data: CreateApiCategoryRequest
     ): Promise<ApiCategoryResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/apis/categories",
+            "/v1/catalog/apis/categories",
             data
         );
         return apiCategoryResponseSchema.parse(response);
@@ -71,7 +71,7 @@ export const apiCategoriesApi = {
         data: UpdateApiCategoryRequest
     ): Promise<ApiCategoryResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/apis/categories/${id}`,
+            `/v1/catalog/apis/categories/${id}`,
             data
         );
         return apiCategoryResponseSchema.parse(response);
@@ -80,7 +80,8 @@ export const apiCategoriesApi = {
     /**
      * Delete an API category
      */
-    delete: (id: number) => apiClient.delete(`/v1/apis/categories/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/catalog/apis/categories/${id}`),
 };
 
 // API Statuses -------------------------------------------------------------
@@ -91,7 +92,7 @@ export const apiStatusesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/apis/statuses${apiClient.buildQuery({ page })}`
+            `/v1/catalog/apis/statuses${apiClient.buildQuery({ page })}`
         );
         return paginatedApiStatusResponseSchema.parse(response);
     },
@@ -101,7 +102,7 @@ export const apiStatusesApi = {
      */
     getById: async (id: number): Promise<ApiStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/apis/statuses/${id}`
+            `/v1/catalog/apis/statuses/${id}`
         );
         return apiStatusResponseSchema.parse(response);
     },
@@ -113,7 +114,7 @@ export const apiStatusesApi = {
         data: CreateApiStatusRequest
     ): Promise<ApiStatusResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/apis/statuses",
+            "/v1/catalog/apis/statuses",
             data
         );
         return apiStatusResponseSchema.parse(response);
@@ -127,7 +128,7 @@ export const apiStatusesApi = {
         data: UpdateApiStatusRequest
     ): Promise<ApiStatusResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/apis/statuses/${id}`,
+            `/v1/catalog/apis/statuses/${id}`,
             data
         );
         return apiStatusResponseSchema.parse(response);
@@ -136,7 +137,7 @@ export const apiStatusesApi = {
     /**
      * Delete an API status
      */
-    delete: (id: number) => apiClient.delete(`/v1/apis/statuses/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/apis/statuses/${id}`),
 };
 
 // API Access Policies ------------------------------------------------------
@@ -147,7 +148,7 @@ export const apiAccessPoliciesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiAccessPolicyResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/apis/access-policies${apiClient.buildQuery({ page })}`
+            `/v1/catalog/apis/access-policies${apiClient.buildQuery({ page })}`
         );
         return paginatedApiAccessPolicyResponseSchema.parse(response);
     },
@@ -157,7 +158,7 @@ export const apiAccessPoliciesApi = {
      */
     getById: async (id: number): Promise<ApiAccessPolicyResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/apis/access-policies/${id}`
+            `/v1/catalog/apis/access-policies/${id}`
         );
         return apiAccessPolicyResponseSchema.parse(response);
     },
@@ -169,7 +170,7 @@ export const apiAccessPoliciesApi = {
         data: CreateApiAccessPolicyRequest
     ): Promise<ApiAccessPolicyResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/apis/access-policies",
+            "/v1/catalog/apis/access-policies",
             data
         );
         return apiAccessPolicyResponseSchema.parse(response);
@@ -183,7 +184,7 @@ export const apiAccessPoliciesApi = {
         data: UpdateApiAccessPolicyRequest
     ): Promise<ApiAccessPolicyResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/apis/access-policies/${id}`,
+            `/v1/catalog/apis/access-policies/${id}`,
             data
         );
         return apiAccessPolicyResponseSchema.parse(response);
@@ -192,7 +193,8 @@ export const apiAccessPoliciesApi = {
     /**
      * Delete an API access policy
      */
-    delete: (id: number) => apiClient.delete(`/v1/apis/access-policies/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/catalog/apis/access-policies/${id}`),
 };
 
 // Consolidated Extended API ------------------------------------------------

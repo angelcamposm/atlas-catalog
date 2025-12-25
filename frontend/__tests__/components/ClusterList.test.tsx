@@ -14,6 +14,18 @@ jest.mock("@/lib/api", () => ({
         getAll: jest.fn(),
         delete: jest.fn(),
     },
+    clusterTypesApi: {
+        getAll: jest.fn(),
+    },
+    vendorsApi: {
+        getAll: jest.fn(),
+    },
+    lifecyclesApi: {
+        getAll: jest.fn(),
+    },
+    infrastructureTypesApi: {
+        getAll: jest.fn(),
+    },
 }));
 
 const mockedClustersApi = clustersApi as jest.Mocked<typeof clustersApi>;
@@ -70,6 +82,20 @@ const createPaginatedResponse = (
 describe("ClusterList Component", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+
+        // Setup default mock responses for reference data APIs
+        (
+            require("@/lib/api").clusterTypesApi.getAll as jest.Mock
+        ).mockResolvedValue({ data: [] });
+        (
+            require("@/lib/api").infrastructureTypesApi.getAll as jest.Mock
+        ).mockResolvedValue({ data: [] });
+        (require("@/lib/api").vendorsApi.getAll as jest.Mock).mockResolvedValue(
+            { data: [] }
+        );
+        (
+            require("@/lib/api").lifecyclesApi.getAll as jest.Mock
+        ).mockResolvedValue({ data: [] });
     });
 
     describe("Loading State", () => {

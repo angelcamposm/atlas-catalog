@@ -49,7 +49,6 @@ export {
     clusterServiceAccountsApi,
 } from "./infrastructure";
 
-// Infrastructure Types
 export { infrastructureTypesApi } from "./infrastructure-types";
 
 // Platform Domain

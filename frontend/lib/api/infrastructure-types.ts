@@ -22,7 +22,7 @@ export const infrastructureTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedInfrastructureTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/infrastructure-types${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/types${apiClient.buildQuery({ page })}`
         );
         return paginatedInfrastructureTypeResponseSchema.parse(response);
     },
@@ -32,7 +32,7 @@ export const infrastructureTypesApi = {
      */
     getById: async (id: number): Promise<InfrastructureTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/infrastructure-types/${id}`
+            `/v1/infrastructure/types/${id}`
         );
         return infrastructureTypeResponseSchema.parse(response);
     },
@@ -44,7 +44,7 @@ export const infrastructureTypesApi = {
         data: CreateInfrastructureTypeRequest
     ): Promise<InfrastructureTypeResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/infrastructure-types",
+            "/v1/infrastructure/types",
             data
         );
         return infrastructureTypeResponseSchema.parse(response);
@@ -58,7 +58,7 @@ export const infrastructureTypesApi = {
         data: UpdateInfrastructureTypeRequest
     ): Promise<InfrastructureTypeResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/infrastructure-types/${id}`,
+            `/v1/infrastructure/types/${id}`,
             data
         );
         return infrastructureTypeResponseSchema.parse(response);
@@ -67,5 +67,5 @@ export const infrastructureTypesApi = {
     /**
      * Delete an infrastructure type
      */
-    delete: (id: number) => apiClient.delete(`/v1/infrastructure-types/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/infrastructure/types/${id}`),
 };

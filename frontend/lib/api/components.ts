@@ -120,8 +120,8 @@ export const componentsApi = {
 
         const queryString = searchParams.toString();
         const url = queryString
-            ? `/v1/components?${queryString}`
-            : "/v1/components";
+            ? `/v1/catalog/components?${queryString}`
+            : "/v1/catalog/components";
 
         return apiClient.get<PaginatedResponse<Component>>(url);
     },
@@ -131,7 +131,7 @@ export const componentsApi = {
      */
     async getById(id: number): Promise<{ data: ComponentWithRelations }> {
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/components/${id}`
+            `/v1/catalog/components/${id}`
         );
     },
 
@@ -140,7 +140,7 @@ export const componentsApi = {
      */
     async getBySlug(slug: string): Promise<{ data: ComponentWithRelations }> {
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/components/slug/${slug}`
+            `/v1/catalog/components/slug/${slug}`
         );
     },
 
@@ -148,7 +148,10 @@ export const componentsApi = {
      * Create a new component
      */
     async create(data: CreateComponentData): Promise<{ data: Component }> {
-        return apiClient.post<{ data: Component }>("/v1/components", data);
+        return apiClient.post<{ data: Component }>(
+            "/v1/catalog/components",
+            data
+        );
     },
 
     /**
@@ -158,14 +161,17 @@ export const componentsApi = {
         id: number,
         data: UpdateComponentData
     ): Promise<{ data: Component }> {
-        return apiClient.put<{ data: Component }>(`/v1/components/${id}`, data);
+        return apiClient.put<{ data: Component }>(
+            `/v1/catalog/components/${id}`,
+            data
+        );
     },
 
     /**
      * Delete a component
      */
     async delete(id: number): Promise<void> {
-        return apiClient.delete(`/v1/components/${id}`);
+        return apiClient.delete(`/v1/catalog/components/${id}`);
     },
 
     /**
@@ -174,7 +180,7 @@ export const componentsApi = {
     async getApis(
         componentId: number
     ): Promise<{ data: { id: number; name: string; relationship: string }[] }> {
-        return apiClient.get(`/v1/components/${componentId}/apis`);
+        return apiClient.get(`/v1/catalog/components/${componentId}/apis`);
     },
 
     /**
@@ -185,7 +191,7 @@ export const componentsApi = {
         apiId: number,
         relationship: string = "uses"
     ): Promise<void> {
-        return apiClient.post(`/v1/components/${componentId}/apis`, {
+        return apiClient.post(`/v1/catalog/components/${componentId}/apis`, {
             api_id: apiId,
             relationship,
         });
@@ -195,7 +201,9 @@ export const componentsApi = {
      * Remove an API association from a component
      */
     async removeApi(componentId: number, apiId: number): Promise<void> {
-        return apiClient.delete(`/v1/components/${componentId}/apis/${apiId}`);
+        return apiClient.delete(
+            `/v1/catalog/components/${componentId}/apis/${apiId}`
+        );
     },
 };
 
@@ -209,7 +217,7 @@ export const componentTypesApi = {
      */
     async getAll(): Promise<PaginatedResponse<ComponentType>> {
         return apiClient.get<PaginatedResponse<ComponentType>>(
-            "/v1/component-types"
+            "/v1/catalog/components/types"
         );
     },
 
@@ -218,7 +226,7 @@ export const componentTypesApi = {
      */
     async getById(id: number): Promise<{ data: ComponentType }> {
         return apiClient.get<{ data: ComponentType }>(
-            `/v1/component-types/${id}`
+            `/v1/catalog/components/types/${id}`
         );
     },
 };

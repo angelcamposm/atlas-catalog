@@ -5,9 +5,9 @@ import { ExternalLink, Copy, Check, Globe, HardDrive } from "lucide-react";
 import {
     clustersApi,
     clusterTypesApi,
-    infrastructureTypesApi,
     vendorsApi,
     lifecyclesApi,
+    infrastructureTypesApi,
 } from "@/lib/api";
 import type {
     Cluster,

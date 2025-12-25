@@ -29,7 +29,7 @@ export const platformsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedPlatformResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/platforms${apiClient.buildQuery({ page })}`
+            `/v1/catalog/platforms${apiClient.buildQuery({ page })}`
         );
         return paginatedPlatformResponseSchema.parse(response);
     },
@@ -38,7 +38,9 @@ export const platformsApi = {
      * Get a single platform by ID
      */
     getById: async (id: number): Promise<PlatformResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/platforms/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/platforms/${id}`
+        );
         return platformResponseSchema.parse(response);
     },
 
@@ -46,7 +48,10 @@ export const platformsApi = {
      * Create a new platform
      */
     create: async (data: CreatePlatformRequest): Promise<PlatformResponse> => {
-        const response = await apiClient.post<unknown>("/v1/platforms", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/catalog/platforms",
+            data
+        );
         return platformResponseSchema.parse(response);
     },
 
@@ -58,7 +63,7 @@ export const platformsApi = {
         data: UpdatePlatformRequest
     ): Promise<PlatformResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/platforms/${id}`,
+            `/v1/catalog/platforms/${id}`,
             data
         );
         return platformResponseSchema.parse(response);
@@ -67,7 +72,7 @@ export const platformsApi = {
     /**
      * Delete a platform
      */
-    delete: (id: number) => apiClient.delete(`/v1/platforms/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/platforms/${id}`),
 };
 
 // Component Types ----------------------------------------------------------

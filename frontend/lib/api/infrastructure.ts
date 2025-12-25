@@ -41,7 +41,7 @@ export const clusterTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedClusterTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/clusters/types${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/clusters/types${apiClient.buildQuery({ page })}`
         );
         return paginatedClusterTypeResponseSchema.parse(response);
     },
@@ -51,7 +51,7 @@ export const clusterTypesApi = {
      */
     getById: async (id: number): Promise<ClusterTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/clusters/types/${id}`
+            `/v1/infrastructure/clusters/types/${id}`
         );
         return clusterTypeResponseSchema.parse(response);
     },
@@ -63,7 +63,7 @@ export const clusterTypesApi = {
         data: CreateClusterTypeRequest
     ): Promise<ClusterTypeResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/clusters/types",
+            "/v1/infrastructure/clusters/types",
             data
         );
         return clusterTypeResponseSchema.parse(response);
@@ -77,7 +77,7 @@ export const clusterTypesApi = {
         data: UpdateClusterTypeRequest
     ): Promise<ClusterTypeResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/clusters/types/${id}`,
+            `/v1/infrastructure/clusters/types/${id}`,
             data
         );
         return clusterTypeResponseSchema.parse(response);
@@ -86,7 +86,8 @@ export const clusterTypesApi = {
     /**
      * Delete a cluster type
      */
-    delete: (id: number) => apiClient.delete(`/v1/clusters/types/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/infrastructure/clusters/types/${id}`),
 };
 
 // Clusters -----------------------------------------------------------------
@@ -97,7 +98,7 @@ export const clustersApi = {
      */
     getAll: async (page = 1): Promise<PaginatedClusterResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/clusters${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/clusters${apiClient.buildQuery({ page })}`
         );
         return paginatedClusterResponseSchema.parse(response);
     },
@@ -106,7 +107,9 @@ export const clustersApi = {
      * Get a single cluster by ID
      */
     getById: async (id: number): Promise<ClusterResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/clusters/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/infrastructure/clusters/${id}`
+        );
         return clusterResponseSchema.parse(response);
     },
 
@@ -114,7 +117,10 @@ export const clustersApi = {
      * Create a new cluster
      */
     create: async (data: CreateClusterRequest): Promise<ClusterResponse> => {
-        const response = await apiClient.post<unknown>("/v1/clusters", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/infrastructure/clusters",
+            data
+        );
         return clusterResponseSchema.parse(response);
     },
 
@@ -126,7 +132,7 @@ export const clustersApi = {
         data: UpdateClusterRequest
     ): Promise<ClusterResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/clusters/${id}`,
+            `/v1/infrastructure/clusters/${id}`,
             data
         );
         return clusterResponseSchema.parse(response);
@@ -135,7 +141,38 @@ export const clustersApi = {
     /**
      * Delete a cluster
      */
-    delete: (id: number) => apiClient.delete(`/v1/clusters/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/infrastructure/clusters/${id}`),
+
+    /**
+     * Get nodes for a specific cluster
+     */
+    getNodes: async (
+        clusterId: number,
+        page = 1
+    ): Promise<PaginatedNodeResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/infrastructure/clusters/${clusterId}/nodes${apiClient.buildQuery(
+                { page }
+            )}`
+        );
+        return paginatedNodeResponseSchema.parse(response);
+    },
+
+    /**
+     * Get service accounts for a specific cluster
+     */
+    getServiceAccounts: async (
+        clusterId: number,
+        page = 1
+    ): Promise<PaginatedClusterServiceAccountResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/infrastructure/clusters/${clusterId}/service-accounts${apiClient.buildQuery(
+                { page }
+            )}`
+        );
+        return paginatedClusterServiceAccountResponseSchema.parse(response);
+    },
 };
 
 // Nodes --------------------------------------------------------------------
@@ -146,7 +183,7 @@ export const nodesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedNodeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/nodes${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/nodes${apiClient.buildQuery({ page })}`
         );
         return paginatedNodeResponseSchema.parse(response);
     },
@@ -155,7 +192,9 @@ export const nodesApi = {
      * Get a single node by ID
      */
     getById: async (id: number): Promise<NodeResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/nodes/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/infrastructure/nodes/${id}`
+        );
         return nodeResponseSchema.parse(response);
     },
 
@@ -163,7 +202,10 @@ export const nodesApi = {
      * Create a new node
      */
     create: async (data: CreateNodeRequest): Promise<NodeResponse> => {
-        const response = await apiClient.post<unknown>("/v1/nodes", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/infrastructure/nodes",
+            data
+        );
         return nodeResponseSchema.parse(response);
     },
 
@@ -174,19 +216,21 @@ export const nodesApi = {
         id: number,
         data: UpdateNodeRequest
     ): Promise<NodeResponse> => {
-        const response = await apiClient.put<unknown>(`/v1/nodes/${id}`, data);
+        const response = await apiClient.put<unknown>(
+            `/v1/infrastructure/nodes/${id}`,
+            data
+        );
         return nodeResponseSchema.parse(response);
     },
 
     /**
      * Delete a node
      */
-    delete: (id: number) => apiClient.delete(`/v1/nodes/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/infrastructure/nodes/${id}`),
 };
 
 // Cluster Service Accounts -------------------------------------------------
-// TODO: Backend has /v1/service-accounts but not /v1/cluster-service-accounts.
-// Cluster-Service Account relationship may need different endpoint structure.
+// TODO: Backend has /v1/security/service-accounts.
 // These calls will fail until the endpoint is implemented.
 
 export const clusterServiceAccountsApi = {
@@ -198,7 +242,7 @@ export const clusterServiceAccountsApi = {
         page = 1
     ): Promise<PaginatedClusterServiceAccountResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/cluster-service-accounts${apiClient.buildQuery({ page })}`
+            `/v1/security/service-accounts${apiClient.buildQuery({ page })}`
         );
         return paginatedClusterServiceAccountResponseSchema.parse(response);
     },
@@ -208,7 +252,7 @@ export const clusterServiceAccountsApi = {
      */
     getById: async (id: number): Promise<ClusterServiceAccountResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/cluster-service-accounts/${id}`
+            `/v1/security/service-accounts/${id}`
         );
         return clusterServiceAccountResponseSchema.parse(response);
     },
@@ -220,7 +264,7 @@ export const clusterServiceAccountsApi = {
         data: CreateClusterServiceAccountRequest
     ): Promise<ClusterServiceAccountResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/cluster-service-accounts",
+            "/v1/security/service-accounts",
             data
         );
         return clusterServiceAccountResponseSchema.parse(response);
@@ -234,7 +278,7 @@ export const clusterServiceAccountsApi = {
         data: UpdateClusterServiceAccountRequest
     ): Promise<ClusterServiceAccountResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/cluster-service-accounts/${id}`,
+            `/v1/security/service-accounts/${id}`,
             data
         );
         return clusterServiceAccountResponseSchema.parse(response);
@@ -244,7 +288,7 @@ export const clusterServiceAccountsApi = {
      * Delete a cluster service account
      */
     delete: (id: number) =>
-        apiClient.delete(`/v1/cluster-service-accounts/${id}`),
+        apiClient.delete(`/v1/security/service-accounts/${id}`),
 };
 
 // Consolidated Infrastructure API ------------------------------------------

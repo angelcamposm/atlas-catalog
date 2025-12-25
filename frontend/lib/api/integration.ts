@@ -29,7 +29,7 @@ export const linkTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedLinkTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/links/categories${apiClient.buildQuery({ page })}`
+            `/v1/catalog/links/categories${apiClient.buildQuery({ page })}`
         );
         return paginatedLinkTypeResponseSchema.parse(response);
     },
@@ -39,7 +39,7 @@ export const linkTypesApi = {
      */
     getById: async (id: number): Promise<LinkTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/links/categories/${id}`
+            `/v1/catalog/links/categories/${id}`
         );
         return linkTypeResponseSchema.parse(response);
     },
@@ -49,7 +49,7 @@ export const linkTypesApi = {
      */
     create: async (data: CreateLinkTypeRequest): Promise<LinkTypeResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/links/categories",
+            "/v1/catalog/links/categories",
             data
         );
         return linkTypeResponseSchema.parse(response);
@@ -63,7 +63,7 @@ export const linkTypesApi = {
         data: UpdateLinkTypeRequest
     ): Promise<LinkTypeResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/links/categories/${id}`,
+            `/v1/catalog/links/categories/${id}`,
             data
         );
         return linkTypeResponseSchema.parse(response);
@@ -72,7 +72,8 @@ export const linkTypesApi = {
     /**
      * Delete a link type (category)
      */
-    delete: (id: number) => apiClient.delete(`/v1/links/categories/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/catalog/links/categories/${id}`),
 };
 
 // Links --------------------------------------------------------------------
@@ -83,7 +84,7 @@ export const linksApi = {
      */
     getAll: async (page = 1): Promise<PaginatedLinkResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/links${apiClient.buildQuery({ page })}`
+            `/v1/catalog/links${apiClient.buildQuery({ page })}`
         );
         return paginatedLinkResponseSchema.parse(response);
     },
@@ -92,7 +93,9 @@ export const linksApi = {
      * Get a single link by ID
      */
     getById: async (id: number): Promise<LinkResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/links/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/links/${id}`
+        );
         return linkResponseSchema.parse(response);
     },
 
@@ -100,7 +103,10 @@ export const linksApi = {
      * Create a new link
      */
     create: async (data: CreateLinkRequest): Promise<LinkResponse> => {
-        const response = await apiClient.post<unknown>("/v1/links", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/catalog/links",
+            data
+        );
         return linkResponseSchema.parse(response);
     },
 
@@ -111,14 +117,17 @@ export const linksApi = {
         id: number,
         data: UpdateLinkRequest
     ): Promise<LinkResponse> => {
-        const response = await apiClient.put<unknown>(`/v1/links/${id}`, data);
+        const response = await apiClient.put<unknown>(
+            `/v1/catalog/links/${id}`,
+            data
+        );
         return linkResponseSchema.parse(response);
     },
 
     /**
      * Delete a link
      */
-    delete: (id: number) => apiClient.delete(`/v1/links/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/links/${id}`),
 };
 
 // Consolidated Integration API ---------------------------------------------
