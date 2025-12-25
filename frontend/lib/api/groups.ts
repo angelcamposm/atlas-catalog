@@ -44,7 +44,9 @@ export const groupsApi = {
      * Get a single group by ID
      */
     getById: async (id: number): Promise<GroupResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/organization/groups/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/organization/groups/${id}`
+        );
         return groupResponseSchema.parse(response);
     },
 
@@ -52,7 +54,10 @@ export const groupsApi = {
      * Create a new group
      */
     create: async (data: CreateGroupRequest): Promise<GroupResponse> => {
-        const response = await apiClient.post<unknown>("/v1/organization/groups", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/organization/groups",
+            data
+        );
         return groupResponseSchema.parse(response);
     },
 
@@ -63,7 +68,10 @@ export const groupsApi = {
         id: number,
         data: UpdateGroupRequest
     ): Promise<GroupResponse> => {
-        const response = await apiClient.put<unknown>(`/v1/organization/groups/${id}`, data);
+        const response = await apiClient.put<unknown>(
+            `/v1/organization/groups/${id}`,
+            data
+        );
         return groupResponseSchema.parse(response);
     },
 
@@ -104,7 +112,9 @@ export const groupTypesApi = {
      * Get a single group type by ID
      */
     getById: async (id: number): Promise<GroupTypeResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/organization/groups/types/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/organization/groups/types/${id}`
+        );
         return groupTypeResponseSchema.parse(response);
     },
 
@@ -138,7 +148,8 @@ export const groupTypesApi = {
     /**
      * Delete a group type
      */
-    delete: (id: number) => apiClient.delete(`/v1/organization/groups/types/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/organization/groups/types/${id}`),
 };
 
 // Group Member Roles -------------------------------------------------------
@@ -149,7 +160,9 @@ export const groupMemberRolesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedGroupMemberRoleResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/organization/groups/member-roles${apiClient.buildQuery({ page })}`
+            `/v1/organization/groups/member-roles${apiClient.buildQuery({
+                page,
+            })}`
         );
         return paginatedGroupMemberRoleResponseSchema.parse(response);
     },
@@ -194,7 +207,8 @@ export const groupMemberRolesApi = {
     /**
      * Delete a group member role
      */
-    delete: (id: number) => apiClient.delete(`/v1/organization/groups/member-roles/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/organization/groups/member-roles/${id}`),
 };
 
 // Consolidated Groups API --------------------------------------------------

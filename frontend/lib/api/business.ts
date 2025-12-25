@@ -80,7 +80,8 @@ export const businessDomainsApi = {
     /**
      * Delete a business domain
      */
-    delete: (id: number) => apiClient.delete(`/v1/architecture/business-domains/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/architecture/business-domains/${id}`),
 };
 
 // Business Tiers -----------------------------------------------------------
@@ -136,7 +137,8 @@ export const businessTiersApi = {
     /**
      * Delete a business tier
      */
-    delete: (id: number) => apiClient.delete(`/v1/architecture/business-tiers/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/architecture/business-tiers/${id}`),
 };
 
 // Environments -------------------------------------------------------------
@@ -156,7 +158,9 @@ export const environmentsApi = {
      * Get a single environment by ID
      */
     getById: async (id: number): Promise<EnvironmentResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/architecture/environments/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/environments/${id}`
+        );
         return environmentResponseSchema.parse(response);
     },
 
@@ -190,7 +194,8 @@ export const environmentsApi = {
     /**
      * Delete an environment
      */
-    delete: (id: number) => apiClient.delete(`/v1/architecture/environments/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/architecture/environments/${id}`),
 };
 
 // Consolidated Business API ------------------------------------------------

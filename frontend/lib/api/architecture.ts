@@ -21,7 +21,9 @@ export const businessCapabilitiesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-capabilities${apiClient.buildQuery({ page })}`
+            `/v1/architecture/business-capabilities${apiClient.buildQuery({
+                page,
+            })}`
         );
         return paginatedApiResponseSchema.parse(response);
     },
@@ -30,14 +32,18 @@ export const businessCapabilitiesApi = {
      * Get a single Business Capability by ID
      */
     getById: async (id: number): Promise<ApiResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/architecture/business-capabilities/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/business-capabilities/${id}`
+        );
         return apiResponseSchema.parse(response);
     },
 
     /**
      * Create a new Business Capability
      */
-    create: async (data: CreateBusinessCapabilityRequest): Promise<ApiResponse> => {
+    create: async (
+        data: CreateBusinessCapabilityRequest
+    ): Promise<ApiResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/business-capabilities",
             data
@@ -82,7 +88,9 @@ export const entitiesApi = {
      * Get a single Entity by ID
      */
     getById: async (id: number): Promise<ApiResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/architecture/entities/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/entities/${id}`
+        );
         return apiResponseSchema.parse(response);
     },
 
@@ -134,7 +142,9 @@ export const systemsApi = {
      * Get a single System by ID
      */
     getById: async (id: number): Promise<ApiResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/architecture/systems/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/systems/${id}`
+        );
         return apiResponseSchema.parse(response);
     },
 

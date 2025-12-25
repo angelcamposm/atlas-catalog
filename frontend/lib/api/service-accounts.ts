@@ -67,5 +67,6 @@ export const serviceAccountsApi = {
     /**
      * Delete a service account
      */
-    delete: (id: number) => apiClient.delete(`/v1/security/service-accounts/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/security/service-accounts/${id}`),
 };

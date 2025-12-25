@@ -44,7 +44,9 @@ export const vendorsApi = {
      * Get a single vendor by ID
      */
     getById: async (id: number): Promise<VendorResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/infrastructure/vendors/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/infrastructure/vendors/${id}`
+        );
         return vendorResponseSchema.parse(response);
     },
 
@@ -52,7 +54,10 @@ export const vendorsApi = {
      * Create a new vendor
      */
     create: async (data: CreateVendorRequest): Promise<VendorResponse> => {
-        const response = await apiClient.post<unknown>("/v1/infrastructure/vendors", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/infrastructure/vendors",
+            data
+        );
         return vendorResponseSchema.parse(response);
     },
 
@@ -73,7 +78,8 @@ export const vendorsApi = {
     /**
      * Delete a vendor
      */
-    delete: (id: number) => apiClient.delete(`/v1/infrastructure/vendors/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/infrastructure/vendors/${id}`),
 };
 
 // Frameworks ---------------------------------------------------------------
@@ -93,7 +99,9 @@ export const frameworksApi = {
      * Get a single framework by ID
      */
     getById: async (id: number): Promise<FrameworkResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/catalog/frameworks/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/frameworks/${id}`
+        );
         return frameworkResponseSchema.parse(response);
     },
 
@@ -103,7 +111,10 @@ export const frameworksApi = {
     create: async (
         data: CreateFrameworkRequest
     ): Promise<FrameworkResponse> => {
-        const response = await apiClient.post<unknown>("/v1/catalog/frameworks", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/catalog/frameworks",
+            data
+        );
         return frameworkResponseSchema.parse(response);
     },
 
@@ -137,7 +148,9 @@ export const authenticationMethodsApi = {
         page = 1
     ): Promise<PaginatedAuthenticationMethodResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/security/authentication-methods${apiClient.buildQuery({ page })}`
+            `/v1/security/authentication-methods${apiClient.buildQuery({
+                page,
+            })}`
         );
         return paginatedAuthenticationMethodResponseSchema.parse(response);
     },

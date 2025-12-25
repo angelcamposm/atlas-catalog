@@ -122,7 +122,9 @@ describe("Clusters API", () => {
 
             const result = await clustersApi.getById(1);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/infrastructure/clusters/1");
+            expect(mockedApiClient.get).toHaveBeenCalledWith(
+                "/v1/infrastructure/clusters/1"
+            );
             expect(result.data.name).toBe("prod-cluster");
         });
     });
@@ -364,7 +366,9 @@ describe("Cluster Detail and Edit Operations", () => {
 
             const result = await clustersApi.getById(5);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/infrastructure/clusters/5");
+            expect(mockedApiClient.get).toHaveBeenCalledWith(
+                "/v1/infrastructure/clusters/5"
+            );
             expect(result.data.id).toBe(5);
             expect(result.data.name).toBe("detail-test-cluster");
             expect(result.data.display_name).toBe("Detail Test Cluster");

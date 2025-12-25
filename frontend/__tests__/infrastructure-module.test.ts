@@ -437,7 +437,9 @@ describe("Infrastructure Module", () => {
 
                 const result = await nodesApi.getById(1);
 
-                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/infrastructure/nodes/1");
+                expect(mockedApiClient.get).toHaveBeenCalledWith(
+                    "/v1/infrastructure/nodes/1"
+                );
                 expect(result.data.name).toBe("node-01");
             });
         });

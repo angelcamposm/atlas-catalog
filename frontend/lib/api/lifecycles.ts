@@ -29,7 +29,9 @@ export const lifecyclesApi = {
      * Get a single Lifecycle by ID
      */
     getById: async (id: number): Promise<LifecycleResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/architecture/lifecycles/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/lifecycles/${id}`
+        );
         return lifecycleResponseSchema.parse(response);
     },
 
@@ -39,7 +41,10 @@ export const lifecyclesApi = {
     create: async (
         data: CreateLifecycleRequest
     ): Promise<LifecycleResponse> => {
-        const response = await apiClient.post<unknown>("/v1/architecture/lifecycles", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/architecture/lifecycles",
+            data
+        );
         return lifecycleResponseSchema.parse(response);
     },
 
@@ -60,5 +65,6 @@ export const lifecyclesApi = {
     /**
      * Delete a Lifecycle
      */
-    delete: (id: number) => apiClient.delete(`/v1/architecture/lifecycles/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/architecture/lifecycles/${id}`),
 };

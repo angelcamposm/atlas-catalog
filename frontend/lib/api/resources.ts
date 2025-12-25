@@ -38,7 +38,9 @@ export const resourcesApi = {
      * Get a single resource by ID
      */
     getById: async (id: number): Promise<ResourceResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/catalog/resources/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/resources/${id}`
+        );
         return resourceResponseSchema.parse(response);
     },
 
@@ -46,7 +48,10 @@ export const resourcesApi = {
      * Create a new resource
      */
     create: async (data: CreateResourceRequest): Promise<ResourceResponse> => {
-        const response = await apiClient.post<unknown>("/v1/catalog/resources", data);
+        const response = await apiClient.post<unknown>(
+            "/v1/catalog/resources",
+            data
+        );
         return resourceResponseSchema.parse(response);
     },
 
@@ -123,7 +128,8 @@ export const resourceCategoriesApi = {
     /**
      * Delete a resource category
      */
-    delete: (id: number) => apiClient.delete(`/v1/catalog/resources/categories/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/catalog/resources/categories/${id}`),
 };
 
 // Consolidated Resources API -----------------------------------------------

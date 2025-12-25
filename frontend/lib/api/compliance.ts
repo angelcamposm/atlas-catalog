@@ -29,7 +29,9 @@ export const complianceStandardsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedComplianceStandardResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/compliance/compliance-standards${apiClient.buildQuery({ page })}`
+            `/v1/compliance/compliance-standards${apiClient.buildQuery({
+                page,
+            })}`
         );
         return paginatedComplianceStandardResponseSchema.parse(response);
     },
@@ -74,7 +76,8 @@ export const complianceStandardsApi = {
     /**
      * Delete a compliance standard
      */
-    delete: (id: number) => apiClient.delete(`/v1/compliance/compliance-standards/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/compliance/compliance-standards/${id}`),
 };
 
 // Service Statuses ---------------------------------------------------------
@@ -130,7 +133,8 @@ export const serviceStatusesApi = {
     /**
      * Delete a service status
      */
-    delete: (id: number) => apiClient.delete(`/v1/operations/service-statuses/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/operations/service-statuses/${id}`),
 };
 
 // Consolidated Compliance API ----------------------------------------------

@@ -26,7 +26,9 @@ export const serviceModelsApi = {
      * Get a single Service Model by ID
      */
     getById: async (id: number): Promise<ApiResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/catalog/service-models/${id}`);
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/service-models/${id}`
+        );
         return apiResponseSchema.parse(response);
     },
 

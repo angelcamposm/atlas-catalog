@@ -27,7 +27,9 @@ export const serviceAccountTokensApi = {
      */
     getAll: async (page = 1): Promise<PaginatedServiceAccountTokenResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/security/service-accounts/tokens${apiClient.buildQuery({ page })}`
+            `/v1/security/service-accounts/tokens${apiClient.buildQuery({
+                page,
+            })}`
         );
         return paginatedServiceAccountTokenResponseSchema.parse(response);
     },

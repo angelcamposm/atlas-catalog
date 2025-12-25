@@ -1478,7 +1478,8 @@ export interface CreateBusinessCapabilityRequest {
     parent_id?: number;
 }
 
-export type UpdateBusinessCapabilityRequest = Partial<CreateBusinessCapabilityRequest>;
+export type UpdateBusinessCapabilityRequest =
+    Partial<CreateBusinessCapabilityRequest>;
 
 // Entities
 export interface CreateEntityRequest {

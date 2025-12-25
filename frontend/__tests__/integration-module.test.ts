@@ -135,7 +135,9 @@ describe("Integration Module", () => {
 
                 const result = await linksApi.getById(1);
 
-                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/catalog/links/1");
+                expect(mockedApiClient.get).toHaveBeenCalledWith(
+                    "/v1/catalog/links/1"
+                );
                 expect(result.data.name).toBe("api-database-link");
             });
 

@@ -99,7 +99,9 @@ describe("APIs Module", () => {
 
             const result = await apisApi.getAll(1);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/catalog/apis?page=1");
+            expect(mockedApiClient.get).toHaveBeenCalledWith(
+                "/v1/catalog/apis?page=1"
+            );
             expect(result.data).toHaveLength(2);
             expect(result.data[0].name).toBe("users-api");
             expect(result.data[1].name).toBe("orders-api");
@@ -112,7 +114,9 @@ describe("APIs Module", () => {
 
             const result = await apisApi.getAll(2);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/catalog/apis?page=2");
+            expect(mockedApiClient.get).toHaveBeenCalledWith(
+                "/v1/catalog/apis?page=2"
+            );
             expect(result.meta.current_page).toBe(2);
         });
     });
@@ -127,7 +131,9 @@ describe("APIs Module", () => {
 
             const result = await apisApi.getById(1);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/catalog/apis/1");
+            expect(mockedApiClient.get).toHaveBeenCalledWith(
+                "/v1/catalog/apis/1"
+            );
             expect(result.data.name).toBe("users-api");
             expect(result.data.id).toBe(1);
         });
@@ -265,7 +271,9 @@ describe("APIs Module", () => {
 
             await apisApi.delete(1);
 
-            expect(mockedApiClient.delete).toHaveBeenCalledWith("/v1/catalog/apis/1");
+            expect(mockedApiClient.delete).toHaveBeenCalledWith(
+                "/v1/catalog/apis/1"
+            );
         });
 
         it("should handle delete errors", async () => {
