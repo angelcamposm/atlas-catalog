@@ -19,7 +19,7 @@ use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceCategoryController;
 use App\Http\Controllers\ResourceController;
-use App\Http\Controllers\ResourceTypeController;
+use App\Http\Controllers\ServiceModelController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -70,5 +70,8 @@ Route::prefix('v1')->group(function () {
         //
         Route::apiResource('resources', ResourceController::class);
         Route::apiResource('resources/categories', ResourceCategoryController::class);
+
+        // Service Models
+        Route::apiResource('service-models', ServiceModelController::class);
     });
 });
