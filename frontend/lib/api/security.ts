@@ -27,7 +27,7 @@ export const serviceAccountTokensApi = {
      */
     getAll: async (page = 1): Promise<PaginatedServiceAccountTokenResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/service-account-tokens${apiClient.buildQuery({ page })}`
+            `/v1/security/service-accounts/tokens${apiClient.buildQuery({ page })}`
         );
         return paginatedServiceAccountTokenResponseSchema.parse(response);
     },
@@ -37,7 +37,7 @@ export const serviceAccountTokensApi = {
      */
     getById: async (id: number): Promise<ServiceAccountTokenResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/service-account-tokens/${id}`
+            `/v1/security/service-accounts/tokens/${id}`
         );
         return serviceAccountTokenResponseSchema.parse(response);
     },
@@ -49,7 +49,7 @@ export const serviceAccountTokensApi = {
         data: CreateServiceAccountTokenRequest
     ): Promise<ServiceAccountTokenResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/service-account-tokens",
+            "/v1/security/service-accounts/tokens",
             data
         );
         return serviceAccountTokenResponseSchema.parse(response);
@@ -63,7 +63,7 @@ export const serviceAccountTokensApi = {
         data: UpdateServiceAccountTokenRequest
     ): Promise<ServiceAccountTokenResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/service-account-tokens/${id}`,
+            `/v1/security/service-accounts/tokens/${id}`,
             data
         );
         return serviceAccountTokenResponseSchema.parse(response);
@@ -73,7 +73,7 @@ export const serviceAccountTokensApi = {
      * Delete a service account token
      */
     delete: (id: number) =>
-        apiClient.delete(`/v1/service-account-tokens/${id}`),
+        apiClient.delete(`/v1/security/service-accounts/tokens/${id}`),
 };
 
 // Consolidated Security API ------------------------------------------------

@@ -58,7 +58,7 @@ const createServiceAccountTokenMock = (overrides = {}) => ({
 const createPaginatedResponse = <T>(
     data: T[],
     page = 1,
-    path: string = "/v1/service-accounts"
+    path: string = "/v1/security/service-accounts"
 ) => ({
     data,
     meta: {
@@ -100,7 +100,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountsApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/service-accounts?page=1"
+                    "/v1/security/service-accounts?page=1"
                 );
                 expect(result.data).toHaveLength(2);
                 expect(result.data[0].name).toBe("ci-cd-service-account");
@@ -117,7 +117,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountsApi.getAll(3);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/service-accounts?page=3"
+                    "/v1/security/service-accounts?page=3"
                 );
                 expect(result.meta.current_page).toBe(3);
             });
@@ -144,7 +144,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountsApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/service-accounts/1"
+                    "/v1/security/service-accounts/1"
                 );
                 expect(result.data.name).toBe("ci-cd-service-account");
                 expect(result.data.namespace).toBe("production");
@@ -185,7 +185,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountsApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/service-accounts",
+                    "/v1/security/service-accounts",
                     createData
                 );
                 expect(result.data.name).toBe("new-service-account");
@@ -220,7 +220,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountsApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/service-accounts/1",
+                    "/v1/security/service-accounts/1",
                     updateData
                 );
                 expect(result.data.namespace).toBe("staging");
@@ -234,7 +234,7 @@ describe("Security Module", () => {
                 await serviceAccountsApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/service-accounts/1"
+                    "/v1/security/service-accounts/1"
                 );
             });
 
@@ -273,7 +273,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountTokensApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/service-account-tokens?page=1"
+                    "/v1/security/service-accounts/tokens?page=1"
                 );
                 expect(result.data).toHaveLength(2);
             });
@@ -290,7 +290,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountTokensApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/service-account-tokens/1"
+                    "/v1/security/service-accounts/tokens/1"
                 );
                 expect(result.data.token).toBe("sak_xxxxxxxxxxxxx");
             });
@@ -318,7 +318,7 @@ describe("Security Module", () => {
                 const result = await serviceAccountTokensApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/service-account-tokens",
+                    "/v1/security/service-accounts/tokens",
                     createData
                 );
                 expect(result.data.token).toBe("sak_new_token_value");
@@ -345,7 +345,7 @@ describe("Security Module", () => {
                 );
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/service-account-tokens/1",
+                    "/v1/security/service-accounts/tokens/1",
                     updateData
                 );
             });
@@ -358,7 +358,7 @@ describe("Security Module", () => {
                 await serviceAccountTokensApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/service-account-tokens/1"
+                    "/v1/security/service-accounts/tokens/1"
                 );
             });
         });

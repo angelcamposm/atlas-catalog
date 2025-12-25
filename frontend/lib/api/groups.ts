@@ -35,7 +35,7 @@ export const groupsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedGroupResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/groups${apiClient.buildQuery({ page })}`
+            `/v1/organization/groups${apiClient.buildQuery({ page })}`
         );
         return paginatedGroupResponseSchema.parse(response);
     },
@@ -44,7 +44,7 @@ export const groupsApi = {
      * Get a single group by ID
      */
     getById: async (id: number): Promise<GroupResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/groups/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/organization/groups/${id}`);
         return groupResponseSchema.parse(response);
     },
 
@@ -52,7 +52,7 @@ export const groupsApi = {
      * Create a new group
      */
     create: async (data: CreateGroupRequest): Promise<GroupResponse> => {
-        const response = await apiClient.post<unknown>("/v1/groups", data);
+        const response = await apiClient.post<unknown>("/v1/organization/groups", data);
         return groupResponseSchema.parse(response);
     },
 
@@ -63,21 +63,21 @@ export const groupsApi = {
         id: number,
         data: UpdateGroupRequest
     ): Promise<GroupResponse> => {
-        const response = await apiClient.put<unknown>(`/v1/groups/${id}`, data);
+        const response = await apiClient.put<unknown>(`/v1/organization/groups/${id}`, data);
         return groupResponseSchema.parse(response);
     },
 
     /**
      * Delete a group
      */
-    delete: (id: number) => apiClient.delete(`/v1/groups/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/organization/groups/${id}`),
 
     /**
      * Get members of a group
      */
     getMembers: async (id: number) => {
         const response = await apiClient.get<unknown>(
-            `/v1/groups/${id}/members`
+            `/v1/organization/groups/${id}/members`
         );
         // Support either { data: [...] } or direct array response
         // Return as an array of users
@@ -95,7 +95,7 @@ export const groupTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedGroupTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/groups/types${apiClient.buildQuery({ page })}`
+            `/v1/organization/groups/types${apiClient.buildQuery({ page })}`
         );
         return paginatedGroupTypeResponseSchema.parse(response);
     },
@@ -104,7 +104,7 @@ export const groupTypesApi = {
      * Get a single group type by ID
      */
     getById: async (id: number): Promise<GroupTypeResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/groups/types/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/organization/groups/types/${id}`);
         return groupTypeResponseSchema.parse(response);
     },
 
@@ -115,7 +115,7 @@ export const groupTypesApi = {
         data: CreateGroupTypeRequest
     ): Promise<GroupTypeResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/groups/types",
+            "/v1/organization/groups/types",
             data
         );
         return groupTypeResponseSchema.parse(response);
@@ -129,7 +129,7 @@ export const groupTypesApi = {
         data: UpdateGroupTypeRequest
     ): Promise<GroupTypeResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/groups/types/${id}`,
+            `/v1/organization/groups/types/${id}`,
             data
         );
         return groupTypeResponseSchema.parse(response);
@@ -138,7 +138,7 @@ export const groupTypesApi = {
     /**
      * Delete a group type
      */
-    delete: (id: number) => apiClient.delete(`/v1/groups/types/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/organization/groups/types/${id}`),
 };
 
 // Group Member Roles -------------------------------------------------------
@@ -149,7 +149,7 @@ export const groupMemberRolesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedGroupMemberRoleResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/groups/member-roles${apiClient.buildQuery({ page })}`
+            `/v1/organization/groups/member-roles${apiClient.buildQuery({ page })}`
         );
         return paginatedGroupMemberRoleResponseSchema.parse(response);
     },
@@ -159,7 +159,7 @@ export const groupMemberRolesApi = {
      */
     getById: async (id: number): Promise<GroupMemberRoleResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/groups/member-roles/${id}`
+            `/v1/organization/groups/member-roles/${id}`
         );
         return groupMemberRoleResponseSchema.parse(response);
     },
@@ -171,7 +171,7 @@ export const groupMemberRolesApi = {
         data: CreateGroupMemberRoleRequest
     ): Promise<GroupMemberRoleResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/groups/member-roles",
+            "/v1/organization/groups/member-roles",
             data
         );
         return groupMemberRoleResponseSchema.parse(response);
@@ -185,7 +185,7 @@ export const groupMemberRolesApi = {
         data: UpdateGroupMemberRoleRequest
     ): Promise<GroupMemberRoleResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/groups/member-roles/${id}`,
+            `/v1/organization/groups/member-roles/${id}`,
             data
         );
         return groupMemberRoleResponseSchema.parse(response);
@@ -194,7 +194,7 @@ export const groupMemberRolesApi = {
     /**
      * Delete a group member role
      */
-    delete: (id: number) => apiClient.delete(`/v1/groups/member-roles/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/organization/groups/member-roles/${id}`),
 };
 
 // Consolidated Groups API --------------------------------------------------

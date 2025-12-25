@@ -22,7 +22,7 @@ export const serviceAccountsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedServiceAccountResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/service-accounts${apiClient.buildQuery({ page })}`
+            `/v1/security/service-accounts${apiClient.buildQuery({ page })}`
         );
         return paginatedServiceAccountResponseSchema.parse(response);
     },
@@ -32,7 +32,7 @@ export const serviceAccountsApi = {
      */
     getById: async (id: number): Promise<ServiceAccountResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/service-accounts/${id}`
+            `/v1/security/service-accounts/${id}`
         );
         return serviceAccountResponseSchema.parse(response);
     },
@@ -44,7 +44,7 @@ export const serviceAccountsApi = {
         data: CreateServiceAccountRequest
     ): Promise<ServiceAccountResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/service-accounts",
+            "/v1/security/service-accounts",
             data
         );
         return serviceAccountResponseSchema.parse(response);
@@ -58,7 +58,7 @@ export const serviceAccountsApi = {
         data: UpdateServiceAccountRequest
     ): Promise<ServiceAccountResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/service-accounts/${id}`,
+            `/v1/security/service-accounts/${id}`,
             data
         );
         return serviceAccountResponseSchema.parse(response);
@@ -67,5 +67,5 @@ export const serviceAccountsApi = {
     /**
      * Delete a service account
      */
-    delete: (id: number) => apiClient.delete(`/v1/service-accounts/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/security/service-accounts/${id}`),
 };
