@@ -28,7 +28,7 @@ class StoreBusinessDomainRequest extends FormRequest
             'name' => ['required', 'string', 'max:50', 'unique:business_domains,name'],
             'description' => ['nullable', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:1'],
-            'is_active' => ['sometimes', 'boolean'],
+            'is_enabled' => ['sometimes', 'boolean'],
             'parent_id' => ['nullable', 'integer', 'exists:business_domains,id'],
         ];
     }

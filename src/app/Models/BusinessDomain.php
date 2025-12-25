@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property BusinessDomainCategory $category
  * @property string|null $description
  * @property string $display_name
- * @property bool $is_active
+ * @property bool $is_enabled
  * @property string $name
  * @property int $parent_id
  * @property int $created_by
@@ -68,7 +68,7 @@ class BusinessDomain extends Model
         'description',
         'display_name',
         'category',
-        'is_active',
+        'is_enabled',
         'parent_id',
         'created_by',
         'updated_by',
@@ -116,12 +116,12 @@ class BusinessDomain extends Model
     }
 
     /**
-     * Check if the business domain is active.
+     * Check if the business domain is enabled.
      *
      * @return bool
      */
-    public function isActive(): bool
+    public function isEnabled(): bool
     {
-        return $this->is_active;
+        return $this->is_enabled;
     }
 }

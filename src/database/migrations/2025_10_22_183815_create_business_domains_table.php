@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('category', 1);
             $table->string('description', 255)->nullable();
             $table->string('display_name', 255);
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_enabled')->default(true);
             $table->foreignId('parent_id')->nullable()->constrained('business_domains', 'id')->nullOnDelete();
             $table->string('slug')->nullable()->unique();
             $table->timestamp('created_at')->nullable();

@@ -19,7 +19,7 @@ return [
         'parent_domain' => null,
     ],
     [
-        'name' => 'Customers',
+        'name' => 'Customer Relationships',
         'description' => 'Manages customer information, including personal data, company profiles, account status, and contact history.',
         'category' => BusinessDomainCategory::Core,
         'parent_domain' => null,
@@ -137,7 +137,7 @@ return [
         'parent_domain' => 'Human Resources (HR)',
     ],
     [
-        'name' => 'Finance (Accounting)',
+        'name' => 'Finance & Controlling (Accounting)',
         'description' => 'Manages the general ledger, accounts payable (AP), accounts receivable (AR), and financial reporting.',
         'category' => BusinessDomainCategory::Generic,
         'parent_domain' => null,
