@@ -29,6 +29,8 @@ enum Relationship: string
     case ParentOf = 'parentOf';
     case PartOf = 'partOf';
     case ProvidesApi = 'providesApi';
+    case RequiredBy = 'requiredBy';
+    case Requires = 'requires';
 
     /**
      * Get the inverse relationship.
@@ -56,6 +58,8 @@ enum Relationship: string
             self::ImplementedBy => self::Implements,
             self::Implements => self::ImplementedBy,
             self::PartOf => self::HasPart,
+            self::RequiredBy => self::Requires,
+            self::Requires => self::RequiredBy,
         };
     }
 
@@ -83,6 +87,8 @@ enum Relationship: string
             self::ParentOf => 'Is a parent of the entity.',
             self::PartOf => 'Is part of the entity.',
             self::ProvidesApi => 'Provides the API.',
+            self::RequiredBy => 'Is required by the entity.',
+            self::Requires => 'Requires the entity.',
         };
     }
 }
