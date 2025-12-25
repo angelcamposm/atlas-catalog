@@ -93,6 +93,9 @@ export {
     resourceCategoriesApi,
 } from "./resources";
 
+// Service Models Domain
+export { serviceModelsApi } from "./service-models";
+
 // API Dependencies (Component-API relationships)
 export {
     apiDependenciesApi,

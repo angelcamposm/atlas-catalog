@@ -1463,6 +1463,14 @@ export interface CreateBuildRequest {
 
 export type UpdateBuildRequest = Partial<CreateBuildRequest>;
 
+// Service Models
+export interface CreateServiceModelRequest {
+    name: string;
+    description?: string;
+}
+
+export type UpdateServiceModelRequest = Partial<CreateServiceModelRequest>;
+
 // Service Models (nuevo en backend)
 export const serviceModelSchema = z
     .object({
