@@ -29,7 +29,7 @@ export const complianceStandardsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedComplianceStandardResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/compliance-standards${apiClient.buildQuery({ page })}`
+            `/v1/compliance/compliance-standards${apiClient.buildQuery({ page })}`
         );
         return paginatedComplianceStandardResponseSchema.parse(response);
     },
@@ -39,7 +39,7 @@ export const complianceStandardsApi = {
      */
     getById: async (id: number): Promise<ComplianceStandardResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/compliance-standards/${id}`
+            `/v1/compliance/compliance-standards/${id}`
         );
         return complianceStandardResponseSchema.parse(response);
     },
@@ -51,7 +51,7 @@ export const complianceStandardsApi = {
         data: CreateComplianceStandardRequest
     ): Promise<ComplianceStandardResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/compliance-standards",
+            "/v1/compliance/compliance-standards",
             data
         );
         return complianceStandardResponseSchema.parse(response);
@@ -65,7 +65,7 @@ export const complianceStandardsApi = {
         data: UpdateComplianceStandardRequest
     ): Promise<ComplianceStandardResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/compliance-standards/${id}`,
+            `/v1/compliance/compliance-standards/${id}`,
             data
         );
         return complianceStandardResponseSchema.parse(response);
@@ -74,7 +74,7 @@ export const complianceStandardsApi = {
     /**
      * Delete a compliance standard
      */
-    delete: (id: number) => apiClient.delete(`/v1/compliance-standards/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/compliance/compliance-standards/${id}`),
 };
 
 // Service Statuses ---------------------------------------------------------
@@ -85,7 +85,7 @@ export const serviceStatusesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedServiceStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/service-statuses${apiClient.buildQuery({ page })}`
+            `/v1/operations/service-statuses${apiClient.buildQuery({ page })}`
         );
         return paginatedServiceStatusResponseSchema.parse(response);
     },
@@ -95,7 +95,7 @@ export const serviceStatusesApi = {
      */
     getById: async (id: number): Promise<ServiceStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/service-statuses/${id}`
+            `/v1/operations/service-statuses/${id}`
         );
         return serviceStatusResponseSchema.parse(response);
     },
@@ -107,7 +107,7 @@ export const serviceStatusesApi = {
         data: CreateServiceStatusRequest
     ): Promise<ServiceStatusResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/service-statuses",
+            "/v1/operations/service-statuses",
             data
         );
         return serviceStatusResponseSchema.parse(response);
@@ -121,7 +121,7 @@ export const serviceStatusesApi = {
         data: UpdateServiceStatusRequest
     ): Promise<ServiceStatusResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/service-statuses/${id}`,
+            `/v1/operations/service-statuses/${id}`,
             data
         );
         return serviceStatusResponseSchema.parse(response);
@@ -130,7 +130,7 @@ export const serviceStatusesApi = {
     /**
      * Delete a service status
      */
-    delete: (id: number) => apiClient.delete(`/v1/service-statuses/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/operations/service-statuses/${id}`),
 };
 
 // Consolidated Compliance API ----------------------------------------------

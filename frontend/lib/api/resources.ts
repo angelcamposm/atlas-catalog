@@ -29,7 +29,7 @@ export const resourcesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedResourceResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/resources${apiClient.buildQuery({ page })}`
+            `/v1/catalog/resources${apiClient.buildQuery({ page })}`
         );
         return paginatedResourceResponseSchema.parse(response);
     },
@@ -38,7 +38,7 @@ export const resourcesApi = {
      * Get a single resource by ID
      */
     getById: async (id: number): Promise<ResourceResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/resources/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/catalog/resources/${id}`);
         return resourceResponseSchema.parse(response);
     },
 
@@ -46,7 +46,7 @@ export const resourcesApi = {
      * Create a new resource
      */
     create: async (data: CreateResourceRequest): Promise<ResourceResponse> => {
-        const response = await apiClient.post<unknown>("/v1/resources", data);
+        const response = await apiClient.post<unknown>("/v1/catalog/resources", data);
         return resourceResponseSchema.parse(response);
     },
 
@@ -58,7 +58,7 @@ export const resourcesApi = {
         data: UpdateResourceRequest
     ): Promise<ResourceResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/resources/${id}`,
+            `/v1/catalog/resources/${id}`,
             data
         );
         return resourceResponseSchema.parse(response);
@@ -67,7 +67,7 @@ export const resourcesApi = {
     /**
      * Delete a resource
      */
-    delete: (id: number) => apiClient.delete(`/v1/resources/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/resources/${id}`),
 };
 
 // Resource Categories ------------------------------------------------------
@@ -78,7 +78,7 @@ export const resourceCategoriesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedResourceCategoryResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/resources/categories${apiClient.buildQuery({ page })}`
+            `/v1/catalog/resources/categories${apiClient.buildQuery({ page })}`
         );
         return paginatedResourceCategoryResponseSchema.parse(response);
     },
@@ -88,7 +88,7 @@ export const resourceCategoriesApi = {
      */
     getById: async (id: number): Promise<ResourceCategoryResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/resources/categories/${id}`
+            `/v1/catalog/resources/categories/${id}`
         );
         return resourceCategoryResponseSchema.parse(response);
     },
@@ -100,7 +100,7 @@ export const resourceCategoriesApi = {
         data: CreateResourceCategoryRequest
     ): Promise<ResourceCategoryResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/resources/categories",
+            "/v1/catalog/resources/categories",
             data
         );
         return resourceCategoryResponseSchema.parse(response);
@@ -114,7 +114,7 @@ export const resourceCategoriesApi = {
         data: UpdateResourceCategoryRequest
     ): Promise<ResourceCategoryResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/resources/categories/${id}`,
+            `/v1/catalog/resources/categories/${id}`,
             data
         );
         return resourceCategoryResponseSchema.parse(response);
@@ -123,7 +123,7 @@ export const resourceCategoriesApi = {
     /**
      * Delete a resource category
      */
-    delete: (id: number) => apiClient.delete(`/v1/resources/categories/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/resources/categories/${id}`),
 };
 
 // Consolidated Resources API -----------------------------------------------

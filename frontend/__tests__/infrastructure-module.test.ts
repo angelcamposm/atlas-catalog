@@ -155,7 +155,7 @@ describe("Infrastructure Module", () => {
                 const result = await clustersApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/clusters?page=1"
+                    "/v1/infrastructure/clusters?page=1"
                 );
                 expect(result.data).toHaveLength(2);
                 expect(result.data[0].name).toBe("prod-cluster-01");
@@ -172,7 +172,7 @@ describe("Infrastructure Module", () => {
                 const result = await clustersApi.getAll(5);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/clusters?page=5"
+                    "/v1/infrastructure/clusters?page=5"
                 );
                 expect(result.meta.current_page).toBe(5);
             });
@@ -189,7 +189,7 @@ describe("Infrastructure Module", () => {
                 const result = await clustersApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/clusters/1"
+                    "/v1/infrastructure/clusters/1"
                 );
                 expect(result.data.name).toBe("prod-cluster-01");
                 expect(result.data.has_licensing).toBe(true);
@@ -224,7 +224,7 @@ describe("Infrastructure Module", () => {
                 const result = await clustersApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/clusters",
+                    "/v1/infrastructure/clusters",
                     createData
                 );
                 expect(result.data.name).toBe("new-cluster");
@@ -273,7 +273,7 @@ describe("Infrastructure Module", () => {
                 const result = await clustersApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/clusters/1",
+                    "/v1/infrastructure/clusters/1",
                     updateData
                 );
                 expect(result.data.has_licensing).toBe(false);
@@ -287,7 +287,7 @@ describe("Infrastructure Module", () => {
                 await clustersApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/clusters/1"
+                    "/v1/infrastructure/clusters/1"
                 );
             });
         });
@@ -314,7 +314,7 @@ describe("Infrastructure Module", () => {
                 const result = await clusterTypesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/clusters/types?page=1"
+                    "/v1/infrastructure/clusters/types?page=1"
                 );
                 expect(result.data).toHaveLength(2);
             });
@@ -331,7 +331,7 @@ describe("Infrastructure Module", () => {
                 const result = await clusterTypesApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/clusters/types/1"
+                    "/v1/infrastructure/clusters/types/1"
                 );
                 expect(result.data.name).toBe("kubernetes");
             });
@@ -357,7 +357,7 @@ describe("Infrastructure Module", () => {
                 const result = await clusterTypesApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/clusters/types",
+                    "/v1/infrastructure/clusters/types",
                     createData
                 );
                 expect(result.data.name).toBe("swarm");
@@ -381,7 +381,7 @@ describe("Infrastructure Module", () => {
                 const result = await clusterTypesApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/clusters/types/1",
+                    "/v1/infrastructure/clusters/types/1",
                     updateData
                 );
             });
@@ -394,7 +394,7 @@ describe("Infrastructure Module", () => {
                 await clusterTypesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/clusters/types/1"
+                    "/v1/infrastructure/clusters/types/1"
                 );
             });
         });
@@ -421,7 +421,7 @@ describe("Infrastructure Module", () => {
                 const result = await nodesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/nodes?page=1"
+                    "/v1/infrastructure/nodes?page=1"
                 );
                 expect(result.data).toHaveLength(2);
             });
@@ -437,7 +437,7 @@ describe("Infrastructure Module", () => {
 
                 const result = await nodesApi.getById(1);
 
-                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/nodes/1");
+                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/infrastructure/nodes/1");
                 expect(result.data.name).toBe("node-01");
             });
         });
@@ -468,7 +468,7 @@ describe("Infrastructure Module", () => {
                 const result = await nodesApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/nodes",
+                    "/v1/infrastructure/nodes",
                     createData
                 );
                 expect(result.data.name).toBe("node-03");
@@ -492,7 +492,7 @@ describe("Infrastructure Module", () => {
                 const result = await nodesApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/nodes/1",
+                    "/v1/infrastructure/nodes/1",
                     updateData
                 );
             });
@@ -505,7 +505,7 @@ describe("Infrastructure Module", () => {
                 await nodesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/nodes/1"
+                    "/v1/infrastructure/nodes/1"
                 );
             });
         });
@@ -537,7 +537,7 @@ describe("Infrastructure Module", () => {
                 const result = await infrastructureTypesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/infrastructure-types?page=1"
+                    "/v1/infrastructure/types?page=1"
                 );
                 expect(result.data).toHaveLength(3);
             });
@@ -554,7 +554,7 @@ describe("Infrastructure Module", () => {
                 const result = await infrastructureTypesApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/infrastructure-types/1"
+                    "/v1/infrastructure/types/1"
                 );
                 expect(result.data.name).toBe("cloud");
             });
@@ -580,7 +580,7 @@ describe("Infrastructure Module", () => {
                 const result = await infrastructureTypesApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/infrastructure-types",
+                    "/v1/infrastructure/types",
                     createData
                 );
                 expect(result.data.name).toBe("edge");
@@ -607,7 +607,7 @@ describe("Infrastructure Module", () => {
                 );
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/infrastructure-types/1",
+                    "/v1/infrastructure/types/1",
                     updateData
                 );
             });
@@ -620,7 +620,7 @@ describe("Infrastructure Module", () => {
                 await infrastructureTypesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/infrastructure-types/1"
+                    "/v1/infrastructure/types/1"
                 );
             });
         });

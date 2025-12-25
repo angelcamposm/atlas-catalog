@@ -35,7 +35,7 @@ export const vendorsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedVendorResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/vendors${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/vendors${apiClient.buildQuery({ page })}`
         );
         return paginatedVendorResponseSchema.parse(response);
     },
@@ -44,7 +44,7 @@ export const vendorsApi = {
      * Get a single vendor by ID
      */
     getById: async (id: number): Promise<VendorResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/vendors/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/infrastructure/vendors/${id}`);
         return vendorResponseSchema.parse(response);
     },
 
@@ -52,7 +52,7 @@ export const vendorsApi = {
      * Create a new vendor
      */
     create: async (data: CreateVendorRequest): Promise<VendorResponse> => {
-        const response = await apiClient.post<unknown>("/v1/vendors", data);
+        const response = await apiClient.post<unknown>("/v1/infrastructure/vendors", data);
         return vendorResponseSchema.parse(response);
     },
 
@@ -64,7 +64,7 @@ export const vendorsApi = {
         data: UpdateVendorRequest
     ): Promise<VendorResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/vendors/${id}`,
+            `/v1/infrastructure/vendors/${id}`,
             data
         );
         return vendorResponseSchema.parse(response);
@@ -73,7 +73,7 @@ export const vendorsApi = {
     /**
      * Delete a vendor
      */
-    delete: (id: number) => apiClient.delete(`/v1/vendors/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/infrastructure/vendors/${id}`),
 };
 
 // Frameworks ---------------------------------------------------------------
@@ -84,7 +84,7 @@ export const frameworksApi = {
      */
     getAll: async (page = 1): Promise<PaginatedFrameworkResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/frameworks${apiClient.buildQuery({ page })}`
+            `/v1/catalog/frameworks${apiClient.buildQuery({ page })}`
         );
         return paginatedFrameworkResponseSchema.parse(response);
     },
@@ -93,7 +93,7 @@ export const frameworksApi = {
      * Get a single framework by ID
      */
     getById: async (id: number): Promise<FrameworkResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/frameworks/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/catalog/frameworks/${id}`);
         return frameworkResponseSchema.parse(response);
     },
 
@@ -103,7 +103,7 @@ export const frameworksApi = {
     create: async (
         data: CreateFrameworkRequest
     ): Promise<FrameworkResponse> => {
-        const response = await apiClient.post<unknown>("/v1/frameworks", data);
+        const response = await apiClient.post<unknown>("/v1/catalog/frameworks", data);
         return frameworkResponseSchema.parse(response);
     },
 
@@ -115,7 +115,7 @@ export const frameworksApi = {
         data: UpdateFrameworkRequest
     ): Promise<FrameworkResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/frameworks/${id}`,
+            `/v1/catalog/frameworks/${id}`,
             data
         );
         return frameworkResponseSchema.parse(response);
@@ -124,7 +124,7 @@ export const frameworksApi = {
     /**
      * Delete a framework
      */
-    delete: (id: number) => apiClient.delete(`/v1/frameworks/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/frameworks/${id}`),
 };
 
 // Authentication Methods ---------------------------------------------------
@@ -137,7 +137,7 @@ export const authenticationMethodsApi = {
         page = 1
     ): Promise<PaginatedAuthenticationMethodResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/authentication-methods${apiClient.buildQuery({ page })}`
+            `/v1/security/authentication-methods${apiClient.buildQuery({ page })}`
         );
         return paginatedAuthenticationMethodResponseSchema.parse(response);
     },
@@ -147,7 +147,7 @@ export const authenticationMethodsApi = {
      */
     getById: async (id: number): Promise<AuthenticationMethodResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/authentication-methods/${id}`
+            `/v1/security/authentication-methods/${id}`
         );
         return authenticationMethodResponseSchema.parse(response);
     },
@@ -159,7 +159,7 @@ export const authenticationMethodsApi = {
         data: CreateAuthenticationMethodRequest
     ): Promise<AuthenticationMethodResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/authentication-methods",
+            "/v1/security/authentication-methods",
             data
         );
         return authenticationMethodResponseSchema.parse(response);
@@ -173,7 +173,7 @@ export const authenticationMethodsApi = {
         data: UpdateAuthenticationMethodRequest
     ): Promise<AuthenticationMethodResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/authentication-methods/${id}`,
+            `/v1/security/authentication-methods/${id}`,
             data
         );
         return authenticationMethodResponseSchema.parse(response);
@@ -183,7 +183,7 @@ export const authenticationMethodsApi = {
      * Delete an authentication method
      */
     delete: (id: number) =>
-        apiClient.delete(`/v1/authentication-methods/${id}`),
+        apiClient.delete(`/v1/security/authentication-methods/${id}`),
 };
 
 // Consolidated Technology API ----------------------------------------------
