@@ -30,7 +30,8 @@ class EntityFactory extends Factory
             'name' => $this->faker->unique()->name(),
             'description' => $this->faker->sentence(),
             'is_aggregate' => $this->faker->boolean(25),
-            'is_aggregate_root' => $this->faker->boolean(10)
+            'is_aggregate_root' => $this->faker->boolean(10),
+            'is_enabled' => $this->faker->boolean(90),
         ];
     }
 

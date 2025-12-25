@@ -30,6 +30,7 @@ class UpdateEntityRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'is_aggregate' => 'nullable|boolean',
             'is_aggregate_root' => 'nullable|boolean',
+            'is_enabled' => 'nullable|boolean',
         ];
     }
 }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description', 255)->nullable();
             $table->boolean('is_aggregate')->default(false);
             $table->boolean('is_aggregate_root')->default(false);
+            $table->boolean('is_enabled')->default(true);
             $table->timestamp('created_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->timestamp('updated_at')->nullable();
