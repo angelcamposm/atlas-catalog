@@ -20,7 +20,7 @@ export const lifecyclesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedLifecycleResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/lifecycles${apiClient.buildQuery({ page })}`
+            `/v1/architecture/lifecycles${apiClient.buildQuery({ page })}`
         );
         return paginatedLifecycleResponseSchema.parse(response);
     },
@@ -29,7 +29,7 @@ export const lifecyclesApi = {
      * Get a single Lifecycle by ID
      */
     getById: async (id: number): Promise<LifecycleResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/lifecycles/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/architecture/lifecycles/${id}`);
         return lifecycleResponseSchema.parse(response);
     },
 
@@ -39,7 +39,7 @@ export const lifecyclesApi = {
     create: async (
         data: CreateLifecycleRequest
     ): Promise<LifecycleResponse> => {
-        const response = await apiClient.post<unknown>("/v1/lifecycles", data);
+        const response = await apiClient.post<unknown>("/v1/architecture/lifecycles", data);
         return lifecycleResponseSchema.parse(response);
     },
 
@@ -51,7 +51,7 @@ export const lifecyclesApi = {
         data: UpdateLifecycleRequest
     ): Promise<LifecycleResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/lifecycles/${id}`,
+            `/v1/architecture/lifecycles/${id}`,
             data
         );
         return lifecycleResponseSchema.parse(response);
@@ -60,5 +60,5 @@ export const lifecyclesApi = {
     /**
      * Delete a Lifecycle
      */
-    delete: (id: number) => apiClient.delete(`/v1/lifecycles/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/architecture/lifecycles/${id}`),
 };

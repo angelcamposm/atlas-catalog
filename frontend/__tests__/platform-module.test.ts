@@ -110,7 +110,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/platforms?page=1"
+                    "/v1/catalog/platforms?page=1"
                 );
                 expect(result.data).toHaveLength(3);
                 expect(result.data[0].name).toBe("aws-platform");
@@ -128,7 +128,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.getAll(3);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/platforms?page=3"
+                    "/v1/catalog/platforms?page=3"
                 );
                 expect(result.meta.current_page).toBe(3);
             });
@@ -155,7 +155,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/platforms/1"
+                    "/v1/catalog/platforms/1"
                 );
                 expect(result.data.name).toBe("aws-platform");
                 expect(result.data.description).toBe(
@@ -200,7 +200,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/platforms",
+                    "/v1/catalog/platforms",
                     createData
                 );
                 expect(result.data.name).toBe("new-platform");
@@ -258,7 +258,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/platforms/1",
+                    "/v1/catalog/platforms/1",
                     updateData
                 );
                 expect(result.data.description).toBe("Updated description");
@@ -272,7 +272,7 @@ describe("Platform Module", () => {
                 await platformsApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/platforms/1"
+                    "/v1/catalog/platforms/1"
                 );
             });
 

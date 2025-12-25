@@ -35,7 +35,7 @@ export const businessDomainsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedBusinessDomainResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/business-domains${apiClient.buildQuery({ page })}`
+            `/v1/architecture/business-domains${apiClient.buildQuery({ page })}`
         );
         return paginatedBusinessDomainResponseSchema.parse(response);
     },
@@ -45,7 +45,7 @@ export const businessDomainsApi = {
      */
     getById: async (id: number): Promise<BusinessDomainResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/business-domains/${id}`
+            `/v1/architecture/business-domains/${id}`
         );
         return businessDomainResponseSchema.parse(response);
     },
@@ -57,7 +57,7 @@ export const businessDomainsApi = {
         data: CreateBusinessDomainRequest
     ): Promise<BusinessDomainResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/business-domains",
+            "/v1/architecture/business-domains",
             data
         );
         return businessDomainResponseSchema.parse(response);
@@ -71,7 +71,7 @@ export const businessDomainsApi = {
         data: UpdateBusinessDomainRequest
     ): Promise<BusinessDomainResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/business-domains/${id}`,
+            `/v1/architecture/business-domains/${id}`,
             data
         );
         return businessDomainResponseSchema.parse(response);
@@ -80,7 +80,7 @@ export const businessDomainsApi = {
     /**
      * Delete a business domain
      */
-    delete: (id: number) => apiClient.delete(`/v1/business-domains/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/architecture/business-domains/${id}`),
 };
 
 // Business Tiers -----------------------------------------------------------
@@ -91,7 +91,7 @@ export const businessTiersApi = {
      */
     getAll: async (page = 1): Promise<PaginatedBusinessTierResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/business-tiers${apiClient.buildQuery({ page })}`
+            `/v1/architecture/business-tiers${apiClient.buildQuery({ page })}`
         );
         return paginatedBusinessTierResponseSchema.parse(response);
     },
@@ -101,7 +101,7 @@ export const businessTiersApi = {
      */
     getById: async (id: number): Promise<BusinessTierResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/business-tiers/${id}`
+            `/v1/architecture/business-tiers/${id}`
         );
         return businessTierResponseSchema.parse(response);
     },
@@ -113,7 +113,7 @@ export const businessTiersApi = {
         data: CreateBusinessTierRequest
     ): Promise<BusinessTierResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/business-tiers",
+            "/v1/architecture/business-tiers",
             data
         );
         return businessTierResponseSchema.parse(response);
@@ -127,7 +127,7 @@ export const businessTiersApi = {
         data: UpdateBusinessTierRequest
     ): Promise<BusinessTierResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/business-tiers/${id}`,
+            `/v1/architecture/business-tiers/${id}`,
             data
         );
         return businessTierResponseSchema.parse(response);
@@ -136,7 +136,7 @@ export const businessTiersApi = {
     /**
      * Delete a business tier
      */
-    delete: (id: number) => apiClient.delete(`/v1/business-tiers/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/architecture/business-tiers/${id}`),
 };
 
 // Environments -------------------------------------------------------------
@@ -147,7 +147,7 @@ export const environmentsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedEnvironmentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/environments${apiClient.buildQuery({ page })}`
+            `/v1/architecture/environments${apiClient.buildQuery({ page })}`
         );
         return paginatedEnvironmentResponseSchema.parse(response);
     },
@@ -156,7 +156,7 @@ export const environmentsApi = {
      * Get a single environment by ID
      */
     getById: async (id: number): Promise<EnvironmentResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/environments/${id}`);
+        const response = await apiClient.get<unknown>(`/v1/architecture/environments/${id}`);
         return environmentResponseSchema.parse(response);
     },
 
@@ -167,7 +167,7 @@ export const environmentsApi = {
         data: CreateEnvironmentRequest
     ): Promise<EnvironmentResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/environments",
+            "/v1/architecture/environments",
             data
         );
         return environmentResponseSchema.parse(response);
@@ -181,7 +181,7 @@ export const environmentsApi = {
         data: UpdateEnvironmentRequest
     ): Promise<EnvironmentResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/environments/${id}`,
+            `/v1/architecture/environments/${id}`,
             data
         );
         return environmentResponseSchema.parse(response);
@@ -190,7 +190,7 @@ export const environmentsApi = {
     /**
      * Delete an environment
      */
-    delete: (id: number) => apiClient.delete(`/v1/environments/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/architecture/environments/${id}`),
 };
 
 // Consolidated Business API ------------------------------------------------

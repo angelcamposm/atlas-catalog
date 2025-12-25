@@ -105,7 +105,7 @@ describe("Clusters API", () => {
             const result = await clustersApi.getAll(1);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/clusters?page=1"
+                "/v1/infrastructure/clusters?page=1"
             );
             expect(result.data).toHaveLength(1);
             expect(result.data[0].name).toBe("prod-cluster");
@@ -122,7 +122,7 @@ describe("Clusters API", () => {
 
             const result = await clustersApi.getById(1);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/clusters/1");
+            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/infrastructure/clusters/1");
             expect(result.data.name).toBe("prod-cluster");
         });
     });
@@ -148,7 +148,7 @@ describe("Clusters API", () => {
             const result = await clustersApi.create(createData);
 
             expect(mockedApiClient.post).toHaveBeenCalledWith(
-                "/v1/clusters",
+                "/v1/infrastructure/clusters",
                 createData
             );
             expect(result.data.id).toBe(2);
@@ -184,7 +184,7 @@ describe("Clusters API", () => {
             const result = await clustersApi.create(createData);
 
             expect(mockedApiClient.post).toHaveBeenCalledWith(
-                "/v1/clusters",
+                "/v1/infrastructure/clusters",
                 createData
             );
             expect(result.data.name).toBe("full-cluster");
@@ -227,7 +227,7 @@ describe("Clusters API", () => {
             const result = await clustersApi.update(1, updateData);
 
             expect(mockedApiClient.put).toHaveBeenCalledWith(
-                "/v1/clusters/1",
+                "/v1/infrastructure/clusters/1",
                 updateData
             );
             expect(result.data.display_name).toBe("Updated Cluster Name");
@@ -242,7 +242,7 @@ describe("Clusters API", () => {
             await clustersApi.delete(1);
 
             expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                "/v1/clusters/1"
+                "/v1/infrastructure/clusters/1"
             );
         });
     });
@@ -292,7 +292,7 @@ describe("Cluster Types API", () => {
             const result = await clusterTypesApi.getAll(1);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/clusters/types?page=1"
+                "/v1/infrastructure/clusters/types?page=1"
             );
             expect(result.data).toHaveLength(2);
             expect(result.data[0].name).toBe("EKS");
@@ -322,7 +322,7 @@ describe("Cluster Types API", () => {
             const result = await clusterTypesApi.create(createData);
 
             expect(mockedApiClient.post).toHaveBeenCalledWith(
-                "/v1/clusters/types",
+                "/v1/infrastructure/clusters/types",
                 createData
             );
             expect(result.data.name).toBe("AKS");
@@ -364,7 +364,7 @@ describe("Cluster Detail and Edit Operations", () => {
 
             const result = await clustersApi.getById(5);
 
-            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/clusters/5");
+            expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/infrastructure/clusters/5");
             expect(result.data.id).toBe(5);
             expect(result.data.name).toBe("detail-test-cluster");
             expect(result.data.display_name).toBe("Detail Test Cluster");
@@ -434,7 +434,7 @@ describe("Cluster Detail and Edit Operations", () => {
             const result = await clustersApi.update(1, updateData);
 
             expect(mockedApiClient.put).toHaveBeenCalledWith(
-                "/v1/clusters/1",
+                "/v1/infrastructure/clusters/1",
                 updateData
             );
             expect(result.data.name).toBe("renamed-cluster");
@@ -673,7 +673,7 @@ describe("Cluster Detail and Edit Operations", () => {
             const result = await clustersApi.update(1, updateData);
 
             expect(mockedApiClient.put).toHaveBeenCalledWith(
-                "/v1/clusters/1",
+                "/v1/infrastructure/clusters/1",
                 updateData
             );
             expect(result.data.name).toBe("multi-update-cluster");
@@ -739,7 +739,7 @@ describe("Cluster Detail and Edit Operations", () => {
             await clustersApi.delete(1);
 
             expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                "/v1/clusters/1"
+                "/v1/infrastructure/clusters/1"
             );
         });
 

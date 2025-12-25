@@ -107,7 +107,7 @@ describe("Integration Module", () => {
                 const result = await linksApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/links?page=1"
+                    "/v1/catalog/links?page=1"
                 );
                 expect(result.data).toHaveLength(2);
                 expect(result.data[0].name).toBe("api-database-link");
@@ -135,7 +135,7 @@ describe("Integration Module", () => {
 
                 const result = await linksApi.getById(1);
 
-                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/links/1");
+                expect(mockedApiClient.get).toHaveBeenCalledWith("/v1/catalog/links/1");
                 expect(result.data.name).toBe("api-database-link");
             });
 
@@ -176,7 +176,7 @@ describe("Integration Module", () => {
                 const result = await linksApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/links",
+                    "/v1/catalog/links",
                     createData
                 );
                 expect(result.data.name).toBe("new-link");
@@ -222,7 +222,7 @@ describe("Integration Module", () => {
                 const result = await linksApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/links/1",
+                    "/v1/catalog/links/1",
                     updateData
                 );
                 expect(result.data.description).toBe(
@@ -238,7 +238,7 @@ describe("Integration Module", () => {
                 await linksApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/links/1"
+                    "/v1/catalog/links/1"
                 );
             });
         });
@@ -265,7 +265,7 @@ describe("Integration Module", () => {
                 const result = await linkTypesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/links/categories?page=1"
+                    "/v1/catalog/links/categories?page=1"
                 );
                 expect(result.data).toHaveLength(2);
                 expect(result.data[0].name).toBe("depends-on");
@@ -283,7 +283,7 @@ describe("Integration Module", () => {
                 const result = await linkTypesApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/links/categories/1"
+                    "/v1/catalog/links/categories/1"
                 );
                 expect(result.data.name).toBe("depends-on");
             });
@@ -308,7 +308,7 @@ describe("Integration Module", () => {
                 const result = await linkTypesApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/links/categories",
+                    "/v1/catalog/links/categories",
                     createData
                 );
                 expect(result.data.name).toBe("communicates-with");
@@ -332,7 +332,7 @@ describe("Integration Module", () => {
                 const result = await linkTypesApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/links/categories/1",
+                    "/v1/catalog/links/categories/1",
                     updateData
                 );
                 expect(result.data.description).toBe("Updated description");
@@ -346,7 +346,7 @@ describe("Integration Module", () => {
                 await linkTypesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/links/categories/1"
+                    "/v1/catalog/links/categories/1"
                 );
             });
         });
