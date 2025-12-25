@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
  * @property BusinessDomainCategory $category
  * @property string $description
  * @property string $display_name
- * @property boolean $is_active
+ * @property boolean $is_enabled
  * @property string $name
  * @property int $parent_id
  * @property Carbon $created_at
@@ -40,7 +40,7 @@ class BusinessDomainResource extends JsonResource
                 'name' => $this->category->name,
                 'value' => $this->category->value,
             ],
-            'is_active' => $this->is_active,
+            'is_enabled' => $this->is_enabled,
             'parent_id' => $this->parent_id,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,

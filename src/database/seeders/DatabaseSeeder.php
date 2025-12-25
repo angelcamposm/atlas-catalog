@@ -53,6 +53,8 @@ class DatabaseSeeder extends Seeder
             BusinessTierSeeder::class,
             CategorySeeder::class,
             ComplianceStandardSeeder::class,
+            ComponentTypeSeeder::class,
+            EntitySeeder::class,
             EnvironmentSeeder::class,
             GroupMemberRoleSeeder::class,
             GroupTypeSeeder::class,
@@ -60,6 +62,7 @@ class DatabaseSeeder extends Seeder
             LifecyclePhaseSeeder::class,
             PlatformSeeder::class,
             ProgrammingLanguageSeeder::class,
+            ServiceModelSeeder::class,
             ServiceStatusSeeder::class,
             VendorSeeder::class,
         ]);

@@ -52,9 +52,47 @@ class GenerateClustersFakeDataCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle(): int
     {
-        $this->create_clusters_fake_data();
+        $this->info('Creating fake data for clusters domain...');
+
+        $quantity = $this->option('quantity');
+
+        $progressBar = $this->output->createProgressBar($quantity);
+
+        $progressBar->start();
+
+        for ($i = 0; $i < $quantity; $i++) {
+
+            $master_nodes = $this->getNodeFactory(fake()->numberBetween(2, 5));
+            $worker_nodes = $this->getNodeFactory(fake()->numberBetween(3, 20));
+
+            $service_account = $this->getServiceAccountFactory(rand(1, 3));
+
+            Cluster::factory()
+                ->count(1)
+                ->for(
+                    factory: ClusterType::factory()
+                        ->state(new Sequence(
+                            ['is_enabled' => true],
+                            ['is_enabled' => false],
+                        ))
+                        ->for(Vendor::factory()),
+                    relationship: 'type'
+                )
+                ->for(InfrastructureType::factory(), 'infrastructureType')
+                ->for(LifecyclePhase::factory(), 'lifecycle')
+                ->has($service_account, 'serviceAccounts')
+                ->hasAttached($worker_nodes, ['role' => NodeRole::Worker], 'nodes')
+                ->hasAttached($master_nodes, ['role' => NodeRole::Master], 'nodes')
+                ->create();
+
+            $progressBar->advance();
+        }
+
+        $this->output->newLine();
+
+        return self::SUCCESS;
     }
 
     /**
@@ -87,35 +125,5 @@ class GenerateClustersFakeDataCommand extends Command
         return ServiceAccount::factory()
             ->count($quantity)
             ->has($tokens, 'tokens');
-    }
-
-    private function create_clusters_fake_data(): void
-    {
-        $this->info('Creating fake data for clusters domain...');
-
-        $quantity = $this->option('quantity');
-
-        $master_nodes = $this->getNodeFactory(3);
-        $worker_nodes = $this->getNodeFactory(rand(2, 6));
-
-        $service_account = $this->getServiceAccountFactory(rand(1, 3));
-
-        Cluster::factory()
-            ->count($quantity)
-            ->for(
-                factory: ClusterType::factory()
-                    ->state(new Sequence(
-                        ['is_enabled' => true],
-                        ['is_enabled' => false],
-                    ))
-                    ->for(Vendor::factory()),
-                relationship: 'clusterType'
-            )
-            ->for(InfrastructureType::factory(), 'infrastructureType')
-            ->for(LifecyclePhase::factory(), 'lifecycle')
-            ->has($service_account, 'serviceAccounts')
-            ->hasAttached($worker_nodes, ['role' => NodeRole::Worker], 'nodes')
-            ->hasAttached($master_nodes, ['role' => NodeRole::Master], 'nodes')
-            ->create();
     }
 }

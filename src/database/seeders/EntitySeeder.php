@@ -21,9 +21,10 @@ final class EntitySeeder extends Seeder
             Entity::updateOrCreate(
                 ['name' => $item['name']],
                 [
-                    'description' => $item['description'],
-                    'is_aggregate' => $item['is_aggregate'],
-                    'is_aggregate_root' => $item['is_aggregate_root'],
+                    'description' => $item['description'] ?? null,
+                    'is_aggregate' => $item['is_aggregate'] ?? false,
+                    'is_aggregate_root' => $item['is_aggregate_root'] ?? false,
+                    'is_enabled' => $item['is_enabled'] ?? true,
                 ],
             );
         });

@@ -35,33 +35,33 @@ class BusinessDomainFactory extends Factory
             'display_name' => $name,
             'description' => Str::substr($this->faker->sentence(), 0, 250),
             'category' => $this->faker->randomElement(BusinessDomainCategory::cases()),
-            'is_active' => $this->faker->boolean(),
+            'is_enabled' => $this->faker->boolean(),
             'parent_id' => null,
             'slug' => Str::slug($name),
         ];
     }
 
     /**
-     * Indicate that the business domain is active.
+     * Indicate that the business domain is enabled.
      *
      * @return self
      */
-    public function active(): self
+    public function enabled(): self
     {
         return $this->state(fn (array $attributes) => [
-            'is_active' => true,
+            'is_enabled' => true,
         ]);
     }
 
     /**
-     * Indicate that the business domain is inactive.
+     * Indicate that the business domain is disabled.
      *
      * @return self
      */
-    public function inactive(): self
+    public function disabled(): self
     {
         return $this->state(fn (array $attributes) => [
-            'is_active' => false,
+            'is_enabled' => false,
         ]);
     }
 

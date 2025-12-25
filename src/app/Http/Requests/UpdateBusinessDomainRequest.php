@@ -33,7 +33,7 @@ class UpdateBusinessDomainRequest extends FormRequest
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('business_domains')->ignore($this->businessDomain)],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
             'category' => ['sometimes', 'string', 'max:1'],
-            'is_active' => ['sometimes', 'boolean'],
+            'is_enabled' => ['sometimes', 'boolean'],
             'parent_id' => ['sometimes', 'nullable', 'integer', 'exists:business_domains,id'],
         ];
     }

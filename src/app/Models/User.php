@@ -5,7 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserResourceCollection;
+use App\Observers\UserObserver;
+use App\Traits\BelongsToUser;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseResource;
+use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -29,8 +36,12 @@ use Illuminate\Notifications\Notifiable;
  *
  * @use HasFactory<UserFactory>
  */
+#[ObservedBy(UserObserver::class)]
+#[UseResource(UserResource::class)]
+#[UseResourceCollection(UserResourceCollection::class)]
 class User extends Authenticatable
 {
+    use BelongsToUser;
     use HasFactory;
     use Notifiable;
 

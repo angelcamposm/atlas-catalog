@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('entities', function (Blueprint $table) {
+        Schema::create('service_models', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
-            $table->string('description', 255)->nullable();
-            $table->boolean('is_aggregate')->default(false);
-            $table->boolean('is_aggregate_root')->default(false);
-            $table->boolean('is_enabled')->default(true);
-            $table->timestamp('created_at')->nullable();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
+            $table->string('abbrv')->unique();
+            $table->string('display_name');
+            $table->string('description')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users', 'id')->nullOnDelete();
-            $table->timestamp('updated_at')->nullable();
             $table->foreignId('updated_by')->nullable()->constrained('users', 'id')->nullOnDelete();
+            $table->timestamps();
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('entities');
+        Schema::dropIfExists('service_models');
     }
 };

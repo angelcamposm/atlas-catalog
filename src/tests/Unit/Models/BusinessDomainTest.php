@@ -81,17 +81,17 @@ class BusinessDomainTest extends TestCase
     }
 
     #[Test]
-    public function it_can_be_active(): void
+    public function it_can_be_enabled(): void
     {
-        $domain = BusinessDomain::factory()->create(['is_active' => true]);
-        $this->assertTrue($domain->isActive());
+        $domain = BusinessDomain::factory()->create(['is_enabled' => true]);
+        $this->assertTrue($domain->isEnabled());
     }
 
     #[Test]
-    public function it_can_be_inactive(): void
+    public function it_can_be_disabled(): void
     {
-        $domain = BusinessDomain::factory()->create(['is_active' => false]);
-        $this->assertFalse($domain->isActive());
+        $domain = BusinessDomain::factory()->create(['is_enabled' => false]);
+        $this->assertFalse($domain->isEnabled());
     }
 
     #[Test]
@@ -102,7 +102,7 @@ class BusinessDomainTest extends TestCase
             'display_name' => 'Test Domain',
             'description' => 'This is a test domain.',
             'category' => fake()->randomElement(BusinessDomainCategory::cases())->value,
-            'is_active' => true,
+            'is_enabled' => true,
             'parent_id' => BusinessDomain::factory()->create()->id,
             'created_by' => User::factory()->create()->id,
             'updated_by' => User::factory()->create()->id,

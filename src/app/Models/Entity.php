@@ -21,6 +21,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id
  * @property string $name
+ * @property string $description
+ * @property bool $is_aggregate
+ * @property bool $is_aggregate_root
+ * @property bool $is_enabled
  * @property int $created_by
  * @property int $updated_by
  * @method static create(array $validated)
@@ -61,6 +65,7 @@ class Entity extends Model
         'description',
         'is_aggregate',
         'is_aggregate_root',
+        'is_enabled',
         'created_by',
         'updated_by',
     ];
@@ -73,6 +78,20 @@ class Entity extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_aggregate' => 'boolean',
+            'is_aggregate_root' => 'boolean',
+            'is_enabled' => 'boolean',
+        ];
+    }
 
     /**
      * Get the properties that belong to this entity.
