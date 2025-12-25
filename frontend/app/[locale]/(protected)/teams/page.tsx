@@ -41,7 +41,9 @@ export default function TeamsPage() {
     const [error, setError] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<ViewMode>("grid");
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedTypeFilter, setSelectedTypeFilter] = useState<number | null>(null);
+    const [selectedTypeFilter, setSelectedTypeFilter] = useState<number | null>(
+        null
+    );
 
     const loadTeams = useCallback(async () => {
         try {
@@ -72,11 +74,14 @@ export default function TeamsPage() {
                 !searchTerm ||
                 team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 team.label?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                team.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                team.description
+                    ?.toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
                 team.email?.toLowerCase().includes(searchTerm.toLowerCase());
 
             const matchesType =
-                selectedTypeFilter === null || team.type_id === selectedTypeFilter;
+                selectedTypeFilter === null ||
+                team.type_id === selectedTypeFilter;
 
             return matchesSearch && matchesType;
         });
@@ -86,13 +91,10 @@ export default function TeamsPage() {
     const stats = useMemo(() => {
         const withParent = teams.filter((t) => t.parent_id).length;
         const withEmail = teams.filter((t) => t.email).length;
-        const byType = groupTypes.reduce(
-            (acc, type) => {
-                acc[type.id] = teams.filter((t) => t.type_id === type.id).length;
-                return acc;
-            },
-            {} as Record<number, number>
-        );
+        const byType = groupTypes.reduce((acc, type) => {
+            acc[type.id] = teams.filter((t) => t.type_id === type.id).length;
+            return acc;
+        }, {} as Record<number, number>);
         return { withParent, withEmail, byType };
     }, [teams, groupTypes]);
 
@@ -199,7 +201,9 @@ export default function TeamsPage() {
                                 <HiOutlineUserGroup className="h-6 w-6 text-primary" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold">{teams.length}</p>
+                                <p className="text-2xl font-bold">
+                                    {teams.length}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                     Total Equipos
                                 </p>
@@ -215,7 +219,9 @@ export default function TeamsPage() {
                                 <HiOutlineEnvelope className="h-6 w-6 text-green-500" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold">{stats.withEmail}</p>
+                                <p className="text-2xl font-bold">
+                                    {stats.withEmail}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                     Con Email
                                 </p>
@@ -231,7 +237,9 @@ export default function TeamsPage() {
                                 <HiOutlineFolder className="h-6 w-6 text-purple-500" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold">{stats.withParent}</p>
+                                <p className="text-2xl font-bold">
+                                    {stats.withParent}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                     Sub-equipos
                                 </p>
@@ -247,7 +255,9 @@ export default function TeamsPage() {
                                 <HiOutlineTag className="h-6 w-6 text-orange-500" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold">{groupTypes.length}</p>
+                                <p className="text-2xl font-bold">
+                                    {groupTypes.length}
+                                </p>
                                 <p className="text-sm text-muted-foreground">
                                     Tipos de Equipo
                                 </p>
@@ -329,11 +339,16 @@ export default function TeamsPage() {
                                         <div
                                             className={cn(
                                                 "flex h-10 w-10 items-center justify-center rounded-lg text-white",
-                                                getIconColor(team.icon ?? null, index)
+                                                getIconColor(
+                                                    team.icon ?? null,
+                                                    index
+                                                )
                                             )}
                                         >
                                             <span className="text-lg font-bold">
-                                                {(team.label || team.name).charAt(0)}
+                                                {(
+                                                    team.label || team.name
+                                                ).charAt(0)}
                                             </span>
                                         </div>
                                         <div className="min-w-0 flex-1">
@@ -353,13 +368,20 @@ export default function TeamsPage() {
                                     {team.description || "Sin descripción"}
                                 </p>
                                 <div className="mt-3 flex items-center gap-2 flex-wrap">
-                                    {team.type_id && getTypeName(team.type_id) && (
-                                        <Badge variant="secondary" className="text-xs">
-                                            {getTypeName(team.type_id)}
-                                        </Badge>
-                                    )}
+                                    {team.type_id &&
+                                        getTypeName(team.type_id) && (
+                                            <Badge
+                                                variant="secondary"
+                                                className="text-xs"
+                                            >
+                                                {getTypeName(team.type_id)}
+                                            </Badge>
+                                        )}
                                     {team.parent_id && (
-                                        <Badge variant="outline" className="text-xs">
+                                        <Badge
+                                            variant="outline"
+                                            className="text-xs"
+                                        >
                                             Sub-equipo
                                         </Badge>
                                     )}
@@ -367,7 +389,9 @@ export default function TeamsPage() {
                                 {team.email && (
                                     <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
                                         <HiOutlineEnvelope className="h-4 w-4" />
-                                        <span className="truncate">{team.email}</span>
+                                        <span className="truncate">
+                                            {team.email}
+                                        </span>
                                     </div>
                                 )}
                             </CardContent>
@@ -404,13 +428,20 @@ export default function TeamsPage() {
                                         <p className="font-medium truncate">
                                             {team.label || team.name}
                                         </p>
-                                        {team.type_id && getTypeName(team.type_id) && (
-                                            <Badge variant="secondary" className="text-xs">
-                                                {getTypeName(team.type_id)}
-                                            </Badge>
-                                        )}
+                                        {team.type_id &&
+                                            getTypeName(team.type_id) && (
+                                                <Badge
+                                                    variant="secondary"
+                                                    className="text-xs"
+                                                >
+                                                    {getTypeName(team.type_id)}
+                                                </Badge>
+                                            )}
                                         {team.parent_id && (
-                                            <Badge variant="outline" className="text-xs">
+                                            <Badge
+                                                variant="outline"
+                                                className="text-xs"
+                                            >
                                                 Sub-equipo
                                             </Badge>
                                         )}
@@ -422,7 +453,9 @@ export default function TeamsPage() {
                                 {team.email && (
                                     <div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
                                         <HiOutlineEnvelope className="h-4 w-4" />
-                                        <span className="truncate max-w-[200px]">{team.email}</span>
+                                        <span className="truncate max-w-[200px]">
+                                            {team.email}
+                                        </span>
                                     </div>
                                 )}
                                 <HiOutlineChevronRight className="h-5 w-5 text-muted-foreground shrink-0" />

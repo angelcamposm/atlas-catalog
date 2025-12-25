@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { HiChevronRight, HiHome } from "react-icons/hi2";
+import { useTranslations } from "next-intl";
 
 export interface BreadcrumbItem {
     /** Label to display */
@@ -38,26 +39,28 @@ export function useAutoBreadcrumbs(
     customLabels?: Record<string, string>
 ): BreadcrumbItem[] {
     const pathname = usePathname();
+    const t = useTranslations("sidebar");
+    const c = useTranslations("common");
 
     const defaultLabels: Record<string, string> = {
-        dashboard: "Dashboard",
-        apis: "APIs",
-        infrastructure: "Infrastructure",
-        clusters: "Clusters",
-        nodes: "Nodes",
-        platform: "Platform",
-        platforms: "Platforms",
-        integration: "Integration",
-        links: "Links",
-        teams: "Teams",
-        settings: "Settings",
-        analytics: "Analytics",
-        documentation: "Documentation",
-        security: "Security",
-        types: "Types",
-        lifecycles: "Lifecycles",
-        new: "New",
-        edit: "Edit",
+        dashboard: t("dashboard"),
+        apis: t("apis"),
+        infrastructure: t("infrastructure"),
+        clusters: t("clusters"),
+        nodes: t("nodes"),
+        platform: t("platforms"),
+        platforms: t("platforms"),
+        integration: t("integration"),
+        links: t("links"),
+        teams: t("teams"),
+        settings: t("settings"),
+        analytics: t("analytics"),
+        documentation: t("documentation"),
+        security: t("security"),
+        types: t("types"),
+        lifecycles: t("lifecycles"),
+        new: c("new"),
+        edit: c("edit"),
         ...customLabels,
     };
 

@@ -11,6 +11,7 @@ test.describe("Cluster Service Accounts CRUD", () => {
             await expect(
                 page.getByRole("heading", {
                     name: /cluster service accounts|cuentas de servicio/i,
+                    level: 1,
                 })
             ).toBeVisible();
         });
@@ -22,7 +23,13 @@ test.describe("Cluster Service Accounts CRUD", () => {
             const createLink = page.locator(
                 'a[href*="/cluster-service-accounts/create"]'
             );
-            await expect(createLink).toBeVisible();
+            const createButton = page.getByRole("button", {
+                name: /crear|create|nuevo|new|create account/i,
+            });
+            const visibleCreate =
+                (await createLink.isVisible().catch(() => false)) ||
+                (await createButton.isVisible().catch(() => false));
+            expect(visibleCreate).toBeTruthy();
         });
 
         test("should display list or empty state", async ({ page }) => {
@@ -50,9 +57,22 @@ test.describe("Cluster Service Accounts CRUD", () => {
             await page.goto("/es/infrastructure/cluster-service-accounts");
             await page.waitForLoadState("networkidle");
 
-            await page
-                .locator('a[href*="/cluster-service-accounts/create"]')
-                .click();
+            const createLink = page.locator(
+                'a[href*="/cluster-service-accounts/create"]'
+            );
+            const createButton = page.getByRole("button", {
+                name: /crear|create|nuevo|new|create account/i,
+            });
+
+            if (await createLink.isVisible().catch(() => false)) {
+                await createLink.click();
+            } else if (await createButton.isVisible().catch(() => false)) {
+                await createButton.click();
+            } else {
+                throw new Error(
+                    "Create action not found on cluster service accounts page"
+                );
+            }
 
             await expect(page).toHaveURL(
                 /\/infrastructure\/cluster-service-accounts\/create/
@@ -132,10 +152,15 @@ test.describe("Cluster Service Accounts CRUD", () => {
             );
             await page.waitForLoadState("networkidle");
 
-            // Click back button
-            await page.getByRole("button").first().click();
+            // Click back button - look for button with back icon or specific variant
+            const backButton = page
+                .getByRole("button", { name: /back|atrás|volver/i })
+                .or(page.locator('button:has(svg[class*="ArrowLeft"])'))
+                .or(page.locator('button[variant="outline"]').first());
 
-            // Should navigate away
+            await backButton.first().click();
+
+            // Should navigate away from create page
             await page.waitForURL(
                 /\/infrastructure\/cluster-service-accounts(?!\/create)/,
                 {

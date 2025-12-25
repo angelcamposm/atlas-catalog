@@ -255,14 +255,21 @@ export function ClusterTypeDetailSlideOver({
                         {vendor ? (
                             <>
                                 <div className="flex items-center justify-between py-1">
-                                    <span className="text-xs text-muted-foreground">Vendor Name</span>
+                                    <span className="text-xs text-muted-foreground">
+                                        Vendor Name
+                                    </span>
                                     <div className="flex items-center gap-2">
                                         {hasVendorIcon(vendor.name) ? (
-                                            <VendorIcon name={vendor.name} className="h-5 w-5" />
+                                            <VendorIcon
+                                                name={vendor.name}
+                                                className="h-5 w-5"
+                                            />
                                         ) : (
                                             <Building2 className="h-5 w-5 text-muted-foreground" />
                                         )}
-                                        <span className="text-sm font-medium">{vendor.name}</span>
+                                        <span className="text-sm font-medium">
+                                            {vendor.name}
+                                        </span>
                                     </div>
                                 </div>
                                 <SlideOverField

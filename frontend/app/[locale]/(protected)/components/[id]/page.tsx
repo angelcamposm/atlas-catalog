@@ -48,22 +48,22 @@ interface ComponentApiRelation {
 const tabs = [
     {
         id: "overview",
-        label: "Información general",
+        key: "overview",
         icon: HiOutlineViewColumns,
     },
     {
         id: "apis",
-        label: "APIs",
+        key: "apis",
         icon: HiArrowTopRightOnSquare,
     },
     {
         id: "dependencies",
-        label: "Dependencias",
+        key: "dependencies",
         icon: HiOutlineArrowsRightLeft,
     },
     {
         id: "metadata",
-        label: "Metadatos",
+        key: "metadata",
         icon: HiOutlineTableCells,
     },
 ] as const;
@@ -124,6 +124,7 @@ function TabNavigation({
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
                     const isActive = activeTab === tab.id;
+                    const t = useTranslations("sidebar");
 
                     return (
                         <button
@@ -147,7 +148,7 @@ function TabNavigation({
                                         : "text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300"
                                 )}
                             />
-                            {tab.label}
+                            {t(tab.key as string)}
                         </button>
                     );
                 })}

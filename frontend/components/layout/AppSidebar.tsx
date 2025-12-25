@@ -62,11 +62,14 @@ interface MenuSection {
     defaultCollapsed?: boolean;
 }
 
+import { useTranslations } from "next-intl";
+
 export function AppSidebar({
     locale,
     isCollapsed = false,
     onSearchClick,
 }: AppSidebarProps) {
+    const t = useTranslations("sidebar");
     const pathname = usePathname();
 
     // Initialize with admin section collapsed by default
@@ -92,15 +95,14 @@ export function AppSidebar({
             // ==================== OVERVIEW ====================
             {
                 id: "overview",
-                label: "Overview",
                 items: [
                     {
-                        title: "Dashboard",
+                        title: "dashboard",
                         url: `/${locale}/dashboard`,
                         icon: HiHome,
                     },
                     {
-                        title: "Analytics",
+                        title: "analytics",
                         url: `/${locale}/analytics`,
                         icon: HiChartBar,
                     },
@@ -109,50 +111,60 @@ export function AppSidebar({
             // ==================== CATALOG ====================
             {
                 id: "catalog",
-                label: "Catalog",
                 items: [
                     {
-                        title: "APIs",
+                        title: "apis",
                         url: `/${locale}/apis`,
                         icon: HiCodeBracket,
                         badge: "24",
                         badgeColor: "info" as const,
                     },
                     {
-                        title: "Resources",
+                        title: "resources",
                         url: `/${locale}/resources`,
                         icon: HiCircleStack,
                     },
+                ],
+            },
+            // ==================== INTEGRATION ====================
+            {
+                id: "integration",
+                collapsible: true,
+                items: [
                     {
-                        title: "Links",
-                        url: `/${locale}/links`,
+                        title: "links",
+                        url: `/${locale}/integration/links`,
                         icon: HiLink,
+                    },
+                    {
+                        title: "link_types",
+                        url: `/${locale}/integration/link-types`,
+                        icon: HiTag,
                     },
                 ],
             },
             // ==================== INFRASTRUCTURE ====================
             {
                 id: "infrastructure",
-                label: "Infrastructure",
                 collapsible: true,
                 items: [
                     {
-                        title: "Platforms",
+                        title: "platforms",
                         url: `/${locale}/platform`,
                         icon: HiCloud,
                     },
                     {
-                        title: "Clusters",
+                        title: "clusters",
                         url: `/${locale}/infrastructure/clusters`,
                         icon: HiServerStack,
                     },
                     {
-                        title: "Nodes",
+                        title: "nodes",
                         url: `/${locale}/infrastructure/nodes`,
                         icon: HiCpuChip,
                     },
                     {
-                        title: "Environments",
+                        title: "environments",
                         url: `/${locale}/business/environments`,
                         icon: HiGlobeAlt,
                     },
@@ -161,18 +173,17 @@ export function AppSidebar({
             // ==================== ORGANIZATION ====================
             {
                 id: "organization",
-                label: "Organization",
                 collapsible: true,
                 items: [
                     {
-                        title: "Teams",
+                        title: "teams",
                         url: `/${locale}/teams`,
                         icon: HiUsers,
                         badge: "8",
                         badgeColor: "info" as const,
                     },
                     {
-                        title: "Service Accounts",
+                        title: "service_accounts",
                         url: `/${locale}/security/service-accounts`,
                         icon: HiUserGroup,
                     },
@@ -181,21 +192,20 @@ export function AppSidebar({
             // ==================== TAXONOMY ====================
             {
                 id: "taxonomy",
-                label: "Taxonomy",
                 collapsible: true,
                 items: [
                     {
-                        title: "Business Domains",
+                        title: "business_domains",
                         url: `/${locale}/business/domains`,
                         icon: HiBuildingOffice2,
                     },
                     {
-                        title: "Business Tiers",
+                        title: "business_tiers",
                         url: `/${locale}/taxonomy/business-tiers`,
                         icon: HiStar,
                     },
                     {
-                        title: "Lifecycles",
+                        title: "lifecycles",
                         url: `/${locale}/lifecycles`,
                         icon: HiArrowsRightLeft,
                     },
@@ -204,21 +214,20 @@ export function AppSidebar({
             // ==================== TECHNOLOGY ====================
             {
                 id: "technology",
-                label: "Technology",
                 collapsible: true,
                 items: [
                     {
-                        title: "Vendors",
+                        title: "vendors",
                         url: `/${locale}/technology/vendors`,
                         icon: HiCube,
                     },
                     {
-                        title: "Frameworks",
+                        title: "frameworks",
                         url: `/${locale}/technology/frameworks`,
                         icon: HiCommandLine,
                     },
                     {
-                        title: "Languages",
+                        title: "languages",
                         url: `/${locale}/technology/languages`,
                         icon: HiCodeBracket,
                     },
@@ -227,21 +236,20 @@ export function AppSidebar({
             // ==================== SECURITY ====================
             {
                 id: "security",
-                label: "Security",
                 collapsible: true,
                 items: [
                     {
-                        title: "Auth Methods",
+                        title: "auth_methods",
                         url: `/${locale}/security/auth-methods`,
                         icon: HiKey,
                     },
                     {
-                        title: "Access Policies",
+                        title: "access_policies",
                         url: `/${locale}/security/access-policies`,
                         icon: HiShieldCheck,
                     },
                     {
-                        title: "Compliance",
+                        title: "compliance",
                         url: `/${locale}/security/compliance`,
                         icon: HiClipboardDocumentCheck,
                     },
@@ -250,47 +258,46 @@ export function AppSidebar({
             // ==================== ADMINISTRATION ====================
             {
                 id: "admin",
-                label: "Administration",
                 collapsible: true,
                 defaultCollapsed: true,
                 items: [
                     {
-                        title: "API Types",
+                        title: "api_types",
                         url: `/${locale}/types`,
                         icon: HiTag,
                     },
                     {
-                        title: "API Statuses",
+                        title: "api_statuses",
                         url: `/${locale}/admin/api-statuses`,
                         icon: HiQueueList,
                     },
                     {
-                        title: "API Categories",
+                        title: "api_categories",
                         url: `/${locale}/admin/api-categories`,
                         icon: HiRectangleGroup,
                     },
                     {
-                        title: "Cluster Types",
+                        title: "cluster_types",
                         url: `/${locale}/infrastructure/cluster-types`,
                         icon: HiServerStack,
                     },
                     {
-                        title: "Group Types",
+                        title: "group_types",
                         url: `/${locale}/admin/group-types`,
                         icon: HiUsers,
                     },
                     {
-                        title: "Member Roles",
+                        title: "member_roles",
                         url: `/${locale}/admin/member-roles`,
                         icon: HiUserGroup,
                     },
                     {
-                        title: "My Profile",
+                        title: "my_profile",
                         url: `/${locale}/profile`,
                         icon: HiUser,
                     },
                     {
-                        title: "Settings",
+                        title: "settings",
                         url: `/${locale}/settings`,
                         icon: HiCog6Tooth,
                     },
@@ -299,32 +306,31 @@ export function AppSidebar({
             // ==================== EXAMPLES (Dev Only) ====================
             {
                 id: "examples",
-                label: "Examples",
                 collapsible: true,
                 defaultCollapsed: true,
                 items: [
                     {
-                        title: "Diagrams",
+                        title: "diagrams",
                         url: `/${locale}/showcase/diagrams`,
                         icon: HiArrowsPointingOut,
                     },
                     {
-                        title: "Empty State",
+                        title: "empty_state",
                         url: `/${locale}/showcase/empty-state`,
                         icon: HiExclamationCircle,
                     },
                     {
-                        title: "Loading",
+                        title: "loading",
                         url: `/${locale}/showcase/loading`,
                         icon: HiArrowPath,
                     },
                     {
-                        title: "Markdown",
+                        title: "markdown",
                         url: `/${locale}/showcase/markdown`,
                         icon: HiDocumentText,
                     },
                     {
-                        title: "Slide Panel",
+                        title: "slide_panel",
                         url: `/${locale}/showcase/slide-panel`,
                         icon: HiRectangleStack,
                     },
@@ -351,7 +357,7 @@ export function AppSidebar({
                     className="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-background px-3 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                     <HiMagnifyingGlass className="h-4 w-4 shrink-0" />
-                    <span className="flex-1 text-left">Search...</span>
+                    <span className="flex-1 text-left">{t("search")}</span>
                     <kbd className="pointer-events-none rounded border border-border bg-muted px-1.5 py-0.5 text-xs font-medium">
                         ⌘K
                     </kbd>
@@ -374,7 +380,7 @@ export function AppSidebar({
                                     }
                                     className="mb-1 flex w-full items-center justify-between px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:text-foreground"
                                 >
-                                    <span>{section.label}</span>
+                                    <span>{t(section.id)}</span>
                                     {section.collapsible && (
                                         <div className="flex items-center gap-1">
                                             {isCollapsed ? (
@@ -424,7 +430,7 @@ export function AppSidebar({
                                                     }`}
                                                 />
                                                 <span className="flex-1">
-                                                    {item.title}
+                                                    {t(item.title)}
                                                 </span>
                                                 {item.badge && (
                                                     <span

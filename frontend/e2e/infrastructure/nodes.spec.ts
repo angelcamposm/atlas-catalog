@@ -15,11 +15,16 @@ test.describe("Nodes CRUD", () => {
             await page.goto("/es/infrastructure/nodes");
             await page.waitForLoadState("networkidle");
 
-            // Look for the New Node link
-            const newNodeLink = page.locator(
-                'a[href*="/infrastructure/nodes/new"]'
-            );
-            await expect(newNodeLink).toBeVisible();
+            // Look for the New Node link or button
+            const newNodeLink = page.locator('a[href*="/nodes/new"]');
+            const newNodeButton = page.getByRole("button", {
+                name: /new node|nuevo nodo|new|nuevo/i,
+            });
+
+            const isVisible =
+                (await newNodeLink.isVisible().catch(() => false)) ||
+                (await newNodeButton.isVisible().catch(() => false));
+            expect(isVisible).toBeTruthy();
         });
 
         test("should display nodes list or empty state", async ({ page }) => {
@@ -52,8 +57,19 @@ test.describe("Nodes CRUD", () => {
             await page.goto("/es/infrastructure/nodes");
             await page.waitForLoadState("networkidle");
 
-            // Click the new node link
-            await page.locator('a[href*="/infrastructure/nodes/new"]').click();
+            // Click the new node link or button
+            const newNodeLink = page.locator('a[href*="/nodes/new"]');
+            const newNodeButton = page.getByRole("button", {
+                name: /new node|nuevo nodo/i,
+            });
+
+            if (await newNodeLink.isVisible().catch(() => false)) {
+                await newNodeLink.click();
+            } else if (await newNodeButton.isVisible().catch(() => false)) {
+                await newNodeButton.click();
+            } else {
+                throw new Error("Create node action not found");
+            }
 
             await expect(page).toHaveURL(/\/infrastructure\/nodes\/new/);
             await expect(

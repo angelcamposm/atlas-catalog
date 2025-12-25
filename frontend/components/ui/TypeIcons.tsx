@@ -6,10 +6,7 @@ import {
     getInfrastructureTypeIcon,
     getIconColorClass,
 } from "@/lib/icons/infrastructure-icons";
-import {
-    getVendorIcon,
-    getVendorIconColor,
-} from "@/lib/icons/vendor-icons";
+import { getVendorIcon, getVendorIconColor } from "@/lib/icons/vendor-icons";
 
 interface TypeIconProps {
     name: string;
@@ -40,10 +37,7 @@ export function ClusterTypeIcon({
     const colorClass = getIconColorClass(name);
 
     return (
-        <span
-            className={cn("inline-flex items-center gap-1.5")}
-            title={name}
-        >
+        <span className={cn("inline-flex items-center gap-1.5")} title={name}>
             <IconComponent
                 className={cn(sizeClasses[size], className || colorClass)}
                 aria-hidden="true"
@@ -66,10 +60,7 @@ export function InfrastructureTypeIcon({
     const colorClass = getIconColorClass(name);
 
     return (
-        <span
-            className={cn("inline-flex items-center gap-1.5")}
-            title={name}
-        >
+        <span className={cn("inline-flex items-center gap-1.5")} title={name}>
             <IconComponent
                 className={cn(sizeClasses[size], className || colorClass)}
                 aria-hidden="true"

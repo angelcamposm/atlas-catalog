@@ -1,20 +1,18 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { CreatePlatformForm } from "@/components/platform";
 
-export default function NewPlatformPage({
-    params,
-}: {
-    params: { locale: string };
-}) {
+export default function NewPlatformPage() {
     const router = useRouter();
+    const params = useParams();
+    const locale = (params.locale as string) || "en";
 
     const handleSuccess = () => {
-        router.push(`/${params.locale}/platform/platforms`);
+        router.push(`/${locale}/platform/platforms`);
     };
 
     const handleCancel = () => {
@@ -25,7 +23,7 @@ export default function NewPlatformPage({
         <div className="container mx-auto space-y-6 p-6">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <Link href={`/${params.locale}/platform/platforms`}>
+                <Link href={`/${locale}/platform/platforms`}>
                     <Button variant="outline" size="icon">
                         <ArrowLeft className="h-4 w-4" />
                     </Button>

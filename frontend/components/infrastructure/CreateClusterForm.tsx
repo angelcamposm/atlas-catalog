@@ -261,7 +261,10 @@ export function CreateClusterForm({
                                     >
                                         <span className="flex items-center gap-2">
                                             {hasVendorIcon(vendor.name) && (
-                                                <VendorIcon name={vendor.name} className="h-4 w-4" />
+                                                <VendorIcon
+                                                    name={vendor.name}
+                                                    className="h-4 w-4"
+                                                />
                                             )}
                                             {vendor.name}
                                         </span>

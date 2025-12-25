@@ -7,6 +7,7 @@ import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ModuleSelector } from "@/components/layout/ModuleSelector";
 import { ProfileModal } from "@/components/profile/ProfileModal";
 import { CommandKSearch } from "@/components/dashboard/CommandKSearch";
+import { useTranslations } from "next-intl";
 import { RouteProgressBar } from "@/components/layout/RouteProgressBar";
 import { Button } from "@/components/ui/Button";
 import { Search, ChevronRight, PanelLeftClose, PanelLeft } from "lucide-react";
@@ -65,23 +66,25 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
         role: "Admin",
     };
 
+    const t = useTranslations("sidebar");
+
     // Get breadcrumb from pathname
     const getBreadcrumb = () => {
         const pathWithoutLocale = pathname.replace(`/${locale}`, "");
         const parts = pathWithoutLocale.split("/").filter(Boolean);
 
-        if (parts.length === 0) return ["Home"];
+        if (parts.length === 0) return [t("dashboard")];
 
         const breadcrumbMap: Record<string, string> = {
-            dashboard: "Home",
-            updates: "Updates",
-            apis: "APIs",
-            infrastructure: "Infrastructure",
-            integration: "Integration",
-            platform: "Platform",
-            tasks: "My Tasks",
-            inbox: "Inbox",
-            clients: "Clients",
+            dashboard: t("dashboard"),
+            updates: t("updates"),
+            apis: t("apis"),
+            infrastructure: t("infrastructure"),
+            integration: t("integration"),
+            platform: t("platforms"),
+            tasks: t("tasks"),
+            inbox: t("inbox"),
+            clients: t("clients"),
         };
 
         return parts.map((part) => breadcrumbMap[part] || part);

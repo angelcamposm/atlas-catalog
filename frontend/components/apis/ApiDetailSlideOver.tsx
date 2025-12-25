@@ -24,6 +24,7 @@ import {
     HiOutlineCheck,
     HiOutlineArrowsRightLeft,
 } from "react-icons/hi2";
+import { useTranslations } from "next-intl";
 import type { Api } from "@/types/api";
 import { cn } from "@/lib/utils";
 import { ApiDependenciesTab } from "./ApiDependenciesTab";
@@ -515,6 +516,8 @@ export function ApiDetailSlideOver({
     };
     const typeName = api.type_id ? typeMap[api.type_id] || "API" : "API";
 
+    const t = useTranslations("sidebar");
+
     return (
         <SlideOver
             open={open}
@@ -535,7 +538,7 @@ export function ApiDetailSlideOver({
                       }
                     : undefined
             }
-            breadcrumbs={[{ label: "APIs" }, { label: typeName }]}
+            breadcrumbs={[{ label: t("apis") }, { label: typeName }]}
         >
             {/* Tabs */}
             <SlideOverTabs

@@ -93,7 +93,13 @@ export function TeamDetailSlideOver({
                 </div>
             }
         >
-            {team && <TeamDetailContent team={team} members={members} locale={locale} />}
+            {team && (
+                <TeamDetailContent
+                    team={team}
+                    members={members}
+                    locale={locale}
+                />
+            )}
             {error && <p className="text-destructive">{error}</p>}
         </SlideOver>
     );

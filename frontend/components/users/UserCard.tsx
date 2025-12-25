@@ -1,9 +1,6 @@
 "use client";
 
-import {
-    HiOutlineEnvelope,
-    HiOutlineUser,
-} from "react-icons/hi2";
+import { HiOutlineEnvelope, HiOutlineUser } from "react-icons/hi2";
 import type { User } from "@/types/api";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
@@ -15,7 +12,12 @@ interface UserCardProps {
     compact?: boolean;
 }
 
-export function UserCard({ user, role, onClick, compact = false }: UserCardProps) {
+export function UserCard({
+    user,
+    role,
+    onClick,
+    compact = false,
+}: UserCardProps) {
     const getAvatarColor = (id: number) => {
         const colors = [
             "bg-blue-500",
@@ -46,13 +48,22 @@ export function UserCard({ user, role, onClick, compact = false }: UserCardProps
                     compact ? "h-8 w-8 text-sm" : "h-10 w-10"
                 )}
             >
-                {user.name ? user.name.charAt(0).toUpperCase() : <HiOutlineUser className="h-4 w-4" />}
+                {user.name ? (
+                    user.name.charAt(0).toUpperCase()
+                ) : (
+                    <HiOutlineUser className="h-4 w-4" />
+                )}
             </div>
 
             {/* Info */}
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                    <p className={cn("font-medium truncate", compact && "text-sm")}>
+                    <p
+                        className={cn(
+                            "font-medium truncate",
+                            compact && "text-sm"
+                        )}
+                    >
                         {user.name || `Usuario ${user.id}`}
                     </p>
                     {user.is_active === false && (
@@ -89,7 +100,11 @@ interface UserAvatarProps {
     showName?: boolean;
 }
 
-export function UserAvatar({ user, size = "md", showName = false }: UserAvatarProps) {
+export function UserAvatar({
+    user,
+    size = "md",
+    showName = false,
+}: UserAvatarProps) {
     const getAvatarColor = (id: number) => {
         const colors = [
             "bg-blue-500",
@@ -137,7 +152,11 @@ interface UserAvatarStackProps {
     size?: "sm" | "md" | "lg";
 }
 
-export function UserAvatarStack({ users, max = 5, size = "md" }: UserAvatarStackProps) {
+export function UserAvatarStack({
+    users,
+    max = 5,
+    size = "md",
+}: UserAvatarStackProps) {
     const visibleUsers = users.slice(0, max);
     const remainingCount = users.length - max;
 

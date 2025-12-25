@@ -13,6 +13,7 @@ import {
     FileText,
     Settings,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface CommandKSearchProps {
     isOpen: boolean;
@@ -35,6 +36,7 @@ export function CommandKSearch({
     locale,
 }: CommandKSearchProps) {
     const router = useRouter();
+    const t = useTranslations("sidebar");
     const [query, setQuery] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -52,7 +54,7 @@ export function CommandKSearch({
             // Main Navigation
             {
                 id: "dashboard",
-                title: "Dashboard",
+                title: t("dashboard"),
                 description: "Dashboard principal",
                 url: `/${locale}/dashboard`,
                 icon: Home,
@@ -60,7 +62,7 @@ export function CommandKSearch({
             },
             {
                 id: "apis",
-                title: "APIs",
+                title: t("apis"),
                 description: "Catálogo de APIs",
                 url: `/${locale}/apis`,
                 icon: FileText,
@@ -68,7 +70,7 @@ export function CommandKSearch({
             },
             {
                 id: "lifecycles",
-                title: "Lifecycles",
+                title: t("lifecycles"),
                 description: "Gestión de lifecycles",
                 url: `/${locale}/lifecycles`,
                 icon: BookOpen,
@@ -76,7 +78,7 @@ export function CommandKSearch({
             },
             {
                 id: "types",
-                title: "Types",
+                title: t("types"),
                 description: "Tipos de recursos",
                 url: `/${locale}/types`,
                 icon: FileText,
@@ -84,7 +86,7 @@ export function CommandKSearch({
             },
             {
                 id: "teams",
-                title: "Teams",
+                title: t("teams"),
                 description: "Equipos",
                 url: `/${locale}/teams`,
                 icon: Users,
@@ -94,7 +96,7 @@ export function CommandKSearch({
             // Infrastructure
             {
                 id: "infrastructure",
-                title: "Infrastructure",
+                title: t("infrastructure"),
                 description: "Vista general de infraestructura",
                 url: `/${locale}/infrastructure`,
                 icon: HiServer,
@@ -102,7 +104,7 @@ export function CommandKSearch({
             },
             {
                 id: "clusters",
-                title: "Clusters",
+                title: t("clusters"),
                 description: "Gestión de clusters",
                 url: `/${locale}/infrastructure/clusters`,
                 icon: HiServer,
@@ -110,7 +112,7 @@ export function CommandKSearch({
             },
             {
                 id: "cluster-types",
-                title: "Cluster Types",
+                title: t("cluster_types"),
                 description: "Tipos de clusters",
                 url: `/${locale}/infrastructure/cluster-types`,
                 icon: HiServer,
@@ -118,7 +120,7 @@ export function CommandKSearch({
             },
             {
                 id: "nodes",
-                title: "Nodes",
+                title: t("nodes"),
                 description: "Gestión de nodos",
                 url: `/${locale}/infrastructure/nodes`,
                 icon: HiServer,

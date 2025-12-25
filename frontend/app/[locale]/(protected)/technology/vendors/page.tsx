@@ -19,10 +19,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { getIconUrl } from "@/lib/utils/icons";
 import { VendorIcon } from "@/components/ui/TypeIcons";
-import {
-    getVendorBgColor,
-    hasVendorIcon,
-} from "@/lib/icons/vendor-icons";
+import { getVendorBgColor, hasVendorIcon } from "@/lib/icons/vendor-icons";
 import VendorDetailSlideOver from "@/components/technology/VendorDetailSlideOver";
 
 type ViewMode = "grid" | "list";

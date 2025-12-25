@@ -14,10 +14,7 @@ import { SlideOver } from "@/components/ui/SlideOver";
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { VendorIcon } from "@/components/ui/TypeIcons";
-import {
-    hasVendorIcon,
-    getVendorBgColor,
-} from "@/lib/icons/vendor-icons";
+import { hasVendorIcon, getVendorBgColor } from "@/lib/icons/vendor-icons";
 import { cn } from "@/lib/utils";
 
 // Base URL for SVG icons served by backend
@@ -160,7 +157,9 @@ export function VendorDetailSlideOver({
                                         />
                                     ) : (
                                         <span className="text-2xl font-bold text-white">
-                                            {vendor.name.charAt(0).toUpperCase()}
+                                            {vendor.name
+                                                .charAt(0)
+                                                .toUpperCase()}
                                         </span>
                                     )}
                                 </div>

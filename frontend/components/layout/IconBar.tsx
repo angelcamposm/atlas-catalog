@@ -10,6 +10,7 @@ import {
     HiCog6Tooth,
     HiStar,
 } from "react-icons/hi2";
+import { useTranslations } from "next-intl";
 import { PanelLeftClose, PanelLeft } from "lucide-react";
 
 interface IconBarProps {
@@ -34,6 +35,7 @@ export function IconBar({
     userFavorites = [],
 }: IconBarProps) {
     const pathname = usePathname();
+    const t = useTranslations("sidebar");
 
     // Favoritos por defecto si el usuario no tiene ninguno
     const defaultFavorites: FavoriteItem[] = [
@@ -41,28 +43,28 @@ export function IconBar({
             id: "home",
             icon: HiHome,
             href: `/${locale}/dashboard`,
-            label: "Inicio",
+            label: t("dashboard"),
             category: "General",
         },
         {
             id: "apis",
             icon: HiSquares2X2,
             href: `/${locale}/apis`,
-            label: "APIs",
+            label: t("apis"),
             category: "Catálogo",
         },
         {
             id: "infrastructure",
             icon: HiServer,
             href: `/${locale}/infrastructure`,
-            label: "Infraestructura",
+            label: t("infrastructure"),
             category: "Recursos",
         },
         {
             id: "analytics",
             icon: HiChartBar,
             href: `/${locale}/analytics`,
-            label: "Analítica",
+            label: t("analytics"),
             category: "Reportes",
         },
     ];
@@ -92,7 +94,7 @@ export function IconBar({
             <button
                 onClick={onToggleCollapse}
                 className="group mb-4 flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-all hover:bg-accent hover:text-accent-foreground"
-                title={isCollapsed ? "Expandir menú" : "Contraer menú"}
+                title={isCollapsed ? t("expand") : t("collapse")}
             >
                 {isCollapsed ? (
                     <PanelLeft className="h-5 w-5" />
@@ -157,7 +159,7 @@ export function IconBar({
 
                 {/* Tooltip */}
                 <div className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-popover px-2.5 py-1.5 text-xs text-popover-foreground shadow-lg ring-1 ring-border group-hover:block">
-                    Configuración
+                    {t("settings")}
                     <div className="absolute right-full top-1/2 -mr-1 -mt-1 border-4 border-transparent border-r-popover" />
                 </div>
             </Link>

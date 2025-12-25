@@ -33,8 +33,18 @@ const mockUser = {
     role: "Administrator",
     // Groups the user belongs to
     groups: [
-        { id: 1, name: "platform-team", label: "Platform Team", icon: "server" },
-        { id: 2, name: "security-team", label: "Security Team", icon: "shield" },
+        {
+            id: 1,
+            name: "platform-team",
+            label: "Platform Team",
+            icon: "server",
+        },
+        {
+            id: 2,
+            name: "security-team",
+            label: "Security Team",
+            icon: "shield",
+        },
     ],
     // Stats
     stats: {
@@ -48,9 +58,11 @@ export default function ProfilePage() {
     const params = useParams();
     const locale = (params?.locale as string) || "es";
     const fileInputRef = useRef<HTMLInputElement>(null);
-    
+
     const [user] = useState(mockUser);
-    const [profileImage, setProfileImage] = useState<string | null>(user.avatar);
+    const [profileImage, setProfileImage] = useState<string | null>(
+        user.avatar
+    );
 
     const formatDate = (dateString: string | null) => {
         if (!dateString) return "N/A";
@@ -117,7 +129,9 @@ export default function ProfilePage() {
                                     )}
                                 </div>
                                 <button
-                                    onClick={() => fileInputRef.current?.click()}
+                                    onClick={() =>
+                                        fileInputRef.current?.click()
+                                    }
                                     className="absolute bottom-0 right-0 rounded-full bg-background border p-2 shadow-md hover:bg-muted transition-colors"
                                 >
                                     <HiOutlineCamera className="h-4 w-4" />
@@ -141,7 +155,9 @@ export default function ProfilePage() {
                             <div className="mt-4 w-full space-y-2 text-sm">
                                 <div className="flex items-center gap-2 text-muted-foreground">
                                     <HiOutlineEnvelope className="h-4 w-4" />
-                                    <span className="truncate">{user.email}</span>
+                                    <span className="truncate">
+                                        {user.email}
+                                    </span>
                                 </div>
                                 {user.email_verified_at && (
                                     <div className="flex items-center gap-2 text-green-600">
@@ -153,10 +169,14 @@ export default function ProfilePage() {
 
                             {/* Status */}
                             <div className="mt-4 flex items-center gap-2">
-                                <span className={cn(
-                                    "h-2 w-2 rounded-full",
-                                    user.is_active ? "bg-green-500" : "bg-gray-400"
-                                )} />
+                                <span
+                                    className={cn(
+                                        "h-2 w-2 rounded-full",
+                                        user.is_active
+                                            ? "bg-green-500"
+                                            : "bg-gray-400"
+                                    )}
+                                />
                                 <span className="text-sm text-muted-foreground">
                                     {user.is_active ? "Activo" : "Inactivo"}
                                 </span>
@@ -176,8 +196,12 @@ export default function ProfilePage() {
                                         <HiOutlineClipboardDocumentList className="h-6 w-6 text-blue-500" />
                                     </div>
                                     <div>
-                                        <p className="text-2xl font-bold">{user.stats.apisOwned}</p>
-                                        <p className="text-sm text-muted-foreground">APIs</p>
+                                        <p className="text-2xl font-bold">
+                                            {user.stats.apisOwned}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            APIs
+                                        </p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -190,8 +214,12 @@ export default function ProfilePage() {
                                         <HiOutlineBuildingOffice2 className="h-6 w-6 text-green-500" />
                                     </div>
                                     <div>
-                                        <p className="text-2xl font-bold">{user.stats.componentsOwned}</p>
-                                        <p className="text-sm text-muted-foreground">Componentes</p>
+                                        <p className="text-2xl font-bold">
+                                            {user.stats.componentsOwned}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Componentes
+                                        </p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -204,8 +232,12 @@ export default function ProfilePage() {
                                         <HiOutlineUserGroup className="h-6 w-6 text-purple-500" />
                                     </div>
                                     <div>
-                                        <p className="text-2xl font-bold">{user.stats.teamsJoined}</p>
-                                        <p className="text-sm text-muted-foreground">Equipos</p>
+                                        <p className="text-2xl font-bold">
+                                            {user.stats.teamsJoined}
+                                        </p>
+                                        <p className="text-sm text-muted-foreground">
+                                            Equipos
+                                        </p>
                                     </div>
                                 </div>
                             </CardContent>
@@ -236,7 +268,10 @@ export default function ProfilePage() {
                                                 )}
                                             >
                                                 <span className="text-lg font-bold">
-                                                    {(group.label || group.name).charAt(0)}
+                                                    {(
+                                                        group.label ||
+                                                        group.name
+                                                    ).charAt(0)}
                                                 </span>
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -293,7 +328,13 @@ export default function ProfilePage() {
                                     <p className="text-sm font-medium text-muted-foreground">
                                         Estado
                                     </p>
-                                    <Badge variant={user.is_active ? "success" : "secondary"}>
+                                    <Badge
+                                        variant={
+                                            user.is_active
+                                                ? "success"
+                                                : "secondary"
+                                        }
+                                    >
                                         {user.is_active ? "Activo" : "Inactivo"}
                                     </Badge>
                                 </div>

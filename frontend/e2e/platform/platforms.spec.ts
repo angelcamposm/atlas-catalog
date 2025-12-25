@@ -6,7 +6,7 @@ test.describe("Platforms CRUD", () => {
             await page.goto("/en/platform/platforms");
 
             await expect(
-                page.getByRole("heading", { name: "Platforms" })
+                page.getByRole("heading", { name: "Platforms", level: 1 })
             ).toBeVisible();
         });
 

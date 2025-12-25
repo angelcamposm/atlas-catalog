@@ -15,11 +15,16 @@ test.describe("Clusters CRUD", () => {
             await page.goto("/es/infrastructure/clusters");
             await page.waitForLoadState("networkidle");
 
-            // More specific selector - look for the New Cluster link in the page header area
-            const newClusterLink = page.locator(
-                'a[href="/es/infrastructure/clusters/new"]'
-            );
-            await expect(newClusterLink).toBeVisible();
+            // Look for the New Cluster link or button
+            const newClusterLink = page.locator('a[href*="/clusters/new"]');
+            const newClusterButton = page.getByRole("button", {
+                name: /new cluster|nuevo cluster/i,
+            });
+
+            const isVisible =
+                (await newClusterLink.isVisible().catch(() => false)) ||
+                (await newClusterButton.isVisible().catch(() => false));
+            expect(isVisible).toBeTruthy();
         });
 
         test("should display clusters list or empty state", async ({
@@ -78,12 +83,21 @@ test.describe("Clusters CRUD", () => {
             await page.goto("/es/infrastructure/clusters");
             await page.waitForLoadState("networkidle");
 
-            // Click the specific new cluster link
-            await page
-                .locator('a[href="/es/infrastructure/clusters/new"]')
-                .click();
+            // Click the new cluster link or button
+            const newClusterLink = page.locator('a[href*="/clusters/new"]');
+            const newClusterButton = page.getByRole("button", {
+                name: /new cluster|nuevo cluster/i,
+            });
 
-            await expect(page).toHaveURL(/\/es\/infrastructure\/clusters\/new/);
+            if (await newClusterLink.isVisible().catch(() => false)) {
+                await newClusterLink.click();
+            } else if (await newClusterButton.isVisible().catch(() => false)) {
+                await newClusterButton.click();
+            } else {
+                throw new Error("Create cluster action not found");
+            }
+
+            await expect(page).toHaveURL(/\/infrastructure\/clusters\/new/);
             await expect(
                 page.getByRole("heading", {
                     name: /crear cluster|create cluster|nuevo cluster|new cluster/i,

@@ -7,17 +7,23 @@ test.describe("APIs List Page", () => {
 
             // Check page title or header
             await expect(
-                page.getByRole("heading", { name: /APIs/i })
+                page.getByRole("heading", { name: /APIs/i, level: 1 })
             ).toBeVisible();
         });
 
         test("should display create API button", async ({ page }) => {
             await page.goto("/es/apis");
 
-            // Look for new/create API button
-            await expect(
-                page.getByRole("button", { name: /Nueva API|New API|Crear/i })
-            ).toBeVisible();
+            // Look for new/create API link or button
+            const createLink = page.locator('a[href*="/apis/new"]');
+            const createButton = page.getByRole("button", {
+                name: /Nueva API|New API|Crear/i,
+            });
+
+            const isVisible =
+                (await createLink.isVisible().catch(() => false)) ||
+                (await createButton.isVisible().catch(() => false));
+            expect(isVisible).toBeTruthy();
         });
 
         test("should display search/filter functionality", async ({ page }) => {
@@ -65,10 +71,19 @@ test.describe("APIs List Page", () => {
         test("should navigate to create API page", async ({ page }) => {
             await page.goto("/es/apis");
 
-            // Click create button
-            await page
-                .getByRole("button", { name: /Nueva API|New API|Crear/i })
-                .click();
+            // Click create link or button
+            const createLink = page.locator('a[href*="/apis/new"]');
+            const createButton = page.getByRole("button", {
+                name: /Nueva API|New API|Crear/i,
+            });
+
+            if (await createLink.isVisible().catch(() => false)) {
+                await createLink.click();
+            } else if (await createButton.isVisible().catch(() => false)) {
+                await createButton.click();
+            } else {
+                throw new Error("Create API action not found");
+            }
 
             // Should navigate to create page
             await expect(page).toHaveURL(/\/apis\/new/);
@@ -165,13 +180,14 @@ test.describe("APIs List Page", () => {
             // Page should be visible and not broken
             await expect(page.locator("body")).toBeVisible();
 
-            // Create button should still be accessible
+            // Create button/link should still be accessible (may be hidden on mobile)
+            const createLink = page.locator('a[href*="/apis/new"]');
             const createButton = page.getByRole("button", {
                 name: /Nueva API|New API|Crear|\+/i,
             });
-            const hasCreateButton = await createButton
-                .isVisible()
-                .catch(() => false);
+            const hasCreateAction =
+                (await createLink.isVisible().catch(() => false)) ||
+                (await createButton.isVisible().catch(() => false));
 
             // Either button is visible or mobile menu hides it
             expect(true).toBeTruthy();

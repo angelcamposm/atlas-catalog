@@ -37,7 +37,9 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                 // Load group type if type_id exists
                 if (team.type_id) {
                     try {
-                        const typeResponse = await groupTypesApi.getById(team.type_id);
+                        const typeResponse = await groupTypesApi.getById(
+                            team.type_id
+                        );
                         setGroupType(typeResponse.data);
                     } catch (e) {
                         console.warn("Could not load group type:", e);
@@ -47,7 +49,9 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                 // Load parent group if parent_id exists
                 if (team.parent_id) {
                     try {
-                        const parentResponse = await groupsApi.getById(team.parent_id);
+                        const parentResponse = await groupsApi.getById(
+                            team.parent_id
+                        );
                         setParentGroup(parentResponse.data);
                     } catch (e) {
                         console.warn("Could not load parent group:", e);
@@ -57,7 +61,9 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                 // Load all groups to find children
                 try {
                     const allGroups = await groupsApi.getAll();
-                    const children = allGroups.data.filter(g => g.parent_id === team.id);
+                    const children = allGroups.data.filter(
+                        (g) => g.parent_id === team.id
+                    );
                     setChildGroups(children);
                 } catch (e) {
                     console.warn("Could not load child groups:", e);
@@ -135,9 +141,7 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                     </Badge>
                                 )}
                                 {team.parent_id && (
-                                    <Badge variant="outline">
-                                        Sub-equipo
-                                    </Badge>
+                                    <Badge variant="outline">Sub-equipo</Badge>
                                 )}
                             </div>
                             <p className="mt-1 text-sm text-muted-foreground font-mono">
@@ -174,7 +178,9 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                 )}
                             >
                                 <span className="text-lg font-bold">
-                                    {(parentGroup.label || parentGroup.name).charAt(0)}
+                                    {(
+                                        parentGroup.label || parentGroup.name
+                                    ).charAt(0)}
                                 </span>
                             </div>
                             <div className="flex-1 min-w-0">
@@ -224,7 +230,8 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                             {child.label || child.name}
                                         </p>
                                         <p className="text-xs text-muted-foreground truncate">
-                                            {child.description || "Sin descripción"}
+                                            {child.description ||
+                                                "Sin descripción"}
                                         </p>
                                     </div>
                                     <HiOutlineLink className="h-4 w-4 text-muted-foreground" />
@@ -283,7 +290,11 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                     Tipo
                                 </p>
                                 <p>
-                                    {groupType ? groupType.name : (team.type_id ? `ID: ${team.type_id}` : "N/A")}
+                                    {groupType
+                                        ? groupType.name
+                                        : team.type_id
+                                        ? `ID: ${team.type_id}`
+                                        : "N/A"}
                                 </p>
                             </div>
                             <div>
@@ -340,7 +351,9 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="font-medium truncate">
-                                                {m.name || m.email || `Usuario ${m.id}`}
+                                                {m.name ||
+                                                    m.email ||
+                                                    `Usuario ${m.id}`}
                                             </p>
                                             {m.email && (
                                                 <p className="text-xs text-muted-foreground truncate flex items-center gap-1">
@@ -350,7 +363,10 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                             )}
                                         </div>
                                         {m.is_active === false && (
-                                            <Badge variant="secondary" className="text-xs">
+                                            <Badge
+                                                variant="secondary"
+                                                className="text-xs"
+                                            >
                                                 Inactivo
                                             </Badge>
                                         )}
@@ -365,7 +381,8 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                     No hay miembros asignados
                                 </p>
                                 <p className="text-xs text-muted-foreground mt-1">
-                                    Los miembros aparecerán aquí cuando se añadan al equipo
+                                    Los miembros aparecerán aquí cuando se
+                                    añadan al equipo
                                 </p>
                             </div>
                         )}
