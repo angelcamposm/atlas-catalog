@@ -55,7 +55,7 @@ export const userSchema = z
         name: nullableString(),
         email: nullableString(),
         email_verified_at: nullableDate(),
-        is_active: z.boolean().default(true),
+        is_enabled: z.boolean().default(true),
     })
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
@@ -1462,3 +1462,88 @@ export interface CreateBuildRequest {
 }
 
 export type UpdateBuildRequest = Partial<CreateBuildRequest>;
+
+// Service Models (nuevo en backend)
+export const serviceModelSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ServiceModel = z.infer<typeof serviceModelSchema>;
+
+// Entities (nuevo en backend)
+export const entitySchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+        is_enabled: z.boolean().default(true), // Renombrado desde is_active
+        domain_id: nullableNumber(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type Entity = z.infer<typeof entitySchema>;
+
+// Entity Attributes
+export const entityAttributeSchema = z
+    .object({
+        id: z.number().int(),
+        entity_id: z.number().int(),
+        name: z.string().trim().min(1),
+        type: nullableString(),
+        is_required: z.boolean().default(false),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type EntityAttribute = z.infer<typeof entityAttributeSchema>;
+
+// Systems
+export const systemSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type System = z.infer<typeof systemSchema>;
+
+// Business Capabilities
+export const businessCapabilitySchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+        parent_id: nullableNumber(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type BusinessCapability = z.infer<typeof businessCapabilitySchema>;
+
+// Workflow Runs (CI/CD)
+export const workflowRunSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        status: nullableString(),
+        started_at: nullableDate(),
+        finished_at: nullableDate(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type WorkflowRun = z.infer<typeof workflowRunSchema>;
+
+// Workflow Jobs
+export const workflowJobSchema = z
+    .object({
+        id: z.number().int(),
+        workflow_run_id: z.number().int(),
+        name: z.string().trim().min(1),
+        status: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type WorkflowJob = z.infer<typeof workflowJobSchema>;
