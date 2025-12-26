@@ -9,18 +9,33 @@ use App\Http\Requests\UpdateServiceModelRequest;
 use App\Http\Resources\ServiceModelResource;
 use App\Http\Resources\ServiceModelResourceCollection;
 use App\Models\ServiceModel;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ServiceModelController extends Controller
 {
+    use AllowedRelationships;
+
+    public const array ALLOWED_RELATIONSHIPS = [
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
+     * @param  Request  $request
+     *
      * @return ServiceModelResourceCollection
      */
-    public function index(): ServiceModelResourceCollection
+    public function index(Request $request): ServiceModelResourceCollection
     {
-        return new ServiceModelResourceCollection(ServiceModel::paginate());
+        $requestedRelationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new ServiceModelResourceCollection(ServiceModel::with($requestedRelationships)->paginate());
     }
 
     /**
@@ -40,12 +55,18 @@ class ServiceModelController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ServiceModel $serviceModel
+     * @param  Request       $request
+     * @param  ServiceModel  $serviceModel
      *
      * @return ServiceModelResource
      */
-    public function show(ServiceModel $serviceModel): ServiceModelResource
+    public function show(Request $request, ServiceModel $serviceModel): ServiceModelResource
     {
+        if ($request->has('with')) {
+            $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
+            $serviceModel->load($allowedRelationships);
+        }
+
         return new ServiceModelResource($serviceModel);
     }
 
