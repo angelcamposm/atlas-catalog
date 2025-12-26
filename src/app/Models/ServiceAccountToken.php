@@ -52,7 +52,7 @@ class ServiceAccountToken extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'expires_at' => 'datetime',
+        'expires_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**
