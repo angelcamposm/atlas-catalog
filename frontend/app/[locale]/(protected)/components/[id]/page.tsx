@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { componentsApi, componentTypesApi } from "@/lib/api/components";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
@@ -110,10 +111,12 @@ function TabNavigation({
     activeTab,
     onTabChange,
     disabled = false,
+    t,
 }: {
     activeTab: TabId;
     onTabChange: (tab: TabId) => void;
     disabled?: boolean;
+    t: (key: string) => string;
 }) {
     return (
         <div className="border-b border-gray-200 dark:border-gray-700">
@@ -124,7 +127,6 @@ function TabNavigation({
                 {tabs.map((tab) => {
                     const Icon = tab.icon;
                     const isActive = activeTab === tab.id;
-                    const t = useTranslations("sidebar");
 
                     return (
                         <button
@@ -148,7 +150,7 @@ function TabNavigation({
                                         : "text-gray-400 group-hover:text-gray-500 dark:group-hover:text-gray-300"
                                 )}
                             />
-                            {t(tab.key as string)}
+                            {t(`tabs.${tab.key}`)}
                         </button>
                     );
                 })}
@@ -664,6 +666,7 @@ export default function ComponentDetailPage() {
     const params = useParams();
     const searchParams = useSearchParams();
     const router = useRouter();
+    const t = useTranslations("componentDetail");
 
     const idParam = params?.id;
     const componentId =
@@ -703,7 +706,7 @@ export default function ComponentDetailPage() {
     // Load component data
     useEffect(() => {
         if (!Number.isFinite(componentId)) {
-            setError("Identificador de componente no válido.");
+            setError(t("errors.invalidId"));
             setLoading(false);
             return;
         }
@@ -733,9 +736,7 @@ export default function ComponentDetailPage() {
                 setComponentType(foundType);
                 setLifecycle(foundLifecycle);
             } catch (err) {
-                setError(
-                    "No se pudo cargar el componente. Puede que no exista o no tengas permisos."
-                );
+                setError(t("errors.loadFailed"));
                 console.error("Error loading component:", err);
             } finally {
                 setLoading(false);
@@ -743,7 +744,7 @@ export default function ComponentDetailPage() {
         }
 
         void loadData();
-    }, [componentId]);
+    }, [componentId, t]);
 
     // Error state
     if (error) {
@@ -771,6 +772,7 @@ export default function ComponentDetailPage() {
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
                 disabled={loading}
+                t={t}
             />
 
             {/* Content */}

@@ -362,7 +362,7 @@ export function TeamDetailContent({ team, members, locale = "es" }: Props) {
                                                 </p>
                                             )}
                                         </div>
-                                        {m.is_active === false && (
+                                        {m.is_enabled === false && (
                                             <Badge
                                                 variant="secondary"
                                                 className="text-xs"

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 namespace Database\Seeders;
+use App\Enums\ApiAccessPolicy;
 use App\Models\Api;
-use App\Models\ApiAccessPolicy;
 use App\Models\ApiStatus;
 use App\Models\ApiType;
 use App\Models\AuthenticationMethod;
@@ -182,14 +182,13 @@ class DatabaseSeeder extends Seeder
         }
 
         // Reuse existing related models to avoid creating new ones for each API.
-        $accessPolicies = ApiAccessPolicy::all();
         $statuses = ApiStatus::all();
         $types = ApiType::all();
         $authMethods = AuthenticationMethod::all();
         $categories = Category::all();
 
         // Ensure base seeders have run and we have data to link.
-        if ($accessPolicies->isEmpty() || $statuses->isEmpty() || $types->isEmpty() || $authMethods->isEmpty()) {
+        if ($statuses->isEmpty() || $types->isEmpty() || $authMethods->isEmpty()) {
             if (app()->runningInConsole()) {
                 $this->command->warn('One or more base tables are empty. Skipping API sample data creation.');
             }
@@ -207,10 +206,10 @@ class DatabaseSeeder extends Seeder
         $grpcType = $types->firstWhere('name', 'gRPC') ?? $types->first();
         $webhookType = $types->firstWhere('name', 'Webhooks') ?? $types->first();
 
-        // Get specific access policies
-        $publicPolicy = $accessPolicies->firstWhere('name', 'Public API') ?? $accessPolicies->first();
-        $internalPolicy = $accessPolicies->firstWhere('name', 'Internal API') ?? $accessPolicies->first();
-        $partnerPolicy = $accessPolicies->firstWhere('name', 'Partner API') ?? $accessPolicies->first();
+        // Access policies are now Enums, not database models
+        $publicPolicy = ApiAccessPolicy::PublicApi;
+        $internalPolicy = ApiAccessPolicy::InternalApi;
+        $partnerPolicy = ApiAccessPolicy::PartnerApi;
 
         // Get specific auth methods
         $oauth = $authMethods->firstWhere('name', 'OAuth 2.0') ?? $authMethods->first();
@@ -237,7 +236,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://api.atlas-catalog.com/v2/users',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $oauth->id,
                 'category_id' => $userCategory?->id,
             ],
@@ -250,7 +249,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://api.atlas-catalog.com/v3/orders',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => $ecommerceCategory?->id,
             ],
@@ -263,7 +262,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://api.atlas-catalog.com/v4/products',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $publicPolicy->id,
+                'access_policy' => $publicPolicy,
                 'authentication_method_id' => $apiKey->id,
                 'category_id' => $ecommerceCategory?->id,
             ],
@@ -276,7 +275,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://payments.atlas-catalog.com/v2',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $partnerPolicy->id,
+                'access_policy' => $partnerPolicy,
                 'authentication_method_id' => $oauth->id,
                 'category_id' => $paymentsCategory?->id,
             ],
@@ -290,7 +289,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://analytics.atlas-catalog.com/graphql',
                 'type_id' => $graphqlType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => $analyticsCategory?->id,
             ],
@@ -303,7 +302,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://content.atlas-catalog.com/graphql',
                 'type_id' => $graphqlType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $oauth->id,
                 'category_id' => null,
             ],
@@ -317,7 +316,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'grpc://inventory.atlas-catalog.com:443',
                 'type_id' => $grpcType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => $ecommerceCategory?->id,
             ],
@@ -330,7 +329,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'grpc://search.atlas-catalog.com:443',
                 'type_id' => $grpcType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => $searchCategory?->id,
             ],
@@ -344,7 +343,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://webhooks.atlas-catalog.com/v1',
                 'type_id' => $webhookType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $partnerPolicy->id,
+                'access_policy' => $partnerPolicy,
                 'authentication_method_id' => $apiKey->id,
                 'category_id' => $notifCategory?->id,
             ],
@@ -358,7 +357,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://auth.atlas-catalog.com/v3',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $publicPolicy->id,
+                'access_policy' => $publicPolicy,
                 'authentication_method_id' => $oauth->id,
                 'category_id' => $authCategory?->id,
             ],
@@ -372,7 +371,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://ai.atlas-catalog.com/recommendations/beta',
                 'type_id' => $restType->id,
                 'status_id' => $draftStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => $analyticsCategory?->id,
             ],
@@ -385,7 +384,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://chat.atlas-catalog.com/alpha',
                 'type_id' => $restType->id,
                 'status_id' => $draftStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $oauth->id,
                 'category_id' => $notifCategory?->id,
             ],
@@ -399,7 +398,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://api.atlas-catalog.com/v1/users',
                 'type_id' => $restType->id,
                 'status_id' => $deprecatedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $apiKey->id,
                 'category_id' => $userCategory?->id,
                 'deprecated_at' => now()->subMonths(3),
@@ -414,7 +413,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://api.atlas-catalog.com/v1/payments',
                 'type_id' => $restType->id,
                 'status_id' => $deprecatedStatus->id,
-                'access_policy_id' => $partnerPolicy->id,
+                'access_policy' => $partnerPolicy,
                 'authentication_method_id' => $apiKey->id,
                 'category_id' => $paymentsCategory?->id,
                 'deprecated_at' => now()->subMonths(6),
@@ -430,7 +429,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://shipping.atlas-catalog.com/v2',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $partnerPolicy->id,
+                'access_policy' => $partnerPolicy,
                 'authentication_method_id' => $oauth->id,
                 'category_id' => $ecommerceCategory?->id,
             ],
@@ -443,7 +442,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://reports.atlas-catalog.com/v1',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => $analyticsCategory?->id,
             ],
@@ -456,7 +455,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://email.atlas-catalog.com/v3',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $apiKey->id,
                 'category_id' => $notifCategory?->id,
             ],
@@ -469,7 +468,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://files.atlas-catalog.com/v2',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $internalPolicy->id,
+                'access_policy' => $internalPolicy,
                 'authentication_method_id' => $jwt->id,
                 'category_id' => null,
             ],
@@ -482,7 +481,7 @@ class DatabaseSeeder extends Seeder
                 'url' => 'https://geo.atlas-catalog.com/v1',
                 'type_id' => $restType->id,
                 'status_id' => $publishedStatus->id,
-                'access_policy_id' => $publicPolicy->id,
+                'access_policy' => $publicPolicy,
                 'authentication_method_id' => $apiKey->id,
                 'category_id' => $categories->firstWhere('name', 'Geolocation & Maps')?->id,
             ],

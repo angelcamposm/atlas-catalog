@@ -480,5 +480,58 @@
       "environment": "Entorno",
       "currentTheme": "Tema Actual"
     }
+  },
+  "componentDetail": {
+    "tabs": {
+      "overview": "Resumen",
+      "apis": "APIs",
+      "dependencies": "Dependencias",
+      "metadata": "Metadatos"
+    },
+    "header": {
+      "backToList": "Volver a Componentes",
+      "edit": "Editar",
+      "type": "Tipo",
+      "lifecycle": "Ciclo de Vida",
+      "status": "Estado"
+    },
+    "overview": {
+      "title": "Información General",
+      "description": "Descripción",
+      "noDescription": "Sin descripción disponible",
+      "details": "Detalles",
+      "createdAt": "Creado",
+      "updatedAt": "Actualizado",
+      "version": "Versión",
+      "owner": "Propietario",
+      "repository": "Repositorio",
+      "documentation": "Documentación"
+    },
+    "apis": {
+      "title": "APIs Relacionadas",
+      "noApis": "No hay APIs asociadas a este componente",
+      "relationship": "Relación",
+      "viewApi": "Ver API"
+    },
+    "dependencies": {
+      "title": "Dependencias",
+      "noDependencies": "No hay dependencias registradas",
+      "dependsOn": "Depende de",
+      "dependents": "Dependientes"
+    },
+    "metadata": {
+      "title": "Metadatos",
+      "noMetadata": "No hay metadatos disponibles",
+      "key": "Clave",
+      "value": "Valor"
+    },
+    "errors": {
+      "invalidId": "Identificador de componente no válido",
+      "loadFailed": "No se pudo cargar el componente. Puede que no exista o no tengas permisos.",
+      "notAvailable": "Componente no disponible"
+    },
+    "loading": {
+      "component": "Cargando componente..."
+    }
   }
 }

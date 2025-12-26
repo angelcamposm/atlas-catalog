@@ -92,7 +92,7 @@ export const apiStatusesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/statuses${apiClient.buildQuery({ page })}`
+            `/v1/operations/service-statuses${apiClient.buildQuery({ page })}`
         );
         return paginatedApiStatusResponseSchema.parse(response);
     },
@@ -102,7 +102,7 @@ export const apiStatusesApi = {
      */
     getById: async (id: number): Promise<ApiStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/statuses/${id}`
+            `/v1/operations/service-statuses/${id}`
         );
         return apiStatusResponseSchema.parse(response);
     },
@@ -114,7 +114,7 @@ export const apiStatusesApi = {
         data: CreateApiStatusRequest
     ): Promise<ApiStatusResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/catalog/apis/statuses",
+            "/v1/operations/service-statuses",
             data
         );
         return apiStatusResponseSchema.parse(response);
@@ -128,7 +128,7 @@ export const apiStatusesApi = {
         data: UpdateApiStatusRequest
     ): Promise<ApiStatusResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/catalog/apis/statuses/${id}`,
+            `/v1/operations/service-statuses/${id}`,
             data
         );
         return apiStatusResponseSchema.parse(response);
@@ -137,7 +137,8 @@ export const apiStatusesApi = {
     /**
      * Delete an API status
      */
-    delete: (id: number) => apiClient.delete(`/v1/catalog/apis/statuses/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/operations/service-statuses/${id}`),
 };
 
 // API Access Policies ------------------------------------------------------

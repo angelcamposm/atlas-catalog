@@ -475,5 +475,58 @@
       "environment": "Environment",
       "currentTheme": "Current Theme"
     }
+  },
+  "componentDetail": {
+    "tabs": {
+      "overview": "Overview",
+      "apis": "APIs",
+      "dependencies": "Dependencies",
+      "metadata": "Metadata"
+    },
+    "header": {
+      "backToList": "Back to Components",
+      "edit": "Edit",
+      "type": "Type",
+      "lifecycle": "Lifecycle",
+      "status": "Status"
+    },
+    "overview": {
+      "title": "General Information",
+      "description": "Description",
+      "noDescription": "No description available",
+      "details": "Details",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "version": "Version",
+      "owner": "Owner",
+      "repository": "Repository",
+      "documentation": "Documentation"
+    },
+    "apis": {
+      "title": "Related APIs",
+      "noApis": "No APIs associated with this component",
+      "relationship": "Relationship",
+      "viewApi": "View API"
+    },
+    "dependencies": {
+      "title": "Dependencies",
+      "noDependencies": "No dependencies registered",
+      "dependsOn": "Depends On",
+      "dependents": "Dependents"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "noMetadata": "No metadata available",
+      "key": "Key",
+      "value": "Value"
+    },
+    "errors": {
+      "invalidId": "Invalid component identifier",
+      "loadFailed": "Could not load the component. It may not exist or you may not have permissions.",
+      "notAvailable": "Component not available"
+    },
+    "loading": {
+      "component": "Loading component..."
+    }
   }
 }

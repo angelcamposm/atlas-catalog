@@ -20,6 +20,12 @@ COPY src/ ./
 RUN set -eux; \
     mv -f .env.compose .env; \
 	composer install --no-dev --optimize-autoloader; \
+    # Create Laravel storage directories
+    mkdir -p storage/framework/cache/data \
+             storage/framework/sessions \
+             storage/framework/views \
+             storage/logs \
+             bootstrap/cache; \
 	chown -R www-data:www-data .;
 
 CMD ["php-fpm"]

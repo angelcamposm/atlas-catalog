@@ -176,34 +176,45 @@ export const componentsApi = {
 
     /**
      * Get APIs related to a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/apis not implemented yet
      */
     async getApis(
         componentId: number
     ): Promise<{ data: { id: number; name: string; relationship: string }[] }> {
-        return apiClient.get(`/v1/catalog/components/${componentId}/apis`);
+        console.warn(
+            "getApis: Backend endpoint not implemented, returning empty"
+        );
+        return Promise.resolve({ data: [] });
+        // return apiClient.get(`/v1/catalog/components/${componentId}/apis`);
     },
 
     /**
      * Associate an API with a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/apis not implemented yet
      */
     async addApi(
         componentId: number,
         apiId: number,
         relationship: string = "uses"
     ): Promise<void> {
-        return apiClient.post(`/v1/catalog/components/${componentId}/apis`, {
-            api_id: apiId,
-            relationship,
-        });
+        console.warn("addApi: Backend endpoint not implemented");
+        return Promise.resolve();
+        // return apiClient.post(`/v1/catalog/components/${componentId}/apis`, {
+        //     api_id: apiId,
+        //     relationship,
+        // });
     },
 
     /**
      * Remove an API association from a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/apis/{apiId} not implemented yet
      */
     async removeApi(componentId: number, apiId: number): Promise<void> {
-        return apiClient.delete(
-            `/v1/catalog/components/${componentId}/apis/${apiId}`
-        );
+        console.warn("removeApi: Backend endpoint not implemented");
+        return Promise.resolve();
+        // return apiClient.delete(
+        //     `/v1/catalog/components/${componentId}/apis/${apiId}`
+        // );
     },
 };
 

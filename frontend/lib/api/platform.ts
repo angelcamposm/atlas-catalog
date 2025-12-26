@@ -76,18 +76,15 @@ export const platformsApi = {
 };
 
 // Component Types ----------------------------------------------------------
-// TODO: Backend does not have /v1/component-types endpoint yet.
-// These calls will fail until the endpoint is implemented.
-// Consider using ComponentCategory or a different approach.
+// Backend endpoint: /v1/catalog/components/types
 
 export const componentTypesApi = {
     /**
      * Get all component types with pagination
-     * @deprecated Backend endpoint not yet implemented
      */
     getAll: async (page = 1): Promise<PaginatedComponentTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/component-types${apiClient.buildQuery({ page })}`
+            `/v1/catalog/components/types${apiClient.buildQuery({ page })}`
         );
         return paginatedComponentTypeResponseSchema.parse(response);
     },
@@ -97,7 +94,7 @@ export const componentTypesApi = {
      */
     getById: async (id: number): Promise<ComponentTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/component-types/${id}`
+            `/v1/catalog/components/types/${id}`
         );
         return componentTypeResponseSchema.parse(response);
     },
@@ -109,7 +106,7 @@ export const componentTypesApi = {
         data: CreateComponentTypeRequest
     ): Promise<ComponentTypeResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/component-types",
+            "/v1/catalog/components/types",
             data
         );
         return componentTypeResponseSchema.parse(response);
@@ -123,7 +120,7 @@ export const componentTypesApi = {
         data: UpdateComponentTypeRequest
     ): Promise<ComponentTypeResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/component-types/${id}`,
+            `/v1/catalog/components/types/${id}`,
             data
         );
         return componentTypeResponseSchema.parse(response);
@@ -132,7 +129,8 @@ export const componentTypesApi = {
     /**
      * Delete a component type
      */
-    delete: (id: number) => apiClient.delete(`/v1/component-types/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/catalog/components/types/${id}`),
 };
 
 // Consolidated Platform API ------------------------------------------------

@@ -1,0 +1,258 @@
+# Docker Compose Full Stack - Backend + Frontend
+# Este archivo arranca todo el proyecto: Laravel API + Next.js Frontend
+# Uso: docker compose -f docker-compose.full.yml up --build
+name: atlas-catalog-full
+
+x-build-config: &build-config
+  build:
+    context: .
+    dockerfile: Dockerfile
+    platforms:
+      - linux/amd64
+    tags:
+      - "atlas-catalog:latest"
+
+services:
+  # ============================================
+  # INFRAESTRUCTURA
+  # ============================================
+
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:17.6-alpine3.22
+    container_name: atlas-postgres
+    environment:
+      POSTGRES_DB: atlas-catalog
+      POSTGRES_USER: laravel
+      POSTGRES_PASSWORD: secret
+    networks:
+      - catalog-network
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U laravel -d atlas-catalog"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache Service
+  redis:
+    image: redis:8.2.1-alpine3.22
+    container_name: atlas-redis
+    networks:
+      - catalog-network
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================
+  # BACKEND (Laravel)
+  # ============================================
+
+  # Inicialización de base de datos
+  init-db:
+    <<: *build-config
+    command:
+      - /bin/sh
+      - -c
+      - "sleep 5; php artisan migrate --seed --force"
+    container_name: atlas-init-db
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: atlas-catalog
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
+    networks:
+      - catalog-network
+
+  # PHP-FPM Application Service
+  app:
+    <<: *build-config
+    container_name: atlas-app
+    depends_on:
+      init-db:
+        condition: service_completed_successfully
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: atlas-catalog
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    networks:
+      - catalog-network
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm-healthcheck || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Nginx Web Server (API Gateway)
+  nginx:
+    build:
+      context: .
+      dockerfile: build/nginx/Dockerfile
+      tags:
+        - "atlas-gateway:latest"
+    container_name: atlas-nginx
+    depends_on:
+      - app
+    networks:
+      - catalog-network
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+      - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # ============================================
+  # FRONTEND (Next.js)
+  # ============================================
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:8080/api
+    container_name: atlas-frontend
+    depends_on:
+      - nginx
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8080/api
+    networks:
+      - catalog-network
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================
+  # HERRAMIENTAS DE MONITOREO (OPCIONALES)
+  # ============================================
+
+  # RedisInsight GUI Service
+  redis-insights:
+    image: redislabs/redisinsight:2.70.1
+    container_name: atlas-redis-insights
+    depends_on:
+      - redis
+    environment:
+      - ALLOW_ANONYMOUS_USAGE_STATS=no
+      - RI_ACCEPT_TERMS_AND_CONDITIONS=true
+      - RI_DATABASE_MANAGEMENT=false
+      - RI_ENCRYPTION_KEY="${REDIS_ENCRYPTION_KEY:-default}"
+      - RI_LOG_LEVEL=warn
+      - RI_REDIS_DB=0
+      - RI_REDIS_HOST=redis
+      - RI_REDIS_PORT=6379
+      - RI_REDIS_USERNAME=default
+      - RI_REDIS_PASSWORD=
+      - RI_REDIS_TLS=FALSE
+    networks:
+      - catalog-network
+    ports:
+      - "5540:5540"
+    restart: unless-stopped
+    volumes:
+      - redisinsight:/data
+    profiles:
+      - monitoring
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:12.3.0-ubuntu
+    container_name: atlas-grafana
+    depends_on:
+      - postgres
+    environment:
+      GF_ANALYTICS_ENABLED: "true"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/provisioning/dashboards/home.json
+      GF_DEFAULT_INSTANCE_NAME: grafana
+      GF_EXPLORE_ENABLED: "false"
+      GF_HELP_ENABLED: "false"
+      GF_LOG_LEVEL: info
+      GF_LOG_MODE: console
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+      GF_PLUGINS_ENABLE_ALPHA: "false"
+      GF_PLUGINS_PLUGIN_ADMIN_ENABLED: "false"
+      GF_PLUGINS_PREINSTALL_DISABLED: "true"
+      GF_PUBLIC_DASHBOARDS_ENABLED: "true"
+      GF_SECURITY_ADMIN_PASSWORD: secret
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ALLOW_EMBEDDING: "true"
+      GF_SECURITY_DISABLE_GRAVATAR: "true"
+      GF_UNIFIED_ALERTING_ENABLED: "false"
+      GF_USERS_ALLOW_ORG_CREATE: "false"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    networks:
+      - catalog-network
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./build/grafana/datasources/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./build/grafana/dashboards/home.json:/etc/grafana/provisioning/dashboards/home.json
+      - grafana-data:/var/lib/grafana
+    profiles:
+      - monitoring
+
+networks:
+  catalog-network:
+    driver: bridge
+
+volumes:
+  grafana-data:
+    driver: local
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  redisinsight:
+    driver: local

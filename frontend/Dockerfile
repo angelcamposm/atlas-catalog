@@ -13,7 +13,8 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Install ALL dependencies (including dev) for building
-RUN npm ci && \
+# Using npm install instead of npm ci to handle potential lock file mismatches
+RUN npm install && \
     npm cache clean --force
 
 # Stage 2: Builder

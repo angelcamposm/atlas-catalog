@@ -66,7 +66,7 @@ export function UserCard({
                     >
                         {user.name || `Usuario ${user.id}`}
                     </p>
-                    {user.is_active === false && (
+                    {user.is_enabled === false && (
                         <Badge variant="secondary" className="text-xs">
                             Inactivo
                         </Badge>

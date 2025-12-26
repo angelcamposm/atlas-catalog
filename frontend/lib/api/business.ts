@@ -149,7 +149,7 @@ export const environmentsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedEnvironmentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/environments${apiClient.buildQuery({ page })}`
+            `/v1/catalog/environments${apiClient.buildQuery({ page })}`
         );
         return paginatedEnvironmentResponseSchema.parse(response);
     },
@@ -159,7 +159,7 @@ export const environmentsApi = {
      */
     getById: async (id: number): Promise<EnvironmentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/environments/${id}`
+            `/v1/catalog/environments/${id}`
         );
         return environmentResponseSchema.parse(response);
     },
@@ -171,7 +171,7 @@ export const environmentsApi = {
         data: CreateEnvironmentRequest
     ): Promise<EnvironmentResponse> => {
         const response = await apiClient.post<unknown>(
-            "/v1/architecture/environments",
+            "/v1/catalog/environments",
             data
         );
         return environmentResponseSchema.parse(response);
@@ -185,7 +185,7 @@ export const environmentsApi = {
         data: UpdateEnvironmentRequest
     ): Promise<EnvironmentResponse> => {
         const response = await apiClient.put<unknown>(
-            `/v1/architecture/environments/${id}`,
+            `/v1/catalog/environments/${id}`,
             data
         );
         return environmentResponseSchema.parse(response);
@@ -194,8 +194,7 @@ export const environmentsApi = {
     /**
      * Delete an environment
      */
-    delete: (id: number) =>
-        apiClient.delete(`/v1/architecture/environments/${id}`),
+    delete: (id: number) => apiClient.delete(`/v1/catalog/environments/${id}`),
 };
 
 // Consolidated Business API ------------------------------------------------
