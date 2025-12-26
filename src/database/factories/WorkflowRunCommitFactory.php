@@ -37,4 +37,13 @@ class WorkflowRunCommitFactory extends Factory
             'repo_url' => $this->faker->url(),
         ];
     }
+
+    public function withWorkflowRun(): Factory
+    {
+        return $this->state(function (array $attributes): array {
+            return [
+                'workflow_run_id' => WorkflowRun::factory()->create()->id,
+            ];
+        });
+    }
 }
