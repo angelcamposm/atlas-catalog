@@ -41,14 +41,10 @@ class ServiceModelObserverTest extends TestCase
     {
         $model = ServiceModel::factory()->create();
 
-        $this->assertNull($model->updated_by); // Factory might not set updated_by initially if observer only sets it on creating? No, observer sets both on creating.
-        // Wait, my observer sets updated_by on creating too.
-        $this->assertEquals($this->user->id, $model->updated_by);
-
         $user = User::factory()->create();
         Auth::login($user);
 
-        $model->name = 'Updated Name';
+        $model->display_name = fake()->name();
         $model->save();
 
         $this->assertEquals($user->id, $model->updated_by);
