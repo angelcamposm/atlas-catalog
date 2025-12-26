@@ -69,6 +69,6 @@ class GroupType extends Model
      */
     public function groups(): HasMany
     {
-        return $this->hasMany(Group::class, 'group_type_id');
+        return $this->hasMany(Group::class, 'type_id');
     }
 }
