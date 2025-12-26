@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Observers;
 
-use App\Models\ServiceModel;
+use App\Models\ReleaseArtifact;
 use App\Models\User;
-use App\Observers\ServiceModelObserver;
+use App\Observers\ReleaseArtifactObserver;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-#[CoversClass(ServiceModelObserver::class)]
-class ServiceModelObserverTest extends TestCase
+#[CoversClass(ReleaseArtifactObserver::class)]
+class ReleaseArtifactObserverTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -30,7 +30,7 @@ class ServiceModelObserverTest extends TestCase
     #[Test]
     public function it_fills_created_by_with_authenticated_user_id_on_creation(): void
     {
-        $model = ServiceModel::factory()->create();
+        $model = ReleaseArtifact::factory()->create();
 
         $this->assertNotNull($model->created_by);
         $this->assertEquals($this->user->id, $model->created_by);
@@ -39,14 +39,15 @@ class ServiceModelObserverTest extends TestCase
     #[Test]
     public function test_updating_sets_updated_by(): void
     {
-        $model = ServiceModel::factory()->create();
+        $model = ReleaseArtifact::factory()->create();
 
         $user = User::factory()->create();
         Auth::login($user);
 
-        $model->display_name = fake()->name();
+        $model->name = fake()->name();
         $model->save();
 
+        $this->assertNotNull($model->updated_by);
         $this->assertEquals($user->id, $model->updated_by);
     }
 
@@ -55,7 +56,7 @@ class ServiceModelObserverTest extends TestCase
     {
         $user2 = User::factory()->create();
 
-        $model = ServiceModel::factory()->create(['created_by' => $user2->id]);
+        $model = ReleaseArtifact::factory()->create(['created_by' => $user2->id]);
 
         $this->assertEquals($user2->id, $model->created_by);
     }

@@ -72,7 +72,7 @@ return [
         'name' => 'Support & Ticketing',
         'description' => 'Manages customer support requests, help desk tickets, and the knowledge base.',
         'category' => BusinessDomainCategory::Supporting,
-        'parent_domain' => 'Customers',
+        'parent_domain' => 'Customer Relationships',
     ],
     [
         'name' => 'Catalog',

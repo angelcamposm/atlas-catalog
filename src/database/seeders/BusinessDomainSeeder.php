@@ -26,7 +26,7 @@ final class BusinessDomainSeeder extends Seeder
                     'description' => $item['description'],
                     'display_name' => $item['name'],
                     'category' => $item['category']->value,
-                    'is_active' => true,
+                    'is_enabled' => false,
                     'parent_id' => null,
                 ],
             );
@@ -44,7 +44,7 @@ final class BusinessDomainSeeder extends Seeder
                     'description' => $item['description'],
                     'display_name' => "$parent->name / {$item['name']}",
                     'category' => $item['category']->value,
-                    'is_active' => true,
+                    'is_enabled' => false,
                     'parent_id' => $parent->id,
                 ],
             );

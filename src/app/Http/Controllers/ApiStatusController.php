@@ -11,10 +11,6 @@ use App\Http\Resources\ApiStatusResourceCollection;
 use App\Models\ApiStatus;
 use Illuminate\Http\Response;
 
-/**
- * @group Status
- * @authenticated
- */
 class ApiStatusController extends Controller
 {
     /**

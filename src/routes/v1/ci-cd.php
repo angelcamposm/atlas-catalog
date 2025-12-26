@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\WorkflowJobController;
 use App\Http\Controllers\WorkflowRunCommitController;
 use App\Http\Controllers\WorkflowRunController;
@@ -15,5 +16,8 @@ Route::prefix('v1')->group(function () {
             ->only(['index', 'show']);
         Route::apiResource('workflows.jobs', WorkflowJobController::class)
             ->except('update');
+
+        // Release Domain
+        Route::apiResource('releases', ReleaseController::class);
     });
 });
