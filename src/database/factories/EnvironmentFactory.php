@@ -38,10 +38,18 @@ class EnvironmentFactory extends Factory
             'display_in_matrix' => $this->faker->boolean(),
             'display_name' => $name,
             'is_production_environment' => $this->faker->boolean(10),
-            'owner_id' => Group::factory(),
             'prefix' => null,
             'sort_order' => 0,
             'suffix' => null,
         ];
+    }
+
+    public function withGroup(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'owner_id' => Group::factory()->create()->id,
+            ];
+        });
     }
 }
