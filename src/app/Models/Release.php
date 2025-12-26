@@ -90,7 +90,7 @@ class Release extends Model
     {
         return [
             'metadata' => 'array',
-            'released_at' => 'datetime',
+            'released_at' => 'datetime:Y-m-d H:i:s',
         ];
     }
 
