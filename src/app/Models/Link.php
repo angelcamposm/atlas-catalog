@@ -57,10 +57,11 @@ class Link extends Model
      */
     protected $fillable = [
         'name',
+        'category_id',
         'description',
         'model_name',
         'model_id',
-        'type_id',
+        'url',
         'created_by',
         'updated_by',
     ];
