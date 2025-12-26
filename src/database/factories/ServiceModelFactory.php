@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Models\ServiceModel;
 use App\Models\User;
+use App\Traits\BelongsToUserState;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -14,6 +15,8 @@ use Illuminate\Support\Str;
  */
 class ServiceModelFactory extends Factory
 {
+    use BelongsToUserState;
+
     /**
      * The name of the factory's corresponding model.
      *
@@ -37,8 +40,6 @@ class ServiceModelFactory extends Factory
             'abbrv' => $abbrv,
             'display_name' => $name,
             'description' => Str::limit($this->faker->sentence(), 255),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(),
         ];
     }
 }
