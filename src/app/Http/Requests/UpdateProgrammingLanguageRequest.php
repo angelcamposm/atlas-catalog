@@ -30,10 +30,10 @@ class UpdateProgrammingLanguageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique('programming_languages', 'name')->ignore($this->programmingLanguage)],
-            'icon' => ['required', 'string', 'max:50'],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('programming_languages', 'name')->ignore($this->programmingLanguage)],
+            'icon' => ['sometimes', 'string', 'max:50'],
             'is_enabled' => ['sometimes', 'boolean'],
-            'url' => ['required', 'string', 'max:255'],
+            'url' => ['sometimes', 'string', 'max:255'],
         ];
     }
 }

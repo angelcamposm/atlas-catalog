@@ -30,7 +30,7 @@ class UpdateAuthenticationMethodRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('authentication_methods')->ignore($this->authenticationMethod)],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('authentication_methods')->ignore($this->authenticationMethod)],
             'description' => ['nullable', 'string', 'max:255'],
         ];
     }

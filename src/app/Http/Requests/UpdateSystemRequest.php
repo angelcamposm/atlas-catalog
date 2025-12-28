@@ -26,11 +26,11 @@ class UpdateSystemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('components')->ignore($this->component)],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('systems')->ignore($this->system)],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'display_name' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'owner_id' => ['sometimes', 'nullable', 'integer', 'exists:teams,id'],
-            'tags' => ['sometimes', 'nullable', 'json'],
+            'display_name' => ['sometimes', 'nullable', 'string', 'max:50'],
+            'owner_id' => ['sometimes', 'nullable', 'integer', 'exists:groups,id'],
+            'tags' => ['sometimes', 'nullable', 'string', 'max:255'],
         ];
     }
 }

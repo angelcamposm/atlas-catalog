@@ -30,13 +30,12 @@ class UpdateComplianceStandardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:50', Rule::unique('compliance_standards')->ignore($this->complianceStandard)],
+            'name' => ['sometimes', 'string', 'max:60', Rule::unique('compliance_standards')->ignore($this->complianceStandard)],
             'country_code' => ['sometimes', 'nullable', 'string', 'max:3'],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'display_name' => ['sometimes', 'nullable', 'string', 'max:50'],
+            'display_name' => ['sometimes', 'nullable', 'string', 'max:60'],
             'focus_area' => ['sometimes', 'nullable', 'string', 'max:50'],
-            'industry' => ['sometimes', 'nullable', 'string
-            ', 'max:50'],
+            'industry' => ['sometimes', 'nullable', 'string', 'max:50'],
             'url' => ['sometimes', 'nullable', 'string', 'max:255'],
         ];
     }

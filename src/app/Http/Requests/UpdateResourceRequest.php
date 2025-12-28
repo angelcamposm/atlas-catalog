@@ -30,7 +30,7 @@ class UpdateResourceRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50', Rule::unique('resources', 'name')->ignore($this->resource)],
-            'type_id' => ['nullable', 'integer', 'exists:resource_types,id'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
         ];
     }
 }

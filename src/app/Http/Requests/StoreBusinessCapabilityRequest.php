@@ -27,10 +27,10 @@ class StoreBusinessCapabilityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:business_capabilities,name'],
+            'name' => ['required', 'string', 'max:100', 'unique:business_capabilities,name'],
             'description' => ['nullable', 'string', 'max:255'],
-            'parent_id' => ['nullable', 'integer'],
-            'strategic_value' => ['required', 'integer', Rule::in(StrategicValue::values())],
+            'parent_id' => ['nullable', 'integer', 'exists:business_capabilities,id'],
+            'strategic_value' => ['nullable', 'integer', Rule::in(StrategicValue::values())],
         ];
     }
 }

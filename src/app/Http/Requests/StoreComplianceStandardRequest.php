@@ -25,10 +25,10 @@ class StoreComplianceStandardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', 'unique:compliance_standards,name'],
+            'name' => ['required', 'string', 'max:60', 'unique:compliance_standards,name'],
             'country_code' => ['nullable', 'string', 'max:3'],
             'description' => ['nullable', 'string', 'max:255'],
-            'display_name' => ['nullable', 'string', 'max:50'],
+            'display_name' => ['nullable', 'string', 'max:60'],
             'focus_area' => ['nullable', 'string', 'max:50'],
             'industry' => ['nullable', 'string', 'max:50'],
             'url' => ['nullable', 'string', 'max:255'],

@@ -25,11 +25,11 @@ class StoreSystemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:systems,name'],
+            'name' => ['required', 'string', 'max:50', 'unique:systems,name'],
             'description' => ['nullable', 'string', 'max:255'],
-            'display_name' => ['nullable', 'string', 'max:255'],
-            'owner_id' => ['nullable', 'integer', 'exists:teams,id'],
-            'tags' => ['nullable', 'json'],
+            'display_name' => ['nullable', 'string', 'max:50'],
+            'owner_id' => ['nullable', 'integer', 'exists:groups,id'],
+            'tags' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

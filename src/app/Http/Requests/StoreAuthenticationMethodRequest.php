@@ -25,8 +25,8 @@ class StoreAuthenticationMethodRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:authentication_methods'],
-            'description' => ['nullable', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:50', 'unique:authentication_methods'],
+            'description' => ['required', 'string', 'max:255'],
         ];
     }
 }

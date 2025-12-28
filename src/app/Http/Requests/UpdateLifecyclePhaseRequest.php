@@ -31,8 +31,9 @@ class UpdateLifecyclePhaseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('lifecycles')->ignore($this->lifecycle)],
-            'color' => ['required', new ColorRule()],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('lifecycle_phases')->ignore($this->lifecycle)],
+            'approval_required' => ['sometimes', 'boolean'],
+            'color' => ['sometimes', new ColorRule()],
             'description' => ['nullable', 'string', 'max:255'],
         ];
     }

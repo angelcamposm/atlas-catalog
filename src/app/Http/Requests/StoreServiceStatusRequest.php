@@ -25,8 +25,10 @@ class StoreServiceStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:service_statuses,name'],
+            'name' => ['required', 'string', 'max:50', 'unique:service_statuses,name'],
+            'allow_deployments' => ['sometimes', 'boolean'],
             'description' => ['nullable', 'string', 'max:255'],
+            'icon' => ['nullable', 'string', 'max:50'],
         ];
     }
 }

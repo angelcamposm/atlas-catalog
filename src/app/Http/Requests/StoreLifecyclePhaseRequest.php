@@ -26,7 +26,8 @@ class StoreLifecyclePhaseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', 'unique:lifecycles,name'],
+            'name' => ['required', 'string', 'max:50', 'unique:lifecycle_phases,name'],
+            'approval_required' => ['sometimes', 'boolean'],
             'color' => ['required', new ColorRule()],
             'description' => ['nullable', 'string', 'max:255'],
         ];

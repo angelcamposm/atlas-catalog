@@ -26,7 +26,7 @@ class StoreResourceRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50', 'unique:resources,name'],
-            'type_id' => ['nullable', 'integer', 'exists:resource_types,id'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
         ];
     }
 }

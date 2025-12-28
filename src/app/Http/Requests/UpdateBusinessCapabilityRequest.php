@@ -31,10 +31,10 @@ class UpdateBusinessCapabilityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('business_capabilities')->ignore($this->business_capability)],
+            'name' => ['sometimes', 'string', 'max:100', Rule::unique('business_capabilities')->ignore($this->business_capability)],
             'description' => ['nullable', 'string', 'max:255'],
             'parent_id' => ['nullable', 'integer', 'exists:business_capabilities,id'],
-            'strategic_value' => ['required', 'integer', Rule::in(StrategicValue::values())],
+            'strategic_value' => ['sometimes', 'integer', Rule::in(StrategicValue::values())],
         ];
     }
 }
