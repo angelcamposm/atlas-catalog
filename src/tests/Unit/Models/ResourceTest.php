@@ -47,8 +47,8 @@ class ResourceTest extends TestCase
     {
         $category = ResourceCategory::factory()->create();
         $resource = Resource::factory()->create(['category_id' => $category->id]);
-        $this->assertInstanceOf(ResourceCategory::class, $resource->type);
-        $this->assertEquals($category->id, $resource->type->id);
+        $this->assertInstanceOf(ResourceCategory::class, $resource->category);
+        $this->assertEquals($category->id, $resource->category->id);
     }
 
     #[Test]
