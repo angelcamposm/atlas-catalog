@@ -67,7 +67,7 @@ class Resource extends Model
      *
      * @return BelongsTo<ResourceCategory>
      */
-    public function type(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(ResourceCategory::class, 'category_id', 'id');
     }
