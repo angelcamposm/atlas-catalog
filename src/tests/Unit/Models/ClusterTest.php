@@ -167,7 +167,6 @@ class ClusterTest extends TestCase
             'lifecycle_id' => LifecyclePhase::factory()->create()->id,
             'tags' => 'tag1,tag2',
             'timezone' => 'UTC',
-            'vendor_id' => 1,
             'version' => '1.2.3',
             'url' => 'https://cluster.example.com',
             'created_by' => User::factory()->create()->id,
