@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $name
  * @property string|null $tags
  * @property string|null $timezone
- * @property int|null $vendor_id
+ * @property int|null $type_id
  * @property string|null $version
  * @property string|null $url
  * @property int $created_by
@@ -77,6 +77,7 @@ class Cluster extends Model
         'name',
         'api_url',
         'cluster_uuid',
+        'description',
         'display_name',
         'full_version',
         'has_licensing',
@@ -85,7 +86,7 @@ class Cluster extends Model
         'lifecycle_id',
         'tags',
         'timezone',
-        'vendor_id',
+        'type_id',
         'version',
         'url',
         'created_by',
