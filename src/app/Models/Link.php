@@ -78,8 +78,8 @@ class Link extends Model
     /**
      * Get the type of the link.
      */
-    public function type(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(LinkType::class, 'type_id', 'id');
+        return $this->belongsTo(LinkCategory::class, 'category_id', 'id');
     }
 }
