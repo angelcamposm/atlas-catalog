@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Observers\ComponentObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\HasDeployments;
 use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
@@ -52,6 +53,7 @@ class Component extends Model
 {
     use HasFactory;
     use BelongsToUser;
+    use HasDeployments;
 
     /**
      * The table associated with the model.
@@ -71,12 +73,15 @@ class Component extends Model
         'discovery_source',
         'display_name',
         'domain_id',
+        'has_zero_downtime_deployments',
         'lifecycle_id',
+        'end_of_life_at',
         'is_exposed',
         'is_stateless',
         'owner_id',
         'platform_id',
         'slug',
+        'status_id',
         'tags',
         'tier_id',
         'created_by',
