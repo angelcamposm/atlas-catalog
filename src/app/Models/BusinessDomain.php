@@ -70,6 +70,7 @@ class BusinessDomain extends Model
         'category',
         'is_enabled',
         'parent_id',
+        'slug',
         'created_by',
         'updated_by',
     ];
