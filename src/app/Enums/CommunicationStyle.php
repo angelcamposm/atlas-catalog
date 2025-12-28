@@ -55,4 +55,17 @@ enum CommunicationStyle: string
             self::Asynchronous => 'paper-plane',
         };
     }
+
+    /**
+     * Returns the typical authentication schemes associated with the style.
+     *
+     * @return array<int, string>
+     */
+    public function supportedAuthenticationSchemes(): array
+    {
+        return match ($this) {
+            self::Synchronous => ['OAuth2', 'JWT', 'Basic', 'API Key'],
+            self::Asynchronous => ['mTLS', 'SASL', 'DTLS', 'None (Internal)'],
+        };
+    }
 }
