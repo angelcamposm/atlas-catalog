@@ -70,14 +70,7 @@ class ServiceAccount extends Model
      */
     public function cluster(): BelongsToMany
     {
-        return $this->belongsToMany(
-            related: Cluster::class,
-            table: ClusterServiceAccount::class,
-            foreignPivotKey: 'service_account_id',
-            relatedPivotKey: 'id',
-            parentKey: 'id',
-            relatedKey: 'cluster_id',
-        );
+        return $this->belongsToMany(Cluster::class, 'cluster_service_accounts', 'service_account_id', 'cluster_id');
     }
 
     /**

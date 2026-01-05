@@ -57,10 +57,11 @@ class Link extends Model
      */
     protected $fillable = [
         'name',
+        'category_id',
         'description',
         'model_name',
         'model_id',
-        'type_id',
+        'url',
         'created_by',
         'updated_by',
     ];
@@ -77,8 +78,8 @@ class Link extends Model
     /**
      * Get the type of the link.
      */
-    public function type(): BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(LinkType::class, 'type_id', 'id');
+        return $this->belongsTo(LinkCategory::class, 'category_id', 'id');
     }
 }

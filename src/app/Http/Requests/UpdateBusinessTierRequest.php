@@ -28,8 +28,8 @@ class UpdateBusinessTierRequest extends FormRequest
      */    public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:10', Rule::unique('business_tiers')->ignore($this->businessTier)],
-            'name' => ['required', 'string', 'max:50', Rule::unique('business_tiers')->ignore($this->businessTier)],
+            'code' => ['sometimes', 'string', 'max:2', Rule::unique('business_tiers')->ignore($this->businessTier)],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('business_tiers')->ignore($this->businessTier)],
             'description' => ['nullable', 'string', 'max:255'],
         ];
     }

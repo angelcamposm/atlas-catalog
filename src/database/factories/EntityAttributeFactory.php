@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Enums\EntityType;
+use App\Models\Entity;
 use App\Models\EntityAttribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -151,6 +152,13 @@ class EntityAttributeFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'type' => EntityType::UUID->value
+        ]);
+    }
+
+    public function withEntity(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'entity_id' => Entity::factory()->create()->id
         ]);
     }
 }

@@ -33,6 +33,7 @@ class UpdateCategoryRequest extends FormRequest
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('categories')->ignore($this->category)],
             'description' => ['sometimes', 'nullable', 'string', 'max:255'],
             'icon' => ['sometimes', 'string', 'max:50'],
+            'model' => ['nullable', 'string', 'max:25'],
             'parent_id' => ['sometimes', 'nullable', 'integer', 'exists:categories,id'],
         ];
     }

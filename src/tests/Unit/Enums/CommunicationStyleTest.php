@@ -6,7 +6,6 @@ namespace Tests\Unit\Enums;
 
 use App\Enums\CommunicationStyle;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -14,53 +13,31 @@ use Tests\TestCase;
 class CommunicationStyleTest extends TestCase
 {
     #[Test]
-    #[DataProvider('styleNameProvider')]
-    public function it_returns_the_correct_display_name(CommunicationStyle $style, string $expectedName): void
+    public function it_returns_correct_display_names(): void
     {
-        $this->assertSame($expectedName, $style->displayName());
+        $this->assertSame('Synchronous', CommunicationStyle::Synchronous->displayName());
+        $this->assertSame('Asynchronous', CommunicationStyle::Asynchronous->displayName());
     }
 
     #[Test]
-    #[DataProvider('styleDescriptionProvider')]
-    public function it_returns_the_correct_description(CommunicationStyle $style, string $expectedDescription): void
+    public function it_returns_correct_icons(): void
     {
-        $this->assertSame($expectedDescription, $style->description());
+        $this->assertSame('sync', CommunicationStyle::Synchronous->icon());
+        $this->assertSame('paper-plane', CommunicationStyle::Asynchronous->icon());
     }
 
     #[Test]
-    #[DataProvider('styleIconProvider')]
-    public function it_returns_the_correct_icon(CommunicationStyle $style, string $expectedIcon): void
+    public function it_returns_supported_authentication_schemes(): void
     {
-        $this->assertSame($expectedIcon, $style->icon());
-    }
+        $syncSchemes = CommunicationStyle::Synchronous->supportedAuthenticationSchemes();
+        $asyncSchemes = CommunicationStyle::Asynchronous->supportedAuthenticationSchemes();
 
-    public static function styleIconProvider(): array
-    {
-        return [
-            'Synchronous' => [CommunicationStyle::Synchronous, 'sync'],
-            'Asynchronous' => [CommunicationStyle::Asynchronous, 'paper-plane'],
-        ];
-    }
+        $this->assertContains('OAuth2', $syncSchemes);
+        $this->assertContains('API Key', $syncSchemes);
+        $this->assertNotContains('SASL', $syncSchemes);
 
-    public static function styleDescriptionProvider(): array
-    {
-        return [
-            'Synchronous' => [
-                CommunicationStyle::Synchronous,
-                'A synchronous, request/response style of communication where the client sends a request and waits for a response.',
-            ],
-            'Asynchronous' => [
-                CommunicationStyle::Asynchronous,
-                'An asynchronous, event-driven style of communication where the client sends an event or message without waiting for a direct response.',
-            ],
-        ];
-    }
-
-    public static function styleNameProvider(): array
-    {
-        return [
-            'Synchronous' => [CommunicationStyle::Synchronous, 'Synchronous'],
-            'Asynchronous' => [CommunicationStyle::Asynchronous, 'Asynchronous'],
-        ];
+        $this->assertContains('mTLS', $asyncSchemes);
+        $this->assertContains('SASL', $asyncSchemes);
+        $this->assertNotContains('OAuth2', $asyncSchemes);
     }
 }

@@ -14,6 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cluster_service_accounts', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('cluster_id')->constrained('clusters', 'id')->cascadeOnDelete();
             $table->foreignId('service_account_id')->constrained('service_accounts', 'id')->cascadeOnDelete();
         });

@@ -30,8 +30,8 @@ class UpdateApiStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('api_statuses')->ignore($this->apiStatus)],
-            'description' => ['nullable', 'string', 'max:255'],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('api_statuses')->ignore($this->apiStatus)],
+            'description' => ['required', 'string', 'max:255'],
         ];
     }
 }

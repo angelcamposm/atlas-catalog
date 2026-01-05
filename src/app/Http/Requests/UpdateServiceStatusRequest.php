@@ -31,7 +31,9 @@ class UpdateServiceStatusRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('service_statuses')->ignore($this->service_status)],
+            'allow_deployments' => ['sometimes', 'boolean'],
             'description' => ['nullable', 'string', 'max:255'],
+            'icon' => ['nullable', 'string', 'max:50'],
         ];
     }
 }

@@ -30,8 +30,8 @@ class UpdateApiTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('api_types')->ignore($this->apiType)],
-            'description' => ['nullable', 'string', 'max:255'],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('api_types')->ignore($this->apiType)],
+            'description' => ['required', 'string', 'max:255'],
         ];
     }
 }

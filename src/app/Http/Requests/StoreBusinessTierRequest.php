@@ -25,7 +25,7 @@ class StoreBusinessTierRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'string', 'max:10', 'unique:api_statuses,code'],
+            'code' => ['required', 'string', 'max:2', 'unique:business_tiers,code'],
             'name' => ['required', 'string', 'max:50', 'unique:business_tiers,name'],
             'description' => ['nullable', 'string', 'max:255'],
         ];

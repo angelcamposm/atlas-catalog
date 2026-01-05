@@ -43,6 +43,12 @@ return [
         'url' => 'https://go.dev',
     ],
     [
+        'name' => 'Groovy',
+        'icon' => 'groovy.svg',
+        'is_enabled' => true,
+        'url' => 'https://groovy-lang.org/',
+    ],
+    [
         'name' => 'Java',
         'icon' => 'java.svg',
         'is_enabled' => true,
@@ -59,6 +65,12 @@ return [
         'icon' => 'kotlin.svg',
         'is_enabled' => true,
         'url' => 'https://kotlinlang.org',
+    ],
+    [
+        'name' => 'Perl',
+        'icon' => 'perl.svg',
+        'is_enabled' => true,
+        'url' => 'https://perl.org/',
     ],
     [
         'name' => 'PHP',
@@ -101,5 +113,11 @@ return [
         'icon' => 'typescript.svg',
         'is_enabled' => true,
         'url' => 'https://www.typescriptlang.org',
+    ],
+    [
+        'name' => 'Visual Basic',
+        'icon' => 'visual-basic.svg',
+        'is_enabled' => true,
+        'url' => '',
     ],
 ];

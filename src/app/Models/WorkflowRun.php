@@ -89,7 +89,7 @@ class WorkflowRun extends Model
      */
     protected $casts = [
         'status' => WorkflowRunResult::class,
-        'started_at' => 'datetime',
+        'started_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     /**

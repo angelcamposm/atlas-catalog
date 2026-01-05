@@ -26,7 +26,10 @@ class StoreLinkRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50', 'unique:links,name'],
+            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
             'description' => ['nullable', 'string', 'max:255'],
+            'model_name' => ['nullable', 'string', 'max:255'],
+            'model_id' => ['nullable', 'integer'],
             'url' => ['required', 'string', 'max:255'],
         ];
     }

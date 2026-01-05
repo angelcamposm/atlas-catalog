@@ -30,7 +30,7 @@ class UpdateInfrastructureTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'max:255', Rule::unique('infrastructure_types')->ignore($this->infrastructure_type)],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('infrastructure_types')->ignore($this->infrastructure_type)],
             'description' => ['nullable', 'string', 'max:255'],
         ];
     }
