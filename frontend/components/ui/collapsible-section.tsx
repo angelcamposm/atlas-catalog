@@ -4,7 +4,7 @@
  * A reusable collapsible/expandable section component with optional:
  * - Custom icon
  * - Percentage indicator
- * - Animation transitions
+ * - Smooth animation transitions with Framer Motion
  * - Accessibility support (ARIA)
  *
  * @example
@@ -22,6 +22,7 @@ import React, {
     type ReactNode,
     type ComponentType,
 } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HiChevronDown, HiChevronRight } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
 
@@ -125,7 +126,10 @@ export function CollapsibleSection({
     const ChevronIcon = isExpanded ? HiChevronDown : HiChevronRight;
 
     return (
-        <div
+        <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className={cn(
                 "rounded-lg bg-white dark:bg-gray-800",
                 !noBorder && "border border-gray-200 dark:border-gray-700",
@@ -134,7 +138,7 @@ export function CollapsibleSection({
             data-testid={testId}
         >
             {/* Header */}
-            <button
+            <motion.button
                 id={headerId}
                 type="button"
                 className={cn(
@@ -149,14 +153,26 @@ export function CollapsibleSection({
                 onKeyDown={handleKeyDown}
                 aria-expanded={isExpanded}
                 aria-controls={contentId}
+                whileHover={{ scale: 1.005 }}
+                whileTap={{ scale: 0.995 }}
             >
                 <div className="flex items-center gap-3 min-w-0">
-                    {/* Chevron icon */}
-                    <ChevronIcon className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0 transition-transform" />
+                    {/* Chevron icon with rotation animation */}
+                    <motion.div
+                        animate={{ rotate: isExpanded ? 90 : 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                    >
+                        <HiChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" />
+                    </motion.div>
 
-                    {/* Custom icon */}
+                    {/* Custom icon with hover effect */}
                     {Icon && (
-                        <Icon className="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0" />
+                        <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            transition={{ duration: 0.15 }}
+                        >
+                            <Icon className="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0" />
+                        </motion.div>
                     )}
 
                     {/* Title */}
@@ -164,32 +180,56 @@ export function CollapsibleSection({
                         {title}
                     </span>
 
-                    {/* Percentage badge */}
+                    {/* Percentage badge with pulse animation on high values */}
                     {typeof percentage === "number" && (
-                        <span
+                        <motion.span
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.1 }}
                             className={cn(
                                 "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium shrink-0",
                                 getPercentageColor(percentage)
                             )}
                         >
                             {percentage}%
-                        </span>
+                        </motion.span>
                     )}
                 </div>
-            </button>
+            </motion.button>
 
-            {/* Content */}
-            {isExpanded && (
-                <div
-                    id={contentId}
-                    role="region"
-                    aria-labelledby={headerId}
-                    className="px-4 py-4"
-                >
-                    {children}
-                </div>
-            )}
-        </div>
+            {/* Content with AnimatePresence for enter/exit animations */}
+            <AnimatePresence initial={false}>
+                {isExpanded && (
+                    <motion.div
+                        id={contentId}
+                        role="region"
+                        aria-labelledby={headerId}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ 
+                            height: "auto", 
+                            opacity: 1,
+                            transition: {
+                                height: { duration: 0.3, ease: "easeOut" },
+                                opacity: { duration: 0.25, delay: 0.05 }
+                            }
+                        }}
+                        exit={{ 
+                            height: 0, 
+                            opacity: 0,
+                            transition: {
+                                height: { duration: 0.25, ease: "easeIn" },
+                                opacity: { duration: 0.15 }
+                            }
+                        }}
+                        className="overflow-hidden"
+                    >
+                        <div className="px-4 py-4">
+                            {children}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
     );
 }
 

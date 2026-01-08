@@ -15,6 +15,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { componentsApi, componentTypesApi } from "@/lib/api/components";
 import type {
     ComponentWithRelations,
@@ -152,30 +153,49 @@ function TabNavigation({
                         const isActive = activeTab === tab.id;
 
                         return (
-                            <button
+                            <motion.button
                                 key={tab.id}
                                 onClick={() => !disabled && onTabChange(tab.id)}
                                 disabled={disabled}
                                 className={cn(
-                                    "group inline-flex items-center gap-2 py-4 border-b-2 font-medium text-sm whitespace-nowrap transition-colors",
+                                    "group relative inline-flex items-center gap-2 py-4 font-medium text-sm whitespace-nowrap transition-colors",
                                     isActive
-                                        ? "border-primary-500 text-primary-600 dark:text-primary-400"
-                                        : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300",
+                                        ? "text-primary-600 dark:text-primary-400"
+                                        : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300",
                                     disabled && "cursor-not-allowed opacity-50"
                                 )}
                                 aria-current={isActive ? "page" : undefined}
+                                whileHover={{ scale: disabled ? 1 : 1.02 }}
+                                whileTap={{ scale: disabled ? 1 : 0.98 }}
                             >
                                 {tab.label}
-                            </button>
+                                {/* Animated underline indicator */}
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="activeTabIndicator"
+                                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-500"
+                                        initial={false}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 500,
+                                            damping: 30,
+                                        }}
+                                    />
+                                )}
+                            </motion.button>
                         );
                     })}
                 </nav>
 
                 {/* Last Update indicator */}
                 {lastUpdate && (
-                    <span className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
+                    <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap"
+                    >
                         Last Update ({lastUpdate})
-                    </span>
+                    </motion.span>
                 )}
             </div>
         </div>
@@ -227,87 +247,128 @@ function DetailsContent({
           }
         : owner;
 
+    // Animation variants for staggered children
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.05,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                duration: 0.4,
+                ease: [0.25, 0.46, 0.45, 0.94] as const, // easeOut cubic bezier
+            },
+        },
+    };
+
     return (
-        <div className="space-y-4 p-4 sm:p-6">
-            <InformationSection
-                component={component}
-                percentage={infoPercentage}
-                defaultExpanded
-            />
+        <motion.div
+            className="space-y-4 p-4 sm:p-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+        >
+            <motion.div variants={itemVariants}>
+                <InformationSection
+                    component={component}
+                    percentage={infoPercentage}
+                    defaultExpanded
+                />
+            </motion.div>
 
-            <OtherDetailsSection
-                component={component}
-                componentType={componentType}
-                platform={
-                    component.platform
-                        ? {
-                              id: component.platform.id,
-                              name: component.platform.name,
-                              description: null,
-                              icon: null,
-                              created_at: "",
-                              updated_at: "",
-                          }
-                        : undefined
-                }
-                owner={componentOwner}
-                percentage={detailsPercentage}
-                defaultExpanded
-            />
+            <motion.div variants={itemVariants}>
+                <OtherDetailsSection
+                    component={component}
+                    componentType={componentType}
+                    platform={
+                        component.platform
+                            ? {
+                                  id: component.platform.id,
+                                  name: component.platform.name,
+                                  description: null,
+                                  icon: null,
+                                  created_at: "",
+                                  updated_at: "",
+                              }
+                            : undefined
+                    }
+                    owner={componentOwner}
+                    percentage={detailsPercentage}
+                    defaultExpanded
+                />
+            </motion.div>
 
-            <BusinessSupportSection
-                component={component}
-                businessDomain={
-                    component.domain
-                        ? {
-                              id: component.domain.id,
-                              name: component.domain.name,
-                              display_name: component.domain.name,
-                              description: null,
-                              parent_id: null,
-                              created_at: "",
-                              updated_at: "",
-                          }
-                        : undefined
-                }
-                businessCriticality={
-                    component.tier
-                        ? {
-                              id: component.tier.id,
-                              name: component.tier.name,
-                          }
-                        : undefined
-                }
-                percentage={businessPercentage}
-                defaultExpanded
-            />
+            <motion.div variants={itemVariants}>
+                <BusinessSupportSection
+                    component={component}
+                    businessDomain={
+                        component.domain
+                            ? {
+                                  id: component.domain.id,
+                                  name: component.domain.name,
+                                  display_name: component.domain.name,
+                                  description: null,
+                                  parent_id: null,
+                                  created_at: "",
+                                  updated_at: "",
+                              }
+                            : undefined
+                    }
+                    businessCriticality={
+                        component.tier
+                            ? {
+                                  id: component.tier.id,
+                                  name: component.tier.name,
+                              }
+                            : undefined
+                    }
+                    percentage={businessPercentage}
+                    defaultExpanded
+                />
+            </motion.div>
 
-            <LifecycleTimeline
-                phases={lifecyclePhases}
-                currentPhaseId={lifecycle?.id || component.lifecycle?.id}
-                defaultExpanded
-            />
+            <motion.div variants={itemVariants}>
+                <LifecycleTimeline
+                    phases={lifecyclePhases}
+                    currentPhaseId={lifecycle?.id || component.lifecycle?.id}
+                    defaultExpanded
+                />
+            </motion.div>
 
-            <DeploymentsSection
-                deployments={[]}
-                applicationName={component.name}
-                defaultExpanded
-            />
+            <motion.div variants={itemVariants}>
+                <DeploymentsSection
+                    deployments={[]}
+                    applicationName={component.name}
+                    defaultExpanded
+                />
+            </motion.div>
 
-            <DependenciesSection
-                provides={
-                    component.apis?.map((api) => ({
-                        id: api.id,
-                        name: api.name,
-                        type: "api",
-                    })) || []
-                }
-                consumes={[]}
-                imports={[]}
-                requiredBy={[]}
-                defaultExpanded
-            />
-        </div>
+            <motion.div variants={itemVariants}>
+                <DependenciesSection
+                    provides={
+                        component.apis?.map((api) => ({
+                            id: api.id,
+                            name: api.name,
+                            type: "api",
+                        })) || []
+                    }
+                    consumes={[]}
+                    imports={[]}
+                    requiredBy={[]}
+                    defaultExpanded
+                />
+            </motion.div>
+        </motion.div>
     );
 }
 
