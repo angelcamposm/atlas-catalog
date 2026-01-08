@@ -16,13 +16,14 @@ import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { componentsApi, componentTypesApi } from "@/lib/api/components";
-import { lifecyclesApi } from "@/lib/api/lifecycles";
 import type {
-    Component,
-    ComponentType,
-    Lifecycle,
-    Platform,
-} from "@/types/api";
+    ComponentWithRelations,
+    ComponentResource,
+    ComponentRelease,
+    ComponentAuditEntry,
+} from "@/lib/api/components";
+import { lifecyclesApi } from "@/lib/api/lifecycles";
+import type { ComponentType, Lifecycle, Platform } from "@/types/api";
 import { cn } from "@/lib/utils";
 import {
     HiOutlineViewColumns,
@@ -35,6 +36,7 @@ import {
     HiOutlineClipboardDocumentList,
 } from "react-icons/hi2";
 import { Badge } from "@/components/ui/Badge";
+import { Spinner } from "@/components/ui/loading";
 import {
     ComponentDetailHeader,
     InformationSection,
@@ -44,6 +46,7 @@ import {
     DeploymentsSection,
     DependenciesSection,
 } from "@/components/catalog/component-detail";
+import { EmptyState } from "@/components/ui/empty-state";
 import type {
     Owner,
     LifecyclePhase,
@@ -61,6 +64,27 @@ interface ComponentApiRelation {
     relationship: string;
     description?: string;
     display_name?: string;
+}
+
+// ============================================================================
+// Tab Loading State Component
+// ============================================================================
+
+interface TabLoadingStateProps {
+    message?: string;
+}
+
+function TabLoadingState({
+    message = "Cargando información...",
+}: TabLoadingStateProps) {
+    return (
+        <div className="flex flex-col items-center justify-center py-16 px-4">
+            <Spinner size="lg" variant="circle" color="primary" />
+            <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                {message}
+            </p>
+        </div>
+    );
 }
 
 // ============================================================================
@@ -163,7 +187,7 @@ function TabNavigation({
 // ============================================================================
 
 interface DetailsContentProps {
-    component: Component;
+    component: ComponentWithRelations;
     componentType?: ComponentType;
     lifecycle?: Lifecycle;
     platform?: Platform;
@@ -176,83 +200,32 @@ function DetailsContent({
     lifecycle,
     owner,
 }: DetailsContentProps) {
-    // Mock lifecycle phases based on actual lifecycle data
+    // Use lifecycle phases from component relations if available, otherwise show defaults
     const lifecyclePhases: LifecyclePhase[] = [
-        { id: 1, name: "Plan", date: "2027-01-11", color: "#3b82f6" },
-        { id: 2, name: "Phase In", date: "2027-05-30", color: "#8b5cf6" },
-        { id: 3, name: "Active", date: "2027-09-03", color: "#22c55e" },
-        { id: 4, name: "Phase Out", date: "2029-04-20", color: "#f59e0b" },
-        { id: 5, name: "End of Life", date: "2029-10-31", color: "#ef4444" },
+        { id: 1, name: "Plan", color: "#3b82f6" },
+        { id: 2, name: "Phase In", color: "#8b5cf6" },
+        { id: 3, name: "Active", color: "#22c55e" },
+        { id: 4, name: "Phase Out", color: "#f59e0b" },
+        { id: 5, name: "End of Life", color: "#ef4444" },
     ];
 
-    // Mock deployments - in real app, this would come from API
-    const mockDeployments: Deployment[] = [
-        {
-            id: 1,
-            environment: { id: 1, name: "DLT", label: "Development" },
-            release_id: 1,
-            version: "1.1.8",
-            deployed_at: "2026-01-07T10:00:00Z",
-            deployed_by: 1,
-        },
-        {
-            id: 2,
-            environment: { id: 2, name: "INT", label: "Integration" },
-            release_id: 2,
-            version: "1.1.8",
-            deployed_at: "2026-01-06T15:00:00Z",
-            deployed_by: 1,
-        },
-        {
-            id: 3,
-            environment: { id: 3, name: "UAT", label: "UAT" },
-            release_id: 3,
-            version: "1.1.8",
-            deployed_at: "2026-01-05T09:00:00Z",
-            deployed_by: 1,
-        },
-        {
-            id: 4,
-            environment: { id: 4, name: "TTA", label: "TTA" },
-            release_id: 4,
-            version: "1.1.8",
-            deployed_at: "2026-01-04T09:00:00Z",
-            deployed_by: 1,
-        },
-        {
-            id: 5,
-            environment: { id: 5, name: "PRD", label: "Production" },
-            release_id: 5,
-            version: "1.1.8",
-            deployed_at: "2026-01-03T09:00:00Z",
-            deployed_by: 1,
-        },
-    ];
-
-    // Mock dependencies - in real app, this would come from API
-    const mockProvides: Dependency[] = [
-        { id: 1, name: "User Authentication API", type: "api" },
-        { id: 2, name: "OAuth2 Provider", type: "api" },
-    ];
-
-    const mockConsumes: Dependency[] = [
-        { id: 3, name: "database-service", type: "component" },
-        { id: 4, name: "cache-service", type: "component" },
-    ];
-
-    const mockImports: Dependency[] = [
-        { id: 5, name: "logging-library", type: "library" },
-    ];
-
-    const mockRequiredBy: Dependency[] = [
-        { id: 6, name: "api-gateway", type: "component" },
-        { id: 7, name: "web-frontend", type: "component" },
-    ];
-
-    // Calculate completion percentages (mock - would be calculated from actual data)
+    // Calculate completion percentages based on actual data
     const infoPercentage = component.description ? 100 : 50;
-    const detailsPercentage = componentType ? 80 : 40;
-    const businessPercentage = component.domain_id ? 60 : 20;
+    const detailsPercentage = calculateDetailsCompletion(
+        component,
+        componentType
+    );
+    const businessPercentage = calculateBusinessCompletion(component);
+
+    // Get owner from component relations or fallback to prop
+    const componentOwner: Owner | undefined = component.owner
+        ? {
+              id: component.owner.id,
+              name: component.owner.name,
+              email: null,
+              avatar: null,
+          }
+        : owner;
 
     return (
         <div className="space-y-4 p-4 sm:p-6">
@@ -265,7 +238,19 @@ function DetailsContent({
             <OtherDetailsSection
                 component={component}
                 componentType={componentType}
-                owner={owner}
+                platform={
+                    component.platform
+                        ? {
+                              id: component.platform.id,
+                              name: component.platform.name,
+                              description: null,
+                              icon: null,
+                              created_at: "",
+                              updated_at: "",
+                          }
+                        : undefined
+                }
+                owner={componentOwner}
                 percentage={detailsPercentage}
                 defaultExpanded
             />
@@ -273,11 +258,11 @@ function DetailsContent({
             <BusinessSupportSection
                 component={component}
                 businessDomain={
-                    component.domain_id
+                    component.domain
                         ? {
-                              id: component.domain_id,
-                              name: "Corporate / Human Resources",
-                              display_name: "Human Resources",
+                              id: component.domain.id,
+                              name: component.domain.name,
+                              display_name: component.domain.name,
                               description: null,
                               parent_id: null,
                               created_at: "",
@@ -286,40 +271,79 @@ function DetailsContent({
                         : undefined
                 }
                 businessCriticality={
-                    component.criticality_id
+                    component.tier
                         ? {
-                              id: component.criticality_id,
-                              name: "Tier 2 - Mission Critical",
+                              id: component.tier.id,
+                              name: component.tier.name,
                           }
                         : undefined
                 }
-                businessTIM="BU-1"
-                functionalTIM="FT-1"
                 percentage={businessPercentage}
                 defaultExpanded
             />
 
             <LifecycleTimeline
                 phases={lifecyclePhases}
-                currentPhaseId={lifecycle?.id || 3}
+                currentPhaseId={lifecycle?.id || component.lifecycle?.id}
                 defaultExpanded
             />
 
             <DeploymentsSection
-                deployments={mockDeployments}
+                deployments={[]}
                 applicationName={component.name}
                 defaultExpanded
             />
 
             <DependenciesSection
-                provides={mockProvides}
-                consumes={mockConsumes}
-                imports={mockImports}
-                requiredBy={mockRequiredBy}
+                provides={
+                    component.apis?.map((api) => ({
+                        id: api.id,
+                        name: api.name,
+                        type: "api",
+                    })) || []
+                }
+                consumes={[]}
+                imports={[]}
+                requiredBy={[]}
                 defaultExpanded
             />
         </div>
     );
+}
+
+/**
+ * Calculate completion percentage for Other Details section
+ */
+function calculateDetailsCompletion(
+    component: ComponentWithRelations,
+    componentType?: ComponentType
+): number {
+    let score = 0;
+    const total = 5; // type, platform, owner, tags, stateless
+
+    if (componentType || component.type) score++;
+    if (component.platform) score++;
+    if (component.owner) score++;
+    if (component.tags && Object.keys(component.tags).length > 0) score++;
+    if (component.is_stateless !== undefined) score++;
+
+    return Math.round((score / total) * 100);
+}
+
+/**
+ * Calculate completion percentage for Business Support section
+ */
+function calculateBusinessCompletion(
+    component: ComponentWithRelations
+): number {
+    let score = 0;
+    const total = 3; // domain, tier/criticality, status
+
+    if (component.domain) score++;
+    if (component.tier || component.criticality_id) score++;
+    if (component.status) score++;
+
+    return Math.round((score / total) * 100);
 }
 
 // ============================================================================
@@ -330,7 +354,7 @@ function ApisContent({
     component,
     locale,
 }: {
-    component: Component;
+    component: ComponentWithRelations;
     locale: string;
 }) {
     const [apis, setApis] = useState<ComponentApiRelation[]>([]);
@@ -351,16 +375,7 @@ function ApisContent({
     }, [component.id]);
 
     if (loading) {
-        return (
-            <div className="p-6 space-y-4">
-                {[1, 2, 3].map((i) => (
-                    <div
-                        key={i}
-                        className="h-20 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"
-                    />
-                ))}
-            </div>
-        );
+        return <TabLoadingState message="Cargando APIs del componente..." />;
     }
 
     if (apis.length === 0) {
@@ -411,47 +426,318 @@ function ApisContent({
 }
 
 // ============================================================================
-// Placeholder Tab Contents
+// Resources Tab Content
 // ============================================================================
 
-function ResourcesContent() {
+function ResourcesContent({
+    component,
+}: {
+    component: ComponentWithRelations;
+}) {
+    const [resources, setResources] = useState<ComponentResource[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadResources() {
+            try {
+                const response = await componentsApi.getResources(component.id);
+                setResources(response.data || []);
+            } catch (err) {
+                console.error("Error loading component resources:", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        void loadResources();
+    }, [component.id]);
+
+    if (loading) {
+        return (
+            <TabLoadingState message="Cargando recursos del componente..." />
+        );
+    }
+
+    if (resources.length === 0) {
+        return (
+            <EmptyState
+                type="no-data"
+                title="Recursos"
+                description="Documentación, enlaces y recursos del componente se mostrarán aquí."
+                size="md"
+                icon={<HiOutlineDocumentText className="w-full h-full" />}
+            />
+        );
+    }
+
     return (
-        <div className="text-center py-16">
-            <HiOutlineDocumentText className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                Resources
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400">
-                Documentation, links and resources will be displayed here.
-            </p>
+        <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">
+                    Recursos ({resources.length})
+                </h3>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+                {resources.map((resource) => (
+                    <div
+                        key={resource.id}
+                        className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                    >
+                        <div className="flex items-start gap-3">
+                            <HiOutlineDocumentText className="w-5 h-5 text-gray-400 mt-0.5" />
+                            <div className="flex-1 min-w-0">
+                                <h4 className="font-medium text-gray-900 dark:text-gray-100 truncate">
+                                    {resource.name}
+                                </h4>
+                                {resource.description && (
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        {resource.description}
+                                    </p>
+                                )}
+                                {resource.category && (
+                                    <Badge variant="secondary" className="mt-2">
+                                        {resource.category}
+                                    </Badge>
+                                )}
+                            </div>
+                            {resource.url && (
+                                <a
+                                    href={resource.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-primary-600 hover:text-primary-700"
+                                >
+                                    <HiArrowTopRightOnSquare className="w-4 h-4" />
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
 
-function ReleasesContent() {
+// ============================================================================
+// Releases Tab Content
+// ============================================================================
+
+function ReleasesContent({ component }: { component: ComponentWithRelations }) {
+    const [releases, setReleases] = useState<ComponentRelease[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadReleases() {
+            try {
+                const response = await componentsApi.getReleases(component.id);
+                setReleases(response.data || []);
+            } catch (err) {
+                console.error("Error loading component releases:", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        void loadReleases();
+    }, [component.id]);
+
+    if (loading) {
+        return <TabLoadingState message="Cargando historial de releases..." />;
+    }
+
+    if (releases.length === 0) {
+        return (
+            <EmptyState
+                type="no-data"
+                title="Releases"
+                description="Historial de versiones e información de releases se mostrará aquí."
+                size="md"
+                icon={<HiOutlineClock className="w-full h-full" />}
+            />
+        );
+    }
+
+    const getStatusColor = (status?: string) => {
+        switch (status) {
+            case "deployed":
+                return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+            case "rollback":
+                return "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400";
+            case "pending":
+                return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
+            case "failed":
+                return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+            default:
+                return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+        }
+    };
+
     return (
-        <div className="text-center py-16">
-            <HiOutlineClock className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                Releases
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400">
-                Release history and version information will be displayed here.
-            </p>
+        <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">
+                    Releases ({releases.length})
+                </h3>
+            </div>
+            <div className="space-y-4">
+                {releases.map((release) => (
+                    <div
+                        key={release.id}
+                        className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                    >
+                        <div className="flex items-start justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="flex flex-col">
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-mono font-semibold text-gray-900 dark:text-gray-100">
+                                            v{release.version}
+                                        </span>
+                                        {release.is_latest && (
+                                            <Badge variant="primary">
+                                                Latest
+                                            </Badge>
+                                        )}
+                                        {release.status && (
+                                            <Badge
+                                                variant="secondary"
+                                                className={getStatusColor(
+                                                    release.status
+                                                )}
+                                            >
+                                                {release.status}
+                                            </Badge>
+                                        )}
+                                    </div>
+                                    <span className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                        {new Date(
+                                            release.release_date
+                                        ).toLocaleDateString("es-ES", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        })}
+                                    </span>
+                                </div>
+                            </div>
+                            {release.environment && (
+                                <Badge variant="outline">
+                                    {release.environment}
+                                </Badge>
+                            )}
+                        </div>
+                        {release.description && (
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-3">
+                                {release.description}
+                            </p>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
 
-function AuditLogContent() {
+// ============================================================================
+// Audit Log Tab Content
+// ============================================================================
+
+function AuditLogContent({ component }: { component: ComponentWithRelations }) {
+    const [auditLog, setAuditLog] = useState<ComponentAuditEntry[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadAuditLog() {
+            try {
+                const response = await componentsApi.getAuditLog(component.id);
+                setAuditLog(response.data || []);
+            } catch (err) {
+                console.error("Error loading component audit log:", err);
+            } finally {
+                setLoading(false);
+            }
+        }
+        void loadAuditLog();
+    }, [component.id]);
+
+    if (loading) {
+        return <TabLoadingState message="Cargando registro de auditoría..." />;
+    }
+
+    if (auditLog.length === 0) {
+        return (
+            <EmptyState
+                type="no-data"
+                title="Registro de Auditoría"
+                description="Historial de cambios y trazabilidad se mostrará aquí."
+                size="md"
+                icon={
+                    <HiOutlineClipboardDocumentList className="w-full h-full" />
+                }
+            />
+        );
+    }
+
+    const getActionColor = (action: string) => {
+        switch (action.toLowerCase()) {
+            case "create":
+                return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400";
+            case "update":
+                return "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400";
+            case "delete":
+                return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
+            default:
+                return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
+        }
+    };
+
     return (
-        <div className="text-center py-16">
-            <HiOutlineClipboardDocumentList className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
-                Audit Log
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400">
-                Change history and audit trail will be displayed here.
-            </p>
+        <div className="p-6 space-y-4">
+            <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">
+                    Registro de Auditoría ({auditLog.length})
+                </h3>
+            </div>
+            <div className="space-y-3">
+                {auditLog.map((entry) => (
+                    <div
+                        key={entry.id}
+                        className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                    >
+                        <div className="flex items-start justify-between">
+                            <div className="flex items-center gap-3">
+                                <Badge
+                                    variant="secondary"
+                                    className={getActionColor(entry.action)}
+                                >
+                                    {entry.action}
+                                </Badge>
+                                <span className="text-sm text-gray-900 dark:text-gray-100">
+                                    {entry.actor}
+                                </span>
+                            </div>
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
+                                {new Date(entry.timestamp).toLocaleString(
+                                    "es-ES"
+                                )}
+                            </span>
+                        </div>
+                        {entry.field && (
+                            <div className="mt-2 text-sm">
+                                <span className="text-gray-500 dark:text-gray-400">
+                                    Campo:{" "}
+                                </span>
+                                <span className="font-medium text-gray-700 dark:text-gray-300">
+                                    {entry.field}
+                                </span>
+                                {entry.old_value && entry.new_value && (
+                                    <span className="text-gray-500 dark:text-gray-400">
+                                        {" "}
+                                        ({entry.old_value} → {entry.new_value})
+                                    </span>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
@@ -469,7 +755,7 @@ function TabContent({
     locale,
 }: {
     activeTab: TabId;
-    component: Component | null;
+    component: ComponentWithRelations | null;
     componentType?: ComponentType;
     lifecycle?: Lifecycle;
     loading: boolean;
@@ -488,13 +774,15 @@ function TabContent({
         return null;
     }
 
-    // Mock owner data - in real app this would come from API
-    const mockOwner: Owner = {
-        id: 1,
-        name: "Eugenia",
-        email: "eugenia@test.com",
-        avatar: null,
-    };
+    // Get owner from component relations if available
+    const componentOwner: Owner | undefined = component.owner
+        ? {
+              id: component.owner.id,
+              name: component.owner.name,
+              email: null,
+              avatar: null,
+          }
+        : undefined;
 
     switch (activeTab) {
         case "details":
@@ -503,17 +791,17 @@ function TabContent({
                     component={component}
                     componentType={componentType}
                     lifecycle={lifecycle}
-                    owner={mockOwner}
+                    owner={componentOwner}
                 />
             );
         case "apis":
             return <ApisContent component={component} locale={locale} />;
         case "resources":
-            return <ResourcesContent />;
+            return <ResourcesContent component={component} />;
         case "releases":
-            return <ReleasesContent />;
+            return <ReleasesContent component={component} />;
         case "audit":
-            return <AuditLogContent />;
+            return <AuditLogContent component={component} />;
         default:
             return null;
     }
@@ -582,7 +870,9 @@ export default function ComponentDetailPage() {
         : "details";
 
     const [activeTab, setActiveTab] = useState<TabId>(initialTab);
-    const [component, setComponent] = useState<Component | null>(null);
+    const [component, setComponent] = useState<ComponentWithRelations | null>(
+        null
+    );
     const [componentType, setComponentType] = useState<
         ComponentType | undefined
     >();
@@ -607,6 +897,10 @@ export default function ComponentDetailPage() {
 
     // Load component data
     useEffect(() => {
+        console.log(
+            "🔵 ComponentDetailPage useEffect triggered with idParam:",
+            idParam
+        );
         if (!idParam) {
             setError(t("errors.invalidId"));
             setLoading(false);
@@ -618,13 +912,21 @@ export default function ComponentDetailPage() {
                 setLoading(true);
                 setError(null);
 
+                console.log("📡 Fetching component by slug:", idParam);
                 // Load component using slug (idParam is the slug from the URL)
+                // Include relations for complete data
                 const response = await componentsApi.getBySlug(
-                    idParam as string
+                    idParam as string,
+                    ["domain", "platform", "owner", "tier", "status", "apis"]
                 );
+                console.log("✅ Component loaded:", {
+                    id: response.data.id,
+                    name: response.data.name,
+                    slug: response.data.slug,
+                });
                 setComponent(response.data);
 
-                // Load related data
+                // Load related data for dropdowns/selectors
                 const [typesRes, lifecyclesRes] = await Promise.all([
                     componentTypesApi.getAll(),
                     lifecyclesApi.getAll(),
@@ -650,13 +952,15 @@ export default function ComponentDetailPage() {
         void loadData();
     }, [idParam, t]);
 
-    // Mock owner for header
-    const mockOwner: Owner = {
-        id: 1,
-        name: "Eugenia",
-        email: "eugenia@test.com",
-        avatar: null,
-    };
+    // Get owner from component relations if available
+    const headerOwner: Owner | undefined = component?.owner
+        ? {
+              id: component.owner.id,
+              name: component.owner.name,
+              email: null,
+              avatar: null,
+          }
+        : undefined;
 
     // Calculate profile completion
     const profileCompletion = component
@@ -694,16 +998,11 @@ export default function ComponentDetailPage() {
                 component && (
                     <ComponentDetailHeader
                         component={component}
-                        owner={mockOwner}
+                        owner={headerOwner}
                         componentType={componentType}
                         lifecycle={lifecycle}
                         profileCompletion={profileCompletion}
                         locale={locale}
-                        stats={{
-                            earnings: 4500,
-                            projects: 75,
-                            successRate: 60,
-                        }}
                     />
                 )
             )}

@@ -90,23 +90,21 @@ describe("ApiDocs", () => {
             const { container } = render(
                 <ApiDocs api={mockApi} className="custom-class" />
             );
-            expect(container.querySelector(".custom-class")).toBeInTheDocument();
+            expect(
+                container.querySelector(".custom-class")
+            ).toBeInTheDocument();
         });
 
         it("should render without specification", () => {
             render(<ApiDocs api={mockApi} />);
-            expect(
-                screen.getByText("Sin documentación")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Sin documentación")).toBeInTheDocument();
         });
     });
 
     describe("No Documentation State", () => {
         it("should show no documentation message when no spec provided", () => {
             render(<ApiDocs api={mockApi} />);
-            expect(
-                screen.getByText("Sin documentación")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Sin documentación")).toBeInTheDocument();
         });
 
         it("should show helpful description when no spec", () => {
@@ -147,7 +145,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("openapi", { selector: "span" })).toBeInTheDocument();
+            expect(
+                screen.getByText("openapi", { selector: "span" })
+            ).toBeInTheDocument();
         });
 
         it("should display OpenAPI badge", () => {
@@ -160,7 +160,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("openapi", { selector: "span" })).toBeInTheDocument();
+            expect(
+                screen.getByText("openapi", { selector: "span" })
+            ).toBeInTheDocument();
         });
 
         it("should show live API link when URL provided", () => {
@@ -208,7 +210,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("json", { selector: "span" })).toBeInTheDocument();
+            expect(
+                screen.getByText("json", { selector: "span" })
+            ).toBeInTheDocument();
         });
 
         it("should detect JSON string format", () => {
@@ -218,7 +222,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("json", { selector: "span" })).toBeInTheDocument();
+            expect(
+                screen.getByText("json", { selector: "span" })
+            ).toBeInTheDocument();
         });
 
         it("should format JSON with indentation", () => {
@@ -259,7 +265,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("openapi", { selector: "span" })).toBeInTheDocument();
+            expect(
+                screen.getByText("openapi", { selector: "span" })
+            ).toBeInTheDocument();
         });
 
         it("should detect YAML format with swagger prefix", () => {
@@ -270,7 +278,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("openapi", { selector: "span" })).toBeInTheDocument();
+            expect(
+                screen.getByText("openapi", { selector: "span" })
+            ).toBeInTheDocument();
         });
     });
 
@@ -304,7 +314,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("Formato no reconocido")).toBeInTheDocument();
+            expect(
+                screen.getByText("Formato no reconocido")
+            ).toBeInTheDocument();
         });
 
         it("should show format detection message", () => {
@@ -324,7 +336,9 @@ describe("ApiDocs", () => {
         it("should render header with spec", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
@@ -336,7 +350,9 @@ describe("ApiDocs", () => {
         it("should display code bracket icon", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
@@ -346,12 +362,18 @@ describe("ApiDocs", () => {
         it("should show format badge", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText("openapi", { selector: "span" })).toBeInTheDocument();
-            expect(screen.getByText("openapi", { selector: "span" })).toHaveClass("uppercase");
+            expect(
+                screen.getByText("openapi", { selector: "span" })
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText("openapi", { selector: "span" })
+            ).toHaveClass("uppercase");
         });
     });
 
@@ -359,7 +381,9 @@ describe("ApiDocs", () => {
         it("should render fullscreen button", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
@@ -372,7 +396,9 @@ describe("ApiDocs", () => {
         it("should show exit fullscreen icon initially", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
@@ -382,7 +408,9 @@ describe("ApiDocs", () => {
         it("should call requestFullscreen on button click", async () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             const requestFullscreenMock = jest.fn();
@@ -406,7 +434,9 @@ describe("ApiDocs", () => {
         it("should have proper button attributes", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
@@ -419,7 +449,9 @@ describe("ApiDocs", () => {
         it("should have toggle button on header", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             const { container } = render(<ApiDocs api={apiWithSpec} />);
@@ -435,13 +467,15 @@ describe("ApiDocs", () => {
         it("should toggle fullscreen on button click", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
 
             const button = screen.getByRole("button");
-            
+
             // Just verify we can click without error
             expect(() => fireEvent.click(button)).not.toThrow();
         });
@@ -451,7 +485,9 @@ describe("ApiDocs", () => {
         it("should render content area with padding", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: { openapi: "3.0.0" } as unknown as string,
+                document_specification: {
+                    openapi: "3.0.0",
+                } as unknown as string,
             };
 
             const { container } = render(<ApiDocs api={apiWithSpec} />);
@@ -462,7 +498,8 @@ describe("ApiDocs", () => {
         it("should display spec content in code block", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
-                document_specification: '{"test": "value"}' as unknown as string,
+                document_specification:
+                    '{"test": "value"}' as unknown as string,
             };
 
             render(<ApiDocs api={apiWithSpec} />);
@@ -482,9 +519,7 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(
-                screen.getByText(/OpenAPI\/Swagger/)
-            ).toBeInTheDocument();
+            expect(screen.getByText(/OpenAPI\/Swagger/)).toBeInTheDocument();
         });
 
         it("should show format message for non-OpenAPI specs", () => {

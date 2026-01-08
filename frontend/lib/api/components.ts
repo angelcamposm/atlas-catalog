@@ -66,6 +66,61 @@ export interface ComponentWithRelations extends Component {
     apis?: { id: number; name: string; relationship?: string }[];
 }
 
+/**
+ * Resource associated with a component (documentation, links, etc.)
+ */
+export interface ComponentResource {
+    id: number;
+    name: string;
+    type: string;
+    url?: string;
+    description?: string;
+    category?: string;
+    created_at?: string;
+    updated_at?: string;
+}
+
+/**
+ * Release version for a component
+ */
+export interface ComponentRelease {
+    id: number;
+    version: string;
+    release_date: string;
+    description?: string;
+    changelog?: string;
+    is_latest?: boolean;
+    environment?: string;
+    status?: "deployed" | "rollback" | "pending" | "failed";
+    created_at?: string;
+}
+
+/**
+ * Audit log entry for a component
+ */
+export interface ComponentAuditEntry {
+    id: number;
+    action: string;
+    actor: string;
+    timestamp: string;
+    details?: Record<string, unknown>;
+    field?: string;
+    old_value?: string;
+    new_value?: string;
+}
+
+/**
+ * Dependency of a component
+ */
+export interface ComponentDependency {
+    id: number;
+    name: string;
+    type: "provides" | "consumes" | "imports" | "required_by";
+    component_id?: number;
+    api_id?: number;
+    description?: string;
+}
+
 // ============================================================================
 // API Client
 // ============================================================================
@@ -128,20 +183,36 @@ export const componentsApi = {
 
     /**
      * Get a single component by ID
+     * @param id Component ID
+     * @param withRelations Optional array of relations to include (e.g., ['domain', 'platform', 'owner'])
      */
-    async getById(id: number): Promise<{ data: ComponentWithRelations }> {
+    async getById(
+        id: number,
+        withRelations?: string[]
+    ): Promise<{ data: ComponentWithRelations }> {
+        const params = withRelations?.length
+            ? `?with=${withRelations.join(";")}`
+            : "";
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/catalog/components/${id}`
+            `/v1/catalog/components/${id}${params}`
         );
     },
 
     /**
      * Get a single component by slug
      * The backend uses slug-based route model binding
+     * @param slug Component slug
+     * @param withRelations Optional array of relations to include (e.g., ['domain', 'platform', 'owner'])
      */
-    async getBySlug(slug: string): Promise<{ data: ComponentWithRelations }> {
+    async getBySlug(
+        slug: string,
+        withRelations?: string[]
+    ): Promise<{ data: ComponentWithRelations }> {
+        const params = withRelations?.length
+            ? `?with=${withRelations.join(";")}`
+            : "";
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/catalog/components/${slug}`
+            `/v1/catalog/components/${slug}${params}`
         );
     },
 
@@ -216,6 +287,62 @@ export const componentsApi = {
         // return apiClient.delete(
         //     `/v1/catalog/components/${componentId}/apis/${apiId}`
         // );
+    },
+
+    /**
+     * Get resources related to a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/resources not implemented yet
+     */
+    async getResources(
+        componentId: number
+    ): Promise<{ data: ComponentResource[] }> {
+        console.warn(
+            "getResources: Backend endpoint not implemented, returning empty"
+        );
+        return Promise.resolve({ data: [] });
+        // return apiClient.get(`/v1/catalog/components/${componentId}/resources`);
+    },
+
+    /**
+     * Get releases for a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/releases not implemented yet
+     */
+    async getReleases(
+        componentId: number
+    ): Promise<{ data: ComponentRelease[] }> {
+        console.warn(
+            "getReleases: Backend endpoint not implemented, returning empty"
+        );
+        return Promise.resolve({ data: [] });
+        // return apiClient.get(`/v1/catalog/components/${componentId}/releases`);
+    },
+
+    /**
+     * Get audit log for a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/audit not implemented yet
+     */
+    async getAuditLog(
+        componentId: number
+    ): Promise<{ data: ComponentAuditEntry[] }> {
+        console.warn(
+            "getAuditLog: Backend endpoint not implemented, returning empty"
+        );
+        return Promise.resolve({ data: [] });
+        // return apiClient.get(`/v1/catalog/components/${componentId}/audit`);
+    },
+
+    /**
+     * Get dependencies for a component
+     * TODO: Backend endpoint /v1/catalog/components/{id}/dependencies not implemented yet
+     */
+    async getDependencies(
+        componentId: number
+    ): Promise<{ data: ComponentDependency[] }> {
+        console.warn(
+            "getDependencies: Backend endpoint not implemented, returning empty"
+        );
+        return Promise.resolve({ data: [] });
+        // return apiClient.get(`/v1/catalog/components/${componentId}/dependencies`);
     },
 };
 

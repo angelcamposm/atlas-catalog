@@ -439,8 +439,17 @@ export function ApiDetailSlideOver({
         api?.id
     );
 
+    // Debug logging
+    console.log("🎨 ApiDetailSlideOver render:", {
+        open,
+        apiId: api?.id,
+        apiName: api?.name,
+        prevApiId,
+    });
+
     // Reset tab when API changes using proper pattern
     if (api?.id !== prevApiId) {
+        console.log("🔄 API changed from", prevApiId, "to", api?.id);
         setPrevApiId(api?.id);
         setActiveTab("overview");
     }

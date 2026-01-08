@@ -28,8 +28,13 @@ import {
     HiOutlineUserCircle,
     HiOutlineCube,
     HiOutlineGlobeAlt,
+    HiOutlineEye,
+    HiOutlineDocumentDuplicate,
+    HiOutlineTrash,
+    HiOutlineArchiveBox,
 } from "react-icons/hi2";
 import { Badge } from "@/components/ui/Badge";
+import { EmptyState } from "@/components/ui/empty-state";
 import {
     CollapsibleSection,
     SectionField,
@@ -141,22 +146,12 @@ export function ComponentDetailHeader({
                 {/* Title row */}
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                     <div className="flex items-start gap-4">
-                        {/* Owner Avatar */}
-                        {owner && (
-                            <div className="shrink-0">
-                                <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
-                                    {owner.avatar ? (
-                                        <img
-                                            src={owner.avatar}
-                                            alt={owner.name || "Owner"}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <HiOutlineUserCircle className="w-10 h-10 text-gray-400" />
-                                    )}
-                                </div>
+                        {/* Component Icon/Image */}
+                        <div className="shrink-0">
+                            <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-lg">
+                                <HiOutlineCube className="w-10 h-10 text-white" />
                             </div>
-                        )}
+                        </div>
 
                         <div className="min-w-0">
                             {/* Component name */}
@@ -168,6 +163,7 @@ export function ComponentDetailHeader({
                             <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-gray-500 dark:text-gray-400">
                                 {owner && (
                                     <>
+                                        <HiOutlineUserCircle className="w-4 h-4" />
                                         <span className="font-medium text-primary-600 dark:text-primary-400">
                                             {owner.name}
                                         </span>
@@ -239,17 +235,29 @@ export function ComponentDetailHeader({
                         {/* Action buttons */}
                         <div className="flex items-center gap-2">
                             <Link
-                                href={`/${locale}/components/${component.slug}/edit`}
-                                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                href={`/${locale}/components/${component.slug}`}
+                                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                title="Ver componente"
                             >
-                                Follow
+                                <HiOutlineEye className="w-4 h-4" />
+                                Ver
                             </Link>
                             <Link
                                 href={`/${locale}/components/${component.slug}/edit`}
-                                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                                title="Editar componente"
                             >
-                                Hire Me
+                                <HiOutlinePencilSquare className="w-4 h-4" />
+                                Editar
                             </Link>
+                            <button
+                                type="button"
+                                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+                                title="Duplicar componente"
+                            >
+                                <HiOutlineDocumentDuplicate className="w-4 h-4" />
+                                Duplicar
+                            </button>
                         </div>
 
                         {/* Profile Completion */}
@@ -693,9 +701,13 @@ export function DeploymentsSection({
             defaultExpanded={defaultExpanded}
         >
             {deployments.length === 0 ? (
-                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                    No deployments found
-                </div>
+                <EmptyState
+                    type="no-data"
+                    title="Sin despliegues"
+                    description="Este componente aún no tiene despliegues registrados en ningún entorno."
+                    size="sm"
+                    icon={<HiOutlineServerStack className="w-full h-full" />}
+                />
             ) : (
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
@@ -821,35 +833,49 @@ export function DependenciesSection({
             percentage={percentage}
             defaultExpanded={defaultExpanded}
         >
-            <div className="flex items-center gap-2 mb-4">
-                <span className="text-sm text-gray-500 dark:text-gray-400">
-                    Total dependencies:
-                </span>
-                <Badge variant="secondary">{totalCount}</Badge>
-            </div>
+            {totalCount === 0 ? (
+                <EmptyState
+                    type="no-data"
+                    title="Sin dependencias"
+                    description="Este componente no tiene dependencias configuradas. Las dependencias ayudan a visualizar las relaciones entre componentes."
+                    size="sm"
+                    icon={
+                        <HiOutlineArrowsRightLeft className="w-full h-full" />
+                    }
+                />
+            ) : (
+                <>
+                    <div className="flex items-center gap-2 mb-4">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                            Total dependencias:
+                        </span>
+                        <Badge variant="secondary">{totalCount}</Badge>
+                    </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
-                {renderDependencyList(
-                    "Provides",
-                    provides,
-                    "What are consumers of is? No Desc"
-                )}
-                {renderDependencyList(
-                    "Consumes",
-                    consumes,
-                    "What are consumers of is? No Desc"
-                )}
-                {renderDependencyList(
-                    "Imports",
-                    imports,
-                    "What are IT modules or services?"
-                )}
-                {renderDependencyList(
-                    "Required by",
-                    requiredBy,
-                    "What are IT modules or services?"
-                )}
-            </div>
+                    <div className="grid gap-6 md:grid-cols-2">
+                        {renderDependencyList(
+                            "Provee",
+                            provides,
+                            "Sin APIs o servicios expuestos"
+                        )}
+                        {renderDependencyList(
+                            "Consume",
+                            consumes,
+                            "Sin componentes consumidos"
+                        )}
+                        {renderDependencyList(
+                            "Importa",
+                            imports,
+                            "Sin librerías importadas"
+                        )}
+                        {renderDependencyList(
+                            "Requerido por",
+                            requiredBy,
+                            "Sin componentes dependientes"
+                        )}
+                    </div>
+                </>
+            )}
         </CollapsibleSection>
     );
 }

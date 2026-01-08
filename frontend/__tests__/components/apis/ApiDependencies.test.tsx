@@ -1,6 +1,6 @@
 /**
  * Tests for ApiDependencies Component
- * 
+ *
  * Currently following TDD approach with smoke tests
  * Full test coverage will be added as component matures
  */
@@ -32,7 +32,9 @@ const mockApi: Api = {
 
 describe("ApiDependencies Component", () => {
     it("should render without crashing", () => {
-        const { ApiDependencies } = require("@/components/apis/ApiDetail/ApiDependencies");
+        const {
+            ApiDependencies,
+        } = require("@/components/apis/ApiDetail/ApiDependencies");
         const { container } = render(
             <ApiDependencies api={mockApi} locale="es" />
         );
@@ -40,7 +42,9 @@ describe("ApiDependencies Component", () => {
     });
 
     it("should pass api prop correctly", () => {
-        const { ApiDependencies } = require("@/components/apis/ApiDetail/ApiDependencies");
+        const {
+            ApiDependencies,
+        } = require("@/components/apis/ApiDetail/ApiDependencies");
         const { getByTestId } = render(
             <ApiDependencies api={mockApi} locale="es" />
         );
@@ -48,7 +52,9 @@ describe("ApiDependencies Component", () => {
     });
 
     it("should show skeleton when loading", () => {
-        const { ApiDependenciesSkeleton } = require("@/components/apis/ApiDetail/ApiDependencies");
+        const {
+            ApiDependenciesSkeleton,
+        } = require("@/components/apis/ApiDetail/ApiDependencies");
         const { getByTestId } = render(<ApiDependenciesSkeleton />);
         expect(getByTestId("api-dependencies-skeleton")).toBeInTheDocument();
     });

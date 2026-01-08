@@ -10,34 +10,53 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { ApiOverview, ApiOverviewSkeleton } from "@/components/apis/ApiDetail/ApiOverview";
+import {
+    ApiOverview,
+    ApiOverviewSkeleton,
+} from "@/components/apis/ApiDetail/ApiOverview";
 import type { Api, ApiType, ApiStatus, Lifecycle, Group } from "@/types/api";
 
 // Mock react-icons
 jest.mock("react-icons/hi2", () => ({
     HiOutlineInformationCircle: ({ className }: any) => (
-        <span data-testid="icon-info" className={className}>ℹ️</span>
+        <span data-testid="icon-info" className={className}>
+            ℹ️
+        </span>
     ),
     HiOutlineBookOpen: ({ className }: any) => (
-        <span data-testid="icon-book" className={className}>📖</span>
+        <span data-testid="icon-book" className={className}>
+            📖
+        </span>
     ),
     HiOutlineCog6Tooth: ({ className }: any) => (
-        <span data-testid="icon-cog" className={className}>⚙️</span>
+        <span data-testid="icon-cog" className={className}>
+            ⚙️
+        </span>
     ),
     HiOutlineTag: ({ className }: any) => (
-        <span data-testid="icon-tag" className={className}>🏷️</span>
+        <span data-testid="icon-tag" className={className}>
+            🏷️
+        </span>
     ),
     HiOutlineUserGroup: ({ className }: any) => (
-        <span data-testid="icon-users" className={className}>👥</span>
+        <span data-testid="icon-users" className={className}>
+            👥
+        </span>
     ),
     HiOutlineChevronRight: ({ className }: any) => (
-        <span data-testid="icon-chevron" className={className}>›</span>
+        <span data-testid="icon-chevron" className={className}>
+            ›
+        </span>
     ),
     HiOutlineClipboardDocument: ({ className }: any) => (
-        <button data-testid="icon-copy-off" className={className}>📋</button>
+        <button data-testid="icon-copy-off" className={className}>
+            📋
+        </button>
     ),
     HiOutlineCheckCircle: ({ className }: any) => (
-        <span data-testid="icon-check" className={className}>✅</span>
+        <span data-testid="icon-check" className={className}>
+            ✅
+        </span>
     ),
 }));
 
@@ -116,32 +135,28 @@ describe("ApiOverview Component", () => {
 
     describe("Rendering - Basic", () => {
         it("should render without crashing", () => {
-            const { container } = render(
-                <ApiOverview api={mockApi} />
-            );
+            const { container } = render(<ApiOverview api={mockApi} />);
             expect(container).toBeInTheDocument();
         });
 
         it("should display description when present", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            expect(screen.getByText(/API for payment processing/)).toBeInTheDocument();
+            render(<ApiOverview api={mockApi} />);
+            expect(
+                screen.getByText(/API for payment processing/)
+            ).toBeInTheDocument();
         });
 
         it("should not display description section when missing", () => {
             const apiWithoutDescription = { ...mockApi, description: null };
-            render(
-                <ApiOverview api={apiWithoutDescription} />
-            );
+            render(<ApiOverview api={apiWithoutDescription} />);
             // Check if description text is not in the document
-            expect(screen.queryByText("API for payment processing")).not.toBeInTheDocument();
+            expect(
+                screen.queryByText("API for payment processing")
+            ).not.toBeInTheDocument();
         });
 
         it("should render all info sections", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
+            render(<ApiOverview api={mockApi} />);
             expect(screen.getByText("Información Básica")).toBeInTheDocument();
             expect(screen.getByText("Clasificación")).toBeInTheDocument();
             expect(screen.getByText("Propiedad")).toBeInTheDocument();
@@ -149,9 +164,7 @@ describe("ApiOverview Component", () => {
         });
 
         it("should render all section icons", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
+            render(<ApiOverview api={mockApi} />);
             expect(screen.getByTestId("icon-book")).toBeInTheDocument();
             expect(screen.getByTestId("icon-info")).toBeInTheDocument();
             expect(screen.getByTestId("icon-tag")).toBeInTheDocument();
@@ -162,9 +175,7 @@ describe("ApiOverview Component", () => {
 
     describe("InfoRow Component", () => {
         it("should display label and value", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
+            render(<ApiOverview api={mockApi} />);
             expect(screen.getByText("Nombre")).toBeInTheDocument();
             expect(screen.getByText("Payment API")).toBeInTheDocument();
         });
@@ -184,19 +195,15 @@ describe("ApiOverview Component", () => {
         });
 
         it("should show copy button for copyable fields", async () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             // API name should be copyable
             const copyButtons = screen.getAllByTestId("icon-copy-off");
             expect(copyButtons.length).toBeGreaterThan(0);
         });
 
         it("should copy to clipboard on button click", async () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
+            render(<ApiOverview api={mockApi} />);
 
             const copyButtons = screen.getAllByTestId("icon-copy-off");
             fireEvent.click(copyButtons[0]);
@@ -209,9 +216,7 @@ describe("ApiOverview Component", () => {
         it("should show success indicator after copy", async () => {
             jest.useFakeTimers();
 
-            render(
-                <ApiOverview api={mockApi} />
-            );
+            render(<ApiOverview api={mockApi} />);
 
             const copyButtons = screen.getAllByTestId("icon-copy-off");
             fireEvent.click(copyButtons[0]);
@@ -226,21 +231,19 @@ describe("ApiOverview Component", () => {
 
     describe("InfoSection Component", () => {
         it("should render sections in expanded state by default", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             // Content should be visible if section is open
             expect(screen.getByText("Información Básica")).toBeInTheDocument();
             expect(screen.getByText("Payment API")).toBeInTheDocument();
         });
 
         it("should toggle section open/closed on click", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
+            render(<ApiOverview api={mockApi} />);
 
-            const basicInfoSection = screen.getByText("Información Básica").closest("button");
+            const basicInfoSection = screen
+                .getByText("Información Básica")
+                .closest("button");
             expect(basicInfoSection).toBeInTheDocument();
 
             fireEvent.click(basicInfoSection!);
@@ -250,10 +253,8 @@ describe("ApiOverview Component", () => {
         });
 
         it("should render chevron icon for collapsible sections", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             const chevrons = screen.getAllByTestId("icon-chevron");
             expect(chevrons.length).toBeGreaterThan(0);
         });
@@ -261,10 +262,8 @@ describe("ApiOverview Component", () => {
 
     describe("Information Sections - Content", () => {
         it("should render all basic info fields", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             expect(screen.getByText("Nombre")).toBeInTheDocument();
             expect(screen.getByText("Payment API")).toBeInTheDocument();
             expect(screen.getByText("Versión")).toBeInTheDocument();
@@ -272,19 +271,21 @@ describe("ApiOverview Component", () => {
             expect(screen.getByText("Protocolo")).toBeInTheDocument();
             expect(screen.getByText(/HTTPS/)).toBeInTheDocument();
             expect(screen.getByText("URL")).toBeInTheDocument();
-            expect(screen.getByText("https://api.payments.com/v1")).toBeInTheDocument();
+            expect(
+                screen.getByText("https://api.payments.com/v1")
+            ).toBeInTheDocument();
         });
 
         it("should render classification info with apiType", () => {
             render(
-                <ApiOverview 
-                    api={mockApi} 
+                <ApiOverview
+                    api={mockApi}
                     apiType={mockApiType}
                     apiStatus={mockApiStatus}
                     lifecycle={mockLifecycle}
                 />
             );
-            
+
             expect(screen.getByText("Tipo de API")).toBeInTheDocument();
             expect(screen.getByText(/RESTful API/)).toBeInTheDocument();
             expect(screen.getByText("Estado")).toBeInTheDocument();
@@ -294,13 +295,8 @@ describe("ApiOverview Component", () => {
         });
 
         it("should render ownership info with owner details", () => {
-            render(
-                <ApiOverview 
-                    api={mockApi}
-                    owner={mockOwner}
-                />
-            );
-            
+            render(<ApiOverview api={mockApi} owner={mockOwner} />);
+
             expect(screen.getByText("Propietario")).toBeInTheDocument();
             expect(screen.getByText(/Finance Team/)).toBeInTheDocument();
             expect(screen.getByText("Email del equipo")).toBeInTheDocument();
@@ -308,27 +304,27 @@ describe("ApiOverview Component", () => {
         });
 
         it("should render technical details", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             expect(screen.getByText("ID")).toBeInTheDocument();
             // ID value is shown but there are multiple 1s, so check context instead
             const idRow = screen.getByText("ID").closest("div");
             expect(idRow).toBeInTheDocument();
-            expect(screen.getByText("Método de Autenticación ID")).toBeInTheDocument();
-            expect(screen.getByText("Política de Acceso ID")).toBeInTheDocument();
+            expect(
+                screen.getByText("Método de Autenticación ID")
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText("Política de Acceso ID")
+            ).toBeInTheDocument();
         });
 
         it("should render created and updated timestamps", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             // Check for timestamp text
             const container = screen.getByText(/Creada el/);
             expect(container).toBeInTheDocument();
-            
+
             const updatedText = screen.getByText(/Última actualización:/);
             expect(updatedText).toBeInTheDocument();
         });
@@ -336,15 +332,13 @@ describe("ApiOverview Component", () => {
 
     describe("Optional Props", () => {
         it("should render without optional props", () => {
-            const { container } = render(
-                <ApiOverview api={mockApi} />
-            );
+            const { container } = render(<ApiOverview api={mockApi} />);
             expect(container).toBeInTheDocument();
         });
 
         it("should render with all optional props", () => {
             const { container } = render(
-                <ApiOverview 
+                <ApiOverview
                     api={mockApi}
                     apiType={mockApiType}
                     apiStatus={mockApiStatus}
@@ -358,46 +352,33 @@ describe("ApiOverview Component", () => {
 
         it("should apply custom className", () => {
             const { container } = render(
-                <ApiOverview 
-                    api={mockApi}
-                    className="custom-override-class"
-                />
+                <ApiOverview api={mockApi} className="custom-override-class" />
             );
-            
+
             const mainDiv = container.firstChild;
             expect(mainDiv).toHaveClass("custom-override-class");
         });
 
         it("should display lifecycle with color indicator", () => {
-            render(
-                <ApiOverview 
-                    api={mockApi}
-                    lifecycle={mockLifecycle}
-                />
-            );
-            
+            render(<ApiOverview api={mockApi} lifecycle={mockLifecycle} />);
+
             expect(screen.getByText("Active")).toBeInTheDocument();
         });
 
         it("should display owner icon if present", () => {
-            render(
-                <ApiOverview 
-                    api={mockApi}
-                    owner={mockOwner}
-                />
-            );
-            
+            render(<ApiOverview api={mockApi} owner={mockOwner} />);
+
             expect(screen.getByText("💰")).toBeInTheDocument();
         });
     });
 
     describe("Deprecation Info", () => {
         it("should not show deprecation info when not deprecated", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
-            expect(screen.queryByText("Motivo de Deprecación")).not.toBeInTheDocument();
+            render(<ApiOverview api={mockApi} />);
+
+            expect(
+                screen.queryByText("Motivo de Deprecación")
+            ).not.toBeInTheDocument();
         });
 
         it("should show deprecation date when deprecated", () => {
@@ -407,30 +388,30 @@ describe("ApiOverview Component", () => {
                 deprecation_reason: "Replaced by v2 API",
             };
 
-            render(
-                <ApiOverview api={deprecatedApi} />
-            );
-            
-            expect(screen.getByText("Fecha de Deprecación")).toBeInTheDocument();
-            expect(screen.getByText("Motivo de Deprecación")).toBeInTheDocument();
+            render(<ApiOverview api={deprecatedApi} />);
+
+            expect(
+                screen.getByText("Fecha de Deprecación")
+            ).toBeInTheDocument();
+            expect(
+                screen.getByText("Motivo de Deprecación")
+            ).toBeInTheDocument();
             expect(screen.getByText("Replaced by v2 API")).toBeInTheDocument();
         });
 
         it("should show release date", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
-            expect(screen.getByText("Fecha de Lanzamiento")).toBeInTheDocument();
+            render(<ApiOverview api={mockApi} />);
+
+            expect(
+                screen.getByText("Fecha de Lanzamiento")
+            ).toBeInTheDocument();
         });
     });
 
     describe("Created/Updated By Info", () => {
         it("should display creator and updater user IDs", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             expect(screen.getByText("Creado por")).toBeInTheDocument();
             // Creator and updater IDs are displayed
             expect(screen.getByText(/Usuario #5/)).toBeInTheDocument();
@@ -448,28 +429,26 @@ describe("ApiOverview Component", () => {
             const { container } = render(
                 <ApiOverview api={apiWithoutUserInfo} />
             );
-            
+
             expect(container).toBeInTheDocument();
         });
     });
 
     describe("Display Name Handling", () => {
         it("should show display name when provided", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             expect(screen.getByText("Nombre para mostrar")).toBeInTheDocument();
             expect(screen.getByText("Payment System")).toBeInTheDocument();
         });
 
         it("should not show display name field when missing", () => {
             const apiWithoutDisplayName = { ...mockApi, display_name: null };
-            render(
-                <ApiOverview api={apiWithoutDisplayName} />
-            );
-            
-            expect(screen.queryByText("Nombre para mostrar")).not.toBeInTheDocument();
+            render(<ApiOverview api={apiWithoutDisplayName} />);
+
+            expect(
+                screen.queryByText("Nombre para mostrar")
+            ).not.toBeInTheDocument();
         });
     });
 
@@ -500,10 +479,8 @@ describe("ApiOverview Component", () => {
 
     describe("Date Formatting", () => {
         it("should format dates in Spanish locale", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             // Dates should be formatted (the exact format depends on locale)
             const dateText = screen.getByText(/Creada el/);
             expect(dateText).toBeInTheDocument();
@@ -515,10 +492,8 @@ describe("ApiOverview Component", () => {
                 created_at: "invalid-date",
             };
 
-            const { container } = render(
-                <ApiOverview api={apiWithBadDate} />
-            );
-            
+            const { container } = render(<ApiOverview api={apiWithBadDate} />);
+
             // Should not crash
             expect(container).toBeInTheDocument();
         });
@@ -526,10 +501,8 @@ describe("ApiOverview Component", () => {
 
     describe("Category ID Display", () => {
         it("should show category ID when present", () => {
-            render(
-                <ApiOverview api={mockApi} />
-            );
-            
+            render(<ApiOverview api={mockApi} />);
+
             expect(screen.getByText("Categoría ID")).toBeInTheDocument();
             // Category ID value is shown next to label
             const categoryRow = screen.getByText("Categoría ID").closest("div");
@@ -538,10 +511,8 @@ describe("ApiOverview Component", () => {
 
         it("should not show category ID when missing", () => {
             const apiWithoutCategory = { ...mockApi, category_id: null };
-            render(
-                <ApiOverview api={apiWithoutCategory} />
-            );
-            
+            render(<ApiOverview api={apiWithoutCategory} />);
+
             expect(screen.queryByText("Categoría ID")).not.toBeInTheDocument();
         });
     });

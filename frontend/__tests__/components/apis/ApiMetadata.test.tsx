@@ -1,5 +1,8 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import { ApiMetadata, ApiMetadataSkeleton } from "@/components/apis/ApiDetail/ApiMetadata";
+import {
+    ApiMetadata,
+    ApiMetadataSkeleton,
+} from "@/components/apis/ApiDetail/ApiMetadata";
 import type { Api } from "@/types/api";
 import {
     HiOutlineTableCells,
@@ -88,21 +91,23 @@ describe("ApiMetadata", () => {
 
         it("should render header", () => {
             render(<ApiMetadata api={mockApi} />);
-            expect(
-                screen.getByText("Metadatos Completos")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Metadatos Completos")).toBeInTheDocument();
         });
 
         it("should apply custom className", () => {
             const { container } = render(
                 <ApiMetadata api={mockApi} className="custom-class" />
             );
-            expect(container.querySelector(".custom-class")).toBeInTheDocument();
+            expect(
+                container.querySelector(".custom-class")
+            ).toBeInTheDocument();
         });
 
         it("should display table icon", () => {
             render(<ApiMetadata api={mockApi} />);
-            expect(screen.getAllByTestId("icon-table").length).toBeGreaterThan(0);
+            expect(screen.getAllByTestId("icon-table").length).toBeGreaterThan(
+                0
+            );
         });
     });
 
@@ -187,8 +192,9 @@ describe("ApiMetadata", () => {
 
         it("should toggle group open/closed", () => {
             render(<ApiMetadata api={mockApi} />);
-            const identityButton =
-                screen.getByText("Identificación").closest("button");
+            const identityButton = screen
+                .getByText("Identificación")
+                .closest("button");
 
             // Initially open
             expect(screen.getByText("ID")).toBeInTheDocument();
@@ -233,7 +239,9 @@ describe("ApiMetadata", () => {
         it("should format date values with locale", () => {
             render(<ApiMetadata api={mockApi} />);
             // Dates should be formatted in Spanish locale
-            expect(screen.getByText(/1\/1\/2024|2024-01-01/)).toBeInTheDocument();
+            expect(
+                screen.getByText(/1\/1\/2024|2024-01-01/)
+            ).toBeInTheDocument();
         });
 
         it("should show dash for null/undefined values", () => {
@@ -280,9 +288,9 @@ describe("ApiMetadata", () => {
             render(<ApiMetadata api={mockApi} />);
 
             // Find first copy button
-            const copyButtons = screen.getAllByRole("button").filter((btn) =>
-                btn.closest("td")
-            );
+            const copyButtons = screen
+                .getAllByRole("button")
+                .filter((btn) => btn.closest("td"));
 
             if (copyButtons.length > 0) {
                 fireEvent.click(copyButtons[0]);
@@ -296,9 +304,9 @@ describe("ApiMetadata", () => {
         it("should show checkmark after copy", async () => {
             render(<ApiMetadata api={mockApi} />);
 
-            const copyButtons = screen.getAllByRole("button").filter((btn) =>
-                btn.closest("td")
-            );
+            const copyButtons = screen
+                .getAllByRole("button")
+                .filter((btn) => btn.closest("td"));
 
             if (copyButtons.length > 0) {
                 fireEvent.click(copyButtons[0]);
@@ -314,9 +322,9 @@ describe("ApiMetadata", () => {
         it("should revert checkmark after 2 seconds", () => {
             render(<ApiMetadata api={mockApi} />);
 
-            const copyButtons = screen.getAllByRole("button").filter((btn) =>
-                btn.closest("td")
-            );
+            const copyButtons = screen
+                .getAllByRole("button")
+                .filter((btn) => btn.closest("td"));
 
             // Just verify copy button exists - timing is difficult to test
             expect(copyButtons.length).toBeGreaterThan(0);
@@ -326,9 +334,7 @@ describe("ApiMetadata", () => {
     describe("JSON Export", () => {
         it("should show JSON export section", () => {
             render(<ApiMetadata api={mockApi} />);
-            expect(
-                screen.getByText("Exportar como JSON")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Exportar como JSON")).toBeInTheDocument();
         });
 
         it("should display JSON content in pre element", () => {
@@ -389,9 +395,7 @@ describe("ApiMetadata", () => {
 
             render(<ApiMetadata api={apiWithNulls} />);
             // Component should still render without crashing
-            expect(
-                screen.getByText("Metadatos Completos")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Metadatos Completos")).toBeInTheDocument();
         });
 
         it("should apply dark mode classes", () => {
@@ -435,7 +439,8 @@ describe("ApiMetadata", () => {
 
         it("should render header skeleton", () => {
             const { container } = render(<ApiMetadataSkeleton />);
-            const headerSkeletons = container.querySelectorAll(".flex.items-center");
+            const headerSkeletons =
+                container.querySelectorAll(".flex.items-center");
             expect(headerSkeletons.length).toBeGreaterThan(0);
         });
 
@@ -470,9 +475,7 @@ describe("ApiMetadata", () => {
 
         it("should include relation fields", () => {
             render(<ApiMetadata api={mockApi} />);
-            expect(
-                screen.getByText("Tipo de API (ID)")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Tipo de API (ID)")).toBeInTheDocument();
             expect(screen.getByText("Estado (ID)")).toBeInTheDocument();
         });
 
@@ -507,22 +510,17 @@ describe("ApiMetadata", () => {
             };
 
             render(<ApiMetadata api={apiWithNulls} />);
-            expect(
-                screen.getByText("Metadatos Completos")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Metadatos Completos")).toBeInTheDocument();
         });
 
         it("should handle very long string values", () => {
             const apiWithLongString: Api = {
                 ...mockApi,
-                description:
-                    "A".repeat(500),
+                description: "A".repeat(500),
             };
 
             render(<ApiMetadata api={apiWithLongString} />);
-            expect(
-                screen.getByText("Metadatos Completos")
-            ).toBeInTheDocument();
+            expect(screen.getByText("Metadatos Completos")).toBeInTheDocument();
         });
 
         it("should handle API with zeros and false values", () => {

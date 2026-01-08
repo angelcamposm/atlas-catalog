@@ -82,7 +82,9 @@ export default function ApisPage() {
 
     // SlideOver state
     const [selectedApi, setSelectedApi] = useState<Api | null>(null);
-    const [selectedApiDetails, setSelectedApiDetails] = useState<Api | null>(null);
+    const [selectedApiDetails, setSelectedApiDetails] = useState<Api | null>(
+        null
+    );
     const [loadingDetailPanel, setLoadingDetailPanel] = useState(false);
     const [slideOverOpen, setSlideOverOpen] = useState(false);
 
@@ -238,15 +240,25 @@ export default function ApisPage() {
     }, []);
 
     const handleApiClick = useCallback(async (api: Api) => {
+        console.log("🔵 handleApiClick called with:", {
+            id: api.id,
+            name: api.name,
+        });
         try {
             setLoadingDetailPanel(true);
             setSelectedApi(api);
             // Load full API details
+            console.log("📡 Fetching API details for ID:", api.id);
             const response = await apisApi.getById(api.id);
+            console.log("✅ API details received:", {
+                id: response.data.id,
+                name: response.data.name,
+                description: response.data.description?.substring(0, 50),
+            });
             setSelectedApiDetails(response.data);
             setSlideOverOpen(true);
         } catch (err) {
-            console.error("Error loading API details:", err);
+            console.error("❌ Error loading API details:", err);
             // Fall back to showing the basic API info
             setSelectedApiDetails(api);
             setSlideOverOpen(true);
