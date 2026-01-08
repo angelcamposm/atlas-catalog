@@ -36,7 +36,3 @@ redisinsight-dev/
 .env
 .env.local
 .env.*.local
-
-# GitHub Copilot and AI Agents configuration
-.github/copilot-instructions.md
-.github/agents.md
