@@ -128,7 +128,9 @@ describe("ApiList Component", () => {
         });
 
         it("should render view toggle button", () => {
-            render(<ApiList apis={mockApis} locale="en" showViewToggle={true} />);
+            render(
+                <ApiList apis={mockApis} locale="en" showViewToggle={true} />
+            );
             expect(screen.getByTestId("icon-grid")).toBeInTheDocument();
         });
 
@@ -151,7 +153,9 @@ describe("ApiList Component", () => {
 
         it("should render loading skeletons when loading", () => {
             render(<ApiList apis={mockApis} locale="en" loading={true} />);
-            expect(screen.getAllByTestId("api-skeleton").length).toBeGreaterThan(0);
+            expect(
+                screen.getAllByTestId("api-skeleton").length
+            ).toBeGreaterThan(0);
         });
     });
 
@@ -190,11 +194,7 @@ describe("ApiList Component", () => {
 
         it("should not show toggle when showViewToggle is false", () => {
             render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    showViewToggle={false}
-                />
+                <ApiList apis={mockApis} locale="en" showViewToggle={false} />
             );
             expect(screen.queryByTestId("icon-grid")).not.toBeInTheDocument();
         });
@@ -214,13 +214,7 @@ describe("ApiList Component", () => {
 
     describe("Sorting", () => {
         it("should sort APIs by name ascending", () => {
-            render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    showSort={true}
-                />
-            );
+            render(<ApiList apis={mockApis} locale="en" showSort={true} />);
 
             const cards = screen.getAllByTestId(/api-card/);
             // Should be sorted: Analytics, Payment, User
@@ -228,43 +222,29 @@ describe("ApiList Component", () => {
         });
 
         it("should render sort field options", () => {
-            render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    showSort={true}
-                />
-            );
+            render(<ApiList apis={mockApis} locale="en" showSort={true} />);
             // Initial label is "Nombre" (default)
             expect(screen.getByText("Nombre")).toBeInTheDocument();
-            
+
             // Other options appear in dropdown when clicking sort button
             const sortButton = screen.getByRole("button", { name: /Nombre/i });
             fireEvent.click(sortButton);
-            
+
             expect(screen.getByText("Fecha de creación")).toBeInTheDocument();
-            expect(screen.getByText("Última actualización")).toBeInTheDocument();
+            expect(
+                screen.getByText("Última actualización")
+            ).toBeInTheDocument();
             expect(screen.getByText("Versión")).toBeInTheDocument();
         });
 
         it("should not show sort when showSort is false", () => {
-            render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    showSort={false}
-                />
-            );
+            render(<ApiList apis={mockApis} locale="en" showSort={false} />);
             expect(screen.queryByText("Nombre")).not.toBeInTheDocument();
         });
 
         it("should toggle sort order on click", () => {
             const { container } = render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    showSort={true}
-                />
+                <ApiList apis={mockApis} locale="en" showSort={true} />
             );
 
             // Find sort order indicator
@@ -333,22 +313,14 @@ describe("ApiList Component", () => {
     describe("Callbacks", () => {
         it("should accept edit callback prop", () => {
             const { container } = render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    onEdit={mockOnEdit}
-                />
+                <ApiList apis={mockApis} locale="en" onEdit={mockOnEdit} />
             );
             expect(container).toBeInTheDocument();
         });
 
         it("should accept delete callback prop", () => {
             const { container } = render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    onDelete={mockOnDelete}
-                />
+                <ApiList apis={mockApis} locale="en" onDelete={mockOnDelete} />
             );
             expect(container).toBeInTheDocument();
         });
@@ -382,13 +354,7 @@ describe("ApiList Component", () => {
 
     describe("Props Handling", () => {
         it("should handle empty API array", () => {
-            render(
-                <ApiList
-                    apis={[]}
-                    locale="en"
-                    emptyMessage="No APIs"
-                />
-            );
+            render(<ApiList apis={[]} locale="en" emptyMessage="No APIs" />);
             expect(screen.getByTestId("empty-state")).toBeInTheDocument();
         });
 
@@ -407,32 +373,20 @@ describe("ApiList Component", () => {
 
         it("should support locale prop", () => {
             const { container } = render(
-                <ApiList
-                    apis={mockApis}
-                    locale="es"
-                />
+                <ApiList apis={mockApis} locale="es" />
             );
             expect(container).toBeInTheDocument();
         });
 
         it("should show loading state", () => {
-            render(
-                <ApiList
-                    apis={[]}
-                    locale="en"
-                    loading={true}
-                />
-            );
-            expect(screen.getAllByTestId("api-skeleton").length).toBeGreaterThan(0);
+            render(<ApiList apis={[]} locale="en" loading={true} />);
+            expect(
+                screen.getAllByTestId("api-skeleton").length
+            ).toBeGreaterThan(0);
         });
 
         it("should use default empty message", () => {
-            render(
-                <ApiList
-                    apis={[]}
-                    locale="en"
-                />
-            );
+            render(<ApiList apis={[]} locale="en" />);
             const emptyState = screen.getByTestId("empty-state");
             expect(emptyState.textContent).toContain("No se encontraron APIs");
         });
@@ -453,24 +407,14 @@ describe("ApiList Component", () => {
     describe("ViewToggle Sub-component", () => {
         it("should render view toggle buttons", () => {
             const handleChange = jest.fn();
-            render(
-                <ViewToggle
-                    viewMode="grid"
-                    onChange={handleChange}
-                />
-            );
+            render(<ViewToggle viewMode="grid" onChange={handleChange} />);
             expect(screen.getByTestId("icon-grid")).toBeInTheDocument();
             expect(screen.getByTestId("icon-list")).toBeInTheDocument();
         });
 
         it("should call onChange when toggling view", () => {
             const handleChange = jest.fn();
-            render(
-                <ViewToggle
-                    viewMode="grid"
-                    onChange={handleChange}
-                />
-            );
+            render(<ViewToggle viewMode="grid" onChange={handleChange} />);
 
             const listButton = screen.getByTestId("icon-list");
             fireEvent.click(listButton);
@@ -480,12 +424,7 @@ describe("ApiList Component", () => {
 
         it("should call onChange with correct view mode", () => {
             const handleChange = jest.fn();
-            render(
-                <ViewToggle
-                    viewMode="grid"
-                    onChange={handleChange}
-                />
-            );
+            render(<ViewToggle viewMode="grid" onChange={handleChange} />);
 
             const listButton = screen.getByTestId("icon-list");
             fireEvent.click(listButton);
@@ -511,10 +450,7 @@ describe("ApiList Component", () => {
 
         it("should have proper semantic structure", () => {
             const { container } = render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                />
+                <ApiList apis={mockApis} locale="en" />
             );
 
             // Component should have proper structure
@@ -523,11 +459,7 @@ describe("ApiList Component", () => {
 
         it("should be keyboard navigable", () => {
             render(
-                <ApiList
-                    apis={mockApis}
-                    locale="en"
-                    showViewToggle={true}
-                />
+                <ApiList apis={mockApis} locale="en" showViewToggle={true} />
             );
 
             const buttons = screen.getAllByRole("button");

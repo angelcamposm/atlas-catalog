@@ -22,7 +22,11 @@ jest.mock("react-icons/hi2", () => ({
         </span>
     ),
     HiOutlineXMark: ({ className, onClick }: any) => (
-        <button data-testid="icon-close" className={className} onClick={onClick}>
+        <button
+            data-testid="icon-close"
+            className={className}
+            onClick={onClick}
+        >
             ✕
         </button>
     ),
@@ -153,7 +157,7 @@ describe("ApiFilters Component", () => {
                     onFiltersChange={mockOnFiltersChange}
                 />
             );
-            
+
             // Find the X button in search input
             const closeButtons = screen.getAllByTestId("icon-close");
             // First close button should be in search input
@@ -471,7 +475,9 @@ describe("ApiFilters Component", () => {
                     className="custom-filter-class"
                 />
             );
-            const filterSection = container.querySelector(".custom-filter-class");
+            const filterSection = container.querySelector(
+                ".custom-filter-class"
+            );
             expect(filterSection).toBeInTheDocument();
         });
 

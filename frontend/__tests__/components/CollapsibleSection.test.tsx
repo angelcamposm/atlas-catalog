@@ -67,7 +67,9 @@ describe("CollapsibleSection", () => {
             );
 
             // Content should not be visible when collapsed
-            expect(screen.queryByText("Hidden content")).not.toBeInTheDocument();
+            expect(
+                screen.queryByText("Hidden content")
+            ).not.toBeInTheDocument();
         });
 
         it("should expand when defaultExpanded is true", () => {
@@ -88,7 +90,9 @@ describe("CollapsibleSection", () => {
             );
 
             // Initially collapsed
-            expect(screen.queryByText("Toggle content")).not.toBeInTheDocument();
+            expect(
+                screen.queryByText("Toggle content")
+            ).not.toBeInTheDocument();
 
             // Click to expand
             fireEvent.click(screen.getByRole("button"));
@@ -96,7 +100,9 @@ describe("CollapsibleSection", () => {
 
             // Click to collapse
             fireEvent.click(screen.getByRole("button"));
-            expect(screen.queryByText("Toggle content")).not.toBeInTheDocument();
+            expect(
+                screen.queryByText("Toggle content")
+            ).not.toBeInTheDocument();
         });
 
         it("should call onToggle callback when toggled", () => {
@@ -195,7 +201,10 @@ describe("CollapsibleSection", () => {
     describe("Styling", () => {
         it("should accept custom className", () => {
             const { container } = render(
-                <CollapsibleSection title="Information" className="custom-class">
+                <CollapsibleSection
+                    title="Information"
+                    className="custom-class"
+                >
                     <p>Content</p>
                 </CollapsibleSection>
             );

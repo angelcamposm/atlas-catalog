@@ -17,7 +17,12 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { componentsApi, componentTypesApi } from "@/lib/api/components";
 import { lifecyclesApi } from "@/lib/api/lifecycles";
-import type { Component, ComponentType, Lifecycle, Platform } from "@/types/api";
+import type {
+    Component,
+    ComponentType,
+    Lifecycle,
+    Platform,
+} from "@/types/api";
 import { cn } from "@/lib/utils";
 import {
     HiOutlineViewColumns,
@@ -115,7 +120,10 @@ function TabNavigation({
     return (
         <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between px-4 sm:px-6">
-                <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
+                <nav
+                    className="-mb-px flex space-x-6 overflow-x-auto"
+                    aria-label="Tabs"
+                >
                     {tabs.map((tab) => {
                         const isActive = activeTab === tab.id;
 
@@ -279,7 +287,10 @@ function DetailsContent({
                 }
                 businessCriticality={
                     component.criticality_id
-                        ? { id: component.criticality_id, name: "Tier 2 - Mission Critical" }
+                        ? {
+                              id: component.criticality_id,
+                              name: "Tier 2 - Mission Critical",
+                          }
                         : undefined
                 }
                 businessTIM="BU-1"
@@ -385,7 +396,9 @@ function ApisContent({
                                 </h4>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                                     {api.description?.substring(0, 100)}
-                                    {(api.description?.length || 0) > 100 ? "..." : ""}
+                                    {(api.description?.length || 0) > 100
+                                        ? "..."
+                                        : ""}
                                 </p>
                             </div>
                             <HiArrowTopRightOnSquare className="w-5 h-5 text-gray-400" />
@@ -564,11 +577,15 @@ export default function ComponentDetailPage() {
 
     // Get initial tab from URL or default to details
     const tabParam = searchParams?.get("tab") as TabId | null;
-    const initialTab = tabs.some((t) => t.id === tabParam) ? tabParam! : "details";
+    const initialTab = tabs.some((t) => t.id === tabParam)
+        ? tabParam!
+        : "details";
 
     const [activeTab, setActiveTab] = useState<TabId>(initialTab);
     const [component, setComponent] = useState<Component | null>(null);
-    const [componentType, setComponentType] = useState<ComponentType | undefined>();
+    const [componentType, setComponentType] = useState<
+        ComponentType | undefined
+    >();
     const [lifecycle, setLifecycle] = useState<Lifecycle | undefined>();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -602,7 +619,9 @@ export default function ComponentDetailPage() {
                 setError(null);
 
                 // Load component using slug (idParam is the slug from the URL)
-                const response = await componentsApi.getBySlug(idParam as string);
+                const response = await componentsApi.getBySlug(
+                    idParam as string
+                );
                 setComponent(response.data);
 
                 // Load related data
@@ -611,7 +630,9 @@ export default function ComponentDetailPage() {
                     lifecyclesApi.getAll(),
                 ]);
 
-                const foundType = typesRes.data.find((t) => t.id === response.data.type_id);
+                const foundType = typesRes.data.find(
+                    (t) => t.id === response.data.type_id
+                );
                 const foundLifecycle = lifecyclesRes.data.find(
                     (l) => l.id === response.data.lifecycle_id
                 );
@@ -640,20 +661,23 @@ export default function ComponentDetailPage() {
     // Calculate profile completion
     const profileCompletion = component
         ? Math.round(
-              ((component.description ? 20 : 0) +
+              (((component.description ? 20 : 0) +
                   (component.type_id ? 15 : 0) +
                   (component.lifecycle_id ? 15 : 0) +
                   (component.domain_id ? 15 : 0) +
                   (component.platform_id ? 15 : 0) +
                   (component.owner_id ? 20 : 0)) /
-                  100 *
+                  100) *
                   100
           )
         : 0;
 
     // Format last update
     const lastUpdate = component?.updated_at
-        ? `${Math.floor((Date.now() - new Date(component.updated_at).getTime()) / (1000 * 60 * 60 * 24))} days ago`
+        ? `${Math.floor(
+              (Date.now() - new Date(component.updated_at).getTime()) /
+                  (1000 * 60 * 60 * 24)
+          )} days ago`
         : undefined;
 
     // Error state

@@ -83,6 +83,8 @@ export default function ApisPage() {
 
     // SlideOver state
     const [selectedApi, setSelectedApi] = useState<Api | null>(null);
+    const [selectedApiDetails, setSelectedApiDetails] = useState<Api | null>(null);
+    const [loadingDetailPanel, setLoadingDetailPanel] = useState(false);
     const [slideOverOpen, setSlideOverOpen] = useState(false);
 
     // Load APIs
@@ -236,9 +238,22 @@ export default function ApisPage() {
         setFilters((prev) => ({ ...prev, search }));
     }, []);
 
-    const handleApiClick = useCallback((api: Api) => {
-        setSelectedApi(api);
-        setSlideOverOpen(true);
+    const handleApiClick = useCallback(async (api: Api) => {
+        try {
+            setLoadingDetailPanel(true);
+            setSelectedApi(api);
+            // Load full API details
+            const response = await apisApi.getById(api.id);
+            setSelectedApiDetails(response.data);
+            setSlideOverOpen(true);
+        } catch (err) {
+            console.error("Error loading API details:", err);
+            // Fall back to showing the basic API info
+            setSelectedApiDetails(api);
+            setSlideOverOpen(true);
+        } finally {
+            setLoadingDetailPanel(false);
+        }
     }, []);
 
     const handleViewFullApi = useCallback(
@@ -298,7 +313,7 @@ export default function ApisPage() {
             onToggle={handleCloseSlideOver}
             panelContent={
                 <ApiDetailPanel
-                    api={selectedApi}
+                    api={selectedApiDetails}
                     onClose={handleCloseSlideOver}
                     onEdit={handleEditApi}
                     onViewFull={handleViewFullApi}

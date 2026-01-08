@@ -1,7 +1,7 @@
 /**
  * Tests for ApiCard Component
  * Following TDD approach - tests written first
- * 
+ *
  * ApiCard displays a single API in grid or list view with actions
  */
 
@@ -55,8 +55,16 @@ jest.mock("react-icons/hi2", () => ({
             ↗️
         </span>
     ),
-    HiEllipsisVertical: ({ "data-testid": testid, className, onClick }: any) => (
-        <button data-testid={testid || "icon-menu"} className={className} onClick={onClick}>
+    HiEllipsisVertical: ({
+        "data-testid": testid,
+        className,
+        onClick,
+    }: any) => (
+        <button
+            data-testid={testid || "icon-menu"}
+            className={className}
+            onClick={onClick}
+        >
             ⋮
         </button>
     ),
@@ -85,7 +93,11 @@ jest.mock("react-icons/hi2", () => ({
 // Mock Badge component
 jest.mock("@/components/ui/Badge", () => ({
     Badge: ({ children, variant, className, style }: any) => (
-        <div data-testid="badge" className={`badge ${variant} ${className || ""}`} style={style}>
+        <div
+            data-testid="badge"
+            className={`badge ${variant} ${className || ""}`}
+            style={style}
+        >
             {children}
         </div>
     ),
@@ -128,11 +140,7 @@ describe("ApiCard", () => {
     describe("Rendering - Basic", () => {
         it("should render the component without crashing", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="grid" />
             );
             expect(container).toBeInTheDocument();
             expect(container.firstChild).not.toBeNull();
@@ -140,11 +148,7 @@ describe("ApiCard", () => {
 
         it("should render with API data", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="grid" />
             );
             // The component should render and contain the API id in URLs
             const links = container.querySelectorAll("a");
@@ -152,40 +156,29 @@ describe("ApiCard", () => {
         });
 
         it("should render protocol badge", () => {
-            render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
-            );
+            render(<ApiCard api={mockApi} locale="en" viewMode="grid" />);
             const badges = screen.getAllByTestId("badge");
             expect(badges.length).toBeGreaterThan(0);
         });
 
         it("should have links to API detail page", () => {
-            render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
-            );
+            render(<ApiCard api={mockApi} locale="en" viewMode="grid" />);
             const links = screen.getAllByTestId("api-link");
             expect(links.length).toBeGreaterThan(0);
-            expect(links[0]).toHaveAttribute("href", expect.stringContaining("/apis/1"));
+            expect(links[0]).toHaveAttribute(
+                "href",
+                expect.stringContaining("/apis/1")
+            );
         });
 
         it("should render with proper structure", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="grid" />
             );
             // Should have a div wrapper with flex/group classes
-            const card = container.querySelector("div[class*='group relative']");
+            const card = container.querySelector(
+                "div[class*='group relative']"
+            );
             expect(card).toBeInTheDocument();
         });
     });
@@ -193,26 +186,22 @@ describe("ApiCard", () => {
     describe("Rendering - View Modes", () => {
         it("should render in grid view mode", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="grid" />
             );
             // Grid view should be the default card layout
-            expect(container.querySelector('[data-testid="api-link"]')).toBeInTheDocument();
+            expect(
+                container.querySelector('[data-testid="api-link"]')
+            ).toBeInTheDocument();
         });
 
         it("should render in list view mode", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="list"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="list" />
             );
             // List view should also be supported
-            expect(container.querySelector('[data-testid="api-link"]')).toBeInTheDocument();
+            expect(
+                container.querySelector('[data-testid="api-link"]')
+            ).toBeInTheDocument();
         });
     });
 
@@ -302,7 +291,9 @@ describe("ApiCard", () => {
             );
 
             // The card div should be clickable when onClick is provided
-            const cardDiv = container.querySelector("div[class*='group relative flex']");
+            const cardDiv = container.querySelector(
+                "div[class*='group relative flex']"
+            );
             if (cardDiv) {
                 fireEvent.click(cardDiv);
                 expect(handleClick).toHaveBeenCalledWith(mockApi);
@@ -364,29 +355,25 @@ describe("ApiCard", () => {
 
     describe("Localization", () => {
         it("should use correct locale for URL generation", () => {
-            render(
-                <ApiCard
-                    api={mockApi}
-                    locale="es"
-                    viewMode="grid"
-                />
-            );
+            render(<ApiCard api={mockApi} locale="es" viewMode="grid" />);
             const links = screen.getAllByTestId("api-link");
-            expect(links[0]).toHaveAttribute("href", expect.stringContaining("/es/apis/"));
+            expect(links[0]).toHaveAttribute(
+                "href",
+                expect.stringContaining("/es/apis/")
+            );
         });
 
         it("should support different locales", () => {
             const locales = ["en", "es", "fr"];
             locales.forEach((locale) => {
                 const { unmount } = render(
-                    <ApiCard
-                        api={mockApi}
-                        locale={locale}
-                        viewMode="grid"
-                    />
+                    <ApiCard api={mockApi} locale={locale} viewMode="grid" />
                 );
                 const links = screen.getAllByTestId("api-link");
-                expect(links[0]).toHaveAttribute("href", expect.stringContaining(`/${locale}/apis/`));
+                expect(links[0]).toHaveAttribute(
+                    "href",
+                    expect.stringContaining(`/${locale}/apis/`)
+                );
                 unmount();
             });
         });
@@ -395,11 +382,7 @@ describe("ApiCard", () => {
     describe("Accessibility", () => {
         it("should have semantic HTML structure with links", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="grid" />
             );
             const links = container.querySelectorAll("a");
             expect(links.length).toBeGreaterThan(0);
@@ -407,11 +390,7 @@ describe("ApiCard", () => {
 
         it("should be keyboard navigable", () => {
             const { container } = render(
-                <ApiCard
-                    api={mockApi}
-                    locale="en"
-                    viewMode="grid"
-                />
+                <ApiCard api={mockApi} locale="en" viewMode="grid" />
             );
             const buttons = container.querySelectorAll("button");
             expect(buttons.length).toBeGreaterThan(0);

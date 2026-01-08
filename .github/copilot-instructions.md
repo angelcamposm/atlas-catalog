@@ -25,16 +25,16 @@ cd src && ./vendor/bin/phpunit
 
 ### 2. Simplicidad sobre Complejidad
 
-- Código legible > código clever
-- Funciones pequeñas con un solo propósito
-- Nombres descriptivos (sin abreviaturas crípticas)
-- Si necesitas comentar qué hace el código, refactoriza
+-   Código legible > código clever
+-   Funciones pequeñas con un solo propósito
+-   Nombres descriptivos (sin abreviaturas crípticas)
+-   Si necesitas comentar qué hace el código, refactoriza
 
 ### 3. Documentación como Ciudadano de Primera Clase
 
-- Docstrings/JSDoc en funciones públicas
-- README en cada módulo nuevo
-- ADRs para decisiones arquitectónicas (`docs/adr/`)
+-   Docstrings/JSDoc en funciones públicas
+-   README en cada módulo nuevo
+-   ADRs para decisiones arquitectónicas (`docs/adr/`)
 
 ---
 
@@ -70,7 +70,7 @@ atlas-catalog/
 // ✅ BIEN: Componente documentado, tipado, simple
 /**
  * Sección colapsable reutilizable
- * 
+ *
  * @example
  * <CollapsibleSection title="Info" icon={HiInfo}>
  *   <p>Contenido</p>
@@ -85,9 +85,13 @@ interface CollapsibleSectionProps {
     children: ReactNode;
 }
 
-export function CollapsibleSection({ title, icon: Icon, children }: CollapsibleSectionProps) {
+export function CollapsibleSection({
+    title,
+    icon: Icon,
+    children,
+}: CollapsibleSectionProps) {
     const [isOpen, setIsOpen] = useState(false);
-    
+
     return (
         <div className="border rounded-lg">
             <button onClick={() => setIsOpen(!isOpen)}>
@@ -239,22 +243,22 @@ refactor(models): extract validation to service
 
 Crear componentes base que se puedan usar en todo el proyecto:
 
-| Componente | Ubicación | Uso |
-|------------|-----------|-----|
-| `CollapsibleSection` | `ui/collapsible-section.tsx` | Secciones expandibles |
-| `Badge` | `ui/Badge.tsx` | Etiquetas de estado |
-| `Card` | `ui/Card.tsx` | Contenedores con borde |
-| `Button` | `ui/Button.tsx` | Botones estilizados |
+| Componente           | Ubicación                    | Uso                    |
+| -------------------- | ---------------------------- | ---------------------- |
+| `CollapsibleSection` | `ui/collapsible-section.tsx` | Secciones expandibles  |
+| `Badge`              | `ui/Badge.tsx`               | Etiquetas de estado    |
+| `Card`               | `ui/Card.tsx`                | Contenedores con borde |
+| `Button`             | `ui/Button.tsx`              | Botones estilizados    |
 
 ### Componentes de Dominio (`components/catalog/`)
 
 Componentes específicos del negocio:
 
-| Componente | Ubicación | Uso |
-|------------|-----------|-----|
+| Componente              | Ubicación                   | Uso                 |
+| ----------------------- | --------------------------- | ------------------- |
 | `ComponentDetailHeader` | `catalog/component-detail/` | Cabecera de detalle |
-| `InformationSection` | `catalog/component-detail/` | Info del componente |
-| `DependenciesSection` | `catalog/component-detail/` | Dependencias |
+| `InformationSection`    | `catalog/component-detail/` | Info del componente |
+| `DependenciesSection`   | `catalog/component-detail/` | Dependencias        |
 
 ---
 
@@ -294,13 +298,13 @@ DELETE /api/v1/catalog/components/{id}     # Eliminar
 
 Antes de crear un Pull Request, verificar:
 
-- [ ] Tests escritos y pasando (`pnpm test`)
-- [ ] TypeScript sin errores (`pnpm exec tsc --noEmit`)
-- [ ] Lint sin warnings (`pnpm lint`)
-- [ ] Documentación actualizada si es necesario
-- [ ] Commit messages siguen convención
-- [ ] No hay `console.log` en código de producción
-- [ ] Componentes tienen tipos TypeScript completos
+-   [ ] Tests escritos y pasando (`pnpm test`)
+-   [ ] TypeScript sin errores (`pnpm exec tsc --noEmit`)
+-   [ ] Lint sin warnings (`pnpm lint`)
+-   [ ] Documentación actualizada si es necesario
+-   [ ] Commit messages siguen convención
+-   [ ] No hay `console.log` en código de producción
+-   [ ] Componentes tienen tipos TypeScript completos
 
 ---
 
@@ -321,8 +325,8 @@ Lee el [CONTRIBUTING.md](../CONTRIBUTING.md) y [CODE_OF_CONDUCT.md](../CODE_OF_C
 
 ## 📖 Referencias
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Laravel Documentation](https://laravel.com/docs)
-- [Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- [Conventional Commits](https://www.conventionalcommits.org/)
-- [ADR Template](../docs/adr/)
+-   [Next.js Documentation](https://nextjs.org/docs)
+-   [Laravel Documentation](https://laravel.com/docs)
+-   [Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+-   [Conventional Commits](https://www.conventionalcommits.org/)
+-   [ADR Template](../docs/adr/)

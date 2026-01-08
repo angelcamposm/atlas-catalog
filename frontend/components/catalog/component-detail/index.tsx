@@ -35,7 +35,14 @@ import {
     SectionField,
     SectionFieldGrid,
 } from "@/components/ui/collapsible-section";
-import type { Component, ComponentType, Lifecycle, Platform, Framework, BusinessDomain } from "@/types/api";
+import type {
+    Component,
+    ComponentType,
+    Lifecycle,
+    Platform,
+    Framework,
+    BusinessDomain,
+} from "@/types/api";
 
 // ============================================================================
 // Types
@@ -112,15 +119,23 @@ export function ComponentDetailHeader({
             <div className="px-4 sm:px-6 py-4">
                 {/* Breadcrumb */}
                 <nav className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-                    <Link href={`/${locale}`} className="hover:text-gray-700 dark:hover:text-gray-200">
+                    <Link
+                        href={`/${locale}`}
+                        className="hover:text-gray-700 dark:hover:text-gray-200"
+                    >
                         Home
                     </Link>
                     <span className="mx-2">›</span>
-                    <Link href={`/${locale}/components`} className="hover:text-gray-700 dark:hover:text-gray-200">
+                    <Link
+                        href={`/${locale}/components`}
+                        className="hover:text-gray-700 dark:hover:text-gray-200"
+                    >
                         Components
                     </Link>
                     <span className="mx-2">›</span>
-                    <span className="text-gray-900 dark:text-gray-100">Component Details</span>
+                    <span className="text-gray-900 dark:text-gray-100">
+                        Component Details
+                    </span>
                 </nav>
 
                 {/* Title row */}
@@ -172,9 +187,12 @@ export function ComponentDetailHeader({
                                     {stats.earnings !== undefined && (
                                         <div className="flex items-center gap-1">
                                             <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                                                ${stats.earnings.toLocaleString()}
+                                                $
+                                                {stats.earnings.toLocaleString()}
                                             </span>
-                                            <span className="text-xs text-gray-500">Earnings</span>
+                                            <span className="text-xs text-gray-500">
+                                                Earnings
+                                            </span>
                                         </div>
                                     )}
                                     {stats.projects !== undefined && (
@@ -182,7 +200,9 @@ export function ComponentDetailHeader({
                                             <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                                 {stats.projects}
                                             </span>
-                                            <span className="text-xs text-gray-500">Projects</span>
+                                            <span className="text-xs text-gray-500">
+                                                Projects
+                                            </span>
                                         </div>
                                     )}
                                     {stats.successRate !== undefined && (
@@ -190,7 +210,9 @@ export function ComponentDetailHeader({
                                             <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                                                 %{stats.successRate}
                                             </span>
-                                            <span className="text-xs text-gray-500">Success Rate</span>
+                                            <span className="text-xs text-gray-500">
+                                                Success Rate
+                                            </span>
                                         </div>
                                     )}
                                 </div>
@@ -199,7 +221,9 @@ export function ComponentDetailHeader({
                             {/* Badges */}
                             <div className="flex flex-wrap items-center gap-2 mt-3">
                                 {componentType && (
-                                    <Badge variant="secondary">{componentType.name}</Badge>
+                                    <Badge variant="secondary">
+                                        {componentType.name}
+                                    </Badge>
                                 )}
                                 {lifecycle && (
                                     <Badge variant="outline">
@@ -238,7 +262,9 @@ export function ComponentDetailHeader({
                                     <div className="w-32 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                         <div
                                             className="h-full bg-primary-500 rounded-full transition-all"
-                                            style={{ width: `${profileCompletion}%` }}
+                                            style={{
+                                                width: `${profileCompletion}%`,
+                                            }}
                                         />
                                     </div>
                                     <span className="text-sm font-medium text-primary-600 dark:text-primary-400">
@@ -287,7 +313,9 @@ export function InformationSection({
                             label="Description"
                             value={
                                 component.description || (
-                                    <span className="text-gray-400 dark:text-gray-500">—</span>
+                                    <span className="text-gray-400 dark:text-gray-500">
+                                        —
+                                    </span>
                                 )
                             }
                         />
@@ -323,7 +351,9 @@ export function OtherDetailsSection({
 }: OtherDetailsSectionProps) {
     // Parse tags if they exist
     const tags = component.tags
-        ? Object.entries(component.tags).map(([key, value]) => `${key}: ${value}`)
+        ? Object.entries(component.tags).map(
+              ([key, value]) => `${key}: ${value}`
+          )
         : [];
 
     return (
@@ -339,7 +369,9 @@ export function OtherDetailsSection({
                     value={
                         componentType ? (
                             <div className="flex items-center gap-2">
-                                <Badge variant="secondary">{componentType.name}</Badge>
+                                <Badge variant="secondary">
+                                    {componentType.name}
+                                </Badge>
                             </div>
                         ) : null
                     }
@@ -385,7 +417,11 @@ export function OtherDetailsSection({
                         tags.length > 0 ? (
                             <div className="flex flex-wrap gap-2">
                                 {tags.map((tag, index) => (
-                                    <Badge key={index} variant="secondary" className="text-xs">
+                                    <Badge
+                                        key={index}
+                                        variant="secondary"
+                                        className="text-xs"
+                                    >
                                         <HiOutlineTag className="w-3 h-3 mr-1" />
                                         {tag}
                                     </Badge>
@@ -436,7 +472,8 @@ export function BusinessSupportSection({
                         businessDomain ? (
                             <div className="flex items-center gap-2">
                                 <Badge variant="outline">
-                                    {businessDomain.display_name || businessDomain.name}
+                                    {businessDomain.display_name ||
+                                        businessDomain.name}
                                 </Badge>
                             </div>
                         ) : null
@@ -521,17 +558,24 @@ export function LifecycleTimeline({
                             <span
                                 className={cn(
                                     "inline-flex items-center gap-1 px-2 py-1 rounded",
-                                    phase.id === currentPhaseId && "font-semibold"
+                                    phase.id === currentPhaseId &&
+                                        "font-semibold"
                                 )}
                                 style={
                                     phase.id === currentPhaseId && phase.color
-                                        ? { backgroundColor: `${phase.color}20`, color: phase.color }
+                                        ? {
+                                              backgroundColor: `${phase.color}20`,
+                                              color: phase.color,
+                                          }
                                         : undefined
                                 }
                             >
                                 <span
                                     className="w-2 h-2 rounded-full"
-                                    style={{ backgroundColor: phase.color || "#9ca3af" }}
+                                    style={{
+                                        backgroundColor:
+                                            phase.color || "#9ca3af",
+                                    }}
                                 />
                                 {phase.name}
                             </span>
@@ -557,7 +601,8 @@ export function LifecycleTimeline({
                                     key={phase.id}
                                     className={cn(
                                         "h-full transition-colors",
-                                        index < phases.length - 1 && "border-r border-white dark:border-gray-800"
+                                        index < phases.length - 1 &&
+                                            "border-r border-white dark:border-gray-800"
                                     )}
                                     style={{
                                         width,
@@ -575,8 +620,11 @@ export function LifecycleTimeline({
                         <div
                             className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-gray-900 border-2 rounded-full shadow-sm transition-all"
                             style={{
-                                left: `calc(${((currentIndex + 0.5) / phases.length) * 100}% - 8px)`,
-                                borderColor: phases[currentIndex]?.color || "#9ca3af",
+                                left: `calc(${
+                                    ((currentIndex + 0.5) / phases.length) * 100
+                                }% - 8px)`,
+                                borderColor:
+                                    phases[currentIndex]?.color || "#9ca3af",
                             }}
                         />
                     )}
@@ -584,11 +632,21 @@ export function LifecycleTimeline({
 
                 {/* Timeline scale */}
                 <div className="flex justify-between text-[10px] text-gray-400 dark:text-gray-500 px-4">
-                    {["Jan 2026", "Apr 2026", "Jul 2026", "Oct 2026", "Jan 2027", "Apr 2027", "Jul 2027", "Oct 2027", "Jan 2028", "Apr 2028", "Jul 2028"].map(
-                        (label, i) => (
-                            <span key={i}>{label}</span>
-                        )
-                    )}
+                    {[
+                        "Jan 2026",
+                        "Apr 2026",
+                        "Jul 2026",
+                        "Oct 2026",
+                        "Jan 2027",
+                        "Apr 2027",
+                        "Jul 2027",
+                        "Oct 2027",
+                        "Jan 2028",
+                        "Apr 2028",
+                        "Jul 2028",
+                    ].map((label, i) => (
+                        <span key={i}>{label}</span>
+                    ))}
                 </div>
             </div>
         </CollapsibleSection>
@@ -614,7 +672,9 @@ export function DeploymentsSection({
 }: DeploymentsSectionProps) {
     // Group deployments by environment
     const environments = Array.from(
-        new Map(deployments.map((d) => [d.environment.id, d.environment])).values()
+        new Map(
+            deployments.map((d) => [d.environment.id, d.environment])
+        ).values()
     );
 
     // Sort environments by common order
@@ -664,13 +724,21 @@ export function DeploymentsSection({
                                         (d) => d.environment.id === env.id
                                     );
                                     return (
-                                        <td key={env.id} className="text-center py-3 px-3">
+                                        <td
+                                            key={env.id}
+                                            className="text-center py-3 px-3"
+                                        >
                                             {deployment?.version ? (
-                                                <Badge variant="outline" className="text-xs">
+                                                <Badge
+                                                    variant="outline"
+                                                    className="text-xs"
+                                                >
                                                     {deployment.version}
                                                 </Badge>
                                             ) : (
-                                                <span className="text-gray-400">-</span>
+                                                <span className="text-gray-400">
+                                                    -
+                                                </span>
                                             )}
                                         </td>
                                     );
@@ -705,7 +773,8 @@ export function DependenciesSection({
     percentage,
     defaultExpanded = false,
 }: DependenciesSectionProps) {
-    const totalCount = provides.length + consumes.length + imports.length + requiredBy.length;
+    const totalCount =
+        provides.length + consumes.length + imports.length + requiredBy.length;
 
     const renderDependencyList = (
         title: string,
@@ -717,7 +786,9 @@ export function DependenciesSection({
                 {title}
             </h4>
             {items.length === 0 ? (
-                <p className="text-sm text-gray-400 dark:text-gray-500">{emptyText}</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500">
+                    {emptyText}
+                </p>
             ) : (
                 <div className="space-y-1">
                     {items.map((item) => (

@@ -27,7 +27,13 @@ jest.mock("next/navigation", () => ({
 
 // Mock next/link
 jest.mock("next/link", () => {
-    return function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return function MockLink({
+        children,
+        href,
+    }: {
+        children: React.ReactNode;
+        href: string;
+    }) {
         return <a href={href}>{children}</a>;
     };
 });
@@ -157,9 +163,7 @@ const mockDependencies = {
         { id: 3, name: "database-service", type: "component" },
         { id: 4, name: "cache-service", type: "component" },
     ],
-    imports: [
-        { id: 5, name: "logging-library", type: "library" },
-    ],
+    imports: [{ id: 5, name: "logging-library", type: "library" }],
     requiredBy: [
         { id: 6, name: "api-gateway", type: "component" },
         { id: 7, name: "web-frontend", type: "component" },
@@ -182,7 +186,9 @@ describe("ComponentDetailHeader", () => {
             />
         );
 
-        expect(screen.getByText("User Authentication Service")).toBeInTheDocument();
+        expect(
+            screen.getByText("User Authentication Service")
+        ).toBeInTheDocument();
     });
 
     it("should render owner information", () => {
@@ -253,8 +259,12 @@ describe("ComponentDetailHeader", () => {
             />
         );
 
-        expect(screen.getByRole("link", { name: /follow/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /hire me/i })).toBeInTheDocument();
+        expect(
+            screen.getByRole("link", { name: /follow/i })
+        ).toBeInTheDocument();
+        expect(
+            screen.getByRole("link", { name: /hire me/i })
+        ).toBeInTheDocument();
     });
 
     it("should render profile completion percentage", () => {
@@ -284,20 +294,31 @@ describe("InformationSection", () => {
     });
 
     it("should render component name field", () => {
-        render(<InformationSection component={mockComponent} defaultExpanded />);
+        render(
+            <InformationSection component={mockComponent} defaultExpanded />
+        );
         expect(screen.getByText("Name")).toBeInTheDocument();
         expect(screen.getByText("user-auth-service")).toBeInTheDocument();
     });
 
     it("should render component description", () => {
-        render(<InformationSection component={mockComponent} defaultExpanded />);
+        render(
+            <InformationSection component={mockComponent} defaultExpanded />
+        );
         expect(screen.getByText("Description")).toBeInTheDocument();
-        expect(screen.getByText(/Handles user authentication/)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Handles user authentication/)
+        ).toBeInTheDocument();
     });
 
     it("should show dash when description is empty", () => {
         const componentWithoutDesc = { ...mockComponent, description: null };
-        render(<InformationSection component={componentWithoutDesc} defaultExpanded />);
+        render(
+            <InformationSection
+                component={componentWithoutDesc}
+                defaultExpanded
+            />
+        );
         expect(screen.getByText("—")).toBeInTheDocument();
     });
 });
@@ -331,9 +352,9 @@ describe("OtherDetailsSection", () => {
     });
 
     it("should render framework when provided", () => {
-        const mockFramework = { 
-            id: 1, 
-            name: "Spring Boot", 
+        const mockFramework = {
+            id: 1,
+            name: "Spring Boot",
             language_id: 1,
             created_at: "2025-01-01T00:00:00Z",
             updated_at: "2025-01-01T00:00:00Z",
@@ -456,10 +477,7 @@ describe("LifecycleTimeline", () => {
 
     it("should render section title", () => {
         render(
-            <LifecycleTimeline
-                phases={lifecyclePhases}
-                currentPhaseId={3}
-            />
+            <LifecycleTimeline phases={lifecyclePhases} currentPhaseId={3} />
         );
         expect(screen.getByText("Lifecycle")).toBeInTheDocument();
     });
@@ -518,7 +536,9 @@ describe("DeploymentsSection", () => {
     });
 
     it("should render environment columns", () => {
-        render(<DeploymentsSection deployments={mockDeployments} defaultExpanded />);
+        render(
+            <DeploymentsSection deployments={mockDeployments} defaultExpanded />
+        );
 
         expect(screen.getByText("DLT")).toBeInTheDocument();
         expect(screen.getByText("INT")).toBeInTheDocument();
@@ -526,7 +546,9 @@ describe("DeploymentsSection", () => {
     });
 
     it("should render versions", () => {
-        render(<DeploymentsSection deployments={mockDeployments} defaultExpanded />);
+        render(
+            <DeploymentsSection deployments={mockDeployments} defaultExpanded />
+        );
 
         expect(screen.getAllByText("1.2.3")).toHaveLength(2);
         expect(screen.getByText("1.2.2")).toBeInTheDocument();
@@ -541,7 +563,9 @@ describe("DeploymentsSection", () => {
             />
         );
 
-        expect(screen.getByText("Application Environments")).toBeInTheDocument();
+        expect(
+            screen.getByText("Application Environments")
+        ).toBeInTheDocument();
     });
 
     it("should show empty state when no deployments", () => {

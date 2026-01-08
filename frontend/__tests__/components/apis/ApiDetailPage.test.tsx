@@ -66,20 +66,44 @@ jest.mock("@/components/apis", () => ({
     ApiHeader: ({ api, onEdit, onDelete, onDuplicate }: any) => (
         <div data-testid="api-header">
             <h1>{api.name}</h1>
-            <button onClick={onEdit} data-testid="btn-edit">Edit</button>
-            <button onClick={onDelete} data-testid="btn-delete">Delete</button>
-            <button onClick={onDuplicate} data-testid="btn-duplicate">Duplicate</button>
+            <button onClick={onEdit} data-testid="btn-edit">
+                Edit
+            </button>
+            <button onClick={onDelete} data-testid="btn-delete">
+                Delete
+            </button>
+            <button onClick={onDuplicate} data-testid="btn-duplicate">
+                Duplicate
+            </button>
         </div>
     ),
-    ApiHeaderSkeleton: () => <div data-testid="header-skeleton">Header Loading...</div>,
-    ApiOverview: ({ api }: any) => <div data-testid="tab-overview">{api.name} Overview</div>,
-    ApiOverviewSkeleton: () => <div data-testid="overview-skeleton">Overview Loading...</div>,
-    ApiDocs: ({ api }: any) => <div data-testid="tab-docs">{api.name} Docs</div>,
-    ApiDocsSkeleton: () => <div data-testid="docs-skeleton">Docs Loading...</div>,
-    ApiDependencies: ({ api }: any) => <div data-testid="tab-dependencies">{api.name} Dependencies</div>,
-    ApiDependenciesSkeleton: () => <div data-testid="dependencies-skeleton">Dependencies Loading...</div>,
-    ApiMetadata: ({ api }: any) => <div data-testid="tab-metadata">{api.name} Metadata</div>,
-    ApiMetadataSkeleton: () => <div data-testid="metadata-skeleton">Metadata Loading...</div>,
+    ApiHeaderSkeleton: () => (
+        <div data-testid="header-skeleton">Header Loading...</div>
+    ),
+    ApiOverview: ({ api }: any) => (
+        <div data-testid="tab-overview">{api.name} Overview</div>
+    ),
+    ApiOverviewSkeleton: () => (
+        <div data-testid="overview-skeleton">Overview Loading...</div>
+    ),
+    ApiDocs: ({ api }: any) => (
+        <div data-testid="tab-docs">{api.name} Docs</div>
+    ),
+    ApiDocsSkeleton: () => (
+        <div data-testid="docs-skeleton">Docs Loading...</div>
+    ),
+    ApiDependencies: ({ api }: any) => (
+        <div data-testid="tab-dependencies">{api.name} Dependencies</div>
+    ),
+    ApiDependenciesSkeleton: () => (
+        <div data-testid="dependencies-skeleton">Dependencies Loading...</div>
+    ),
+    ApiMetadata: ({ api }: any) => (
+        <div data-testid="tab-metadata">{api.name} Metadata</div>
+    ),
+    ApiMetadataSkeleton: () => (
+        <div data-testid="metadata-skeleton">Metadata Loading...</div>
+    ),
 }));
 
 // Test data
@@ -106,14 +130,20 @@ describe("API Detail Page Component", () => {
         replace: jest.fn(),
     };
     const mockUseParams = useParams as jest.MockedFunction<typeof useParams>;
-    const mockUseSearchParams = useSearchParams as jest.MockedFunction<typeof useSearchParams>;
+    const mockUseSearchParams = useSearchParams as jest.MockedFunction<
+        typeof useSearchParams
+    >;
     const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
-    const mockGetById = apisApi.apisApi.getById as jest.MockedFunction<typeof apisApi.apisApi.getById>;
-    const mockDelete = apisApi.apisApi.delete as jest.MockedFunction<typeof apisApi.apisApi.delete>;
+    const mockGetById = apisApi.apisApi.getById as jest.MockedFunction<
+        typeof apisApi.apisApi.getById
+    >;
+    const mockDelete = apisApi.apisApi.delete as jest.MockedFunction<
+        typeof apisApi.apisApi.delete
+    >;
 
     beforeEach(() => {
         jest.clearAllMocks();
-        
+
         mockUseParams.mockReturnValue({
             id: "1",
             locale: "es",
@@ -147,7 +177,9 @@ describe("API Detail Page Component", () => {
             render(<ApiDetailPage />);
 
             await waitFor(() => {
-                expect(screen.getByText("Información general")).toBeInTheDocument();
+                expect(
+                    screen.getByText("Información general")
+                ).toBeInTheDocument();
                 expect(screen.getByText("Documentación")).toBeInTheDocument();
                 expect(screen.getByText("Dependencias")).toBeInTheDocument();
                 expect(screen.getByText("Metadatos")).toBeInTheDocument();
@@ -198,7 +230,9 @@ describe("API Detail Page Component", () => {
             fireEvent.click(depsTab);
 
             await waitFor(() => {
-                expect(screen.getByTestId("tab-dependencies")).toBeInTheDocument();
+                expect(
+                    screen.getByTestId("tab-dependencies")
+                ).toBeInTheDocument();
             });
         });
 
@@ -287,7 +321,9 @@ describe("API Detail Page Component", () => {
         });
 
         it("should confirm before delete", async () => {
-            const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false);
+            const confirmSpy = jest
+                .spyOn(window, "confirm")
+                .mockReturnValue(false);
 
             render(<ApiDetailPage />);
 
@@ -341,7 +377,9 @@ describe("API Detail Page Component", () => {
 
             fireEvent.click(screen.getByTestId("btn-duplicate"));
 
-            expect(mockRouter.push).toHaveBeenCalledWith("/apis/new?duplicate=1");
+            expect(mockRouter.push).toHaveBeenCalledWith(
+                "/apis/new?duplicate=1"
+            );
         });
     });
 
@@ -365,7 +403,9 @@ describe("API Detail Page Component", () => {
             render(<ApiDetailPage />);
 
             await waitFor(() => {
-                expect(screen.getByText(/Identificador de API no válido/i)).toBeInTheDocument();
+                expect(
+                    screen.getByText(/Identificador de API no válido/i)
+                ).toBeInTheDocument();
             });
         });
 
@@ -385,7 +425,9 @@ describe("API Detail Page Component", () => {
             render(<ApiDetailPage />);
 
             await waitFor(() => {
-                expect(screen.getByText(/No se ha podido cargar esta API/i)).toBeInTheDocument();
+                expect(
+                    screen.getByText(/No se ha podido cargar esta API/i)
+                ).toBeInTheDocument();
             });
         });
     });
@@ -421,11 +463,14 @@ describe("API Detail Page Component", () => {
 
             render(<ApiDetailPage />);
 
-            const tabs = screen.getAllByRole("button").filter(
-                (btn) => !btn.textContent?.includes("Edit") &&
-                    !btn.textContent?.includes("Delete") &&
-                    !btn.textContent?.includes("Duplicate")
-            );
+            const tabs = screen
+                .getAllByRole("button")
+                .filter(
+                    (btn) =>
+                        !btn.textContent?.includes("Edit") &&
+                        !btn.textContent?.includes("Delete") &&
+                        !btn.textContent?.includes("Duplicate")
+                );
 
             tabs.forEach((tab) => {
                 expect(tab).toBeDisabled();
@@ -458,7 +503,9 @@ describe("API Detail Page Component", () => {
             fireEvent.click(depsTab);
 
             await waitFor(() => {
-                expect(screen.getByTestId("tab-dependencies")).toBeInTheDocument();
+                expect(
+                    screen.getByTestId("tab-dependencies")
+                ).toBeInTheDocument();
             });
         });
 
@@ -522,7 +569,9 @@ describe("API Detail Page Component", () => {
             fireEvent.click(screen.getByText("Dependencias"));
 
             await waitFor(() => {
-                expect(screen.getByTestId("tab-dependencies")).toBeInTheDocument();
+                expect(
+                    screen.getByTestId("tab-dependencies")
+                ).toBeInTheDocument();
             });
         });
 
@@ -554,7 +603,9 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(screen.getByTestId("tab-docs")).toBeInTheDocument();
-                expect(screen.queryByTestId("tab-overview")).not.toBeInTheDocument();
+                expect(
+                    screen.queryByTestId("tab-overview")
+                ).not.toBeInTheDocument();
             });
         });
 
