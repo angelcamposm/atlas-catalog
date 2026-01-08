@@ -1,8 +1,44 @@
 # Agent Instructions
 
+Este es un proyecto **open source**. El código debe ser **simple, documentado y fácil de seguir**.
+
+## 🎯 Principios de Desarrollo
+
+### Test-Driven Development (TDD) - OBLIGATORIO
+
+**SIEMPRE seguir el ciclo TDD:**
+1. **Red** - Escribir el test primero (debe fallar)
+2. **Green** - Código mínimo para que pase
+3. **Refactor** - Mejorar manteniendo tests verdes
+
+```bash
+# Frontend
+cd frontend && pnpm test -- --watch
+
+# Backend
+cd src && ./vendor/bin/phpunit
+```
+
+### Simplicidad
+
+- Código legible > código clever
+- Funciones pequeñas con un solo propósito
+- Nombres descriptivos (sin abreviaturas crípticas)
+- Si necesitas comentar qué hace el código, refactoriza
+
+### Documentación
+
+- JSDoc/Docstrings en funciones públicas
+- Tipos TypeScript completos
+- README en módulos nuevos
+
+---
+
+## 🔧 Issue Tracking (bd/beads)
+
 This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
 
-## Quick Reference
+### Quick Reference
 
 ```bash
 bd ready              # Find available work
@@ -11,6 +47,8 @@ bd update <id> --status in_progress  # Claim work
 bd close <id>         # Complete work
 bd sync               # Sync with git
 ```
+
+---
 
 ## Landing the Plane (Session Completion)
 
