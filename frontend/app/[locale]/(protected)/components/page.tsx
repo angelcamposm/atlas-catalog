@@ -187,14 +187,18 @@ export default function ComponentsPage() {
 
     const handleComponentClick = useCallback(
         (component: Component) => {
-            router.push(`/${locale}/components/${component.id}`);
+            router.push(
+                `/${locale}/components/${component.slug || component.id}`
+            );
         },
         [locale, router]
     );
 
     const handleEditComponent = useCallback(
         (component: Component) => {
-            router.push(`/${locale}/components/${component.id}/edit`);
+            router.push(
+                `/${locale}/components/${component.slug || component.id}/edit`
+            );
         },
         [locale, router]
     );

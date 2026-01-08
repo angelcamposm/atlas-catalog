@@ -137,10 +137,11 @@ export const componentsApi = {
 
     /**
      * Get a single component by slug
+     * The backend uses slug-based route model binding
      */
     async getBySlug(slug: string): Promise<{ data: ComponentWithRelations }> {
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/catalog/components/slug/${slug}`
+            `/v1/catalog/components/${slug}`
         );
     },
 

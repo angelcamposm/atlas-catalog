@@ -97,6 +97,19 @@ class Component extends Model
         //
     ];
 
+    /**
+     * Get the value of the model's route key.
+     * This allows Laravel to resolve components by either slug or ID in route model binding.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        // Return 'slug' to use slug for route model binding by default
+        // The controller can still use ID directly if needed
+        return 'slug';
+    }
+
     public function apis(): BelongsToMany
     {
         return $this->belongsToMany(Api::class, 'component_apis');

@@ -42,8 +42,9 @@ Route::prefix('v1')->group(function () {
         Route::apiResource('apis/types', ApiTypeController::class);
         Route::apiResource('apis', ApiController::class);
 
-        Route::apiResource('components', ComponentController::class);
+        // Component Types MUST come before Components to avoid route model binding conflicts
         Route::apiResource('components/types', ComponentTypeController::class);
+        Route::apiResource('components', ComponentController::class);
 
         Route::apiResource('environments', EnvironmentController::class);
 
