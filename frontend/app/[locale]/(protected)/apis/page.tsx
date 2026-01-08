@@ -32,8 +32,7 @@ import {
     defaultFilters,
 } from "@/components/apis/ApiFilters";
 import { ApisToolbar } from "@/components/apis/ApisToolbar";
-import { SlidePanelControlled } from "@/components/ui/slide-panel";
-import { ApiDetailPanel } from "@/components/apis/ApiDetailPanel";
+import { ApiDetailSlideOver } from "@/components/apis/ApiDetailSlideOver";
 import { cn } from "@/lib/utils";
 
 // ============================================================================
@@ -308,25 +307,15 @@ export default function ApisPage() {
     }
 
     return (
-        <SlidePanelControlled
-            isOpen={slideOverOpen}
-            onToggle={handleCloseSlideOver}
-            panelContent={
-                <ApiDetailPanel
-                    api={selectedApiDetails}
-                    onClose={handleCloseSlideOver}
-                    onEdit={handleEditApi}
-                    onViewFull={handleViewFullApi}
-                    apiTypes={apiTypes}
-                    apiStatuses={apiStatuses}
-                    apiCategories={apiCategories}
-                    accessPolicies={apiAccessPolicies}
-                    authenticationMethods={authenticationMethods}
-                />
-            }
-            panelWidth="420px"
-            position="right"
-        >
+        <>
+            <ApiDetailSlideOver
+                open={slideOverOpen}
+                onClose={handleCloseSlideOver}
+                api={selectedApiDetails}
+                onEdit={handleEditApi}
+                onViewFull={handleViewFullApi}
+                size="xl"
+            />
             <div className="flex flex-col h-full">
                 {/* Sticky Toolbar */}
                 <ApisToolbar
@@ -543,6 +532,6 @@ export default function ApisPage() {
                     </div>
                 </div>
             </div>
-        </SlidePanelControlled>
+        </>
     );
 }
