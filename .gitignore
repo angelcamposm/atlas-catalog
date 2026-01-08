@@ -17,6 +17,10 @@ frontend/out/
 frontend/dist/
 frontend/.turbo/
 
+# pnpm
+frontend/pnpm-store/
+pnpm-debug.log*
+
 # Metronic theme assets
 metronic-v9.3.2/
 

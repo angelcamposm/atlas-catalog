@@ -4,7 +4,7 @@ name: atlas-dev
 
 services:
   # Backend Laravel API (Development)
-  backend:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@ services:
     networks:
       - catalog-network
     ports:
-      - "8080:8080"
+      - "9000:9000"
     environment:
       - APP_ENV=local
       - APP_DEBUG=true
@@ -32,28 +32,25 @@ services:
       - redis
     restart: unless-stopped
 
-  # Frontend Next.js (Development)
-  frontend-dev:
-    image: node:22-alpine
-    container_name: atlas-frontend-dev
-    working_dir: /app
+  # Nginx Reverse Proxy (Development)
+  nginx:
+    build:
+      context: .
+      dockerfile: build/nginx/Dockerfile
+    container_name: nginx-dev
     networks:
       - catalog-network
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-      - NEXT_PUBLIC_API_URL=http://localhost:8080/api
-      - WATCHPACK_POLLING=true
-    volumes:
-      # Mount source code for hot-reload
-      - ./frontend:/app
-      - /app/node_modules
-      - /app/.next
-    command: sh -c "npm install && npm run dev"
+      - "8080:8080"
     depends_on:
-      - backend
+      - app
+    volumes:
+      - ./src:/var/www/html
+      - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
     restart: unless-stopped
+
+  # Frontend Next.js (Development) - Run locally with: cd frontend && pnpm dev
+  # NOT in docker to enable hot-reload
 
   # PostgreSQL Database Service
   postgres:

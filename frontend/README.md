@@ -59,18 +59,24 @@ frontend/
 
 ### Prerequisites
 
--   Node.js 18.x or higher
--   npm, yarn, or pnpm
+-   Node.js 20.x or higher
+-   pnpm 10.x or higher
 
 ### Installation
 
-1. Install dependencies:
+1. Install pnpm (if not already installed):
 
 ```bash
-npm install
+npm install -g pnpm@latest
 ```
 
-2. Set up environment variables:
+2. Install dependencies:
+
+```bash
+pnpm install
+```
+
+3. Set up environment variables:
 
 ```bash
 cp .env.local.example .env.local
@@ -82,13 +88,13 @@ Edit `.env.local` and configure:
 NEXT_PUBLIC_API_URL=http://localhost:8080/api
 ```
 
-3. Run the development server:
+4. Run the development server:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3001](http://localhost:3001) in your browser.
 
 The app will hot-reload as you edit files.
 
@@ -145,13 +151,13 @@ Components are added on-demand rather than installed as dependencies:
 
 ```bash
 # Add individual components
-npx shadcn@latest add button
-npx shadcn@latest add card
-npx shadcn@latest add dialog
-npx shadcn@latest add badge
+pnpm dlx shadcn@latest add button
+pnpm dlx shadcn@latest add card
+pnpm dlx shadcn@latest add dialog
+pnpm dlx shadcn@latest add badge
 
 # Add multiple at once
-npx shadcn@latest add button card badge dialog
+pnpm dlx shadcn@latest add button card badge dialog
 ```
 
 ### Available Components
@@ -365,19 +371,25 @@ export interface PaginatedResponse<T> {
 
 ```bash
 # Development server with hot reload
-npm run dev
+pnpm dev
 
 # Production build
-npm run build
+pnpm build
 
 # Start production server
-npm start
+pnpm start
 
 # Run linter
-npm run lint
+pnpm lint
 
 # Run type checking
-npm run type-check
+pnpm type-check
+
+# Run unit tests
+pnpm test
+
+# Run E2E tests
+pnpm test:e2e
 ```
 
 ### Code Quality
@@ -440,13 +452,13 @@ Unit tests are located in `__tests__/` and test API modules, utilities, and comp
 
 ```bash
 # Run all unit tests
-npm test
+pnpm test
 
 # Run tests in watch mode
-npm run test:watch
+pnpm test --watch
 
 # Run specific test file
-npx jest --testPathPattern="clusters-api"
+pnpm test clusters-api
 ```
 
 **Test coverage includes:**
@@ -461,19 +473,19 @@ E2E tests are located in `e2e/` and test complete user flows in a real browser.
 
 ```bash
 # Run all E2E tests (headless)
-npm run test:e2e
+pnpm test:e2e
 
 # Run E2E tests with UI mode (interactive)
-npm run test:e2e:ui
+pnpm test:e2e:ui
 
 # Run E2E tests in headed browser
-npm run test:e2e:headed
+pnpm test:e2e:headed
 
 # Debug E2E tests
-npm run test:e2e:debug
+pnpm test:e2e:debug
 
 # View test report
-npm run test:e2e:report
+pnpm test:e2e:report
 ```
 
 **E2E test structure:**
@@ -503,7 +515,7 @@ e2e/
 
 ```bash
 # Run all tests
-npm test && npm run test:e2e
+pnpm test && pnpm test:e2e
 ```
 
 Playwright is configured to start the dev server automatically when running E2E tests.

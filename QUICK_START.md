@@ -6,8 +6,16 @@ Get Atlas Catalog running in less than 5 minutes!
 
 -   Docker Engine 20.10+
 -   Docker Compose 2.0+
+-   Node.js 20+ (for local frontend development)
+-   pnpm 10+ (for frontend dependency management)
 -   4GB RAM available (minimum)
 -   Git
+
+### Install pnpm
+
+```bash
+npm install -g pnpm@latest
+```
 
 ## Quick Start (3 Options)
 
@@ -71,13 +79,12 @@ make ps
 docker-compose -f docker-compose.dev.yml ps
 ```
 
-Deberías ver 5 contenedores corriendo:
+Deberías ver 4 servicios corriendo (el frontend corre localmente en dev):
 
--   `atlas-backend-dev`
--   `atlas-frontend-dev`
--   `postgres-dev`
--   `redis-dev`
--   `redis-insights-dev`
+-   `atlas-backend-dev` (Backend + PHP-FPM)
+-   `atlas-postgres-dev` (Database)
+-   `atlas-redis-dev` (Cache)
+-   `atlas-nginx-dev` (Reverse Proxy)
 
 ### 2. Probar el Backend API
 
@@ -89,9 +96,15 @@ Debería devolver una lista de APIs en formato JSON.
 
 ### 3. Probar el Frontend
 
-Abre tu navegador en http://localhost:3000
+Abre tu navegador en http://localhost:3001
 
 Deberías ver el dashboard de Atlas Catalog.
+
+**Nota**: En desarrollo, el frontend corre localmente con:
+
+```bash
+cd frontend && pnpm dev
+```
 
 ## Comandos Útiles
 
@@ -189,8 +202,8 @@ atlas-catalog/
 
 El entorno de desarrollo incluye hot-reload automático:
 
--   **Backend**: Los cambios en `src/` se reflejan automáticamente
--   **Frontend**: Los cambios en `frontend/` activan Fast Refresh de Next.js
+-   **Backend**: Los cambios en `src/` se reflejan automáticamente (PHP-FPM)
+-   **Frontend**: Los cambios en `frontend/` activan Fast Refresh de Next.js (via pnpm dev)
 
 ### Base de Datos
 

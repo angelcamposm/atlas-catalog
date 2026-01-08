@@ -7,23 +7,28 @@ FROM node:22-alpine AS deps
 # Install libc6-compat for better compatibility
 RUN apk add --no-cache libc6-compat
 
+# Install pnpm
+RUN npm install -g pnpm@latest
+
 WORKDIR /app
 
 # Copy package files
-COPY package.json package-lock.json* ./
+COPY package.json pnpm-lock.yaml* ./
 
-# Install ALL dependencies (including dev) for building
-# Using npm install instead of npm ci to handle potential lock file mismatches
-RUN npm install && \
-    npm cache clean --force
+# Install dependencies using pnpm
+RUN pnpm install --frozen-lockfile
 
 # Stage 2: Builder
 FROM node:22-alpine AS builder
+
+# Install pnpm
+RUN npm install -g pnpm@latest
 
 WORKDIR /app
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/.pnpm-store ./.pnpm-store
 
 # Copy all source files
 COPY . .
@@ -38,7 +43,7 @@ ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 # Build the Next.js application
 # The standalone output will be in .next/standalone
-RUN npm run build
+RUN pnpm run build
 
 # Stage 3: Runner (Production)
 FROM node:22-alpine AS runner
