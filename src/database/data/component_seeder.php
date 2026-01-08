@@ -1,0 +1,88 @@
+<?php
+
+return [
+    [
+        'name' => 'user-auth-service',
+        'display_name' => 'User Authentication Service',
+        'description' => 'Centralized authentication and user management service providing OAuth2 and JWT token support.',
+        'is_stateless' => false,
+        'tags' => json_encode(['auth', 'security', 'oauth', 'jwt']),
+    ],
+    [
+        'name' => 'api-gateway',
+        'display_name' => 'API Gateway',
+        'description' => 'Central entry point for all API requests, handling routing, rate limiting, and request validation.',
+        'is_stateless' => true,
+        'tags' => json_encode(['gateway', 'routing', 'api', 'proxy']),
+    ],
+    [
+        'name' => 'product-service',
+        'display_name' => 'Product Service',
+        'description' => 'Manages product catalog, inventory, and product information.',
+        'is_stateless' => false,
+        'tags' => json_encode(['product', 'catalog', 'inventory']),
+    ],
+    [
+        'name' => 'order-service',
+        'display_name' => 'Order Service',
+        'description' => 'Handles order processing, management, and status tracking.',
+        'is_stateless' => false,
+        'tags' => json_encode(['order', 'commerce', 'transactions']),
+    ],
+    [
+        'name' => 'payment-gateway',
+        'display_name' => 'Payment Gateway',
+        'description' => 'Integrates multiple payment processors and handles financial transactions securely.',
+        'is_stateless' => false,
+        'tags' => json_encode(['payment', 'finance', 'transactions']),
+    ],
+    [
+        'name' => 'notification-service',
+        'display_name' => 'Notification Service',
+        'description' => 'Sends notifications via email, SMS, and push notifications to users.',
+        'is_stateless' => true,
+        'tags' => json_encode(['notifications', 'messaging', 'communications']),
+    ],
+    [
+        'name' => 'search-service',
+        'display_name' => 'Search Service',
+        'description' => 'Provides full-text search capabilities using Elasticsearch or similar engines.',
+        'is_stateless' => false,
+        'tags' => json_encode(['search', 'elasticsearch', 'indexing']),
+    ],
+    [
+        'name' => 'frontend-app',
+        'display_name' => 'Frontend Web Application',
+        'description' => 'Main web application providing user interface for the catalog system.',
+        'is_stateless' => true,
+        'tags' => json_encode(['frontend', 'ui', 'web', 'react']),
+    ],
+    [
+        'name' => 'analytics-service',
+        'display_name' => 'Analytics Service',
+        'description' => 'Collects, processes, and analyzes user behavior and system metrics.',
+        'is_stateless' => false,
+        'tags' => json_encode(['analytics', 'metrics', 'monitoring']),
+    ],
+    [
+        'name' => 'cache-layer',
+        'display_name' => 'Cache Layer',
+        'description' => 'Distributed caching solution for improving performance and reducing database load.',
+        'is_stateless' => true,
+        'tags' => json_encode(['cache', 'redis', 'performance']),
+    ],
+    [
+        'name' => 'logging-service',
+        'display_name' => 'Centralized Logging Service',
+        'description' => 'Aggregates and analyzes logs from all components for debugging and monitoring.',
+        'is_stateless' => true,
+        'tags' => json_encode(['logging', 'monitoring', 'elk']),
+    ],
+    [
+        'name' => 'data-warehouse',
+        'display_name' => 'Data Warehouse',
+        'description' => 'Centralized repository for storing and analyzing historical business data.',
+        'is_stateless' => false,
+        'tags' => json_encode(['data-warehouse', 'analytics', 'bigdata']),
+    ],
+];

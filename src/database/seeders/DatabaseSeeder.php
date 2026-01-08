@@ -71,6 +71,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ClusterTypeSeeder::class,
             FrameworkSeeder::class,
+            ComponentSeeder::class,
         ]);
     }
 
