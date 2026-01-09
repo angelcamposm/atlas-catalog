@@ -9,5 +9,5 @@ interface HomePageProps {
 
 export default async function HomePage({ params }: HomePageProps) {
     const { locale } = await params;
-    redirect(`/${locale}/apis`);
+    redirect(`/${locale}/components`);
 }
