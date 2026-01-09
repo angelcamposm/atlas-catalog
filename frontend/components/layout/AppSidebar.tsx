@@ -113,11 +113,6 @@ export function AppSidebar({
                 id: "catalog",
                 items: [
                     {
-                        title: "components",
-                        url: `/${locale}/components`,
-                        icon: HiCube,
-                    },
-                    {
                         title: "apis",
                         url: `/${locale}/apis`,
                         icon: HiCodeBracket,
