@@ -38,36 +38,7 @@ export function IconBar({
     const t = useTranslations("sidebar");
 
     // Favoritos por defecto si el usuario no tiene ninguno
-    const defaultFavorites: FavoriteItem[] = [
-        {
-            id: "home",
-            icon: HiHome,
-            href: `/${locale}/dashboard`,
-            label: t("dashboard"),
-            category: "General",
-        },
-        {
-            id: "apis",
-            icon: HiSquares2X2,
-            href: `/${locale}/apis`,
-            label: t("apis"),
-            category: "Catálogo",
-        },
-        {
-            id: "infrastructure",
-            icon: HiServer,
-            href: `/${locale}/infrastructure`,
-            label: t("infrastructure"),
-            category: "Recursos",
-        },
-        {
-            id: "analytics",
-            icon: HiChartBar,
-            href: `/${locale}/analytics`,
-            label: t("analytics"),
-            category: "Reportes",
-        },
-    ];
+    const defaultFavorites: FavoriteItem[] = [];
 
     // Usar favoritos del usuario o los por defecto
     const favorites =
