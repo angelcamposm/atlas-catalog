@@ -4,41 +4,17 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-    HiHome,
-    HiUsers,
-    HiUser,
     HiMagnifyingGlass,
     HiChevronDown,
     HiChevronRight,
-    HiTag,
-    HiCog6Tooth,
-    HiArrowsRightLeft,
     HiCodeBracket,
-    HiServerStack,
-    HiSquares2X2,
-    HiCube,
-    HiCommandLine,
     HiDocumentText,
     HiArrowsPointingOut,
     HiRectangleStack,
     HiExclamationCircle,
     HiArrowPath,
-    HiCloud,
-    HiCircleStack,
-    HiCpuChip,
-    HiGlobeAlt,
-    HiLink,
-    HiShieldCheck,
-    HiKey,
-    HiClipboardDocumentCheck,
-    HiWrenchScrewdriver,
-    HiUserGroup,
-    HiStar,
-    HiChartBar,
-    HiRectangleGroup,
-    HiBuildingOffice2,
-    HiQueueList,
 } from "react-icons/hi2";
+import { useModule } from "./ModuleContext";
 
 interface AppSidebarProps {
     locale: string;
@@ -71,6 +47,7 @@ export function AppSidebar({
 }: AppSidebarProps) {
     const t = useTranslations("sidebar");
     const pathname = usePathname();
+    const { activeModule } = useModule();
 
     // Initialize with admin section collapsed by default
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
@@ -89,10 +66,9 @@ export function AppSidebar({
         });
     };
 
-    // Main navigation sections - Only catalog section
-    const menuSections: MenuSection[] = useMemo(
+    // Menu sections for General module
+    const generalSections: MenuSection[] = useMemo(
         () => [
-            // ==================== CATALOG ====================
             {
                 id: "catalog",
                 items: [
@@ -106,6 +82,47 @@ export function AppSidebar({
         ],
         [locale]
     );
+
+    // Menu sections for Examples module
+    const examplesSections: MenuSection[] = useMemo(
+        () => [
+            {
+                id: "examples",
+                label: "examples",
+                items: [
+                    {
+                        title: "diagrams",
+                        url: `/${locale}/showcase/diagrams`,
+                        icon: HiArrowsPointingOut,
+                    },
+                    {
+                        title: "empty_state",
+                        url: `/${locale}/showcase/empty-state`,
+                        icon: HiExclamationCircle,
+                    },
+                    {
+                        title: "loading",
+                        url: `/${locale}/showcase/loading`,
+                        icon: HiArrowPath,
+                    },
+                    {
+                        title: "markdown",
+                        url: `/${locale}/showcase/markdown`,
+                        icon: HiDocumentText,
+                    },
+                    {
+                        title: "slide_panel",
+                        url: `/${locale}/showcase/slide-panel`,
+                        icon: HiRectangleStack,
+                    },
+                ],
+            },
+        ],
+        [locale]
+    );
+
+    // Select menu sections based on active module
+    const menuSections = activeModule === "examples" ? examplesSections : generalSections;
 
     const isActive = (url: string) => {
         return pathname === url;

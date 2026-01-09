@@ -1,13 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import {
-    HiShieldCheck,
-    HiDocumentText,
     HiSquares2X2,
     HiChevronDown,
     HiCheck,
+    HiBeaker,
 } from "react-icons/hi2";
+import { useModule, type ModuleId } from "./ModuleContext";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,20 +17,17 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 interface Module {
-    id: string;
+    id: ModuleId;
     name: string;
     icon: React.ComponentType<{ className?: string }>;
     description: string;
-    requiredPermission?: string;
 }
 
-interface ModuleSelectorProps {
-    userPermissions?: string[];
-}
+export function ModuleSelector() {
+    const { activeModule, setActiveModule } = useModule();
 
-export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
     // Definir módulos disponibles
-    const allModules: Module[] = [
+    const modules: Module[] = [
         {
             id: "general",
             name: "General",
@@ -39,46 +35,19 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
             description: "Vista general del catálogo",
         },
         {
-            id: "security",
-            name: "Seguridad",
-            icon: HiShieldCheck,
-            description: "Gestión de seguridad y accesos",
-            requiredPermission: "view_security",
-        },
-        {
-            id: "audit",
-            name: "Auditoría",
-            icon: HiDocumentText,
-            description: "Registro y seguimiento de eventos",
-            requiredPermission: "view_audit",
+            id: "examples",
+            name: "Ejemplos",
+            icon: HiBeaker,
+            description: "Componentes de ejemplo y diseño",
         },
     ];
 
-    // Filtrar módulos según permisos del usuario
-    const availableModules = allModules.filter((module) => {
-        if (!module.requiredPermission) return true;
-        return userPermissions.includes(module.requiredPermission);
-    });
-
-    // Estado del módulo activo
-    const [activeModule, setActiveModule] = useState<Module>(
-        availableModules[0] || allModules[0]
-    );
-
     const handleModuleChange = (module: Module) => {
-        setActiveModule(module);
-        // Aquí puedes agregar lógica adicional como:
-        // - Actualizar el contexto global
-        // - Redirigir a la página del módulo
-        // - Notificar cambio a componentes hijos
-        console.log("Módulo cambiado a:", module.id);
+        setActiveModule(module.id);
     };
 
-    if (availableModules.length === 0) {
-        return null;
-    }
-
-    const ActiveIcon = activeModule.icon;
+    const currentModule = modules.find((m) => m.id === activeModule) || modules[0];
+    const ActiveIcon = currentModule.icon;
 
     return (
         <DropdownMenu>
@@ -89,14 +58,14 @@ export function ModuleSelector({ userPermissions = [] }: ModuleSelectorProps) {
                     className="h-9 gap-2 px-3 hover:bg-accent"
                 >
                     <ActiveIcon className="h-4 w-4" />
-                    <span className="font-medium">{activeModule.name}</span>
+                    <span className="font-medium">{currentModule.name}</span>
                     <HiChevronDown className="h-4 w-4 opacity-50" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-64">
-                {availableModules.map((module) => {
+                {modules.map((module) => {
                     const ModuleIcon = module.icon;
-                    const isActive = activeModule.id === module.id;
+                    const isActive = activeModule === module.id;
 
                     return (
                         <DropdownMenuItem

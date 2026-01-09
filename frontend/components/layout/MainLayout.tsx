@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { AppSidebar } from "./AppSidebar";
 import { ModuleSelector } from "./ModuleSelector";
+import { ModuleProvider } from "./ModuleContext";
 import { Footer } from "./Footer";
 import {
     SidebarProvider,
@@ -46,33 +47,35 @@ export function MainLayout({
 
     // Layout with sidebar using shadcn/ui SidebarProvider
     return (
-        <SidebarProvider>
-            <div className="flex min-h-screen w-full bg-background">
-                <AppSidebar locale={locale} />
-                <SidebarInset className="flex flex-1 flex-col">
-                    {/* Header with Module Selector */}
-                    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-3 border-b bg-background px-4">
-                        <SidebarTrigger className="-ml-1" />
-                        <Separator
-                            orientation="vertical"
-                            className="mr-2 h-4"
-                        />
+        <ModuleProvider defaultModule="general">
+            <SidebarProvider>
+                <div className="flex min-h-screen w-full bg-background">
+                    <AppSidebar locale={locale} />
+                    <SidebarInset className="flex flex-1 flex-col">
+                        {/* Header with Module Selector */}
+                        <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-3 border-b bg-background px-4">
+                            <SidebarTrigger className="-ml-1" />
+                            <Separator
+                                orientation="vertical"
+                                className="mr-2 h-4"
+                            />
 
-                        {/* Module Selector */}
-                        <ModuleSelector userPermissions={userPermissions} />
+                            {/* Module Selector */}
+                            <ModuleSelector />
 
-                        <div className="ml-auto flex items-center gap-4">
-                            <Navbar locale={locale} />
-                        </div>
-                    </header>
+                            <div className="ml-auto flex items-center gap-4">
+                                <Navbar locale={locale} />
+                            </div>
+                        </header>
 
-                    {/* Main content */}
-                    <main className="flex flex-1 flex-col">{children}</main>
+                        {/* Main content */}
+                        <main className="flex flex-1 flex-col">{children}</main>
 
-                    {/* Footer */}
-                    {showFooter && <Footer locale={locale} />}
-                </SidebarInset>
-            </div>
-        </SidebarProvider>
+                        {/* Footer */}
+                        {showFooter && <Footer locale={locale} />}
+                    </SidebarInset>
+                </div>
+            </SidebarProvider>
+        </ModuleProvider>
     );
 }
