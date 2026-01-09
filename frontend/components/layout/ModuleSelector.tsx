@@ -48,7 +48,8 @@ export function ModuleSelector() {
         }
     };
 
-    const currentModule = modules.find((m) => m.id === activeModule) || modules[0];
+    const currentModule =
+        modules.find((m) => m.id === activeModule) || modules[0];
     const ActiveIcon = currentModule.icon;
 
     return (

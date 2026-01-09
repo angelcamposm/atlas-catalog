@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    ReactNode,
+    useCallback,
+} from "react";
 import { useRouter } from "next/navigation";
 
 export type ModuleId = "general" | "examples";
@@ -33,14 +39,19 @@ export function ModuleProvider({
     const [activeModule, setActiveModule] = useState<ModuleId>(defaultModule);
     const router = useRouter();
 
-    const navigateToModule = useCallback((module: ModuleId) => {
-        setActiveModule(module);
-        const route = moduleDefaultRoutes[module];
-        router.push(`/${locale}${route}`);
-    }, [locale, router]);
+    const navigateToModule = useCallback(
+        (module: ModuleId) => {
+            setActiveModule(module);
+            const route = moduleDefaultRoutes[module];
+            router.push(`/${locale}${route}`);
+        },
+        [locale, router]
+    );
 
     return (
-        <ModuleContext.Provider value={{ activeModule, setActiveModule, navigateToModule }}>
+        <ModuleContext.Provider
+            value={{ activeModule, setActiveModule, navigateToModule }}
+        >
             {children}
         </ModuleContext.Provider>
     );

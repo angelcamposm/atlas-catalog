@@ -121,7 +121,8 @@ export function AppSidebar({
     );
 
     // Select menu sections based on active module
-    const menuSections = activeModule === "examples" ? examplesSections : generalSections;
+    const menuSections =
+        activeModule === "examples" ? examplesSections : generalSections;
 
     const isActive = (url: string) => {
         return pathname === url;
