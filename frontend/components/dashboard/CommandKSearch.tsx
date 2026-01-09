@@ -2,7 +2,18 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { HiServer, HiLink, HiCube, HiChartBar } from "react-icons/hi2";
+import {
+    HiServer,
+    HiLink,
+    HiCube,
+    HiChartBar,
+    HiCodeBracket,
+    HiDocumentText,
+    HiArrowsPointingOut,
+    HiExclamationCircle,
+    HiArrowPath,
+    HiRectangleStack,
+} from "react-icons/hi2";
 import {
     Search,
     X,
@@ -14,6 +25,7 @@ import {
     Settings,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useModule, type ModuleId } from "@/components/layout/ModuleContext";
 
 interface CommandKSearchProps {
     isOpen: boolean;
@@ -28,6 +40,7 @@ interface SearchItem {
     url: string;
     icon: React.ComponentType<{ className?: string }>;
     category: string;
+    module?: ModuleId; // Optional: if undefined, shows in all modules
 }
 
 export function CommandKSearch({
@@ -37,6 +50,7 @@ export function CommandKSearch({
 }: CommandKSearchProps) {
     const router = useRouter();
     const t = useTranslations("sidebar");
+    const { activeModule } = useModule();
     const [query, setQuery] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -48,191 +62,83 @@ export function CommandKSearch({
         [router, onClose]
     );
 
-    // All searchable items - memoized with locale dependency
-    const searchItems = useMemo<SearchItem[]>(
+    // Search items for General module
+    const generalItems = useMemo<SearchItem[]>(
         () => [
-            // Main Navigation
             {
-                id: "dashboard",
-                title: t("dashboard"),
-                description: "Dashboard principal",
-                url: `/${locale}/dashboard`,
-                icon: Home,
-                category: "Main",
-            },
-            {
-                id: "apis",
-                title: t("apis"),
-                description: "Catálogo de APIs",
-                url: `/${locale}/apis`,
-                icon: FileText,
-                category: "Main",
-            },
-            {
-                id: "lifecycles",
-                title: t("lifecycles"),
-                description: "Gestión de lifecycles",
-                url: `/${locale}/lifecycles`,
-                icon: BookOpen,
-                category: "Main",
-            },
-            {
-                id: "types",
-                title: t("types"),
-                description: "Tipos de recursos",
-                url: `/${locale}/types`,
-                icon: FileText,
-                category: "Main",
-            },
-            {
-                id: "teams",
-                title: t("teams"),
-                description: "Equipos",
-                url: `/${locale}/teams`,
-                icon: Users,
-                category: "Main",
-            },
-
-            // Infrastructure
-            {
-                id: "infrastructure",
-                title: t("infrastructure"),
-                description: "Vista general de infraestructura",
-                url: `/${locale}/infrastructure`,
-                icon: HiServer,
-                category: "Infrastructure",
-            },
-            {
-                id: "clusters",
-                title: t("clusters"),
-                description: "Gestión de clusters",
-                url: `/${locale}/infrastructure/clusters`,
-                icon: HiServer,
-                category: "Infrastructure",
-            },
-            {
-                id: "cluster-types",
-                title: t("cluster_types"),
-                description: "Tipos de clusters",
-                url: `/${locale}/infrastructure/cluster-types`,
-                icon: HiServer,
-                category: "Infrastructure",
-            },
-            {
-                id: "nodes",
-                title: t("nodes"),
-                description: "Gestión de nodos",
-                url: `/${locale}/infrastructure/nodes`,
-                icon: HiServer,
-                category: "Infrastructure",
-            },
-            {
-                id: "service-accounts",
-                title: "Service Accounts",
-                description: "Cuentas de servicio",
-                url: `/${locale}/infrastructure/cluster-service-accounts`,
-                icon: Users,
-                category: "Infrastructure",
-            },
-
-            // Platform
-            {
-                id: "platform",
-                title: "Platform",
-                description: "Vista general de plataforma",
-                url: `/${locale}/platform`,
-                icon: HiCube,
-                category: "Platform",
-            },
-            {
-                id: "platforms",
-                title: "Platforms",
-                description: "Gestión de plataformas",
-                url: `/${locale}/platform/platforms`,
-                icon: HiCube,
-                category: "Platform",
-            },
-            {
-                id: "component-types",
-                title: "Component Types",
-                description: "Tipos de componentes",
-                url: `/${locale}/platform/component-types`,
-                icon: HiCube,
-                category: "Platform",
-            },
-
-            // Integration
-            {
-                id: "integration",
-                title: "Integration",
-                description: "Vista general de integraciones",
-                url: `/${locale}/integration`,
-                icon: HiLink,
-                category: "Integration",
-            },
-            {
-                id: "links",
-                title: "Links",
-                description: "Enlaces de integración",
-                url: `/${locale}/integration/links`,
-                icon: HiLink,
-                category: "Integration",
-            },
-            {
-                id: "link-types",
-                title: "Link Types",
-                description: "Tipos de enlaces",
-                url: `/${locale}/integration/link-types`,
-                icon: HiLink,
-                category: "Integration",
-            },
-
-            // Analytics & Docs
-            {
-                id: "analytics",
-                title: "Analytics",
-                description: "Análisis y métricas",
-                url: `/${locale}/analytics`,
-                icon: HiChartBar,
-                category: "Analytics",
-            },
-            {
-                id: "documentation",
-                title: "Documentation",
-                description: "Centro de documentación",
-                url: `/${locale}/documentation`,
-                icon: FileText,
-                category: "Analytics",
-            },
-            {
-                id: "security",
-                title: "Security",
-                description: "Seguridad",
-                url: `/${locale}/security`,
-                icon: Settings,
-                category: "Analytics",
-            },
-
-            // System
-            {
-                id: "notifications",
-                title: "Notifications",
-                description: "Notificaciones",
-                url: `/${locale}/notifications`,
-                icon: Bell,
-                category: "System",
-            },
-            {
-                id: "settings",
-                title: "Settings",
-                description: "Configuración del sistema",
-                url: `/${locale}/settings`,
-                icon: Settings,
-                category: "System",
+                id: "components",
+                title: t("components"),
+                description: "Catálogo de componentes",
+                url: `/${locale}/components`,
+                icon: HiCodeBracket,
+                category: "Catálogo",
+                module: "general",
             },
         ],
-        [locale]
-    ); // Filter items based on query - memoized
+        [locale, t]
+    );
+
+    // Search items for Examples module
+    const examplesItems = useMemo<SearchItem[]>(
+        () => [
+            {
+                id: "diagrams",
+                title: t("diagrams"),
+                description: "Ejemplos de diagramas",
+                url: `/${locale}/showcase/diagrams`,
+                icon: HiArrowsPointingOut,
+                category: "Ejemplos",
+                module: "examples",
+            },
+            {
+                id: "empty-state",
+                title: t("empty_state"),
+                description: "Ejemplos de estados vacíos",
+                url: `/${locale}/showcase/empty-state`,
+                icon: HiExclamationCircle,
+                category: "Ejemplos",
+                module: "examples",
+            },
+            {
+                id: "loading",
+                title: t("loading"),
+                description: "Ejemplos de estados de carga",
+                url: `/${locale}/showcase/loading`,
+                icon: HiArrowPath,
+                category: "Ejemplos",
+                module: "examples",
+            },
+            {
+                id: "markdown",
+                title: t("markdown"),
+                description: "Ejemplos de markdown",
+                url: `/${locale}/showcase/markdown`,
+                icon: HiDocumentText,
+                category: "Ejemplos",
+                module: "examples",
+            },
+            {
+                id: "slide-panel",
+                title: t("slide_panel"),
+                description: "Ejemplos de paneles deslizantes",
+                url: `/${locale}/showcase/slide-panel`,
+                icon: HiRectangleStack,
+                category: "Ejemplos",
+                module: "examples",
+            },
+        ],
+        [locale, t]
+    );
+
+    // Get items based on active module
+    const searchItems = useMemo<SearchItem[]>(() => {
+        if (activeModule === "examples") {
+            return examplesItems;
+        }
+        return generalItems;
+    }, [activeModule, generalItems, examplesItems]);
+
+    // Filter items based on query - memoized
     const filteredItems = useMemo(() => {
         if (!query.trim()) return searchItems;
 
