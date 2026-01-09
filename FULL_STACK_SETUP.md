@@ -79,9 +79,9 @@ php artisan serve
 
 ```bash
 cd frontend
-npm install
+pnpm install
 cp .env.local.example .env.local
-npm run dev
+pnpm dev
 # Frontend disponible en http://localhost:3000
 ```
 

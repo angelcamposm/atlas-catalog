@@ -90,9 +90,9 @@ make artisan CMD="make:controller MyController"
 make composer CMD="require package/name"
 make composer CMD="dump-autoload"
 
-# Ejecutar comando NPM
-make npm CMD="install package-name"
-make npm CMD="run build"
+# Ejecutar comando pnpm
+make pnpm CMD="install package-name"
+make pnpm CMD="run build"
 ```
 
 ### Limpieza
@@ -240,7 +240,7 @@ docker exec -it atlas-backend-dev ./vendor/bin/pint --test
 docker exec -it atlas-backend-dev ./vendor/bin/pint
 
 # Next.js ESLint
-cd frontend && npm run lint
+cd frontend && pnpm lint
 ```
 
 ## 🔍 Debugging
@@ -336,17 +336,17 @@ docker exec -it atlas-backend-dev composer require vendor/package
 docker exec -it atlas-backend-dev composer dump-autoload
 ```
 
-### Frontend (NPM)
+### Frontend (pnpm)
 
 ```bash
 # Instalar
-docker exec -it atlas-frontend-dev npm install
+docker exec -it atlas-frontend-dev pnpm install
 
 # Agregar paquete
-docker exec -it atlas-frontend-dev npm install package-name
+docker exec -it atlas-frontend-dev pnpm add package-name
 
 # Actualizar
-docker exec -it atlas-frontend-dev npm update
+docker exec -it atlas-frontend-dev pnpm update
 ```
 
 ## 🚨 Troubleshooting

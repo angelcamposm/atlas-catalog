@@ -72,7 +72,7 @@ docker-compose -f docker-compose.dev.yml down
 -   Container: `atlas-frontend-dev`
 -   Port: 3000
 -   Features: Hot-reload, live code updates
--   Command: `npm run dev`
+-   Command: `pnpm dev`
 
 ### Backend (Laravel API)
 

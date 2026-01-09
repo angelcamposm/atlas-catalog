@@ -111,6 +111,6 @@ jest.mock("framer-motion", () => {
             value,
         useSpring: (value: unknown) => value,
         useInView: () => true,
-        useCycle: <T,>(...items: T[]) => [items[0], jest.fn()],
+        useCycle: <T>(...items: T[]) => [items[0], jest.fn()],
     };
 });

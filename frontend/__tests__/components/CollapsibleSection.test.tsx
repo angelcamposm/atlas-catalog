@@ -4,12 +4,7 @@
  */
 
 import React from "react";
-import {
-    render,
-    screen,
-    fireEvent,
-    waitFor,
-} from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
@@ -27,7 +22,6 @@ describe("CollapsibleSection", () => {
                     <p>Content</p>
                 </CollapsibleSection>
             );
-
 
             expect(screen.getByText("Information")).toBeInTheDocument();
         });

@@ -205,27 +205,25 @@ export function CollapsibleSection({
                         role="region"
                         aria-labelledby={headerId}
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ 
-                            height: "auto", 
+                        animate={{
+                            height: "auto",
                             opacity: 1,
                             transition: {
                                 height: { duration: 0.3, ease: "easeOut" },
-                                opacity: { duration: 0.25, delay: 0.05 }
-                            }
+                                opacity: { duration: 0.25, delay: 0.05 },
+                            },
                         }}
-                        exit={{ 
-                            height: 0, 
+                        exit={{
+                            height: 0,
                             opacity: 0,
                             transition: {
                                 height: { duration: 0.25, ease: "easeIn" },
-                                opacity: { duration: 0.15 }
-                            }
+                                opacity: { duration: 0.15 },
+                            },
                         }}
                         className="overflow-hidden"
                     >
-                        <div className="px-4 py-4">
-                            {children}
-                        </div>
+                        <div className="px-4 py-4">{children}</div>
                     </motion.div>
                 )}
             </AnimatePresence>
