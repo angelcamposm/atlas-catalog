@@ -51,7 +51,7 @@ export function AppSidebar({
 
     // Initialize with admin section collapsed by default
     const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
-        new Set(["admin", "examples"])
+        new Set(["admin"])
     );
 
     const toggleSection = (sectionId: string) => {
@@ -88,7 +88,6 @@ export function AppSidebar({
         () => [
             {
                 id: "examples",
-                label: "examples",
                 items: [
                     {
                         title: "diagrams",

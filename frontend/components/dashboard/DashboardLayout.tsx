@@ -94,7 +94,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     const breadcrumb = getBreadcrumb();
 
     return (
-        <ModuleProvider defaultModule="general">
+        <ModuleProvider defaultModule="general" locale={locale}>
             <div className="flex h-screen w-full overflow-hidden bg-gray-50 dark:bg-gray-950">
                 <RouteProgressBar />
 

@@ -24,7 +24,7 @@ interface Module {
 }
 
 export function ModuleSelector() {
-    const { activeModule, setActiveModule } = useModule();
+    const { activeModule, navigateToModule } = useModule();
 
     // Definir módulos disponibles
     const modules: Module[] = [
@@ -43,7 +43,9 @@ export function ModuleSelector() {
     ];
 
     const handleModuleChange = (module: Module) => {
-        setActiveModule(module.id);
+        if (module.id !== activeModule) {
+            navigateToModule(module.id);
+        }
     };
 
     const currentModule = modules.find((m) => m.id === activeModule) || modules[0];

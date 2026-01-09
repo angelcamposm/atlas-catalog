@@ -47,7 +47,7 @@ export function MainLayout({
 
     // Layout with sidebar using shadcn/ui SidebarProvider
     return (
-        <ModuleProvider defaultModule="general">
+        <ModuleProvider defaultModule="general" locale={locale}>
             <SidebarProvider>
                 <div className="flex min-h-screen w-full bg-background">
                     <AppSidebar locale={locale} />
