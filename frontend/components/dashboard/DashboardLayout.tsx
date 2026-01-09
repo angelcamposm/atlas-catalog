@@ -108,7 +108,11 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                 />
 
                 {/* Navigation Sidebar */}
-                <AppSidebar locale={locale} isCollapsed={isSidebarCollapsed} />
+                <AppSidebar
+                    locale={locale}
+                    isCollapsed={isSidebarCollapsed}
+                    onSearchClick={() => setShowCommandK(true)}
+                />
 
                 {/* Main Content Area */}
                 <div className="flex flex-1 flex-col overflow-hidden">
