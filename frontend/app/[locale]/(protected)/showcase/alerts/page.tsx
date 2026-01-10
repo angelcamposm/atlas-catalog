@@ -1,3 +1,5 @@
+"use client";
+
 import { AlertCircle, CheckCircle, InfoIcon, AlertTriangle } from "lucide-react";
 
 export default function AlertsShowcase() {

@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/Badge";
+"use client";
 
 export default function BadgesShowcase() {
 	return (
@@ -14,41 +14,57 @@ export default function BadgesShowcase() {
 				<div>
 					<h2 className="mb-3 text-lg font-semibold">Status Badges</h2>
 					<div className="flex flex-wrap gap-2">
-						<Badge className="bg-green-100 text-green-800">
+						<span className="inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
 							Active
-						</Badge>
-						<Badge className="bg-yellow-100 text-yellow-800">
+						</span>
+						<span className="inline-block rounded-full bg-yellow-100 px-3 py-1 text-sm font-medium text-yellow-800">
 							Pending
-						</Badge>
-						<Badge className="bg-red-100 text-red-800">
+						</span>
+						<span className="inline-block rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-800">
 							Inactive
-						</Badge>
-						<Badge className="bg-blue-100 text-blue-800">
+						</span>
+						<span className="inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800">
 							New
-						</Badge>
+						</span>
 					</div>
 				</div>
 
 				<div>
-					<h2 className="mb-3 text-lg font-semibold">
-						Category Badges
-					</h2>
+					<h2 className="mb-3 text-lg font-semibold">Category Badges</h2>
 					<div className="flex flex-wrap gap-2">
-						<Badge>Frontend</Badge>
-						<Badge>Backend</Badge>
-						<Badge>Database</Badge>
-						<Badge>DevOps</Badge>
-						<Badge>Security</Badge>
+						<span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800">
+							Frontend
+						</span>
+						<span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800">
+							Backend
+						</span>
+						<span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800">
+							Database
+						</span>
+						<span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800">
+							DevOps
+						</span>
+						<span className="inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800">
+							Security
+						</span>
 					</div>
 				</div>
 
 				<div>
 					<h2 className="mb-3 text-lg font-semibold">Priority</h2>
 					<div className="flex flex-wrap gap-2">
-						<Badge className="bg-red-500 text-white">Critical</Badge>
-						<Badge className="bg-orange-500 text-white">High</Badge>
-						<Badge className="bg-yellow-500 text-white">Medium</Badge>
-						<Badge className="bg-blue-500 text-white">Low</Badge>
+						<span className="inline-block rounded-full bg-red-500 px-3 py-1 text-sm font-medium text-white">
+							Critical
+						</span>
+						<span className="inline-block rounded-full bg-orange-500 px-3 py-1 text-sm font-medium text-white">
+							High
+						</span>
+						<span className="inline-block rounded-full bg-yellow-500 px-3 py-1 text-sm font-medium text-white">
+							Medium
+						</span>
+						<span className="inline-block rounded-full bg-blue-500 px-3 py-1 text-sm font-medium text-white">
+							Low
+						</span>
 					</div>
 				</div>
 			</div>

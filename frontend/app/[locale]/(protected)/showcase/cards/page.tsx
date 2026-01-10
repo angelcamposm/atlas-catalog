@@ -1,4 +1,6 @@
-import { Card } from "@/components/ui/Card";
+"use client";
+
+import { Card } from "@/components/ui/card";
 
 export default function CardsShowcase() {
 	return (
@@ -19,7 +21,7 @@ export default function CardsShowcase() {
 				</Card>
 
 				<Card className="p-6">
-					<div className="mb-3 h-24 bg-gradient-to-r from-blue-400 to-blue-600 rounded" />
+					<div className="mb-3 h-24 rounded bg-gradient-to-r from-blue-400 to-blue-600" />
 					<h3 className="mb-2 font-semibold">Card with Image</h3>
 					<p className="text-sm text-gray-600">
 						Card featuring an image or gradient
@@ -33,14 +35,14 @@ export default function CardsShowcase() {
 					</p>
 				</Card>
 
-				<Card className="hover:shadow-lg transition-shadow p-6">
+				<Card className="p-6 transition-shadow hover:shadow-lg">
 					<h3 className="mb-2 font-semibold">Interactive Card</h3>
 					<p className="text-sm text-gray-600">
 						Hover to see shadow effect
 					</p>
 				</Card>
 
-				<Card className="p-6 bg-gradient-to-br from-slate-50 to-slate-100">
+				<Card className="bg-gradient-to-br from-slate-50 to-slate-100 p-6">
 					<h3 className="mb-2 font-semibold">Card with Background</h3>
 					<p className="text-sm text-gray-600">
 						Card with gradient background
