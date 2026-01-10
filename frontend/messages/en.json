@@ -104,7 +104,12 @@
     "empty_state": "Empty State",
     "loading": "Loading",
     "markdown": "Markdown",
-    "slide_panel": "Slide Panel"
+    "slide_panel": "Slide Panel",
+    "buttons": "Buttons",
+    "badges": "Badges",
+    "cards": "Cards",
+    "alerts": "Alerts",
+    "forms": "Forms"
   },
   "footer": {
     "tagline": "Centralized API catalog management for modern platform teams",

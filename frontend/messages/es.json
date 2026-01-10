@@ -104,7 +104,12 @@
     "empty_state": "Estado Vacío",
     "loading": "Cargando",
     "markdown": "Markdown",
-    "slide_panel": "Panel Deslizable"
+    "slide_panel": "Panel Deslizable",
+    "buttons": "Botones",
+    "badges": "Insignias",
+    "cards": "Tarjetas",
+    "alerts": "Alertas",
+    "forms": "Formularios"
   },
   "footer": {
     "tagline": "Catálogo centralizado de APIs para equipos de plataforma modernos",
