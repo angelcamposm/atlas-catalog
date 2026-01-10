@@ -114,6 +114,31 @@ export function AppSidebar({
                         url: `/${locale}/showcase/slide-panel`,
                         icon: HiRectangleStack,
                     },
+                    {
+                        title: "buttons",
+                        url: `/${locale}/showcase/buttons`,
+                        icon: HiCodeBracket,
+                    },
+                    {
+                        title: "badges",
+                        url: `/${locale}/showcase/badges`,
+                        icon: HiRectangleStack,
+                    },
+                    {
+                        title: "cards",
+                        url: `/${locale}/showcase/cards`,
+                        icon: HiRectangleStack,
+                    },
+                    {
+                        title: "alerts",
+                        url: `/${locale}/showcase/alerts`,
+                        icon: HiExclamationCircle,
+                    },
+                    {
+                        title: "forms",
+                        url: `/${locale}/showcase/forms`,
+                        icon: HiDocumentText,
+                    },
                 ],
             },
         ],
