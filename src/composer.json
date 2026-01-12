@@ -13,7 +13,7 @@
         "laravel/tinker": "^2.10.2"
     },
     "require-dev": {
-        "dedoc/scramble": "^0.13.8",
+        "dedoc/scramble": "^0.13.10",
         "fakerphp/faker": "^1.24.1",
         "laravel/pail": "^1.2.4",
         "laravel/pint": "^1.26.0",
