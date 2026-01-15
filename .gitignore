@@ -1,5 +1,5 @@
 .idea/
-!iac/config/**/.gitkeep
+!iac/kustomize/config/**/.gitkeep
 src/bootstrap/cache/
 src/coverage/
 src/node_modules/
