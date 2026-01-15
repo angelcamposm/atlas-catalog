@@ -11,7 +11,7 @@ labels:
     includeSelectors: true
     includeTemplates: true
 resources:
-  - ./resources/stateful-set.yaml
-  - ./resources/service.yaml
-  - ./resources/service.headless.yaml
-  - ./resources/secret.yaml
+  - resources/stateful-set.yaml
+  - resources/service.yaml
+  - resources/service.headless.yaml
+  - resources/secret.yaml
