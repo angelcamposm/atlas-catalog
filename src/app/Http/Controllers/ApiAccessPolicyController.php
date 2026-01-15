@@ -20,12 +20,7 @@ class ApiAccessPolicyController extends Controller
         $items = [];
 
         foreach (ApiAccessPolicy::cases() as $apiAccessPolicy) {
-            $items[] = [
-                'id' => $apiAccessPolicy->value,
-                'name' => $apiAccessPolicy->name,
-                'display_name' => $apiAccessPolicy->displayName(),
-                'description' => $apiAccessPolicy->description(),
-            ];
+            $items[] = $apiAccessPolicy->toArray();
         }
 
         return response()->json([
