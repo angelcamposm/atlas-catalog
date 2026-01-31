@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Exceptions\MissingCredentialException;
 use App\Observers\CiServerObserver;
 use App\Traits\BelongsToUser;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -102,5 +103,22 @@ class CiServer extends Model
     public function workflowJobs(): HasMany
     {
         return $this->hasMany(WorkflowJob::class);
+    }
+
+    /**
+     * Get the credential or throw an exception if missing.
+     *
+     * @return Credential
+     * @throws MissingCredentialException
+     */
+    public function getCredentialOrThrow(): Credential
+    {
+        if (!$this->credential) {
+            throw new MissingCredentialException(
+                message: "No credentials configured for instance: {$this->name}"
+            );
+        }
+
+        return $this->credential;
     }
 }
