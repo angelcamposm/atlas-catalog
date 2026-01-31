@@ -96,4 +96,20 @@ class Credential extends Model
     {
         return $this->hasMany(JenkinsInstance::class);
     }
+
+    /**
+     * Get the primary secret value based on the credential type.
+     *
+     * @return string|null
+     */
+    public function getSecretValue(): ?string
+    {
+        return match ($this->type) {
+            CredentialType::ApiToken => $this->secret['token'] ?? null,
+            CredentialType::BasicAuth => $this->secret['password'] ?? null,
+            CredentialType::BearerToken => $this->secret['token'] ?? null,
+            CredentialType::SshKey => $this->secret['private_key'] ?? null,
+            default => null,
+        };
+    }
 }
