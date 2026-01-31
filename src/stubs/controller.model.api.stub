@@ -71,7 +71,7 @@ class {{ class }} extends Controller
     {
         if ($request->has('with')) {
             $requestedRelationships = self::filterAllowedRelationships($request->get('with'));
-            ${{ modelVariable }}->load($allowedRelationships);
+            ${{ modelVariable }}->load($requestedRelationships);
         }
 
         return new {{ model }}Resource(${{ modelVariable }});
