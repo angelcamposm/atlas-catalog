@@ -3,7 +3,7 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true"
->
+         >
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
@@ -32,6 +32,12 @@
             <xml outputDirectory="coverage/xml"/>
         </report>
     </coverage>
+    <logging>
+        <junit outputFile="logs/junit.xml"/>
+        <teamcity outputFile="logs/teamcity.xml"/>
+        <testdoxText outputFile="logs/testdox.txt"/>
+        <testdoxHtml outputFile="logs/testdox.html"/>
+    </logging>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
