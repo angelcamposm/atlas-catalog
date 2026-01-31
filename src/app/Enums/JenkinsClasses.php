@@ -43,4 +43,39 @@ enum JenkinsClasses: string
             self::folderCases()
         );
     }
+
+    /**
+     * Check if the given class is a folder class.
+     *
+     * @param string $class
+     * @return bool
+     */
+    public static function isFolder(string $class): bool
+    {
+        return in_array($class, self::folderClassValues(), true);
+    }
+
+    /**
+     * Check if the given class is a workflow job class.
+     *
+     * @param string $class
+     *
+     * @return bool
+     */
+    public static function isWorkflowJob(string $class): bool
+    {
+        return $class === self::WorkflowJob->value;
+    }
+
+    /**
+     * Check if the given class is a pipeline class.
+     *
+     * @param string $class
+     *
+     * @return bool
+     */
+    public static function isPipeline(string $class): bool
+    {
+        return self::isWorkflowJob($class);
+    }
 }
