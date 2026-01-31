@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @method static where(string $string, true $true)
  *
  * @property-read mixed $credential
  * @property-read User|null $creator The user who created this language entry.
