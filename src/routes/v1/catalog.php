@@ -29,8 +29,8 @@ Route::prefix('v1')->group(function () {
         //
         Route::get('apis/access-policies', [ApiAccessPolicyController::class, 'index'])
             ->name('api-access-policies.index');
-        Route::get('apis/access-policies/{id}', [ApiAccessPolicyController::class, 'show'])
-            ->whereIn('id', ApiAccessPolicy::cases())
+        Route::get('apis/access-policies/{policy}', [ApiAccessPolicyController::class, 'show'])
+            ->whereIn('policy', ApiAccessPolicy::cases())
             ->name('api-access-policies.show');
         Route::get('apis/access-policies/{id}/apis', [])
             ->whereIn('id', ApiAccessPolicy::cases())
