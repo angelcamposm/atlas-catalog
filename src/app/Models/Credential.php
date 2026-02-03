@@ -107,7 +107,7 @@ class Credential extends Model
         return match ($this->type) {
             CredentialType::ApiToken => $this->secret['token'] ?? null,
             CredentialType::BasicAuth => $this->secret['password'] ?? null,
-            CredentialType::BearerToken => $this->secret['token'] ?? null,
+            CredentialType::BearerToken => $this->secret['bearer_token'] ?? null,
             CredentialType::SshKey => $this->secret['private_key'] ?? null,
             default => null,
         };
