@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDeploymentRequest;
 use App\Http\Requests\UpdateDeploymentRequest;
+use App\Http\Resources\DeploymentResource;
 use App\Http\Resources\DeploymentResourceCollection;
 use App\Models\Deployment;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,7 @@ class DeploymentController extends Controller
      */
     public function __invoke(): DeploymentResourceCollection
     {
-        $deployments = Deployment::paginate();
+        $deployments = Deployment::with(['component', 'environment', 'triggerer'])->paginate();
 
         return new DeploymentResourceCollection($deployments);
     }
@@ -28,9 +29,9 @@ class DeploymentController extends Controller
      *
      * @param StoreDeploymentRequest  $request
      *
-     * @return JsonResponse
+     * @return DeploymentResource
      */
-    public function store(StoreDeploymentRequest $request): JsonResponse
+    public function store(StoreDeploymentRequest $request): DeploymentResource
     {
         $data = $request->validated();
 
@@ -40,7 +41,7 @@ class DeploymentController extends Controller
 
         $deployment = Deployment::create($data);
 
-        return response()->json($deployment, 201);
+        return new DeploymentResource($deployment);
     }
 
     /**
@@ -49,17 +50,15 @@ class DeploymentController extends Controller
      * @param  UpdateDeploymentRequest  $request
      * @param  Deployment               $deployment
      *
-     * @return JsonResponse
+     * @return DeploymentResource
      */
-    public function update(UpdateDeploymentRequest $request, Deployment $deployment): JsonResponse
+    public function update(UpdateDeploymentRequest $request, Deployment $deployment): DeploymentResource
     {
         $data = $request->validated();
 
-        if (isset($data['ended_at'])) {
-            $endedAt = Carbon::parse($data['ended_at']);
-        } else {
-            $endedAt = Carbon::now();
-        }
+        $endedAt = isset($data['ended_at'])
+            ? Carbon::parse($data['ended_at'])
+            : Carbon::now();
 
         $data['ended_at'] = $endedAt;
 
@@ -75,11 +74,27 @@ class DeploymentController extends Controller
 
         $deployment->update($data);
 
-        return response()->json($deployment);
+        return new DeploymentResource($deployment);
     }
 
-    public function show(Deployment $deployment): JsonResponse
+    /**
+     * Display the specified resource.
+     *
+     * @param Deployment $deployment
+     *
+     * @return DeploymentResource
+     */
+    public function show(Deployment $deployment): DeploymentResource
     {
-        return response()->json($deployment);
+        $deployment->load([
+            'component',
+            'environment',
+            'cluster',
+            'release',
+            'workflowRun',
+            'triggerer'
+        ]);
+
+        return new DeploymentResource($deployment);
     }
 }
