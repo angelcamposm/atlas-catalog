@@ -9,7 +9,7 @@ use App\Models\JenkinsInstance;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
-#[AsCommand(name: 'jenkins:sync')]
+#[AsCommand(name: 'jenkins:sync-workflows')]
 class JenkinsSyncWorkflowsCommand extends Command
 {
     /**
