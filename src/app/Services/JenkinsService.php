@@ -18,7 +18,7 @@ class JenkinsService implements CiProviderInterface
      * The fields to fetch from the Jenkins API.
      */
     private const array FETCH_TREE = [
-        'tree' => 'jobs[name,url,description,displayName,fullDisplayName,_class]',
+        'tree' => 'jobs[name,url,description,displayName,fullDisplayName,_class,buildable]',
     ];
 
     public function __construct(
