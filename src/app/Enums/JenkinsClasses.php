@@ -13,10 +13,6 @@ enum JenkinsClasses: string
     case OrganizationFolder = 'jenkins.branch.OrganizationFolder';
     case WorkflowJob = 'org.jenkinsci.plugins.workflow.job.WorkflowJob';
 
-    // Aliases
-    case Pipeline = JenkinsClasses::WorkflowJob->value;
-    case View = JenkinsClasses::MyView->value;
-
     /**
      * Return the folder classes
      *
