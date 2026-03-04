@@ -20,7 +20,7 @@ Key features include:
 
 Whether you are a developer looking for service documentation, a platform engineer managing the ecosystem, or an architect designing new systems, Atlas Catalog provides the visibility and control needed to navigate your microservices landscape with confidence.
 
-## � Quick Start with Docker
+## Quick Start with Docker
 
 The easiest way to run the complete project (Backend + Frontend) is using Docker Compose.
 
