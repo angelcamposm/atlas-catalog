@@ -169,6 +169,9 @@ Route::get('entities/{entity}/components', EntityComponentController::class)
 - **Opción B:** Dentro de `ci-cd` → `GET /v1/ci-cd/deployments`
 - **Opción C:** Dominio propio separado
 
+> //TODO: 
+> El controlador DeploymentController, es para recibir un POST con un payload con los detalles de la ejecución de un workflowRun en Jenkins actualmente. La información de los deployments, se mostraría via relaciones en los modelos, o bien en un sistema para mostrar los últimos eventos. Ej: últimos eventos (deployments, builds, actualizaciones, etc...)
+
 ---
 
 ### Task 1.4: Descomentar o implementar `frameworks/{framework}/components`
@@ -206,6 +209,9 @@ Route::get('entities/{entity}/components', EntityComponentController::class)
 2. Usar `DeploymentResource` en `store()`, `show()`, `update()` en vez de `response()->json()`
 3. Agregar método `destroy()` faltante
 4. Agregar trait `AllowedRelationships` con relaciones: `component`, `environment`, `cluster`, `release`, `workflowRun`, `triggerer`
+
+> //TODO:
+> Para recibir el Post, únicamente el método store() o __invoke(), para poder validar el input, únicamente se podría hacer mediante un json schema que defina lo que puede recibir, pues el formato es json.
 
 ---
 
@@ -310,6 +316,9 @@ GET  /api/v1/auth/me          → Usuario autenticado
 - **viewer** → Solo lectura
 
 **Nota:** Requiere primero definir un sistema de roles (puede ser simple con un campo `role` en `users` o más complejo con `spatie/laravel-permission`).
+
+> //TODO:
+> Implementar tabla `roles` si no existe, y mediante relación asignar usuarios al rol.
 
 ---
 
@@ -544,6 +553,9 @@ public function index(Request $request): ComponentResourceCollection
 | `ResourceCategorySeeder.php` | Categorías de resources si no existen |
 | `UserSeeder.php` | 5-10 usuarios de ejemplo con diferentes roles |
 
+> //TODO: Hay que distinguir entre seeders para añadir datos de ejemplo que se realizaría con `Factory` y los seeders que hay implementados que son para rellenar datos básicos de la aplicación.
+> Se pueden crear seeders para la aplicación y seeders para datos de ejemplo.
+
 ---
 
 ### Task 6.2: Actualizar DatabaseSeeder para incluir los nuevos seeders
@@ -629,6 +641,9 @@ RateLimiter::for('api', function (Request $request) {
 
 **Para la mayoría de controllers que hacen CRUD puro, NO crear services** — sería over-engineering.
 
+> //TODO:
+> Está previsto el uso de caché con Valkey o Memcached. De forma ideal, cualquiera que tenga una UI para la consulta de los datos almacenados en la caché.
+
 ---
 
 ## 11. Épica 9 — Sincronización de API Spec
@@ -646,6 +661,9 @@ RateLimiter::for('api', function (Request $request) {
 **Opciones:**
 - **Opción A (recomendada):** Eliminar el spec manual y confiar en Scramble. Scramble analiza controllers, form requests y resources para generar el spec automáticamente.
 - **Opción B:** Mantener ambos pero marcar uno como fuente de verdad.
+
+> //TODO:
+> Eliminar el spec manual y confiar en Scramble. Si es necesario "compro" la versión pro.
 
 ---
 
