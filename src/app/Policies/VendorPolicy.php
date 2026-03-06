@@ -30,7 +30,7 @@ class VendorPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class VendorPolicy
      */
     public function update(User $user, Vendor $vendor): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class VendorPolicy
      */
     public function delete(User $user, Vendor $vendor): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class VendorPolicy
      */
     public function restore(User $user, Vendor $vendor): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class VendorPolicy
      */
     public function forceDelete(User $user, Vendor $vendor): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

@@ -30,7 +30,7 @@ class PlatformPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class PlatformPolicy
      */
     public function update(User $user, Platform $platform): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class PlatformPolicy
      */
     public function delete(User $user, Platform $platform): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class PlatformPolicy
      */
     public function restore(User $user, Platform $platform): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class PlatformPolicy
      */
     public function forceDelete(User $user, Platform $platform): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

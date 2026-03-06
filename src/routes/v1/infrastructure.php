@@ -11,7 +11,7 @@ use App\Http\Controllers\NodeController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('infrastructure')->group(function () {
 
         // Clusters

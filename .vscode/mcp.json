@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "open-pencil": {
+      "type": "stdio",
+      "command": "/Users/keskes/.bun/bin/openpencil-mcp"
+    }
+  }
+}

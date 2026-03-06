@@ -31,7 +31,7 @@ class EntityPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class EntityPolicy
      */
     public function update(User $user, Entity $entity): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class EntityPolicy
      */
     public function delete(User $user, Entity $entity): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class EntityPolicy
      */
     public function restore(User $user, Entity $entity): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class EntityPolicy
      */
     public function forceDelete(User $user, Entity $entity): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

@@ -30,7 +30,7 @@ class ProgrammingLanguagePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ProgrammingLanguagePolicy
      */
     public function update(User $user, ProgrammingLanguage $programmingLanguage): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ProgrammingLanguagePolicy
      */
     public function delete(User $user, ProgrammingLanguage $programmingLanguage): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ProgrammingLanguagePolicy
      */
     public function restore(User $user, ProgrammingLanguage $programmingLanguage): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ProgrammingLanguagePolicy
      */
     public function forceDelete(User $user, ProgrammingLanguage $programmingLanguage): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\ServiceAccountController;
 use App\Http\Controllers\ServiceAccountTokenController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('security')->group(function () {
         // Security Domain
         //

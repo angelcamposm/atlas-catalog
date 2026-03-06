@@ -13,14 +13,17 @@ use Illuminate\Support\Carbon;
 
 class DeploymentController extends Controller
 {
+    public function index(): DeploymentResourceCollection
+    {
+        return new DeploymentResourceCollection(Deployment::paginate());
+    }
+
     /**
      * Handle the incoming request.
      */
     public function __invoke(): DeploymentResourceCollection
     {
-        $deployments = Deployment::paginate();
-
-        return new DeploymentResourceCollection($deployments);
+        return $this->index();
     }
 
     /**

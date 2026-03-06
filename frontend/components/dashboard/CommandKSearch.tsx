@@ -59,7 +59,7 @@ export function CommandKSearch({
             router.push(item.url);
             onClose();
         },
-        [router, onClose]
+        [router, onClose],
     );
 
     // Search items for General module
@@ -75,7 +75,7 @@ export function CommandKSearch({
                 module: "general",
             },
         ],
-        [locale, t]
+        [locale, t],
     );
 
     // Search items for Examples module
@@ -172,7 +172,7 @@ export function CommandKSearch({
                 module: "examples",
             },
         ],
-        [locale, t]
+        [locale, t],
     );
 
     // Get items based on active module
@@ -192,7 +192,7 @@ export function CommandKSearch({
             (item) =>
                 item.title.toLowerCase().includes(lowerQuery) ||
                 item.description.toLowerCase().includes(lowerQuery) ||
-                item.category.toLowerCase().includes(lowerQuery)
+                item.category.toLowerCase().includes(lowerQuery),
         );
     }, [searchItems, query]);
 
@@ -205,7 +205,7 @@ export function CommandKSearch({
                 case "ArrowDown":
                     e.preventDefault();
                     setSelectedIndex((prev) =>
-                        prev < filteredItems.length - 1 ? prev + 1 : prev
+                        prev < filteredItems.length - 1 ? prev + 1 : prev,
                     );
                     break;
                 case "ArrowUp":
@@ -286,11 +286,11 @@ export function CommandKSearch({
                             {/* Group by category */}
                             {Array.from(
                                 new Set(
-                                    filteredItems.map((item) => item.category)
-                                )
+                                    filteredItems.map((item) => item.category),
+                                ),
                             ).map((category) => {
                                 const categoryItems = filteredItems.filter(
-                                    (item) => item.category === category
+                                    (item) => item.category === category,
                                 );
 
                                 return (
@@ -313,7 +313,7 @@ export function CommandKSearch({
                                                     }
                                                     onMouseEnter={() =>
                                                         setSelectedIndex(
-                                                            globalIndex
+                                                            globalIndex,
                                                         )
                                                     }
                                                     className={`flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-left transition-colors ${

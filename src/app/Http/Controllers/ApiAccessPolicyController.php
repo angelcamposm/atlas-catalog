@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\ApiAccessPolicy;
+use App\Http\Resources\ApiResourceCollection;
+use App\Models\Api;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -61,5 +63,22 @@ class ApiAccessPolicyController extends Controller
             ],
             'kind' => 'Enum',
         ], Response::HTTP_OK);
+    }
+
+    public function apis(int $id): ApiResourceCollection|JsonResponse
+    {
+        $apiAccessPolicy = ApiAccessPolicy::tryFrom($id);
+
+        if (! $apiAccessPolicy) {
+            return response()->json([
+                'error' => 'ApiAccessPolicy not found',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        return new ApiResourceCollection(
+            Api::query()
+                ->where('access_policy', $apiAccessPolicy)
+                ->paginate(),
+        );
     }
 }

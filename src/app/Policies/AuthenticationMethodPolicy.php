@@ -30,7 +30,7 @@ class AuthenticationMethodPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class AuthenticationMethodPolicy
      */
     public function update(User $user, AuthenticationMethod $authenticationMethod): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class AuthenticationMethodPolicy
      */
     public function delete(User $user, AuthenticationMethod $authenticationMethod): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class AuthenticationMethodPolicy
      */
     public function restore(User $user, AuthenticationMethod $authenticationMethod): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class AuthenticationMethodPolicy
      */
     public function forceDelete(User $user, AuthenticationMethod $authenticationMethod): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

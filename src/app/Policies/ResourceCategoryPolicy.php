@@ -30,7 +30,7 @@ class ResourceCategoryPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ResourceCategoryPolicy
      */
     public function update(User $user, ResourceCategory $resourceCategory): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ResourceCategoryPolicy
      */
     public function delete(User $user, ResourceCategory $resourceCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ResourceCategoryPolicy
      */
     public function restore(User $user, ResourceCategory $resourceCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ResourceCategoryPolicy
      */
     public function forceDelete(User $user, ResourceCategory $resourceCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

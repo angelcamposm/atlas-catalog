@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
 use App\Models\User;
@@ -48,11 +50,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  StoreUserRequest  $request
      *
      * @return UserResource
      */
-    public function store(Request $request): UserResource
+    public function store(StoreUserRequest $request): UserResource
     {
         $model = User::create($request->validated());
 
@@ -80,16 +82,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param User $user
+     * @param  UpdateUserRequest  $request
+     * @param  User  $user
      *
      * @return UserResource
      */
-    public function update(Request $request, User $user): UserResource
+    public function update(UpdateUserRequest $request, User $user): UserResource
     {
-        $model = $user->update($request->validated());
+        $user->update($request->validated());
 
-        return new UserResource($model);
+        return new UserResource($user);
     }
 
     /**

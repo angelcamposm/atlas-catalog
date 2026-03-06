@@ -30,7 +30,7 @@ class GroupTypePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class GroupTypePolicy
      */
     public function update(User $user, GroupType $groupType): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class GroupTypePolicy
      */
     public function delete(User $user, GroupType $groupType): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class GroupTypePolicy
      */
     public function restore(User $user, GroupType $groupType): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class GroupTypePolicy
      */
     public function forceDelete(User $user, GroupType $groupType): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

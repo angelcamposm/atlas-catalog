@@ -30,7 +30,7 @@ class ApiStatusPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ApiStatusPolicy
      */
     public function update(User $user, ApiStatus $apiStatus): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ApiStatusPolicy
      */
     public function delete(User $user, ApiStatus $apiStatus): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ApiStatusPolicy
      */
     public function restore(User $user, ApiStatus $apiStatus): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ApiStatusPolicy
      */
     public function forceDelete(User $user, ApiStatus $apiStatus): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

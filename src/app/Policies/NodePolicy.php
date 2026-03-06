@@ -30,7 +30,7 @@ class NodePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class NodePolicy
      */
     public function update(User $user, Node $node): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class NodePolicy
      */
     public function delete(User $user, Node $node): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class NodePolicy
      */
     public function restore(User $user, Node $node): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class NodePolicy
      */
     public function forceDelete(User $user, Node $node): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

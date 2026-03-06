@@ -30,7 +30,7 @@ class ServiceAccountPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ServiceAccountPolicy
      */
     public function update(User $user, ServiceAccount $serviceAccount): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ServiceAccountPolicy
      */
     public function delete(User $user, ServiceAccount $serviceAccount): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ServiceAccountPolicy
      */
     public function restore(User $user, ServiceAccount $serviceAccount): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ServiceAccountPolicy
      */
     public function forceDelete(User $user, ServiceAccount $serviceAccount): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

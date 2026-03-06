@@ -8,6 +8,7 @@ use App\Http\Controllers\BusinessDomainComponentController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessDomainEntityController;
 use App\Http\Controllers\BusinessTierController;
+use App\Http\Controllers\EntityComponentController;
 use App\Http\Controllers\EntityAttributeController;
 use App\Http\Controllers\EntityController;
 use App\Http\Controllers\LifecyclePhaseComponentController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\SystemComponentController;
 use App\Http\Controllers\SystemController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1')->group(function () {
+Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('architecture')->group(function () {
         // Business Capability
         //
@@ -40,8 +41,7 @@ Route::prefix('v1')->group(function () {
         //
         Route::apiResource('entities', EntityController::class);
         Route::apiResource('entities.attributes', EntityAttributeController::class);
-        //TODO: Add controller
-        Route::get('entities/{entity}/components')->name('entities.components');
+        Route::get('entities/{entity}/components', EntityComponentController::class)->name('entities.components');
 
         // Lifecycles
         //

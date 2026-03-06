@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\TokenController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -68,6 +71,29 @@ include_once 'v1/organization.php';
  */
 include_once 'v1/security.php';
 
+/**
+ * Webhooks Domain
+ *
+ * Routes for inbound events from external systems such as CI/CD platforms.
+ */
+include_once 'v1/webhooks.php';
+
 Route::prefix('v1')->group(function () {
-    // Global routes or version-specific configurations can go here
+    /**
+     * Authentication Routes
+     *
+     * Public endpoints for login and registration.
+     */
+    Route::post('auth/login', LoginController::class)->name('auth.login');
+    Route::post('auth/register', RegisterController::class)->name('auth.register');
+
+    /**
+     * Protected Authentication Routes
+     *
+     * Endpoints requiring authentication for user profile and logout.
+     */
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('auth/me', [TokenController::class, 'show'])->name('auth.me');
+        Route::post('auth/logout', [TokenController::class, 'destroy'])->name('auth.logout');
+    });
 });

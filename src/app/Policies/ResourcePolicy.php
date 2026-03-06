@@ -30,7 +30,7 @@ class ResourcePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ResourcePolicy
      */
     public function update(User $user, Resource $resource): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ResourcePolicy
      */
     public function delete(User $user, Resource $resource): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ResourcePolicy
      */
     public function restore(User $user, Resource $resource): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ResourcePolicy
      */
     public function forceDelete(User $user, Resource $resource): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

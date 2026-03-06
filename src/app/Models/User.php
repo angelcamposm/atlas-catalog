@@ -16,18 +16,22 @@ use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int $id
  * @property string $email
  * @property string $name
  * @property string $password
+ * @property int|null $role_id
  * @property int $created_by
  * @property int $updated_by
  *
  * @property-read Collection<int, Group> $groups
+ * @property-read Role|null $role
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
@@ -42,6 +46,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use BelongsToUser;
+    use HasApiTokens;
     use HasFactory;
     use Notifiable;
 
@@ -91,6 +96,16 @@ class User extends Authenticatable
     }
 
     /**
+     * The role that the user belongs to.
+     *
+     * @return BelongsTo<Role>
+     */
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
      * Check if the user has any groups.
      *
      * @return bool
@@ -99,4 +114,33 @@ class User extends Authenticatable
     {
         return $this->groups()->exists();
     }
-}
+
+    /**
+     * Check if the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role->slug === 'admin';
+    }
+
+    /**
+     * Check if the user is an editor.
+     *
+     * @return bool
+     */
+    public function isEditor(): bool
+    {
+        return $this->role && $this->role->slug === 'editor';
+    }
+
+    /**
+     * Check if the user is a viewer.
+     *
+     * @return bool
+     */
+    public function isViewer(): bool
+    {
+        return $this->role && $this->role->slug === 'viewer';
+    }

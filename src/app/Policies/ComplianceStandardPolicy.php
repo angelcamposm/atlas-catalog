@@ -31,7 +31,7 @@ class ComplianceStandardPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class ComplianceStandardPolicy
      */
     public function update(User $user, ComplianceStandard $complianceStandard): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class ComplianceStandardPolicy
      */
     public function delete(User $user, ComplianceStandard $complianceStandard): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class ComplianceStandardPolicy
      */
     public function restore(User $user, ComplianceStandard $complianceStandard): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class ComplianceStandardPolicy
      */
     public function forceDelete(User $user, ComplianceStandard $complianceStandard): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

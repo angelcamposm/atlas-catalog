@@ -30,7 +30,7 @@ class BusinessCapabilityPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class BusinessCapabilityPolicy
      */
     public function update(User $user, BusinessCapability $businessCapability): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class BusinessCapabilityPolicy
      */
     public function delete(User $user, BusinessCapability $businessCapability): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class BusinessCapabilityPolicy
      */
     public function restore(User $user, BusinessCapability $businessCapability): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class BusinessCapabilityPolicy
      */
     public function forceDelete(User $user, BusinessCapability $businessCapability): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }
