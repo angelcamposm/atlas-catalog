@@ -55,9 +55,13 @@ class ComponentController extends Controller
      *
      * @return ComponentResourceCollection
      */
-    public function index(): ComponentResourceCollection
+    public function index(Request $request): ComponentResourceCollection
     {
-        return new ComponentResourceCollection(Component::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new ComponentResourceCollection(Component::with($relationships)->paginate());
     }
 
     /**

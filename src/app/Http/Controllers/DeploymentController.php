@@ -6,24 +6,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDeploymentRequest;
 use App\Http\Requests\UpdateDeploymentRequest;
+use App\Http\Resources\DeploymentResource;
 use App\Http\Resources\DeploymentResourceCollection;
 use App\Models\Deployment;
-use Illuminate\Http\JsonResponse;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 
 class DeploymentController extends Controller
 {
-    public function index(): DeploymentResourceCollection
-    {
-        return new DeploymentResourceCollection(Deployment::paginate());
-    }
+    use AllowedRelationships;
 
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(): DeploymentResourceCollection
+    public const array ALLOWED_RELATIONSHIPS = [
+        'component',
+        'environment',
+        'cluster',
+        'release',
+        'workflowRun',
+        'triggerer',
+    ];
+
+    public function index(Request $request): DeploymentResourceCollection
     {
-        return $this->index();
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new DeploymentResourceCollection(
+            Deployment::with($relationships)->paginate()
+        );
     }
 
     /**
@@ -31,9 +43,9 @@ class DeploymentController extends Controller
      *
      * @param StoreDeploymentRequest  $request
      *
-     * @return JsonResponse
+     * @return DeploymentResource
      */
-    public function store(StoreDeploymentRequest $request): JsonResponse
+    public function store(StoreDeploymentRequest $request): DeploymentResource
     {
         $data = $request->validated();
 
@@ -43,7 +55,19 @@ class DeploymentController extends Controller
 
         $deployment = Deployment::create($data);
 
-        return response()->json($deployment, 201);
+        return new DeploymentResource($deployment);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Deployment $deployment
+     *
+     * @return DeploymentResource
+     */
+    public function show(Deployment $deployment): DeploymentResource
+    {
+        return new DeploymentResource($deployment);
     }
 
     /**
@@ -52,9 +76,9 @@ class DeploymentController extends Controller
      * @param  UpdateDeploymentRequest  $request
      * @param  Deployment               $deployment
      *
-     * @return JsonResponse
+     * @return DeploymentResource
      */
-    public function update(UpdateDeploymentRequest $request, Deployment $deployment): JsonResponse
+    public function update(UpdateDeploymentRequest $request, Deployment $deployment): DeploymentResource
     {
         $data = $request->validated();
 
@@ -78,11 +102,20 @@ class DeploymentController extends Controller
 
         $deployment->update($data);
 
-        return response()->json($deployment);
+        return new DeploymentResource($deployment);
     }
 
-    public function show(Deployment $deployment): JsonResponse
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Deployment $deployment
+     *
+     * @return Response
+     */
+    public function destroy(Deployment $deployment): Response
     {
-        return response()->json($deployment);
+        $deployment->delete();
+
+        return response()->noContent();
     }
 }

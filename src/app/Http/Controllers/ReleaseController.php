@@ -35,9 +35,13 @@ class ReleaseController extends Controller
      *
      * @return ReleaseResourceCollection
      */
-    public function index(): ReleaseResourceCollection
+    public function index(Request $request): ReleaseResourceCollection
     {
-        return new ReleaseResourceCollection(Release::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new ReleaseResourceCollection(Release::with($relationships)->paginate());
     }
 
     /**

@@ -9,18 +9,34 @@ use App\Http\Requests\UpdateSystemRequest;
 use App\Http\Resources\SystemResource;
 use App\Http\Resources\SystemResourceCollection;
 use App\Models\System;
+use App\Traits\AllowedRelationships;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class SystemController extends Controller
 {
+    use AllowedRelationships;
+
+    public const array ALLOWED_RELATIONSHIPS = [
+        'components',
+        'businessCapabilities',
+        'owner',
+        'creator',
+        'updater',
+    ];
+
     /**
      * Display a listing of the resource.
      *
      * @return SystemResourceCollection
      */
-    public function index(): SystemResourceCollection
+    public function index(Request $request): SystemResourceCollection
     {
-        return new SystemResourceCollection(System::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new SystemResourceCollection(System::with($relationships)->paginate());
     }
 
     /**

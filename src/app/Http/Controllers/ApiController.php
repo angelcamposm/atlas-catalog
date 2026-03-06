@@ -54,9 +54,13 @@ class ApiController extends Controller
      *
      * @return ApiResourceCollection
      */
-    public function index(): ApiResourceCollection
+    public function index(Request $request): ApiResourceCollection
     {
-        return new ApiResourceCollection(Api::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new ApiResourceCollection(Api::with($relationships)->paginate());
     }
 
     /**
