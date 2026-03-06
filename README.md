@@ -51,7 +51,18 @@ Once the containers are running:
 |---------|-----|-------------|
 | **Frontend** | http://localhost:3001 | Next.js Web Application |
 | **Backend API** | http://localhost:8080/api/v1 | Laravel REST API |
+| **API Documentation** | http://localhost:8080/docs/api | Scramble-generated OpenAPI spec |
 | **API Health** | http://localhost:8080/api/v1/catalog/apis | Sample endpoint |
+
+### API Documentation
+
+The Atlas Catalog API is fully documented using **[Scramble](https://scramble.dedoc.co/)**, an open-source OpenAPI documentation generator for Laravel.
+
+**Access the interactive API documentation:**
+- **URL:** `http://localhost:8080/docs/api`
+- **Features:** Try-it feature, schema definitions, response examples, endpoint filtering
+
+The documentation is **automatically generated** from the controller code and type hints—no manual spec files to maintain. This ensures the documentation is always in sync with the actual implementation.
 
 ### Services Architecture
 
