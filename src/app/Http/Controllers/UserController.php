@@ -32,16 +32,22 @@ class UserController extends Controller
     ];
 
     /**
-     * Display a listing of the resource.
+     * List all users with optional filtering and pagination.
      *
-     * Supports filtering, searching, and sorting via query parameters:
-     * - ?filter[field]=value - Filter by field value
-     * - ?search=term - Search across searchable fields
-     * - ?sort=field or ?sort=-field - Sort ascending or descending
-     * - ?with=relation1,relation2 - Eager load relationships
+     * Retrieve a paginated list of system users with their roles and group memberships.
      *
+     * **Query Parameters:**
+     * - `filter[field]=value` - Filter by field (e.g., ?filter[role]=admin)
+     * - `search=term` - Search by email or name
+     * - `sort=field` or `sort=-field` - Sort by field (add `-` for descending)
+     * - `with=relation1,relation2` - Eager-load (creator, groups, updater)
+     * - `per_page=25` - Items per page (default: 15, max: 100)
+     *
+     * @operationId listUsers
+     * @response 200 Successfully retrieved paginated list of users
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized - Insufficient permissions
      * @param  Request  $request
-     *
      * @return UserResourceCollection
      */
     public function index(Request $request): UserResourceCollection
@@ -61,10 +67,23 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new user.
      *
+     * Register a new user account with email and credentials. Users are assigned roles and group memberships
+     * after creation via separate endpoints.
+     *
+     * **Request Body:**
+     * - `name` (required, string, 255 chars) - User full name
+     * - `email` (required, string, unique) - User email address
+     * - `password` (required, string, min 8 chars) - Account password (hashed on server)
+     *
+     * @operationId createUser
+     * @response 201 User created successfully
+     * @response 400 Validation failed
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized - Insufficient permissions
+     * @response 422 Validation errors (duplicate email, weak password)
      * @param  StoreUserRequest  $request
-     *
      * @return UserResource
      */
     public function store(StoreUserRequest $request): UserResource
@@ -75,11 +94,17 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retrieve a specific user by ID or email.
      *
+     * Fetch detailed information about a single user, including their role and group memberships.
+     *
+     * @operationId getUser
+     * @response 200 User retrieved successfully
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized - Cannot view other user details (self only)
+     * @response 404 User not found
      * @param  Request  $request
      * @param  User  $user
-     *
      * @return UserResource
      */
     public function show(Request $request, User $user): UserResource
@@ -93,11 +118,19 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing user.
      *
+     * Modify user properties like name or email. Password changes require a separate secure endpoint.
+     *
+     * @operationId updateUser
+     * @response 200 User updated successfully
+     * @response 400 Validation failed
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized - Cannot modify other users (self only)
+     * @response 404 User not found
+     * @response 422 Validation errors (duplicate email)
      * @param  UpdateUserRequest  $request
      * @param  User  $user
-     *
      * @return UserResource
      */
     public function update(UpdateUserRequest $request, User $user): UserResource
@@ -108,10 +141,16 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a user account.
      *
+     * Deactivate or remove a user from the system. Only admins or the user themselves can delete.
+     *
+     * @operationId deleteUser
+     * @response 204 User deleted successfully
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized - Cannot delete other users
+     * @response 404 User not found
      * @param User $user
-     *
      * @return Response
      */
     public function destroy(User $user): Response
