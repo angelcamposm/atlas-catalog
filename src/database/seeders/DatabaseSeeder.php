@@ -15,6 +15,25 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/**
+ * Main Database Seeder — Application Base Data
+ *
+ * Seeds the database with required application data (roles, categories, types, etc).
+ *
+ * **Two types of seeders:**
+ *
+ * 1. **Application Seeders** (this class) — Run automatically with `php artisan migrate --seed`
+ *    - Required base data: roles, categories, types, statuses, environments
+ *    - Idempotent: use firstOrCreate to avoid duplicates
+ *    - Always execute these seeders
+ *
+ * 2. **Example Seeders** (separate) — Run manually for development/demo data
+ *    - Sample data: users, clusters, systems, deployments
+ *    - Use Factories to generate realistic data
+ *    - Run manually: `php artisan db:seed --class="Database\\Seeders\\Examples\\ExampleDataSeeder"`
+ *
+ * @see \Database\Seeders\Examples\ExampleDataSeeder for development data
+ */
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -64,8 +83,10 @@ class DatabaseSeeder extends Seeder
             GroupTypeSeeder::class,
             InfrastructureTypeSeeder::class,
             LifecyclePhaseSeeder::class,
+            LinkCategorySeeder::class,
             PlatformSeeder::class,
             ProgrammingLanguageSeeder::class,
+            ResourceCategorySeeder::class,
             ServiceModelSeeder::class,
             ServiceStatusSeeder::class,
             VendorSeeder::class,
