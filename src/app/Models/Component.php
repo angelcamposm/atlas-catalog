@@ -6,7 +6,10 @@ namespace App\Models;
 
 use App\Observers\ComponentObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
 use App\Traits\HasDeployments;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
@@ -54,6 +57,9 @@ class Component extends Model
     use HasFactory;
     use BelongsToUser;
     use HasDeployments;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The table associated with the model.
@@ -92,7 +98,45 @@ class Component extends Model
      * The attributes that should be hidden for serialization.
      *
      * @var array<string>
+     *
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
      */
+    protected array $filterable = [
+        'domain_id',
+        'platform_id',
+        'status_id',
+        'tier_id',
+        'is_exposed',
+        'is_stateless',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'display_name',
+        'description',
+    ];
+
     protected $hidden = [
         //
     ];

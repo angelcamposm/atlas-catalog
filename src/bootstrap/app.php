@@ -18,7 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'webhook.token' => VerifyWebhookToken::class,
+            'verify.webhook.token' => VerifyWebhookToken::class,
+            'webhook.token' => VerifyWebhookToken::class, // Backward compatibility
         ]);
     })
     ->withExceptions(function (): void {

@@ -34,6 +34,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * Supports filtering, searching, and sorting via query parameters:
+     * - ?filter[field]=value - Filter by field value
+     * - ?search=term - Search across searchable fields
+     * - ?sort=field or ?sort=-field - Sort ascending or descending
+     * - ?with=relation1,relation2 - Eager load relationships
+     *
      * @param  Request  $request
      *
      * @return UserResourceCollection
@@ -44,7 +50,14 @@ class UserController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new UserResourceCollection(User::with($requestedRelationships)->paginate());
+        return new UserResourceCollection(
+            User::query()
+                ->filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**

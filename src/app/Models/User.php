@@ -9,6 +9,9 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
 use App\Observers\UserObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
@@ -49,6 +52,9 @@ class User extends Authenticatable
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The attributes that are mass-assignable.
@@ -61,7 +67,34 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
     ];
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array \$filterable = [];
 
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array \$sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array \$searchable = [
+        'name',
+        'email',
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -8,6 +8,9 @@ use App\Http\Resources\ReleaseResource;
 use App\Http\Resources\ReleaseResourceCollection;
 use App\Observers\ReleaseObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\ReleaseFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -48,6 +51,9 @@ class Release extends Model
 {
     use BelongsToUser;
     use HasFactory;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The table associated with the model.
@@ -72,7 +78,34 @@ class Release extends Model
         'created_by',
         'updated_by',
     ];
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array \$filterable = [];
 
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array \$sortable = [
+        'id',
+        'version',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array \$searchable = [
+        'version',
+        'changelog',
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *

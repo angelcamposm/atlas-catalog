@@ -8,6 +8,9 @@ use App\Http\Resources\ClusterResource;
 use App\Http\Resources\ClusterResourceCollection;
 use App\Observers\ClusterObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\ClusterFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -60,6 +63,9 @@ class Cluster extends Model
 {
     use BelongsToUser;
     use HasFactory;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The table associated with the model.
@@ -92,7 +98,37 @@ class Cluster extends Model
         'created_by',
         'updated_by',
     ];
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array \$filterable = [
+        'type_id',
+        'infrastructure_type_id',
+    ];
 
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array \$sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array \$searchable = [
+        'name',
+        'display_name',
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *

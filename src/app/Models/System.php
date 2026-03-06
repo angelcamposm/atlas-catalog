@@ -8,6 +8,9 @@ use App\Http\Resources\SystemResource;
 use App\Http\Resources\SystemResourceCollection;
 use App\Observers\SystemObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\SystemFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
@@ -49,6 +52,9 @@ class System extends Model
 {
     use HasFactory;
     use BelongsToUser;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The table associated with the model.
@@ -70,6 +76,38 @@ class System extends Model
         'tags',
         'created_by',
         'updated_by',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'owner_id',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'display_name',
+        'description',
     ];
 
     /**

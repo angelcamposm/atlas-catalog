@@ -10,6 +10,9 @@ use App\Http\Resources\ApiResource;
 use App\Http\Resources\ApiResourceCollection;
 use App\Observers\ApiObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use DateTimeInterface;
 use Database\Factories\ApiFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
@@ -69,6 +72,9 @@ class Api extends Model
 {
     use BelongsToUser;
     use HasFactory;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The table associated with the model.
@@ -114,6 +120,42 @@ class Api extends Model
         'protocol' => Protocol::class,
         'released_at' => 'datetime',
         'deprecated_at' => 'datetime',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'status_id',
+        'type_id',
+        'category_id',
+        'protocol',
+        'access_policy',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'display_name',
+        'description',
     ];
 
     /**
