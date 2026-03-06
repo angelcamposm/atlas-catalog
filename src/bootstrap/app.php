@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\VerifyWebhookToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,6 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->use([
             \Illuminate\Http\Middleware\HandleCors::class,
+        ]);
+
+        // Apply ForceJsonResponse to API routes
+        $middleware->api([
+            ForceJsonResponse::class,
         ]);
 
         $middleware->alias([

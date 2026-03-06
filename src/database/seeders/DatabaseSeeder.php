@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([RoleSeeder::class]);
         $this->create_initial_user();
         $this->run_base_seeders();
         $this->create_sample_groups();
@@ -32,11 +33,14 @@ class DatabaseSeeder extends Seeder
 
     private function create_initial_user(): void
     {
+        $adminRole = \App\Models\Role::where('slug', 'admin')->first();
+
         User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Admin User',
                 'password' => bcrypt('password'),
+                'role_id' => $adminRole?->id,
             ],
         );
     }
