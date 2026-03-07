@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -83,14 +82,14 @@ class Release extends Model
      *
      * @var array<string>
      */
-    protected array \$filterable = [];
+    protected array $filterable = [];
 
     /**
      * Fields that can be sorted.
      *
      * @var array<string>
      */
-    protected array \$sortable = [
+    protected array $sortable = [
         'id',
         'version',
         'created_at',
@@ -102,7 +101,7 @@ class Release extends Model
      *
      * @var array<string>
      */
-    protected array \$searchable = [
+    protected array $searchable = [
         'version',
         'changelog',
     ];

@@ -82,7 +82,7 @@ class Group extends Model
      *
      * @var array<string>
      */
-    protected array \$filterable = [
+    protected array $filterable = [
         'type_id',
     ];
 
@@ -91,7 +91,7 @@ class Group extends Model
      *
      * @var array<string>
      */
-    protected array \$sortable = [
+    protected array $sortable = [
         'id',
         'name',
         'created_at',
@@ -103,7 +103,7 @@ class Group extends Model
      *
      * @var array<string>
      */
-    protected array \$searchable = [
+    protected array $searchable = [
         'name',
         'email',
         'description',

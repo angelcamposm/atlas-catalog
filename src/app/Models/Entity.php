@@ -80,7 +80,7 @@ class Entity extends Model
      *
      * @var array<string>
      */
-    protected array \$filterable = [
+    protected array $filterable = [
         'domain_id',
     ];
 
@@ -89,7 +89,7 @@ class Entity extends Model
      *
      * @var array<string>
      */
-    protected array \$sortable = [
+    protected array $sortable = [
         'id',
         'name',
         'created_at',
@@ -101,7 +101,7 @@ class Entity extends Model
      *
      * @var array<string>
      */
-    protected array \$searchable = [
+    protected array $searchable = [
         'name',
         'description',
     ];

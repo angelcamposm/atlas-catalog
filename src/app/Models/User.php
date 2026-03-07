@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
 use App\Observers\UserObserver;
@@ -72,14 +71,14 @@ class User extends Authenticatable
      *
      * @var array<string>
      */
-    protected array \$filterable = [];
+    protected array $filterable = [];
 
     /**
      * Fields that can be sorted.
      *
      * @var array<string>
      */
-    protected array \$sortable = [
+    protected array $sortable = [
         'id',
         'name',
         'created_at',
@@ -91,7 +90,7 @@ class User extends Authenticatable
      *
      * @var array<string>
      */
-    protected array \$searchable = [
+    protected array $searchable = [
         'name',
         'email',
     ];
@@ -177,3 +176,5 @@ class User extends Authenticatable
     {
         return $this->role && $this->role->slug === 'viewer';
     }
+
+}

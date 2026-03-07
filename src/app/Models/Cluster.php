@@ -103,7 +103,7 @@ class Cluster extends Model
      *
      * @var array<string>
      */
-    protected array \$filterable = [
+    protected array $filterable = [
         'type_id',
         'infrastructure_type_id',
     ];
@@ -113,7 +113,7 @@ class Cluster extends Model
      *
      * @var array<string>
      */
-    protected array \$sortable = [
+    protected array $sortable = [
         'id',
         'name',
         'created_at',
@@ -125,7 +125,7 @@ class Cluster extends Model
      *
      * @var array<string>
      */
-    protected array \$searchable = [
+    protected array $searchable = [
         'name',
         'display_name',
     ];
