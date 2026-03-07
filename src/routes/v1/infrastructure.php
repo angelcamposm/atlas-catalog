@@ -27,7 +27,7 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
 
         Route::apiResource('nodes', NodeController::class);
 
-        Route::apiResource('types', InfrastructureTypeController::class);
+        Route::apiResource('infrastructure-types', InfrastructureTypeController::class);
 
         Route::apiResource('vendors', VendorController::class);
     });
