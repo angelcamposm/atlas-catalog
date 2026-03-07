@@ -1,24 +1,17 @@
 # Atlas Catalog - Backend API
 
-Laravel 11-based RESTful API for managing API catalogs, lifecycles, types, and metadata.
-
-## ⚠️ IMPORTANT: READ-ONLY
-
-**This backend is STABLE and READ-ONLY**
-
--   No modifications should be made to this codebase
--   All active development is focused on the Next.js frontend
--   This API serves as a stable data source at `/api/v1/*` endpoints
--   Frontend must adapt to the existing API responses
+Laravel 11-based RESTful API for managing API catalogs, lifecycles, types, architecture entities, CI/CD resources, and infrastructure metadata. Fully authenticated and authorized with role-based access control.
 
 ## 🚀 Tech Stack
 
 -   **Framework**: [Laravel 11.x](https://laravel.com)
--   **PHP Version**: 8.2+
+-   **PHP Version**: 8.4+
 -   **Database**: PostgreSQL (production), SQLite (development)
 -   **API Style**: RESTful JSON API
--   **Authentication**: Laravel Sanctum (planned)
--   **Testing**: PHPUnit
+-   **Authentication**: Laravel Sanctum (token-based, fully implemented)
+-   **Authorization**: Laravel Policies (RBAC with admin/editor/viewer roles)
+-   **API Docs**: [Scramble](https://scramble.dedoc.co/) (OpenAPI 3.1)
+-   **Testing**: PHPUnit 12
 
 ## 📁 Project Structure
 
@@ -49,35 +42,34 @@ src/
 
 ## 🔌 API Endpoints
 
-All endpoints are versioned under `/api/v1/`:
+All endpoints are versioned under `/api/v1/` and require Sanctum token authentication.  
+The API exposes **213 operations** across **7 domains** (catalog, architecture, CI/CD, infrastructure, integrations, platform, and tooling).
 
-### APIs
+### Interactive Docs
 
--   `GET    /api/v1/apis` - List all APIs (paginated)
--   `POST   /api/v1/apis` - Create new API
--   `GET    /api/v1/apis/{id}` - Get API details
--   `PUT    /api/v1/apis/{id}` - Update API
--   `DELETE /api/v1/apis/{id}` - Delete API
+With the backend running, the full OpenAPI 3.1 spec is browsable at:
 
-### API Types
+```
+http://localhost:8080/docs/api
+```
 
--   `GET    /api/v1/api-types` - List all API types
--   `POST   /api/v1/api-types` - Create new type
--   `GET    /api/v1/api-types/{id}` - Get type details
--   `PUT    /api/v1/api-types/{id}` - Update type
--   `DELETE /api/v1/api-types/{id}` - Delete type
+The generated spec is also committed at [`public/api.json`](public/api.json) for offline use.
 
-### Lifecycles
+### Domain Overview
 
--   `GET    /api/v1/lifecycles` - List all lifecycles
--   `POST   /api/v1/lifecycles` - Create new lifecycle
--   `GET    /api/v1/lifecycles/{id}` - Get lifecycle details
--   `PUT    /api/v1/lifecycles/{id}` - Update lifecycle
--   `DELETE /api/v1/lifecycles/{id}` - Delete lifecycle
+| Domain | Prefix | Resources |
+|---|---|---|
+| Catalog | `/api/v1/catalog/` | APIs, API Types, Lifecycles, Platforms, Protocols, Scopes, Specs, Tags, Teams, … |
+| Architecture | `/api/v1/architecture/` | Business Capabilities, Components, Domains, Entities, Systems |
+| CI/CD | `/api/v1/cicd/` | Deployments, Releases, Service Models, Workflow Jobs, Workflow Runs |
+| Infrastructure | `/api/v1/infrastructure/` | Clusters, Databases, Environments, Service Instances, … |
+| Integrations | `/api/v1/integrations/` | Access Policies, Categories, Data Types, Event Types, Queues |
+| Platform | `/api/v1/platform/` | Programming Languages, Frameworks |
+| Tooling | `/api/v1/tooling/` | Tools |
 
-### Programming Languages
+### Programming Languages (example)
 
--   `GET    /api/v1/programming-languages` - List all languages
+-   `GET    /api/v1/programming-languages` - List all languages (paginated)
 -   `POST   /api/v1/programming-languages` - Create new language
 -   `GET    /api/v1/programming-languages/{id}` - Get language details
 -   `PUT    /api/v1/programming-languages/{id}` - Update language
@@ -85,47 +77,34 @@ All endpoints are versioned under `/api/v1/`:
 
 ## 📊 Database Schema
 
-### Core Models
+The schema covers 38+ Eloquent models across the 7 API domains. Refer to [`database/migrations/`](database/migrations/) for the full table definitions, or explore the OpenAPI spec at [`public/api.json`](public/api.json) for the request/response shapes of each resource.
 
-#### APIs (`apis` table)
+## 🔐 Authentication & Authorization
 
--   `id` - Primary key
--   `name` - API name
--   `description` - API description
--   `version` - API version
--   `endpoint` - API endpoint URL
--   `api_type_id` - Foreign key to API types
--   `lifecycle_id` - Foreign key to lifecycles
--   `programming_language_id` - Foreign key to programming languages
--   `business_domain_category` - Business domain classification
--   `discovery_source` - How the API was discovered
--   `created_by` / `updated_by` - User tracking (nullable)
--   `created_at` / `updated_at` - Timestamps
+### Authentication (Sanctum)
 
-#### API Types (`api_types` table)
+All `/api/v1/*` routes require a valid Sanctum token:
 
--   `id` - Primary key
--   `name` - Type name (REST, GraphQL, SOAP, etc.)
--   `description` - Type description
--   `created_by` / `updated_by` - User tracking (nullable)
--   `created_at` / `updated_at` - Timestamps
+```http
+Authorization: Bearer <token>
+```
 
-#### Lifecycles (`lifecycles` table)
+Tokens are issued via `POST /api/v1/auth/login` and revoked via `POST /api/v1/auth/logout`.
 
--   `id` - Primary key
--   `name` - Lifecycle name
--   `description` - Lifecycle description
--   `approval_required` - Boolean flag
--   `created_by` / `updated_by` - User tracking (nullable)
--   `created_at` / `updated_at` - Timestamps
+### Authorization (RBAC)
 
-#### Programming Languages (`programming_languages` table)
+Three roles are supported: **admin**, **editor**, **viewer**.
 
--   `id` - Primary key
--   `name` - Language name
--   `description` - Language description
--   `created_by` / `updated_by` - User tracking (nullable)
--   `created_at` / `updated_at` - Timestamps
+| Action | Admin | Editor | Viewer |
+|---|---|---|---|
+| Read (GET) | ✅ | ✅ | ✅ |
+| Create (POST) | ✅ | ✅ | ❌ |
+| Update (PUT) | ✅ | ✅ | ❌ |
+| Delete (DELETE) | ✅ | ❌ | ❌ |
+
+Authorization is enforced at two layers:
+1. **Form Requests** — `authorize()` checks the user's policy before validation runs
+2. **Policies** — one `{Model}Policy` per resource, with `create`, `update`, and `delete` rules
 
 ## 🔧 Development Setup (Docker)
 
@@ -139,6 +118,7 @@ This backend runs in a Docker container. See the main [README.md](../README.md) 
 
 # Backend will be available at:
 # http://localhost:8080/api/v1/*
+# OpenAPI docs at: http://localhost:8080/docs/api
 ```
 
 ### Environment Variables
@@ -163,14 +143,14 @@ DB_PASSWORD=atlas_password
 ## 🧪 Testing
 
 ```bash
-# Run all tests
-docker exec -it atlas-backend-dev php artisan test
+# Run all tests (from project root)
+docker exec -it atlas-app php -d memory_limit=512M vendor/bin/phpunit --no-coverage
 
-# Run specific test suite
-docker exec -it atlas-backend-dev php artisan test --testsuite=Feature
+# Run a specific feature suite
+docker exec -it atlas-app php -d memory_limit=512M vendor/bin/phpunit --no-coverage tests/Feature/CiCd/
 
-# Run with coverage
-docker exec -it atlas-backend-dev php artisan test --coverage
+# Run with coverage (slower)
+docker exec -it atlas-app php -d memory_limit=512M vendor/bin/phpunit --coverage-text
 ```
 
 ## 📝 Code Style
@@ -196,15 +176,16 @@ This project follows:
 -   **CORS**: Configured to allow frontend origin
 -   **Validation**: All inputs validated via Form Requests
 -   **Mass Assignment**: Protected via `$fillable` properties
--   **Authentication**: Laravel Sanctum (to be implemented)
+-   **Authentication**: Laravel Sanctum (token-based, implemented)
+-   **Authorization**: Laravel Policies with RBAC (admin/editor/viewer)
 
 ## 📖 API Documentation
 
-API documentation is available via:
+API documentation is auto-generated by [Scramble](https://scramble.dedoc.co/) from PHPDoc and type annotations:
 
--   Routes: `php artisan route:list`
--   Inline via API Resources
--   Swagger/OpenAPI (planned)
+-   **Interactive UI**: `http://localhost:8080/docs/api` (when running)
+-   **OpenAPI spec**: [`public/api.json`](public/api.json) (213 operations, committed)
+-   **Routes overview**: `php artisan route:list`
 
 ## 🚀 Deployment
 
@@ -222,7 +203,9 @@ This backend is containerized and ready for deployment:
 
 ## 🤝 Contributing
 
-**Note**: This backend is currently in READ-ONLY mode. No contributions are being accepted at this time. All development efforts are focused on the Next.js frontend.
+Contributions are welcome! Please follow the guidelines in [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+This is an open-source project. Follow TDD: write tests first, then implement. See [`AGENTS.md`](../AGENTS.md) for agent-specific guidelines.
 
 ## 📄 License
 

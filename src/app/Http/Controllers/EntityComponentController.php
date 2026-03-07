@@ -23,6 +23,9 @@ class EntityComponentController extends Controller
         'updater',
     ];
 
+    /**
+     * List components associated with an entity.
+     */
     public function __invoke(Request $request, Entity $entity): ComponentResourceCollection
     {
         $relationships = $request->has('with')

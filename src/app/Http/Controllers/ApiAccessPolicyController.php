@@ -53,6 +53,9 @@ class ApiAccessPolicyController extends Controller
         ], Response::HTTP_OK);
     }
 
+    /**
+     * List APIs associated with an access policy.
+     */
     public function apis(int $id): ApiResourceCollection|JsonResponse
     {
         $apiAccessPolicy = ApiAccessPolicy::tryFrom($id);
