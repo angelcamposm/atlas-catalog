@@ -7,6 +7,9 @@ namespace App\Models;
 use App\Http\Resources\ReleaseArtifactResource;
 use App\Http\Resources\ReleaseArtifactResourceCollection;
 use App\Observers\ReleaseArtifactObserver;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\ReleaseArtifactFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -37,6 +40,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ReleaseArtifact extends Model
 {
     use HasFactory;
+    use Filterable;
+    use Searchable;
+    use Sortable;
 
     protected $table = 'release_artifacts';
 
@@ -49,6 +55,39 @@ class ReleaseArtifact extends Model
         'digest_sha1',
         'digest_sha256',
         'size_bytes',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'release_id',
+        'type',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'url',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'type',
+        'created_at',
+        'updated_at',
     ];
 
     public function release(): BelongsTo

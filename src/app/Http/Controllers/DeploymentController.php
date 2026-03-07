@@ -9,14 +9,16 @@ use App\Http\Requests\UpdateDeploymentRequest;
 use App\Http\Resources\DeploymentResource;
 use App\Http\Resources\DeploymentResourceCollection;
 use App\Models\Deployment;
+use App\Services\DeploymentService;
 use App\Traits\AllowedRelationships;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 
 class DeploymentController extends Controller
 {
     use AllowedRelationships;
+
+    public function __construct(private readonly DeploymentService $deploymentService) {}
 
     public const array ALLOWED_RELATIONSHIPS = [
         'component',
@@ -53,7 +55,11 @@ class DeploymentController extends Controller
             : [];
 
         return new DeploymentResourceCollection(
-            Deployment::with($relationships)->paginate()
+            Deployment::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($relationships)
+                ->paginate()
         );
     }
 
@@ -69,7 +75,7 @@ class DeploymentController extends Controller
      * - `release_id` (required, UUID) - Release version being deployed
      * - `environment_id` (required, UUID) - Target environment (dev, staging, prod, etc.)
      * - `cluster_id` (required, UUID) - Target cluster
-     * - `status` (required, string) - Deployment status (pending, in_progress, completed, failed)
+     * - `status` (required, string) - Deployment status (pending, in_progress, success, failed, cancelled, rolled_back)
      * - `started_at` (optional, datetime) - Deployment start time (auto-set to now if omitted)
      * - `meta` (optional, object) - Additional metadata (build info, flags, etc.)
      *
@@ -84,13 +90,7 @@ class DeploymentController extends Controller
      */
     public function store(StoreDeploymentRequest $request): DeploymentResource
     {
-        $data = $request->validated();
-
-        if (!isset($data['started_at'])) {
-            $data['started_at'] = Carbon::now();
-        }
-
-        $deployment = Deployment::create($data);
+        $deployment = $this->deploymentService->create($request->validated());
 
         return new DeploymentResource($deployment);
     }
@@ -143,25 +143,7 @@ class DeploymentController extends Controller
      */
     public function update(UpdateDeploymentRequest $request, Deployment $deployment): DeploymentResource
     {
-        $data = $request->validated();
-
-        $endedAt = isset($data['ended_at'])
-            ? Carbon::parse($data['ended_at'])
-            : Carbon::now();
-
-        $data['ended_at'] = $endedAt;
-
-        // Calculate duration
-        if ($deployment->started_at) {
-            $data['duration_milliseconds'] = $deployment->started_at->diffInMilliseconds($endedAt);
-        }
-
-        // Merge meta if exists
-        if (isset($data['meta']) && $deployment->meta) {
-            $data['meta'] = array_merge($deployment->meta, $data['meta']);
-        }
-
-        $deployment->update($data);
+        $deployment = $this->deploymentService->update($deployment, $request->validated());
 
         return new DeploymentResource($deployment);
     }

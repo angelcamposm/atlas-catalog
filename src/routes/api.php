@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
  * Routes related to high-level system design, including business domains,
  * capabilities, and architectural tiers.
  */
-include_once 'v1/architecture.php';
+require __DIR__.'/v1/architecture.php';
 
 /**
  * Catalog Domain
@@ -21,7 +21,7 @@ include_once 'v1/architecture.php';
  * Routes for the core service catalog, managing components, APIs,
  * resources, and their associated metadata.
  */
-include_once 'v1/catalog.php';
+require __DIR__.'/v1/catalog.php';
 
 /**
  * CI/CD Domain
@@ -29,7 +29,7 @@ include_once 'v1/catalog.php';
  * Routes for Continuous Integration and Continuous Deployment, handling
  * workflows, jobs, runs, and pipeline integrations.
  */
-include_once 'v1/ci-cd.php';
+require __DIR__.'/v1/ci-cd.php';
 
 /**
  * Compliance Domain
@@ -37,7 +37,7 @@ include_once 'v1/ci-cd.php';
  * Routes for managing regulatory standards, compliance checks, and
  * governance requirements.
  */
-include_once 'v1/compliance.php';
+require __DIR__.'/v1/compliance.php';
 
 /**
  * Infrastructure Domain
@@ -45,7 +45,7 @@ include_once 'v1/compliance.php';
  * Routes for managing physical and virtual infrastructure, including
  * clusters, nodes, environments, and platforms.
  */
-include_once 'v1/infrastructure.php';
+require __DIR__.'/v1/infrastructure.php';
 
 /**
  * Operations Domain
@@ -53,7 +53,7 @@ include_once 'v1/infrastructure.php';
  * Routes for tracking the operational status, health, availability,
  * and incidents of system components and infrastructure.
  */
-include_once 'v1/operations.php';
+require __DIR__.'/v1/operations.php';
 
 /**
  * Organization Domain
@@ -61,7 +61,7 @@ include_once 'v1/operations.php';
  * Routes for managing the organizational structure, including groups,
  * teams, members, and their roles.
  */
-include_once 'v1/organization.php';
+require __DIR__.'/v1/organization.php';
 
 /**
  * Security Domain
@@ -69,14 +69,14 @@ include_once 'v1/organization.php';
  * Routes for security management, including authentication methods,
  * access policies, and service accounts.
  */
-include_once 'v1/security.php';
+require __DIR__.'/v1/security.php';
 
 /**
  * Webhooks Domain
  *
  * Routes for inbound events from external systems such as CI/CD platforms.
  */
-include_once 'v1/webhooks.php';
+require __DIR__.'/v1/webhooks.php';
 
 Route::prefix('v1')->group(function () {
     /**

@@ -9,7 +9,10 @@ use App\Http\Resources\BusinessDomainResource;
 use App\Http\Resources\BusinessDomainResourceCollection;
 use App\Observers\BusinessDomainObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
 use App\Traits\HasRelatives;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\BusinessDomainFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -48,8 +51,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class BusinessDomain extends Model
 {
     use BelongsToUser;
+    use Filterable;
     use HasFactory;
     use HasRelatives;
+    use Searchable;
+    use Sortable;
 
     /**
      * The table associated with the model.
@@ -73,6 +79,40 @@ class BusinessDomain extends Model
         'slug',
         'created_by',
         'updated_by',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'category',
+        'is_enabled',
+        'parent_id',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'display_name',
+        'description',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
     ];
 
     /**

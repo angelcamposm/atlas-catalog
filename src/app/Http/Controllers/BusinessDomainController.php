@@ -50,7 +50,13 @@ class BusinessDomainController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new BusinessDomainResourceCollection(BusinessDomain::with($requestedRelationships)->paginate());
+        return new BusinessDomainResourceCollection(
+            BusinessDomain::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**

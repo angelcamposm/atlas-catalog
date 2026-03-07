@@ -9,7 +9,10 @@ use App\Http\Resources\BusinessCapabilityResource;
 use App\Http\Resources\BusinessCapabilityResourceCollection;
 use App\Observers\BusinessCapabilityObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
 use App\Traits\HasRelatives;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\BusinessCapabilityFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
@@ -51,8 +54,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class BusinessCapability extends Model
 {
     use BelongsToUser;
+    use Filterable;
     use HasFactory;
     use HasRelatives;
+    use Searchable;
+    use Sortable;
 
     /**
      * The table associated with the model.
@@ -73,6 +79,38 @@ class BusinessCapability extends Model
         'strategic_value',
         'created_by',
         'updated_by',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'parent_id',
+        'strategic_value',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'description',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
     ];
 
     /**

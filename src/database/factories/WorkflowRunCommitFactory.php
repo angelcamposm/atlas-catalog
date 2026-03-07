@@ -32,7 +32,7 @@ class WorkflowRunCommitFactory extends Factory
             'author_name' => $this->faker->name(),
             'commit_date' => $this->faker->date(),
             'commit_message' => $this->faker->sentence(),
-            'commit_sha' => $this->faker->sha256,
+            'commit_sha' => $this->faker->sha1,
             'ref_name' => $this->faker->word(),
             'repo_url' => $this->faker->url(),
         ];

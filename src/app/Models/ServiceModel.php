@@ -8,6 +8,9 @@ use App\Http\Resources\ServiceModelResource;
 use App\Http\Resources\ServiceModelResourceCollection;
 use App\Observers\ServiceModelObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\ServiceModelFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
@@ -40,7 +43,10 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceModel extends Model
 {
     use BelongsToUser;
+    use Filterable;
     use HasFactory;
+    use Searchable;
+    use Sortable;
 
     /**
      * The table associated with the model.
@@ -62,6 +68,37 @@ class ServiceModel extends Model
         'description',
         'created_by',
         'updated_by',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'display_name',
+        'description',
+        'abbrv',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
     ];
 
     /**

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WorkflowRunResource;
 use App\Models\WorkflowRun;
 use App\Http\Requests\StoreWorkflowRunRequest;
 use App\Http\Requests\UpdateWorkflowRunRequest;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class WorkflowRunController extends Controller
@@ -15,45 +16,45 @@ class WorkflowRunController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        return WorkflowRun::paginate()->toResourceCollection();
+        return WorkflowRunResource::collection(WorkflowRun::paginate());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWorkflowRunRequest $request): JsonResource
+    public function store(StoreWorkflowRunRequest $request): WorkflowRunResource
     {
         $model = WorkflowRun::create($request->validated());
 
-        return $model->toResource();
+        return new WorkflowRunResource($model);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(WorkflowRun $workflowRun): JsonResource
+    public function show(WorkflowRun $run): WorkflowRunResource
     {
-        return $workflowRun->toResource();
+        return new WorkflowRunResource($run);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateWorkflowRunRequest $request, WorkflowRun $workflowRun): JsonResource
+    public function update(UpdateWorkflowRunRequest $request, WorkflowRun $run): WorkflowRunResource
     {
-        $workflowRun->update($request->validated());
+        $run->update($request->validated());
 
-        return $workflowRun->toResource();
+        return new WorkflowRunResource($run);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WorkflowRun $workflowRun): Response
+    public function destroy(WorkflowRun $run): Response
     {
-        $workflowRun->delete();
+        $run->delete();
 
         return response()->noContent();
     }

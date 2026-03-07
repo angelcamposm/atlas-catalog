@@ -15,4 +15,9 @@ enum WorkflowRunResult: string
     case NotBuilt = 'NOT_BUILT';
     case Success = 'SUCCESS';
     case Unstable = 'UNSTABLE';
+
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

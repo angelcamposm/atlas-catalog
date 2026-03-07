@@ -49,4 +49,14 @@ enum DiscoverySource: string
             self::Scan => 'search',
         };
     }
+
+    /**
+     * Returns all enum values as a plain array.
+     *
+     * @return array<string>
+     */
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
+    }
 }

@@ -36,7 +36,13 @@ class NodeController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new NodeResourceCollection(Node::with($relationships)->paginate());
+        return new NodeResourceCollection(
+            Node::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($relationships)
+                ->paginate()
+        );
     }
 
     /**

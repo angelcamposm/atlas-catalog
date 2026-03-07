@@ -4,65 +4,51 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Operations;
 
+use App\Models\Cluster;
 use App\Models\Deployment;
-use App\Models\Api;
+use App\Models\Environment;
+use App\Models\WorkflowRun;
+use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Feature\ApiTestCase;
 
 /**
  * Feature tests for DeploymentController.
  *
- * Tests CRUD operations for Deployment resources.
+ * Tests the currently exposed CI/CD deployment routes.
  */
 class DeploymentControllerTest extends ApiTestCase
 {
+    private const CI_CD_DEPLOYMENTS_ENDPOINT = '/api/v1/ci-cd/deployments';
+
     #[Test]
     public function test_list_deployments_returns_paginated_results(): void
     {
-        Deployment::factory()->count(15)->create();
+        $this->createDeployment();
+        $this->createDeployment([
+            'status' => 'success',
+        ]);
+        $this->createDeployment([
+            'status' => 'failed',
+        ]);
 
         $response = $this->actingAsEditor()
-            ->getJson('/api/v1/operations/deployments');
+            ->getJson(self::CI_CD_DEPLOYMENTS_ENDPOINT);
 
         $response->assertOk()
             ->assertJsonStructure([
                 'data' => [
-                    '*' => ['id', 'status', 'created_at', 'updated_at'],
+                    '*' => ['id', 'component_id', 'environment_id', 'status', 'started_at'],
                 ],
                 'meta' => ['total', 'per_page', 'current_page', 'last_page'],
             ])
-            ->assertJsonCount(15, 'data');
+            ->assertJsonCount(3, 'data');
     }
 
     #[Test]
-    public function test_create_deployment_as_editor(): void
+    public function test_list_deployments_requires_authentication(): void
     {
-        $api = Api::factory()->create();
-
-        $data = [
-            'api_id' => $api->id,
-            'description' => 'Deploy to production',
-            'status' => 'pending',
-            'environment' => 'production',
-        ];
-
-        $response = $this->actingAsEditor()
-            ->postJson('/api/v1/operations/deployments', $data);
-
-        $response->assertCreated()
-            ->assertJsonPath('data.environment', 'production');
-
-        $this->assertDatabaseHas('deployments', [
-            'environment' => 'production',
-        ]);
-    }
-
-    #[Test]
-    public function test_create_deployment_requires_authentication(): void
-    {
-        $data = ['status' => 'pending'];
-
-        $response = $this->postJson('/api/v1/operations/deployments', $data);
+        $response = $this->getJson(self::CI_CD_DEPLOYMENTS_ENDPOINT);
 
         $response->assertUnauthorized();
     }
@@ -70,82 +56,113 @@ class DeploymentControllerTest extends ApiTestCase
     #[Test]
     public function test_show_deployment_by_id(): void
     {
-        $deployment = Deployment::factory()->create();
+        $deployment = $this->createDeployment();
 
         $response = $this->actingAsEditor()
-            ->getJson("/api/v1/operations/deployments/{$deployment->id}");
+            ->getJson(self::CI_CD_DEPLOYMENTS_ENDPOINT."/{$deployment->id}");
 
         $response->assertOk()
-            ->assertJsonPath('data.id', $deployment->id);
+            ->assertJsonPath('data.id', $deployment->id)
+            ->assertJsonPath('data.component_id', $deployment->component_id)
+            ->assertJsonPath('data.environment_id', $deployment->environment_id);
     }
 
     #[Test]
     public function test_update_deployment_as_editor(): void
     {
-        $deployment = Deployment::factory()->create();
-
-        $data = [
-            'status' => 'success',
-            'description' => 'Deployment successful',
-        ];
+        $deployment = $this->createDeployment([
+            'started_at' => Carbon::parse('2026-03-07 10:00:00'),
+            'meta' => ['existing' => 'value'],
+        ]);
 
         $response = $this->actingAsEditor()
-            ->putJson("/api/v1/operations/deployments/{$deployment->id}", $data);
+            ->putJson(self::CI_CD_DEPLOYMENTS_ENDPOINT."/{$deployment->id}", [
+                'status' => 'success',
+                'ended_at' => '2026-03-07 10:00:05',
+                'meta' => [
+                    'summary' => 'Deployment successful',
+                ],
+            ]);
 
         $response->assertOk()
-            ->assertJsonPath('data.status', 'success');
+            ->assertJsonPath('data.status', 'success')
+            ->assertJsonPath('data.duration_milliseconds', 5000)
+            ->assertJsonPath('data.meta.existing', 'value')
+            ->assertJsonPath('data.meta.summary', 'Deployment successful');
 
         $this->assertDatabaseHas('deployments', [
             'id' => $deployment->id,
             'status' => 'success',
+            'duration_milliseconds' => 5000,
         ]);
     }
 
     #[Test]
-    public function test_delete_deployment_as_admin_only(): void
+    public function test_update_deployment_requires_authentication(): void
     {
-        $deployment = Deployment::factory()->create();
+        $deployment = $this->createDeployment();
 
-        $response = $this->actingAsEditor()
-            ->deleteJson("/api/v1/operations/deployments/{$deployment->id}");
+        $response = $this->putJson(self::CI_CD_DEPLOYMENTS_ENDPOINT."/{$deployment->id}", [
+            'status' => 'success',
+        ]);
 
-        $response->assertForbidden();
-
-        $response = $this->actingAsAdmin()
-            ->deleteJson("/api/v1/operations/deployments/{$deployment->id}");
-
-        $response->assertNoContent();
-
-        $this->assertDatabaseMissing('deployments', ['id' => $deployment->id]);
+        $response->assertUnauthorized();
     }
 
     #[Test]
     public function test_show_nonexistent_deployment_returns_404(): void
     {
         $response = $this->actingAsEditor()
-            ->getJson('/api/v1/operations/deployments/9999');
+            ->getJson(self::CI_CD_DEPLOYMENTS_ENDPOINT.'/9999');
 
         $response->assertNotFound();
     }
 
     #[Test]
-    public function test_create_deployment_validates_required_fields(): void
+    public function test_update_deployment_validates_required_fields(): void
     {
+        $deployment = $this->createDeployment();
+
         $response = $this->actingAsEditor()
-            ->postJson('/api/v1/operations/deployments', []);
+            ->putJson(self::CI_CD_DEPLOYMENTS_ENDPOINT."/{$deployment->id}", []);
 
         $response->assertUnprocessable()
-            ->assertJsonStructure(['errors']);
+            ->assertJsonValidationErrors(['status']);
     }
 
     #[Test]
-    public function test_viewer_cannot_create_deployment(): void
+    public function test_create_route_is_not_exposed_for_ci_cd_deployments(): void
     {
-        $data = ['status' => 'pending'];
+        $response = $this->actingAsAdmin()
+            ->postJson(self::CI_CD_DEPLOYMENTS_ENDPOINT, [
+                'status' => 'pending',
+            ]);
 
-        $response = $this->actingAsViewer()
-            ->postJson('/api/v1/operations/deployments', $data);
+        $this->assertContains($response->status(), [404, 405]);
+    }
 
-        $response->assertForbidden();
+    #[Test]
+    public function test_delete_route_is_not_exposed_for_ci_cd_deployments(): void
+    {
+        $deployment = $this->createDeployment();
+
+        $response = $this->actingAsAdmin()
+            ->deleteJson(self::CI_CD_DEPLOYMENTS_ENDPOINT."/{$deployment->id}");
+
+        $this->assertContains($response->status(), [404, 405]);
+    }
+
+    private function createDeployment(array $overrides = []): Deployment
+    {
+        $workflowRun = WorkflowRun::factory()->create();
+        $environment = Environment::factory()->create();
+
+        return Deployment::create(array_merge([
+            'component_id' => $workflowRun->workflowJob->component_id,
+            'environment_id' => $environment->id,
+            'cluster_id' => Cluster::factory()->create()->id,
+            'status' => 'pending',
+            'started_at' => Carbon::parse('2026-03-07 09:59:00'),
+        ], $overrides));
     }
 }

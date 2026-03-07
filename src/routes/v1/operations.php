@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\MetricController;
 use App\Http\Controllers\ServiceStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
     Route::prefix('operations')->group(function () {
         Route::apiResource('service-statuses', ServiceStatusController::class);
+        Route::apiResource('metrics', MetricController::class);
     });
 });

@@ -35,7 +35,13 @@ class ServiceModelController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new ServiceModelResourceCollection(ServiceModel::with($requestedRelationships)->paginate());
+        return new ServiceModelResourceCollection(
+            ServiceModel::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**

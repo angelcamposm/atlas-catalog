@@ -41,7 +41,13 @@ class ReleaseArtifactController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new ReleaseArtifactResourceCollection(ReleaseArtifact::with($requestedRelationships)->paginate());
+        return new ReleaseArtifactResourceCollection(
+            ReleaseArtifact::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**

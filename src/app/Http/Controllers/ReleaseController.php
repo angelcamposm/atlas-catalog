@@ -99,9 +99,9 @@ class ReleaseController extends Controller
      */
     public function update(UpdateReleaseRequest $request, Release $release): ReleaseResource
     {
-        $model = $release->update($request->validated());
+        $release->update($request->validated());
 
-        return new ReleaseResource($model);
+        return new ReleaseResource($release);
     }
 
     /**

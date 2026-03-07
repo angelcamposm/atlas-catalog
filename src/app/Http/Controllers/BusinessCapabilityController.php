@@ -49,7 +49,13 @@ class BusinessCapabilityController extends Controller
                 ? self::filterAllowedRelationships($request->get('with'))
                 : [];
 
-        return new BusinessCapabilityResourceCollection(BusinessCapability::with($requestedRelationships)->paginate());
+        return new BusinessCapabilityResourceCollection(
+            BusinessCapability::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**

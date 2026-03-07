@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Webhooks;
 
+use App\Enums\DeploymentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DeploymentResource;
-use App\Models\Deployment;
 use App\Models\WorkflowRun;
+use App\Services\DeploymentService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -21,6 +23,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class DeploymentWebhookController extends Controller
 {
+    public function __construct(private readonly DeploymentService $deploymentService) {}
+
     /**
      * Create a new deployment record from webhook payload.
      *
@@ -30,13 +34,12 @@ class DeploymentWebhookController extends Controller
      */
     public function __invoke(Request $request): DeploymentResource|JsonResponse
     {
-        // Validate webhook payload structure
         $validated = $request->validate([
             'workflow_run_id' => 'required|integer|exists:workflow_runs,id',
             'environment_id' => 'required|integer|exists:environments,id',
             'cluster_id' => 'nullable|integer|exists:clusters,id',
             'release_id' => 'nullable|integer|exists:releases,id',
-            'status' => 'required|string|in:pending,running,success,failed,cancelled',
+            'status'          => ['required', 'string', Rule::in([...DeploymentStatus::values(), 'running'])],
             'started_at' => 'nullable|date_format:Y-m-d H:i:s',
             'finished_at' => 'nullable|date_format:Y-m-d H:i:s',
             'metadata' => 'nullable|array',
@@ -44,26 +47,28 @@ class DeploymentWebhookController extends Controller
         ]);
 
         try {
-            // Find or create deployment
-            $deployment = Deployment::updateOrCreate(
-                [
-                    'workflow_run_id' => $validated['workflow_run_id'],
-                    'environment_id' => $validated['environment_id'],
-                ],
-                [
-                    'cluster_id' => $validated['cluster_id'],
-                    'release_id' => $validated['release_id'],
-                    'status' => $validated['status'],
-                    'started_at' => $validated['started_at'],
-                    'finished_at' => $validated['finished_at'],
-                    'metadata' => $validated['metadata'] ?? [],
-                    'logs' => $validated['logs'],
-                ]
+            $workflowRun = WorkflowRun::query()
+                ->with('workflowJob:id,component_id')
+                ->findOrFail($validated['workflow_run_id']);
+
+            if ($workflowRun->workflowJob?->component_id === null) {
+                throw ValidationException::withMessages([
+                    'workflow_run_id' => 'The selected workflow run is not linked to a component.',
+                ]);
+            }
+
+            [$deployment, $wasRecentlyCreated] = $this->deploymentService->createOrUpdateFromWebhook(
+                $validated,
+                $workflowRun,
             );
 
-            return new DeploymentResource(
+            return (new DeploymentResource(
                 $deployment->load(['workflowRun', 'environment', 'cluster', 'release'])
+            ))->response()->setStatusCode(
+                $wasRecentlyCreated ? Response::HTTP_CREATED : Response::HTTP_OK
             );
+        } catch (ValidationException $e) {
+            throw $e;
         } catch (\Exception $e) {
             return response()->json(
                 [
