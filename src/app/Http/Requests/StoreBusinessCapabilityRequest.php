@@ -8,6 +8,7 @@ use App\Enums\StrategicValue;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\BusinessCapability;
 
 class StoreBusinessCapabilityRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class StoreBusinessCapabilityRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', BusinessCapability::class) ?? false;
     }
 
     /**

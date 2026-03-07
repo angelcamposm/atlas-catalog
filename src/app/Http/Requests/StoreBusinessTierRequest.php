@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\BusinessTier;
 
 class StoreBusinessTierRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreBusinessTierRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', BusinessTier::class) ?? false;
     }
 
     /**

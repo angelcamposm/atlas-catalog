@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\Entity;
 
 class StoreEntityRequest extends FormRequest
 {
@@ -15,7 +16,7 @@ class StoreEntityRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Entity::class) ?? false;
     }
 
     /**

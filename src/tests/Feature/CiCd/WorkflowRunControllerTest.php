@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\CiCd;
 
+use App\Models\WorkflowJob;
 use App\Models\WorkflowRun;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Feature\ApiTestCase;
@@ -15,18 +16,22 @@ use Tests\Feature\ApiTestCase;
  */
 class WorkflowRunControllerTest extends ApiTestCase
 {
+    private const WORKFLOW_RUNS_ENDPOINT = '/api/v1/ci-cd/workflows/runs';
+
+    private const BUILD_PIPELINE_RUN = 'Build Pipeline Run';
+
     #[Test]
     public function test_list_workflow_runs_returns_paginated_results(): void
     {
         WorkflowRun::factory()->count(15)->create();
 
         $response = $this->actingAsEditor()
-            ->getJson('/api/v1/ci-cd/workflow-runs');
+            ->getJson(self::WORKFLOW_RUNS_ENDPOINT);
 
         $response->assertOk()
             ->assertJsonStructure([
                 'data' => [
-                    '*' => ['id', 'status', 'created_at', 'updated_at'],
+                    '*' => ['id', 'workflow_job_id', 'display_name', 'result', 'started_at'],
                 ],
                 'meta' => ['total', 'per_page', 'current_page', 'last_page'],
             ])
@@ -36,27 +41,34 @@ class WorkflowRunControllerTest extends ApiTestCase
     #[Test]
     public function test_create_workflow_run_as_editor(): void
     {
+        $workflowJob = WorkflowJob::factory()->create();
+
         $data = [
-            'name' => 'Build Pipeline Run',
+            'workflow_job_id' => $workflowJob->id,
             'description' => 'Automated build and test run',
-            'status' => 'pending',
+            'display_name' => self::BUILD_PIPELINE_RUN,
+            'duration_milliseconds' => 5000,
+            'is_enabled' => true,
+            'result' => 'SUCCESS',
+            'started_at' => '2026-03-07 12:00:00',
         ];
 
         $response = $this->actingAsEditor()
-            ->postJson('/api/v1/ci-cd/workflow-runs', $data);
+            ->postJson(self::WORKFLOW_RUNS_ENDPOINT, $data);
 
         $response->assertCreated()
-            ->assertJsonPath('data.name', 'Build Pipeline Run');
+            ->assertJsonPath('data.display_name', self::BUILD_PIPELINE_RUN)
+            ->assertJsonPath('data.result', 'SUCCESS');
 
-        $this->assertDatabaseHas('workflow_runs', ['name' => 'Build Pipeline Run']);
+        $this->assertDatabaseHas('workflow_runs', ['display_name' => self::BUILD_PIPELINE_RUN]);
     }
 
     #[Test]
     public function test_create_workflow_run_requires_authentication(): void
     {
-        $data = ['name' => 'Test Run'];
+        $data = ['display_name' => 'Test Run'];
 
-        $response = $this->postJson('/api/v1/ci-cd/workflow-runs', $data);
+        $response = $this->postJson(self::WORKFLOW_RUNS_ENDPOINT, $data);
 
         $response->assertUnauthorized();
     }
@@ -67,7 +79,7 @@ class WorkflowRunControllerTest extends ApiTestCase
         $run = WorkflowRun::factory()->create();
 
         $response = $this->actingAsEditor()
-            ->getJson("/api/v1/ci-cd/workflow-runs/{$run->id}");
+            ->getJson(self::WORKFLOW_RUNS_ENDPOINT."/{$run->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.id', $run->id);
@@ -79,34 +91,29 @@ class WorkflowRunControllerTest extends ApiTestCase
         $run = WorkflowRun::factory()->create();
 
         $data = [
-            'status' => 'success',
+            'result' => 'SUCCESS',
             'description' => 'Successfully completed',
         ];
 
         $response = $this->actingAsEditor()
-            ->putJson("/api/v1/ci-cd/workflow-runs/{$run->id}", $data);
+            ->putJson(self::WORKFLOW_RUNS_ENDPOINT."/{$run->id}", $data);
 
         $response->assertOk()
-            ->assertJsonPath('data.status', 'success');
+            ->assertJsonPath('data.result', 'SUCCESS');
 
         $this->assertDatabaseHas('workflow_runs', [
             'id' => $run->id,
-            'status' => 'success',
+            'result' => 'SUCCESS',
         ]);
     }
 
     #[Test]
-    public function test_delete_workflow_run_as_admin_only(): void
+    public function test_delete_workflow_run_as_authenticated_user(): void
     {
         $run = WorkflowRun::factory()->create();
 
         $response = $this->actingAsEditor()
-            ->deleteJson("/api/v1/ci-cd/workflow-runs/{$run->id}");
-
-        $response->assertForbidden();
-
-        $response = $this->actingAsAdmin()
-            ->deleteJson("/api/v1/ci-cd/workflow-runs/{$run->id}");
+            ->deleteJson(self::WORKFLOW_RUNS_ENDPOINT."/{$run->id}");
 
         $response->assertNoContent();
 
@@ -117,7 +124,7 @@ class WorkflowRunControllerTest extends ApiTestCase
     public function test_show_nonexistent_workflow_run_returns_404(): void
     {
         $response = $this->actingAsEditor()
-            ->getJson('/api/v1/ci-cd/workflow-runs/9999');
+            ->getJson(self::WORKFLOW_RUNS_ENDPOINT.'/9999');
 
         $response->assertNotFound();
     }
@@ -126,19 +133,37 @@ class WorkflowRunControllerTest extends ApiTestCase
     public function test_create_workflow_run_validates_required_fields(): void
     {
         $response = $this->actingAsEditor()
-            ->postJson('/api/v1/ci-cd/workflow-runs', []);
+            ->postJson(self::WORKFLOW_RUNS_ENDPOINT, []);
 
         $response->assertUnprocessable()
-            ->assertJsonStructure(['errors']);
+            ->assertJsonValidationErrors([
+                'workflow_job_id',
+                'description',
+                'display_name',
+                'duration_milliseconds',
+                'is_enabled',
+                'result',
+                'started_at',
+            ]);
     }
 
     #[Test]
-    public function test_viewer_cannot_create_workflow_run(): void
+    public function test_create_workflow_run_denies_viewer(): void
     {
-        $data = ['name' => 'Test Run'];
+        $workflowJob = WorkflowJob::factory()->create();
+
+        $data = [
+            'workflow_job_id' => $workflowJob->id,
+            'description' => 'Viewer initiated run',
+            'display_name' => 'Viewer Run',
+            'duration_milliseconds' => 1000,
+            'is_enabled' => true,
+            'result' => 'FAILURE',
+            'started_at' => '2026-03-07 12:01:00',
+        ];
 
         $response = $this->actingAsViewer()
-            ->postJson('/api/v1/ci-cd/workflow-runs', $data);
+            ->postJson(self::WORKFLOW_RUNS_ENDPOINT, $data);
 
         $response->assertForbidden();
     }

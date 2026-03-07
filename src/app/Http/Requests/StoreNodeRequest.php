@@ -10,12 +10,13 @@ use App\Enums\NodeType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use App\Models\Node;
 
 class StoreNodeRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Node::class) ?? false;
     }
 
     /**

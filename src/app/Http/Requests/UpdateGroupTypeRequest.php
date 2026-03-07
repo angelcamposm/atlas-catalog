@@ -19,7 +19,7 @@ class UpdateGroupTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('type')) ?? false;
     }
 
     /**

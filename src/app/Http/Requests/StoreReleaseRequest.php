@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\Release;
 
 class StoreReleaseRequest extends FormRequest
 {
@@ -15,7 +16,7 @@ class StoreReleaseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Release::class) ?? false;
     }
 
     /**

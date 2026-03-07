@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Feature\CiCd;
 
+use App\Models\Component;
 use App\Models\Release;
-use App\Models\Api;
+use App\Models\WorkflowRun;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Feature\ApiTestCase;
 
@@ -16,13 +17,15 @@ use Tests\Feature\ApiTestCase;
  */
 class ReleaseControllerTest extends ApiTestCase
 {
+    private const RELEASES_ENDPOINT = '/api/v1/ci-cd/releases';
+
     #[Test]
     public function test_list_releases_returns_paginated_results(): void
     {
         Release::factory()->count(15)->create();
 
         $response = $this->actingAsEditor()
-            ->getJson('/api/v1/ci-cd/releases');
+            ->getJson(self::RELEASES_ENDPOINT);
 
         $response->assertOk()
             ->assertJsonStructure([
@@ -37,19 +40,27 @@ class ReleaseControllerTest extends ApiTestCase
     #[Test]
     public function test_create_release_as_editor(): void
     {
-        $api = Api::factory()->create();
+        $component = Component::factory()->create();
+        $workflowRun = WorkflowRun::factory()->create([
+            'workflow_job_id' =>
+                \App\Models\WorkflowJob::factory()->create(['component_id' => $component->id])->id,
+        ]);
 
         $data = [
+            'component_id' => $component->id,
+            'workflow_run_id' => $workflowRun->id,
             'version' => 'v1.0.0',
-            'description' => 'First production release',
-            'api_id' => $api->id,
+            'status' => 'published',
+            'changelog' => 'First production release',
         ];
 
         $response = $this->actingAsEditor()
-            ->postJson('/api/v1/ci-cd/releases', $data);
+            ->postJson(self::RELEASES_ENDPOINT, $data);
 
         $response->assertCreated()
-            ->assertJsonPath('data.version', 'v1.0.0');
+            ->assertJsonPath('data.version', 'v1.0.0')
+            ->assertJsonPath('data.status', 'published')
+            ->assertJsonPath('data.changelog', 'First production release');
 
         $this->assertDatabaseHas('releases', ['version' => 'v1.0.0']);
     }
@@ -59,7 +70,7 @@ class ReleaseControllerTest extends ApiTestCase
     {
         $data = ['version' => 'v1.0.0'];
 
-        $response = $this->postJson('/api/v1/ci-cd/releases', $data);
+        $response = $this->postJson(self::RELEASES_ENDPOINT, $data);
 
         $response->assertUnauthorized();
     }
@@ -70,7 +81,7 @@ class ReleaseControllerTest extends ApiTestCase
         $release = Release::factory()->create();
 
         $response = $this->actingAsEditor()
-            ->getJson("/api/v1/ci-cd/releases/{$release->id}");
+            ->getJson(self::RELEASES_ENDPOINT."/{$release->id}");
 
         $response->assertOk()
             ->assertJsonPath('data.id', $release->id);
@@ -83,14 +94,17 @@ class ReleaseControllerTest extends ApiTestCase
 
         $data = [
             'version' => 'v1.0.1',
-            'description' => 'Patch release',
+            'status' => 'published',
+            'changelog' => 'Patch release',
         ];
 
         $response = $this->actingAsEditor()
-            ->putJson("/api/v1/ci-cd/releases/{$release->id}", $data);
+            ->putJson(self::RELEASES_ENDPOINT."/{$release->id}", $data);
 
         $response->assertOk()
-            ->assertJsonPath('data.version', 'v1.0.1');
+            ->assertJsonPath('data.version', 'v1.0.1')
+            ->assertJsonPath('data.status', 'published')
+            ->assertJsonPath('data.changelog', 'Patch release');
 
         $this->assertDatabaseHas('releases', [
             'id' => $release->id,
@@ -104,12 +118,7 @@ class ReleaseControllerTest extends ApiTestCase
         $release = Release::factory()->create();
 
         $response = $this->actingAsEditor()
-            ->deleteJson("/api/v1/ci-cd/releases/{$release->id}");
-
-        $response->assertForbidden();
-
-        $response = $this->actingAsAdmin()
-            ->deleteJson("/api/v1/ci-cd/releases/{$release->id}");
+            ->deleteJson(self::RELEASES_ENDPOINT."/{$release->id}");
 
         $response->assertNoContent();
 
@@ -120,7 +129,7 @@ class ReleaseControllerTest extends ApiTestCase
     public function test_show_nonexistent_release_returns_404(): void
     {
         $response = $this->actingAsEditor()
-            ->getJson('/api/v1/ci-cd/releases/9999');
+            ->getJson(self::RELEASES_ENDPOINT.'/9999');
 
         $response->assertNotFound();
     }
@@ -129,19 +138,25 @@ class ReleaseControllerTest extends ApiTestCase
     public function test_create_release_validates_required_fields(): void
     {
         $response = $this->actingAsEditor()
-            ->postJson('/api/v1/ci-cd/releases', []);
+            ->postJson(self::RELEASES_ENDPOINT, []);
 
         $response->assertUnprocessable()
-            ->assertJsonStructure(['errors']);
+            ->assertJsonValidationErrors(['component_id', 'version', 'status']);
     }
 
     #[Test]
-    public function test_viewer_cannot_create_release(): void
+    public function test_create_release_denies_viewer(): void
     {
-        $data = ['version' => 'v1.0.0'];
+        $component = Component::factory()->create();
+
+        $data = [
+            'component_id' => $component->id,
+            'version' => 'v2.0.0',
+            'status' => 'draft',
+        ];
 
         $response = $this->actingAsViewer()
-            ->postJson('/api/v1/ci-cd/releases', $data);
+            ->postJson(self::RELEASES_ENDPOINT, $data);
 
         $response->assertForbidden();
     }

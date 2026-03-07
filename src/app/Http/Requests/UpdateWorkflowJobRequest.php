@@ -8,6 +8,7 @@ use App\Enums\DiscoverySource;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\WorkflowJob;
 
 class UpdateWorkflowJobRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class UpdateWorkflowJobRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('job')) ?? false;
     }
 
     /**

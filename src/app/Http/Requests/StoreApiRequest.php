@@ -8,6 +8,7 @@ use App\Enums\Protocol;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use App\Models\Api;
 
 class StoreApiRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class StoreApiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Api::class) ?? false;
     }
 
     /**
