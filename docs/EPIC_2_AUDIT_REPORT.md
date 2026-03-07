@@ -36,18 +36,22 @@ TokenController
 ### Priority Controllers (REFACTORIZADOS)
 
 #### 1. DeploymentController ✅
+
 **Status**: Completamente refactorizado
+
 - ✅ Trait AllowedRelationships agregado
 - ✅ ALLOWED_RELATIONSHIPS: [component, environment, cluster, release, workflowRun, triggerer]
 - ✅ index(): ResourceCollection con ?with param
 - ✅ show(): DeploymentResource
 - ✅ store(): DeploymentResource
-- ✅ update(): DeploymentResource  
+- ✅ update(): DeploymentResource
 - ✅ destroy(): response()->noContent()
-- ❌ __invoke() removido
+- ❌ \_\_invoke() removido
 
 #### 2. SystemController ✅
+
 **Status**: Actualizado con AllowedRelationships
+
 - ✅ Trait AllowedRelationships agregado
 - ✅ ALLOWED_RELATIONSHIPS: [components, businessCapabilities, owner, creator, updater]
 - ✅ index(): SystemResourceCollection con ?with param
@@ -57,7 +61,9 @@ TokenController
 - ✅ destroy(): response()->noContent()
 
 #### 3. ReleaseController ✅
+
 **Status**: Mejorado con index() eager-loading
+
 - ✅ Trait AllowedRelationships (ya había)
 - ✅ ALLOWED_RELATIONSHIPS: [artifacts, component, creator, updater, workflowRun]
 - ✅ index(): ReleaseResourceCollection con ?with param
@@ -67,7 +73,9 @@ TokenController
 - ✅ destroy(): response()->noContent()
 
 #### 4. ComponentController ✅
+
 **Status**: Mejorado con index() eager-loading
+
 - ✅ Trait AllowedRelationships (ya había)
 - ✅ ALLOWED_RELATIONSHIPS detallado (10 relaciones)
 - ✅ index(): ComponentResourceCollection con ?with param
@@ -77,7 +85,9 @@ TokenController
 - ✅ destroy(): response()->noContent()
 
 #### 5. ApiController ✅
+
 **Status**: Mejorado con index() eager-loading
+
 - ✅ Trait AllowedRelationships (ya había)
 - ✅ ALLOWED_RELATIONSHIPS: 9 relaciones bien documentadas
 - ✅ index(): ApiResourceCollection con ?with param
@@ -96,7 +106,7 @@ Todos los siguientes controllers siguen los patrones correctos:
 
 - ✅ ClusterController
 - ✅ EnvironmentController
-- ✅ ApiArtifactController  
+- ✅ ApiArtifactController
 - ✅ ApiAuthenticationMethodController
 - ✅ ApiReleaseArtifactController
 - ✅ ApiStatusController
@@ -181,9 +191,10 @@ Todos los siguientes controllers siguen los patrones correctos:
 ## 💡 Mejoras Implementadas
 
 ### DeploymentController
+
 ```php
 // Antes
-public function __invoke(): DeploymentResourceCollection { 
+public function __invoke(): DeploymentResourceCollection {
     return $this->index(); // Redundante
 }
 public function show(Deployment $deployment): JsonResponse {
@@ -205,6 +216,7 @@ public function show(Deployment $deployment): DeploymentResource {
 ```
 
 ### SystemController, ReleaseController, ComponentController, ApiController
+
 ```php
 // Mejora: Soporte para eager-loading en index()
 public function index(Request $request): XXXResourceCollection
@@ -212,12 +224,13 @@ public function index(Request $request): XXXResourceCollection
     $relationships = $request->has('with')
         ? self::filterAllowedRelationships($request->get('with'))
         : [];
-    
+
     return new XXXResourceCollection(Model::with($relationships)->paginate());
 }
 ```
 
 ### Release Model
+
 ```php
 // Agregada relación inversa
 public function deployments(): HasMany

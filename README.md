@@ -6,12 +6,12 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=angelcamposm_atlas-catalog&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=angelcamposm_atlas-catalog)
 
-
 ## About Atlas Catalog
 
 Atlas Catalog is a modern, RESTful API designed to serve as a centralized and comprehensive inventory for all microservices, APIs, and digital assets within an organization. Built on Laravel, it provides a robust and scalable solution for discovering, managing, and understanding the complex landscape of a distributed architecture.
 
 Key features include:
+
 - **Centralized Service Discovery**: A single source of truth for all your APIs and services.
 - **Rich Metadata Management**: Track essential information such as endpoints, versions, ownership, access policies, and documentation.
 - **Business Domain Organization**: Group services by business domains to provide clear context and ownership.
@@ -47,18 +47,19 @@ docker compose -f docker-compose.full.yml up -d --build
 
 Once the containers are running:
 
-| Service | URL | Description |
-|---------|-----|-------------|
-| **Frontend** | http://localhost:3001 | Next.js Web Application |
-| **Backend API** | http://localhost:8080/api/v1 | Laravel REST API |
-| **API Documentation** | http://localhost:8080/docs/api | Scramble-generated OpenAPI spec |
-| **API Health** | http://localhost:8080/api/v1/catalog/apis | Sample endpoint |
+| Service               | URL                                       | Description                     |
+| --------------------- | ----------------------------------------- | ------------------------------- |
+| **Frontend**          | http://localhost:3001                     | Next.js Web Application         |
+| **Backend API**       | http://localhost:8080/api/v1              | Laravel REST API                |
+| **API Documentation** | http://localhost:8080/docs/api            | Scramble-generated OpenAPI spec |
+| **API Health**        | http://localhost:8080/api/v1/catalog/apis | Sample endpoint                 |
 
 ### API Documentation
 
 The Atlas Catalog API is fully documented using **[Scramble](https://scramble.dedoc.co/)**, an open-source OpenAPI documentation generator for Laravel.
 
 **Access the interactive API documentation:**
+
 - **URL:** `http://localhost:8080/docs/api`
 - **Features:** Try-it feature, schema definitions, response examples, endpoint filtering
 
@@ -68,13 +69,13 @@ The documentation is **automatically generated** from the controller code and ty
 
 The full stack includes:
 
-| Container | Service | Port |
-|-----------|---------|------|
+| Container        | Service             | Port |
+| ---------------- | ------------------- | ---- |
 | `atlas-frontend` | Next.js 15 Frontend | 3001 |
-| `atlas-nginx` | Nginx (API Gateway) | 8080 |
-| `atlas-app` | PHP-FPM (Laravel) | 9000 |
-| `atlas-postgres` | PostgreSQL 17 | 5432 |
-| `atlas-redis` | Redis 8 | 6379 |
+| `atlas-nginx`    | Nginx (API Gateway) | 8080 |
+| `atlas-app`      | PHP-FPM (Laravel)   | 9000 |
+| `atlas-postgres` | PostgreSQL 17       | 5432 |
+| `atlas-redis`    | Redis 8             | 6379 |
 
 ### Common Docker Commands
 
@@ -131,6 +132,7 @@ docker compose -f docker-compose.full-dev.yml up --build
 ## 🛠️ Tech Stack
 
 **Backend**:
+
 - Laravel 12.x
 - PHP 8.4+
 - PostgreSQL 17
@@ -138,6 +140,7 @@ docker compose -f docker-compose.full-dev.yml up --build
 - RESTful API
 
 **Frontend**:
+
 - Next.js 15
 - React 19
 - TypeScript
@@ -145,6 +148,7 @@ docker compose -f docker-compose.full-dev.yml up --build
 - next-intl (i18n)
 
 **Infrastructure**:
+
 - Docker & Docker Compose
 - Nginx (reverse proxy)
 - PHP-FPM
