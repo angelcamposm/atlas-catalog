@@ -40,4 +40,22 @@ enum ApiAccessPolicy: int
             ApiAccessPolicy::CompositeApi => 'A type of API that combines multiple separate API calls (which could be to internal or partner APIs) into a single API request. This simplifies the logic for the client application.',
         };
     }
+
+    /**
+     * Converts the API access policy enum to an array representation.
+     *
+     * Returns an associative array containing the enum's value, name,
+     * display name, and description.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->value,
+            'name' => $this->name,
+            'display_name' => $this->displayName(),
+            'description' => $this->description(),
+        ];
+    }
 }

@@ -7,9 +7,9 @@ namespace App\Http\Controllers;
 use App\Enums\ApiAccessPolicy;
 use App\Http\Resources\ApiResourceCollection;
 use App\Models\Api;
+use App\Http\Resources\ApiAccessPolicyResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiAccessPolicyController extends Controller
@@ -19,16 +19,9 @@ class ApiAccessPolicyController extends Controller
      */
     public function index(): JsonResponse
     {
-        $items = [];
-
-        foreach (ApiAccessPolicy::cases() as $apiAccessPolicy) {
-            $items[] = [
-                'id' => $apiAccessPolicy->value,
-                'name' => $apiAccessPolicy->name,
-                'display_name' => $apiAccessPolicy->displayName(),
-                'description' => $apiAccessPolicy->description(),
-            ];
-        }
+        // Since we are dealing with Enums, we can't use standard pagination or collection resources easily
+        // without wrapping them.
+        $items = ApiAccessPolicyResource::collection(collect(ApiAccessPolicy::cases()));
 
         return response()->json([
             'data' => $items,
@@ -40,13 +33,13 @@ class ApiAccessPolicyController extends Controller
      * Display the specified resource.
      *
      * @param  Request  $request
-     * @param  int      $id
+     * @param  int      $policy
      *
-     * @return JsonResource|JsonResponse
+     * @return JsonResponse
      */
-    public function show(Request $request, int $id): JsonResource|JsonResponse
+    public function show(Request $request, int $policy): JsonResponse
     {
-        $apiAccessPolicy = ApiAccessPolicy::tryFrom($id);
+        $apiAccessPolicy = ApiAccessPolicy::tryFrom($policy);
 
         if (!$apiAccessPolicy) {
             return response()->json([
@@ -55,12 +48,7 @@ class ApiAccessPolicyController extends Controller
         }
 
         return response()->json([
-            'data' => [
-                'id' => $apiAccessPolicy->value,
-                'name' => $apiAccessPolicy->name,
-                'display_name' => $apiAccessPolicy->displayName(),
-                'description' => $apiAccessPolicy->description(),
-            ],
+            'data' => new ApiAccessPolicyResource($apiAccessPolicy),
             'kind' => 'Enum',
         ], Response::HTTP_OK);
     }

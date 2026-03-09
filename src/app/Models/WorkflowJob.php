@@ -59,11 +59,13 @@ class WorkflowJob extends Model
      */
     protected $fillable = [
         'name',
+        'ci_server_id',
         'component_id',
         'display_name',
         'description',
         'discovery_source',
         'is_enabled',
+        'last_synced_at',
         'url',
         'created_by',
         'updated_by',

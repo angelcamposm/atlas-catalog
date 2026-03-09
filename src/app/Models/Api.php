@@ -61,6 +61,7 @@ use Illuminate\Support\Carbon;
  * @method static paginate()
  * @method static pluck(string $string)
  * @method static updateOrCreate(array $attributes = [], array $values = [])
+ * @method static where(string $string, string $string1, int $value)
  *
  * @use HasFactory<ApiFactory>
  */
@@ -232,7 +233,7 @@ class Api extends Model
      */
     public function status(): BelongsTo
     {
-        return $this->belongsTo(ApiStatus::class, 'status_id');
+        return $this->belongsTo(ApiStatus::class, 'status_id', 'id');
     }
 
     /**
@@ -242,6 +243,6 @@ class Api extends Model
      */
     public function type(): BelongsTo
     {
-        return $this->belongsTo(ApiType::class, 'type_id');
+        return $this->belongsTo(ApiType::class, 'type_id', 'id');
     }
 }

@@ -138,17 +138,16 @@ class DeploymentController extends Controller
      * @response 422 Validation errors
      * @param  UpdateDeploymentRequest  $request
      * @param  Deployment               $deployment
+     *
      * @return DeploymentResource
      */
     public function update(UpdateDeploymentRequest $request, Deployment $deployment): DeploymentResource
     {
         $data = $request->validated();
 
-        if (isset($data['ended_at'])) {
-            $endedAt = Carbon::parse($data['ended_at']);
-        } else {
-            $endedAt = Carbon::now();
-        }
+        $endedAt = isset($data['ended_at'])
+            ? Carbon::parse($data['ended_at'])
+            : Carbon::now();
 
         $data['ended_at'] = $endedAt;
 

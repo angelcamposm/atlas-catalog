@@ -11,8 +11,8 @@ labels:
     includeSelectors: true
     includeTemplates: true
 resources:
-  - ./resources/config-map.yaml
-  - ./resources/secret.yaml
-  - ./resources/service.headless.yaml
-  - ./resources/service.yaml
-  - ./resources/stateful-set.yaml
+  - resources/config-map.yaml
+  - resources/secret.yaml
+  - resources/service.headless.yaml
+  - resources/service.yaml
+  - resources/stateful-set.yaml

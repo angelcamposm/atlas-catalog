@@ -1,7 +1,8 @@
 .idea/
-!iac/config/**/.gitkeep
+!iac/kustomize/config/**/.gitkeep
 src/bootstrap/cache/
 src/coverage/
+src/logs/
 src/node_modules/
 src/public/storage/
 src/vendor/

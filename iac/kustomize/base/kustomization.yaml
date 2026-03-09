@@ -3,4 +3,4 @@ kind: Kustomization
 buildMetadata:
   - managedByLabel
 resources:
-  - ./resources/namespace.yaml
+  - resources/namespace.yaml
