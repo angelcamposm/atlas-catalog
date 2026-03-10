@@ -32,6 +32,7 @@ class StoreBusinessCapabilityRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:255'],
             'parent_id' => ['nullable', 'integer', 'exists:business_capabilities,id'],
             'strategic_value' => ['nullable', 'integer', Rule::in(StrategicValue::values())],
+            'organization_id' => ['nullable', 'integer', 'exists:organizations,id'],
         ];
     }
 }

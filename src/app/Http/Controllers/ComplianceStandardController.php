@@ -96,7 +96,7 @@ class ComplianceStandardController extends Controller
      */
     public function update(UpdateComplianceStandardRequest $request, ComplianceStandard $complianceStandard): ComplianceStandardResource
     {
-        $model = $complianceStandard->update($request->validated());
+        $model = tap($complianceStandard)->update($request->validated());
 
         return new ComplianceStandardResource($model);
     }

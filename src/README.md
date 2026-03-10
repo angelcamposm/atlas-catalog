@@ -4,14 +4,14 @@ Laravel 11-based RESTful API for managing API catalogs, lifecycles, types, archi
 
 ## 🚀 Tech Stack
 
--   **Framework**: [Laravel 11.x](https://laravel.com)
--   **PHP Version**: 8.4+
--   **Database**: PostgreSQL (production), SQLite (development)
--   **API Style**: RESTful JSON API
--   **Authentication**: Laravel Sanctum (token-based, fully implemented)
--   **Authorization**: Laravel Policies (RBAC with admin/editor/viewer roles)
--   **API Docs**: [Scramble](https://scramble.dedoc.co/) (OpenAPI 3.1)
--   **Testing**: PHPUnit 12
+- **Framework**: [Laravel 11.x](https://laravel.com)
+- **PHP Version**: 8.4+
+- **Database**: PostgreSQL (production), SQLite (development)
+- **API Style**: RESTful JSON API
+- **Authentication**: Laravel Sanctum (token-based, fully implemented)
+- **Authorization**: Laravel Policies (RBAC with admin/editor/viewer roles)
+- **API Docs**: [Scramble](https://scramble.dedoc.co/) (OpenAPI 3.1)
+- **Testing**: PHPUnit 12
 
 ## 📁 Project Structure
 
@@ -57,23 +57,23 @@ The generated spec is also committed at [`public/api.json`](public/api.json) for
 
 ### Domain Overview
 
-| Domain | Prefix | Resources |
-|---|---|---|
-| Catalog | `/api/v1/catalog/` | APIs, API Types, Lifecycles, Platforms, Protocols, Scopes, Specs, Tags, Teams, … |
-| Architecture | `/api/v1/architecture/` | Business Capabilities, Components, Domains, Entities, Systems |
-| CI/CD | `/api/v1/cicd/` | Deployments, Releases, Service Models, Workflow Jobs, Workflow Runs |
-| Infrastructure | `/api/v1/infrastructure/` | Clusters, Databases, Environments, Service Instances, … |
-| Integrations | `/api/v1/integrations/` | Access Policies, Categories, Data Types, Event Types, Queues |
-| Platform | `/api/v1/platform/` | Programming Languages, Frameworks |
-| Tooling | `/api/v1/tooling/` | Tools |
+| Domain         | Prefix                    | Resources                                                                        |
+| -------------- | ------------------------- | -------------------------------------------------------------------------------- |
+| Catalog        | `/api/v1/catalog/`        | APIs, API Types, Lifecycles, Platforms, Protocols, Scopes, Specs, Tags, Teams, … |
+| Architecture   | `/api/v1/architecture/`   | Business Capabilities, Components, Domains, Entities, Systems                    |
+| CI/CD          | `/api/v1/cicd/`           | Deployments, Releases, Service Models, Workflow Jobs, Workflow Runs              |
+| Infrastructure | `/api/v1/infrastructure/` | Clusters, Databases, Environments, Service Instances, …                          |
+| Integrations   | `/api/v1/integrations/`   | Access Policies, Categories, Data Types, Event Types, Queues                     |
+| Platform       | `/api/v1/platform/`       | Programming Languages, Frameworks                                                |
+| Tooling        | `/api/v1/tooling/`        | Tools                                                                            |
 
 ### Programming Languages (example)
 
--   `GET    /api/v1/programming-languages` - List all languages (paginated)
--   `POST   /api/v1/programming-languages` - Create new language
--   `GET    /api/v1/programming-languages/{id}` - Get language details
--   `PUT    /api/v1/programming-languages/{id}` - Update language
--   `DELETE /api/v1/programming-languages/{id}` - Delete language
+- `GET    /api/v1/programming-languages` - List all languages (paginated)
+- `POST   /api/v1/programming-languages` - Create new language
+- `GET    /api/v1/programming-languages/{id}` - Get language details
+- `PUT    /api/v1/programming-languages/{id}` - Update language
+- `DELETE /api/v1/programming-languages/{id}` - Delete language
 
 ## 📊 Database Schema
 
@@ -95,14 +95,15 @@ Tokens are issued via `POST /api/v1/auth/login` and revoked via `POST /api/v1/au
 
 Three roles are supported: **admin**, **editor**, **viewer**.
 
-| Action | Admin | Editor | Viewer |
-|---|---|---|---|
-| Read (GET) | ✅ | ✅ | ✅ |
-| Create (POST) | ✅ | ✅ | ❌ |
-| Update (PUT) | ✅ | ✅ | ❌ |
-| Delete (DELETE) | ✅ | ❌ | ❌ |
+| Action          | Admin | Editor | Viewer |
+| --------------- | ----- | ------ | ------ |
+| Read (GET)      | ✅    | ✅     | ✅     |
+| Create (POST)   | ✅    | ✅     | ❌     |
+| Update (PUT)    | ✅    | ✅     | ❌     |
+| Delete (DELETE) | ✅    | ❌     | ❌     |
 
 Authorization is enforced at two layers:
+
 1. **Form Requests** — `authorize()` checks the user's policy before validation runs
 2. **Policies** — one `{Model}Policy` per resource, with `create`, `update`, and `delete` rules
 
@@ -157,35 +158,35 @@ docker exec -it atlas-app php -d memory_limit=512M vendor/bin/phpunit --coverage
 
 This project follows:
 
--   **PSR-12** coding standards
--   **Laravel Pint** for code formatting (config in `pint.json`)
--   **PHPStan** for static analysis (planned)
+- **PSR-12** coding standards
+- **Laravel Pint** for code formatting (config in `pint.json`)
+- **PHPStan** for static analysis (planned)
 
 ### Conventions
 
--   **Models**: Singular nouns (e.g., `Api`, `ApiType`)
--   **Controllers**: Singular with `Controller` suffix (e.g., `ApiController`)
--   **Tables**: Plural snake_case (e.g., `apis`, `api_types`)
--   **Routes**: Plural resource names (e.g., `/apis`, `/lifecycles`)
--   **Observers**: Applied via `#[ObservedBy(Observer::class)]` attribute
--   **Form Requests**: Separate `Store{Model}Request` and `Update{Model}Request`
--   **API Resources**: Single `{Model}Resource` and `{Model}Collection`
+- **Models**: Singular nouns (e.g., `Api`, `ApiType`)
+- **Controllers**: Singular with `Controller` suffix (e.g., `ApiController`)
+- **Tables**: Plural snake_case (e.g., `apis`, `api_types`)
+- **Routes**: Plural resource names (e.g., `/apis`, `/lifecycles`)
+- **Observers**: Applied via `#[ObservedBy(Observer::class)]` attribute
+- **Form Requests**: Separate `Store{Model}Request` and `Update{Model}Request`
+- **API Resources**: Single `{Model}Resource` and `{Model}Collection`
 
 ## 🔐 Security
 
--   **CORS**: Configured to allow frontend origin
--   **Validation**: All inputs validated via Form Requests
--   **Mass Assignment**: Protected via `$fillable` properties
--   **Authentication**: Laravel Sanctum (token-based, implemented)
--   **Authorization**: Laravel Policies with RBAC (admin/editor/viewer)
+- **CORS**: Configured to allow frontend origin
+- **Validation**: All inputs validated via Form Requests
+- **Mass Assignment**: Protected via `$fillable` properties
+- **Authentication**: Laravel Sanctum (token-based, implemented)
+- **Authorization**: Laravel Policies with RBAC (admin/editor/viewer)
 
 ## 📖 API Documentation
 
 API documentation is auto-generated by [Scramble](https://scramble.dedoc.co/) from PHPDoc and type annotations:
 
--   **Interactive UI**: `http://localhost:8080/docs/api` (when running)
--   **OpenAPI spec**: [`public/api.json`](public/api.json) (213 operations, committed)
--   **Routes overview**: `php artisan route:list`
+- **Interactive UI**: `http://localhost:8080/docs/api` (when running)
+- **OpenAPI spec**: [`public/api.json`](public/api.json) (213 operations, committed)
+- **Routes overview**: `php artisan route:list`
 
 ## 🚀 Deployment
 
@@ -197,9 +198,9 @@ This backend is containerized and ready for deployment:
 
 ## 📚 Additional Resources
 
--   [Laravel Documentation](https://laravel.com/docs)
--   [Laravel Best Practices](https://github.com/alexeymezenin/laravel-best-practices)
--   [RESTful API Design](https://restfulapi.net/)
+- [Laravel Documentation](https://laravel.com/docs)
+- [Laravel Best Practices](https://github.com/alexeymezenin/laravel-best-practices)
+- [RESTful API Design](https://restfulapi.net/)
 
 ## 🤝 Contributing
 

@@ -68,7 +68,7 @@ class LifecyclePhaseController extends Controller
      */
     public function update(UpdateLifecyclePhaseRequest $request, LifecyclePhase $lifecycle): LifecyclePhaseResource
     {
-        $model = $lifecycle->update($request->validated());
+        $model = tap($lifecycle)->update($request->validated());
 
         return new LifecyclePhaseResource($model);
     }

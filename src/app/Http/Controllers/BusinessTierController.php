@@ -59,7 +59,7 @@ class BusinessTierController extends Controller
      */
     public function update(UpdateBusinessTierRequest $request, BusinessTier $business_tier): BusinessTierResource
     {
-        $model = $business_tier->update($request->validated());
+        $model = tap($business_tier)->update($request->validated());
 
         return new BusinessTierResource($model);
     }

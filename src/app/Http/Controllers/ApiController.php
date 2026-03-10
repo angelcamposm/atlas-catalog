@@ -161,7 +161,7 @@ class ApiController extends Controller
      */
     public function update(UpdateApiRequest $request, Api $api): ApiResource
     {
-        $model = $api->update($request->validated());
+        $model = tap($api)->update($request->validated());
 
         return new ApiResource($model);
     }

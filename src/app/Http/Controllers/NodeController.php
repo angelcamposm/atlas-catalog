@@ -87,7 +87,7 @@ class NodeController extends Controller
      */
     public function update(UpdateNodeRequest $request, Node $node): NodeResource
     {
-        $model = $node->update($request->validated());
+        $model = tap($node)->update($request->validated());
 
         return new NodeResource($model);
     }

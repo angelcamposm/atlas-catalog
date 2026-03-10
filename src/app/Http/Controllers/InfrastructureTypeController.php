@@ -59,7 +59,7 @@ class InfrastructureTypeController extends Controller
      */
     public function update(UpdateInfrastructureTypeRequest $request, InfrastructureType $infrastructureType): InfrastructureTypeResource
     {
-        $model = $infrastructureType->update($request->validated());
+        $model = tap($infrastructureType)->update($request->validated());
 
         return new InfrastructureTypeResource($model);
     }

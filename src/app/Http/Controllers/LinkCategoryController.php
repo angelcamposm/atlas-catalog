@@ -59,7 +59,7 @@ class LinkCategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, LinkCategory $category): CategoryResource
     {
-        $model = $category->update($request->validated());
+        $model = tap($category)->update($request->validated());
 
         return new CategoryResource($model);
     }

@@ -59,7 +59,7 @@ class ServiceAccountController extends Controller
      */
     public function update(UpdateServiceAccountRequest $request, ServiceAccount $serviceAccount): ServiceAccountResource
     {
-        $model = $serviceAccount->update($request->validated());
+        $model = tap($serviceAccount)->update($request->validated());
 
         return new ServiceAccountResource($model);
     }

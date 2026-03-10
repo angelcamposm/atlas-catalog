@@ -124,7 +124,7 @@ class SystemController extends Controller
      */
     public function update(UpdateSystemRequest $request, System $system): SystemResource
     {
-        $model = $system->update($request->validated());
+        $model = tap($system)->update($request->validated());
 
         return new SystemResource($model);
     }

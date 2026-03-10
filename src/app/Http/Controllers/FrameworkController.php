@@ -59,7 +59,7 @@ class FrameworkController extends Controller
      */
     public function update(UpdateFrameworkRequest $request, Framework $framework): FrameworkResource
     {
-        $model = $framework->update($request->validated());
+        $model = tap($framework)->update($request->validated());
 
         return new FrameworkResource($model);
     }

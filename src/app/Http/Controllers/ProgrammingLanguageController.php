@@ -59,7 +59,7 @@ class ProgrammingLanguageController extends Controller
      */
     public function update(UpdateProgrammingLanguageRequest $request, ProgrammingLanguage $programmingLanguage): ProgrammingLanguageResource
     {
-        $model = $programmingLanguage->update($request->validated());
+        $model = tap($programmingLanguage)->update($request->validated());
 
         return new ProgrammingLanguageResource($model);
     }

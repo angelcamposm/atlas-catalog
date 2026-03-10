@@ -59,7 +59,7 @@ class EntityAttributeController extends Controller
      */
     public function update(UpdateEntityAttributeRequest $request, EntityAttribute $entityProperty): EntityAttributeResource
     {
-        $model = $entityProperty->update($request->validated());
+        $model = tap($entityProperty)->update($request->validated());
 
         return new EntityAttributeResource($model);
     }

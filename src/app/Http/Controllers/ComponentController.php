@@ -182,7 +182,7 @@ class ComponentController extends Controller
      */
     public function update(UpdateComponentRequest $request, Component $component): ComponentResource
     {
-        $model = $component->update($request->validated());
+        $model = tap($component)->update($request->validated());
 
         return new ComponentResource($model);
     }

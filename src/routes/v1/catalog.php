@@ -21,6 +21,9 @@ use App\Http\Controllers\ProgrammingLanguageController;
 use App\Http\Controllers\ResourceCategoryController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ServiceModelController;
+use App\Http\Controllers\ServiceStatusController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\LifecyclePhaseController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -219,6 +222,48 @@ Route::prefix('v1')->group(function () {
                 ->name('service-models.update');
             Route::delete('service-models/{service_model}', [ServiceModelController::class, 'destroy'])
                 ->name('service-models.destroy');
+
+            // Standalone apiResource routes expected by feature tests
+            Route::apiResource('api-types', ApiTypeController::class)->names([
+                'index' => 'catalog.api-types.index', 'show' => 'catalog.api-types.show',
+                'store' => 'catalog.api-types.store', 'update' => 'catalog.api-types.update',
+                'destroy' => 'catalog.api-types.destroy',
+            ]);
+            Route::apiResource('api-categories', ApiCategoryController::class)->names([
+                'index' => 'catalog.api-categories.index', 'show' => 'catalog.api-categories.show',
+                'store' => 'catalog.api-categories.store', 'update' => 'catalog.api-categories.update',
+                'destroy' => 'catalog.api-categories.destroy',
+            ]);
+            Route::apiResource('component-types', ComponentTypeController::class)->names([
+                'index' => 'catalog.component-types.index', 'show' => 'catalog.component-types.show',
+                'store' => 'catalog.component-types.store', 'update' => 'catalog.component-types.update',
+                'destroy' => 'catalog.component-types.destroy',
+            ]);
+            Route::apiResource('link-categories', LinkCategoryController::class)->names([
+                'index' => 'catalog.link-categories.index', 'show' => 'catalog.link-categories.show',
+                'store' => 'catalog.link-categories.store', 'update' => 'catalog.link-categories.update',
+                'destroy' => 'catalog.link-categories.destroy',
+            ]);
+            Route::apiResource('resource-categories', ResourceCategoryController::class)->names([
+                'index' => 'catalog.resource-categories.index', 'show' => 'catalog.resource-categories.show',
+                'store' => 'catalog.resource-categories.store', 'update' => 'catalog.resource-categories.update',
+                'destroy' => 'catalog.resource-categories.destroy',
+            ]);
+            Route::apiResource('service-statuses', ServiceStatusController::class)->names([
+                'index' => 'catalog.service-statuses.index', 'show' => 'catalog.service-statuses.show',
+                'store' => 'catalog.service-statuses.store', 'update' => 'catalog.service-statuses.update',
+                'destroy' => 'catalog.service-statuses.destroy',
+            ]);
+            Route::apiResource('vendors', VendorController::class)->names([
+                'index' => 'catalog.vendors.index', 'show' => 'catalog.vendors.show',
+                'store' => 'catalog.vendors.store', 'update' => 'catalog.vendors.update',
+                'destroy' => 'catalog.vendors.destroy',
+            ]);
+            Route::apiResource('lifecycle-phases', LifecyclePhaseController::class)->names([
+                'index' => 'catalog.lifecycle-phases.index', 'show' => 'catalog.lifecycle-phases.show',
+                'store' => 'catalog.lifecycle-phases.store', 'update' => 'catalog.lifecycle-phases.update',
+                'destroy' => 'catalog.lifecycle-phases.destroy',
+            ]);
         });
     });
 });

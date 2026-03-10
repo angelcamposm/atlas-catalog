@@ -126,7 +126,7 @@ class System extends Model
      */
     public function businessCapabilities(): BelongsToMany
     {
-        return $this->belongsToMany(BusinessCapability::class, 'system_business_capabilities');
+        return $this->belongsToMany(BusinessCapability::class, 'business_capability_system');
     }
 
     /**

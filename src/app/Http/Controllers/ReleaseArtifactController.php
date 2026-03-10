@@ -92,7 +92,7 @@ class ReleaseArtifactController extends Controller
      */
     public function update(UpdateReleaseArtifactRequest $request, ReleaseArtifact $releaseArtifact): ReleaseArtifactResource
     {
-        $model = $releaseArtifact->update($request->validated());
+        $model = tap($releaseArtifact)->update($request->validated());
 
         return new ReleaseArtifactResource($model);
     }

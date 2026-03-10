@@ -14,6 +14,20 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
         //
         Route::apiResource('groups/member-roles', GroupMemberRoleController::class);
         Route::apiResource('groups/types', GroupTypeController::class);
+        Route::apiResource('group-types', GroupTypeController::class)->names([
+            'index'   => 'organization.group-types.index',
+            'show'    => 'organization.group-types.show',
+            'store'   => 'organization.group-types.store',
+            'update'  => 'organization.group-types.update',
+            'destroy' => 'organization.group-types.destroy',
+        ]);
+        Route::apiResource('group-member-roles', GroupMemberRoleController::class)->names([
+            'index'   => 'organization.group-member-roles.index',
+            'show'    => 'organization.group-member-roles.show',
+            'store'   => 'organization.group-member-roles.store',
+            'update'  => 'organization.group-member-roles.update',
+            'destroy' => 'organization.group-member-roles.destroy',
+        ]);
         Route::apiResource('groups', GroupController::class);
         Route::apiResource('users', UserController::class);
     });

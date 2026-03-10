@@ -86,7 +86,7 @@ class ServiceModelController extends Controller
      */
     public function update(UpdateServiceModelRequest $request, ServiceModel $serviceModel): ServiceModelResource
     {
-        $model = $serviceModel->update($request->validated());
+        $model = tap($serviceModel)->update($request->validated());
 
         return new ServiceModelResource($model);
     }

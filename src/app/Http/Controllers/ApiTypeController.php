@@ -59,7 +59,7 @@ class ApiTypeController extends Controller
      */
     public function update(UpdateApiTypeRequest $request, ApiType $type): ApiTypeResource
     {
-        $model = $type->update($request->validated());
+        $model = tap($type)->update($request->validated());
 
         return new ApiTypeResource($model);
     }

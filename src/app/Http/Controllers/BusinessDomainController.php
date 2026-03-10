@@ -101,7 +101,7 @@ class BusinessDomainController extends Controller
      */
     public function update(UpdateBusinessDomainRequest $request, BusinessDomain $business_domain): BusinessDomainResource
     {
-        $model = $business_domain->update($request->validated());
+        $model = tap($business_domain)->update($request->validated());
 
         return new BusinessDomainResource($model);
     }

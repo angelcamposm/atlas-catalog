@@ -77,6 +77,7 @@ class BusinessCapability extends Model
         'description',
         'parent_id',
         'strategic_value',
+        'organization_id',
         'created_by',
         'updated_by',
     ];
@@ -141,6 +142,6 @@ class BusinessCapability extends Model
      */
     public function systems(): BelongsToMany
     {
-        return $this->belongsToMany(System::class, 'system_business_capabilities', 'business_capability_id', 'system_id');
+        return $this->belongsToMany(System::class, 'business_capability_system', 'business_capability_id', 'system_id');
     }
 }

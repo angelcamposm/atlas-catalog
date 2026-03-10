@@ -24,6 +24,13 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
             ->name('clusters.service-accounts')
             ->whereNumber('cluster');
         Route::apiResource('clusters/types', ClusterTypeController::class);
+        Route::apiResource('cluster-types', ClusterTypeController::class)->names([
+            'index'   => 'infrastructure.cluster-types.index',
+            'show'    => 'infrastructure.cluster-types.show',
+            'store'   => 'infrastructure.cluster-types.store',
+            'update'  => 'infrastructure.cluster-types.update',
+            'destroy' => 'infrastructure.cluster-types.destroy',
+        ]);
 
         Route::apiResource('nodes', NodeController::class);
 

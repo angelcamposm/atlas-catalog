@@ -59,7 +59,7 @@ class ServiceStatusController extends Controller
      */
     public function update(UpdateServiceStatusRequest $request, ServiceStatus $serviceStatus): ServiceStatusResource
     {
-        $model = $serviceStatus->update($request->validated());
+        $model = tap($serviceStatus)->update($request->validated());
 
         return new ServiceStatusResource($model);
     }

@@ -59,7 +59,7 @@ class GroupTypeController extends Controller
      */
     public function update(UpdateGroupTypeRequest $request, GroupType $groupType): GroupTypeResource
     {
-        $model = $groupType->update($request->validated());
+        $model = tap($groupType)->update($request->validated());
 
         return new GroupTypeResource($model);
     }

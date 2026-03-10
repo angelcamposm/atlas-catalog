@@ -59,7 +59,7 @@ class ServiceAccountTokenController extends Controller
      */
     public function update(UpdateServiceAccountTokenRequest $request, ServiceAccountToken $serviceAccountToken): ServiceAccountTokenResource
     {
-        $model = $serviceAccountToken->update($request->validated());
+        $model = tap($serviceAccountToken)->update($request->validated());
 
         return new ServiceAccountTokenResource($model);
     }

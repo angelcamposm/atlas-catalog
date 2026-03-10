@@ -143,7 +143,7 @@ class ClusterController extends Controller
      */
     public function update(UpdateClusterRequest $request, Cluster $cluster): ClusterResource
     {
-        $model = $cluster->update($request->validated());
+        $model = tap($cluster)->update($request->validated());
 
         return new ClusterResource($model);
     }

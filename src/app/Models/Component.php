@@ -86,6 +86,7 @@ class Component extends Model
         'is_stateless',
         'owner_id',
         'platform_id',
+        'component_type_id',
         'slug',
         'status_id',
         'tags',
@@ -221,6 +222,16 @@ class Component extends Model
     public function platform(): BelongsTo
     {
         return $this->belongsTo(Platform::class, 'platform_id', 'id');
+    }
+
+    /**
+     * Get the component type of the component.
+     *
+     * @return BelongsTo<ComponentType>
+     */
+    public function componentType(): BelongsTo
+    {
+        return $this->belongsTo(ComponentType::class, 'component_type_id');
     }
 
     /**

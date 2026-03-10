@@ -107,7 +107,7 @@ class EntityController extends Controller
      */
     public function update(UpdateEntityRequest $request, Entity $entity): EntityResource
     {
-        $model = $entity->update($request->validated());
+        $model = tap($entity)->update($request->validated());
 
         return new EntityResource($model);
     }

@@ -59,7 +59,7 @@ class GroupMemberRoleController extends Controller
      */
     public function update(UpdateGroupMemberRoleRequest $request, GroupMemberRole $member_role): GroupMemberRoleResource
     {
-        $model = $member_role->update($request->validated());
+        $model = tap($member_role)->update($request->validated());
 
         return new GroupMemberRoleResource($model);
     }

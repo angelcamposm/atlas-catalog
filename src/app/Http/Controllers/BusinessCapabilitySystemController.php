@@ -4,42 +4,45 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\BusinessCapabilityResourceCollection;
-use App\Models\BusinessCapability;
-use App\Traits\AllowedRelationships;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreBusinessCapabilitySystemRequest;
+use App\Http\Requests\UpdateBusinessCapabilitySystemRequest;
+use App\Http\Resources\BusinessCapabilitySystemResource;
+use App\Http\Resources\BusinessCapabilitySystemResourceCollection;
+use App\Models\BusinessCapabilitySystem;
+use Illuminate\Http\Response;
 
 class BusinessCapabilitySystemController extends Controller
 {
-    use AllowedRelationships;
-
-    /**
-     * List of allowed relationships that can be eagerly loaded for BusinessCapability resources.
-     * These relationships can be included in API responses by passing them via the 'with' query parameter.
-     * Available relationships:
-     *   - components: Components associated with this business capability
-     *   - creator: User who created the business capability
-     *   - updater: User who last updated the business capability
-     *
-     * @var array<int, string>
-     */
-    public const array ALLOWED_RELATIONSHIPS = [
-        'components',
-        'creator',
-        'updater',
-    ];
-
-    /**
-     * Handle the incoming request.
-     */
-    public function __invoke(Request $request, BusinessCapability $businessCapability): BusinessCapabilityResourceCollection
+    public function index(): BusinessCapabilitySystemResourceCollection
     {
-        $requestedRelationships = $request->has('with')
-            ? self::filterAllowedRelationships($request->get('with'))
-            : [];
+        return new BusinessCapabilitySystemResourceCollection(
+            BusinessCapabilitySystem::paginate()
+        );
+    }
 
-        $components = $businessCapability->systems()->with($requestedRelationships)->paginate();
+    public function store(StoreBusinessCapabilitySystemRequest $request): BusinessCapabilitySystemResource
+    {
+        $item = BusinessCapabilitySystem::create($request->validated());
 
-        return new BusinessCapabilityResourceCollection($components);
+        return (new BusinessCapabilitySystemResource($item))->response()->setStatusCode(201);
+    }
+
+    public function show(BusinessCapabilitySystem $businessCapabilitySystem): BusinessCapabilitySystemResource
+    {
+        return new BusinessCapabilitySystemResource($businessCapabilitySystem);
+    }
+
+    public function update(UpdateBusinessCapabilitySystemRequest $request, BusinessCapabilitySystem $businessCapabilitySystem): BusinessCapabilitySystemResource
+    {
+        tap($businessCapabilitySystem)->update($request->validated());
+
+        return new BusinessCapabilitySystemResource($businessCapabilitySystem);
+    }
+
+    public function destroy(BusinessCapabilitySystem $businessCapabilitySystem): Response
+    {
+        $businessCapabilitySystem->delete();
+
+        return response()->noContent();
     }
 }

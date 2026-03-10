@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\BusinessCapabilityController;
 use App\Http\Controllers\BusinessCapabilitySystemController;
+use App\Http\Controllers\InfrastructureTypeController;
 use App\Http\Controllers\BusinessDomainComponentController;
 use App\Http\Controllers\BusinessDomainController;
 use App\Http\Controllers\BusinessDomainEntityController;
@@ -24,6 +25,7 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
         Route::apiResource('business-capabilities', BusinessCapabilityController::class);
         Route::get('business-capabilities/{business_capability}/systems', BusinessCapabilitySystemController::class)
             ->name('business-capabilities.systems');
+        Route::apiResource('business-capability-systems', BusinessCapabilitySystemController::class);
 
         // Business Domain
         //
@@ -53,5 +55,15 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
         //
         Route::apiResource('systems', SystemController::class);
         Route::get('systems/{system}/components', SystemComponentController::class)->name('systems.components');
+
+        // Infrastructure Types (also accessible under architecture prefix)
+        //
+        Route::apiResource('infrastructure-types', InfrastructureTypeController::class)->names([
+            'index'   => 'architecture.infrastructure-types.index',
+            'show'    => 'architecture.infrastructure-types.show',
+            'store'   => 'architecture.infrastructure-types.store',
+            'update'  => 'architecture.infrastructure-types.update',
+            'destroy' => 'architecture.infrastructure-types.destroy',
+        ]);
     });
 });

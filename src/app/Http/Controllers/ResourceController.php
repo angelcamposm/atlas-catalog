@@ -59,7 +59,7 @@ class ResourceController extends Controller
      */
     public function update(UpdateResourceRequest $request, Resource $resource): ResourceResource
     {
-        $model = $resource->update($request->validated());
+        $model = tap($resource)->update($request->validated());
 
         return new ResourceResource($model);
     }

@@ -93,7 +93,7 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): GroupResource
     {
-        $model = $group->update($request->validated());
+        $model = tap($group)->update($request->validated());
 
         return new GroupResource($model);
     }

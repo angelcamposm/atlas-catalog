@@ -100,7 +100,7 @@ class BusinessCapabilityController extends Controller
      */
     public function update(UpdateBusinessCapabilityRequest $request, BusinessCapability $businessCapability): BusinessCapabilityResource
     {
-        $model = $businessCapability->update($request->validated());
+        $model = tap($businessCapability)->update($request->validated());
 
         return new BusinessCapabilityResource($model);
     }

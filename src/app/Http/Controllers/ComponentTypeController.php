@@ -59,7 +59,7 @@ class ComponentTypeController extends Controller
      */
     public function update(UpdateComponentTypeRequest $request, ComponentType $componentType): ComponentTypeResource
     {
-        $model = $componentType->update($request->validated());
+        $model = tap($componentType)->update($request->validated());
 
         return new ComponentTypeResource($model);
     }
