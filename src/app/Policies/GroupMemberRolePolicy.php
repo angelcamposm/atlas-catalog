@@ -30,7 +30,7 @@ class GroupMemberRolePolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**
@@ -38,7 +38,7 @@ class GroupMemberRolePolicy
      */
     public function update(User $user, GroupMemberRole $groupMemberRole): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**

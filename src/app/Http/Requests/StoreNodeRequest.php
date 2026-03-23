@@ -29,8 +29,8 @@ class StoreNodeRequest extends FormRequest
             'discovery_source' => ['sometimes', new Enum(DiscoverySource::class)],
             'cpu_architecture' => ['sometimes', new Enum(CpuArchitecture::class)],
             'cpu_sockets' => ['sometimes', 'integer', 'min:1', 'max:255'],
-            'cpu_cores' => ['required', 'integer', 'min:1', 'max:255'],
-            'cpu_threads' => ['required', 'integer', 'min:1', 'max:255'],
+            'cpu_cores' => ['sometimes', 'integer', 'min:1', 'max:255'],
+            'cpu_threads' => ['sometimes', 'integer', 'min:1', 'max:255'],
             'smt_enabled' => ['sometimes', 'boolean'],
             'memory_bytes' => ['sometimes', 'integer', 'min:0'],
             'hostname' => ['nullable', 'string', 'max:255'],
@@ -38,8 +38,8 @@ class StoreNodeRequest extends FormRequest
             'ip_address' => ['nullable', 'ip'],
             'mac_address' => ['nullable', 'mac_address'],
             'node_type' => ['sometimes', new Enum(NodeType::class)],
-            'os' => ['required', 'string', 'max:255'],
-            'os_version' => ['required', 'string', 'max:255'],
+            'os' => ['sometimes', 'string', 'max:255'],
+            'os_version' => ['sometimes', 'string', 'max:255'],
             'timezone' => ['sometimes', 'string', 'max:255'],
         ];
     }

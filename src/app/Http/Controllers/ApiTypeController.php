@@ -40,26 +40,26 @@ class ApiTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ApiType $type
+     * @param ApiType $api_type
      *
      * @return ApiTypeResource
      */
-    public function show(ApiType $type): ApiTypeResource
+    public function show(ApiType $api_type): ApiTypeResource
     {
-        return new ApiTypeResource($type);
+        return new ApiTypeResource($api_type);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateApiTypeRequest $request
-     * @param ApiType $type
+     * @param ApiType $api_type
      *
      * @return ApiTypeResource
      */
-    public function update(UpdateApiTypeRequest $request, ApiType $type): ApiTypeResource
+    public function update(UpdateApiTypeRequest $request, ApiType $api_type): ApiTypeResource
     {
-        $model = tap($type)->update($request->validated());
+        $model = tap($api_type)->update($request->validated());
 
         return new ApiTypeResource($model);
     }
@@ -67,13 +67,13 @@ class ApiTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ApiType $type
+     * @param ApiType $api_type
      *
      * @return Response
      */
-    public function destroy(ApiType $type): Response
+    public function destroy(ApiType $api_type): Response
     {
-        $type->delete();
+        $api_type->delete();
 
         return response()->noContent();
     }

@@ -181,6 +181,8 @@ class ApiController extends Controller
      */
     public function destroy(Api $api): Response
     {
+        $this->authorize('delete', $api);
+
         $api->delete();
 
         return response()->noContent();

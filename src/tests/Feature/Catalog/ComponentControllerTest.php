@@ -182,7 +182,7 @@ class ComponentControllerTest extends ApiTestCase
 
         // Act
         $response = $this->actingAsEditor()
-            ->getJson("/api/v1/catalog/components/{$component->id}");
+            ->getJson("/api/v1/catalog/components/{$component->slug}");
 
         // Assert
         $response->assertOk()
@@ -200,7 +200,7 @@ class ComponentControllerTest extends ApiTestCase
 
         // Act
         $response = $this->actingAsEditor()
-            ->getJson("/api/v1/catalog/components/{$component->id}?with=platform");
+            ->getJson("/api/v1/catalog/components/{$component->slug}?with=platform");
 
         // Assert
         $response->assertOk()
@@ -233,7 +233,7 @@ class ComponentControllerTest extends ApiTestCase
 
         // Act
         $response = $this->actingAsEditor()
-            ->putJson("/api/v1/catalog/components/{$component->id}", $data);
+            ->putJson("/api/v1/catalog/components/{$component->slug}", $data);
 
         // Assert
         $response->assertOk()
@@ -254,7 +254,7 @@ class ComponentControllerTest extends ApiTestCase
         $data = ['name' => 'New Name'];
 
         // Act
-        $response = $this->putJson("/api/v1/catalog/components/{$component->id}", $data);
+        $response = $this->putJson("/api/v1/catalog/components/{$component->slug}", $data);
 
         // Assert
         $response->assertUnauthorized();
@@ -268,7 +268,7 @@ class ComponentControllerTest extends ApiTestCase
 
         // Act: Send invalid data (e.g., empty name)
         $response = $this->actingAsEditor()
-            ->putJson("/api/v1/catalog/components/{$component->id}", ['name' => '']);
+            ->putJson("/api/v1/catalog/components/{$component->slug}", ['name' => '']);
 
         // Assert
         $response->assertUnprocessable();
@@ -282,14 +282,14 @@ class ComponentControllerTest extends ApiTestCase
 
         // Act: Try to delete as editor (should fail)
         $response = $this->actingAsEditor()
-            ->deleteJson("/api/v1/catalog/components/{$component->id}");
+            ->deleteJson("/api/v1/catalog/components/{$component->slug}");
 
         // Assert
         $response->assertForbidden();
 
         // Act: Delete as admin (should succeed)
         $response = $this->actingAsAdmin()
-            ->deleteJson("/api/v1/catalog/components/{$component->id}");
+            ->deleteJson("/api/v1/catalog/components/{$component->slug}");
 
         // Assert
         $response->assertNoContent();

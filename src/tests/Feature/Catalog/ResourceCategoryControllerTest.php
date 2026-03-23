@@ -86,7 +86,7 @@ class ResourceCategoryControllerTest extends ApiTestCase
         $response->assertCreated()
             ->assertJsonStructure(['data' => ['id', 'name', 'icon', 'color']]);
 
-        $this->assertDatabaseHas('resource_categories', [
+        $this->assertDatabaseHas('categories', [
             'name' => 'Database',
             'icon' => 'database',
         ]);
@@ -149,7 +149,7 @@ class ResourceCategoryControllerTest extends ApiTestCase
         // Assert
         $response->assertOk();
 
-        $this->assertDatabaseHas('resource_categories', [
+        $this->assertDatabaseHas('categories', [
             'id' => $category->id,
             'name' => 'Updated Name',
         ]);
@@ -183,7 +183,7 @@ class ResourceCategoryControllerTest extends ApiTestCase
 
         // Assert
         $response->assertNoContent();
-        $this->assertDatabaseMissing('resource_categories', ['id' => $category->id]);
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
 
     #[Test]

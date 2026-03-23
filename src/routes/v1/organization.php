@@ -21,7 +21,7 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
             'update'  => 'organization.group-types.update',
             'destroy' => 'organization.group-types.destroy',
         ]);
-        Route::apiResource('group-member-roles', GroupMemberRoleController::class)->names([
+        Route::apiResource('group-member-roles', GroupMemberRoleController::class)->parameters(['group-member-roles' => 'member_role'])->names([
             'index'   => 'organization.group-member-roles.index',
             'show'    => 'organization.group-member-roles.show',
             'store'   => 'organization.group-member-roles.store',

@@ -86,7 +86,7 @@ class LinkCategoryControllerTest extends ApiTestCase
         $response->assertCreated()
             ->assertJsonStructure(['data' => ['id', 'name', 'slug']]);
 
-        $this->assertDatabaseHas('link_categories', [
+        $this->assertDatabaseHas('categories', [
             'name' => 'Resources',
             'description' => 'External resources',
         ]);
@@ -135,7 +135,7 @@ class LinkCategoryControllerTest extends ApiTestCase
         // Assert
         $response->assertOk();
 
-        $this->assertDatabaseHas('link_categories', [
+        $this->assertDatabaseHas('categories', [
             'id' => $category->id,
             'name' => 'New Name',
         ]);
@@ -153,7 +153,7 @@ class LinkCategoryControllerTest extends ApiTestCase
 
         // Assert
         $response->assertNoContent();
-        $this->assertDatabaseMissing('link_categories', ['id' => $category->id]);
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
 
     #[Test]

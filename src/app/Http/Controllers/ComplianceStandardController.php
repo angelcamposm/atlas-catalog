@@ -70,12 +70,12 @@ class ComplianceStandardController extends Controller
      * @response 401 Unauthenticated
      * @response 403 Unauthorized
      * @response 404 Compliance standard not found
-     * @param ComplianceStandard $complianceStandard
+     * @param ComplianceStandard $compliance_standard
      * @return ComplianceStandardResource
      */
-    public function show(ComplianceStandard $complianceStandard): ComplianceStandardResource
+    public function show(ComplianceStandard $compliance_standard): ComplianceStandardResource
     {
-        return new ComplianceStandardResource($complianceStandard);
+        return new ComplianceStandardResource($compliance_standard);
     }
 
     /**
@@ -91,12 +91,12 @@ class ComplianceStandardController extends Controller
      * @response 404 Compliance standard not found
      * @response 422 Validation errors
      * @param UpdateComplianceStandardRequest $request
-     * @param ComplianceStandard $complianceStandard
+     * @param ComplianceStandard $compliance_standard
      * @return ComplianceStandardResource
      */
-    public function update(UpdateComplianceStandardRequest $request, ComplianceStandard $complianceStandard): ComplianceStandardResource
+    public function update(UpdateComplianceStandardRequest $request, ComplianceStandard $compliance_standard): ComplianceStandardResource
     {
-        $model = tap($complianceStandard)->update($request->validated());
+        $model = tap($compliance_standard)->update($request->validated());
 
         return new ComplianceStandardResource($model);
     }
@@ -112,12 +112,12 @@ class ComplianceStandardController extends Controller
      * @response 401 Unauthenticated
      * @response 403 Unauthorized - Insufficient permissions
      * @response 404 Compliance standard not found
-     * @param ComplianceStandard $complianceStandard
+     * @param ComplianceStandard $compliance_standard
      * @return Response
      */
-    public function destroy(ComplianceStandard $complianceStandard): Response
+    public function destroy(ComplianceStandard $compliance_standard): Response
     {
-        $complianceStandard->delete();
+        $compliance_standard->delete();
 
         return response()->noContent();
     }

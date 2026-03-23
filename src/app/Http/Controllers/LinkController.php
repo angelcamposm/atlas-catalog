@@ -73,6 +73,8 @@ class LinkController extends Controller
      */
     public function destroy(Link $link): Response
     {
+        $this->authorize('delete', $link);
+
         $link->delete();
 
         return response()->noContent();

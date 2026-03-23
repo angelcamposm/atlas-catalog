@@ -36,13 +36,13 @@ class BusinessDomainComponentController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request, BusinessDomain $businessDomain): ComponentResourceCollection
+    public function __invoke(Request $request, BusinessDomain $business_domain): ComponentResourceCollection
     {
         $requestedRelationships = $request->has('with')
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        $components = $businessDomain->components()->with($requestedRelationships)->paginate();
+        $components = $business_domain->components()->with($requestedRelationships)->paginate();
 
         return new ComponentResourceCollection($components);
     }

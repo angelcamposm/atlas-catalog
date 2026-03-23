@@ -19,6 +19,11 @@ class UpdateEnvironmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // Infrastructure routes require admin role for updates
+        if (str_contains($this->path(), 'infrastructure/')) {
+            return $this->user()?->isAdmin() ?? false;
+        }
+
         return $this->user()?->can('update', $this->route('environment')) ?? false;
     }
 

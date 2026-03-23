@@ -144,6 +144,8 @@ class SystemController extends Controller
      */
     public function destroy(System $system): Response
     {
+        $this->authorize('delete', $system);
+
         $system->delete();
 
         return response()->noContent();

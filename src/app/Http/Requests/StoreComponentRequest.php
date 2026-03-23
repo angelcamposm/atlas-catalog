@@ -38,7 +38,7 @@ class StoreComponentRequest extends FormRequest
             'end_of_life_at' => ['nullable', 'date'],
             'owner_id' => ['nullable', 'integer', 'exists:groups,id'],
             'platform_id' => ['nullable', 'integer', 'exists:platforms,id'],
-            'slug' => ['required', 'string', 'max:255', 'unique:components,slug'],
+            'slug' => ['sometimes', 'string', 'max:255', 'unique:components,slug'],
             'status_id' => ['nullable', 'integer', 'exists:service_statuses,id'],
             'tags' => ['nullable', 'json'],
             'tier_id' => ['nullable', 'integer', 'exists:business_tiers,id'],

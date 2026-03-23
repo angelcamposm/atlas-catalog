@@ -38,7 +38,7 @@ class BusinessCapabilityPolicy
      */
     public function update(User $user, BusinessCapability $businessCapability): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**

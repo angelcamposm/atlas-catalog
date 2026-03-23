@@ -73,6 +73,8 @@ class EnvironmentController extends Controller
      */
     public function destroy(Environment $environment): Response
     {
+        $this->authorize('delete', $environment);
+
         $environment->delete();
 
         return response()->noContent();

@@ -40,26 +40,26 @@ class ProgrammingLanguageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ProgrammingLanguage $programmingLanguage
+     * @param ProgrammingLanguage $programming_language
      *
      * @return ProgrammingLanguageResource
      */
-    public function show(ProgrammingLanguage $programmingLanguage): ProgrammingLanguageResource
+    public function show(ProgrammingLanguage $programming_language): ProgrammingLanguageResource
     {
-        return new ProgrammingLanguageResource($programmingLanguage);
+        return new ProgrammingLanguageResource($programming_language);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateProgrammingLanguageRequest $request
-     * @param ProgrammingLanguage $programmingLanguage
+     * @param ProgrammingLanguage $programming_language
      *
      * @return ProgrammingLanguageResource
      */
-    public function update(UpdateProgrammingLanguageRequest $request, ProgrammingLanguage $programmingLanguage): ProgrammingLanguageResource
+    public function update(UpdateProgrammingLanguageRequest $request, ProgrammingLanguage $programming_language): ProgrammingLanguageResource
     {
-        $model = tap($programmingLanguage)->update($request->validated());
+        $model = tap($programming_language)->update($request->validated());
 
         return new ProgrammingLanguageResource($model);
     }
@@ -67,13 +67,13 @@ class ProgrammingLanguageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ProgrammingLanguage $programmingLanguage
+     * @param ProgrammingLanguage $programming_language
      *
      * @return Response
      */
-    public function destroy(ProgrammingLanguage $programmingLanguage): Response
+    public function destroy(ProgrammingLanguage $programming_language): Response
     {
-        $programmingLanguage->delete();
+        $programming_language->delete();
 
         return response()->noContent();
     }

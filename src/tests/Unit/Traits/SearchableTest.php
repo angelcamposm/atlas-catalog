@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Traits;
 
 use App\Models\Component;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\Test;
@@ -13,6 +14,7 @@ use Tests\TestCase;
 #[CoversTrait(Component::class)]
 class SearchableTest extends TestCase
 {
+    use RefreshDatabase;
     protected function setUp(): void
     {
         parent::setUp();
@@ -44,7 +46,7 @@ class SearchableTest extends TestCase
         Component::factory()->create([
             'name' => 'payment-service',
             'display_name' => 'Payment Gateway',
-            'description' => 'Handles user invoicing',
+            'description' => 'Handles invoicing',
         ]);
         Component::factory()->create([
             'name' => 'user-service',

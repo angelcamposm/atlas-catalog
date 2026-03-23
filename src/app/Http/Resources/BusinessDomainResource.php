@@ -34,6 +34,7 @@ class BusinessDomainResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug,
             'display_name' => $this->display_name,
             'description' => $this->description,
             'category' => [

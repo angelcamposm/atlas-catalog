@@ -40,26 +40,26 @@ class ComponentTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ComponentType $componentType
+     * @param ComponentType $component_type
      *
      * @return ComponentTypeResource
      */
-    public function show(ComponentType $componentType): ComponentTypeResource
+    public function show(ComponentType $component_type): ComponentTypeResource
     {
-        return new ComponentTypeResource($componentType);
+        return new ComponentTypeResource($component_type);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateComponentTypeRequest $request
-     * @param ComponentType $componentType
+     * @param ComponentType $component_type
      *
      * @return ComponentTypeResource
      */
-    public function update(UpdateComponentTypeRequest $request, ComponentType $componentType): ComponentTypeResource
+    public function update(UpdateComponentTypeRequest $request, ComponentType $component_type): ComponentTypeResource
     {
-        $model = tap($componentType)->update($request->validated());
+        $model = tap($component_type)->update($request->validated());
 
         return new ComponentTypeResource($model);
     }
@@ -67,13 +67,13 @@ class ComponentTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ComponentType $componentType
+     * @param ComponentType $component_type
      *
      * @return Response
      */
-    public function destroy(ComponentType $componentType): Response
+    public function destroy(ComponentType $component_type): Response
     {
-        $componentType->delete();
+        $component_type->delete();
 
         return response()->noContent();
     }

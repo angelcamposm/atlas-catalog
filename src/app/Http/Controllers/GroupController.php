@@ -107,6 +107,8 @@ class GroupController extends Controller
      */
     public function destroy(Group $group): Response
     {
+        $this->authorize('delete', $group);
+
         $group->delete();
 
         return response()->noContent();

@@ -61,10 +61,6 @@ Route::prefix('v1')->group(function () {
             ->name('components.types.index');
         Route::get('components/types/{component_type}', [ComponentTypeController::class, 'show'])
             ->name('components.types.show');
-        Route::get('components', [ComponentController::class, 'index'])
-            ->name('components.index');
-        Route::get('components/{component}', [ComponentController::class, 'show'])
-            ->name('components.show');
 
         Route::get('environments', [EnvironmentController::class, 'index'])
             ->name('environments.index');
@@ -122,9 +118,14 @@ Route::prefix('v1')->group(function () {
         Route::get('service-models/{service_model}', [ServiceModelController::class, 'show'])
             ->name('service-models.show');
 
-        // Protected mutation routes (authentication required)
+        // Protected routes (authentication required)
         //
         Route::middleware(['auth:sanctum'])->group(function () {
+            Route::get('components', [ComponentController::class, 'index'])
+                ->name('components.index');
+            Route::get('components/{component}', [ComponentController::class, 'show'])
+                ->name('components.show');
+
             Route::post('apis/categories', [ApiCategoryController::class, 'store'])
                 ->name('apis.categories.store');
             Route::put('apis/categories/{api_category}', [ApiCategoryController::class, 'update'])
@@ -259,7 +260,7 @@ Route::prefix('v1')->group(function () {
                 'store' => 'catalog.vendors.store', 'update' => 'catalog.vendors.update',
                 'destroy' => 'catalog.vendors.destroy',
             ]);
-            Route::apiResource('lifecycle-phases', LifecyclePhaseController::class)->names([
+            Route::apiResource('lifecycle-phases', LifecyclePhaseController::class)->parameters(['lifecycle-phases' => 'lifecycle'])->names([
                 'index' => 'catalog.lifecycle-phases.index', 'show' => 'catalog.lifecycle-phases.show',
                 'store' => 'catalog.lifecycle-phases.store', 'update' => 'catalog.lifecycle-phases.update',
                 'destroy' => 'catalog.lifecycle-phases.destroy',

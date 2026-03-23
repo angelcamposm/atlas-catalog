@@ -28,8 +28,8 @@ class StoreBusinessDomainRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:50', 'unique:business_domains,name'],
             'description' => ['nullable', 'string', 'max:255'],
-            'category' => ['required', 'string', 'max:1'],
-            'display_name' => ['required', 'string', 'max:255'],
+            'category' => ['sometimes', 'string', 'max:1'],
+            'display_name' => ['sometimes', 'string', 'max:255'],
             'is_enabled' => ['sometimes', 'boolean'],
             'parent_id' => ['nullable', 'integer', 'exists:business_domains,id'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:business_domains,slug'],

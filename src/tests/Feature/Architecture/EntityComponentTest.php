@@ -6,6 +6,7 @@ namespace Tests\Feature\Architecture;
 
 use App\Models\Component;
 use App\Models\Entity;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -22,7 +23,8 @@ class EntityComponentTest extends TestCase
 
         $entity->components()->attach($components->pluck('id'));
 
-        $response = $this->getJson('/api/v1/architecture/entities/'.$entity->id.'/components');
+        $response = $this->actingAs(User::factory()->create())
+            ->getJson('/api/v1/architecture/entities/'.$entity->id.'/components');
 
         $response
             ->assertOk()

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Architecture;
 
-use App\Models\ComponentType;
+use App\Models\InfrastructureType;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Feature\ApiTestCase;
 
@@ -16,7 +16,7 @@ class InfrastructureTypeControllerTest extends ApiTestCase
     #[Test]
     public function test_list_returns_paginated_results(): void
     {
-        ComponentType::factory()->count(10)->create();
+        InfrastructureType::factory()->count(10)->create();
 
         $response = $this->actingAsEditor()
             ->getJson('/api/v1/architecture/infrastructure-types');
@@ -41,7 +41,7 @@ class InfrastructureTypeControllerTest extends ApiTestCase
     #[Test]
     public function test_show_returns_resource(): void
     {
-        $type = ComponentType::factory()->create();
+        $type = InfrastructureType::factory()->create();
 
         $response = $this->actingAsEditor()
             ->getJson("/api/v1/architecture/infrastructure-types/{$type->id}");
@@ -53,7 +53,7 @@ class InfrastructureTypeControllerTest extends ApiTestCase
     #[Test]
     public function test_update_works_for_editor(): void
     {
-        $type = ComponentType::factory()->create();
+        $type = InfrastructureType::factory()->create();
 
         $data = ['name' => 'Updated Type'];
 
@@ -67,13 +67,13 @@ class InfrastructureTypeControllerTest extends ApiTestCase
     #[Test]
     public function test_delete_works_for_admin(): void
     {
-        $type = ComponentType::factory()->create();
+        $type = InfrastructureType::factory()->create();
 
         $response = $this->actingAsAdmin()
             ->deleteJson("/api/v1/architecture/infrastructure-types/{$type->id}");
 
         $response->assertNoContent();
 
-        $this->assertDatabaseMissing('component_types', ['id' => $type->id]);
+        $this->assertDatabaseMissing('infrastructure_types', ['id' => $type->id]);
     }
 }

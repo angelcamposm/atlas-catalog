@@ -76,31 +76,31 @@ class BusinessCapabilityController extends Controller
      * Display the specified resource.
      *
      * @param  Request             $request
-     * @param  BusinessCapability  $businessCapability
+     * @param  BusinessCapability  $business_capability
      *
      * @return BusinessCapabilityResource
      */
-    public function show(Request $request, BusinessCapability $businessCapability): BusinessCapabilityResource
+    public function show(Request $request, BusinessCapability $business_capability): BusinessCapabilityResource
     {
         if ($request->has('with')) {
             $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
-            $businessCapability->load($allowedRelationships);
+            $business_capability->load($allowedRelationships);
         }
 
-        return new BusinessCapabilityResource($businessCapability);
+        return new BusinessCapabilityResource($business_capability);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateBusinessCapabilityRequest $request
-     * @param BusinessCapability $businessCapability
+     * @param BusinessCapability $business_capability
      *
      * @return BusinessCapabilityResource
      */
-    public function update(UpdateBusinessCapabilityRequest $request, BusinessCapability $businessCapability): BusinessCapabilityResource
+    public function update(UpdateBusinessCapabilityRequest $request, BusinessCapability $business_capability): BusinessCapabilityResource
     {
-        $model = tap($businessCapability)->update($request->validated());
+        $model = tap($business_capability)->update($request->validated());
 
         return new BusinessCapabilityResource($model);
     }
@@ -108,13 +108,15 @@ class BusinessCapabilityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param BusinessCapability $businessCapability
+     * @param BusinessCapability $business_capability
      *
      * @return Response
      */
-    public function destroy(BusinessCapability $businessCapability): Response
+    public function destroy(BusinessCapability $business_capability): Response
     {
-        $businessCapability->delete();
+        $this->authorize('delete', $business_capability);
+
+        $business_capability->delete();
 
         return response()->noContent();
     }

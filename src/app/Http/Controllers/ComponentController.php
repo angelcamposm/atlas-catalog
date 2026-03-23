@@ -206,6 +206,8 @@ class ComponentController extends Controller
      */
     public function destroy(Component $component): Response
     {
+        $this->authorize('delete', $component);
+
         $component->delete();
 
         return response()->noContent();

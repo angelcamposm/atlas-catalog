@@ -163,6 +163,8 @@ class ClusterController extends Controller
      */
     public function destroy(Cluster $cluster): Response
     {
+        $this->authorize('delete', $cluster);
+
         $cluster->delete();
 
         return response()->noContent();

@@ -73,6 +73,8 @@ class GroupMemberRoleController extends Controller
      */
     public function destroy(GroupMemberRole $member_role): Response
     {
+        $this->authorize('delete', $member_role);
+
         $member_role->delete();
 
         return response()->noContent();

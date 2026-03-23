@@ -99,8 +99,24 @@ class Component extends Model
      * The attributes that should be hidden for serialization.
      *
      * @var array<string>
-     *
+     */
+    protected $hidden = [
+        //
+    ];
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_exposed' => 'boolean',
+            'is_stateless' => 'boolean',
+            'has_zero_downtime_deployments' => 'boolean',
+        ];
+    }
     /**
      * Fields that can be filtered.
      *
@@ -138,10 +154,6 @@ class Component extends Model
         'description',
     ];
 
-    protected $hidden = [
-        //
-    ];
-
     /**
      * Get the value of the model's route key.
      * This allows Laravel to resolve components by either slug or ID in route model binding.
@@ -153,6 +165,20 @@ class Component extends Model
         // Return 'slug' to use slug for route model binding by default
         // The controller can still use ID directly if needed
         return 'slug';
+    }
+
+    /**
+     * Resolve the model's route binding, supporting both slug and numeric ID.
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        if ($field) {
+            return $this->where($field, $value)->firstOrFail();
+        }
+
+        return $this->where('slug', $value)
+            ->when(is_numeric($value), fn ($query) => $query->orWhere('id', $value))
+            ->firstOrFail();
     }
 
     public function apis(): BelongsToMany

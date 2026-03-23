@@ -6,6 +6,7 @@ use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\ClusterNodeController;
 use App\Http\Controllers\ClusterServiceAccountController;
 use App\Http\Controllers\ClusterTypeController;
+use App\Http\Controllers\EnvironmentController;
 use App\Http\Controllers\InfrastructureTypeController;
 use App\Http\Controllers\NodeController;
 use App\Http\Controllers\VendorController;
@@ -24,7 +25,9 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
             ->name('clusters.service-accounts')
             ->whereNumber('cluster');
         Route::apiResource('clusters/types', ClusterTypeController::class);
-        Route::apiResource('cluster-types', ClusterTypeController::class)->names([
+        Route::apiResource('cluster-types', ClusterTypeController::class)->parameters([
+            'cluster-types' => 'type',
+        ])->names([
             'index'   => 'infrastructure.cluster-types.index',
             'show'    => 'infrastructure.cluster-types.show',
             'store'   => 'infrastructure.cluster-types.store',
@@ -33,6 +36,8 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
         ]);
 
         Route::apiResource('nodes', NodeController::class);
+
+        Route::apiResource('environments', EnvironmentController::class);
 
         Route::apiResource('infrastructure-types', InfrastructureTypeController::class);
 

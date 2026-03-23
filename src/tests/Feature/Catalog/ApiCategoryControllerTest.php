@@ -74,6 +74,6 @@ class ApiCategoryControllerTest extends ApiTestCase
 
         $response->assertNoContent();
 
-        $this->assertDatabaseMissing('api_categories', ['id' => $category->id]);
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
 }

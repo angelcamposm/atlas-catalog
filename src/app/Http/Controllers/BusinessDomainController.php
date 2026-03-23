@@ -115,6 +115,8 @@ class BusinessDomainController extends Controller
      */
     public function destroy(BusinessDomain $business_domain): Response
     {
+        $this->authorize('delete', $business_domain);
+
         $business_domain->delete();
 
         return response()->noContent();

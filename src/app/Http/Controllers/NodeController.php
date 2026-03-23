@@ -101,6 +101,8 @@ class NodeController extends Controller
      */
     public function destroy(Node $node): Response
     {
+        $this->authorize('delete', $node);
+
         $node->delete();
 
         return response()->noContent();

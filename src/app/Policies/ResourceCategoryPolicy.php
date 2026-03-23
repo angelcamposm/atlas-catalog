@@ -38,7 +38,7 @@ class ResourceCategoryPolicy
      */
     public function update(User $user, ResourceCategory $resourceCategory): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**

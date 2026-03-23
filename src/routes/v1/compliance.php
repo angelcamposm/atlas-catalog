@@ -12,7 +12,7 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
         // Compliance Domain
         //
         Route::apiResource('compliance-standards', ComplianceStandardController::class);
-        Route::apiResource('standards', ComplianceStandardController::class)->names([
+        Route::apiResource('standards', ComplianceStandardController::class)->parameters(['standards' => 'compliance_standard'])->names([
             'index'   => 'compliance.standards.index',
             'show'    => 'compliance.standards.show',
             'store'   => 'compliance.standards.store',

@@ -40,26 +40,26 @@ class ServiceAccountTokenController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ServiceAccountToken $serviceAccountToken
+     * @param ServiceAccountToken $token
      *
      * @return ServiceAccountTokenResource
      */
-    public function show(ServiceAccountToken $serviceAccountToken): ServiceAccountTokenResource
+    public function show(ServiceAccountToken $token): ServiceAccountTokenResource
     {
-        return new ServiceAccountTokenResource($serviceAccountToken);
+        return new ServiceAccountTokenResource($token);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateServiceAccountTokenRequest $request
-     * @param ServiceAccountToken $serviceAccountToken
+     * @param ServiceAccountToken $token
      *
      * @return ServiceAccountTokenResource
      */
-    public function update(UpdateServiceAccountTokenRequest $request, ServiceAccountToken $serviceAccountToken): ServiceAccountTokenResource
+    public function update(UpdateServiceAccountTokenRequest $request, ServiceAccountToken $token): ServiceAccountTokenResource
     {
-        $model = tap($serviceAccountToken)->update($request->validated());
+        $model = tap($token)->update($request->validated());
 
         return new ServiceAccountTokenResource($model);
     }
@@ -67,13 +67,13 @@ class ServiceAccountTokenController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ServiceAccountToken $serviceAccountToken
+     * @param ServiceAccountToken $token
      *
      * @return Response
      */
-    public function destroy(ServiceAccountToken $serviceAccountToken): Response
+    public function destroy(ServiceAccountToken $token): Response
     {
-        $serviceAccountToken->delete();
+        $token->delete();
 
         return response()->noContent();
     }

@@ -22,6 +22,18 @@ class ApiObserver
      */
     public function creating(Api $api): void
     {
+        if (is_null($api->document_specification)) {
+            $api->document_specification = '{}';
+        }
+
+        if (is_null($api->url)) {
+            $api->url = '';
+        }
+
+        if (is_null($api->version)) {
+            $api->version = '1.0.0';
+        }
+
         if (Auth::check() && is_null($api->created_by)) {
             $api->created_by = Auth::id();
         }

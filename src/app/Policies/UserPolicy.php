@@ -30,7 +30,7 @@ class UserPolicy
      */
     public function create(User $user): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        return $user->isAdmin();
     }
 
     /**

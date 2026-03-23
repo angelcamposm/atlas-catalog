@@ -40,26 +40,26 @@ class GroupTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param GroupType $groupType
+     * @param GroupType $group_type
      *
      * @return GroupTypeResource
      */
-    public function show(GroupType $groupType): GroupTypeResource
+    public function show(GroupType $group_type): GroupTypeResource
     {
-        return new GroupTypeResource($groupType);
+        return new GroupTypeResource($group_type);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateGroupTypeRequest $request
-     * @param GroupType $groupType
+     * @param GroupType $group_type
      *
      * @return GroupTypeResource
      */
-    public function update(UpdateGroupTypeRequest $request, GroupType $groupType): GroupTypeResource
+    public function update(UpdateGroupTypeRequest $request, GroupType $group_type): GroupTypeResource
     {
-        $model = tap($groupType)->update($request->validated());
+        $model = tap($group_type)->update($request->validated());
 
         return new GroupTypeResource($model);
     }
@@ -67,13 +67,13 @@ class GroupTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param GroupType $groupType
+     * @param GroupType $group_type
      *
      * @return Response
      */
-    public function destroy(GroupType $groupType): Response
+    public function destroy(GroupType $group_type): Response
     {
-        $groupType->delete();
+        $group_type->delete();
 
         return response()->noContent();
     }

@@ -40,26 +40,26 @@ class ServiceAccountController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ServiceAccount $serviceAccount
+     * @param ServiceAccount $service_account
      *
      * @return ServiceAccountResource
      */
-    public function show(ServiceAccount $serviceAccount): ServiceAccountResource
+    public function show(ServiceAccount $service_account): ServiceAccountResource
     {
-        return new ServiceAccountResource($serviceAccount);
+        return new ServiceAccountResource($service_account);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateServiceAccountRequest $request
-     * @param ServiceAccount $serviceAccount
+     * @param ServiceAccount $service_account
      *
      * @return ServiceAccountResource
      */
-    public function update(UpdateServiceAccountRequest $request, ServiceAccount $serviceAccount): ServiceAccountResource
+    public function update(UpdateServiceAccountRequest $request, ServiceAccount $service_account): ServiceAccountResource
     {
-        $model = tap($serviceAccount)->update($request->validated());
+        $model = tap($service_account)->update($request->validated());
 
         return new ServiceAccountResource($model);
     }
@@ -67,13 +67,15 @@ class ServiceAccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ServiceAccount $serviceAccount
+     * @param ServiceAccount $service_account
      *
      * @return Response
      */
-    public function destroy(ServiceAccount $serviceAccount): Response
+    public function destroy(ServiceAccount $service_account): Response
     {
-        $serviceAccount->delete();
+        $this->authorize('delete', $service_account);
+
+        $service_account->delete();
 
         return response()->noContent();
     }

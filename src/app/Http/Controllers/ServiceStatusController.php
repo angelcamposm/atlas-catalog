@@ -40,26 +40,26 @@ class ServiceStatusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ServiceStatus $serviceStatus
+     * @param ServiceStatus $service_status
      *
      * @return ServiceStatusResource
      */
-    public function show(ServiceStatus $serviceStatus): ServiceStatusResource
+    public function show(ServiceStatus $service_status): ServiceStatusResource
     {
-        return new ServiceStatusResource($serviceStatus);
+        return new ServiceStatusResource($service_status);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateServiceStatusRequest $request
-     * @param ServiceStatus $serviceStatus
+     * @param ServiceStatus $service_status
      *
      * @return ServiceStatusResource
      */
-    public function update(UpdateServiceStatusRequest $request, ServiceStatus $serviceStatus): ServiceStatusResource
+    public function update(UpdateServiceStatusRequest $request, ServiceStatus $service_status): ServiceStatusResource
     {
-        $model = tap($serviceStatus)->update($request->validated());
+        $model = tap($service_status)->update($request->validated());
 
         return new ServiceStatusResource($model);
     }
@@ -67,13 +67,13 @@ class ServiceStatusController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ServiceStatus $serviceStatus
+     * @param ServiceStatus $service_status
      *
      * @return Response
      */
-    public function destroy(ServiceStatus $serviceStatus): Response
+    public function destroy(ServiceStatus $service_status): Response
     {
-        $serviceStatus->delete();
+        $service_status->delete();
 
         return response()->noContent();
     }

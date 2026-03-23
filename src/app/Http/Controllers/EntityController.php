@@ -121,6 +121,8 @@ class EntityController extends Controller
      */
     public function destroy(Entity $entity): Response
     {
+        $this->authorize('delete', $entity);
+
         $entity->delete();
 
         return response()->noContent();
