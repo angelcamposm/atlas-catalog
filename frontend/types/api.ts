@@ -674,14 +674,14 @@ export interface PaginatedResponse<T> {
 // Helper functions for creating response schemas --------------------------
 
 export const createResourceResponseSchema = <T extends z.ZodTypeAny>(
-    schema: T
+    schema: T,
 ) =>
     z.object({
         data: schema,
     });
 
 export const createPaginatedResponseSchema = <T extends z.ZodTypeAny>(
-    schema: T
+    schema: T,
 ) =>
     z.object({
         data: z.array(schema),
@@ -742,7 +742,7 @@ export type PaginatedLifecycleResponse = z.infer<
 
 // Programming Languages
 export const programmingLanguageResponseSchema = createResourceResponseSchema(
-    programmingLanguageSchema
+    programmingLanguageSchema,
 );
 export type ProgrammingLanguageResponse = z.infer<
     typeof programmingLanguageResponseSchema
@@ -788,7 +788,7 @@ export type PaginatedComponentResponse = z.infer<
 >;
 
 export const componentCategoryResponseSchema = createResourceResponseSchema(
-    componentCategorySchema
+    componentCategorySchema,
 );
 export type ComponentCategoryResponse = z.infer<
     typeof componentCategoryResponseSchema
@@ -898,7 +898,7 @@ export type PaginatedLinkResponse = z.infer<typeof paginatedLinkResponseSchema>;
 
 // Service Account Tokens
 export const serviceAccountTokenResponseSchema = createResourceResponseSchema(
-    serviceAccountTokenSchema
+    serviceAccountTokenSchema,
 );
 export type ServiceAccountTokenResponse = z.infer<
     typeof serviceAccountTokenResponseSchema
@@ -912,7 +912,7 @@ export type PaginatedServiceAccountTokenResponse = z.infer<
 
 // Cluster Service Accounts
 export const clusterServiceAccountResponseSchema = createResourceResponseSchema(
-    clusterServiceAccountSchema
+    clusterServiceAccountSchema,
 );
 export type ClusterServiceAccountResponse = z.infer<
     typeof clusterServiceAccountResponseSchema
@@ -926,7 +926,7 @@ export type PaginatedClusterServiceAccountResponse = z.infer<
 
 // API Access Policies
 export const apiAccessPolicyResponseSchema = createResourceResponseSchema(
-    apiAccessPolicySchema
+    apiAccessPolicySchema,
 );
 export type ApiAccessPolicyResponse = z.infer<
     typeof apiAccessPolicyResponseSchema
@@ -940,7 +940,7 @@ export type PaginatedApiAccessPolicyResponse = z.infer<
 
 // Authentication Methods
 export const authenticationMethodResponseSchema = createResourceResponseSchema(
-    authenticationMethodSchema
+    authenticationMethodSchema,
 );
 export type AuthenticationMethodResponse = z.infer<
     typeof authenticationMethodResponseSchema
@@ -973,7 +973,7 @@ export type PaginatedGroupTypeResponse = z.infer<
 >;
 
 export const groupMemberRoleResponseSchema = createResourceResponseSchema(
-    groupMemberRoleSchema
+    groupMemberRoleSchema,
 );
 export type GroupMemberRoleResponse = z.infer<
     typeof groupMemberRoleResponseSchema
@@ -998,7 +998,7 @@ export type PaginatedServiceStatusResponse = z.infer<
 
 // Compliance Standards
 export const complianceStandardResponseSchema = createResourceResponseSchema(
-    complianceStandardSchema
+    complianceStandardSchema,
 );
 export type ComplianceStandardResponse = z.infer<
     typeof complianceStandardResponseSchema
@@ -1012,7 +1012,7 @@ export type PaginatedComplianceStandardResponse = z.infer<
 
 // Infrastructure Types
 export const infrastructureTypeResponseSchema = createResourceResponseSchema(
-    infrastructureTypeSchema
+    infrastructureTypeSchema,
 );
 export type InfrastructureTypeResponse = z.infer<
     typeof infrastructureTypeResponseSchema
@@ -1026,7 +1026,7 @@ export type PaginatedInfrastructureTypeResponse = z.infer<
 
 // Resource Categories
 export const resourceCategoryResponseSchema = createResourceResponseSchema(
-    resourceCategorySchema
+    resourceCategorySchema,
 );
 export type ResourceCategoryResponse = z.infer<
     typeof resourceCategoryResponseSchema
@@ -1509,6 +1509,16 @@ export const serviceModelSchema = z
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type ServiceModel = z.infer<typeof serviceModelSchema>;
+
+export const serviceModelResponseSchema =
+    createResourceResponseSchema(serviceModelSchema);
+export type ServiceModelResponse = z.infer<typeof serviceModelResponseSchema>;
+
+export const paginatedServiceModelResponseSchema =
+    createPaginatedResponseSchema(serviceModelSchema);
+export type PaginatedServiceModelResponse = z.infer<
+    typeof paginatedServiceModelResponseSchema
+>;
 
 // Entities (nuevo en backend)
 export const entitySchema = z

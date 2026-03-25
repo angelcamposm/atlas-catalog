@@ -231,7 +231,7 @@ export function AppSidebar({
                             },
                             {
                                 title: "service_models",
-                                url: `/${locale}/platform/component-types`,
+                                url: `/${locale}/catalog/service-models`,
                             },
                             {
                                 title: "vendors",

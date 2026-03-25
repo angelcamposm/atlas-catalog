@@ -3,10 +3,13 @@
  */
 
 import { apiClient } from "../api-client";
-import { apiResponseSchema, paginatedApiResponseSchema } from "@/types/api";
+import {
+    serviceModelResponseSchema,
+    paginatedServiceModelResponseSchema,
+} from "@/types/api";
 import type {
-    PaginatedApiResponse,
-    ApiResponse,
+    PaginatedServiceModelResponse,
+    ServiceModelResponse,
     CreateServiceModelRequest,
     UpdateServiceModelRequest,
 } from "@/types/api";
@@ -15,32 +18,32 @@ export const serviceModelsApi = {
     /**
      * Get all Service Models with pagination
      */
-    getAll: async (page = 1): Promise<PaginatedApiResponse> => {
+    getAll: async (page = 1): Promise<PaginatedServiceModelResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/catalog/service-models${apiClient.buildQuery({ page })}`
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedServiceModelResponseSchema.parse(response);
     },
 
     /**
      * Get a single Service Model by ID
      */
-    getById: async (id: number): Promise<ApiResponse> => {
+    getById: async (id: number): Promise<ServiceModelResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/catalog/service-models/${id}`
         );
-        return apiResponseSchema.parse(response);
+        return serviceModelResponseSchema.parse(response);
     },
 
     /**
      * Create a new Service Model
      */
-    create: async (data: CreateServiceModelRequest): Promise<ApiResponse> => {
+    create: async (data: CreateServiceModelRequest): Promise<ServiceModelResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/service-models",
             data
         );
-        return apiResponseSchema.parse(response);
+        return serviceModelResponseSchema.parse(response);
     },
 
     /**
@@ -49,12 +52,12 @@ export const serviceModelsApi = {
     update: async (
         id: number,
         data: UpdateServiceModelRequest
-    ): Promise<ApiResponse> => {
+    ): Promise<ServiceModelResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/service-models/${id}`,
             data
         );
-        return apiResponseSchema.parse(response);
+        return serviceModelResponseSchema.parse(response);
     },
 
     /**
