@@ -284,4 +284,76 @@ describe("APIs Module", () => {
             await expect(apisApi.delete(999)).rejects.toThrow("API not found");
         });
     });
+
+    describe("apisApi.getComponents", () => {
+        const createComponentMock = (overrides = {}) => ({
+            id: 10,
+            name: "users-service",
+            slug: "users-service",
+            display_name: null,
+            description: null,
+            domain_id: null,
+            platform_id: null,
+            lifecycle_id: null,
+            tier_id: null,
+            type_id: null,
+            status_id: null,
+            operational_status_id: null,
+            owner_id: null,
+            criticality_id: null,
+            has_zero_downtime_deployment: false,
+            is_stateless: false,
+            discovery_source: null,
+            tags: null,
+            created_at: "2024-01-01T00:00:00Z",
+            updated_at: "2024-01-01T00:00:00Z",
+            created_by: 1,
+            updated_by: 1,
+            ...overrides,
+        });
+
+        it("should fetch components for a given API ID", async () => {
+            const mockResponse = createPaginatedResponse([
+                createComponentMock(),
+            ]);
+
+            mockedApiClient.get.mockResolvedValueOnce(mockResponse);
+
+            const result = await apisApi.getComponents(42);
+
+            expect(mockedApiClient.get).toHaveBeenCalledWith(
+                "/v1/catalog/apis/42/components"
+            );
+            expect(result.data).toHaveLength(1);
+            expect(result.data[0].name).toBe("users-service");
+        });
+
+        it("should return empty data when no components are associated", async () => {
+            const mockResponse = {
+                data: [],
+                meta: {
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 15,
+                    total: 0,
+                    from: null,
+                    to: null,
+                    path: "/v1/apis/1/components",
+                },
+                links: {
+                    first: "/v1/apis/1/components?page=1",
+                    last: "/v1/apis/1/components?page=1",
+                    prev: null,
+                    next: null,
+                },
+            };
+
+            mockedApiClient.get.mockResolvedValueOnce(mockResponse);
+
+            const result = await apisApi.getComponents(1);
+
+            expect(result.data).toHaveLength(0);
+            expect(result.meta.total).toBe(0);
+        });
+    });
 });

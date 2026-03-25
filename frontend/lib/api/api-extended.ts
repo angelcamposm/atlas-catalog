@@ -11,6 +11,7 @@ import {
     paginatedApiStatusResponseSchema,
     apiAccessPolicyResponseSchema,
     paginatedApiAccessPolicyResponseSchema,
+    paginatedApiResponseSchema,
 } from "@/types/api";
 import type {
     ApiCategoryResponse,
@@ -23,6 +24,7 @@ import type {
     UpdateApiStatusRequest,
     ApiAccessPolicyResponse,
     PaginatedApiAccessPolicyResponse,
+    PaginatedApiResponse,
     CreateApiAccessPolicyRequest,
     UpdateApiAccessPolicyRequest,
 } from "@/types/api";
@@ -196,6 +198,16 @@ export const apiAccessPoliciesApi = {
      */
     delete: (id: number) =>
         apiClient.delete(`/v1/catalog/apis/access-policies/${id}`),
+
+    /**
+     * Get all APIs associated with a specific access policy
+     */
+    getApis: async (policyId: number): Promise<PaginatedApiResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/apis/access-policies/${policyId}/apis`
+        );
+        return paginatedApiResponseSchema.parse(response);
+    },
 };
 
 // Consolidated Extended API ------------------------------------------------

@@ -117,6 +117,18 @@ describe("New API Modules", () => {
             expect(apiExtendedApi.categories.update).toBeDefined();
             expect(apiExtendedApi.categories.delete).toBeDefined();
         });
+
+        it("has all CRUD methods for access policies", () => {
+            expect(apiExtendedApi.accessPolicies.getAll).toBeDefined();
+            expect(apiExtendedApi.accessPolicies.getById).toBeDefined();
+            expect(apiExtendedApi.accessPolicies.create).toBeDefined();
+            expect(apiExtendedApi.accessPolicies.update).toBeDefined();
+            expect(apiExtendedApi.accessPolicies.delete).toBeDefined();
+        });
+
+        it("has getApis method on access policies", () => {
+            expect(apiExtendedApi.accessPolicies.getApis).toBeDefined();
+        });
     });
 
     describe("Business API", () => {
@@ -148,6 +160,10 @@ describe("New API Modules", () => {
             expect(technologyApi.vendors.create).toBeDefined();
             expect(technologyApi.vendors.update).toBeDefined();
             expect(technologyApi.vendors.delete).toBeDefined();
+        });
+
+        it("has getComponents method on frameworks", () => {
+            expect(technologyApi.frameworks.getComponents).toBeDefined();
         });
     });
 

@@ -9,6 +9,7 @@ import {
     paginatedPlatformResponseSchema,
     componentTypeResponseSchema,
     paginatedComponentTypeResponseSchema,
+    paginatedComponentResponseSchema,
 } from "@/types/api";
 import type {
     PlatformResponse,
@@ -19,6 +20,7 @@ import type {
     PaginatedComponentTypeResponse,
     CreateComponentTypeRequest,
     UpdateComponentTypeRequest,
+    PaginatedComponentResponse,
 } from "@/types/api";
 
 // Platforms ----------------------------------------------------------------
@@ -73,6 +75,16 @@ export const platformsApi = {
      * Delete a platform
      */
     delete: (id: number) => apiClient.delete(`/v1/catalog/platforms/${id}`),
+
+    /**
+     * Get components belonging to a platform
+     */
+    getComponents: async (platformId: number): Promise<PaginatedComponentResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/platforms/${platformId}/components`
+        );
+        return paginatedComponentResponseSchema.parse(response);
+    },
 };
 
 // Component Types ----------------------------------------------------------

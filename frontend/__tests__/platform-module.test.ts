@@ -23,7 +23,10 @@ jest.mock("@/lib/api-client", () => ({
         }),
     },
     ApiError: class ApiError extends Error {
-        constructor(message: string, public status: number) {
+        constructor(
+            message: string,
+            public status: number,
+        ) {
             super(message);
         }
     },
@@ -63,7 +66,7 @@ const createComponentTypeMock = (overrides = {}) => ({
 const createPaginatedResponse = <T>(
     data: T[],
     page = 1,
-    path: string = "/v1/platforms"
+    path: string = "/v1/platforms",
 ) => ({
     data,
     meta: {
@@ -110,7 +113,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/catalog/platforms?page=1"
+                    "/v1/catalog/platforms?page=1",
                 );
                 expect(result.data).toHaveLength(3);
                 expect(result.data[0].name).toBe("aws-platform");
@@ -120,7 +123,7 @@ describe("Platform Module", () => {
             it("should handle pagination parameters", async () => {
                 const mockResponse = createPaginatedResponse(
                     [createPlatformMock()],
-                    3
+                    3,
                 );
 
                 mockedApiClient.get.mockResolvedValueOnce(mockResponse);
@@ -128,7 +131,7 @@ describe("Platform Module", () => {
                 const result = await platformsApi.getAll(3);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/catalog/platforms?page=3"
+                    "/v1/catalog/platforms?page=3",
                 );
                 expect(result.meta.current_page).toBe(3);
             });
@@ -155,11 +158,11 @@ describe("Platform Module", () => {
                 const result = await platformsApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/catalog/platforms/1"
+                    "/v1/catalog/platforms/1",
                 );
                 expect(result.data.name).toBe("aws-platform");
                 expect(result.data.description).toBe(
-                    "Amazon Web Services cloud platform"
+                    "Amazon Web Services cloud platform",
                 );
             });
 
@@ -201,7 +204,7 @@ describe("Platform Module", () => {
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
                     "/v1/catalog/platforms",
-                    createData
+                    createData,
                 );
                 expect(result.data.name).toBe("new-platform");
             });
@@ -222,18 +225,18 @@ describe("Platform Module", () => {
                 const result = await platformsApi.create(createData);
 
                 expect(result.data.description).toBe(
-                    "A fully configured platform"
+                    "A fully configured platform",
                 );
                 expect(result.data.icon).toBe("custom-icon");
             });
 
             it("should handle creation errors", async () => {
                 mockedApiClient.post.mockRejectedValueOnce(
-                    new Error("Platform name already exists")
+                    new Error("Platform name already exists"),
                 );
 
                 await expect(
-                    platformsApi.create({ name: "duplicate", icon: "icon" })
+                    platformsApi.create({ name: "duplicate", icon: "icon" }),
                 ).rejects.toThrow("Platform name already exists");
             });
         });
@@ -259,7 +262,7 @@ describe("Platform Module", () => {
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
                     "/v1/catalog/platforms/1",
-                    updateData
+                    updateData,
                 );
                 expect(result.data.description).toBe("Updated description");
             });
@@ -272,19 +275,19 @@ describe("Platform Module", () => {
                 await platformsApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/catalog/platforms/1"
+                    "/v1/catalog/platforms/1",
                 );
             });
 
             it("should handle deletion errors", async () => {
                 mockedApiClient.delete.mockRejectedValueOnce(
                     new Error(
-                        "Cannot delete platform with associated resources"
-                    )
+                        "Cannot delete platform with associated resources",
+                    ),
                 );
 
                 await expect(platformsApi.delete(1)).rejects.toThrow(
-                    "Cannot delete platform with associated resources"
+                    "Cannot delete platform with associated resources",
                 );
             });
         });
@@ -308,7 +311,7 @@ describe("Platform Module", () => {
                         }),
                     ],
                     1,
-                    "/v1/component-types"
+                    "/v1/component-types",
                 );
 
                 mockedApiClient.get.mockResolvedValueOnce(mockResponse);
@@ -316,7 +319,7 @@ describe("Platform Module", () => {
                 const result = await componentTypesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/catalog/components/types?page=1"
+                    "/v1/catalog/components/types?page=1",
                 );
                 expect(result.data).toHaveLength(3);
             });
@@ -333,7 +336,7 @@ describe("Platform Module", () => {
                 const result = await componentTypesApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/catalog/components/types/1"
+                    "/v1/catalog/components/types/1",
                 );
                 expect(result.data.name).toBe("database");
             });
@@ -360,7 +363,7 @@ describe("Platform Module", () => {
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
                     "/v1/catalog/components/types",
-                    createData
+                    createData,
                 );
                 expect(result.data.name).toBe("storage");
             });
@@ -384,7 +387,7 @@ describe("Platform Module", () => {
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
                     "/v1/catalog/components/types/1",
-                    updateData
+                    updateData,
                 );
                 expect(result.data.icon).toBe("new-icon");
             });
@@ -397,7 +400,7 @@ describe("Platform Module", () => {
                 await componentTypesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/catalog/components/types/1"
+                    "/v1/catalog/components/types/1",
                 );
             });
         });
@@ -418,6 +421,7 @@ describe("Platform Module", () => {
             expect(platformApi.platforms.create).toBeDefined();
             expect(platformApi.platforms.update).toBeDefined();
             expect(platformApi.platforms.delete).toBeDefined();
+            expect(platformApi.platforms.getComponents).toBeDefined();
         });
 
         it("should have all expected methods on componentTypes", () => {

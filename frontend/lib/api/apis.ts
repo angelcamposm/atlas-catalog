@@ -3,9 +3,14 @@
  */
 
 import { apiClient } from "../api-client";
-import { apiResponseSchema, paginatedApiResponseSchema } from "@/types/api";
+import {
+    apiResponseSchema,
+    paginatedApiResponseSchema,
+    paginatedComponentResponseSchema,
+} from "@/types/api";
 import type {
     PaginatedApiResponse,
+    PaginatedComponentResponse,
     ApiResponse,
     CreateApiRequest,
     UpdateApiRequest,
@@ -59,4 +64,14 @@ export const apisApi = {
      * Delete an API
      */
     delete: (id: number) => apiClient.delete(`/v1/catalog/apis/${id}`),
+
+    /**
+     * Get components associated with a specific API
+     */
+    getComponents: async (apiId: number): Promise<PaginatedComponentResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/apis/${apiId}/components`
+        );
+        return paginatedComponentResponseSchema.parse(response);
+    },
 };

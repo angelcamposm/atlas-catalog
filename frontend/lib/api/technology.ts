@@ -11,6 +11,7 @@ import {
     paginatedFrameworkResponseSchema,
     authenticationMethodResponseSchema,
     paginatedAuthenticationMethodResponseSchema,
+    paginatedComponentResponseSchema,
 } from "@/types/api";
 import type {
     VendorResponse,
@@ -23,6 +24,7 @@ import type {
     UpdateFrameworkRequest,
     AuthenticationMethodResponse,
     PaginatedAuthenticationMethodResponse,
+    PaginatedComponentResponse,
     CreateAuthenticationMethodRequest,
     UpdateAuthenticationMethodRequest,
 } from "@/types/api";
@@ -136,6 +138,16 @@ export const frameworksApi = {
      * Delete a framework
      */
     delete: (id: number) => apiClient.delete(`/v1/catalog/frameworks/${id}`),
+
+    /**
+     * Get components belonging to a framework
+     */
+    getComponents: async (frameworkId: number): Promise<PaginatedComponentResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/catalog/frameworks/${frameworkId}/components`
+        );
+        return paginatedComponentResponseSchema.parse(response);
+    },
 };
 
 // Authentication Methods ---------------------------------------------------
