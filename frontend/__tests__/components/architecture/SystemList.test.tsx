@@ -67,9 +67,7 @@ describe("SystemList", () => {
                     onDelete={mockOnDelete}
                 />,
             );
-            expect(
-                screen.getByText(/no hay sistemas/i),
-            ).toBeInTheDocument();
+            expect(screen.getByText(/no hay sistemas/i)).toBeInTheDocument();
         });
     });
 

@@ -23,7 +23,11 @@ interface SystemDetailProps {
  *
  * Shows the system metadata and the list of associated components.
  */
-export function SystemDetail({ system, components, locale }: SystemDetailProps) {
+export function SystemDetail({
+    system,
+    components,
+    locale,
+}: SystemDetailProps) {
     return (
         <div className="space-y-6">
             {/* Main info */}
@@ -91,7 +95,8 @@ export function SystemDetail({ system, components, locale }: SystemDetailProps) 
                                     className="flex items-center justify-between py-2"
                                 >
                                     <span className="text-sm font-medium">
-                                        {component.display_name ?? component.name}
+                                        {component.display_name ??
+                                            component.name}
                                     </span>
                                     <Link
                                         href={`/${locale}/catalog/${component.slug}`}
