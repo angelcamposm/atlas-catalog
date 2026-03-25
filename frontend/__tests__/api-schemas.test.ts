@@ -7,6 +7,16 @@ import {
     paginatedLifecycleResponseSchema,
     programmingLanguageResponseSchema,
     paginatedProgrammingLanguageResponseSchema,
+    entityResponseSchema,
+    paginatedEntityResponseSchema,
+    systemResponseSchema,
+    paginatedSystemResponseSchema,
+    businessCapabilityResponseSchema,
+    paginatedBusinessCapabilityResponseSchema,
+    entityAttributeResponseSchema,
+    paginatedEntityAttributeResponseSchema,
+    businessCapabilitySystemResponseSchema,
+    paginatedBusinessCapabilitySystemResponseSchema,
 } from "@/types/api";
 
 const baseMeta = {
@@ -170,5 +180,156 @@ describe("api schemas", () => {
             meta: baseMeta,
         });
         expect(result.data[0].name).toBe("PHP");
+    });
+
+    // Architecture Domain schemas
+    it("parses entity responses", () => {
+        const entity = {
+            id: 1,
+            name: "User",
+            description: "User entity",
+            is_enabled: true,
+            domain_id: null,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = entityResponseSchema.parse({ data: entity });
+        expect(result.data.name).toBe("User");
+    });
+
+    it("parses paginated entity responses", () => {
+        const entity = {
+            id: 2,
+            name: "Order",
+            description: null,
+            is_enabled: false,
+            domain_id: 1,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = paginatedEntityResponseSchema.parse({
+            data: [entity],
+            links: baseLinks,
+            meta: baseMeta,
+        });
+        expect(result.data[0].name).toBe("Order");
+    });
+
+    it("parses system responses", () => {
+        const system = {
+            id: 1,
+            name: "Billing System",
+            description: "Manages billing",
+            ...timestamps,
+            ...userReference,
+        };
+        const result = systemResponseSchema.parse({ data: system });
+        expect(result.data.name).toBe("Billing System");
+    });
+
+    it("parses paginated system responses", () => {
+        const system = {
+            id: 2,
+            name: "Auth System",
+            description: null,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = paginatedSystemResponseSchema.parse({
+            data: [system],
+            links: baseLinks,
+            meta: baseMeta,
+        });
+        expect(result.data[0].name).toBe("Auth System");
+    });
+
+    it("parses business capability responses", () => {
+        const capability = {
+            id: 1,
+            name: "Customer Management",
+            description: null,
+            parent_id: null,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = businessCapabilityResponseSchema.parse({ data: capability });
+        expect(result.data.name).toBe("Customer Management");
+    });
+
+    it("parses paginated business capability responses", () => {
+        const capability = {
+            id: 2,
+            name: "Order Processing",
+            description: "Handles orders",
+            parent_id: 1,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = paginatedBusinessCapabilityResponseSchema.parse({
+            data: [capability],
+            links: baseLinks,
+            meta: baseMeta,
+        });
+        expect(result.data[0].name).toBe("Order Processing");
+    });
+
+    it("parses entity attribute responses", () => {
+        const attr = {
+            id: 1,
+            entity_id: 1,
+            name: "email",
+            type: "string",
+            is_required: true,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = entityAttributeResponseSchema.parse({ data: attr });
+        expect(result.data.name).toBe("email");
+    });
+
+    it("parses paginated entity attribute responses", () => {
+        const attr = {
+            id: 2,
+            entity_id: 1,
+            name: "age",
+            type: null,
+            is_required: false,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = paginatedEntityAttributeResponseSchema.parse({
+            data: [attr],
+            links: baseLinks,
+            meta: baseMeta,
+        });
+        expect(result.data[0].name).toBe("age");
+    });
+
+    it("parses business capability system responses", () => {
+        const link = {
+            id: 1,
+            business_capability_id: 1,
+            system_id: 2,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = businessCapabilitySystemResponseSchema.parse({ data: link });
+        expect(result.data.system_id).toBe(2);
+    });
+
+    it("parses paginated business capability system responses", () => {
+        const link = {
+            id: 2,
+            business_capability_id: 3,
+            system_id: 4,
+            ...timestamps,
+            ...userReference,
+        };
+        const result = paginatedBusinessCapabilitySystemResponseSchema.parse({
+            data: [link],
+            links: baseLinks,
+            meta: baseMeta,
+        });
+        expect(result.data[0].business_capability_id).toBe(3);
     });
 });

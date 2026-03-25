@@ -1533,6 +1533,15 @@ export const entitySchema = z
     .merge(userReferenceSchema);
 export type Entity = z.infer<typeof entitySchema>;
 
+// Entity response schemas
+export const entityResponseSchema = createResourceResponseSchema(entitySchema);
+export type EntityResponse = z.infer<typeof entityResponseSchema>;
+export const paginatedEntityResponseSchema =
+    createPaginatedResponseSchema(entitySchema);
+export type PaginatedEntityResponse = z.infer<
+    typeof paginatedEntityResponseSchema
+>;
+
 // Entity Attributes
 export const entityAttributeSchema = z
     .object({
@@ -1557,6 +1566,15 @@ export const systemSchema = z
     .merge(userReferenceSchema);
 export type System = z.infer<typeof systemSchema>;
 
+// System response schemas
+export const systemResponseSchema = createResourceResponseSchema(systemSchema);
+export type SystemResponse = z.infer<typeof systemResponseSchema>;
+export const paginatedSystemResponseSchema =
+    createPaginatedResponseSchema(systemSchema);
+export type PaginatedSystemResponse = z.infer<
+    typeof paginatedSystemResponseSchema
+>;
+
 // Business Capabilities
 export const businessCapabilitySchema = z
     .object({
@@ -1568,6 +1586,18 @@ export const businessCapabilitySchema = z
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type BusinessCapability = z.infer<typeof businessCapabilitySchema>;
+
+// Business Capability response schemas
+export const businessCapabilityResponseSchema =
+    createResourceResponseSchema(businessCapabilitySchema);
+export type BusinessCapabilityResponse = z.infer<
+    typeof businessCapabilityResponseSchema
+>;
+export const paginatedBusinessCapabilityResponseSchema =
+    createPaginatedResponseSchema(businessCapabilitySchema);
+export type PaginatedBusinessCapabilityResponse = z.infer<
+    typeof paginatedBusinessCapabilityResponseSchema
+>;
 
 // Workflow Runs (CI/CD)
 export const workflowRunSchema = z
