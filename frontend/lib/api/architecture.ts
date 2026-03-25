@@ -6,6 +6,8 @@ import { apiClient } from "../api-client";
 import {
     apiResponseSchema,
     paginatedApiResponseSchema,
+    businessCapabilityResponseSchema,
+    paginatedBusinessCapabilityResponseSchema,
     businessCapabilitySystemResponseSchema,
     paginatedBusinessCapabilitySystemResponseSchema,
     entityAttributeResponseSchema,
@@ -14,6 +16,8 @@ import {
 import type {
     PaginatedApiResponse,
     ApiResponse,
+    BusinessCapabilityResponse,
+    PaginatedBusinessCapabilityResponse,
     CreateBusinessCapabilityRequest,
     UpdateBusinessCapabilityRequest,
     CreateEntityRequest,
@@ -34,23 +38,23 @@ export const businessCapabilitiesApi = {
     /**
      * Get all Business Capabilities with pagination
      */
-    getAll: async (page = 1): Promise<PaginatedApiResponse> => {
+    getAll: async (page = 1): Promise<PaginatedBusinessCapabilityResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/business-capabilities${apiClient.buildQuery({
                 page,
             })}`
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedBusinessCapabilityResponseSchema.parse(response);
     },
 
     /**
      * Get a single Business Capability by ID
      */
-    getById: async (id: number): Promise<ApiResponse> => {
+    getById: async (id: number): Promise<BusinessCapabilityResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/business-capabilities/${id}`
         );
-        return apiResponseSchema.parse(response);
+        return businessCapabilityResponseSchema.parse(response);
     },
 
     /**
@@ -58,12 +62,12 @@ export const businessCapabilitiesApi = {
      */
     create: async (
         data: CreateBusinessCapabilityRequest
-    ): Promise<ApiResponse> => {
+    ): Promise<BusinessCapabilityResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/business-capabilities",
             data
         );
-        return apiResponseSchema.parse(response);
+        return businessCapabilityResponseSchema.parse(response);
     },
 
     /**
@@ -72,12 +76,12 @@ export const businessCapabilitiesApi = {
     update: async (
         id: number,
         data: UpdateBusinessCapabilityRequest
-    ): Promise<ApiResponse> => {
+    ): Promise<BusinessCapabilityResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/business-capabilities/${id}`,
             data
         );
-        return apiResponseSchema.parse(response);
+        return businessCapabilityResponseSchema.parse(response);
     },
 
     /**
@@ -90,11 +94,11 @@ export const businessCapabilitiesApi = {
     /**
      * Get all Systems associated with a Business Capability
      */
-    getCapabilitySystems: async (capabilityId: number): Promise<PaginatedApiResponse> => {
+    getCapabilitySystems: async (capabilityId: number): Promise<PaginatedBusinessCapabilitySystemResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/business-capabilities/${capabilityId}/systems`
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedBusinessCapabilitySystemResponseSchema.parse(response);
     },
 };
 
