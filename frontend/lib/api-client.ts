@@ -23,7 +23,11 @@ function getAuthHeader(): Record<string, string> {
 }
 
 export class ApiError extends Error {
-    constructor(message: string, public status: number, public data?: unknown) {
+    constructor(
+        message: string,
+        public status: number,
+        public data?: unknown,
+    ) {
         super(message);
         this.name = "ApiError";
     }
@@ -38,7 +42,7 @@ interface RequestOptions extends RequestInit {
  */
 async function fetchWithTimeout(
     url: string,
-    options: RequestOptions = {}
+    options: RequestOptions = {},
 ): Promise<Response> {
     const { timeout = API_TIMEOUT, ...fetchOptions } = options;
 
@@ -64,7 +68,7 @@ async function fetchWithTimeout(
             throw new ApiError(
                 errorData.message || `HTTP Error ${response.status}`,
                 response.status,
-                errorData
+                errorData,
             );
         }
 
@@ -89,7 +93,7 @@ async function fetchWithTimeout(
  */
 export async function get<T>(
     endpoint: string,
-    options?: RequestOptions
+    options?: RequestOptions,
 ): Promise<T> {
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
         method: "GET",
@@ -104,7 +108,7 @@ export async function get<T>(
 export async function post<T>(
     endpoint: string,
     data?: unknown,
-    options?: RequestOptions
+    options?: RequestOptions,
 ): Promise<T> {
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
         method: "POST",
@@ -120,7 +124,7 @@ export async function post<T>(
 export async function put<T>(
     endpoint: string,
     data?: unknown,
-    options?: RequestOptions
+    options?: RequestOptions,
 ): Promise<T> {
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
         method: "PUT",
@@ -135,7 +139,7 @@ export async function put<T>(
  */
 export async function del(
     endpoint: string,
-    options?: RequestOptions
+    options?: RequestOptions,
 ): Promise<void> {
     await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
         method: "DELETE",
@@ -155,7 +159,7 @@ export const apiClient = {
 
     // Helper to build query params
     buildQuery(
-        params: Record<string, string | number | boolean | undefined>
+        params: Record<string, string | number | boolean | undefined>,
     ): string {
         const query = new URLSearchParams();
         Object.entries(params).forEach(([key, value]) => {

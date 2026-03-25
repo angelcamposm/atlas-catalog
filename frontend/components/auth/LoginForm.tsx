@@ -38,7 +38,9 @@ export function LoginForm({ locale }: LoginFormProps) {
             router.push(`/${locale}/dashboard`);
         } catch (err: unknown) {
             const message =
-                err instanceof Error ? err.message : "Invalid credentials. Please try again.";
+                err instanceof Error
+                    ? err.message
+                    : "Invalid credentials. Please try again.";
             setError(message);
         } finally {
             setIsLoading(false);

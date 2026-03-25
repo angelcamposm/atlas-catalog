@@ -3,7 +3,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { HiUsers, HiMagnifyingGlass, HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import {
+    HiUsers,
+    HiMagnifyingGlass,
+    HiCheckCircle,
+    HiXCircle,
+} from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/Badge";
@@ -30,7 +35,9 @@ export default function UsersPage() {
             setUsers(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading users");
+            setError(
+                err instanceof Error ? err.message : "Error loading users",
+            );
             console.error("Error loading users:", err);
         } finally {
             setLoading(false);
@@ -44,7 +51,7 @@ export default function UsersPage() {
     const filteredUsers = users.filter(
         (u) =>
             (u.name ?? "").toLowerCase().includes(search.toLowerCase()) ||
-            (u.email ?? "").toLowerCase().includes(search.toLowerCase())
+            (u.email ?? "").toLowerCase().includes(search.toLowerCase()),
     );
 
     if (loading && users.length === 0) {
@@ -132,9 +139,13 @@ export default function UsersPage() {
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">
-                                                {(user.name ?? "?").charAt(0).toUpperCase()}
+                                                {(user.name ?? "?")
+                                                    .charAt(0)
+                                                    .toUpperCase()}
                                             </div>
-                                            <span className="font-medium">{user.name}</span>
+                                            <span className="font-medium">
+                                                {user.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -142,9 +153,15 @@ export default function UsersPage() {
                                     </td>
                                     <td className="px-4 py-3">
                                         <Badge
-                                            variant={user.is_enabled ? "success" : "secondary"}
+                                            variant={
+                                                user.is_enabled
+                                                    ? "success"
+                                                    : "secondary"
+                                            }
                                         >
-                                            {user.is_enabled ? "Active" : "Inactive"}
+                                            {user.is_enabled
+                                                ? "Active"
+                                                : "Inactive"}
                                         </Badge>
                                     </td>
                                     <td className="px-4 py-3">
@@ -178,7 +195,9 @@ export default function UsersPage() {
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
                         disabled={page === totalPages}
                     >
                         Next

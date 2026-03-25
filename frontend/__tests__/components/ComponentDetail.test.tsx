@@ -190,11 +190,11 @@ describe("ComponentDetailHeader", () => {
                 componentType={mockComponentType}
                 lifecycle={mockLifecycle}
                 locale="es"
-            />
+            />,
         );
 
         expect(
-            screen.getByText("User Authentication Service")
+            screen.getByText("User Authentication Service"),
         ).toBeInTheDocument();
     });
 
@@ -206,7 +206,7 @@ describe("ComponentDetailHeader", () => {
                 componentType={mockComponentType}
                 lifecycle={mockLifecycle}
                 locale="es"
-            />
+            />,
         );
 
         expect(screen.getByText("Eugenia")).toBeInTheDocument();
@@ -220,7 +220,7 @@ describe("ComponentDetailHeader", () => {
                 componentType={mockComponentType}
                 lifecycle={mockLifecycle}
                 locale="es"
-            />
+            />,
         );
 
         expect(screen.getByText("Active")).toBeInTheDocument();
@@ -234,7 +234,7 @@ describe("ComponentDetailHeader", () => {
                 componentType={mockComponentType}
                 lifecycle={mockLifecycle}
                 locale="es"
-            />
+            />,
         );
 
         expect(screen.getByText("Service")).toBeInTheDocument();
@@ -248,7 +248,7 @@ describe("ComponentDetailHeader", () => {
                 componentType={mockComponentType}
                 lifecycle={mockLifecycle}
                 locale="es"
-            />
+            />,
         );
 
         expect(screen.getByText("Home")).toBeInTheDocument();
@@ -263,14 +263,12 @@ describe("ComponentDetailHeader", () => {
                 componentType={mockComponentType}
                 lifecycle={mockLifecycle}
                 locale="es"
-            />
+            />,
         );
 
+        expect(screen.getByRole("link", { name: /ver/i })).toBeInTheDocument();
         expect(
-            screen.getByRole("link", { name: /ver/i })
-        ).toBeInTheDocument();
-        expect(
-            screen.getByRole("link", { name: /editar/i })
+            screen.getByRole("link", { name: /editar/i }),
         ).toBeInTheDocument();
     });
 
@@ -283,7 +281,7 @@ describe("ComponentDetailHeader", () => {
                 lifecycle={mockLifecycle}
                 profileCompletion={75}
                 locale="es"
-            />
+            />,
         );
 
         expect(screen.getByText("75%")).toBeInTheDocument();
@@ -302,7 +300,7 @@ describe("InformationSection", () => {
 
     it("should render component name field", () => {
         render(
-            <InformationSection component={mockComponent} defaultExpanded />
+            <InformationSection component={mockComponent} defaultExpanded />,
         );
         expect(screen.getByText("Name")).toBeInTheDocument();
         expect(screen.getByText("user-auth-service")).toBeInTheDocument();
@@ -310,11 +308,11 @@ describe("InformationSection", () => {
 
     it("should render component description", () => {
         render(
-            <InformationSection component={mockComponent} defaultExpanded />
+            <InformationSection component={mockComponent} defaultExpanded />,
         );
         expect(screen.getByText("Description")).toBeInTheDocument();
         expect(
-            screen.getByText(/Handles user authentication/)
+            screen.getByText(/Handles user authentication/),
         ).toBeInTheDocument();
     });
 
@@ -324,7 +322,7 @@ describe("InformationSection", () => {
             <InformationSection
                 component={componentWithoutDesc}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("—")).toBeInTheDocument();
     });
@@ -341,7 +339,7 @@ describe("OtherDetailsSection", () => {
                 component={mockComponent}
                 componentType={mockComponentType}
                 platform={mockPlatform}
-            />
+            />,
         );
         expect(screen.getByText("Other Details")).toBeInTheDocument();
     });
@@ -353,7 +351,7 @@ describe("OtherDetailsSection", () => {
                 componentType={mockComponentType}
                 platform={mockPlatform}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Category")).toBeInTheDocument();
     });
@@ -373,7 +371,7 @@ describe("OtherDetailsSection", () => {
                 platform={mockPlatform}
                 framework={mockFramework}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Framework")).toBeInTheDocument();
         expect(screen.getByText("Spring Boot")).toBeInTheDocument();
@@ -387,7 +385,7 @@ describe("OtherDetailsSection", () => {
                 platform={mockPlatform}
                 owner={mockOwner}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Owner")).toBeInTheDocument();
         expect(screen.getByText("Eugenia")).toBeInTheDocument();
@@ -400,7 +398,7 @@ describe("OtherDetailsSection", () => {
                 componentType={mockComponentType}
                 platform={mockPlatform}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Platform")).toBeInTheDocument();
         expect(screen.getByText("AWS")).toBeInTheDocument();
@@ -413,7 +411,7 @@ describe("OtherDetailsSection", () => {
                 componentType={mockComponentType}
                 platform={mockPlatform}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Tags")).toBeInTheDocument();
         expect(screen.getByText(/team/)).toBeInTheDocument();
@@ -436,7 +434,7 @@ describe("BusinessSupportSection", () => {
                 component={mockComponent}
                 businessDomain={mockBusinessDomain}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Business Domain")).toBeInTheDocument();
         expect(screen.getByText("Human Resources")).toBeInTheDocument();
@@ -449,7 +447,7 @@ describe("BusinessSupportSection", () => {
                 component={mockComponent}
                 businessCriticality={mockCriticality}
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Business Criticality")).toBeInTheDocument();
         expect(screen.getByText("Mission Critical")).toBeInTheDocument();
@@ -462,7 +460,7 @@ describe("BusinessSupportSection", () => {
                 businessTIM="BU-1"
                 functionalTIM="FT-1"
                 defaultExpanded
-            />
+            />,
         );
         expect(screen.getByText("Business TIM")).toBeInTheDocument();
         expect(screen.getByText("Functional TIM")).toBeInTheDocument();
@@ -484,7 +482,7 @@ describe("LifecycleTimeline", () => {
 
     it("should render section title", () => {
         render(
-            <LifecycleTimeline phases={lifecyclePhases} currentPhaseId={3} />
+            <LifecycleTimeline phases={lifecyclePhases} currentPhaseId={3} />,
         );
         expect(screen.getByText("Lifecycle")).toBeInTheDocument();
     });
@@ -495,7 +493,7 @@ describe("LifecycleTimeline", () => {
                 phases={lifecyclePhases}
                 currentPhaseId={3}
                 defaultExpanded
-            />
+            />,
         );
 
         expect(screen.getByText("Plan")).toBeInTheDocument();
@@ -511,7 +509,7 @@ describe("LifecycleTimeline", () => {
                 phases={lifecyclePhases}
                 currentPhaseId={3}
                 defaultExpanded
-            />
+            />,
         );
 
         // The active phase should have special styling
@@ -525,7 +523,7 @@ describe("LifecycleTimeline", () => {
                 phases={lifecyclePhases}
                 currentPhaseId={3}
                 defaultExpanded
-            />
+            />,
         );
 
         expect(screen.getByText("2024-01-11")).toBeInTheDocument();
@@ -544,7 +542,10 @@ describe("DeploymentsSection", () => {
 
     it("should render environment columns", () => {
         render(
-            <DeploymentsSection deployments={mockDeployments} defaultExpanded />
+            <DeploymentsSection
+                deployments={mockDeployments}
+                defaultExpanded
+            />,
         );
 
         expect(screen.getByText("DLT")).toBeInTheDocument();
@@ -554,7 +555,10 @@ describe("DeploymentsSection", () => {
 
     it("should render versions", () => {
         render(
-            <DeploymentsSection deployments={mockDeployments} defaultExpanded />
+            <DeploymentsSection
+                deployments={mockDeployments}
+                defaultExpanded
+            />,
         );
 
         expect(screen.getAllByText("1.2.3")).toHaveLength(2);
@@ -567,11 +571,11 @@ describe("DeploymentsSection", () => {
                 deployments={mockDeployments}
                 applicationName="user-auth-service"
                 defaultExpanded
-            />
+            />,
         );
 
         expect(
-            screen.getByText("Application Environments")
+            screen.getByText("Application Environments"),
         ).toBeInTheDocument();
     });
 
@@ -593,7 +597,7 @@ describe("DependenciesSection", () => {
                 consumes={mockDependencies.consumes}
                 imports={mockDependencies.imports}
                 requiredBy={mockDependencies.requiredBy}
-            />
+            />,
         );
         expect(screen.getByText(/Dependencies/)).toBeInTheDocument();
     });
@@ -606,7 +610,7 @@ describe("DependenciesSection", () => {
                 imports={[]}
                 requiredBy={[]}
                 defaultExpanded
-            />
+            />,
         );
 
         expect(screen.getByText("Provee")).toBeInTheDocument();
@@ -621,7 +625,7 @@ describe("DependenciesSection", () => {
                 imports={[]}
                 requiredBy={[]}
                 defaultExpanded
-            />
+            />,
         );
 
         expect(screen.getByText("Consume")).toBeInTheDocument();
@@ -636,7 +640,7 @@ describe("DependenciesSection", () => {
                 imports={mockDependencies.imports}
                 requiredBy={[]}
                 defaultExpanded
-            />
+            />,
         );
 
         expect(screen.getByText("Importa")).toBeInTheDocument();
@@ -651,7 +655,7 @@ describe("DependenciesSection", () => {
                 imports={[]}
                 requiredBy={mockDependencies.requiredBy}
                 defaultExpanded
-            />
+            />,
         );
 
         expect(screen.getByText("Requerido por")).toBeInTheDocument();
@@ -666,7 +670,7 @@ describe("DependenciesSection", () => {
                 imports={mockDependencies.imports}
                 requiredBy={mockDependencies.requiredBy}
                 defaultExpanded
-            />
+            />,
         );
 
         // The total count is displayed as a badge

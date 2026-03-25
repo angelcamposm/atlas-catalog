@@ -61,12 +61,10 @@ export const authApi = {
      * Fetch the currently authenticated user.
      * Requires a valid Bearer token to be set in the api-client headers.
      */
-    me: (): Promise<MeResponse> =>
-        apiClient.get<MeResponse>("/v1/auth/me"),
+    me: (): Promise<MeResponse> => apiClient.get<MeResponse>("/v1/auth/me"),
 
     /**
      * Logout and invalidate the current token on the backend.
      */
-    logout: (): Promise<void> =>
-        apiClient.post<void>("/v1/auth/logout", {}),
+    logout: (): Promise<void> => apiClient.post<void>("/v1/auth/logout", {}),
 };

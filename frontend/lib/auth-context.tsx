@@ -8,7 +8,13 @@
  * the session on page load via /v1/auth/me.
  */
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
 import { authApi, AuthUser, LoginRequest } from "@/lib/api/auth";
 
 // Token storage key

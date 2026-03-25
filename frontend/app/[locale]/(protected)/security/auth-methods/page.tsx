@@ -46,11 +46,13 @@ export default function AuthMethodsPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [editingMethod, setEditingMethod] = useState<AuthenticationMethod | null>(null);
+    const [editingMethod, setEditingMethod] =
+        useState<AuthenticationMethod | null>(null);
     const [saving, setSaving] = useState(false);
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingMethod, setDeletingMethod] = useState<AuthenticationMethod | null>(null);
+    const [deletingMethod, setDeletingMethod] =
+        useState<AuthenticationMethod | null>(null);
     const [deleting, setDeleting] = useState(false);
 
     const [formData, setFormData] = useState({ name: "", description: "" });
@@ -63,7 +65,11 @@ export default function AuthMethodsPage() {
             setMethods(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading authentication methods");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading authentication methods",
+            );
             console.error("Error loading auth methods:", err);
         } finally {
             setLoading(false);
@@ -82,7 +88,10 @@ export default function AuthMethodsPage() {
 
     const openEditDialog = (method: AuthenticationMethod) => {
         setEditingMethod(method);
-        setFormData({ name: method.name, description: method.description || "" });
+        setFormData({
+            name: method.name,
+            description: method.description || "",
+        });
         setDialogOpen(true);
     };
 
@@ -95,19 +104,27 @@ export default function AuthMethodsPage() {
         try {
             setSaving(true);
             setError(null);
-            const data: CreateAuthenticationMethodRequest | UpdateAuthenticationMethodRequest = {
+            const data:
+                | CreateAuthenticationMethodRequest
+                | UpdateAuthenticationMethodRequest = {
                 name: formData.name,
                 description: formData.description || undefined,
             };
             if (editingMethod) {
                 await authenticationMethodsApi.update(editingMethod.id, data);
             } else {
-                await authenticationMethodsApi.create(data as CreateAuthenticationMethodRequest);
+                await authenticationMethodsApi.create(
+                    data as CreateAuthenticationMethodRequest,
+                );
             }
             setDialogOpen(false);
             loadMethods();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving authentication method");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error saving authentication method",
+            );
             console.error("Error saving auth method:", err);
         } finally {
             setSaving(false);
@@ -123,7 +140,11 @@ export default function AuthMethodsPage() {
             setDeletingMethod(null);
             loadMethods();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting authentication method");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error deleting authentication method",
+            );
             console.error("Error deleting auth method:", err);
         } finally {
             setDeleting(false);
@@ -161,7 +182,14 @@ export default function AuthMethodsPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">Dismiss</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
                 </div>
             )}
 
@@ -169,29 +197,50 @@ export default function AuthMethodsPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Method</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Description</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Method
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Description
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {methods.length === 0 ? (
                             <tr>
-                                <td colSpan={3} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={3}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiKey className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No authentication methods yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No authentication methods yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Add your first method
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             methods.map((method) => (
-                                <tr key={method.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={method.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiKey className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{method.name}</span>
+                                            <span className="font-medium">
+                                                {method.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -201,13 +250,17 @@ export default function AuthMethodsPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(method)}
+                                                onClick={() =>
+                                                    openEditDialog(method)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(method)}
+                                                onClick={() =>
+                                                    openDeleteDialog(method)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -222,28 +275,59 @@ export default function AuthMethodsPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingMethod ? "Edit Authentication Method" : "Add Authentication Method"}</DialogTitle>
+                        <DialogTitle>
+                            {editingMethod
+                                ? "Edit Authentication Method"
+                                : "Add Authentication Method"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingMethod ? "Update the authentication method details" : "Add a new authentication method for your APIs"}
+                            {editingMethod
+                                ? "Update the authentication method details"
+                                : "Add a new authentication method for your APIs"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="am-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="am-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="am-name"
                                 placeholder="e.g., OAuth 2.0, API Key, mTLS"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -252,30 +336,57 @@ export default function AuthMethodsPage() {
                                 id="am-description"
                                 placeholder="Optional description"
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                    })
+                                }
                                 rows={3}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingMethod ? "Update" : "Add"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingMethod
+                                  ? "Update"
+                                  : "Add"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Authentication Method</AlertDialogTitle>
+                        <AlertDialogTitle>
+                            Delete Authentication Method
+                        </AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingMethod?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingMethod?.name}&quot;? This action cannot be
+                            undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

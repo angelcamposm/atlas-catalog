@@ -53,7 +53,7 @@ export const workflowsApi = {
      */
     getRuns: async (page = 1): Promise<PaginatedResponse<WorkflowRun>> => {
         const response = await apiClient.get<unknown>(
-            `/v1/ci-cd/workflows/runs${apiClient.buildQuery({ page })}`
+            `/v1/ci-cd/workflows/runs${apiClient.buildQuery({ page })}`,
         );
         return paginatedWorkflowRunSchema.parse(response);
     },
@@ -63,7 +63,7 @@ export const workflowsApi = {
      */
     getRunById: async (id: number): Promise<{ data: WorkflowRun }> => {
         const response = await apiClient.get<unknown>(
-            `/v1/ci-cd/workflows/runs/${id}`
+            `/v1/ci-cd/workflows/runs/${id}`,
         );
         return workflowRunResponseSchema.parse(response);
     },
@@ -72,11 +72,11 @@ export const workflowsApi = {
      * Create a new workflow run
      */
     createRun: async (
-        data: CreateWorkflowRunRequest
+        data: CreateWorkflowRunRequest,
     ): Promise<{ data: WorkflowRun }> => {
         const response = await apiClient.post<unknown>(
             "/v1/ci-cd/workflows/runs",
-            data
+            data,
         );
         return workflowRunResponseSchema.parse(response);
     },
@@ -86,11 +86,11 @@ export const workflowsApi = {
      */
     updateRun: async (
         id: number,
-        data: UpdateWorkflowRunRequest
+        data: UpdateWorkflowRunRequest,
     ): Promise<{ data: WorkflowRun }> => {
         const response = await apiClient.put<unknown>(
             `/v1/ci-cd/workflows/runs/${id}`,
-            data
+            data,
         );
         return workflowRunResponseSchema.parse(response);
     },
@@ -107,10 +107,10 @@ export const workflowsApi = {
      * Get all workflow commits with pagination
      */
     getCommits: async (
-        page = 1
+        page = 1,
     ): Promise<PaginatedResponse<WorkflowCommit>> => {
         const response = await apiClient.get<unknown>(
-            `/v1/ci-cd/workflows/commits${apiClient.buildQuery({ page })}`
+            `/v1/ci-cd/workflows/commits${apiClient.buildQuery({ page })}`,
         );
         return paginatedWorkflowCommitSchema.parse(response);
     },
@@ -120,7 +120,7 @@ export const workflowsApi = {
      */
     getCommitById: async (id: number): Promise<{ data: WorkflowCommit }> => {
         const response = await apiClient.get<unknown>(
-            `/v1/ci-cd/workflows/commits/${id}`
+            `/v1/ci-cd/workflows/commits/${id}`,
         );
         return workflowCommitResponseSchema.parse(response);
     },
@@ -129,11 +129,11 @@ export const workflowsApi = {
      * Create a new workflow commit
      */
     createCommit: async (
-        data: CreateWorkflowCommitRequest
+        data: CreateWorkflowCommitRequest,
     ): Promise<{ data: WorkflowCommit }> => {
         const response = await apiClient.post<unknown>(
             "/v1/ci-cd/workflows/commits",
-            data
+            data,
         );
         return workflowCommitResponseSchema.parse(response);
     },
@@ -143,11 +143,11 @@ export const workflowsApi = {
      */
     updateCommit: async (
         id: number,
-        data: UpdateWorkflowCommitRequest
+        data: UpdateWorkflowCommitRequest,
     ): Promise<{ data: WorkflowCommit }> => {
         const response = await apiClient.put<unknown>(
             `/v1/ci-cd/workflows/commits/${id}`,
-            data
+            data,
         );
         return workflowCommitResponseSchema.parse(response);
     },
@@ -165,7 +165,7 @@ export const workflowsApi = {
      */
     getJobs: async (workflowRunId: number): Promise<WorkflowJob[]> => {
         const response = await apiClient.get<unknown>(
-            `/v1/ci-cd/workflows/${workflowRunId}/jobs`
+            `/v1/ci-cd/workflows/${workflowRunId}/jobs`,
         );
         const schema = z.object({ data: z.array(workflowJobSchema) });
         if (schema.safeParse(response).success) {

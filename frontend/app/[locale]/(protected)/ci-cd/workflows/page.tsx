@@ -58,7 +58,11 @@ export default function WorkflowsPage() {
             setRuns(response.data);
             setTotalPagesRuns(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading workflow runs");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading workflow runs",
+            );
             console.error("Error loading workflow runs:", err);
         } finally {
             setLoading(false);
@@ -73,7 +77,9 @@ export default function WorkflowsPage() {
             setCommits(response.data);
             setTotalPagesCommits(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading commits");
+            setError(
+                err instanceof Error ? err.message : "Error loading commits",
+            );
             console.error("Error loading commits:", err);
         } finally {
             setLoading(false);
@@ -95,7 +101,8 @@ export default function WorkflowsPage() {
     }
 
     const currentPage = activeTab === "runs" ? pageRuns : pageCommits;
-    const totalPages = activeTab === "runs" ? totalPagesRuns : totalPagesCommits;
+    const totalPages =
+        activeTab === "runs" ? totalPagesRuns : totalPagesCommits;
     const setCurrentPage = activeTab === "runs" ? setPageRuns : setPageCommits;
 
     return (
@@ -173,7 +180,9 @@ export default function WorkflowsPage() {
                                         className="px-4 py-12 text-center text-muted-foreground"
                                     >
                                         <HiArrowPath className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                        <p className="mt-4">No workflow runs found</p>
+                                        <p className="mt-4">
+                                            No workflow runs found
+                                        </p>
                                     </td>
                                 </tr>
                             ) : (
@@ -183,16 +192,22 @@ export default function WorkflowsPage() {
                                         className="border-b border-border last:border-0"
                                     >
                                         <td className="px-4 py-3">
-                                            <span className="font-medium">{run.name}</span>
+                                            <span className="font-medium">
+                                                {run.name}
+                                            </span>
                                         </td>
                                         <td className="px-4 py-3">
                                             <div className="flex items-center gap-2">
-                                                {STATUS_ICON[run.status ?? ""] ?? (
+                                                {STATUS_ICON[
+                                                    run.status ?? ""
+                                                ] ?? (
                                                     <HiClock className="h-4 w-4 text-muted-foreground" />
                                                 )}
                                                 <Badge
                                                     variant={
-                                                        STATUS_VARIANT[run.status ?? ""] ?? "secondary"
+                                                        STATUS_VARIANT[
+                                                            run.status ?? ""
+                                                        ] ?? "secondary"
                                                     }
                                                 >
                                                     {run.status}
@@ -201,12 +216,16 @@ export default function WorkflowsPage() {
                                         </td>
                                         <td className="px-4 py-3 text-sm text-muted-foreground">
                                             {run.started_at
-                                                ? new Date(run.started_at).toLocaleString()
+                                                ? new Date(
+                                                      run.started_at,
+                                                  ).toLocaleString()
                                                 : "—"}
                                         </td>
                                         <td className="px-4 py-3 text-sm text-muted-foreground">
                                             {run.finished_at
-                                                ? new Date(run.finished_at).toLocaleString()
+                                                ? new Date(
+                                                      run.finished_at,
+                                                  ).toLocaleString()
                                                 : "—"}
                                         </td>
                                     </tr>
@@ -267,7 +286,9 @@ export default function WorkflowsPage() {
                                         </td>
                                         <td className="px-4 py-3 text-sm text-muted-foreground">
                                             {commit.committed_at
-                                                ? new Date(commit.committed_at).toLocaleString()
+                                                ? new Date(
+                                                      commit.committed_at,
+                                                  ).toLocaleString()
                                                 : "—"}
                                         </td>
                                     </tr>
@@ -284,7 +305,9 @@ export default function WorkflowsPage() {
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                        onClick={() =>
+                            setCurrentPage((p) => Math.max(1, p - 1))
+                        }
                         disabled={currentPage === 1}
                     >
                         Previous
@@ -295,7 +318,9 @@ export default function WorkflowsPage() {
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                        onClick={() =>
+                            setCurrentPage((p) => Math.min(totalPages, p + 1))
+                        }
                         disabled={currentPage === totalPages}
                     >
                         Next

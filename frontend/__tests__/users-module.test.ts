@@ -25,7 +25,7 @@ jest.mock("@/lib/api-client", () => ({
     ApiError: class ApiError extends Error {
         constructor(
             message: string,
-            public status: number
+            public status: number,
         ) {
             super(message);
         }
@@ -93,7 +93,14 @@ describe("usersApi", () => {
 
     describe("getAll", () => {
         it("calls GET /v1/organization/users with page param", async () => {
-            const mockUsers = [createUserMock(), createUserMock({ id: 2, name: "Jane", email: "jane@example.com" })];
+            const mockUsers = [
+                createUserMock(),
+                createUserMock({
+                    id: 2,
+                    name: "Jane",
+                    email: "jane@example.com",
+                }),
+            ];
             const mockResponse = createPaginatedResponse(mockUsers);
             mockedApiClient.get.mockResolvedValueOnce(mockResponse);
             mockedApiClient.buildQuery.mockReturnValueOnce("?page=1");
@@ -101,7 +108,7 @@ describe("usersApi", () => {
             const result = await usersApi.getAll(1);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/organization/users?page=1"
+                "/v1/organization/users?page=1",
             );
             expect(result.data).toHaveLength(2);
             expect(result.meta.total).toBe(2);
@@ -114,7 +121,9 @@ describe("usersApi", () => {
 
             await usersApi.getAll();
 
-            expect(mockedApiClient.buildQuery).toHaveBeenCalledWith({ page: 1 });
+            expect(mockedApiClient.buildQuery).toHaveBeenCalledWith({
+                page: 1,
+            });
         });
     });
 
@@ -126,7 +135,7 @@ describe("usersApi", () => {
             const result = await usersApi.getById(1);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/organization/users/1"
+                "/v1/organization/users/1",
             );
             expect(result.data.id).toBe(1);
             expect(result.data.name).toBe("John Doe");
@@ -136,14 +145,17 @@ describe("usersApi", () => {
     describe("create", () => {
         it("calls POST /v1/organization/users with data", async () => {
             const createData = { name: "New User", email: "new@example.com" };
-            const mockUser = createUserMock({ name: "New User", email: "new@example.com" });
+            const mockUser = createUserMock({
+                name: "New User",
+                email: "new@example.com",
+            });
             mockedApiClient.post.mockResolvedValueOnce({ data: mockUser });
 
             const result = await usersApi.create(createData);
 
             expect(mockedApiClient.post).toHaveBeenCalledWith(
                 "/v1/organization/users",
-                createData
+                createData,
             );
             expect(result.data.name).toBe("New User");
         });
@@ -159,7 +171,7 @@ describe("usersApi", () => {
 
             expect(mockedApiClient.put).toHaveBeenCalledWith(
                 "/v1/organization/users/1",
-                updateData
+                updateData,
             );
             expect(result.data.name).toBe("Updated User");
         });
@@ -172,7 +184,7 @@ describe("usersApi", () => {
             await usersApi.delete(1);
 
             expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                "/v1/organization/users/1"
+                "/v1/organization/users/1",
             );
         });
     });

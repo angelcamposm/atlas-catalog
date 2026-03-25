@@ -58,7 +58,11 @@ export default function GroupTypesPage() {
             setTypes(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading group types");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading group types",
+            );
         } finally {
             setLoading(false);
         }
@@ -101,7 +105,9 @@ export default function GroupTypesPage() {
             setDialogOpen(false);
             loadTypes();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving group type");
+            setError(
+                err instanceof Error ? err.message : "Error saving group type",
+            );
         } finally {
             setSaving(false);
         }
@@ -116,7 +122,11 @@ export default function GroupTypesPage() {
             setDeletingType(null);
             loadTypes();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting group type");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error deleting group type",
+            );
         } finally {
             setDeleting(false);
         }
@@ -153,7 +163,14 @@ export default function GroupTypesPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">Dismiss</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
                 </div>
             )}
 
@@ -161,29 +178,50 @@ export default function GroupTypesPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Type</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Description</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Type
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Description
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {types.length === 0 ? (
                             <tr>
-                                <td colSpan={3} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={3}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiUsers className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No group types defined yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No group types defined yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Add first type
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             types.map((type) => (
-                                <tr key={type.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={type.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiUsers className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{type.name}</span>
+                                            <span className="font-medium">
+                                                {type.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -193,13 +231,17 @@ export default function GroupTypesPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(type)}
+                                                onClick={() =>
+                                                    openEditDialog(type)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(type)}
+                                                onClick={() =>
+                                                    openDeleteDialog(type)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -214,28 +256,57 @@ export default function GroupTypesPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingType ? "Edit Group Type" : "Add Group Type"}</DialogTitle>
+                        <DialogTitle>
+                            {editingType ? "Edit Group Type" : "Add Group Type"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingType ? "Update the group type" : "Define a new group type for your organization"}
+                            {editingType
+                                ? "Update the group type"
+                                : "Define a new group type for your organization"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="gt-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="gt-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="gt-name"
                                 placeholder="e.g., Team, Squad, Chapter"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -244,30 +315,55 @@ export default function GroupTypesPage() {
                                 id="gt-description"
                                 placeholder="Optional description"
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                    })
+                                }
                                 rows={3}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingType ? "Update" : "Add"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingType
+                                  ? "Update"
+                                  : "Add"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete Group Type</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingType?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingType?.name}&quot;? This action cannot be
+                            undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

@@ -41,14 +41,21 @@ export default function ApiCategoriesPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [editingCategory, setEditingCategory] = useState<ApiCategory | null>(null);
+    const [editingCategory, setEditingCategory] = useState<ApiCategory | null>(
+        null,
+    );
     const [saving, setSaving] = useState(false);
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingCategory, setDeletingCategory] = useState<ApiCategory | null>(null);
+    const [deletingCategory, setDeletingCategory] =
+        useState<ApiCategory | null>(null);
     const [deleting, setDeleting] = useState(false);
 
-    const [formData, setFormData] = useState({ name: "", description: "", icon: "" });
+    const [formData, setFormData] = useState({
+        name: "",
+        description: "",
+        icon: "",
+    });
 
     const loadCategories = useCallback(async () => {
         try {
@@ -58,7 +65,11 @@ export default function ApiCategoriesPage() {
             setCategories(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading API categories");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading API categories",
+            );
         } finally {
             setLoading(false);
         }
@@ -76,7 +87,11 @@ export default function ApiCategoriesPage() {
 
     const openEditDialog = (category: ApiCategory) => {
         setEditingCategory(category);
-        setFormData({ name: category.name, description: category.description || "", icon: category.icon || "" });
+        setFormData({
+            name: category.name,
+            description: category.description || "",
+            icon: category.icon || "",
+        });
         setDialogOpen(true);
     };
 
@@ -102,7 +117,11 @@ export default function ApiCategoriesPage() {
             setDialogOpen(false);
             loadCategories();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving API category");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error saving API category",
+            );
         } finally {
             setSaving(false);
         }
@@ -117,7 +136,11 @@ export default function ApiCategoriesPage() {
             setDeletingCategory(null);
             loadCategories();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting API category");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error deleting API category",
+            );
         } finally {
             setDeleting(false);
         }
@@ -154,7 +177,14 @@ export default function ApiCategoriesPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">Dismiss</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
                 </div>
             )}
 
@@ -162,30 +192,53 @@ export default function ApiCategoriesPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Category</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Description</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Icon</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Category
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Description
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Icon
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {categories.length === 0 ? (
                             <tr>
-                                <td colSpan={4} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={4}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiRectangleGroup className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No API categories defined yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No API categories defined yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Add first category
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             categories.map((category) => (
-                                <tr key={category.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={category.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiRectangleGroup className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{category.name}</span>
+                                            <span className="font-medium">
+                                                {category.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -198,13 +251,17 @@ export default function ApiCategoriesPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(category)}
+                                                onClick={() =>
+                                                    openEditDialog(category)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(category)}
+                                                onClick={() =>
+                                                    openDeleteDialog(category)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -219,28 +276,59 @@ export default function ApiCategoriesPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingCategory ? "Edit API Category" : "Add API Category"}</DialogTitle>
+                        <DialogTitle>
+                            {editingCategory
+                                ? "Edit API Category"
+                                : "Add API Category"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingCategory ? "Update the API category" : "Create a new category to organize your APIs"}
+                            {editingCategory
+                                ? "Update the API category"
+                                : "Create a new category to organize your APIs"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="ac-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="ac-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="ac-name"
                                 placeholder="e.g., Core, Integration, Security"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -249,7 +337,12 @@ export default function ApiCategoriesPage() {
                                 id="ac-icon"
                                 placeholder="Icon identifier"
                                 value={formData.icon}
-                                onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        icon: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -258,30 +351,55 @@ export default function ApiCategoriesPage() {
                                 id="ac-description"
                                 placeholder="Optional description"
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                    })
+                                }
                                 rows={3}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingCategory ? "Update" : "Add"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingCategory
+                                  ? "Update"
+                                  : "Add"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete API Category</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingCategory?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingCategory?.name}&quot;? This action cannot
+                            be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

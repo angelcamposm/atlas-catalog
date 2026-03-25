@@ -33,13 +33,13 @@ export default function BusinessCapabilitiesPage() {
             const response = await businessCapabilitiesApi.getAll(page);
             setCapabilities((response.data as Capability[]) || []);
             setTotalPages(
-                (response.meta as { last_page?: number })?.last_page || 1
+                (response.meta as { last_page?: number })?.last_page || 1,
             );
         } catch (err) {
             setError(
                 err instanceof Error
                     ? err.message
-                    : "Error loading business capabilities"
+                    : "Error loading business capabilities",
             );
             console.error("Error loading business capabilities:", err);
         } finally {
@@ -128,7 +128,9 @@ export default function BusinessCapabilitiesPage() {
                     <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
                         disabled={page === totalPages}
                     >
                         Next

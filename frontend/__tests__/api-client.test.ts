@@ -5,9 +5,15 @@ const localStorageMock = (() => {
     let store: Record<string, string> = {};
     return {
         getItem: (key: string) => store[key] ?? null,
-        setItem: (key: string, value: string) => { store[key] = value; },
-        removeItem: (key: string) => { delete store[key]; },
-        clear: () => { store = {}; },
+        setItem: (key: string, value: string) => {
+            store[key] = value;
+        },
+        removeItem: (key: string) => {
+            delete store[key];
+        },
+        clear: () => {
+            store = {};
+        },
     };
 })();
 Object.defineProperty(window, "localStorage", { value: localStorageMock });
@@ -78,8 +84,11 @@ describe("apiClient — Bearer token injection", () => {
         mockFetch.mockResolvedValueOnce({ ok: true, json: async () => ({}) });
         await apiClient.get("/v1/second");
 
-        expect(mockFetch.mock.calls[0][1].headers?.Authorization).toBe("Bearer token-one");
-        expect(mockFetch.mock.calls[1][1].headers?.Authorization).toBe("Bearer token-two");
+        expect(mockFetch.mock.calls[0][1].headers?.Authorization).toBe(
+            "Bearer token-one",
+        );
+        expect(mockFetch.mock.calls[1][1].headers?.Authorization).toBe(
+            "Bearer token-two",
+        );
     });
 });
-

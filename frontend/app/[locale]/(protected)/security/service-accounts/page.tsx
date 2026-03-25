@@ -47,12 +47,15 @@ export default function ServiceAccountsPage() {
 
     // Dialog state
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [editingAccount, setEditingAccount] = useState<ServiceAccount | null>(null);
+    const [editingAccount, setEditingAccount] = useState<ServiceAccount | null>(
+        null,
+    );
     const [saving, setSaving] = useState(false);
 
     // Delete dialog state
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingAccount, setDeletingAccount] = useState<ServiceAccount | null>(null);
+    const [deletingAccount, setDeletingAccount] =
+        useState<ServiceAccount | null>(null);
     const [deleting, setDeleting] = useState(false);
 
     // Form state
@@ -70,7 +73,11 @@ export default function ServiceAccountsPage() {
             setAccounts(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading service accounts");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading service accounts",
+            );
             console.error("Error loading service accounts:", err);
         } finally {
             setLoading(false);
@@ -106,7 +113,9 @@ export default function ServiceAccountsPage() {
         try {
             setSaving(true);
             setError(null);
-            const data: CreateServiceAccountRequest | UpdateServiceAccountRequest = {
+            const data:
+                | CreateServiceAccountRequest
+                | UpdateServiceAccountRequest = {
                 name: formData.name,
                 namespace: formData.namespace || undefined,
                 description: formData.description || undefined,
@@ -114,12 +123,18 @@ export default function ServiceAccountsPage() {
             if (editingAccount) {
                 await serviceAccountsApi.update(editingAccount.id, data);
             } else {
-                await serviceAccountsApi.create(data as CreateServiceAccountRequest);
+                await serviceAccountsApi.create(
+                    data as CreateServiceAccountRequest,
+                );
             }
             setDialogOpen(false);
             loadAccounts();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving service account");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error saving service account",
+            );
             console.error("Error saving service account:", err);
         } finally {
             setSaving(false);
@@ -135,7 +150,11 @@ export default function ServiceAccountsPage() {
             setDeletingAccount(null);
             loadAccounts();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting service account");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error deleting service account",
+            );
             console.error("Error deleting service account:", err);
         } finally {
             setDeleting(false);
@@ -173,7 +192,12 @@ export default function ServiceAccountsPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
                         Dismiss
                     </Button>
                 </div>
@@ -183,29 +207,50 @@ export default function ServiceAccountsPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Name</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Namespace</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Name
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Namespace
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {accounts.length === 0 ? (
                             <tr>
-                                <td colSpan={3} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={3}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiUserGroup className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No service accounts yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No service accounts yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Create your first service account
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             accounts.map((account) => (
-                                <tr key={account.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={account.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiUserGroup className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{account.name}</span>
+                                            <span className="font-medium">
+                                                {account.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -215,13 +260,17 @@ export default function ServiceAccountsPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(account)}
+                                                onClick={() =>
+                                                    openEditDialog(account)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(account)}
+                                                onClick={() =>
+                                                    openDeleteDialog(account)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -236,9 +285,27 @@ export default function ServiceAccountsPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
@@ -246,19 +313,32 @@ export default function ServiceAccountsPage() {
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingAccount ? "Edit Service Account" : "Create Service Account"}</DialogTitle>
+                        <DialogTitle>
+                            {editingAccount
+                                ? "Edit Service Account"
+                                : "Create Service Account"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingAccount ? "Update service account details" : "Create a new service account for automation and integrations"}
+                            {editingAccount
+                                ? "Update service account details"
+                                : "Create a new service account for automation and integrations"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="sa-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="sa-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="sa-name"
                                 placeholder="e.g., github-actions-bot"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -267,7 +347,12 @@ export default function ServiceAccountsPage() {
                                 id="sa-namespace"
                                 placeholder="e.g., ci-cd, monitoring"
                                 value={formData.namespace}
-                                onChange={(e) => setFormData({ ...formData, namespace: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        namespace: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -276,31 +361,58 @@ export default function ServiceAccountsPage() {
                                 id="sa-description"
                                 placeholder="Optional description"
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                    })
+                                }
                                 rows={3}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingAccount ? "Update" : "Create"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingAccount
+                                  ? "Update"
+                                  : "Create"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* Delete Dialog */}
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Delete Service Account</AlertDialogTitle>
+                        <AlertDialogTitle>
+                            Delete Service Account
+                        </AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingAccount?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingAccount?.name}&quot;? This action cannot be
+                            undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

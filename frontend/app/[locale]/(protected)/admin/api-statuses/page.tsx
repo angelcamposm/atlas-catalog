@@ -45,7 +45,9 @@ export default function ApiStatusesPage() {
     const [saving, setSaving] = useState(false);
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingStatus, setDeletingStatus] = useState<ApiStatus | null>(null);
+    const [deletingStatus, setDeletingStatus] = useState<ApiStatus | null>(
+        null,
+    );
     const [deleting, setDeleting] = useState(false);
 
     const [formData, setFormData] = useState({ name: "", description: "" });
@@ -58,7 +60,11 @@ export default function ApiStatusesPage() {
             setStatuses(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading API statuses");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading API statuses",
+            );
         } finally {
             setLoading(false);
         }
@@ -76,7 +82,10 @@ export default function ApiStatusesPage() {
 
     const openEditDialog = (status: ApiStatus) => {
         setEditingStatus(status);
-        setFormData({ name: status.name, description: status.description || "" });
+        setFormData({
+            name: status.name,
+            description: status.description || "",
+        });
         setDialogOpen(true);
     };
 
@@ -101,7 +110,9 @@ export default function ApiStatusesPage() {
             setDialogOpen(false);
             loadStatuses();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving API status");
+            setError(
+                err instanceof Error ? err.message : "Error saving API status",
+            );
         } finally {
             setSaving(false);
         }
@@ -116,7 +127,11 @@ export default function ApiStatusesPage() {
             setDeletingStatus(null);
             loadStatuses();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting API status");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error deleting API status",
+            );
         } finally {
             setDeleting(false);
         }
@@ -153,7 +168,14 @@ export default function ApiStatusesPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">Dismiss</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
                 </div>
             )}
 
@@ -161,29 +183,50 @@ export default function ApiStatusesPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Status</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Description</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Status
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Description
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {statuses.length === 0 ? (
                             <tr>
-                                <td colSpan={3} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={3}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiQueueList className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No API statuses defined yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No API statuses defined yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Add first status
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             statuses.map((status) => (
-                                <tr key={status.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={status.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiQueueList className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{status.name}</span>
+                                            <span className="font-medium">
+                                                {status.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -193,13 +236,17 @@ export default function ApiStatusesPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(status)}
+                                                onClick={() =>
+                                                    openEditDialog(status)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(status)}
+                                                onClick={() =>
+                                                    openDeleteDialog(status)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -214,28 +261,59 @@ export default function ApiStatusesPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingStatus ? "Edit API Status" : "Add API Status"}</DialogTitle>
+                        <DialogTitle>
+                            {editingStatus
+                                ? "Edit API Status"
+                                : "Add API Status"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingStatus ? "Update the API status" : "Define a new lifecycle status for APIs"}
+                            {editingStatus
+                                ? "Update the API status"
+                                : "Define a new lifecycle status for APIs"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="as-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="as-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="as-name"
                                 placeholder="e.g., Active, Beta, Deprecated"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -244,30 +322,55 @@ export default function ApiStatusesPage() {
                                 id="as-description"
                                 placeholder="Optional description"
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                    })
+                                }
                                 rows={3}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingStatus ? "Update" : "Add"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingStatus
+                                  ? "Update"
+                                  : "Add"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete API Status</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingStatus?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingStatus?.name}&quot;? This action cannot be
+                            undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

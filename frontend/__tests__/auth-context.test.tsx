@@ -24,9 +24,15 @@ const localStorageMock = (() => {
     let store: Record<string, string> = {};
     return {
         getItem: (key: string) => store[key] ?? null,
-        setItem: (key: string, value: string) => { store[key] = value; },
-        removeItem: (key: string) => { delete store[key]; },
-        clear: () => { store = {}; },
+        setItem: (key: string, value: string) => {
+            store[key] = value;
+        },
+        removeItem: (key: string) => {
+            delete store[key];
+        },
+        clear: () => {
+            store = {};
+        },
     };
 })();
 Object.defineProperty(window, "localStorage", { value: localStorageMock });
@@ -52,13 +58,24 @@ describe("useAuth", () => {
 
     describe("login", () => {
         it("stores token in localStorage and sets user", async () => {
-            const mockUser = { id: 1, name: "Test User", email: "test@example.com", role: "user" };
-            (authApi.login as jest.Mock).mockResolvedValueOnce({ token: "test-token", user: mockUser });
+            const mockUser = {
+                id: 1,
+                name: "Test User",
+                email: "test@example.com",
+                role: "user",
+            };
+            (authApi.login as jest.Mock).mockResolvedValueOnce({
+                token: "test-token",
+                user: mockUser,
+            });
 
             const { result } = renderHook(() => useAuth(), { wrapper });
 
             await act(async () => {
-                await result.current.login({ email: "test@example.com", password: "secret" });
+                await result.current.login({
+                    email: "test@example.com",
+                    password: "secret",
+                });
             });
 
             expect(localStorage.getItem("auth_token")).toBe("test-token");
@@ -67,14 +84,19 @@ describe("useAuth", () => {
         });
 
         it("throws error on failed login", async () => {
-            (authApi.login as jest.Mock).mockRejectedValueOnce(new Error("Invalid credentials"));
+            (authApi.login as jest.Mock).mockRejectedValueOnce(
+                new Error("Invalid credentials"),
+            );
 
             const { result } = renderHook(() => useAuth(), { wrapper });
 
             await expect(
                 act(async () => {
-                    await result.current.login({ email: "bad@example.com", password: "wrong" });
-                })
+                    await result.current.login({
+                        email: "bad@example.com",
+                        password: "wrong",
+                    });
+                }),
             ).rejects.toThrow("Invalid credentials");
 
             expect(result.current.user).toBeNull();
@@ -86,7 +108,12 @@ describe("useAuth", () => {
         it("clears token from localStorage and resets user", async () => {
             // Arrange: simulate already logged in
             localStorageMock.setItem("auth_token", "existing-token");
-            const mockUser = { id: 1, name: "Test User", email: "test@example.com", role: "user" };
+            const mockUser = {
+                id: 1,
+                name: "Test User",
+                email: "test@example.com",
+                role: "user",
+            };
             (authApi.me as jest.Mock).mockResolvedValueOnce({ data: mockUser });
             (authApi.logout as jest.Mock).mockResolvedValueOnce(undefined);
 
@@ -110,7 +137,12 @@ describe("useAuth", () => {
     describe("token restoration on mount", () => {
         it("restores session when token exists in localStorage", async () => {
             localStorageMock.setItem("auth_token", "saved-token");
-            const mockUser = { id: 2, name: "Returning User", email: "returning@example.com", role: "admin" };
+            const mockUser = {
+                id: 2,
+                name: "Returning User",
+                email: "returning@example.com",
+                role: "admin",
+            };
             (authApi.me as jest.Mock).mockResolvedValueOnce({ data: mockUser });
 
             const { result } = renderHook(() => useAuth(), { wrapper });
@@ -129,7 +161,9 @@ describe("useAuth", () => {
 
         it("clears token if me() fails (token expired)", async () => {
             localStorageMock.setItem("auth_token", "expired-token");
-            (authApi.me as jest.Mock).mockRejectedValueOnce(new Error("Unauthorized"));
+            (authApi.me as jest.Mock).mockRejectedValueOnce(
+                new Error("Unauthorized"),
+            );
 
             const { result } = renderHook(() => useAuth(), { wrapper });
 

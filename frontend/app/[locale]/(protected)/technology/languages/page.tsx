@@ -2,7 +2,14 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { HiCodeBracket, HiPlus, HiPencil, HiTrash, HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import {
+    HiCodeBracket,
+    HiPlus,
+    HiPencil,
+    HiTrash,
+    HiCheckCircle,
+    HiXCircle,
+} from "react-icons/hi2";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/input";
@@ -41,14 +48,21 @@ export default function ProgrammingLanguagesPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [editingLanguage, setEditingLanguage] = useState<ProgrammingLanguage | null>(null);
+    const [editingLanguage, setEditingLanguage] =
+        useState<ProgrammingLanguage | null>(null);
     const [saving, setSaving] = useState(false);
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingLanguage, setDeletingLanguage] = useState<ProgrammingLanguage | null>(null);
+    const [deletingLanguage, setDeletingLanguage] =
+        useState<ProgrammingLanguage | null>(null);
     const [deleting, setDeleting] = useState(false);
 
-    const [formData, setFormData] = useState({ name: "", icon: "", url: "", is_enabled: true });
+    const [formData, setFormData] = useState({
+        name: "",
+        icon: "",
+        url: "",
+        is_enabled: true,
+    });
 
     const loadLanguages = useCallback(async () => {
         try {
@@ -58,7 +72,11 @@ export default function ProgrammingLanguagesPage() {
             setLanguages(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading programming languages");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading programming languages",
+            );
         } finally {
             setLoading(false);
         }
@@ -94,7 +112,9 @@ export default function ProgrammingLanguagesPage() {
         try {
             setSaving(true);
             setError(null);
-            const data: CreateProgrammingLanguageRequest | UpdateProgrammingLanguageRequest = {
+            const data:
+                | CreateProgrammingLanguageRequest
+                | UpdateProgrammingLanguageRequest = {
                 name: formData.name,
                 icon: formData.icon || undefined,
                 url: formData.url || undefined,
@@ -103,12 +123,16 @@ export default function ProgrammingLanguagesPage() {
             if (editingLanguage) {
                 await programmingLanguagesApi.update(editingLanguage.id, data);
             } else {
-                await programmingLanguagesApi.create(data as CreateProgrammingLanguageRequest);
+                await programmingLanguagesApi.create(
+                    data as CreateProgrammingLanguageRequest,
+                );
             }
             setDialogOpen(false);
             loadLanguages();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving language");
+            setError(
+                err instanceof Error ? err.message : "Error saving language",
+            );
         } finally {
             setSaving(false);
         }
@@ -123,7 +147,9 @@ export default function ProgrammingLanguagesPage() {
             setDeletingLanguage(null);
             loadLanguages();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting language");
+            setError(
+                err instanceof Error ? err.message : "Error deleting language",
+            );
         } finally {
             setDeleting(false);
         }
@@ -160,7 +186,14 @@ export default function ProgrammingLanguagesPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">Dismiss</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
                 </div>
             )}
 
@@ -168,49 +201,91 @@ export default function ProgrammingLanguagesPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Language</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Icon</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">URL</th>
-                            <th className="px-4 py-3 text-center text-sm font-medium text-muted-foreground">Status</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Language
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Icon
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                URL
+                            </th>
+                            <th className="px-4 py-3 text-center text-sm font-medium text-muted-foreground">
+                                Status
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {languages.length === 0 ? (
                             <tr>
-                                <td colSpan={5} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={5}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiCodeBracket className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No languages configured yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No languages configured yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Add first language
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             languages.map((lang) => (
-                                <tr key={lang.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={lang.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiCodeBracket className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{lang.name}</span>
+                                            <span className="font-medium">
+                                                {lang.name}
+                                            </span>
                                         </div>
                                     </td>
-                                    <td className="px-4 py-3 text-sm text-muted-foreground">{lang.icon || "—"}</td>
+                                    <td className="px-4 py-3 text-sm text-muted-foreground">
+                                        {lang.icon || "—"}
+                                    </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
                                         {lang.url ? (
-                                            <a href={lang.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                                            <a
+                                                href={lang.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-primary hover:underline"
+                                            >
                                                 {lang.url}
                                             </a>
-                                        ) : "—"}
+                                        ) : (
+                                            "—"
+                                        )}
                                     </td>
                                     <td className="px-4 py-3 text-center">
                                         {lang.is_enabled ? (
-                                            <Badge variant="success" className="inline-flex items-center gap-1">
-                                                <HiCheckCircle className="h-3 w-3" /> Active
+                                            <Badge
+                                                variant="success"
+                                                className="inline-flex items-center gap-1"
+                                            >
+                                                <HiCheckCircle className="h-3 w-3" />{" "}
+                                                Active
                                             </Badge>
                                         ) : (
-                                            <Badge variant="secondary" className="inline-flex items-center gap-1">
-                                                <HiXCircle className="h-3 w-3" /> Inactive
+                                            <Badge
+                                                variant="secondary"
+                                                className="inline-flex items-center gap-1"
+                                            >
+                                                <HiXCircle className="h-3 w-3" />{" "}
+                                                Inactive
                                             </Badge>
                                         )}
                                     </td>
@@ -218,13 +293,17 @@ export default function ProgrammingLanguagesPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(lang)}
+                                                onClick={() =>
+                                                    openEditDialog(lang)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(lang)}
+                                                onClick={() =>
+                                                    openDeleteDialog(lang)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -239,28 +318,57 @@ export default function ProgrammingLanguagesPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingLanguage ? "Edit Language" : "Add Language"}</DialogTitle>
+                        <DialogTitle>
+                            {editingLanguage ? "Edit Language" : "Add Language"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingLanguage ? "Update language details" : "Add a new programming language"}
+                            {editingLanguage
+                                ? "Update language details"
+                                : "Add a new programming language"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="lang-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="lang-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="lang-name"
                                 placeholder="e.g., TypeScript, Go, Rust"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -269,7 +377,12 @@ export default function ProgrammingLanguagesPage() {
                                 id="lang-icon"
                                 placeholder="Icon name or URL"
                                 value={formData.icon}
-                                onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        icon: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -278,7 +391,12 @@ export default function ProgrammingLanguagesPage() {
                                 id="lang-url"
                                 placeholder="https://..."
                                 value={formData.url}
-                                onChange={(e) => setFormData({ ...formData, url: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        url: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="flex items-center gap-3">
@@ -286,31 +404,56 @@ export default function ProgrammingLanguagesPage() {
                                 type="checkbox"
                                 id="lang-enabled"
                                 checked={formData.is_enabled}
-                                onChange={(e) => setFormData({ ...formData, is_enabled: e.target.checked })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        is_enabled: e.target.checked,
+                                    })
+                                }
                                 className="h-4 w-4 rounded border-input"
                             />
                             <Label htmlFor="lang-enabled">Enabled</Label>
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingLanguage ? "Update" : "Add"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingLanguage
+                                  ? "Update"
+                                  : "Add"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete Language</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingLanguage?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingLanguage?.name}&quot;? This action cannot
+                            be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

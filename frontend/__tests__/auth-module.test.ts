@@ -29,11 +29,19 @@ describe("authApi", () => {
         it("calls POST /v1/auth/login with credentials", async () => {
             const mockResponse = {
                 token: "test-token-123",
-                user: { id: 1, name: "Test User", email: "test@example.com", role: "user" },
+                user: {
+                    id: 1,
+                    name: "Test User",
+                    email: "test@example.com",
+                    role: "user",
+                },
             };
             mockPost.mockResolvedValueOnce(mockResponse);
 
-            const result = await authApi.login({ email: "test@example.com", password: "secret" });
+            const result = await authApi.login({
+                email: "test@example.com",
+                password: "secret",
+            });
 
             expect(apiClient.post).toHaveBeenCalledWith("/v1/auth/login", {
                 email: "test@example.com",
@@ -45,7 +53,7 @@ describe("authApi", () => {
         it("propagates errors from apiClient", async () => {
             mockPost.mockRejectedValueOnce(new Error("Unauthorized"));
             await expect(
-                authApi.login({ email: "bad@example.com", password: "wrong" })
+                authApi.login({ email: "bad@example.com", password: "wrong" }),
             ).rejects.toThrow("Unauthorized");
         });
     });
@@ -54,7 +62,12 @@ describe("authApi", () => {
         it("calls POST /v1/auth/register with user data", async () => {
             const mockResponse = {
                 token: "new-token",
-                user: { id: 2, name: "New User", email: "new@example.com", role: "user" },
+                user: {
+                    id: 2,
+                    name: "New User",
+                    email: "new@example.com",
+                    role: "user",
+                },
             };
             mockPost.mockResolvedValueOnce(mockResponse);
 
@@ -78,7 +91,12 @@ describe("authApi", () => {
     describe("me", () => {
         it("calls GET /v1/auth/me and returns current user", async () => {
             const mockResponse = {
-                data: { id: 1, name: "Test User", email: "test@example.com", role: "admin" },
+                data: {
+                    id: 1,
+                    name: "Test User",
+                    email: "test@example.com",
+                    role: "admin",
+                },
             };
             mockGet.mockResolvedValueOnce(mockResponse);
 

@@ -1635,3 +1635,55 @@ export interface CreateWorkflowCommitRequest {
 }
 
 export type UpdateWorkflowCommitRequest = Partial<CreateWorkflowCommitRequest>;
+
+// Entity Attributes response schemas
+export const entityAttributeResponseSchema =
+    createResourceResponseSchema(entityAttributeSchema);
+export type EntityAttributeResponse = z.infer<
+    typeof entityAttributeResponseSchema
+>;
+export const paginatedEntityAttributeResponseSchema =
+    createPaginatedResponseSchema(entityAttributeSchema);
+export type PaginatedEntityAttributeResponse = z.infer<
+    typeof paginatedEntityAttributeResponseSchema
+>;
+
+// Entity Attributes Request Payloads
+export interface CreateEntityAttributeRequest {
+    name: string;
+    type?: string;
+    is_required?: boolean;
+}
+export type UpdateEntityAttributeRequest =
+    Partial<CreateEntityAttributeRequest>;
+
+// Business Capability Systems
+export const businessCapabilitySystemSchema = z
+    .object({
+        id: z.number().int(),
+        business_capability_id: z.number().int(),
+        system_id: z.number().int(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type BusinessCapabilitySystem = z.infer<
+    typeof businessCapabilitySystemSchema
+>;
+export const businessCapabilitySystemResponseSchema =
+    createResourceResponseSchema(businessCapabilitySystemSchema);
+export type BusinessCapabilitySystemResponse = z.infer<
+    typeof businessCapabilitySystemResponseSchema
+>;
+export const paginatedBusinessCapabilitySystemResponseSchema =
+    createPaginatedResponseSchema(businessCapabilitySystemSchema);
+export type PaginatedBusinessCapabilitySystemResponse = z.infer<
+    typeof paginatedBusinessCapabilitySystemResponseSchema
+>;
+
+// Business Capability Systems Request Payloads
+export interface CreateBusinessCapabilitySystemRequest {
+    business_capability_id: number;
+    system_id: number;
+}
+export type UpdateBusinessCapabilitySystemRequest =
+    Partial<CreateBusinessCapabilitySystemRequest>;

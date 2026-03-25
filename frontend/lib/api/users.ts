@@ -29,7 +29,7 @@ export const usersApi = {
      */
     getAll: async (page = 1): Promise<PaginatedResponse<User>> => {
         const response = await apiClient.get<unknown>(
-            `/v1/organization/users${apiClient.buildQuery({ page })}`
+            `/v1/organization/users${apiClient.buildQuery({ page })}`,
         );
         return paginatedUserResponseSchema.parse(response);
     },
@@ -39,7 +39,7 @@ export const usersApi = {
      */
     getById: async (id: number): Promise<{ data: User }> => {
         const response = await apiClient.get<unknown>(
-            `/v1/organization/users/${id}`
+            `/v1/organization/users/${id}`,
         );
         return userResponseSchema.parse(response);
     },
@@ -50,7 +50,7 @@ export const usersApi = {
     create: async (data: CreateUserRequest): Promise<{ data: User }> => {
         const response = await apiClient.post<unknown>(
             "/v1/organization/users",
-            data
+            data,
         );
         return userResponseSchema.parse(response);
     },
@@ -60,11 +60,11 @@ export const usersApi = {
      */
     update: async (
         id: number,
-        data: UpdateUserRequest
+        data: UpdateUserRequest,
     ): Promise<{ data: User }> => {
         const response = await apiClient.put<unknown>(
             `/v1/organization/users/${id}`,
-            data
+            data,
         );
         return userResponseSchema.parse(response);
     },

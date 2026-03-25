@@ -41,11 +41,15 @@ export default function MemberRolesPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [editingRole, setEditingRole] = useState<GroupMemberRole | null>(null);
+    const [editingRole, setEditingRole] = useState<GroupMemberRole | null>(
+        null,
+    );
     const [saving, setSaving] = useState(false);
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingRole, setDeletingRole] = useState<GroupMemberRole | null>(null);
+    const [deletingRole, setDeletingRole] = useState<GroupMemberRole | null>(
+        null,
+    );
     const [deleting, setDeleting] = useState(false);
 
     const [formData, setFormData] = useState({ name: "", description: "" });
@@ -58,7 +62,11 @@ export default function MemberRolesPage() {
             setRoles(response.data);
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error loading member roles");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading member roles",
+            );
         } finally {
             setLoading(false);
         }
@@ -89,19 +97,25 @@ export default function MemberRolesPage() {
         try {
             setSaving(true);
             setError(null);
-            const data: CreateGroupMemberRoleRequest | UpdateGroupMemberRoleRequest = {
+            const data:
+                | CreateGroupMemberRoleRequest
+                | UpdateGroupMemberRoleRequest = {
                 name: formData.name,
                 description: formData.description || undefined,
             };
             if (editingRole) {
                 await groupMemberRolesApi.update(editingRole.id, data);
             } else {
-                await groupMemberRolesApi.create(data as CreateGroupMemberRoleRequest);
+                await groupMemberRolesApi.create(
+                    data as CreateGroupMemberRoleRequest,
+                );
             }
             setDialogOpen(false);
             loadRoles();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving member role");
+            setError(
+                err instanceof Error ? err.message : "Error saving member role",
+            );
         } finally {
             setSaving(false);
         }
@@ -116,7 +130,11 @@ export default function MemberRolesPage() {
             setDeletingRole(null);
             loadRoles();
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting member role");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error deleting member role",
+            );
         } finally {
             setDeleting(false);
         }
@@ -153,7 +171,14 @@ export default function MemberRolesPage() {
             {error && (
                 <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
                     <p className="text-sm text-destructive">{error}</p>
-                    <Button variant="outline" size="sm" onClick={() => setError(null)} className="mt-2">Dismiss</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
                 </div>
             )}
 
@@ -161,29 +186,50 @@ export default function MemberRolesPage() {
                 <table className="w-full">
                     <thead>
                         <tr className="border-b border-border">
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Role</th>
-                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Description</th>
-                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Role
+                            </th>
+                            <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">
+                                Description
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-medium text-muted-foreground">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {roles.length === 0 ? (
                             <tr>
-                                <td colSpan={3} className="px-4 py-12 text-center text-muted-foreground">
+                                <td
+                                    colSpan={3}
+                                    className="px-4 py-12 text-center text-muted-foreground"
+                                >
                                     <HiUserGroup className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                                    <p className="mt-4">No member roles defined yet</p>
-                                    <Button variant="outline" size="sm" onClick={openCreateDialog} className="mt-4">
+                                    <p className="mt-4">
+                                        No member roles defined yet
+                                    </p>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={openCreateDialog}
+                                        className="mt-4"
+                                    >
                                         Add first role
                                     </Button>
                                 </td>
                             </tr>
                         ) : (
                             roles.map((role) => (
-                                <tr key={role.id} className="border-b border-border last:border-0">
+                                <tr
+                                    key={role.id}
+                                    className="border-b border-border last:border-0"
+                                >
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-3">
                                             <HiUserGroup className="h-5 w-5 text-muted-foreground" />
-                                            <span className="font-medium">{role.name}</span>
+                                            <span className="font-medium">
+                                                {role.name}
+                                            </span>
                                         </div>
                                     </td>
                                     <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -193,13 +239,17 @@ export default function MemberRolesPage() {
                                         <div className="flex items-center justify-end gap-2">
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                                                onClick={() => openEditDialog(role)}
+                                                onClick={() =>
+                                                    openEditDialog(role)
+                                                }
                                             >
                                                 <HiPencil className="h-4 w-4" />
                                             </button>
                                             <button
                                                 className="rounded p-1.5 text-muted-foreground hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30"
-                                                onClick={() => openDeleteDialog(role)}
+                                                onClick={() =>
+                                                    openDeleteDialog(role)
+                                                }
                                             >
                                                 <HiTrash className="h-4 w-4" />
                                             </button>
@@ -214,28 +264,59 @@ export default function MemberRolesPage() {
 
             {totalPages > 1 && (
                 <div className="flex items-center justify-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Previous</Button>
-                    <span className="text-sm text-muted-foreground">Page {page} of {totalPages}</span>
-                    <Button variant="outline" size="sm" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                            setPage((p) => Math.min(totalPages, p + 1))
+                        }
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
                 </div>
             )}
 
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>{editingRole ? "Edit Member Role" : "Add Member Role"}</DialogTitle>
+                        <DialogTitle>
+                            {editingRole
+                                ? "Edit Member Role"
+                                : "Add Member Role"}
+                        </DialogTitle>
                         <DialogDescription>
-                            {editingRole ? "Update the member role" : "Define a new role for group members"}
+                            {editingRole
+                                ? "Update the member role"
+                                : "Define a new role for group members"}
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
-                            <Label htmlFor="mr-name">Name <span className="text-destructive">*</span></Label>
+                            <Label htmlFor="mr-name">
+                                Name <span className="text-destructive">*</span>
+                            </Label>
                             <Input
                                 id="mr-name"
                                 placeholder="e.g., Owner, Maintainer, Developer"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        name: e.target.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="space-y-2">
@@ -244,30 +325,55 @@ export default function MemberRolesPage() {
                                 id="mr-description"
                                 placeholder="Optional description"
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        description: e.target.value,
+                                    })
+                                }
                                 rows={3}
                             />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)} disabled={saving}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={saving || !formData.name.trim()}>
-                            {saving ? "Saving..." : editingRole ? "Update" : "Add"}
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                            disabled={saving}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={saving || !formData.name.trim()}
+                        >
+                            {saving
+                                ? "Saving..."
+                                : editingRole
+                                  ? "Update"
+                                  : "Add"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete Member Role</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Are you sure you want to delete &quot;{deletingRole?.name}&quot;? This action cannot be undone.
+                            Are you sure you want to delete &quot;
+                            {deletingRole?.name}&quot;? This action cannot be
+                            undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                        <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+                        <AlertDialogCancel disabled={deleting}>
+                            Cancel
+                        </AlertDialogCancel>
                         <AlertDialogAction
                             onClick={handleDelete}
                             disabled={deleting}

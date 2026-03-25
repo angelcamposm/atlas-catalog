@@ -50,9 +50,7 @@ export default async function LocaleLayout({
 
     return (
         <NextIntlClientProvider locale={locale} messages={messages}>
-            <AppProviders>
-                {children}
-            </AppProviders>
+            <AppProviders>{children}</AppProviders>
         </NextIntlClientProvider>
     );
 }

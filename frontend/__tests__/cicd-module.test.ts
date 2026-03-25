@@ -25,7 +25,7 @@ jest.mock("@/lib/api-client", () => ({
     ApiError: class ApiError extends Error {
         constructor(
             message: string,
-            public status: number
+            public status: number,
         ) {
             super(message);
         }
@@ -139,27 +139,29 @@ describe("workflowsApi", () => {
             it("calls GET /v1/ci-cd/workflows/runs with page param", async () => {
                 const mockRuns = [createWorkflowRunMock()];
                 mockedApiClient.get.mockResolvedValueOnce(
-                    createPaginatedResponse(mockRuns)
+                    createPaginatedResponse(mockRuns),
                 );
                 mockedApiClient.buildQuery.mockReturnValueOnce("?page=1");
 
                 const result = await workflowsApi.getRuns(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/runs?page=1"
+                    "/v1/ci-cd/workflows/runs?page=1",
                 );
                 expect(result.data).toHaveLength(1);
             });
 
             it("uses default page 1 when no argument provided", async () => {
                 mockedApiClient.get.mockResolvedValueOnce(
-                    createPaginatedResponse([createWorkflowRunMock()])
+                    createPaginatedResponse([createWorkflowRunMock()]),
                 );
                 mockedApiClient.buildQuery.mockReturnValueOnce("?page=1");
 
                 await workflowsApi.getRuns();
 
-                expect(mockedApiClient.buildQuery).toHaveBeenCalledWith({ page: 1 });
+                expect(mockedApiClient.buildQuery).toHaveBeenCalledWith({
+                    page: 1,
+                });
             });
         });
 
@@ -171,7 +173,7 @@ describe("workflowsApi", () => {
                 const result = await workflowsApi.getRunById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/runs/1"
+                    "/v1/ci-cd/workflows/runs/1",
                 );
                 expect(result.data.id).toBe(1);
                 expect(result.data.name).toBe("Build & Deploy");
@@ -181,14 +183,17 @@ describe("workflowsApi", () => {
         describe("createRun", () => {
             it("calls POST /v1/ci-cd/workflows/runs with data", async () => {
                 const createData = { name: "New Run", status: "pending" };
-                const mockRun = createWorkflowRunMock({ name: "New Run", status: "pending" });
+                const mockRun = createWorkflowRunMock({
+                    name: "New Run",
+                    status: "pending",
+                });
                 mockedApiClient.post.mockResolvedValueOnce({ data: mockRun });
 
                 const result = await workflowsApi.createRun(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
                     "/v1/ci-cd/workflows/runs",
-                    createData
+                    createData,
                 );
                 expect(result.data.name).toBe("New Run");
             });
@@ -204,7 +209,7 @@ describe("workflowsApi", () => {
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
                     "/v1/ci-cd/workflows/runs/1",
-                    updateData
+                    updateData,
                 );
                 expect(result.data.status).toBe("failed");
             });
@@ -217,7 +222,7 @@ describe("workflowsApi", () => {
                 await workflowsApi.deleteRun(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/runs/1"
+                    "/v1/ci-cd/workflows/runs/1",
                 );
             });
         });
@@ -228,14 +233,14 @@ describe("workflowsApi", () => {
             it("calls GET /v1/ci-cd/workflows/commits with page param", async () => {
                 const mockCommits = [createWorkflowCommitMock()];
                 mockedApiClient.get.mockResolvedValueOnce(
-                    createPaginatedResponse(mockCommits)
+                    createPaginatedResponse(mockCommits),
                 );
                 mockedApiClient.buildQuery.mockReturnValueOnce("?page=1");
 
                 const result = await workflowsApi.getCommits(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/commits?page=1"
+                    "/v1/ci-cd/workflows/commits?page=1",
                 );
                 expect(result.data).toHaveLength(1);
                 expect(result.data[0].sha).toBe("abc123def456");
@@ -243,13 +248,15 @@ describe("workflowsApi", () => {
 
             it("uses default page 1 when no argument provided", async () => {
                 mockedApiClient.get.mockResolvedValueOnce(
-                    createPaginatedResponse([createWorkflowCommitMock()])
+                    createPaginatedResponse([createWorkflowCommitMock()]),
                 );
                 mockedApiClient.buildQuery.mockReturnValueOnce("?page=1");
 
                 await workflowsApi.getCommits();
 
-                expect(mockedApiClient.buildQuery).toHaveBeenCalledWith({ page: 1 });
+                expect(mockedApiClient.buildQuery).toHaveBeenCalledWith({
+                    page: 1,
+                });
             });
         });
 
@@ -261,7 +268,7 @@ describe("workflowsApi", () => {
                 const result = await workflowsApi.getCommitById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/commits/1"
+                    "/v1/ci-cd/workflows/commits/1",
                 );
                 expect(result.data.sha).toBe("abc123def456");
             });
@@ -269,15 +276,22 @@ describe("workflowsApi", () => {
 
         describe("createCommit", () => {
             it("calls POST /v1/ci-cd/workflows/commits with data", async () => {
-                const createData = { sha: "newsha789", message: "fix: bug fix" };
-                const mockCommit = createWorkflowCommitMock({ sha: "newsha789" });
-                mockedApiClient.post.mockResolvedValueOnce({ data: mockCommit });
+                const createData = {
+                    sha: "newsha789",
+                    message: "fix: bug fix",
+                };
+                const mockCommit = createWorkflowCommitMock({
+                    sha: "newsha789",
+                });
+                mockedApiClient.post.mockResolvedValueOnce({
+                    data: mockCommit,
+                });
 
                 const result = await workflowsApi.createCommit(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
                     "/v1/ci-cd/workflows/commits",
-                    createData
+                    createData,
                 );
                 expect(result.data.sha).toBe("newsha789");
             });
@@ -286,14 +300,16 @@ describe("workflowsApi", () => {
         describe("updateCommit", () => {
             it("calls PUT /v1/ci-cd/workflows/commits/:id with data", async () => {
                 const updateData = { message: "updated message" };
-                const mockCommit = createWorkflowCommitMock({ message: "updated message" });
+                const mockCommit = createWorkflowCommitMock({
+                    message: "updated message",
+                });
                 mockedApiClient.put.mockResolvedValueOnce({ data: mockCommit });
 
                 const result = await workflowsApi.updateCommit(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
                     "/v1/ci-cd/workflows/commits/1",
-                    updateData
+                    updateData,
                 );
                 expect(result.data.message).toBe("updated message");
             });
@@ -306,7 +322,7 @@ describe("workflowsApi", () => {
                 await workflowsApi.deleteCommit(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/commits/1"
+                    "/v1/ci-cd/workflows/commits/1",
                 );
             });
         });
@@ -324,7 +340,7 @@ describe("workflowsApi", () => {
                 const result = await workflowsApi.getJobs(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/ci-cd/workflows/1/jobs"
+                    "/v1/ci-cd/workflows/1/jobs",
                 );
                 expect(result).toHaveLength(2);
                 expect(result[0].name).toBe("test");

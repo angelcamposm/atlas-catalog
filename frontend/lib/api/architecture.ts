@@ -3,7 +3,14 @@
  */
 
 import { apiClient } from "../api-client";
-import { apiResponseSchema, paginatedApiResponseSchema } from "@/types/api";
+import {
+    apiResponseSchema,
+    paginatedApiResponseSchema,
+    businessCapabilitySystemResponseSchema,
+    paginatedBusinessCapabilitySystemResponseSchema,
+    entityAttributeResponseSchema,
+    paginatedEntityAttributeResponseSchema,
+} from "@/types/api";
 import type {
     PaginatedApiResponse,
     ApiResponse,
@@ -13,6 +20,14 @@ import type {
     UpdateEntityRequest,
     CreateSystemRequest,
     UpdateSystemRequest,
+    BusinessCapabilitySystemResponse,
+    PaginatedBusinessCapabilitySystemResponse,
+    CreateBusinessCapabilitySystemRequest,
+    UpdateBusinessCapabilitySystemRequest,
+    EntityAttributeResponse,
+    PaginatedEntityAttributeResponse,
+    CreateEntityAttributeRequest,
+    UpdateEntityAttributeRequest,
 } from "@/types/api";
 
 export const businessCapabilitiesApi = {
@@ -71,6 +86,72 @@ export const businessCapabilitiesApi = {
     delete: async (id: number): Promise<void> => {
         await apiClient.delete(`/v1/architecture/business-capabilities/${id}`);
     },
+
+    /**
+     * Get all Systems associated with a Business Capability
+     */
+    getCapabilitySystems: async (capabilityId: number): Promise<PaginatedApiResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/business-capabilities/${capabilityId}/systems`
+        );
+        return paginatedApiResponseSchema.parse(response);
+    },
+};
+
+export const businessCapabilitySystemsApi = {
+    /**
+     * Get all Business Capability System relationships with pagination
+     */
+    getAll: async (page = 1): Promise<PaginatedBusinessCapabilitySystemResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/business-capability-systems${apiClient.buildQuery({ page })}`
+        );
+        return paginatedBusinessCapabilitySystemResponseSchema.parse(response);
+    },
+
+    /**
+     * Get a single Business Capability System by ID
+     */
+    getById: async (id: number): Promise<BusinessCapabilitySystemResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/business-capability-systems/${id}`
+        );
+        return businessCapabilitySystemResponseSchema.parse(response);
+    },
+
+    /**
+     * Create a new Business Capability System relationship
+     */
+    create: async (
+        data: CreateBusinessCapabilitySystemRequest
+    ): Promise<BusinessCapabilitySystemResponse> => {
+        const response = await apiClient.post<unknown>(
+            "/v1/architecture/business-capability-systems",
+            data
+        );
+        return businessCapabilitySystemResponseSchema.parse(response);
+    },
+
+    /**
+     * Update an existing Business Capability System relationship
+     */
+    update: async (
+        id: number,
+        data: UpdateBusinessCapabilitySystemRequest
+    ): Promise<BusinessCapabilitySystemResponse> => {
+        const response = await apiClient.put<unknown>(
+            `/v1/architecture/business-capability-systems/${id}`,
+            data
+        );
+        return businessCapabilitySystemResponseSchema.parse(response);
+    },
+
+    /**
+     * Delete a Business Capability System relationship
+     */
+    delete: async (id: number): Promise<void> => {
+        await apiClient.delete(`/v1/architecture/business-capability-systems/${id}`);
+    },
 };
 
 export const entitiesApi = {
@@ -125,6 +206,73 @@ export const entitiesApi = {
     delete: async (id: number): Promise<void> => {
         await apiClient.delete(`/v1/architecture/entities/${id}`);
     },
+
+    /**
+     * Get all Components associated with an Entity
+     */
+    getEntityComponents: async (entityId: number): Promise<PaginatedApiResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/entities/${entityId}/components`
+        );
+        return paginatedApiResponseSchema.parse(response);
+    },
+};
+
+export const entityAttributesApi = {
+    /**
+     * Get all Attributes of an Entity with pagination
+     */
+    getAll: async (entityId: number, page = 1): Promise<PaginatedEntityAttributeResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/entities/${entityId}/attributes${apiClient.buildQuery({ page })}`
+        );
+        return paginatedEntityAttributeResponseSchema.parse(response);
+    },
+
+    /**
+     * Get a single Entity Attribute by ID
+     */
+    getById: async (id: number): Promise<EntityAttributeResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/entity-attributes/${id}`
+        );
+        return entityAttributeResponseSchema.parse(response);
+    },
+
+    /**
+     * Create a new Entity Attribute
+     */
+    create: async (
+        entityId: number,
+        data: CreateEntityAttributeRequest
+    ): Promise<EntityAttributeResponse> => {
+        const response = await apiClient.post<unknown>(
+            `/v1/architecture/entities/${entityId}/attributes`,
+            data
+        );
+        return entityAttributeResponseSchema.parse(response);
+    },
+
+    /**
+     * Update an existing Entity Attribute
+     */
+    update: async (
+        id: number,
+        data: UpdateEntityAttributeRequest
+    ): Promise<EntityAttributeResponse> => {
+        const response = await apiClient.put<unknown>(
+            `/v1/architecture/entity-attributes/${id}`,
+            data
+        );
+        return entityAttributeResponseSchema.parse(response);
+    },
+
+    /**
+     * Delete an Entity Attribute
+     */
+    delete: async (id: number): Promise<void> => {
+        await apiClient.delete(`/v1/architecture/entity-attributes/${id}`);
+    },
 };
 
 export const systemsApi = {
@@ -178,5 +326,15 @@ export const systemsApi = {
      */
     delete: async (id: number): Promise<void> => {
         await apiClient.delete(`/v1/architecture/systems/${id}`);
+    },
+
+    /**
+     * Get all Components associated with a System
+     */
+    getSystemComponents: async (systemId: number): Promise<PaginatedApiResponse> => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/systems/${systemId}/components`
+        );
+        return paginatedApiResponseSchema.parse(response);
     },
 };

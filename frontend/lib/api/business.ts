@@ -82,6 +82,26 @@ export const businessDomainsApi = {
      */
     delete: (id: number) =>
         apiClient.delete(`/v1/architecture/business-domains/${id}`),
+
+    /**
+     * Get all Components associated with a Business Domain
+     */
+    getComponents: async (domainId: number) => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/business-domains/${domainId}/components`
+        );
+        return response;
+    },
+
+    /**
+     * Get all Entities associated with a Business Domain
+     */
+    getDomainEntities: async (domainId: number) => {
+        const response = await apiClient.get<unknown>(
+            `/v1/architecture/business-domains/${domainId}/entities`
+        );
+        return response;
+    },
 };
 
 // Business Tiers -----------------------------------------------------------

@@ -6,7 +6,12 @@ export { apiClient, ApiError } from "../api-client";
 
 // Auth
 export { authApi } from "./auth";
-export type { AuthUser, AuthResponse, LoginRequest, RegisterRequest } from "./auth";
+export type {
+    AuthUser,
+    AuthResponse,
+    LoginRequest,
+    RegisterRequest,
+} from "./auth";
 export { apisApi } from "./apis";
 export { apiTypesApi } from "./api-types";
 export { lifecyclesApi } from "./lifecycles";
@@ -105,6 +110,8 @@ export {
     businessCapabilitiesApi,
     entitiesApi,
     systemsApi,
+    businessCapabilitySystemsApi,
+    entityAttributesApi,
 } from "./architecture";
 
 // API Dependencies (Component-API relationships)
