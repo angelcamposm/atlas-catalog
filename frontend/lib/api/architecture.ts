@@ -10,6 +10,9 @@ import {
     paginatedBusinessCapabilityResponseSchema,
     businessCapabilitySystemResponseSchema,
     paginatedBusinessCapabilitySystemResponseSchema,
+    systemResponseSchema,
+    paginatedSystemResponseSchema,
+    paginatedComponentResponseSchema,
     entityAttributeResponseSchema,
     paginatedEntityAttributeResponseSchema,
 } from "@/types/api";
@@ -24,6 +27,9 @@ import type {
     UpdateEntityRequest,
     CreateSystemRequest,
     UpdateSystemRequest,
+    SystemResponse,
+    PaginatedSystemResponse,
+    PaginatedComponentResponse,
     BusinessCapabilitySystemResponse,
     PaginatedBusinessCapabilitySystemResponse,
     CreateBusinessCapabilitySystemRequest,
@@ -283,32 +289,32 @@ export const systemsApi = {
     /**
      * Get all Systems with pagination
      */
-    getAll: async (page = 1): Promise<PaginatedApiResponse> => {
+    getAll: async (page = 1): Promise<PaginatedSystemResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/systems${apiClient.buildQuery({ page })}`
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedSystemResponseSchema.parse(response);
     },
 
     /**
      * Get a single System by ID
      */
-    getById: async (id: number): Promise<ApiResponse> => {
+    getById: async (id: number): Promise<SystemResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/systems/${id}`
         );
-        return apiResponseSchema.parse(response);
+        return systemResponseSchema.parse(response);
     },
 
     /**
      * Create a new System
      */
-    create: async (data: CreateSystemRequest): Promise<ApiResponse> => {
+    create: async (data: CreateSystemRequest): Promise<SystemResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/systems",
             data
         );
-        return apiResponseSchema.parse(response);
+        return systemResponseSchema.parse(response);
     },
 
     /**
@@ -317,12 +323,12 @@ export const systemsApi = {
     update: async (
         id: number,
         data: UpdateSystemRequest
-    ): Promise<ApiResponse> => {
+    ): Promise<SystemResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/systems/${id}`,
             data
         );
-        return apiResponseSchema.parse(response);
+        return systemResponseSchema.parse(response);
     },
 
     /**
@@ -335,10 +341,10 @@ export const systemsApi = {
     /**
      * Get all Components associated with a System
      */
-    getSystemComponents: async (systemId: number): Promise<PaginatedApiResponse> => {
+    getSystemComponents: async (systemId: number): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/systems/${systemId}/components`
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedComponentResponseSchema.parse(response);
     },
 };
