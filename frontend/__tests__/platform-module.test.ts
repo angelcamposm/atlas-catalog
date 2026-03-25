@@ -316,7 +316,7 @@ describe("Platform Module", () => {
                 const result = await componentTypesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/component-types?page=1"
+                    "/v1/catalog/components/types?page=1"
                 );
                 expect(result.data).toHaveLength(3);
             });
@@ -333,7 +333,7 @@ describe("Platform Module", () => {
                 const result = await componentTypesApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/component-types/1"
+                    "/v1/catalog/components/types/1"
                 );
                 expect(result.data.name).toBe("database");
             });
@@ -359,7 +359,7 @@ describe("Platform Module", () => {
                 const result = await componentTypesApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/component-types",
+                    "/v1/catalog/components/types",
                     createData
                 );
                 expect(result.data.name).toBe("storage");
@@ -383,7 +383,7 @@ describe("Platform Module", () => {
                 const result = await componentTypesApi.update(1, updateData);
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/component-types/1",
+                    "/v1/catalog/components/types/1",
                     updateData
                 );
                 expect(result.data.icon).toBe("new-icon");
@@ -397,7 +397,7 @@ describe("Platform Module", () => {
                 await componentTypesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/component-types/1"
+                    "/v1/catalog/components/types/1"
                 );
             });
         });

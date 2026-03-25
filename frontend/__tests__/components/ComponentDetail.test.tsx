@@ -54,6 +54,13 @@ jest.mock("react-icons/hi2", () => ({
     HiOutlineUserCircle: () => <span>👤</span>,
     HiOutlineCube: () => <span>📦</span>,
     HiOutlineGlobeAlt: () => <span>🌐</span>,
+    HiOutlineEye: () => <span>👁</span>,
+    HiOutlineDocumentDuplicate: () => <span>📋</span>,
+    HiOutlineTrash: () => <span>🗑</span>,
+    HiOutlineArchiveBox: () => <span>📦</span>,
+    HiOutlineCheckCircle: () => <span>✅</span>,
+    HiOutlineXCircle: () => <span>❌</span>,
+    HiOutlineExclamationCircle: () => <span>⚠</span>,
 }));
 
 // Sample component data for tests
@@ -260,10 +267,10 @@ describe("ComponentDetailHeader", () => {
         );
 
         expect(
-            screen.getByRole("link", { name: /follow/i })
+            screen.getByRole("link", { name: /ver/i })
         ).toBeInTheDocument();
         expect(
-            screen.getByRole("link", { name: /hire me/i })
+            screen.getByRole("link", { name: /editar/i })
         ).toBeInTheDocument();
     });
 
@@ -570,7 +577,7 @@ describe("DeploymentsSection", () => {
 
     it("should show empty state when no deployments", () => {
         render(<DeploymentsSection deployments={[]} defaultExpanded />);
-        expect(screen.getByText(/No deployments/i)).toBeInTheDocument();
+        expect(screen.getByText(/Sin despliegues/i)).toBeInTheDocument();
     });
 });
 
@@ -602,7 +609,7 @@ describe("DependenciesSection", () => {
             />
         );
 
-        expect(screen.getByText("Provides")).toBeInTheDocument();
+        expect(screen.getByText("Provee")).toBeInTheDocument();
         expect(screen.getByText("Authentication API")).toBeInTheDocument();
     });
 
@@ -617,7 +624,7 @@ describe("DependenciesSection", () => {
             />
         );
 
-        expect(screen.getByText("Consumes")).toBeInTheDocument();
+        expect(screen.getByText("Consume")).toBeInTheDocument();
         expect(screen.getByText("database-service")).toBeInTheDocument();
     });
 
@@ -632,7 +639,7 @@ describe("DependenciesSection", () => {
             />
         );
 
-        expect(screen.getByText("Imports")).toBeInTheDocument();
+        expect(screen.getByText("Importa")).toBeInTheDocument();
         expect(screen.getByText("logging-library")).toBeInTheDocument();
     });
 
@@ -647,7 +654,7 @@ describe("DependenciesSection", () => {
             />
         );
 
-        expect(screen.getByText("Required by")).toBeInTheDocument();
+        expect(screen.getByText("Requerido por")).toBeInTheDocument();
         expect(screen.getByText("api-gateway")).toBeInTheDocument();
     });
 
@@ -663,7 +670,7 @@ describe("DependenciesSection", () => {
         );
 
         // The total count is displayed as a badge
-        expect(screen.getByText("Total dependencies:")).toBeInTheDocument();
+        expect(screen.getByText("Total dependencias:")).toBeInTheDocument();
         expect(screen.getByText("7")).toBeInTheDocument();
     });
 });

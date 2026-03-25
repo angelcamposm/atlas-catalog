@@ -12,6 +12,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 interface LoginFormProps {
     locale: string;
@@ -20,19 +21,28 @@ interface LoginFormProps {
 export function LoginForm({ locale }: LoginFormProps) {
     const router = useRouter();
     const t = useTranslations("common");
+    const { login } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError(null);
 
-        // Simular autenticación (por ahora solo navega al dashboard)
-        setTimeout(() => {
+        try {
+            await login({ email, password });
             router.push(`/${locale}/dashboard`);
-        }, 1000);
+        } catch (err: unknown) {
+            const message =
+                err instanceof Error ? err.message : "Invalid credentials. Please try again.";
+            setError(message);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -47,6 +57,15 @@ export function LoginForm({ locale }: LoginFormProps) {
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Error message */}
+                    {error && (
+                        <div
+                            role="alert"
+                            className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400"
+                        >
+                            {error}
+                        </div>
+                    )}
                     {/* Email Field */}
                     <div className="space-y-2">
                         <label

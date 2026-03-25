@@ -1,12 +1,26 @@
 /**
  * API Client for Atlas Catalog Backend
  *
- * Centralized API client using fetch with proper error handling
+ * Centralized API client using fetch with proper error handling.
+ * Automatically injects Bearer token from localStorage when present.
  */
 
 const API_BASE_URL =
     process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 const API_TIMEOUT = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 30000;
+
+// Token storage key — must match AUTH_TOKEN_KEY in auth-context.tsx
+const TOKEN_KEY = "auth_token";
+
+/**
+ * Returns the Authorization header value when a token is available.
+ * Safe to call on the server — localStorage is undefined there.
+ */
+function getAuthHeader(): Record<string, string> {
+    if (typeof localStorage === "undefined") return {};
+    const token = localStorage.getItem(TOKEN_KEY);
+    return token ? { Authorization: `Bearer ${token}` } : {};
+}
 
 export class ApiError extends Error {
     constructor(message: string, public status: number, public data?: unknown) {
@@ -38,6 +52,7 @@ async function fetchWithTimeout(
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
+                ...getAuthHeader(),
                 ...fetchOptions.headers,
             },
         });
