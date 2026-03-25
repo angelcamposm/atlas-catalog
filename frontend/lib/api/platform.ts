@@ -31,7 +31,7 @@ export const platformsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedPlatformResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/platforms${apiClient.buildQuery({ page })}`
+            `/v1/catalog/platforms${apiClient.buildQuery({ page })}`,
         );
         return paginatedPlatformResponseSchema.parse(response);
     },
@@ -41,7 +41,7 @@ export const platformsApi = {
      */
     getById: async (id: number): Promise<PlatformResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/platforms/${id}`
+            `/v1/catalog/platforms/${id}`,
         );
         return platformResponseSchema.parse(response);
     },
@@ -52,7 +52,7 @@ export const platformsApi = {
     create: async (data: CreatePlatformRequest): Promise<PlatformResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/platforms",
-            data
+            data,
         );
         return platformResponseSchema.parse(response);
     },
@@ -62,11 +62,11 @@ export const platformsApi = {
      */
     update: async (
         id: number,
-        data: UpdatePlatformRequest
+        data: UpdatePlatformRequest,
     ): Promise<PlatformResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/platforms/${id}`,
-            data
+            data,
         );
         return platformResponseSchema.parse(response);
     },
@@ -79,9 +79,11 @@ export const platformsApi = {
     /**
      * Get components belonging to a platform
      */
-    getComponents: async (platformId: number): Promise<PaginatedComponentResponse> => {
+    getComponents: async (
+        platformId: number,
+    ): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/platforms/${platformId}/components`
+            `/v1/catalog/platforms/${platformId}/components`,
         );
         return paginatedComponentResponseSchema.parse(response);
     },
@@ -96,7 +98,7 @@ export const componentTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedComponentTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/components/types${apiClient.buildQuery({ page })}`
+            `/v1/catalog/components/types${apiClient.buildQuery({ page })}`,
         );
         return paginatedComponentTypeResponseSchema.parse(response);
     },
@@ -106,7 +108,7 @@ export const componentTypesApi = {
      */
     getById: async (id: number): Promise<ComponentTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/components/types/${id}`
+            `/v1/catalog/components/types/${id}`,
         );
         return componentTypeResponseSchema.parse(response);
     },
@@ -115,11 +117,11 @@ export const componentTypesApi = {
      * Create a new component type
      */
     create: async (
-        data: CreateComponentTypeRequest
+        data: CreateComponentTypeRequest,
     ): Promise<ComponentTypeResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/components/types",
-            data
+            data,
         );
         return componentTypeResponseSchema.parse(response);
     },
@@ -129,11 +131,11 @@ export const componentTypesApi = {
      */
     update: async (
         id: number,
-        data: UpdateComponentTypeRequest
+        data: UpdateComponentTypeRequest,
     ): Promise<ComponentTypeResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/components/types/${id}`,
-            data
+            data,
         );
         return componentTypeResponseSchema.parse(response);
     },

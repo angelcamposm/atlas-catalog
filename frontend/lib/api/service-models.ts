@@ -20,7 +20,7 @@ export const serviceModelsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedServiceModelResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/service-models${apiClient.buildQuery({ page })}`
+            `/v1/catalog/service-models${apiClient.buildQuery({ page })}`,
         );
         return paginatedServiceModelResponseSchema.parse(response);
     },
@@ -30,7 +30,7 @@ export const serviceModelsApi = {
      */
     getById: async (id: number): Promise<ServiceModelResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/service-models/${id}`
+            `/v1/catalog/service-models/${id}`,
         );
         return serviceModelResponseSchema.parse(response);
     },
@@ -38,10 +38,12 @@ export const serviceModelsApi = {
     /**
      * Create a new Service Model
      */
-    create: async (data: CreateServiceModelRequest): Promise<ServiceModelResponse> => {
+    create: async (
+        data: CreateServiceModelRequest,
+    ): Promise<ServiceModelResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/service-models",
-            data
+            data,
         );
         return serviceModelResponseSchema.parse(response);
     },
@@ -51,11 +53,11 @@ export const serviceModelsApi = {
      */
     update: async (
         id: number,
-        data: UpdateServiceModelRequest
+        data: UpdateServiceModelRequest,
     ): Promise<ServiceModelResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/service-models/${id}`,
-            data
+            data,
         );
         return serviceModelResponseSchema.parse(response);
     },

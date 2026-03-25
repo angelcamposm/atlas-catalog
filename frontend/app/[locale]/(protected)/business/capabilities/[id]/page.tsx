@@ -10,10 +10,7 @@ import {
     HiOutlineTrash,
 } from "react-icons/hi2";
 import { businessCapabilitiesApi } from "@/lib/api/architecture";
-import type {
-    BusinessCapability,
-    BusinessCapabilitySystem,
-} from "@/types/api";
+import type { BusinessCapability, BusinessCapabilitySystem } from "@/types/api";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -60,9 +57,8 @@ export default function CapabilityDetailPage() {
             // Load parent capability if referenced
             if (cap.parent_id) {
                 try {
-                    const parentResponse = await businessCapabilitiesApi.getById(
-                        cap.parent_id,
-                    );
+                    const parentResponse =
+                        await businessCapabilitiesApi.getById(cap.parent_id);
                     setParent(parentResponse.data);
                 } catch {
                     setParent(null);
@@ -145,10 +141,12 @@ export default function CapabilityDetailPage() {
                 icon={HiBuildingOffice2}
                 actions={
                     <div className="flex items-center gap-2">
-                        <Link
-                            href={`/${locale}/business/capabilities`}
-                        >
-                            <Button variant="outline" size="sm" className="gap-2">
+                        <Link href={`/${locale}/business/capabilities`}>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                className="gap-2"
+                            >
                                 <HiOutlineArrowLeft className="h-4 w-4" />
                                 Volver
                             </Button>

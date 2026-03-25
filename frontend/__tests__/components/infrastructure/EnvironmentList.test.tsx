@@ -55,9 +55,7 @@ describe("EnvironmentList", () => {
         });
 
         it("should render the label when provided", () => {
-            const environments = [
-                createMockEnvironment({ label: "prod" }),
-            ];
+            const environments = [createMockEnvironment({ label: "prod" })];
 
             render(
                 <EnvironmentList
@@ -97,9 +95,7 @@ describe("EnvironmentList", () => {
                 />,
             );
 
-            expect(
-                screen.getByText(/no hay entornos/i),
-            ).toBeInTheDocument();
+            expect(screen.getByText(/no hay entornos/i)).toBeInTheDocument();
         });
     });
 

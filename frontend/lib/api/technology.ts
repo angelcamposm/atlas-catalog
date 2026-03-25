@@ -37,7 +37,7 @@ export const vendorsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedVendorResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/infrastructure/vendors${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/vendors${apiClient.buildQuery({ page })}`,
         );
         return paginatedVendorResponseSchema.parse(response);
     },
@@ -47,7 +47,7 @@ export const vendorsApi = {
      */
     getById: async (id: number): Promise<VendorResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/infrastructure/vendors/${id}`
+            `/v1/infrastructure/vendors/${id}`,
         );
         return vendorResponseSchema.parse(response);
     },
@@ -58,7 +58,7 @@ export const vendorsApi = {
     create: async (data: CreateVendorRequest): Promise<VendorResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/infrastructure/vendors",
-            data
+            data,
         );
         return vendorResponseSchema.parse(response);
     },
@@ -68,11 +68,11 @@ export const vendorsApi = {
      */
     update: async (
         id: number,
-        data: UpdateVendorRequest
+        data: UpdateVendorRequest,
     ): Promise<VendorResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/infrastructure/vendors/${id}`,
-            data
+            data,
         );
         return vendorResponseSchema.parse(response);
     },
@@ -92,7 +92,7 @@ export const frameworksApi = {
      */
     getAll: async (page = 1): Promise<PaginatedFrameworkResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/frameworks${apiClient.buildQuery({ page })}`
+            `/v1/catalog/frameworks${apiClient.buildQuery({ page })}`,
         );
         return paginatedFrameworkResponseSchema.parse(response);
     },
@@ -102,7 +102,7 @@ export const frameworksApi = {
      */
     getById: async (id: number): Promise<FrameworkResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/frameworks/${id}`
+            `/v1/catalog/frameworks/${id}`,
         );
         return frameworkResponseSchema.parse(response);
     },
@@ -111,11 +111,11 @@ export const frameworksApi = {
      * Create a new framework
      */
     create: async (
-        data: CreateFrameworkRequest
+        data: CreateFrameworkRequest,
     ): Promise<FrameworkResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/frameworks",
-            data
+            data,
         );
         return frameworkResponseSchema.parse(response);
     },
@@ -125,11 +125,11 @@ export const frameworksApi = {
      */
     update: async (
         id: number,
-        data: UpdateFrameworkRequest
+        data: UpdateFrameworkRequest,
     ): Promise<FrameworkResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/frameworks/${id}`,
-            data
+            data,
         );
         return frameworkResponseSchema.parse(response);
     },
@@ -142,9 +142,11 @@ export const frameworksApi = {
     /**
      * Get components belonging to a framework
      */
-    getComponents: async (frameworkId: number): Promise<PaginatedComponentResponse> => {
+    getComponents: async (
+        frameworkId: number,
+    ): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/frameworks/${frameworkId}/components`
+            `/v1/catalog/frameworks/${frameworkId}/components`,
         );
         return paginatedComponentResponseSchema.parse(response);
     },
@@ -157,12 +159,12 @@ export const authenticationMethodsApi = {
      * Get all authentication methods with pagination
      */
     getAll: async (
-        page = 1
+        page = 1,
     ): Promise<PaginatedAuthenticationMethodResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/security/authentication-methods${apiClient.buildQuery({
                 page,
-            })}`
+            })}`,
         );
         return paginatedAuthenticationMethodResponseSchema.parse(response);
     },
@@ -172,7 +174,7 @@ export const authenticationMethodsApi = {
      */
     getById: async (id: number): Promise<AuthenticationMethodResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/security/authentication-methods/${id}`
+            `/v1/security/authentication-methods/${id}`,
         );
         return authenticationMethodResponseSchema.parse(response);
     },
@@ -181,11 +183,11 @@ export const authenticationMethodsApi = {
      * Create a new authentication method
      */
     create: async (
-        data: CreateAuthenticationMethodRequest
+        data: CreateAuthenticationMethodRequest,
     ): Promise<AuthenticationMethodResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/security/authentication-methods",
-            data
+            data,
         );
         return authenticationMethodResponseSchema.parse(response);
     },
@@ -195,11 +197,11 @@ export const authenticationMethodsApi = {
      */
     update: async (
         id: number,
-        data: UpdateAuthenticationMethodRequest
+        data: UpdateAuthenticationMethodRequest,
     ): Promise<AuthenticationMethodResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/security/authentication-methods/${id}`,
-            data
+            data,
         );
         return authenticationMethodResponseSchema.parse(response);
     },

@@ -81,9 +81,7 @@ describe("FrameworkList", () => {
                     onDelete={mockOnDelete}
                 />,
             );
-            expect(
-                screen.getByText(/no hay frameworks/i),
-            ).toBeInTheDocument();
+            expect(screen.getByText(/no hay frameworks/i)).toBeInTheDocument();
         });
     });
 

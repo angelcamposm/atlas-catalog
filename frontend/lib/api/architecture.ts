@@ -15,6 +15,8 @@ import {
     paginatedComponentResponseSchema,
     entityAttributeResponseSchema,
     paginatedEntityAttributeResponseSchema,
+    entityResponseSchema,
+    paginatedEntityResponseSchema,
 } from "@/types/api";
 import type {
     PaginatedApiResponse,
@@ -38,6 +40,8 @@ import type {
     PaginatedEntityAttributeResponse,
     CreateEntityAttributeRequest,
     UpdateEntityAttributeRequest,
+    EntityResponse,
+    PaginatedEntityResponse,
 } from "@/types/api";
 
 export const businessCapabilitiesApi = {
@@ -48,7 +52,7 @@ export const businessCapabilitiesApi = {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/business-capabilities${apiClient.buildQuery({
                 page,
-            })}`
+            })}`,
         );
         return paginatedBusinessCapabilityResponseSchema.parse(response);
     },
@@ -58,7 +62,7 @@ export const businessCapabilitiesApi = {
      */
     getById: async (id: number): Promise<BusinessCapabilityResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-capabilities/${id}`
+            `/v1/architecture/business-capabilities/${id}`,
         );
         return businessCapabilityResponseSchema.parse(response);
     },
@@ -67,11 +71,11 @@ export const businessCapabilitiesApi = {
      * Create a new Business Capability
      */
     create: async (
-        data: CreateBusinessCapabilityRequest
+        data: CreateBusinessCapabilityRequest,
     ): Promise<BusinessCapabilityResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/business-capabilities",
-            data
+            data,
         );
         return businessCapabilityResponseSchema.parse(response);
     },
@@ -81,11 +85,11 @@ export const businessCapabilitiesApi = {
      */
     update: async (
         id: number,
-        data: UpdateBusinessCapabilityRequest
+        data: UpdateBusinessCapabilityRequest,
     ): Promise<BusinessCapabilityResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/business-capabilities/${id}`,
-            data
+            data,
         );
         return businessCapabilityResponseSchema.parse(response);
     },
@@ -100,9 +104,11 @@ export const businessCapabilitiesApi = {
     /**
      * Get all Systems associated with a Business Capability
      */
-    getCapabilitySystems: async (capabilityId: number): Promise<PaginatedBusinessCapabilitySystemResponse> => {
+    getCapabilitySystems: async (
+        capabilityId: number,
+    ): Promise<PaginatedBusinessCapabilitySystemResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-capabilities/${capabilityId}/systems`
+            `/v1/architecture/business-capabilities/${capabilityId}/systems`,
         );
         return paginatedBusinessCapabilitySystemResponseSchema.parse(response);
     },
@@ -112,9 +118,11 @@ export const businessCapabilitySystemsApi = {
     /**
      * Get all Business Capability System relationships with pagination
      */
-    getAll: async (page = 1): Promise<PaginatedBusinessCapabilitySystemResponse> => {
+    getAll: async (
+        page = 1,
+    ): Promise<PaginatedBusinessCapabilitySystemResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-capability-systems${apiClient.buildQuery({ page })}`
+            `/v1/architecture/business-capability-systems${apiClient.buildQuery({ page })}`,
         );
         return paginatedBusinessCapabilitySystemResponseSchema.parse(response);
     },
@@ -124,7 +132,7 @@ export const businessCapabilitySystemsApi = {
      */
     getById: async (id: number): Promise<BusinessCapabilitySystemResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-capability-systems/${id}`
+            `/v1/architecture/business-capability-systems/${id}`,
         );
         return businessCapabilitySystemResponseSchema.parse(response);
     },
@@ -133,11 +141,11 @@ export const businessCapabilitySystemsApi = {
      * Create a new Business Capability System relationship
      */
     create: async (
-        data: CreateBusinessCapabilitySystemRequest
+        data: CreateBusinessCapabilitySystemRequest,
     ): Promise<BusinessCapabilitySystemResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/business-capability-systems",
-            data
+            data,
         );
         return businessCapabilitySystemResponseSchema.parse(response);
     },
@@ -147,11 +155,11 @@ export const businessCapabilitySystemsApi = {
      */
     update: async (
         id: number,
-        data: UpdateBusinessCapabilitySystemRequest
+        data: UpdateBusinessCapabilitySystemRequest,
     ): Promise<BusinessCapabilitySystemResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/business-capability-systems/${id}`,
-            data
+            data,
         );
         return businessCapabilitySystemResponseSchema.parse(response);
     },
@@ -160,7 +168,9 @@ export const businessCapabilitySystemsApi = {
      * Delete a Business Capability System relationship
      */
     delete: async (id: number): Promise<void> => {
-        await apiClient.delete(`/v1/architecture/business-capability-systems/${id}`);
+        await apiClient.delete(
+            `/v1/architecture/business-capability-systems/${id}`,
+        );
     },
 };
 
@@ -168,32 +178,32 @@ export const entitiesApi = {
     /**
      * Get all Entities with pagination
      */
-    getAll: async (page = 1): Promise<PaginatedApiResponse> => {
+    getAll: async (page = 1): Promise<PaginatedEntityResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/entities${apiClient.buildQuery({ page })}`
+            `/v1/architecture/entities${apiClient.buildQuery({ page })}`,
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedEntityResponseSchema.parse(response);
     },
 
     /**
      * Get a single Entity by ID
      */
-    getById: async (id: number): Promise<ApiResponse> => {
+    getById: async (id: number): Promise<EntityResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/entities/${id}`
+            `/v1/architecture/entities/${id}`,
         );
-        return apiResponseSchema.parse(response);
+        return entityResponseSchema.parse(response);
     },
 
     /**
      * Create a new Entity
      */
-    create: async (data: CreateEntityRequest): Promise<ApiResponse> => {
+    create: async (data: CreateEntityRequest): Promise<EntityResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/entities",
-            data
+            data,
         );
-        return apiResponseSchema.parse(response);
+        return entityResponseSchema.parse(response);
     },
 
     /**
@@ -201,13 +211,13 @@ export const entitiesApi = {
      */
     update: async (
         id: number,
-        data: UpdateEntityRequest
-    ): Promise<ApiResponse> => {
+        data: UpdateEntityRequest,
+    ): Promise<EntityResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/entities/${id}`,
-            data
+            data,
         );
-        return apiResponseSchema.parse(response);
+        return entityResponseSchema.parse(response);
     },
 
     /**
@@ -220,11 +230,13 @@ export const entitiesApi = {
     /**
      * Get all Components associated with an Entity
      */
-    getEntityComponents: async (entityId: number): Promise<PaginatedApiResponse> => {
+    getEntityComponents: async (
+        entityId: number,
+    ): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/entities/${entityId}/components`
+            `/v1/architecture/entities/${entityId}/components`,
         );
-        return paginatedApiResponseSchema.parse(response);
+        return paginatedComponentResponseSchema.parse(response);
     },
 };
 
@@ -232,9 +244,12 @@ export const entityAttributesApi = {
     /**
      * Get all Attributes of an Entity with pagination
      */
-    getAll: async (entityId: number, page = 1): Promise<PaginatedEntityAttributeResponse> => {
+    getAll: async (
+        entityId: number,
+        page = 1,
+    ): Promise<PaginatedEntityAttributeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/entities/${entityId}/attributes${apiClient.buildQuery({ page })}`
+            `/v1/architecture/entities/${entityId}/attributes${apiClient.buildQuery({ page })}`,
         );
         return paginatedEntityAttributeResponseSchema.parse(response);
     },
@@ -244,7 +259,7 @@ export const entityAttributesApi = {
      */
     getById: async (id: number): Promise<EntityAttributeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/entity-attributes/${id}`
+            `/v1/architecture/entity-attributes/${id}`,
         );
         return entityAttributeResponseSchema.parse(response);
     },
@@ -254,11 +269,11 @@ export const entityAttributesApi = {
      */
     create: async (
         entityId: number,
-        data: CreateEntityAttributeRequest
+        data: CreateEntityAttributeRequest,
     ): Promise<EntityAttributeResponse> => {
         const response = await apiClient.post<unknown>(
             `/v1/architecture/entities/${entityId}/attributes`,
-            data
+            data,
         );
         return entityAttributeResponseSchema.parse(response);
     },
@@ -268,11 +283,11 @@ export const entityAttributesApi = {
      */
     update: async (
         id: number,
-        data: UpdateEntityAttributeRequest
+        data: UpdateEntityAttributeRequest,
     ): Promise<EntityAttributeResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/entity-attributes/${id}`,
-            data
+            data,
         );
         return entityAttributeResponseSchema.parse(response);
     },
@@ -291,7 +306,7 @@ export const systemsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedSystemResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/systems${apiClient.buildQuery({ page })}`
+            `/v1/architecture/systems${apiClient.buildQuery({ page })}`,
         );
         return paginatedSystemResponseSchema.parse(response);
     },
@@ -301,7 +316,7 @@ export const systemsApi = {
      */
     getById: async (id: number): Promise<SystemResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/systems/${id}`
+            `/v1/architecture/systems/${id}`,
         );
         return systemResponseSchema.parse(response);
     },
@@ -312,7 +327,7 @@ export const systemsApi = {
     create: async (data: CreateSystemRequest): Promise<SystemResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/systems",
-            data
+            data,
         );
         return systemResponseSchema.parse(response);
     },
@@ -322,11 +337,11 @@ export const systemsApi = {
      */
     update: async (
         id: number,
-        data: UpdateSystemRequest
+        data: UpdateSystemRequest,
     ): Promise<SystemResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/systems/${id}`,
-            data
+            data,
         );
         return systemResponseSchema.parse(response);
     },
@@ -341,9 +356,11 @@ export const systemsApi = {
     /**
      * Get all Components associated with a System
      */
-    getSystemComponents: async (systemId: number): Promise<PaginatedComponentResponse> => {
+    getSystemComponents: async (
+        systemId: number,
+    ): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/systems/${systemId}/components`
+            `/v1/architecture/systems/${systemId}/components`,
         );
         return paginatedComponentResponseSchema.parse(response);
     },

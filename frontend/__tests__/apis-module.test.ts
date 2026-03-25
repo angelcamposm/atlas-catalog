@@ -23,7 +23,10 @@ jest.mock("@/lib/api-client", () => ({
         }),
     },
     ApiError: class ApiError extends Error {
-        constructor(message: string, public status: number) {
+        constructor(
+            message: string,
+            public status: number,
+        ) {
             super(message);
         }
     },
@@ -100,7 +103,7 @@ describe("APIs Module", () => {
             const result = await apisApi.getAll(1);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/catalog/apis?page=1"
+                "/v1/catalog/apis?page=1",
             );
             expect(result.data).toHaveLength(2);
             expect(result.data[0].name).toBe("users-api");
@@ -115,7 +118,7 @@ describe("APIs Module", () => {
             const result = await apisApi.getAll(2);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/catalog/apis?page=2"
+                "/v1/catalog/apis?page=2",
             );
             expect(result.meta.current_page).toBe(2);
         });
@@ -132,7 +135,7 @@ describe("APIs Module", () => {
             const result = await apisApi.getById(1);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/catalog/apis/1"
+                "/v1/catalog/apis/1",
             );
             expect(result.data.name).toBe("users-api");
             expect(result.data.id).toBe(1);
@@ -175,7 +178,7 @@ describe("APIs Module", () => {
 
             expect(mockedApiClient.post).toHaveBeenCalledWith(
                 "/v1/catalog/apis",
-                createData
+                createData,
             );
             expect(result.data.name).toBe("new-api");
             expect(result.data.id).toBe(3);
@@ -202,7 +205,7 @@ describe("APIs Module", () => {
 
             expect(mockedApiClient.post).toHaveBeenCalledWith(
                 "/v1/catalog/apis",
-                createData
+                createData,
             );
             expect(result.data.display_name).toBe("Complete API");
             expect(result.data.version).toBe("2.0.0");
@@ -210,11 +213,11 @@ describe("APIs Module", () => {
 
         it("should handle API errors during creation", async () => {
             mockedApiClient.post.mockRejectedValueOnce(
-                new Error("API name already exists")
+                new Error("API name already exists"),
             );
 
             await expect(apisApi.create({ name: "duplicate" })).rejects.toThrow(
-                "API name already exists"
+                "API name already exists",
             );
         });
     });
@@ -240,7 +243,7 @@ describe("APIs Module", () => {
 
             expect(mockedApiClient.put).toHaveBeenCalledWith(
                 "/v1/catalog/apis/1",
-                updateData
+                updateData,
             );
             expect(result.data.display_name).toBe("Updated API Name");
             expect(result.data.version).toBe("2.0.0");
@@ -272,13 +275,13 @@ describe("APIs Module", () => {
             await apisApi.delete(1);
 
             expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                "/v1/catalog/apis/1"
+                "/v1/catalog/apis/1",
             );
         });
 
         it("should handle delete errors", async () => {
             mockedApiClient.delete.mockRejectedValueOnce(
-                new Error("API not found")
+                new Error("API not found"),
             );
 
             await expect(apisApi.delete(999)).rejects.toThrow("API not found");
@@ -322,7 +325,7 @@ describe("APIs Module", () => {
             const result = await apisApi.getComponents(42);
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
-                "/v1/catalog/apis/42/components"
+                "/v1/catalog/apis/42/components",
             );
             expect(result.data).toHaveLength(1);
             expect(result.data[0].name).toBe("users-service");

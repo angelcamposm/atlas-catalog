@@ -71,7 +71,7 @@ export function AppSidebar({
             "organization",
             "security",
             "management",
-        ])
+        ]),
     );
 
     const toggleItem = (itemTitle: string) => {
@@ -242,7 +242,7 @@ export function AppSidebar({
                 ],
             },
         ],
-        [locale]
+        [locale],
     );
 
     // Menu sections for Examples module
@@ -304,7 +304,7 @@ export function AppSidebar({
                 ],
             },
         ],
-        [locale]
+        [locale],
     );
 
     // Select menu sections based on active module
@@ -318,7 +318,7 @@ export function AppSidebar({
     const isParentActive = (subItems: SubMenuItem[]) => {
         return subItems.some(
             (item) =>
-                pathname === item.url || pathname.startsWith(item.url + "/")
+                pathname === item.url || pathname.startsWith(item.url + "/"),
         );
     };
 
@@ -354,8 +354,8 @@ export function AppSidebar({
                             const active = item.url
                                 ? isActive(item.url)
                                 : hasSubItems
-                                ? isParentActive(item.subItems!)
-                                : false;
+                                  ? isParentActive(item.subItems!)
+                                  : false;
 
                             // Badge color styles
                             const badgeColors = {
@@ -408,11 +408,11 @@ export function AppSidebar({
                                                     (subItem) => {
                                                         const subActive =
                                                             isActive(
-                                                                subItem.url
+                                                                subItem.url,
                                                             ) ||
                                                             pathname.startsWith(
                                                                 subItem.url +
-                                                                    "/"
+                                                                    "/",
                                                             );
                                                         return (
                                                             <Link
@@ -429,11 +429,11 @@ export function AppSidebar({
                                                                 }`}
                                                             >
                                                                 {t(
-                                                                    subItem.title
+                                                                    subItem.title,
                                                                 )}
                                                             </Link>
                                                         );
-                                                    }
+                                                    },
                                                 )}
                                             </div>
                                         )}

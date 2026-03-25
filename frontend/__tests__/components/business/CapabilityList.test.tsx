@@ -73,7 +73,9 @@ describe("CapabilityList", () => {
                     onDelete={mockOnDelete}
                 />,
             );
-            expect(screen.getByTestId("child-capability-2")).toBeInTheDocument();
+            expect(
+                screen.getByTestId("child-capability-2"),
+            ).toBeInTheDocument();
         });
 
         it("should show empty state when no capabilities", () => {
@@ -84,9 +86,7 @@ describe("CapabilityList", () => {
                     onDelete={mockOnDelete}
                 />,
             );
-            expect(
-                screen.getByText(/no hay capacidades/i),
-            ).toBeInTheDocument();
+            expect(screen.getByText(/no hay capacidades/i)).toBeInTheDocument();
         });
     });
 

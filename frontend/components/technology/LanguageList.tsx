@@ -12,7 +12,11 @@ interface LanguageListProps {
 /**
  * Tabla de lenguajes de programación con acciones de edición y eliminación.
  */
-export function LanguageList({ languages, onEdit, onDelete }: LanguageListProps) {
+export function LanguageList({
+    languages,
+    onEdit,
+    onDelete,
+}: LanguageListProps) {
     if (languages.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
@@ -44,12 +48,16 @@ export function LanguageList({ languages, onEdit, onDelete }: LanguageListProps)
                     {languages.map((lang, i) => (
                         <tr
                             key={lang.id}
-                            className={i < languages.length - 1 ? "border-b" : ""}
+                            className={
+                                i < languages.length - 1 ? "border-b" : ""
+                            }
                         >
                             <td className="p-4">
                                 <div className="flex items-center gap-2">
                                     <HiCodeBracket className="h-4 w-4 text-muted-foreground" />
-                                    <span className="font-medium">{lang.name}</span>
+                                    <span className="font-medium">
+                                        {lang.name}
+                                    </span>
                                 </div>
                             </td>
                             <td className="p-4">

@@ -77,9 +77,7 @@ describe("LanguageList", () => {
                     onDelete={mockOnDelete}
                 />,
             );
-            expect(
-                screen.getByText(/no hay lenguajes/i),
-            ).toBeInTheDocument();
+            expect(screen.getByText(/no hay lenguajes/i)).toBeInTheDocument();
         });
     });
 

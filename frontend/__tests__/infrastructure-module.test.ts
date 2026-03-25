@@ -539,7 +539,7 @@ describe("Infrastructure Module", () => {
                 const result = await infrastructureTypesApi.getAll(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/infrastructure/types?page=1"
+                    "/v1/infrastructure/infrastructure-types?page=1"
                 );
                 expect(result.data).toHaveLength(3);
             });
@@ -556,7 +556,7 @@ describe("Infrastructure Module", () => {
                 const result = await infrastructureTypesApi.getById(1);
 
                 expect(mockedApiClient.get).toHaveBeenCalledWith(
-                    "/v1/infrastructure/types/1"
+                    "/v1/infrastructure/infrastructure-types/1"
                 );
                 expect(result.data.name).toBe("cloud");
             });
@@ -582,7 +582,7 @@ describe("Infrastructure Module", () => {
                 const result = await infrastructureTypesApi.create(createData);
 
                 expect(mockedApiClient.post).toHaveBeenCalledWith(
-                    "/v1/infrastructure/types",
+                    "/v1/infrastructure/infrastructure-types",
                     createData
                 );
                 expect(result.data.name).toBe("edge");
@@ -609,7 +609,7 @@ describe("Infrastructure Module", () => {
                 );
 
                 expect(mockedApiClient.put).toHaveBeenCalledWith(
-                    "/v1/infrastructure/types/1",
+                    "/v1/infrastructure/infrastructure-types/1",
                     updateData
                 );
             });
@@ -622,7 +622,7 @@ describe("Infrastructure Module", () => {
                 await infrastructureTypesApi.delete(1);
 
                 expect(mockedApiClient.delete).toHaveBeenCalledWith(
-                    "/v1/infrastructure/types/1"
+                    "/v1/infrastructure/infrastructure-types/1"
                 );
             });
         });

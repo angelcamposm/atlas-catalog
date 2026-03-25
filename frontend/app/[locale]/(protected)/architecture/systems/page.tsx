@@ -56,9 +56,7 @@ export default function ArchitectureSystemsPage() {
             setTotalPages(response.meta?.last_page || 1);
         } catch (err) {
             setError(
-                err instanceof Error
-                    ? err.message
-                    : "Error loading systems",
+                err instanceof Error ? err.message : "Error loading systems",
             );
         } finally {
             setLoading(false);
@@ -216,7 +214,8 @@ export default function ArchitectureSystemsPage() {
                     <div className="space-y-4 py-2">
                         <div className="space-y-2">
                             <Label htmlFor="system-name">
-                                Nombre <span className="text-destructive">*</span>
+                                Nombre{" "}
+                                <span className="text-destructive">*</span>
                             </Label>
                             <Input
                                 id="system-name"
@@ -279,9 +278,7 @@ export default function ArchitectureSystemsPage() {
             >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            ¿Eliminar sistema?
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>¿Eliminar sistema?</AlertDialogTitle>
                         <AlertDialogDescription>
                             Esta acción eliminará el sistema{" "}
                             <strong>{deletingSystem?.name}</strong> de forma

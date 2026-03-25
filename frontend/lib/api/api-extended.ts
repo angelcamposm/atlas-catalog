@@ -37,7 +37,7 @@ export const apiCategoriesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiCategoryResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/categories${apiClient.buildQuery({ page })}`
+            `/v1/catalog/apis/categories${apiClient.buildQuery({ page })}`,
         );
         return paginatedApiCategoryResponseSchema.parse(response);
     },
@@ -47,7 +47,7 @@ export const apiCategoriesApi = {
      */
     getById: async (id: number): Promise<ApiCategoryResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/categories/${id}`
+            `/v1/catalog/apis/categories/${id}`,
         );
         return apiCategoryResponseSchema.parse(response);
     },
@@ -56,11 +56,11 @@ export const apiCategoriesApi = {
      * Create a new API category
      */
     create: async (
-        data: CreateApiCategoryRequest
+        data: CreateApiCategoryRequest,
     ): Promise<ApiCategoryResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/apis/categories",
-            data
+            data,
         );
         return apiCategoryResponseSchema.parse(response);
     },
@@ -70,11 +70,11 @@ export const apiCategoriesApi = {
      */
     update: async (
         id: number,
-        data: UpdateApiCategoryRequest
+        data: UpdateApiCategoryRequest,
     ): Promise<ApiCategoryResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/apis/categories/${id}`,
-            data
+            data,
         );
         return apiCategoryResponseSchema.parse(response);
     },
@@ -94,7 +94,7 @@ export const apiStatusesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/operations/service-statuses${apiClient.buildQuery({ page })}`
+            `/v1/operations/service-statuses${apiClient.buildQuery({ page })}`,
         );
         return paginatedApiStatusResponseSchema.parse(response);
     },
@@ -104,7 +104,7 @@ export const apiStatusesApi = {
      */
     getById: async (id: number): Promise<ApiStatusResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/operations/service-statuses/${id}`
+            `/v1/operations/service-statuses/${id}`,
         );
         return apiStatusResponseSchema.parse(response);
     },
@@ -113,11 +113,11 @@ export const apiStatusesApi = {
      * Create a new API status
      */
     create: async (
-        data: CreateApiStatusRequest
+        data: CreateApiStatusRequest,
     ): Promise<ApiStatusResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/operations/service-statuses",
-            data
+            data,
         );
         return apiStatusResponseSchema.parse(response);
     },
@@ -127,11 +127,11 @@ export const apiStatusesApi = {
      */
     update: async (
         id: number,
-        data: UpdateApiStatusRequest
+        data: UpdateApiStatusRequest,
     ): Promise<ApiStatusResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/operations/service-statuses/${id}`,
-            data
+            data,
         );
         return apiStatusResponseSchema.parse(response);
     },
@@ -151,7 +151,7 @@ export const apiAccessPoliciesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedApiAccessPolicyResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/access-policies${apiClient.buildQuery({ page })}`
+            `/v1/catalog/apis/access-policies${apiClient.buildQuery({ page })}`,
         );
         return paginatedApiAccessPolicyResponseSchema.parse(response);
     },
@@ -161,7 +161,7 @@ export const apiAccessPoliciesApi = {
      */
     getById: async (id: number): Promise<ApiAccessPolicyResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/access-policies/${id}`
+            `/v1/catalog/apis/access-policies/${id}`,
         );
         return apiAccessPolicyResponseSchema.parse(response);
     },
@@ -170,11 +170,11 @@ export const apiAccessPoliciesApi = {
      * Create a new API access policy
      */
     create: async (
-        data: CreateApiAccessPolicyRequest
+        data: CreateApiAccessPolicyRequest,
     ): Promise<ApiAccessPolicyResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/apis/access-policies",
-            data
+            data,
         );
         return apiAccessPolicyResponseSchema.parse(response);
     },
@@ -184,11 +184,11 @@ export const apiAccessPoliciesApi = {
      */
     update: async (
         id: number,
-        data: UpdateApiAccessPolicyRequest
+        data: UpdateApiAccessPolicyRequest,
     ): Promise<ApiAccessPolicyResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/apis/access-policies/${id}`,
-            data
+            data,
         );
         return apiAccessPolicyResponseSchema.parse(response);
     },
@@ -204,7 +204,7 @@ export const apiAccessPoliciesApi = {
      */
     getApis: async (policyId: number): Promise<PaginatedApiResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis/access-policies/${policyId}/apis`
+            `/v1/catalog/apis/access-policies/${policyId}/apis`,
         );
         return paginatedApiResponseSchema.parse(response);
     },

@@ -25,9 +25,9 @@ describe("Architecture API Module", () => {
 
         it("has getCapabilitySystems nested method", () => {
             expect(businessCapabilitiesApi.getCapabilitySystems).toBeDefined();
-            expect(
-                typeof businessCapabilitiesApi.getCapabilitySystems
-            ).toBe("function");
+            expect(typeof businessCapabilitiesApi.getCapabilitySystems).toBe(
+                "function",
+            );
         });
     });
 

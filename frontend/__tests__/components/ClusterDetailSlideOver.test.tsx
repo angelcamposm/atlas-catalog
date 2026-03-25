@@ -15,6 +15,7 @@ import {
 import type {
     Cluster,
     ClusterType,
+    ClusterServiceAccount,
     Lifecycle,
     InfrastructureType,
     Vendor,
@@ -51,6 +52,7 @@ jest.mock("@/lib/api", () => ({
     clustersApi: {
         getAll: jest.fn(),
         delete: jest.fn(),
+        getServiceAccounts: jest.fn(),
     },
 }));
 
@@ -135,6 +137,20 @@ const createMockInfrastructureType = (
     ...overrides,
 });
 
+// Helper to create mock cluster service account data
+const createMockClusterServiceAccount = (
+    overrides: Partial<ClusterServiceAccount> = {}
+): ClusterServiceAccount => ({
+    id: 1,
+    cluster_id: 1,
+    service_account_id: 42,
+    created_at: "2024-01-01T00:00:00Z",
+    updated_at: "2024-01-01T00:00:00Z",
+    created_by: 1,
+    updated_by: 1,
+    ...overrides,
+});
+
 // Helper to create mock vendor data
 const createMockVendor = (overrides: Partial<Vendor> = {}): Vendor => ({
     id: 1,
@@ -185,6 +201,9 @@ describe("ClusterDetailSlideOver Component", () => {
         );
         mockedVendorsApi.getAll.mockResolvedValue(
             createPaginatedResponse([createMockVendor()])
+        );
+        mockedClustersApi.getServiceAccounts.mockResolvedValue(
+            createPaginatedResponse([])
         );
     });
 
@@ -667,6 +686,92 @@ describe("ClusterDetailSlideOver Component", () => {
             });
 
             // Component should render without errors even with null relations
+        });
+    });
+
+    describe("Service Accounts Tab", () => {
+        it("should have Service Accounts tab in navigation", async () => {
+            const cluster = createMockCluster();
+
+            render(
+                <ClusterDetailSlideOver
+                    cluster={cluster}
+                    open={true}
+                    onClose={mockOnClose}
+                />
+            );
+
+            await waitFor(() => {
+                expect(
+                    screen.getByRole("tab", { name: /service accounts/i })
+                ).toBeInTheDocument();
+            });
+        });
+
+        it("should show empty state when no service accounts", async () => {
+            mockedClustersApi.getServiceAccounts.mockResolvedValue(
+                createPaginatedResponse([])
+            );
+            const cluster = createMockCluster();
+
+            render(
+                <ClusterDetailSlideOver
+                    cluster={cluster}
+                    open={true}
+                    onClose={mockOnClose}
+                />
+            );
+
+            await waitFor(() => {
+                expect(
+                    screen.getByRole("tab", { name: /service accounts/i })
+                ).toBeInTheDocument();
+            });
+
+            fireEvent.click(
+                screen.getByRole("tab", { name: /service accounts/i })
+            );
+
+            await waitFor(() => {
+                expect(
+                    mockedClustersApi.getServiceAccounts
+                ).toHaveBeenCalledWith(cluster.id, 1);
+                expect(
+                    screen.getByText(/no service accounts/i)
+                ).toBeInTheDocument();
+            });
+        });
+
+        it("should show service accounts when loaded", async () => {
+            const sa = createMockClusterServiceAccount({ service_account_id: 42 });
+            mockedClustersApi.getServiceAccounts.mockResolvedValue(
+                createPaginatedResponse([sa])
+            );
+            const cluster = createMockCluster();
+
+            render(
+                <ClusterDetailSlideOver
+                    cluster={cluster}
+                    open={true}
+                    onClose={mockOnClose}
+                />
+            );
+
+            await waitFor(() => {
+                expect(
+                    screen.getByRole("tab", { name: /service accounts/i })
+                ).toBeInTheDocument();
+            });
+
+            fireEvent.click(
+                screen.getByRole("tab", { name: /service accounts/i })
+            );
+
+            await waitFor(() => {
+                expect(
+                    screen.getByText(/service account #42/i)
+                ).toBeInTheDocument();
+            });
         });
     });
 

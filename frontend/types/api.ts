@@ -1588,8 +1588,9 @@ export const businessCapabilitySchema = z
 export type BusinessCapability = z.infer<typeof businessCapabilitySchema>;
 
 // Business Capability response schemas
-export const businessCapabilityResponseSchema =
-    createResourceResponseSchema(businessCapabilitySchema);
+export const businessCapabilityResponseSchema = createResourceResponseSchema(
+    businessCapabilitySchema,
+);
 export type BusinessCapabilityResponse = z.infer<
     typeof businessCapabilityResponseSchema
 >;
@@ -1667,8 +1668,9 @@ export interface CreateWorkflowCommitRequest {
 export type UpdateWorkflowCommitRequest = Partial<CreateWorkflowCommitRequest>;
 
 // Entity Attributes response schemas
-export const entityAttributeResponseSchema =
-    createResourceResponseSchema(entityAttributeSchema);
+export const entityAttributeResponseSchema = createResourceResponseSchema(
+    entityAttributeSchema,
+);
 export type EntityAttributeResponse = z.infer<
     typeof entityAttributeResponseSchema
 >;

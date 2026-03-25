@@ -46,6 +46,7 @@ import {
 } from "@/lib/api";
 import type {
     Cluster,
+    ClusterServiceAccount,
     ClusterType,
     Lifecycle,
     InfrastructureType,
@@ -78,6 +79,10 @@ export function ClusterDetailSlideOver({
     const [copiedField, setCopiedField] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState("overview");
+    const [serviceAccounts, setServiceAccounts] = useState<
+        ClusterServiceAccount[]
+    >([]);
+    const [saLoading, setSaLoading] = useState(false);
 
     // Load related data
     useEffect(() => {
@@ -127,6 +132,28 @@ export function ClusterDetailSlideOver({
 
         loadRelatedData();
     }, [cluster]);
+
+    // Load service accounts lazily when tab is activated
+    useEffect(() => {
+        if (activeTab !== "service-accounts" || !cluster) return;
+
+        const loadServiceAccounts = async () => {
+            setSaLoading(true);
+            try {
+                const res = await clustersApi.getServiceAccounts(
+                    cluster.id,
+                    1
+                );
+                setServiceAccounts(res.data);
+            } catch (err) {
+                console.error("Error loading service accounts:", err);
+            } finally {
+                setSaLoading(false);
+            }
+        };
+
+        loadServiceAccounts();
+    }, [activeTab, cluster]);
 
     const handleCopy = async (text: string, field: string) => {
         try {
@@ -233,6 +260,11 @@ export function ClusterDetailSlideOver({
             id: "metadata",
             label: "Metadata",
             icon: <Calendar className="h-4 w-4" />,
+        },
+        {
+            id: "service-accounts",
+            label: "Service Accounts",
+            icon: <Shield className="h-4 w-4" />,
         },
     ];
 
@@ -562,6 +594,38 @@ export function ClusterDetailSlideOver({
                         )}
                     </SlideOverSection>
                 </>
+            )}
+
+            {/* Service Accounts Tab */}
+            {activeTab === "service-accounts" && (
+                <SlideOverSection
+                    title="Service Accounts"
+                    icon={<Shield className="h-4 w-4" />}
+                >
+                    {saLoading ? (
+                        <p className="text-sm text-muted-foreground italic">
+                            Loading...
+                        </p>
+                    ) : serviceAccounts.length === 0 ? (
+                        <p className="text-sm text-muted-foreground italic">
+                            No service accounts assigned to this cluster
+                        </p>
+                    ) : (
+                        <ul className="space-y-2">
+                            {serviceAccounts.map((sa) => (
+                                <li
+                                    key={sa.id}
+                                    className="flex items-center gap-2 rounded-lg border border-border/40 bg-muted/30 px-3 py-2"
+                                >
+                                    <Shield className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                                    <span className="text-sm font-medium">
+                                        Service Account #{sa.service_account_id}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </SlideOverSection>
             )}
 
             {/* Metadata Tab */}

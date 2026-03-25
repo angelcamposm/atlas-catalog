@@ -28,10 +28,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { environmentsApi } from "@/lib/api/business";
 import { EnvironmentList } from "@/components/infrastructure/EnvironmentList";
-import type {
-    Environment,
-    CreateEnvironmentRequest,
-} from "@/types/api";
+import type { Environment, CreateEnvironmentRequest } from "@/types/api";
 
 export default function InfrastructureEnvironmentsPage() {
     const [environments, setEnvironments] = useState<Environment[]>([]);
@@ -135,9 +132,7 @@ export default function InfrastructureEnvironmentsPage() {
             loadEnvironments();
         } catch (err) {
             setError(
-                err instanceof Error
-                    ? err.message
-                    : "Error saving environment",
+                err instanceof Error ? err.message : "Error saving environment",
             );
         } finally {
             setSaving(false);
@@ -356,9 +351,7 @@ export default function InfrastructureEnvironmentsPage() {
             >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            ¿Eliminar entorno?
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>¿Eliminar entorno?</AlertDialogTitle>
                         <AlertDialogDescription>
                             Esta acción no se puede deshacer. Se eliminará
                             permanentemente el entorno{" "}

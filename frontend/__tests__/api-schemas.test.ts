@@ -81,7 +81,7 @@ describe("api schemas", () => {
                     ...buildApi(),
                     name: 123,
                 },
-            })
+            }),
         ).toThrow();
     });
 
@@ -252,7 +252,9 @@ describe("api schemas", () => {
             ...timestamps,
             ...userReference,
         };
-        const result = businessCapabilityResponseSchema.parse({ data: capability });
+        const result = businessCapabilityResponseSchema.parse({
+            data: capability,
+        });
         expect(result.data.name).toBe("Customer Management");
     });
 
@@ -313,7 +315,9 @@ describe("api schemas", () => {
             ...timestamps,
             ...userReference,
         };
-        const result = businessCapabilitySystemResponseSchema.parse({ data: link });
+        const result = businessCapabilitySystemResponseSchema.parse({
+            data: link,
+        });
         expect(result.data.system_id).toBe(2);
     });
 

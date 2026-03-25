@@ -28,10 +28,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { serviceModelsApi } from "@/lib/api/service-models";
 import { ServiceModelList } from "@/components/catalog/ServiceModelList";
-import type {
-    ServiceModel,
-    CreateServiceModelRequest,
-} from "@/types/api";
+import type { ServiceModel, CreateServiceModelRequest } from "@/types/api";
 
 export default function ServiceModelsPage() {
     const [models, setModels] = useState<ServiceModel[]>([]);
