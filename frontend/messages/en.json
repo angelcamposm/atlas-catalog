@@ -1,0 +1,558 @@
+{
+  "metadata": {
+    "title": "Atlas Catalog",
+    "description": "Centralized API catalog management system."
+  },
+  "common": {
+    "all": "All",
+    "viewApis": "View APIs",
+    "manageTypes": "Manage Types",
+    "viewLifecycles": "View Lifecycles",
+    "viewLanguages": "View Languages",
+    "comingSoon": "Coming Soon",
+    "backendLabel": "Backend API:",
+    "featuresLabel": "Features:",
+    "techStackLabel": "Tech Stack:",
+    "techStackValue": "Next.js 16 + TypeScript + Tailwind CSS",
+    "builtWith": "Built with {heart} using Laravel & Next.js",
+    "retry": "Retry",
+    "previous": "Previous",
+    "next": "Next",
+    "new": "New",
+    "edit": "Edit",
+    "pageSummary": "Page {current} of {total}",
+    "noData": "No APIs available",
+    "totalCount": "Total: {count} APIs",
+    "n_a": "N/A",
+    "language": "Language",
+    "login": "Login",
+    "signIn": "Sign In",
+    "locale": {
+      "en": "English",
+      "es": "Spanish"
+    }
+  },
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How It Works",
+    "testimonials": "Testimonials",
+    "catalog": "Catalog"
+  },
+  "sidebar": {
+    "navigation": "Navigation",
+    "expand": "Expand sidebar",
+    "collapse": "Collapse sidebar",
+    "search": "Search menu...",
+    "dashboard": "Dashboard",
+    "components": "Components",
+    "apis": "Apis",
+    "lifecycles": "Lifecycles",
+    "types": "Types",
+    "teams": "Teams",
+    "overview": "Overview",
+    "infrastructure": "Infrastructure",
+    "clusters": "Clusters",
+    "cluster_types": "Cluster Types",
+    "nodes": "Nodes",
+    "service_accounts": "Service Accounts",
+    "platform": "Platform",
+    "platforms": "Platforms",
+    "component_types": "Component Types",
+    "integration": "Integration",
+    "links": "Links",
+    "link_types": "Link Types",
+    "analytics": "Analytics",
+    "documentation": "Documentation",
+    "security": "Security & Compliance",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "catalog": "Catalog",
+    "organization": "Organization",
+    "taxonomy": "Taxonomy",
+    "technology": "Technology",
+    "admin": "Administration",
+    "examples": "Examples",
+    "updates": "Updates",
+    "tasks": "Tasks",
+    "inbox": "Inbox",
+    "clients": "Clients",
+
+    "architecture": "Architecture",
+    "entities": "Entities",
+    "lifecycle": "Lifecycle",
+    "systems": "Systems",
+
+    "business": "Business",
+    "business_capabilities": "Business Capabilities",
+    "business_domains": "Business Domains",
+    "business_tiers": "Business Tiers",
+
+    "resources": "Resources",
+    "environments": "Environments",
+
+    "ci_cd": "CI-CD",
+    "ci_cd_dashboard": "Dashboard",
+    "artifact_releases": "Artifact Releases",
+    "ci_servers": "CI-Servers",
+    "workflows": "Workflows",
+
+    "groups": "Groups",
+    "users": "Users",
+
+    "security_dashboard": "Dashboard",
+
+    "management": "Management",
+    "authentication_methods": "Authentication Methods",
+    "categories": "Categories",
+    "frameworks": "Frameworks",
+    "group_member_roles": "Group Member Roles",
+    "group_types": "Group Types",
+    "programming_languages": "Programming Languages",
+    "service_models": "Service Models",
+    "vendors": "Vendors",
+
+    "languages": "Languages",
+    "auth_methods": "Auth Methods",
+    "access_policies": "Access Policies",
+    "compliance": "Compliance",
+    "api_types": "API Types",
+    "api_statuses": "API Statuses",
+    "api_categories": "API Categories",
+    "member_roles": "Member Roles",
+    "my_profile": "My Profile",
+    "diagrams": "Diagrams",
+    "empty_state": "Empty State",
+    "loading": "Loading",
+    "markdown": "Markdown",
+    "slide_panel": "Slide Panel",
+    "buttons": "Buttons",
+    "badges": "Badges",
+    "cards": "Cards",
+    "alerts": "Alerts",
+    "forms": "Forms"
+  },
+  "footer": {
+    "tagline": "Centralized API catalog management for modern platform teams",
+    "changelog": "Changelog",
+    "product": {
+      "title": "Product",
+      "features": "Features",
+      "pricing": "Pricing",
+      "documentation": "Documentation",
+      "apiCatalog": "API Catalog"
+    },
+    "company": {
+      "title": "Company",
+      "about": "About Us",
+      "blog": "Blog",
+      "careers": "Careers",
+      "contact": "Contact"
+    },
+    "resources": {
+      "title": "Resources",
+      "guides": "Guides",
+      "help": "Help Center",
+      "community": "Community",
+      "status": "Status"
+    },
+    "legal": {
+      "title": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "license": "License"
+    },
+    "newsletter": {
+      "title": "Stay Updated",
+      "description": "Subscribe to our newsletter for the latest updates and features.",
+      "placeholder": "Enter your email",
+      "subscribe": "Subscribe"
+    }
+  },
+  "home": {
+    "title": "Atlas Catalog",
+    "subtitle": "Centralized API catalog management system for tracking and managing your microservices, APIs, and digital assets.",
+    "hero": {
+      "badge": "API Platform Enablement",
+      "title": {
+        "highlight": "One place to govern",
+        "accent": "every API"
+      },
+      "description": "Atlas Catalog keeps your service inventory, lifecycles and documentation aligned so platform teams can focus on enablement.",
+      "ctaPrimary": "Open the catalog",
+      "ctaSecondary": "See how it works",
+      "stats": {
+        "catalog": {
+          "value": "150+",
+          "label": "catalogued assets",
+          "description": "APIs, lifecycles and domains tracked centrally"
+        },
+        "teams": {
+          "value": "12",
+          "label": "enabled teams",
+          "description": "Product and platform groups collaborating"
+        },
+        "uptime": {
+          "value": "99.9%",
+          "label": "visibility",
+          "description": "Realtime health insights feeding governance"
+        }
+      }
+    },
+    "brands": {
+      "title": "Trusted by platform leaders",
+      "items": [
+        "Atlas Labs",
+        "DataNorth",
+        "CloudWave",
+        "Nebula Systems",
+        "ForgeWorks",
+        "Quantum Apps"
+      ]
+    },
+    "featureHighlights": {
+      "title": "Everything observability-ready",
+      "subtitle": "Blend discovery, governance and documentation with prebuilt workflows inspired by Metronic layouts.",
+      "items": {
+        "inventory": {
+          "label": "Inventory",
+          "title": "Unified API registry",
+          "description": "Map REST, GraphQL, SOAP and event-driven services with consistent metadata."
+        },
+        "governance": {
+          "label": "Governance",
+          "title": "Lifecycle guardrails",
+          "description": "Track approvals, ownership and lifecycle transitions with policy-driven cues."
+        },
+        "insights": {
+          "label": "Insights",
+          "title": "Operational visibility",
+          "description": "Surface adoption metrics, quality checks and discovery funnels in one view."
+        }
+      }
+    },
+    "quickLinks": {
+      "title": "Jump into the workspace",
+      "subtitle": "Navigate directly to the modules your team uses most."
+    },
+    "cards": {
+      "catalog": {
+        "title": "API Catalog",
+        "description": "Browse and manage your complete API inventory with rich metadata and documentation."
+      },
+      "types": {
+        "title": "API Types",
+        "description": "Categorize your APIs by type: REST, GraphQL, SOAP, and more."
+      },
+      "lifecycles": {
+        "title": "Lifecycles",
+        "description": "Track API lifecycle stages from development to production."
+      },
+      "languages": {
+        "title": "Programming Languages",
+        "description": "Organize APIs by the programming languages they use."
+      },
+      "domains": {
+        "title": "Business Domains",
+        "description": "Group services by business domains for clear ownership."
+      },
+      "discovery": {
+        "title": "Discovery Sources",
+        "description": "Track how APIs were discovered and registered in the catalog."
+      }
+    },
+    "howItWorks": {
+      "title": "Ship reliable services faster",
+      "subtitle": "Atlas Catalog adapts Metronic's flow to the reality of platform engineering teams.",
+      "steps": {
+        "import": {
+          "title": "Connect sources",
+          "description": "Capture APIs from Git repositories, CI pipelines or manual submissions."
+        },
+        "enrich": {
+          "title": "Enrich metadata",
+          "description": "Classify types, lifecycles, domains and technology context in minutes."
+        },
+        "publish": {
+          "title": "Publish & monitor",
+          "description": "Expose curated docs and track adoption with automated quality scoring."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Teams feel the difference",
+      "subtitle": "Real stories from platform leaders who standardized on Atlas Catalog.",
+      "items": {
+        "sofia": {
+          "quote": "Our developers finally have a single source of truth. The new landing mirrors Metronic polish while staying focused on productivity.",
+          "author": "Sofia Ramirez",
+          "role": "Platform Lead, DataNorth"
+        },
+        "liam": {
+          "quote": "Atlas Catalog gave us governance workflows without slowing teams down. The thematic sections make onboarding effortless.",
+          "author": "Liam Chen",
+          "role": "Head of API Experience, ForgeWorks"
+        }
+      }
+    },
+    "quickStart": {
+      "title": "Getting started is effortless",
+      "description": "Spin up the Laravel backend, point the frontend to your API URL and invite teams to explore the catalog.",
+      "features": "Full CRUD operations for APIs, Types, Lifecycles, and more",
+      "primaryCta": "Launch the catalog",
+      "secondaryCta": "View quick start guide"
+    }
+  },
+  "apis": {
+    "title": "API Catalog",
+    "errors": {
+      "load": "We couldn't load the APIs. Please try again."
+    }
+  },
+  "infrastructure": {
+    "title": "Infrastructure Overview",
+    "subtitle": "Manage your Kubernetes clusters and infrastructure nodes",
+    "overview": "Infrastructure Overview",
+    "newCluster": "New Cluster",
+    "newNode": "New Node",
+    "stats": {
+      "totalClusters": "Total Clusters",
+      "totalNodes": "Total Nodes",
+      "masterNodes": "Master Nodes",
+      "workerNodes": "Worker Nodes",
+      "active": "active",
+      "controlPlane": "Control plane",
+      "workload": "Workload"
+    },
+    "clusters": {
+      "title": "Recent Clusters",
+      "viewAll": "View all clusters",
+      "name": "Name",
+      "environment": "Environment",
+      "version": "Version",
+      "nodes": "nodes",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "No clusters yet",
+      "emptyDescription": "Create your first Kubernetes cluster to get started."
+    },
+    "nodes": {
+      "title": "Recent Nodes",
+      "viewAll": "View all nodes",
+      "name": "Name",
+      "cluster": "Cluster",
+      "role": "Role",
+      "status": "Status",
+      "master": "Master",
+      "worker": "Worker",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "No nodes yet",
+      "emptyDescription": "Add nodes to your clusters to get started."
+    },
+    "loading": "Loading infrastructure..."
+  },
+  "integration": {
+    "title": "Integration Overview",
+    "subtitle": "Manage your service integrations and communication links",
+    "overview": "Integration Overview",
+    "newLink": "New Link",
+    "stats": {
+      "totalLinks": "Total Links",
+      "activeLinks": "Active Links",
+      "synchronous": "Synchronous",
+      "asynchronous": "Asynchronous",
+      "httpProtocol": "HTTP/HTTPS",
+      "grpcProtocol": "gRPC",
+      "active": "active",
+      "messageDriven": "message-driven"
+    },
+    "links": {
+      "title": "Recent Links",
+      "viewAll": "View all links",
+      "name": "Name",
+      "type": "Type",
+      "protocol": "Protocol",
+      "style": "Style",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "empty": "No links yet",
+      "emptyDescription": "Create your first integration link to get started."
+    },
+    "loading": "Loading integrations..."
+  },
+  "platform": {
+    "title": "Platform Overview",
+    "subtitle": "Manage your platforms and technology stack",
+    "overview": "Platform Overview",
+    "newPlatform": "New Platform",
+    "stats": {
+      "totalPlatforms": "Total Platforms",
+      "withVendor": "With Vendor",
+      "withUrl": "With URL",
+      "withVersion": "With Version",
+      "registered": "registered platforms",
+      "vendorAssigned": "vendor assigned",
+      "externalLinks": "external links",
+      "versionTracked": "version tracked"
+    },
+    "platforms": {
+      "title": "Recent Platforms",
+      "viewAll": "View all platforms",
+      "name": "Name",
+      "vendor": "Vendor",
+      "version": "Version",
+      "url": "URL",
+      "empty": "No platforms yet",
+      "emptyDescription": "Register your first platform to get started."
+    },
+    "loading": "Loading platforms..."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview",
+    "overview": "Dashboard"
+  },
+  "profile": {
+    "title": "User Profile",
+    "subtitle": "Manage your account settings and preferences",
+    "personalInfo": "Personal Information",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "role": "Role",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeDescription": "Choose your preferred color theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "blue": "Ocean Blue",
+    "purple": "Royal Purple",
+    "green": "Forest Green",
+    "orange": "Sunset Orange",
+    "profilePicture": "Profile Picture",
+    "uploadImage": "Upload Image",
+    "changeImage": "Change Image",
+    "removeImage": "Remove Image",
+    "uploadDescription": "JPG, PNG or GIF. Max size 2MB.",
+    "language": "Language",
+    "languageSettings": "Language Settings",
+    "selectLanguage": "Select Language",
+    "languageDescription": "Select your preferred language",
+    "close": "Close",
+    "saveChanges": "Save Changes",
+    "changesSaved": "Changes saved successfully!"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your application preferences",
+    "comingSoon": "Coming Soon",
+    "appearance": {
+      "title": "Appearance",
+      "description": "Customize how the application looks on your device",
+      "colorModeLabel": "Color Mode",
+      "lightThemeLabel": "Light Theme Variant",
+      "darkThemeLabel": "Dark Theme Variant",
+      "systemNote": "Automatically adapts to your system's theme preference",
+      "currentMode": "Currently using {mode} mode"
+    },
+    "colorMode": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "lightTheme": {
+      "default": "Default Light",
+      "orange": "Sunset Orange",
+      "green": "Forest Green"
+    },
+    "darkTheme": {
+      "default": "Default Dark",
+      "blue": "Ocean Blue",
+      "purple": "Royal Purple"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Select your preferred language for the application",
+      "label": "Choose Language",
+      "current": "Currently using {language}"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Configure how you receive notifications (feature in development)",
+      "email": {
+        "title": "Email Notifications",
+        "description": "Receive notifications via email"
+      },
+      "push": {
+        "title": "Push Notifications",
+        "description": "Receive push notifications in your browser"
+      },
+      "digest": {
+        "title": "Weekly Digest",
+        "description": "Get a weekly summary of your activity"
+      }
+    },
+    "system": {
+      "title": "System Information",
+      "version": "Version",
+      "environment": "Environment",
+      "currentTheme": "Current Theme"
+    }
+  },
+  "componentDetail": {
+    "tabs": {
+      "overview": "Overview",
+      "apis": "APIs",
+      "dependencies": "Dependencies",
+      "metadata": "Metadata"
+    },
+    "header": {
+      "backToList": "Back to Components",
+      "edit": "Edit",
+      "type": "Type",
+      "lifecycle": "Lifecycle",
+      "status": "Status"
+    },
+    "overview": {
+      "title": "General Information",
+      "description": "Description",
+      "noDescription": "No description available",
+      "details": "Details",
+      "createdAt": "Created",
+      "updatedAt": "Updated",
+      "version": "Version",
+      "owner": "Owner",
+      "repository": "Repository",
+      "documentation": "Documentation"
+    },
+    "apis": {
+      "title": "Related APIs",
+      "noApis": "No APIs associated with this component",
+      "relationship": "Relationship",
+      "viewApi": "View API"
+    },
+    "dependencies": {
+      "title": "Dependencies",
+      "noDependencies": "No dependencies registered",
+      "dependsOn": "Depends On",
+      "dependents": "Dependents"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "noMetadata": "No metadata available",
+      "key": "Key",
+      "value": "Value"
+    },
+    "errors": {
+      "invalidId": "Invalid component identifier",
+      "loadFailed": "Could not load the component. It may not exist or you may not have permissions.",
+      "notAvailable": "Component not available"
+    },
+    "loading": {
+      "component": "Loading component..."
+    }
+  }
+}

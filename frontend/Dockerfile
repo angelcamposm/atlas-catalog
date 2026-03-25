@@ -1,0 +1,87 @@
+# Dockerfile for Next.js Frontend - Atlas Catalog
+# Multi-stage build for optimized production image
+
+# Stage 1: Dependencies
+FROM node:22-alpine AS deps
+
+# Install libc6-compat for better compatibility
+RUN apk add --no-cache libc6-compat
+
+# Install pnpm
+RUN npm install -g pnpm@latest
+
+WORKDIR /app
+
+# Copy package files
+COPY package.json pnpm-lock.yaml* ./
+
+# Install dependencies using pnpm
+RUN pnpm install --frozen-lockfile
+
+# Stage 2: Builder
+FROM node:22-alpine AS builder
+
+# Install pnpm
+RUN npm install -g pnpm@latest
+
+WORKDIR /app
+
+# Copy dependencies from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/.pnpm-store ./.pnpm-store
+
+# Copy all source files
+COPY . .
+
+# Accept build argument for API URL (used during build time)
+ARG NEXT_PUBLIC_API_URL=http://localhost:8080
+
+# Set environment variables for build
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
+# Build the Next.js application
+# The standalone output will be in .next/standalone
+RUN pnpm run build
+
+# Stage 3: Runner (Production)
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
+# Set environment to production
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Create a non-root user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy public assets (if any)
+COPY --from=builder /app/public ./public
+
+# Copy the standalone server files
+# Next.js automatically creates a standalone folder with everything needed
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+
+# Copy static files for serving
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Switch to non-root user
+USER nextjs
+
+# Expose the port Next.js runs on
+EXPOSE 3000
+
+# Set host and port
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Start the standalone Next.js server
+CMD ["node", "server.js"]
+
