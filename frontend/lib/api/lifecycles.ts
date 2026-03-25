@@ -6,12 +6,14 @@ import { apiClient } from "../api-client";
 import {
     lifecycleResponseSchema,
     paginatedLifecycleResponseSchema,
+    paginatedComponentResponseSchema,
 } from "@/types/api";
 import type {
     LifecycleResponse,
     PaginatedLifecycleResponse,
     CreateLifecycleRequest,
     UpdateLifecycleRequest,
+    PaginatedComponentResponse,
 } from "@/types/api";
 
 export const lifecyclesApi = {
@@ -20,7 +22,7 @@ export const lifecyclesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedLifecycleResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/lifecycles${apiClient.buildQuery({ page })}`
+            `/v1/architecture/lifecycles${apiClient.buildQuery({ page })}`,
         );
         return paginatedLifecycleResponseSchema.parse(response);
     },
@@ -30,7 +32,7 @@ export const lifecyclesApi = {
      */
     getById: async (id: number): Promise<LifecycleResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/lifecycles/${id}`
+            `/v1/architecture/lifecycles/${id}`,
         );
         return lifecycleResponseSchema.parse(response);
     },
@@ -39,11 +41,11 @@ export const lifecyclesApi = {
      * Create a new Lifecycle
      */
     create: async (
-        data: CreateLifecycleRequest
+        data: CreateLifecycleRequest,
     ): Promise<LifecycleResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/lifecycles",
-            data
+            data,
         );
         return lifecycleResponseSchema.parse(response);
     },
@@ -53,11 +55,11 @@ export const lifecyclesApi = {
      */
     update: async (
         id: number,
-        data: UpdateLifecycleRequest
+        data: UpdateLifecycleRequest,
     ): Promise<LifecycleResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/lifecycles/${id}`,
-            data
+            data,
         );
         return lifecycleResponseSchema.parse(response);
     },
@@ -71,10 +73,10 @@ export const lifecyclesApi = {
     /**
      * Get all Components associated with a Lifecycle
      */
-    getComponents: async (lifecycleId: number) => {
+    getComponents: async (lifecycleId: number): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/lifecycles/${lifecycleId}/components`
+            `/v1/architecture/lifecycles/${lifecycleId}/components`,
         );
-        return response;
+        return paginatedComponentResponseSchema.parse(response);
     },
 };

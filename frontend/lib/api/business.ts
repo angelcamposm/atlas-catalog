@@ -11,6 +11,8 @@ import {
     paginatedBusinessTierResponseSchema,
     environmentResponseSchema,
     paginatedEnvironmentResponseSchema,
+    paginatedComponentResponseSchema,
+    paginatedEntityResponseSchema,
 } from "@/types/api";
 import type {
     BusinessDomainResponse,
@@ -25,6 +27,8 @@ import type {
     PaginatedEnvironmentResponse,
     CreateEnvironmentRequest,
     UpdateEnvironmentRequest,
+    PaginatedComponentResponse,
+    PaginatedEntityResponse,
 } from "@/types/api";
 
 // Business Domains ---------------------------------------------------------
@@ -35,7 +39,7 @@ export const businessDomainsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedBusinessDomainResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-domains${apiClient.buildQuery({ page })}`
+            `/v1/architecture/business-domains${apiClient.buildQuery({ page })}`,
         );
         return paginatedBusinessDomainResponseSchema.parse(response);
     },
@@ -45,7 +49,7 @@ export const businessDomainsApi = {
      */
     getById: async (id: number): Promise<BusinessDomainResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-domains/${id}`
+            `/v1/architecture/business-domains/${id}`,
         );
         return businessDomainResponseSchema.parse(response);
     },
@@ -54,11 +58,11 @@ export const businessDomainsApi = {
      * Create a new business domain
      */
     create: async (
-        data: CreateBusinessDomainRequest
+        data: CreateBusinessDomainRequest,
     ): Promise<BusinessDomainResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/business-domains",
-            data
+            data,
         );
         return businessDomainResponseSchema.parse(response);
     },
@@ -68,11 +72,11 @@ export const businessDomainsApi = {
      */
     update: async (
         id: number,
-        data: UpdateBusinessDomainRequest
+        data: UpdateBusinessDomainRequest,
     ): Promise<BusinessDomainResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/business-domains/${id}`,
-            data
+            data,
         );
         return businessDomainResponseSchema.parse(response);
     },
@@ -86,21 +90,21 @@ export const businessDomainsApi = {
     /**
      * Get all Components associated with a Business Domain
      */
-    getComponents: async (domainId: number) => {
+    getComponents: async (domainId: number): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-domains/${domainId}/components`
+            `/v1/architecture/business-domains/${domainId}/components`,
         );
-        return response;
+        return paginatedComponentResponseSchema.parse(response);
     },
 
     /**
      * Get all Entities associated with a Business Domain
      */
-    getDomainEntities: async (domainId: number) => {
+    getDomainEntities: async (domainId: number): Promise<PaginatedEntityResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-domains/${domainId}/entities`
+            `/v1/architecture/business-domains/${domainId}/entities`,
         );
-        return response;
+        return paginatedEntityResponseSchema.parse(response);
     },
 };
 
@@ -112,7 +116,7 @@ export const businessTiersApi = {
      */
     getAll: async (page = 1): Promise<PaginatedBusinessTierResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-tiers${apiClient.buildQuery({ page })}`
+            `/v1/architecture/business-tiers${apiClient.buildQuery({ page })}`,
         );
         return paginatedBusinessTierResponseSchema.parse(response);
     },
@@ -122,7 +126,7 @@ export const businessTiersApi = {
      */
     getById: async (id: number): Promise<BusinessTierResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/architecture/business-tiers/${id}`
+            `/v1/architecture/business-tiers/${id}`,
         );
         return businessTierResponseSchema.parse(response);
     },
@@ -131,11 +135,11 @@ export const businessTiersApi = {
      * Create a new business tier
      */
     create: async (
-        data: CreateBusinessTierRequest
+        data: CreateBusinessTierRequest,
     ): Promise<BusinessTierResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/architecture/business-tiers",
-            data
+            data,
         );
         return businessTierResponseSchema.parse(response);
     },
@@ -145,11 +149,11 @@ export const businessTiersApi = {
      */
     update: async (
         id: number,
-        data: UpdateBusinessTierRequest
+        data: UpdateBusinessTierRequest,
     ): Promise<BusinessTierResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/architecture/business-tiers/${id}`,
-            data
+            data,
         );
         return businessTierResponseSchema.parse(response);
     },
@@ -169,7 +173,7 @@ export const environmentsApi = {
      */
     getAll: async (page = 1): Promise<PaginatedEnvironmentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/environments${apiClient.buildQuery({ page })}`
+            `/v1/catalog/environments${apiClient.buildQuery({ page })}`,
         );
         return paginatedEnvironmentResponseSchema.parse(response);
     },
@@ -179,7 +183,7 @@ export const environmentsApi = {
      */
     getById: async (id: number): Promise<EnvironmentResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/catalog/environments/${id}`
+            `/v1/catalog/environments/${id}`,
         );
         return environmentResponseSchema.parse(response);
     },
@@ -188,11 +192,11 @@ export const environmentsApi = {
      * Create a new environment
      */
     create: async (
-        data: CreateEnvironmentRequest
+        data: CreateEnvironmentRequest,
     ): Promise<EnvironmentResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/catalog/environments",
-            data
+            data,
         );
         return environmentResponseSchema.parse(response);
     },
@@ -202,11 +206,11 @@ export const environmentsApi = {
      */
     update: async (
         id: number,
-        data: UpdateEnvironmentRequest
+        data: UpdateEnvironmentRequest,
     ): Promise<EnvironmentResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/catalog/environments/${id}`,
-            data
+            data,
         );
         return environmentResponseSchema.parse(response);
     },
