@@ -33,6 +33,10 @@ export interface AuthResponse {
     user: AuthUser;
 }
 
+interface AuthResponseEnvelope {
+    data: AuthResponse;
+}
+
 export interface MeResponse {
     data: AuthUser;
 }
@@ -48,7 +52,9 @@ export const authApi = {
      * Returns a Bearer token and the authenticated user.
      */
     login: (data: LoginRequest): Promise<AuthResponse> =>
-        apiClient.post<AuthResponse>("/v1/auth/login", data),
+        apiClient
+            .post<AuthResponseEnvelope>("/v1/auth/login", data)
+            .then((res) => res.data),
 
     /**
      * Register a new user.
