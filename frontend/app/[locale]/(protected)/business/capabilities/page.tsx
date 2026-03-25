@@ -1,42 +1,140 @@
-import type { Metadata } from "next";
-import { Construction } from "lucide-react";
+"use client";
 
-export async function generateMetadata(): Promise<Metadata> {
-    return {
-        title: `Business Capabilities - Atlas Catalog`,
-        description: "Business Capabilities management",
-    };
-}
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { HiBuildingOffice2 } from "react-icons/hi2";
+import { Button } from "@/components/ui/Button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { businessCapabilitiesApi } from "@/lib/api";
 
-export default async function BusinessCapabilitiesPage() {
-    return (
-        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-180px)] p-8">
-            <div className="max-w-2xl w-full text-center space-y-8">
-                <div className="flex justify-center">
-                    <div className="relative">
-                        <div className="absolute inset-0 bg-gradient-blue-indigo opacity-20 blur-3xl rounded-full" />
-                        <div className="relative bg-gradient-blue-indigo p-8 rounded-full shadow-2xl">
-                            <Construction className="h-24 w-24 text-white" />
-                        </div>
-                    </div>
-                </div>
+type Capability = {
+    id: number | string;
+    name: string;
+    description?: string;
+    [key: string]: unknown;
+};
 
-                <div className="space-y-3">
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
-                        Business Capabilities
-                    </h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-400">
-                        Coming Soon
-                    </p>
-                </div>
+export default function BusinessCapabilitiesPage() {
+    const params = useParams();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const locale = (params.locale as string) || "en";
 
-                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 space-y-4 border border-gray-200 dark:border-gray-700">
-                    <p className="text-lg text-gray-700 dark:text-gray-300">
-                        Define and manage business capabilities for your
-                        organization.
-                    </p>
-                </div>
+    const [capabilities, setCapabilities] = useState<Capability[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const loadCapabilities = useCallback(async () => {
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await businessCapabilitiesApi.getAll(page);
+            setCapabilities((response.data as Capability[]) || []);
+            setTotalPages(
+                (response.meta as { last_page?: number })?.last_page || 1
+            );
+        } catch (err) {
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Error loading business capabilities"
+            );
+            console.error("Error loading business capabilities:", err);
+        } finally {
+            setLoading(false);
+        }
+    }, [page]);
+
+    useEffect(() => {
+        loadCapabilities();
+    }, [loadCapabilities]);
+
+    if (loading && capabilities.length === 0) {
+        return (
+            <div className="container mx-auto space-y-6 px-6 py-6">
+                <Skeleton className="h-8 w-64" />
+                <Skeleton className="mt-2 h-4 w-96" />
+                <Skeleton className="h-96 w-full" />
             </div>
+        );
+    }
+
+    return (
+        <div className="container mx-auto space-y-6 px-6 py-6">
+            <PageHeader
+                title="Business Capabilities"
+                subtitle="Define and manage business capabilities for your organization"
+            />
+
+            {error && (
+                <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4">
+                    <p className="text-sm text-destructive">{error}</p>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setError(null)}
+                        className="mt-2"
+                    >
+                        Dismiss
+                    </Button>
+                </div>
+            )}
+
+            {capabilities.length === 0 ? (
+                <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border py-16">
+                    <HiBuildingOffice2 className="h-12 w-12 text-muted-foreground/50" />
+                    <p className="mt-4 text-muted-foreground">
+                        No business capabilities found
+                    </p>
+                </div>
+            ) : (
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {capabilities.map((cap) => (
+                        <div
+                            key={String(cap.id)}
+                            className="rounded-lg border border-border bg-card p-4"
+                        >
+                            <div className="flex items-start gap-3">
+                                <HiBuildingOffice2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-muted-foreground" />
+                                <div>
+                                    <p className="font-medium">{cap.name}</p>
+                                    {cap.description && (
+                                        <p className="mt-1 text-sm text-muted-foreground">
+                                            {String(cap.description)}
+                                        </p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </Button>
+                    <span className="text-sm text-muted-foreground">
+                        Page {page} of {totalPages}
+                    </span>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        disabled={page === totalPages}
+                    >
+                        Next
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }
