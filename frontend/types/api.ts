@@ -1583,3 +1583,45 @@ export const workflowJobSchema = z
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type WorkflowJob = z.infer<typeof workflowJobSchema>;
+
+// Workflow Commits (CI/CD)
+export const workflowCommitSchema = z
+    .object({
+        id: z.number().int(),
+        sha: z.string().trim().min(1),
+        message: nullableString(),
+        author: nullableString(),
+        committed_at: nullableDate(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type WorkflowCommit = z.infer<typeof workflowCommitSchema>;
+
+// Users Request Payloads
+export interface CreateUserRequest {
+    name: string;
+    email: string;
+    password?: string;
+    is_enabled?: boolean;
+}
+
+export type UpdateUserRequest = Partial<CreateUserRequest>;
+
+// CI/CD Request Payloads
+export interface CreateWorkflowRunRequest {
+    name: string;
+    status?: string;
+    started_at?: string;
+    finished_at?: string;
+}
+
+export type UpdateWorkflowRunRequest = Partial<CreateWorkflowRunRequest>;
+
+export interface CreateWorkflowCommitRequest {
+    sha: string;
+    message?: string;
+    author?: string;
+    committed_at?: string;
+}
+
+export type UpdateWorkflowCommitRequest = Partial<CreateWorkflowCommitRequest>;

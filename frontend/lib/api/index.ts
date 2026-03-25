@@ -121,3 +121,9 @@ export type {
     ApiDependencies,
     DependencyComponent,
 } from "./api-dependencies";
+
+// Organization Users
+export { usersApi } from "./users";
+
+// CI/CD Domain
+export { workflowsApi } from "./ci-cd";
