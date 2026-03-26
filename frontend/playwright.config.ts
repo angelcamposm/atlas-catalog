@@ -8,6 +8,9 @@ export default defineConfig({
     // Directory containing test files
     testDir: "./e2e",
 
+    // Global setup — runs once before all tests (creates auth storage state)
+    globalSetup: require.resolve("./e2e/global-setup"),
+
     // Run tests in files in parallel
     fullyParallel: true,
 
