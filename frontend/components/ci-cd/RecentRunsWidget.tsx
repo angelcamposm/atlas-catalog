@@ -1,0 +1,74 @@
+import {
+    HiOutlinePlay,
+    HiOutlineCheckCircle,
+    HiOutlineXCircle,
+    HiOutlineClock,
+} from "react-icons/hi2";
+import type { WorkflowRun } from "@/types/api";
+
+/**
+ * Widget showing recent workflow runs with status indicators.
+ *
+ * @example
+ * <RecentRunsWidget runs={recentRuns} />
+ */
+interface RecentRunsWidgetProps {
+    /** List of recent workflow runs to display */
+    runs: WorkflowRun[];
+}
+
+function StatusIcon({ status }: { status: string | null }) {
+    if (status === "success")
+        return (
+            <HiOutlineCheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+        );
+    if (status === "failure")
+        return (
+            <HiOutlineXCircle className="w-4 h-4 text-red-500 flex-shrink-0" />
+        );
+    if (status === "running")
+        return (
+            <HiOutlinePlay className="w-4 h-4 text-blue-500 flex-shrink-0" />
+        );
+    return (
+        <HiOutlineClock className="w-4 h-4 text-gray-400 flex-shrink-0" />
+    );
+}
+
+export function RecentRunsWidget({ runs }: RecentRunsWidgetProps) {
+    return (
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                Recent Runs
+            </h3>
+
+            {runs.length === 0 ? (
+                <p className="text-sm text-gray-500 text-center py-4">
+                    No recent runs
+                </p>
+            ) : (
+                <ul className="space-y-2">
+                    {runs.map((run) => (
+                        <li
+                            key={run.id}
+                            className="flex items-center gap-3 text-sm"
+                        >
+                            <StatusIcon status={run.status} />
+                            <span className="flex-1 truncate text-gray-800 dark:text-gray-200">
+                                {run.name}
+                            </span>
+                            <span className="text-gray-500 dark:text-gray-400 text-xs">
+                                {run.status ?? "—"}
+                            </span>
+                            <span className="text-gray-400 dark:text-gray-500 text-xs whitespace-nowrap">
+                                {run.started_at
+                                    ? run.started_at.slice(0, 10)
+                                    : "—"}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}
