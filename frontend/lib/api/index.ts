@@ -140,4 +140,4 @@ export type {
 export { usersApi } from "./users";
 
 // CI/CD Domain
-export { workflowsApi } from "./ci-cd";
+export { workflowsApi, ciServersApi, releasesApi, deploymentsApi, ciCdApi } from "./ci-cd";

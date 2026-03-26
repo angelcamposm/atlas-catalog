@@ -1790,3 +1790,87 @@ export interface CreateBusinessCapabilitySystemRequest {
 }
 export type UpdateBusinessCapabilitySystemRequest =
     Partial<CreateBusinessCapabilitySystemRequest>;
+
+// CI/CD Servers ------------------------------------------------------------
+
+export const ciServerSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        driver: nullableString(),
+        url: nullableString(),
+        is_enabled: z.boolean().optional().nullable(),
+        last_synced_at: nullableDate(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type CiServer = z.infer<typeof ciServerSchema>;
+export const ciServerResponseSchema = createResourceResponseSchema(ciServerSchema);
+export type CiServerResponse = z.infer<typeof ciServerResponseSchema>;
+export const paginatedCiServerResponseSchema = createPaginatedResponseSchema(ciServerSchema);
+export type PaginatedCiServerResponse = z.infer<typeof paginatedCiServerResponseSchema>;
+
+export interface CreateCiServerRequest {
+    name: string;
+    driver?: string;
+    url?: string;
+    is_enabled?: boolean;
+}
+export type UpdateCiServerRequest = Partial<CreateCiServerRequest>;
+
+// CI/CD Releases (different from build-domain Release) ---------------------
+
+export const ciReleaseSchema = z
+    .object({
+        id: z.number().int(),
+        version: nullableString(),
+        status: nullableString(),
+        changelog: nullableString(),
+        released_at: nullableDate(),
+    })
+    .merge(timestampsSchema);
+export type CiRelease = z.infer<typeof ciReleaseSchema>;
+export const ciReleaseResponseSchema = createResourceResponseSchema(ciReleaseSchema);
+export type CiReleaseResponse = z.infer<typeof ciReleaseResponseSchema>;
+export const paginatedCiReleaseResponseSchema = createPaginatedResponseSchema(ciReleaseSchema);
+export type PaginatedCiReleaseResponse = z.infer<typeof paginatedCiReleaseResponseSchema>;
+
+export interface CreateCiReleaseRequest {
+    version?: string;
+    status?: string;
+    changelog?: string;
+    released_at?: string;
+    component_id?: number;
+    workflow_run_id?: number;
+}
+export type UpdateCiReleaseRequest = Partial<CreateCiReleaseRequest>;
+
+// CI/CD Deployments (different from build-domain Deployment) ---------------
+
+export const ciDeploymentSchema = z
+    .object({
+        id: z.number().int(),
+        workflow_run_id: nullableNumber(),
+        component_id: nullableNumber(),
+        environment_id: nullableNumber(),
+        version: nullableString(),
+        commit_hash: nullableString(),
+        docker_image_digest: nullableString(),
+        status: nullableString(),
+        started_at: nullableDate(),
+        ended_at: nullableDate(),
+        duration_milliseconds: nullableNumber(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type CiDeployment = z.infer<typeof ciDeploymentSchema>;
+export const ciDeploymentResponseSchema = createResourceResponseSchema(ciDeploymentSchema);
+export type CiDeploymentResponse = z.infer<typeof ciDeploymentResponseSchema>;
+export const paginatedCiDeploymentResponseSchema = createPaginatedResponseSchema(ciDeploymentSchema);
+export type PaginatedCiDeploymentResponse = z.infer<typeof paginatedCiDeploymentResponseSchema>;
+
+export interface UpdateCiDeploymentRequest {
+    status?: string;
+    started_at?: string;
+    ended_at?: string;
+}

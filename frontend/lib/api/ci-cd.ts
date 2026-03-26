@@ -1,6 +1,6 @@
 /**
- * API endpoints for CI/CD Workflow management
- * Includes: Workflow Runs, Workflow Commits, Workflow Jobs
+ * API endpoints for CI/CD domain management
+ * Includes: CI Servers, Workflow Runs, Workflow Commits, Workflow Jobs, Releases, Deployments
  */
 
 import { apiClient } from "../api-client";
@@ -10,16 +10,27 @@ import {
     workflowJobSchema,
     paginationMetaSchema,
     paginationLinksSchema,
+    ciServerSchema,
+    ciReleaseSchema,
+    ciDeploymentSchema,
 } from "@/types/api";
 import type {
     WorkflowRun,
     WorkflowCommit,
     WorkflowJob,
     PaginatedResponse,
+    CiServer,
+    CiRelease,
+    CiDeployment,
     CreateWorkflowRunRequest,
     UpdateWorkflowRunRequest,
     CreateWorkflowCommitRequest,
     UpdateWorkflowCommitRequest,
+    CreateCiServerRequest,
+    UpdateCiServerRequest,
+    CreateCiReleaseRequest,
+    UpdateCiReleaseRequest,
+    UpdateCiDeploymentRequest,
 } from "@/types/api";
 import { z } from "zod";
 
@@ -173,4 +184,157 @@ export const workflowsApi = {
         }
         return z.array(workflowJobSchema).parse(response);
     },
+};
+
+const BASE = "/v1/ci-cd";
+
+const paginatedCiServerSchema = z.object({
+    data: z.array(ciServerSchema),
+    links: paginationLinksSchema,
+    meta: paginationMetaSchema,
+});
+const ciServerResponseSchema = z.object({ data: ciServerSchema });
+
+const paginatedCiReleaseSchema = z.object({
+    data: z.array(ciReleaseSchema),
+    links: paginationLinksSchema,
+    meta: paginationMetaSchema,
+});
+const ciReleaseResponseSchema = z.object({ data: ciReleaseSchema });
+
+const paginatedCiDeploymentSchema = z.object({
+    data: z.array(ciDeploymentSchema),
+    links: paginationLinksSchema,
+    meta: paginationMetaSchema,
+});
+const ciDeploymentResponseSchema = z.object({ data: ciDeploymentSchema });
+
+/**
+ * CI Servers API — manage CI server connections (Jenkins, GitHub Actions, etc.)
+ */
+export const ciServersApi = {
+    /**
+     * Get paginated list of CI servers
+     */
+    getAll: async (page = 1): Promise<PaginatedResponse<CiServer>> => {
+        const response = await apiClient.get<unknown>(
+            `${BASE}/servers${apiClient.buildQuery({ page })}`,
+        );
+        return paginatedCiServerSchema.parse(response);
+    },
+
+    /**
+     * Get a single CI server by ID
+     */
+    getById: async (id: number): Promise<{ data: CiServer }> => {
+        const response = await apiClient.get<unknown>(`${BASE}/servers/${id}`);
+        return ciServerResponseSchema.parse(response);
+    },
+
+    /**
+     * Create a new CI server
+     */
+    create: async (data: CreateCiServerRequest): Promise<{ data: CiServer }> => {
+        const response = await apiClient.post<unknown>(`${BASE}/servers`, data);
+        return ciServerResponseSchema.parse(response);
+    },
+
+    /**
+     * Update an existing CI server
+     */
+    update: async (id: number, data: UpdateCiServerRequest): Promise<{ data: CiServer }> => {
+        const response = await apiClient.put<unknown>(`${BASE}/servers/${id}`, data);
+        return ciServerResponseSchema.parse(response);
+    },
+
+    /**
+     * Delete a CI server
+     */
+    delete: (id: number) => apiClient.delete(`${BASE}/servers/${id}`),
+};
+
+/**
+ * CI/CD Releases API — manage software releases
+ */
+export const releasesApi = {
+    /**
+     * Get paginated list of releases
+     */
+    getAll: async (page = 1): Promise<PaginatedResponse<CiRelease>> => {
+        const response = await apiClient.get<unknown>(
+            `${BASE}/releases${apiClient.buildQuery({ page })}`,
+        );
+        return paginatedCiReleaseSchema.parse(response);
+    },
+
+    /**
+     * Get a single release by ID
+     */
+    getById: async (id: number): Promise<{ data: CiRelease }> => {
+        const response = await apiClient.get<unknown>(`${BASE}/releases/${id}`);
+        return ciReleaseResponseSchema.parse(response);
+    },
+
+    /**
+     * Create a new release
+     */
+    create: async (data: CreateCiReleaseRequest): Promise<{ data: CiRelease }> => {
+        const response = await apiClient.post<unknown>(`${BASE}/releases`, data);
+        return ciReleaseResponseSchema.parse(response);
+    },
+
+    /**
+     * Update an existing release
+     */
+    update: async (id: number, data: UpdateCiReleaseRequest): Promise<{ data: CiRelease }> => {
+        const response = await apiClient.put<unknown>(`${BASE}/releases/${id}`, data);
+        return ciReleaseResponseSchema.parse(response);
+    },
+
+    /**
+     * Delete a release
+     */
+    delete: (id: number) => apiClient.delete(`${BASE}/releases/${id}`),
+};
+
+/**
+ * CI/CD Deployments API — read and update deployment statuses
+ * Note: deployments are created via webhooks, not via the frontend
+ */
+export const deploymentsApi = {
+    /**
+     * Get paginated list of deployments
+     */
+    getAll: async (page = 1): Promise<PaginatedResponse<CiDeployment>> => {
+        const response = await apiClient.get<unknown>(
+            `${BASE}/deployments${apiClient.buildQuery({ page })}`,
+        );
+        return paginatedCiDeploymentSchema.parse(response);
+    },
+
+    /**
+     * Get a single deployment by ID
+     */
+    getById: async (id: number): Promise<{ data: CiDeployment }> => {
+        const response = await apiClient.get<unknown>(`${BASE}/deployments/${id}`);
+        return ciDeploymentResponseSchema.parse(response);
+    },
+
+    /**
+     * Update deployment status
+     */
+    update: async (id: number, data: UpdateCiDeploymentRequest): Promise<{ data: CiDeployment }> => {
+        const response = await apiClient.put<unknown>(`${BASE}/deployments/${id}`, data);
+        return ciDeploymentResponseSchema.parse(response);
+    },
+};
+
+/**
+ * Consolidated CI/CD API object
+ */
+export const ciCdApi = {
+    servers: ciServersApi,
+    workflows: workflowsApi,
+    releases: releasesApi,
+    deployments: deploymentsApi,
 };
