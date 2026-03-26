@@ -73,7 +73,9 @@ export const lifecyclesApi = {
     /**
      * Get all Components associated with a Lifecycle
      */
-    getComponents: async (lifecycleId: number): Promise<PaginatedComponentResponse> => {
+    getComponents: async (
+        lifecycleId: number,
+    ): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/lifecycles/${lifecycleId}/components`,
         );

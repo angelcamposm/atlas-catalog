@@ -256,9 +256,7 @@ describe("BusinessDomainDetailPage", () => {
             render(<BusinessDomainDetailPage />);
 
             await waitFor(() => {
-                expect(
-                    screen.getByText(/1 componentes/i),
-                ).toBeInTheDocument();
+                expect(screen.getByText(/1 componentes/i)).toBeInTheDocument();
                 expect(screen.getByText(/2 entidades/i)).toBeInTheDocument();
             });
         });
@@ -299,7 +297,9 @@ describe("BusinessDomainDetailPage", () => {
             render(<BusinessDomainDetailPage />);
 
             await waitFor(() => {
-                expect(screen.getByText(/ver dominio padre/i)).toBeInTheDocument();
+                expect(
+                    screen.getByText(/ver dominio padre/i),
+                ).toBeInTheDocument();
             });
         });
     });
@@ -322,9 +322,7 @@ describe("BusinessDomainDetailPage", () => {
             fireEvent.click(screen.getByText("Componentes"));
 
             await waitFor(() => {
-                expect(
-                    screen.getByText("Payment Service"),
-                ).toBeInTheDocument();
+                expect(screen.getByText("Payment Service")).toBeInTheDocument();
             });
         });
 
@@ -421,9 +419,7 @@ describe("BusinessDomainDetailPage", () => {
             fireEvent.click(deleteButtons[0]);
 
             await waitFor(() => {
-                expect(
-                    screen.getByTestId("alert-dialog"),
-                ).toBeInTheDocument();
+                expect(screen.getByTestId("alert-dialog")).toBeInTheDocument();
             });
         });
 

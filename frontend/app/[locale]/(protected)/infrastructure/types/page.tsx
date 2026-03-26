@@ -44,14 +44,14 @@ export default function InfrastructureTypesPage() {
 
     const handleEdit = (infrastructureType: InfrastructureType) => {
         router.push(
-            `/${locale}/infrastructure/types/${infrastructureType.id}/edit`
+            `/${locale}/infrastructure/types/${infrastructureType.id}/edit`,
         );
     };
 
     const handleDelete = async (infrastructureType: InfrastructureType) => {
         if (
             !confirm(
-                `Are you sure you want to delete "${infrastructureType.name}"?`
+                `Are you sure you want to delete "${infrastructureType.name}"?`,
             )
         ) {
             return;
@@ -94,9 +94,7 @@ export default function InfrastructureTypesPage() {
 
                 <Button
                     onClick={() =>
-                        router.push(
-                            `/${locale}/infrastructure/types/create`
-                        )
+                        router.push(`/${locale}/infrastructure/types/create`)
                     }
                     className="flex items-center gap-2"
                 >
@@ -140,9 +138,7 @@ export default function InfrastructureTypesPage() {
                     <Button
                         variant="outline"
                         onClick={() =>
-                            setCurrentPage((p) =>
-                                Math.min(totalPages, p + 1)
-                            )
+                            setCurrentPage((p) => Math.min(totalPages, p + 1))
                         }
                         disabled={currentPage === totalPages}
                     >

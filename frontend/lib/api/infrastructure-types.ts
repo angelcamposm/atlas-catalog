@@ -22,7 +22,7 @@ export const infrastructureTypesApi = {
      */
     getAll: async (page = 1): Promise<PaginatedInfrastructureTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/infrastructure/infrastructure-types${apiClient.buildQuery({ page })}`
+            `/v1/infrastructure/infrastructure-types${apiClient.buildQuery({ page })}`,
         );
         return paginatedInfrastructureTypeResponseSchema.parse(response);
     },
@@ -32,7 +32,7 @@ export const infrastructureTypesApi = {
      */
     getById: async (id: number): Promise<InfrastructureTypeResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/infrastructure/infrastructure-types/${id}`
+            `/v1/infrastructure/infrastructure-types/${id}`,
         );
         return infrastructureTypeResponseSchema.parse(response);
     },
@@ -41,11 +41,11 @@ export const infrastructureTypesApi = {
      * Create a new infrastructure type
      */
     create: async (
-        data: CreateInfrastructureTypeRequest
+        data: CreateInfrastructureTypeRequest,
     ): Promise<InfrastructureTypeResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/infrastructure/infrastructure-types",
-            data
+            data,
         );
         return infrastructureTypeResponseSchema.parse(response);
     },
@@ -55,11 +55,11 @@ export const infrastructureTypesApi = {
      */
     update: async (
         id: number,
-        data: UpdateInfrastructureTypeRequest
+        data: UpdateInfrastructureTypeRequest,
     ): Promise<InfrastructureTypeResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/infrastructure/infrastructure-types/${id}`,
-            data
+            data,
         );
         return infrastructureTypeResponseSchema.parse(response);
     },
@@ -67,5 +67,6 @@ export const infrastructureTypesApi = {
     /**
      * Delete an infrastructure type
      */
-    delete: (id: number) => apiClient.delete(`/v1/infrastructure/infrastructure-types/${id}`),
+    delete: (id: number) =>
+        apiClient.delete(`/v1/infrastructure/infrastructure-types/${id}`),
 };

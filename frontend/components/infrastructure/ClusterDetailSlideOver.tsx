@@ -101,25 +101,25 @@ export function ClusterDetailSlideOver({
 
                 if (cluster.type_id) {
                     const found = typesRes.data.find(
-                        (t) => t.id === cluster.type_id
+                        (t) => t.id === cluster.type_id,
                     );
                     setClusterType(found || null);
                 }
                 if (cluster.lifecycle_id) {
                     const found = lifecyclesRes.data.find(
-                        (l) => l.id === cluster.lifecycle_id
+                        (l) => l.id === cluster.lifecycle_id,
                     );
                     setLifecycle(found || null);
                 }
                 if (cluster.infrastructure_type_id) {
                     const found = infraTypesRes.data.find(
-                        (i) => i.id === cluster.infrastructure_type_id
+                        (i) => i.id === cluster.infrastructure_type_id,
                     );
                     setInfrastructureType(found || null);
                 }
                 if (cluster.vendor_id) {
                     const found = vendorsRes.data.find(
-                        (v) => v.id === cluster.vendor_id
+                        (v) => v.id === cluster.vendor_id,
                     );
                     setVendor(found || null);
                 }
@@ -140,10 +140,7 @@ export function ClusterDetailSlideOver({
         const loadServiceAccounts = async () => {
             setSaLoading(true);
             try {
-                const res = await clustersApi.getServiceAccounts(
-                    cluster.id,
-                    1
-                );
+                const res = await clustersApi.getServiceAccounts(cluster.id, 1);
                 setServiceAccounts(res.data);
             } catch (err) {
                 console.error("Error loading service accounts:", err);
@@ -171,7 +168,7 @@ export function ClusterDetailSlideOver({
                 onEdit(cluster);
             } else {
                 router.push(
-                    `/${locale}/infrastructure/clusters/${cluster.id}/edit`
+                    `/${locale}/infrastructure/clusters/${cluster.id}/edit`,
                 );
                 onClose();
             }
@@ -413,7 +410,7 @@ export function ClusterDetailSlideOver({
                                             onClick={() =>
                                                 handleCopy(
                                                     cluster.api_url!,
-                                                    "api_url"
+                                                    "api_url",
                                                 )
                                             }
                                             className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
@@ -537,7 +534,7 @@ export function ClusterDetailSlideOver({
                                     onClick={() =>
                                         handleCopy(
                                             cluster.cluster_uuid!,
-                                            "uuid"
+                                            "uuid",
                                         )
                                     }
                                     className="flex-shrink-0 p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all"
@@ -640,7 +637,7 @@ export function ClusterDetailSlideOver({
                             value={
                                 cluster.created_at
                                     ? new Date(
-                                          cluster.created_at
+                                          cluster.created_at,
                                       ).toLocaleString()
                                     : undefined
                             }
@@ -668,7 +665,7 @@ export function ClusterDetailSlideOver({
                             value={
                                 cluster.updated_at
                                     ? new Date(
-                                          cluster.updated_at
+                                          cluster.updated_at,
                                       ).toLocaleString()
                                     : undefined
                             }

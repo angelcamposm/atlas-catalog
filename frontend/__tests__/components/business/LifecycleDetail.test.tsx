@@ -62,10 +62,7 @@ jest.mock("@/components/ui/alert-dialog", () => ({
         open: boolean;
         onOpenChange: (v: boolean) => void;
         children: React.ReactNode;
-    }) =>
-        open ? (
-            <div data-testid="alert-dialog">{children}</div>
-        ) : null,
+    }) => (open ? <div data-testid="alert-dialog">{children}</div> : null),
     AlertDialogContent: ({ children }: { children: React.ReactNode }) => (
         <div data-testid="alert-dialog-content">{children}</div>
     ),
@@ -94,7 +91,11 @@ jest.mock("@/components/ui/alert-dialog", () => ({
         disabled?: boolean;
         className?: string;
     }) => (
-        <button data-testid="alert-dialog-action" onClick={onClick} disabled={disabled}>
+        <button
+            data-testid="alert-dialog-action"
+            onClick={onClick}
+            disabled={disabled}
+        >
             {children}
         </button>
     ),
@@ -238,9 +239,7 @@ describe("LifecycleDetailPage", () => {
             render(<LifecycleDetailPage />);
 
             await waitFor(() => {
-                expect(
-                    screen.getByText("2 componentes"),
-                ).toBeInTheDocument();
+                expect(screen.getByText("2 componentes")).toBeInTheDocument();
             });
         });
 

@@ -90,7 +90,9 @@ export const businessDomainsApi = {
     /**
      * Get all Components associated with a Business Domain
      */
-    getComponents: async (domainId: number): Promise<PaginatedComponentResponse> => {
+    getComponents: async (
+        domainId: number,
+    ): Promise<PaginatedComponentResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/business-domains/${domainId}/components`,
         );
@@ -100,7 +102,9 @@ export const businessDomainsApi = {
     /**
      * Get all Entities associated with a Business Domain
      */
-    getDomainEntities: async (domainId: number): Promise<PaginatedEntityResponse> => {
+    getDomainEntities: async (
+        domainId: number,
+    ): Promise<PaginatedEntityResponse> => {
         const response = await apiClient.get<unknown>(
             `/v1/architecture/business-domains/${domainId}/entities`,
         );

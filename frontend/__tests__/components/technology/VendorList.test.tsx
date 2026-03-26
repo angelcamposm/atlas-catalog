@@ -78,7 +78,9 @@ describe("VendorList", () => {
                     onDelete={mockOnDelete}
                 />,
             );
-            expect(screen.getByText(/No vendors configured/i)).toBeInTheDocument();
+            expect(
+                screen.getByText(/No vendors configured/i),
+            ).toBeInTheDocument();
         });
     });
 

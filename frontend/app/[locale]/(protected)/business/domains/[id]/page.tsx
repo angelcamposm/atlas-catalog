@@ -61,9 +61,7 @@ export default function BusinessDomainDetailPage() {
         try {
             setLoading(true);
             setError(null);
-            const response = await businessDomainsApi.getById(
-                Number(domainId),
-            );
+            const response = await businessDomainsApi.getById(Number(domainId));
             setDomain(response.data);
         } catch (err) {
             setError("Error al cargar el dominio");
@@ -110,9 +108,7 @@ export default function BusinessDomainDetailPage() {
             await businessDomainsApi.delete(domain.id);
             router.push(`/${locale}/business/domains`);
         } catch (err) {
-            setError(
-                err instanceof Error ? err.message : "Error al eliminar",
-            );
+            setError(err instanceof Error ? err.message : "Error al eliminar");
             setDeleting(false);
             setDeleteDialogOpen(false);
         }
@@ -228,12 +224,8 @@ export default function BusinessDomainDetailPage() {
                                 </p>
                             )}
                             <div className="mt-3 flex gap-4 text-sm text-muted-foreground">
-                                <span>
-                                    {components.length} componentes
-                                </span>
-                                <span>
-                                    {entities.length} entidades
-                                </span>
+                                <span>{components.length} componentes</span>
+                                <span>{entities.length} entidades</span>
                             </div>
                         </div>
                     </div>
@@ -369,8 +361,7 @@ export default function BusinessDomainDetailPage() {
                                                 href={`/${locale}/catalog/components/${comp.slug}`}
                                                 className="font-medium text-primary hover:underline"
                                             >
-                                                {comp.display_name ??
-                                                    comp.name}
+                                                {comp.display_name ?? comp.name}
                                             </Link>
                                             {comp.description && (
                                                 <p className="text-sm text-muted-foreground">
@@ -447,9 +438,7 @@ export default function BusinessDomainDetailPage() {
             >
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>
-                            ¿Eliminar dominio?
-                        </AlertDialogTitle>
+                        <AlertDialogTitle>¿Eliminar dominio?</AlertDialogTitle>
                         <AlertDialogDescription>
                             Esta acción eliminará permanentemente el dominio{" "}
                             <strong>{domain.name}</strong>. No se puede
@@ -471,4 +460,3 @@ export default function BusinessDomainDetailPage() {
         </div>
     );
 }
-

@@ -93,7 +93,7 @@ const createMockCluster = (overrides: Partial<Cluster> = {}): Cluster => ({
 
 // Helper to create mock cluster type data
 const createMockClusterType = (
-    overrides: Partial<ClusterType> = {}
+    overrides: Partial<ClusterType> = {},
 ): ClusterType => ({
     id: 1,
     name: "Kubernetes",
@@ -109,7 +109,7 @@ const createMockClusterType = (
 
 // Helper to create mock lifecycle data
 const createMockLifecycle = (
-    overrides: Partial<Lifecycle> = {}
+    overrides: Partial<Lifecycle> = {},
 ): Lifecycle => ({
     id: 1,
     name: "Production",
@@ -125,7 +125,7 @@ const createMockLifecycle = (
 
 // Helper to create mock infrastructure type data
 const createMockInfrastructureType = (
-    overrides: Partial<InfrastructureType> = {}
+    overrides: Partial<InfrastructureType> = {},
 ): InfrastructureType => ({
     id: 1,
     name: "On-Premise",
@@ -139,7 +139,7 @@ const createMockInfrastructureType = (
 
 // Helper to create mock cluster service account data
 const createMockClusterServiceAccount = (
-    overrides: Partial<ClusterServiceAccount> = {}
+    overrides: Partial<ClusterServiceAccount> = {},
 ): ClusterServiceAccount => ({
     id: 1,
     cluster_id: 1,
@@ -191,19 +191,19 @@ describe("ClusterDetailSlideOver Component", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         mockedClusterTypesApi.getAll.mockResolvedValue(
-            createPaginatedResponse([createMockClusterType()])
+            createPaginatedResponse([createMockClusterType()]),
         );
         mockedLifecyclesApi.getAll.mockResolvedValue(
-            createPaginatedResponse([createMockLifecycle()])
+            createPaginatedResponse([createMockLifecycle()]),
         );
         mockedInfrastructureTypesApi.getAll.mockResolvedValue(
-            createPaginatedResponse([createMockInfrastructureType()])
+            createPaginatedResponse([createMockInfrastructureType()]),
         );
         mockedVendorsApi.getAll.mockResolvedValue(
-            createPaginatedResponse([createMockVendor()])
+            createPaginatedResponse([createMockVendor()]),
         );
         mockedClustersApi.getServiceAccounts.mockResolvedValue(
-            createPaginatedResponse([])
+            createPaginatedResponse([]),
         );
     });
 
@@ -214,7 +214,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={null}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             expect(container.firstChild).toBeNull();
@@ -228,7 +228,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -245,7 +245,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -264,12 +264,12 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByText("Custom Display Name")
+                    screen.getByText("Custom Display Name"),
                 ).toBeInTheDocument();
             });
         });
@@ -279,7 +279,7 @@ describe("ClusterDetailSlideOver Component", () => {
         it("should display cluster type name when loaded", async () => {
             const clusterType = createMockClusterType({ name: "OpenShift" });
             mockedClusterTypesApi.getAll.mockResolvedValue(
-                createPaginatedResponse([clusterType])
+                createPaginatedResponse([clusterType]),
             );
 
             const cluster = createMockCluster({ type_id: 1 });
@@ -289,7 +289,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -301,7 +301,7 @@ describe("ClusterDetailSlideOver Component", () => {
         it("should display lifecycle name when loaded", async () => {
             const lifecycle = createMockLifecycle({ name: "Staging" });
             mockedLifecyclesApi.getAll.mockResolvedValue(
-                createPaginatedResponse([lifecycle])
+                createPaginatedResponse([lifecycle]),
             );
 
             const cluster = createMockCluster({ lifecycle_id: 1 });
@@ -311,7 +311,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -323,7 +323,7 @@ describe("ClusterDetailSlideOver Component", () => {
         it("should display infrastructure type name when loaded", async () => {
             const infraType = createMockInfrastructureType({ name: "Cloud" });
             mockedInfrastructureTypesApi.getAll.mockResolvedValue(
-                createPaginatedResponse([infraType])
+                createPaginatedResponse([infraType]),
             );
 
             const cluster = createMockCluster({ infrastructure_type_id: 1 });
@@ -333,7 +333,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -345,7 +345,7 @@ describe("ClusterDetailSlideOver Component", () => {
         it("should display vendor name when loaded", async () => {
             const vendor = createMockVendor({ name: "Red Hat" });
             mockedVendorsApi.getAll.mockResolvedValue(
-                createPaginatedResponse([vendor])
+                createPaginatedResponse([vendor]),
             );
 
             const cluster = createMockCluster({ vendor_id: 1 });
@@ -355,7 +355,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -374,12 +374,12 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByText("Version Information")
+                    screen.getByText("Version Information"),
                 ).toBeInTheDocument();
             });
         });
@@ -392,12 +392,12 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByRole("tab", { name: /technical/i })
+                    screen.getByRole("tab", { name: /technical/i }),
                 ).toBeInTheDocument();
             });
 
@@ -419,12 +419,12 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByRole("tab", { name: /metadata/i })
+                    screen.getByRole("tab", { name: /metadata/i }),
                 ).toBeInTheDocument();
             });
 
@@ -448,7 +448,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -470,7 +470,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -494,7 +494,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     open={true}
                     onClose={mockOnClose}
                     onEdit={mockOnEdit}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -520,12 +520,12 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByText("https://api.cluster.example.com")
+                    screen.getByText("https://api.cluster.example.com"),
                 ).toBeInTheDocument();
             });
         });
@@ -538,7 +538,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -554,13 +554,13 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             // Wait for component to load
             await waitFor(() => {
                 expect(
-                    screen.getByRole("tab", { name: /technical/i })
+                    screen.getByRole("tab", { name: /technical/i }),
                 ).toBeInTheDocument();
             });
 
@@ -572,7 +572,7 @@ describe("ClusterDetailSlideOver Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByText("America/New_York")
+                    screen.getByText("America/New_York"),
                 ).toBeInTheDocument();
             });
         });
@@ -589,12 +589,12 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByText("https://api.cluster.example.com")
+                    screen.getByText("https://api.cluster.example.com"),
                 ).toBeInTheDocument();
             });
 
@@ -606,8 +606,8 @@ describe("ClusterDetailSlideOver Component", () => {
                     btn
                         .closest('[class*="flex"]')
                         ?.textContent?.includes(
-                            "https://api.cluster.example.com"
-                        )
+                            "https://api.cluster.example.com",
+                        ),
             );
 
             if (copyButton) {
@@ -620,10 +620,10 @@ describe("ClusterDetailSlideOver Component", () => {
     describe("API Error Handling", () => {
         it("should handle API errors gracefully", async () => {
             mockedClusterTypesApi.getAll.mockRejectedValue(
-                new Error("API Error")
+                new Error("API Error"),
             );
             mockedLifecyclesApi.getAll.mockRejectedValue(
-                new Error("API Error")
+                new Error("API Error"),
             );
 
             const cluster = createMockCluster();
@@ -636,7 +636,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -653,16 +653,16 @@ describe("ClusterDetailSlideOver Component", () => {
     describe("Missing Data", () => {
         it("should handle null relations gracefully", async () => {
             mockedClusterTypesApi.getAll.mockResolvedValue(
-                createPaginatedResponse([])
+                createPaginatedResponse([]),
             );
             mockedLifecyclesApi.getAll.mockResolvedValue(
-                createPaginatedResponse([])
+                createPaginatedResponse([]),
             );
             mockedInfrastructureTypesApi.getAll.mockResolvedValue(
-                createPaginatedResponse([])
+                createPaginatedResponse([]),
             );
             mockedVendorsApi.getAll.mockResolvedValue(
-                createPaginatedResponse([])
+                createPaginatedResponse([]),
             );
 
             const cluster = createMockCluster({
@@ -677,7 +677,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -698,19 +698,19 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByRole("tab", { name: /service accounts/i })
+                    screen.getByRole("tab", { name: /service accounts/i }),
                 ).toBeInTheDocument();
             });
         });
 
         it("should show empty state when no service accounts", async () => {
             mockedClustersApi.getServiceAccounts.mockResolvedValue(
-                createPaginatedResponse([])
+                createPaginatedResponse([]),
             );
             const cluster = createMockCluster();
 
@@ -719,33 +719,35 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByRole("tab", { name: /service accounts/i })
+                    screen.getByRole("tab", { name: /service accounts/i }),
                 ).toBeInTheDocument();
             });
 
             fireEvent.click(
-                screen.getByRole("tab", { name: /service accounts/i })
+                screen.getByRole("tab", { name: /service accounts/i }),
             );
 
             await waitFor(() => {
                 expect(
-                    mockedClustersApi.getServiceAccounts
+                    mockedClustersApi.getServiceAccounts,
                 ).toHaveBeenCalledWith(cluster.id, 1);
                 expect(
-                    screen.getByText(/no service accounts/i)
+                    screen.getByText(/no service accounts/i),
                 ).toBeInTheDocument();
             });
         });
 
         it("should show service accounts when loaded", async () => {
-            const sa = createMockClusterServiceAccount({ service_account_id: 42 });
+            const sa = createMockClusterServiceAccount({
+                service_account_id: 42,
+            });
             mockedClustersApi.getServiceAccounts.mockResolvedValue(
-                createPaginatedResponse([sa])
+                createPaginatedResponse([sa]),
             );
             const cluster = createMockCluster();
 
@@ -754,22 +756,22 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByRole("tab", { name: /service accounts/i })
+                    screen.getByRole("tab", { name: /service accounts/i }),
                 ).toBeInTheDocument();
             });
 
             fireEvent.click(
-                screen.getByRole("tab", { name: /service accounts/i })
+                screen.getByRole("tab", { name: /service accounts/i }),
             );
 
             await waitFor(() => {
                 expect(
-                    screen.getByText(/service account #42/i)
+                    screen.getByText(/service account #42/i),
                 ).toBeInTheDocument();
             });
         });
@@ -784,7 +786,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {
@@ -803,7 +805,7 @@ describe("ClusterDetailSlideOver Component", () => {
                     cluster={cluster}
                     open={true}
                     onClose={mockOnClose}
-                />
+                />,
             );
 
             await waitFor(() => {

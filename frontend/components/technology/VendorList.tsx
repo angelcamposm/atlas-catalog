@@ -16,9 +16,7 @@ export function VendorList({ vendors, onEdit, onDelete }: VendorListProps) {
         return (
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
                 <HiOutlineBuildingOffice2 className="mb-4 h-12 w-12 text-muted-foreground/40" />
-                <p className="text-muted-foreground">
-                    No vendors configured
-                </p>
+                <p className="text-muted-foreground">No vendors configured</p>
             </div>
         );
     }

@@ -112,9 +112,7 @@ export default function LifecycleDetailPage() {
             await lifecyclesApi.delete(lifecycle.id);
             router.push(`/${locale}/lifecycles`);
         } catch (err) {
-            setError(
-                err instanceof Error ? err.message : "Error al eliminar",
-            );
+            setError(err instanceof Error ? err.message : "Error al eliminar");
             setDeleting(false);
             setDeleteDialogOpen(false);
         }
@@ -157,9 +155,7 @@ export default function LifecycleDetailPage() {
         <div className="space-y-6 p-6">
             <PageHeader
                 title={lifecycle.name}
-                subtitle={
-                    lifecycle.description ?? "Detalle del ciclo de vida"
-                }
+                subtitle={lifecycle.description ?? "Detalle del ciclo de vida"}
                 icon={HiOutlineCircleStack}
                 actions={
                     <div className="flex items-center gap-2">
@@ -356,8 +352,7 @@ export default function LifecycleDetailPage() {
                                                 href={`/${locale}/catalog/components/${comp.slug}`}
                                                 className="font-medium text-primary hover:underline"
                                             >
-                                                {comp.display_name ??
-                                                    comp.name}
+                                                {comp.display_name ?? comp.name}
                                             </Link>
                                             {comp.description && (
                                                 <p className="text-sm text-muted-foreground">

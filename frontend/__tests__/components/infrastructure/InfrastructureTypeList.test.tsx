@@ -8,7 +8,7 @@ import { InfrastructureTypeList } from "@/components/infrastructure/Infrastructu
 import type { InfrastructureType } from "@/types/api";
 
 const createMockInfrastructureType = (
-    overrides: Partial<InfrastructureType> = {}
+    overrides: Partial<InfrastructureType> = {},
 ): InfrastructureType => ({
     id: 1,
     name: "On-Premise",
@@ -40,7 +40,7 @@ describe("InfrastructureTypeList", () => {
                     infrastructureTypes={types}
                     onEdit={mockOnEdit}
                     onDelete={mockOnDelete}
-                />
+                />,
             );
 
             expect(screen.getByText("On-Premise")).toBeInTheDocument();
@@ -59,23 +59,21 @@ describe("InfrastructureTypeList", () => {
                     infrastructureTypes={types}
                     onEdit={mockOnEdit}
                     onDelete={mockOnDelete}
-                />
+                />,
             );
 
             expect(screen.getByText("Physical servers")).toBeInTheDocument();
         });
 
         it("should render dash when description is missing", () => {
-            const types = [
-                createMockInfrastructureType({ description: null }),
-            ];
+            const types = [createMockInfrastructureType({ description: null })];
 
             render(
                 <InfrastructureTypeList
                     infrastructureTypes={types}
                     onEdit={mockOnEdit}
                     onDelete={mockOnDelete}
-                />
+                />,
             );
 
             expect(screen.getByText("—")).toBeInTheDocument();
@@ -87,11 +85,11 @@ describe("InfrastructureTypeList", () => {
                     infrastructureTypes={[]}
                     onEdit={mockOnEdit}
                     onDelete={mockOnDelete}
-                />
+                />,
             );
 
             expect(
-                screen.getByText(/no infrastructure types/i)
+                screen.getByText(/no infrastructure types/i),
             ).toBeInTheDocument();
         });
     });
@@ -105,7 +103,7 @@ describe("InfrastructureTypeList", () => {
                     infrastructureTypes={[type]}
                     onEdit={mockOnEdit}
                     onDelete={mockOnDelete}
-                />
+                />,
             );
 
             fireEvent.click(screen.getByRole("button", { name: /edit/i }));
@@ -120,7 +118,7 @@ describe("InfrastructureTypeList", () => {
                     infrastructureTypes={[type]}
                     onEdit={mockOnEdit}
                     onDelete={mockOnDelete}
-                />
+                />,
             );
 
             fireEvent.click(screen.getByRole("button", { name: /delete/i }));
