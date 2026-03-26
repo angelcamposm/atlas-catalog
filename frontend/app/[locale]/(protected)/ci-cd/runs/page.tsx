@@ -32,7 +32,7 @@ export default function WorkflowRunsPage() {
         <div className="p-6">
             <PageHeader
                 title="Workflow Runs"
-                description="All CI/CD workflow run executions"
+                subtitle="All CI/CD workflow run executions"
             />
 
             {loading && (

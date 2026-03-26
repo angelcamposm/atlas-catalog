@@ -53,7 +53,7 @@ export function DeploymentStatusWidget({
                             key={deployment.id}
                             className="flex items-center gap-3 text-sm"
                         >
-                            <StatusIcon status={deployment.status} />
+                            <StatusIcon status={deployment.status ?? null} />
                             <span className="flex-1 truncate text-gray-800 dark:text-gray-200">
                                 {deployment.version ?? "—"}
                             </span>

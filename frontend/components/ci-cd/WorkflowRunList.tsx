@@ -67,7 +67,7 @@ export function WorkflowRunList({ runs, onView }: WorkflowRunListProps) {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 <div className="flex items-center gap-2">
-                                    <StatusIcon status={run.status} />
+                                    <StatusIcon status={run.status ?? null} />
                                     {run.status ?? "—"}
                                 </div>
                             </td>

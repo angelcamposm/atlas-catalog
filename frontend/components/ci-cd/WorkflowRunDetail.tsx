@@ -55,7 +55,7 @@ export function WorkflowRunDetail({
                             Status
                         </dt>
                         <dd className="mt-1">
-                            <StatusBadge status={run.status} />
+                            <StatusBadge status={run.status ?? null} />
                         </dd>
                     </div>
                     <div>
@@ -94,7 +94,7 @@ export function WorkflowRunDetail({
                                 <span className="text-sm font-medium text-gray-900">
                                     {job.name}
                                 </span>
-                                <StatusBadge status={job.status} />
+                                <StatusBadge status={job.status ?? null} />
                             </li>
                         ))}
                     </ul>

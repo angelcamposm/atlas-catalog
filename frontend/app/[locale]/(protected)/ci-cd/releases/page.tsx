@@ -110,8 +110,8 @@ export default function ReleasesPage() {
         <div className="p-6">
             <PageHeader
                 title="Releases"
-                description="CI/CD release management"
-                action={
+                subtitle="CI/CD release management"
+                actions={
                     <Button onClick={openCreate}>
                         <HiPlus className="h-4 w-4 mr-1" />
                         New Release

@@ -51,7 +51,7 @@ export function RecentRunsWidget({ runs }: RecentRunsWidgetProps) {
                             key={run.id}
                             className="flex items-center gap-3 text-sm"
                         >
-                            <StatusIcon status={run.status} />
+                            <StatusIcon status={run.status ?? null} />
                             <span className="flex-1 truncate text-gray-800 dark:text-gray-200">
                                 {run.name}
                             </span>

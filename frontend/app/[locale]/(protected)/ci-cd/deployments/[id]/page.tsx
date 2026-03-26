@@ -72,7 +72,7 @@ export default function DeploymentDetailPage({
                         title={
                             deployment.version ?? `Deployment #${deployment.id}`
                         }
-                        description="Deployment details"
+                        subtitle="Deployment details"
                     />
                     <div className="mt-4 bg-white dark:bg-gray-800 rounded-lg border p-6">
                         <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">

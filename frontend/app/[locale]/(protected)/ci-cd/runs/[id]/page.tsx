@@ -39,7 +39,7 @@ export default function WorkflowRunDetailPage({ params }: PageProps) {
         ])
             .then(([runRes, jobsRes, commitsRes]) => {
                 setRun(runRes.data);
-                setJobs(jobsRes.data);
+                setJobs(jobsRes);
                 setCommits(commitsRes.data);
             })
             .catch(() => setError("Failed to load workflow run details"))
@@ -76,7 +76,7 @@ export default function WorkflowRunDetailPage({ params }: PageProps) {
                 <>
                     <PageHeader
                         title={run.name}
-                        description={`Run #${run.id}`}
+                        subtitle={`Run #${run.id}`}
                     />
                     <div className="mt-4">
                         <WorkflowRunDetail

@@ -33,7 +33,7 @@ export default function DeploymentsPage() {
         <div className="p-6">
             <PageHeader
                 title="Deployments"
-                description="CI/CD deployment history"
+                subtitle="CI/CD deployment history"
             />
 
             {loading && (

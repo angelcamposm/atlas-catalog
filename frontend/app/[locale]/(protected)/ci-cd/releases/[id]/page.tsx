@@ -60,7 +60,7 @@ export default function ReleaseDetailPage({
                 <>
                     <PageHeader
                         title={release.version ?? `Release #${release.id}`}
-                        description="Release details"
+                        subtitle="Release details"
                     />
                     <div className="mt-4">
                         <ReleaseDetail release={release} />

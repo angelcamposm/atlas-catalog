@@ -78,7 +78,7 @@ export function DeploymentList({ deployments, onView }: DeploymentListProps) {
                                 {deployment.version ?? "—"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <StatusIcon status={deployment.status} />
+                                <StatusIcon status={deployment.status ?? null} />
                                 {deployment.status ?? "—"}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
