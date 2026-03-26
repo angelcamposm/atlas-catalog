@@ -31,6 +31,25 @@ jest.mock("react-icons/hi2", () => ({
     ),
 }));
 
+// Mock SwaggerUIWrapper (uses next/dynamic + browser APIs not available in Jest)
+jest.mock("@/components/ui/swagger-ui", () => ({
+    SwaggerUIWrapper: ({
+        spec,
+        docExpansion,
+    }: {
+        spec?: object;
+        docExpansion?: string;
+    }) => (
+        <div
+            data-testid="swagger-ui-viewer"
+            data-doc-expansion={docExpansion}
+            aria-label="Interactive API documentation"
+        >
+            {spec ? "OpenAPI documentation loaded" : "No spec provided"}
+        </div>
+    ),
+}));
+
 // Mock document fullscreen API
 Object.defineProperty(document, "exitFullscreen", {
     value: jest.fn().mockResolvedValue(undefined),
@@ -132,8 +151,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
+            // OpenAPI object specs render the real Swagger UI viewer
             expect(
-                screen.getByText(/Especificación OpenAPI/)
+                screen.getByTestId("swagger-ui-viewer")
             ).toBeInTheDocument();
         });
 
@@ -509,8 +529,8 @@ describe("ApiDocs", () => {
         });
     });
 
-    describe("SwaggerUIPlaceholder Integration", () => {
-        it("should show OpenAPI message for OpenAPI specs", () => {
+    describe("SwaggerUIWrapper Integration", () => {
+        it("should render interactive Swagger UI for OpenAPI specs", () => {
             const apiWithSpec: Api = {
                 ...mockApi,
                 document_specification: {
@@ -519,7 +539,9 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(screen.getByText(/OpenAPI\/Swagger/)).toBeInTheDocument();
+            expect(
+                screen.getByTestId("swagger-ui-viewer")
+            ).toBeInTheDocument();
         });
 
         it("should show format message for non-OpenAPI specs", () => {

@@ -10,6 +10,7 @@ import {
     HiOutlineCodeBracket,
 } from "react-icons/hi2";
 import { cn } from "@/lib/utils";
+import { SwaggerUIWrapper } from "@/components/ui/swagger-ui";
 import type { Api } from "@/types/api";
 
 // ============================================================================
@@ -66,6 +67,21 @@ function detectDocFormat(
     return "unknown";
 }
 
+/**
+ * Attempts to parse a string spec as JSON.
+ * Returns null if the spec is a YAML string or invalid JSON.
+ */
+function parseSpecToObject(
+    spec: string | Record<string, unknown>
+): Record<string, unknown> | null {
+    if (typeof spec === "object") return spec;
+    try {
+        return JSON.parse(spec) as Record<string, unknown>;
+    } catch {
+        return null;
+    }
+}
+
 function formatJson(spec: string | Record<string, unknown>): string {
     if (typeof spec === "object") {
         return JSON.stringify(spec, null, 2);
@@ -80,57 +96,29 @@ function formatJson(spec: string | Record<string, unknown>): string {
 }
 
 // ============================================================================
-// Swagger UI Placeholder Component
+// Raw Spec Display (JSON / YAML / non-parseable formats)
 // ============================================================================
 
-interface SwaggerUIPlaceholderProps {
+interface RawSpecDisplayProps {
     spec: string | Record<string, unknown>;
     format: DocFormat;
-    url?: string | null;
 }
 
-function SwaggerUIPlaceholder({
-    spec,
-    format,
-    url,
-}: SwaggerUIPlaceholderProps) {
-    // Note: In a real implementation, you would integrate with swagger-ui-react
-    // or redoc for proper OpenAPI rendering
-
+function RawSpecDisplay({ spec, format }: RawSpecDisplayProps) {
     return (
         <div className="space-y-4">
-            {/* Info banner */}
             <div className="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
                 <HiOutlineDocumentText className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                 <div>
                     <h4 className="font-medium text-blue-800 dark:text-blue-200">
-                        Especificación{" "}
-                        {format === "openapi"
-                            ? "OpenAPI"
-                            : format.toUpperCase()}
+                        Especificación {format.toUpperCase()}
                     </h4>
                     <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
-                        {format === "openapi"
-                            ? "Esta API tiene una especificación OpenAPI/Swagger. Para una visualización interactiva completa, considera integrar swagger-ui-react o Redoc."
-                            : "Se ha detectado documentación en formato " +
-                              format.toUpperCase() +
-                              "."}
+                        Se ha detectado documentación en formato{" "}
+                        {format.toUpperCase()}.
                     </p>
-                    {url && (
-                        <a
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 mt-2 text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                        >
-                            Ver API en vivo
-                            <HiOutlineArrowTopRightOnSquare className="w-4 h-4" />
-                        </a>
-                    )}
                 </div>
             </div>
-
-            {/* Raw spec display */}
             <div className="relative">
                 <pre className="p-4 bg-gray-900 dark:bg-gray-950 text-gray-100 rounded-lg overflow-auto text-sm font-mono max-h-[600px]">
                     <code>{formatJson(spec)}</code>
@@ -225,26 +213,39 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
                     </span>
                 </div>
 
-                <button
-                    type="button"
-                    onClick={toggleFullscreen}
-                    className={cn(
-                        "p-2 rounded-lg transition-colors",
-                        "hover:bg-gray-100 dark:hover:bg-gray-700",
-                        "text-gray-500 dark:text-gray-400"
+                <div className="flex items-center gap-2">
+                    {api.url && (
+                        <a
+                            href={api.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                        >
+                            Ver API en vivo
+                            <HiOutlineArrowTopRightOnSquare className="w-4 h-4" />
+                        </a>
                     )}
-                    title={
-                        isFullscreen
-                            ? "Salir de pantalla completa"
-                            : "Pantalla completa"
-                    }
-                >
-                    {isFullscreen ? (
-                        <HiOutlineArrowsPointingIn className="w-5 h-5" />
-                    ) : (
-                        <HiOutlineArrowsPointingOut className="w-5 h-5" />
-                    )}
-                </button>
+                    <button
+                        type="button"
+                        onClick={toggleFullscreen}
+                        className={cn(
+                            "p-2 rounded-lg transition-colors",
+                            "hover:bg-gray-100 dark:hover:bg-gray-700",
+                            "text-gray-500 dark:text-gray-400"
+                        )}
+                        title={
+                            isFullscreen
+                                ? "Salir de pantalla completa"
+                                : "Pantalla completa"
+                        }
+                    >
+                        {isFullscreen ? (
+                            <HiOutlineArrowsPointingIn className="w-5 h-5" />
+                        ) : (
+                            <HiOutlineArrowsPointingOut className="w-5 h-5" />
+                        )}
+                    </button>
+                </div>
             </div>
 
             {/* Content */}
@@ -268,11 +269,22 @@ export function ApiDocs({ api, className }: ApiDocsProps) {
                             </p>
                         </div>
                     </div>
+                ) : docFormat === "openapi" &&
+                  parseSpecToObject(api.document_specification!) ? (
+                    <SwaggerUIWrapper
+                        spec={
+                            parseSpecToObject(
+                                api.document_specification!
+                            ) as object
+                        }
+                        docExpansion="list"
+                        filter={true}
+                        tryItOutEnabled={true}
+                    />
                 ) : (
-                    <SwaggerUIPlaceholder
+                    <RawSpecDisplay
                         spec={api.document_specification!}
                         format={docFormat}
-                        url={api.url}
                     />
                 )}
             </div>
