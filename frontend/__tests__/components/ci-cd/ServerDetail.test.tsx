@@ -19,12 +19,20 @@ const createMockServer = (overrides: Partial<CiServer> = {}): CiServer => ({
 describe("ServerDetail", () => {
     describe("Rendering", () => {
         it("should render server name", () => {
-            render(<ServerDetail server={createMockServer({ name: "Jenkins Production" })} />);
+            render(
+                <ServerDetail
+                    server={createMockServer({ name: "Jenkins Production" })}
+                />,
+            );
             expect(screen.getByText("Jenkins Production")).toBeInTheDocument();
         });
 
         it("should render server driver", () => {
-            render(<ServerDetail server={createMockServer({ driver: "jenkins" })} />);
+            render(
+                <ServerDetail
+                    server={createMockServer({ driver: "jenkins" })}
+                />,
+            );
             expect(screen.getByText("jenkins")).toBeInTheDocument();
         });
 
@@ -42,7 +50,11 @@ describe("ServerDetail", () => {
         });
 
         it("should show enabled badge when is_enabled is true", () => {
-            render(<ServerDetail server={createMockServer({ is_enabled: true })} />);
+            render(
+                <ServerDetail
+                    server={createMockServer({ is_enabled: true })}
+                />,
+            );
             expect(screen.getByText("Enabled")).toBeInTheDocument();
         });
 
@@ -56,7 +68,9 @@ describe("ServerDetail", () => {
         });
 
         it("should show dash when driver is null", () => {
-            render(<ServerDetail server={createMockServer({ driver: null })} />);
+            render(
+                <ServerDetail server={createMockServer({ driver: null })} />,
+            );
             const dashes = screen.getAllByText("—");
             expect(dashes.length).toBeGreaterThanOrEqual(1);
         });

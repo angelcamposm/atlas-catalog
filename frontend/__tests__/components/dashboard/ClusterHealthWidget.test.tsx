@@ -49,7 +49,7 @@ describe("ClusterHealthWidget", () => {
             render(<ClusterHealthWidget />);
             expect(
                 document.querySelector(".animate-pulse") ||
-                    screen.queryByTestId("skeleton")
+                    screen.queryByTestId("skeleton"),
             ).toBeTruthy();
         });
     });
@@ -61,7 +61,14 @@ describe("ClusterHealthWidget", () => {
                     createMockCluster({ id: 1, name: "prod" }),
                     createMockCluster({ id: 2, name: "staging" }),
                 ],
-                meta: { total: 2, current_page: 1, last_page: 1, per_page: 100, from: 1, to: 2 },
+                meta: {
+                    total: 2,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 1,
+                    to: 2,
+                },
             });
             render(<ClusterHealthWidget />);
             await waitFor(() => {
@@ -72,7 +79,14 @@ describe("ClusterHealthWidget", () => {
         it("shows widget title", async () => {
             clustersApi.getAll.mockResolvedValue({
                 data: [createMockCluster()],
-                meta: { total: 1, current_page: 1, last_page: 1, per_page: 100, from: 1, to: 1 },
+                meta: {
+                    total: 1,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 1,
+                    to: 1,
+                },
             });
             render(<ClusterHealthWidget />);
             await waitFor(() => {
@@ -83,7 +97,14 @@ describe("ClusterHealthWidget", () => {
         it("handles empty data", async () => {
             clustersApi.getAll.mockResolvedValue({
                 data: [],
-                meta: { total: 0, current_page: 1, last_page: 1, per_page: 100, from: 0, to: 0 },
+                meta: {
+                    total: 0,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 0,
+                    to: 0,
+                },
             });
             render(<ClusterHealthWidget />);
             await waitFor(() => {
@@ -97,7 +118,9 @@ describe("ClusterHealthWidget", () => {
             clustersApi.getAll.mockRejectedValue(new Error("Network error"));
             render(<ClusterHealthWidget />);
             await waitFor(() => {
-                expect(screen.queryByText(/Network error/i)).not.toBeInTheDocument();
+                expect(
+                    screen.queryByText(/Network error/i),
+                ).not.toBeInTheDocument();
             });
         });
     });

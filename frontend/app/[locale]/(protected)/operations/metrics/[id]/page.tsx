@@ -110,7 +110,9 @@ export default function MetricDetailPage({
             setMetric(response.data);
             setDialogOpen(false);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving metric");
+            setError(
+                err instanceof Error ? err.message : "Error saving metric",
+            );
             console.error("Error saving metric:", err);
         } finally {
             setSaving(false);
@@ -200,9 +202,7 @@ export default function MetricDetailPage({
             {/* Back button */}
             <div className="flex gap-3">
                 <button
-                    onClick={() =>
-                        router.push(`/${locale}/operations/metrics`)
-                    }
+                    onClick={() => router.push(`/${locale}/operations/metrics`)}
                     className="rounded-md border border-gray-200 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
                 >
                     Volver a la lista
@@ -274,7 +274,8 @@ export default function MetricDetailPage({
                                     onChange={(e) =>
                                         setFormData((p) => ({
                                             ...p,
-                                            metric_definition_id: e.target.value,
+                                            metric_definition_id:
+                                                e.target.value,
                                         }))
                                     }
                                 />

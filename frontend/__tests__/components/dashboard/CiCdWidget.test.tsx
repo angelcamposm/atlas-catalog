@@ -67,7 +67,7 @@ describe("CiCdWidget", () => {
             render(<CiCdWidget />);
             expect(
                 document.querySelector(".animate-pulse") ||
-                    screen.queryByTestId("skeleton")
+                    screen.queryByTestId("skeleton"),
             ).toBeTruthy();
         });
     });
@@ -76,11 +76,25 @@ describe("CiCdWidget", () => {
         it("shows CI/CD title", async () => {
             workflowsApi.getRuns.mockResolvedValue({
                 data: [createMockRun()],
-                meta: { total: 1, current_page: 1, last_page: 1, per_page: 100, from: 1, to: 1 },
+                meta: {
+                    total: 1,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 1,
+                    to: 1,
+                },
             });
             deploymentsApi.getAll.mockResolvedValue({
                 data: [],
-                meta: { total: 0, current_page: 1, last_page: 1, per_page: 100, from: 0, to: 0 },
+                meta: {
+                    total: 0,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 0,
+                    to: 0,
+                },
             });
             render(<CiCdWidget />);
             await waitFor(() => {
@@ -91,11 +105,25 @@ describe("CiCdWidget", () => {
         it("shows run count", async () => {
             workflowsApi.getRuns.mockResolvedValue({
                 data: [createMockRun({ id: 1 }), createMockRun({ id: 2 })],
-                meta: { total: 2, current_page: 1, last_page: 1, per_page: 100, from: 1, to: 2 },
+                meta: {
+                    total: 2,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 1,
+                    to: 2,
+                },
             });
             deploymentsApi.getAll.mockResolvedValue({
                 data: [],
-                meta: { total: 0, current_page: 1, last_page: 1, per_page: 100, from: 0, to: 0 },
+                meta: {
+                    total: 0,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 0,
+                    to: 0,
+                },
             });
             render(<CiCdWidget />);
             await waitFor(() => {
@@ -106,11 +134,25 @@ describe("CiCdWidget", () => {
         it("handles empty runs", async () => {
             workflowsApi.getRuns.mockResolvedValue({
                 data: [],
-                meta: { total: 0, current_page: 1, last_page: 1, per_page: 100, from: 0, to: 0 },
+                meta: {
+                    total: 0,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 0,
+                    to: 0,
+                },
             });
             deploymentsApi.getAll.mockResolvedValue({
                 data: [],
-                meta: { total: 0, current_page: 1, last_page: 1, per_page: 100, from: 0, to: 0 },
+                meta: {
+                    total: 0,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 0,
+                    to: 0,
+                },
             });
             render(<CiCdWidget />);
             await waitFor(() => {

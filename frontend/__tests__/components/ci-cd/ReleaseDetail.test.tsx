@@ -25,31 +25,52 @@ describe("ReleaseDetail", () => {
         });
 
         it("should render release status", () => {
-            render(<ReleaseDetail release={createMockRelease({ status: "released" })} />);
+            render(
+                <ReleaseDetail
+                    release={createMockRelease({ status: "released" })}
+                />,
+            );
 
             expect(screen.getByText("released")).toBeInTheDocument();
         });
 
         it("should render changelog text", () => {
-            render(<ReleaseDetail release={createMockRelease({ changelog: "Bug fixes" })} />);
+            render(
+                <ReleaseDetail
+                    release={createMockRelease({ changelog: "Bug fixes" })}
+                />,
+            );
 
             expect(screen.getByText("Bug fixes")).toBeInTheDocument();
         });
 
         it("should show dash for null status", () => {
-            render(<ReleaseDetail release={createMockRelease({ status: null })} />);
+            render(
+                <ReleaseDetail release={createMockRelease({ status: null })} />,
+            );
 
             expect(screen.getByText("—")).toBeInTheDocument();
         });
 
         it("should show released_at date", () => {
-            render(<ReleaseDetail release={createMockRelease({ released_at: "2024-07-20" })} />);
+            render(
+                <ReleaseDetail
+                    release={createMockRelease({ released_at: "2024-07-20" })}
+                />,
+            );
 
             expect(screen.getByText(/2024-07-20/)).toBeInTheDocument();
         });
 
         it("should show dash for null released_at", () => {
-            render(<ReleaseDetail release={createMockRelease({ released_at: null, status: "draft" })} />);
+            render(
+                <ReleaseDetail
+                    release={createMockRelease({
+                        released_at: null,
+                        status: "draft",
+                    })}
+                />,
+            );
 
             // There will be at least one "—" for null released_at
             const dashes = screen.getAllByText("—");

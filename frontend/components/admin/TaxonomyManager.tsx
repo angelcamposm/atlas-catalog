@@ -142,7 +142,9 @@ export function TaxonomyManager<T extends { id: number }>({
                 <div>
                     <h1 className="text-2xl font-semibold">{title}</h1>
                     {description && (
-                        <p className="mt-1 text-sm text-gray-500">{description}</p>
+                        <p className="mt-1 text-sm text-gray-500">
+                            {description}
+                        </p>
                     )}
                 </div>
                 <button
@@ -187,15 +189,17 @@ export function TaxonomyManager<T extends { id: number }>({
                             {items.map((item) => (
                                 <tr key={item.id}>
                                     {columns.map((col) => {
-                                        const value = (item as Record<string, unknown>)[
-                                            String(col.key)
-                                        ];
+                                        const value = (
+                                            item as Record<string, unknown>
+                                        )[String(col.key)];
                                         return (
                                             <td
                                                 key={String(col.key)}
                                                 className="whitespace-nowrap px-6 py-4 text-sm text-gray-900"
                                             >
-                                                {value != null ? String(value) : "—"}
+                                                {value != null
+                                                    ? String(value)
+                                                    : "—"}
                                             </td>
                                         );
                                     })}
@@ -255,7 +259,9 @@ export function TaxonomyManager<T extends { id: number }>({
                                     >
                                         {field.label}
                                         {field.required && (
-                                            <span className="ml-1 text-red-500">*</span>
+                                            <span className="ml-1 text-red-500">
+                                                *
+                                            </span>
                                         )}
                                     </label>
                                     {field.type === "textarea" ? (
@@ -267,7 +273,8 @@ export function TaxonomyManager<T extends { id: number }>({
                                             onChange={(e) =>
                                                 setFormValues((prev) => ({
                                                     ...prev,
-                                                    [field.name]: e.target.value,
+                                                    [field.name]:
+                                                        e.target.value,
                                                 }))
                                             }
                                             rows={3}
@@ -283,7 +290,8 @@ export function TaxonomyManager<T extends { id: number }>({
                                             onChange={(e) =>
                                                 setFormValues((prev) => ({
                                                     ...prev,
-                                                    [field.name]: e.target.value,
+                                                    [field.name]:
+                                                        e.target.value,
                                                 }))
                                             }
                                             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"

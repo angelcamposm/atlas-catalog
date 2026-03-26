@@ -27,7 +27,10 @@ import type {
 export { serviceStatusesApi } from "./operations";
 
 export { complianceRequirementSchema } from "@/types/api";
-export type { ComplianceRequirement, CreateComplianceRequirementRequest } from "@/types/api";
+export type {
+    ComplianceRequirement,
+    CreateComplianceRequirementRequest,
+} from "@/types/api";
 
 // Compliance Requirements --------------------------------------------------
 
@@ -100,7 +103,7 @@ export const complianceStandardsApi = {
         const response = await apiClient.get<unknown>(
             `/v1/compliance/compliance-standards${apiClient.buildQuery({
                 page,
-            })}`
+            })}`,
         );
         return paginatedComplianceStandardResponseSchema.parse(response);
     },
@@ -110,7 +113,7 @@ export const complianceStandardsApi = {
      */
     getById: async (id: number): Promise<ComplianceStandardResponse> => {
         const response = await apiClient.get<unknown>(
-            `/v1/compliance/compliance-standards/${id}`
+            `/v1/compliance/compliance-standards/${id}`,
         );
         return complianceStandardResponseSchema.parse(response);
     },
@@ -119,11 +122,11 @@ export const complianceStandardsApi = {
      * Create a new compliance standard
      */
     create: async (
-        data: CreateComplianceStandardRequest
+        data: CreateComplianceStandardRequest,
     ): Promise<ComplianceStandardResponse> => {
         const response = await apiClient.post<unknown>(
             "/v1/compliance/compliance-standards",
-            data
+            data,
         );
         return complianceStandardResponseSchema.parse(response);
     },
@@ -133,11 +136,11 @@ export const complianceStandardsApi = {
      */
     update: async (
         id: number,
-        data: UpdateComplianceStandardRequest
+        data: UpdateComplianceStandardRequest,
     ): Promise<ComplianceStandardResponse> => {
         const response = await apiClient.put<unknown>(
             `/v1/compliance/compliance-standards/${id}`,
-            data
+            data,
         );
         return complianceStandardResponseSchema.parse(response);
     },

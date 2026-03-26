@@ -17,7 +17,9 @@ export default function ComplianceStandardDetailPage({
     const router = useRouter();
 
     const [standard, setStandard] = useState<ComplianceStandard | null>(null);
-    const [requirements, setRequirements] = useState<ComplianceRequirement[]>([]);
+    const [requirements, setRequirements] = useState<ComplianceRequirement[]>(
+        [],
+    );
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -64,13 +66,18 @@ export default function ComplianceStandardDetailPage({
         }
     };
 
-    const handleEditRequirement = async (requirement: ComplianceRequirement) => {
+    const handleEditRequirement = async (
+        requirement: ComplianceRequirement,
+    ) => {
         const name = prompt("Nuevo nombre:", requirement.name);
         if (!name?.trim() || name.trim() === requirement.name) return;
         try {
-            const response = await complianceRequirementsApi.update(requirement.id, {
-                name: name.trim(),
-            });
+            const response = await complianceRequirementsApi.update(
+                requirement.id,
+                {
+                    name: name.trim(),
+                },
+            );
             setRequirements((prev) =>
                 prev.map((r) => (r.id === requirement.id ? response.data : r)),
             );
@@ -84,7 +91,9 @@ export default function ComplianceStandardDetailPage({
         if (!confirm("¿Eliminar este requerimiento?")) return;
         try {
             await complianceRequirementsApi.delete(requirementId);
-            setRequirements((prev) => prev.filter((r) => r.id !== requirementId));
+            setRequirements((prev) =>
+                prev.filter((r) => r.id !== requirementId),
+            );
         } catch (err) {
             console.error("Error deleting requirement:", err);
             alert("Error al eliminar el requerimiento");
@@ -153,7 +162,9 @@ export default function ComplianceStandardDetailPage({
             {/* Actions */}
             <div className="flex gap-3">
                 <button
-                    onClick={() => router.push(`/${locale}/security/compliance`)}
+                    onClick={() =>
+                        router.push(`/${locale}/security/compliance`)
+                    }
                     className="rounded-md border border-gray-200 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 transition-colors"
                 >
                     Volver a la lista

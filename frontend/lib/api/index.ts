@@ -96,11 +96,7 @@ export {
 } from "./compliance";
 
 // Operations Domain (Service Statuses, Metrics)
-export {
-    operationsApi,
-    serviceStatusesApi,
-    metricsApi,
-} from "./operations";
+export { operationsApi, serviceStatusesApi, metricsApi } from "./operations";
 
 // Resources Domain
 export {
@@ -140,4 +136,10 @@ export type {
 export { usersApi } from "./users";
 
 // CI/CD Domain
-export { workflowsApi, ciServersApi, releasesApi, deploymentsApi, ciCdApi } from "./ci-cd";
+export {
+    workflowsApi,
+    ciServersApi,
+    releasesApi,
+    deploymentsApi,
+    ciCdApi,
+} from "./ci-cd";

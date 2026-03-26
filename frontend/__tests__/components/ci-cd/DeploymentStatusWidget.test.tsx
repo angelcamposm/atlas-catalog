@@ -67,7 +67,9 @@ describe("DeploymentStatusWidget", () => {
         });
 
         it("should display dash when status is null", () => {
-            const deployments = [createMockDeployment({ status: null, version: "1.0.0" })];
+            const deployments = [
+                createMockDeployment({ status: null, version: "1.0.0" }),
+            ];
             render(<DeploymentStatusWidget deployments={deployments} />);
             const dashes = screen.getAllByText("—");
             expect(dashes.length).toBeGreaterThanOrEqual(1);

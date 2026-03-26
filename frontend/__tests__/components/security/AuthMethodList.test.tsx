@@ -38,7 +38,9 @@ describe("AuthMethodList", () => {
         });
 
         it("should display the description of each method", () => {
-            const methods = [createMockMethod({ description: "OAuth 2.0 protocol" })];
+            const methods = [
+                createMockMethod({ description: "OAuth 2.0 protocol" }),
+            ];
             render(<AuthMethodList methods={methods} />);
             expect(screen.getByText("OAuth 2.0 protocol")).toBeInTheDocument();
         });
@@ -86,7 +88,9 @@ describe("AuthMethodList", () => {
             const onDelete = jest.fn();
             const method = createMockMethod({ id: 9 });
             render(<AuthMethodList methods={[method]} onDelete={onDelete} />);
-            fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+            fireEvent.click(
+                screen.getByTestId("icon-trash").closest("button")!,
+            );
             expect(onDelete).toHaveBeenCalledWith(9);
         });
 
@@ -94,8 +98,12 @@ describe("AuthMethodList", () => {
             const methods = [createMockMethod()];
             expect(() => {
                 render(<AuthMethodList methods={methods} />);
-                fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+                fireEvent.click(
+                    screen.getByTestId("icon-edit").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-trash").closest("button")!,
+                );
             }).not.toThrow();
         });
     });

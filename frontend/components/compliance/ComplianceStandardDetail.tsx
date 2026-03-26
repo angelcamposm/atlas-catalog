@@ -1,6 +1,10 @@
 "use client";
 
-import { HiOutlineShieldCheck, HiOutlineGlobeAlt, HiOutlineDocumentText } from "react-icons/hi2";
+import {
+    HiOutlineShieldCheck,
+    HiOutlineGlobeAlt,
+    HiOutlineDocumentText,
+} from "react-icons/hi2";
 import type { ComplianceStandard, ComplianceRequirement } from "@/types/api";
 import { RequirementTable } from "./RequirementTable";
 
@@ -63,7 +67,9 @@ export function ComplianceStandardDetail({
                             </span>
                         </div>
                         {standard.description && (
-                            <p className="mt-1 text-sm text-gray-600">{standard.description}</p>
+                            <p className="mt-1 text-sm text-gray-600">
+                                {standard.description}
+                            </p>
                         )}
                     </div>
                 </div>
@@ -75,7 +81,9 @@ export function ComplianceStandardDetail({
                             <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 País / Región
                             </p>
-                            <p className="mt-1 text-sm text-gray-900">{standard.country_code}</p>
+                            <p className="mt-1 text-sm text-gray-900">
+                                {standard.country_code}
+                            </p>
                         </div>
                     )}
                     {standard.focus_area && (
@@ -83,7 +91,9 @@ export function ComplianceStandardDetail({
                             <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Área
                             </p>
-                            <p className="mt-1 text-sm text-gray-900">{standard.focus_area}</p>
+                            <p className="mt-1 text-sm text-gray-900">
+                                {standard.focus_area}
+                            </p>
                         </div>
                     )}
                     {standard.industry && (
@@ -91,7 +101,9 @@ export function ComplianceStandardDetail({
                             <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Industria
                             </p>
-                            <p className="mt-1 text-sm text-gray-900">{standard.industry}</p>
+                            <p className="mt-1 text-sm text-gray-900">
+                                {standard.industry}
+                            </p>
                         </div>
                     )}
                     {standard.url && (
@@ -117,7 +129,9 @@ export function ComplianceStandardDetail({
             <div className="rounded-lg border border-gray-200 bg-white p-6">
                 <div className="mb-4 flex items-center gap-2">
                     <HiOutlineDocumentText className="w-5 h-5 text-gray-400" />
-                    <h3 className="text-base font-medium text-gray-900">Requerimientos</h3>
+                    <h3 className="text-base font-medium text-gray-900">
+                        Requerimientos
+                    </h3>
                 </div>
                 <RequirementTable
                     requirements={requirements}

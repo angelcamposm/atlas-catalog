@@ -45,12 +45,8 @@ beforeEach(() => {
 describe("CommandPalette", () => {
     describe("Visibility", () => {
         it("should not render when isOpen is false", () => {
-            render(
-                <CommandPalette {...defaultProps} isOpen={false} />,
-            );
-            expect(
-                screen.queryByRole("dialog"),
-            ).not.toBeInTheDocument();
+            render(<CommandPalette {...defaultProps} isOpen={false} />);
+            expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
         });
 
         it("should render dialog when isOpen is true", () => {
@@ -60,9 +56,7 @@ describe("CommandPalette", () => {
 
         it("should render search input when open", () => {
             render(<CommandPalette {...defaultProps} />);
-            expect(
-                screen.getByPlaceholderText(/search/i),
-            ).toBeInTheDocument();
+            expect(screen.getByPlaceholderText(/search/i)).toBeInTheDocument();
         });
     });
 
@@ -141,9 +135,7 @@ describe("CommandPalette", () => {
             const input = screen.getByPlaceholderText(/search/i);
             fireEvent.change(input, { target: { value: "zzz" } });
             await waitFor(() => {
-                expect(
-                    screen.getByTestId("no-results"),
-                ).toBeInTheDocument();
+                expect(screen.getByTestId("no-results")).toBeInTheDocument();
             });
         });
     });

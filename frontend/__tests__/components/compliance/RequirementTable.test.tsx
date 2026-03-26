@@ -40,9 +40,15 @@ describe("RequirementTable", () => {
         });
 
         it("should display the description when provided", () => {
-            const requirements = [createMockRequirement({ description: "Control access to systems" })];
+            const requirements = [
+                createMockRequirement({
+                    description: "Control access to systems",
+                }),
+            ];
             render(<RequirementTable requirements={requirements} />);
-            expect(screen.getByText("Control access to systems")).toBeInTheDocument();
+            expect(
+                screen.getByText("Control access to systems"),
+            ).toBeInTheDocument();
         });
 
         it("should show a dash when description is null", () => {
@@ -54,7 +60,9 @@ describe("RequirementTable", () => {
         it("should show empty state when no requirements exist", () => {
             render(<RequirementTable requirements={[]} />);
             expect(
-                screen.getByText("No hay requerimientos registrados para este estándar"),
+                screen.getByText(
+                    "No hay requerimientos registrados para este estándar",
+                ),
             ).toBeInTheDocument();
         });
 
@@ -84,8 +92,16 @@ describe("RequirementTable", () => {
 
         it("should call onEdit with the requirement when edit button is clicked", () => {
             const onEdit = jest.fn();
-            const requirement = createMockRequirement({ id: 3, name: "Audit Logs" });
-            render(<RequirementTable requirements={[requirement]} onEdit={onEdit} />);
+            const requirement = createMockRequirement({
+                id: 3,
+                name: "Audit Logs",
+            });
+            render(
+                <RequirementTable
+                    requirements={[requirement]}
+                    onEdit={onEdit}
+                />,
+            );
             fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
             expect(onEdit).toHaveBeenCalledWith(requirement);
         });
@@ -93,8 +109,15 @@ describe("RequirementTable", () => {
         it("should call onDelete with the requirement id when delete button is clicked", () => {
             const onDelete = jest.fn();
             const requirement = createMockRequirement({ id: 7 });
-            render(<RequirementTable requirements={[requirement]} onDelete={onDelete} />);
-            fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+            render(
+                <RequirementTable
+                    requirements={[requirement]}
+                    onDelete={onDelete}
+                />,
+            );
+            fireEvent.click(
+                screen.getByTestId("icon-trash").closest("button")!,
+            );
             expect(onDelete).toHaveBeenCalledWith(7);
         });
 
@@ -102,9 +125,15 @@ describe("RequirementTable", () => {
             const requirements = [createMockRequirement()];
             expect(() => {
                 render(<RequirementTable requirements={requirements} />);
-                fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-plus").closest("button")!);
+                fireEvent.click(
+                    screen.getByTestId("icon-edit").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-trash").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-plus").closest("button")!,
+                );
             }).not.toThrow();
         });
     });

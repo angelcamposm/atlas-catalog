@@ -36,7 +36,11 @@ describe("ComplianceStandardList", () => {
         it("should render a list of compliance standards", () => {
             const standards = [
                 createMockStandard({ id: 1, name: "ISO 27001" }),
-                createMockStandard({ id: 2, name: "SOC 2", display_name: "SOC 2 Type II" }),
+                createMockStandard({
+                    id: 2,
+                    name: "SOC 2",
+                    display_name: "SOC 2 Type II",
+                }),
             ];
             render(<ComplianceStandardList standards={standards} />);
             expect(screen.getByText("ISO 27001")).toBeInTheDocument();
@@ -44,7 +48,9 @@ describe("ComplianceStandardList", () => {
         });
 
         it("should display display_name when available", () => {
-            const standards = [createMockStandard({ display_name: "ISO/IEC 27001" })];
+            const standards = [
+                createMockStandard({ display_name: "ISO/IEC 27001" }),
+            ];
             render(<ComplianceStandardList standards={standards} />);
             expect(screen.getByText("ISO/IEC 27001")).toBeInTheDocument();
         });
@@ -84,7 +90,12 @@ describe("ComplianceStandardList", () => {
         it("should call onView with the standard id when view button is clicked", () => {
             const onView = jest.fn();
             const standard = createMockStandard({ id: 5, name: "GDPR" });
-            render(<ComplianceStandardList standards={[standard]} onView={onView} />);
+            render(
+                <ComplianceStandardList
+                    standards={[standard]}
+                    onView={onView}
+                />,
+            );
             fireEvent.click(screen.getByTestId("icon-eye").closest("button")!);
             expect(onView).toHaveBeenCalledWith(5);
         });
@@ -92,7 +103,12 @@ describe("ComplianceStandardList", () => {
         it("should call onEdit with the standard when edit button is clicked", () => {
             const onEdit = jest.fn();
             const standard = createMockStandard({ id: 7, name: "HIPAA" });
-            render(<ComplianceStandardList standards={[standard]} onEdit={onEdit} />);
+            render(
+                <ComplianceStandardList
+                    standards={[standard]}
+                    onEdit={onEdit}
+                />,
+            );
             fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
             expect(onEdit).toHaveBeenCalledWith(standard);
         });
@@ -100,8 +116,15 @@ describe("ComplianceStandardList", () => {
         it("should call onDelete with the standard id when delete button is clicked", () => {
             const onDelete = jest.fn();
             const standard = createMockStandard({ id: 9 });
-            render(<ComplianceStandardList standards={[standard]} onDelete={onDelete} />);
-            fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+            render(
+                <ComplianceStandardList
+                    standards={[standard]}
+                    onDelete={onDelete}
+                />,
+            );
+            fireEvent.click(
+                screen.getByTestId("icon-trash").closest("button")!,
+            );
             expect(onDelete).toHaveBeenCalledWith(9);
         });
 
@@ -109,9 +132,15 @@ describe("ComplianceStandardList", () => {
             const standards = [createMockStandard()];
             expect(() => {
                 render(<ComplianceStandardList standards={standards} />);
-                fireEvent.click(screen.getByTestId("icon-eye").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+                fireEvent.click(
+                    screen.getByTestId("icon-eye").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-edit").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-trash").closest("button")!,
+                );
             }).not.toThrow();
         });
     });

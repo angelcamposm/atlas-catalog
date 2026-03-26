@@ -139,14 +139,14 @@ export default function CIServersPage() {
         try {
             setDeleting(true);
             await ciServersApi.delete(deletingServer.id);
-            setServers((prev) => prev.filter((s) => s.id !== deletingServer.id));
+            setServers((prev) =>
+                prev.filter((s) => s.id !== deletingServer.id),
+            );
             setDeleteDialogOpen(false);
             setDeletingServer(null);
         } catch (err) {
             setError(
-                err instanceof Error
-                    ? err.message
-                    : "Error deleting CI server",
+                err instanceof Error ? err.message : "Error deleting CI server",
             );
         } finally {
             setDeleting(false);
@@ -278,14 +278,21 @@ export default function CIServersPage() {
                             disabled={saving || !formData.name.trim()}
                             className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
                         >
-                            {saving ? "Saving…" : editingServer ? "Update" : "Create"}
+                            {saving
+                                ? "Saving…"
+                                : editingServer
+                                  ? "Update"
+                                  : "Create"}
                         </button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* Delete Confirmation */}
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>Delete CI Server</AlertDialogTitle>

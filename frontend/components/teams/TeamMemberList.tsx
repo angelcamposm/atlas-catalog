@@ -1,10 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-    HiOutlineEnvelope,
-    HiOutlineUserGroup,
-} from "react-icons/hi2";
+import { HiOutlineEnvelope, HiOutlineUserGroup } from "react-icons/hi2";
 import type { User } from "@/types/api";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
@@ -76,13 +73,17 @@ export function TeamMemberList({ members, onViewMember }: TeamMemberListProps) {
                             AVATAR_COLORS[member.id % AVATAR_COLORS.length],
                         )}
                     >
-                        {member.name ? member.name.charAt(0).toUpperCase() : "?"}
+                        {member.name
+                            ? member.name.charAt(0).toUpperCase()
+                            : "?"}
                     </div>
 
                     {/* Info */}
                     <div className="flex-1 min-w-0">
                         <p className="font-medium truncate">
-                            {member.name || member.email || `Usuario ${member.id}`}
+                            {member.name ||
+                                member.email ||
+                                `Usuario ${member.id}`}
                         </p>
                         {member.email && (
                             <p className="text-xs text-muted-foreground truncate flex items-center gap-1">
@@ -93,7 +94,9 @@ export function TeamMemberList({ members, onViewMember }: TeamMemberListProps) {
                     </div>
 
                     {/* Status badge */}
-                    <Badge variant={member.is_enabled ? "success" : "secondary"}>
+                    <Badge
+                        variant={member.is_enabled ? "success" : "secondary"}
+                    >
                         {member.is_enabled ? "Activo" : "Inactivo"}
                     </Badge>
                 </div>

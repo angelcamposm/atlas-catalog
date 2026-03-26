@@ -36,12 +36,18 @@ describe("ServerList", () => {
         });
 
         it("should display server driver", () => {
-            render(<ServerList servers={[createMockServer({ driver: "jenkins" })]} />);
+            render(
+                <ServerList
+                    servers={[createMockServer({ driver: "jenkins" })]}
+                />,
+            );
             expect(screen.getByText("jenkins")).toBeInTheDocument();
         });
 
         it("should show dash when driver is null", () => {
-            render(<ServerList servers={[createMockServer({ driver: null })]} />);
+            render(
+                <ServerList servers={[createMockServer({ driver: null })]} />,
+            );
             const dashes = screen.getAllByText("—");
             expect(dashes.length).toBeGreaterThanOrEqual(1);
         });
@@ -50,7 +56,9 @@ describe("ServerList", () => {
             render(
                 <ServerList
                     servers={[
-                        createMockServer({ url: "https://jenkins.example.com" }),
+                        createMockServer({
+                            url: "https://jenkins.example.com",
+                        }),
                     ]}
                 />,
             );
@@ -60,7 +68,11 @@ describe("ServerList", () => {
         });
 
         it("should show enabled status", () => {
-            render(<ServerList servers={[createMockServer({ is_enabled: true })]} />);
+            render(
+                <ServerList
+                    servers={[createMockServer({ is_enabled: true })]}
+                />,
+            );
             expect(screen.getByText("Enabled")).toBeInTheDocument();
         });
 
@@ -82,22 +94,39 @@ describe("ServerList", () => {
     describe("Actions", () => {
         it("should call onView when view button is clicked", () => {
             const onView = jest.fn();
-            render(<ServerList servers={[createMockServer({ id: 1 })]} onView={onView} />);
+            render(
+                <ServerList
+                    servers={[createMockServer({ id: 1 })]}
+                    onView={onView}
+                />,
+            );
             fireEvent.click(screen.getByTestId("icon-eye").closest("button")!);
             expect(onView).toHaveBeenCalledWith(1);
         });
 
         it("should call onEdit when edit button is clicked", () => {
             const onEdit = jest.fn();
-            render(<ServerList servers={[createMockServer({ id: 1 })]} onEdit={onEdit} />);
+            render(
+                <ServerList
+                    servers={[createMockServer({ id: 1 })]}
+                    onEdit={onEdit}
+                />,
+            );
             fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
             expect(onEdit).toHaveBeenCalledWith(1);
         });
 
         it("should call onDelete when delete button is clicked", () => {
             const onDelete = jest.fn();
-            render(<ServerList servers={[createMockServer({ id: 1 })]} onDelete={onDelete} />);
-            fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+            render(
+                <ServerList
+                    servers={[createMockServer({ id: 1 })]}
+                    onDelete={onDelete}
+                />,
+            );
+            fireEvent.click(
+                screen.getByTestId("icon-trash").closest("button")!,
+            );
             expect(onDelete).toHaveBeenCalledWith(1);
         });
 

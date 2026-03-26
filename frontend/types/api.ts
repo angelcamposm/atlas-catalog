@@ -1805,10 +1805,14 @@ export const ciServerSchema = z
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type CiServer = z.infer<typeof ciServerSchema>;
-export const ciServerResponseSchema = createResourceResponseSchema(ciServerSchema);
+export const ciServerResponseSchema =
+    createResourceResponseSchema(ciServerSchema);
 export type CiServerResponse = z.infer<typeof ciServerResponseSchema>;
-export const paginatedCiServerResponseSchema = createPaginatedResponseSchema(ciServerSchema);
-export type PaginatedCiServerResponse = z.infer<typeof paginatedCiServerResponseSchema>;
+export const paginatedCiServerResponseSchema =
+    createPaginatedResponseSchema(ciServerSchema);
+export type PaginatedCiServerResponse = z.infer<
+    typeof paginatedCiServerResponseSchema
+>;
 
 export interface CreateCiServerRequest {
     name: string;
@@ -1830,10 +1834,14 @@ export const ciReleaseSchema = z
     })
     .merge(timestampsSchema);
 export type CiRelease = z.infer<typeof ciReleaseSchema>;
-export const ciReleaseResponseSchema = createResourceResponseSchema(ciReleaseSchema);
+export const ciReleaseResponseSchema =
+    createResourceResponseSchema(ciReleaseSchema);
 export type CiReleaseResponse = z.infer<typeof ciReleaseResponseSchema>;
-export const paginatedCiReleaseResponseSchema = createPaginatedResponseSchema(ciReleaseSchema);
-export type PaginatedCiReleaseResponse = z.infer<typeof paginatedCiReleaseResponseSchema>;
+export const paginatedCiReleaseResponseSchema =
+    createPaginatedResponseSchema(ciReleaseSchema);
+export type PaginatedCiReleaseResponse = z.infer<
+    typeof paginatedCiReleaseResponseSchema
+>;
 
 export interface CreateCiReleaseRequest {
     version?: string;
@@ -1864,10 +1872,14 @@ export const ciDeploymentSchema = z
     .merge(timestampsSchema)
     .merge(userReferenceSchema);
 export type CiDeployment = z.infer<typeof ciDeploymentSchema>;
-export const ciDeploymentResponseSchema = createResourceResponseSchema(ciDeploymentSchema);
+export const ciDeploymentResponseSchema =
+    createResourceResponseSchema(ciDeploymentSchema);
 export type CiDeploymentResponse = z.infer<typeof ciDeploymentResponseSchema>;
-export const paginatedCiDeploymentResponseSchema = createPaginatedResponseSchema(ciDeploymentSchema);
-export type PaginatedCiDeploymentResponse = z.infer<typeof paginatedCiDeploymentResponseSchema>;
+export const paginatedCiDeploymentResponseSchema =
+    createPaginatedResponseSchema(ciDeploymentSchema);
+export type PaginatedCiDeploymentResponse = z.infer<
+    typeof paginatedCiDeploymentResponseSchema
+>;
 
 export interface UpdateCiDeploymentRequest {
     status?: string;

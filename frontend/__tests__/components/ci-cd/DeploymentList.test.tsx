@@ -12,7 +12,7 @@ jest.mock("react-icons/hi2", () => ({
 }));
 
 function createMockDeployment(
-    overrides: Partial<CiDeployment> = {}
+    overrides: Partial<CiDeployment> = {},
 ): CiDeployment {
     return {
         id: 1,
@@ -51,7 +51,7 @@ describe("DeploymentList", () => {
             render(
                 <DeploymentList
                     deployments={[createMockDeployment({ status: "success" })]}
-                />
+                />,
             );
 
             expect(screen.getByText("success")).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe("DeploymentList", () => {
             render(
                 <DeploymentList
                     deployments={[createMockDeployment({ version: null })]}
-                />
+                />,
             );
 
             expect(screen.getByText("—")).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("DeploymentList", () => {
             render(<DeploymentList deployments={[]} />);
 
             expect(
-                screen.getByText("No deployments found")
+                screen.getByText("No deployments found"),
             ).toBeInTheDocument();
         });
 
@@ -81,7 +81,7 @@ describe("DeploymentList", () => {
                     deployments={[
                         createMockDeployment({ started_at: "2024-06-05" }),
                     ]}
-                />
+                />,
             );
 
             expect(screen.getByText(/2024-06-05/)).toBeInTheDocument();
@@ -92,7 +92,9 @@ describe("DeploymentList", () => {
         it("should call onView when view button clicked", () => {
             const onView = jest.fn();
             const deployments = [createMockDeployment({ id: 99 })];
-            render(<DeploymentList deployments={deployments} onView={onView} />);
+            render(
+                <DeploymentList deployments={deployments} onView={onView} />,
+            );
 
             const viewBtn = screen.getByRole("button", { name: /view/i });
             fireEvent.click(viewBtn);
@@ -105,7 +107,7 @@ describe("DeploymentList", () => {
             render(<DeploymentList deployments={deployments} />);
 
             expect(
-                screen.queryByRole("button", { name: /view/i })
+                screen.queryByRole("button", { name: /view/i }),
             ).not.toBeInTheDocument();
         });
     });

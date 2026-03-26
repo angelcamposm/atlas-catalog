@@ -29,7 +29,11 @@ describe("TeamMemberList", () => {
         it("should render a list of members", () => {
             const members = [
                 createMockUser({ id: 1, name: "Alice Smith" }),
-                createMockUser({ id: 2, name: "Bob Jones", email: "bob@example.com" }),
+                createMockUser({
+                    id: 2,
+                    name: "Bob Jones",
+                    email: "bob@example.com",
+                }),
             ];
 
             render(<TeamMemberList members={members} />);
@@ -112,7 +116,10 @@ describe("TeamMemberList", () => {
             const members = [createMockUser({ id: 7 })];
 
             render(
-                <TeamMemberList members={members} onViewMember={onViewMember} />,
+                <TeamMemberList
+                    members={members}
+                    onViewMember={onViewMember}
+                />,
             );
 
             fireEvent.click(screen.getByText("Alice Smith"));

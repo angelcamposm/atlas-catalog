@@ -32,7 +32,9 @@ describe("WorkflowRunList", () => {
                 createMockRun({ id: 2, name: "Run Tests" }),
             ];
             render(<WorkflowRunList runs={runs} />);
-            expect(screen.getByText("Deploy to Production")).toBeInTheDocument();
+            expect(
+                screen.getByText("Deploy to Production"),
+            ).toBeInTheDocument();
             expect(screen.getByText("Run Tests")).toBeInTheDocument();
         });
 
@@ -47,9 +49,7 @@ describe("WorkflowRunList", () => {
 
         it("should display dash when status is null", () => {
             render(
-                <WorkflowRunList
-                    runs={[createMockRun({ status: null })]}
-                />,
+                <WorkflowRunList runs={[createMockRun({ status: null })]} />,
             );
             expect(screen.getByText("—")).toBeInTheDocument();
         });
@@ -57,7 +57,9 @@ describe("WorkflowRunList", () => {
         it("should display started_at date", () => {
             render(
                 <WorkflowRunList
-                    runs={[createMockRun({ started_at: "2024-01-15T10:00:00Z" })]}
+                    runs={[
+                        createMockRun({ started_at: "2024-01-15T10:00:00Z" }),
+                    ]}
                 />,
             );
             expect(screen.getByText(/2024-01-15/)).toBeInTheDocument();
@@ -65,9 +67,7 @@ describe("WorkflowRunList", () => {
 
         it("should show empty state when runs list is empty", () => {
             render(<WorkflowRunList runs={[]} />);
-            expect(
-                screen.getByText(/no workflow runs/i),
-            ).toBeInTheDocument();
+            expect(screen.getByText(/no workflow runs/i)).toBeInTheDocument();
         });
     });
 
@@ -86,9 +86,7 @@ describe("WorkflowRunList", () => {
         });
 
         it("should not render action buttons when handlers not provided", () => {
-            render(
-                <WorkflowRunList runs={[createMockRun()]} />,
-            );
+            render(<WorkflowRunList runs={[createMockRun()]} />);
             expect(screen.queryByTestId("icon-eye")).not.toBeInTheDocument();
         });
     });

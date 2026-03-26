@@ -239,4 +239,3 @@ export default function ReleasesPage() {
         </div>
     );
 }
-

@@ -70,8 +70,7 @@ export default function DeploymentDetailPage({
                 <>
                     <PageHeader
                         title={
-                            deployment.version ??
-                            `Deployment #${deployment.id}`
+                            deployment.version ?? `Deployment #${deployment.id}`
                         }
                         description="Deployment details"
                     />
@@ -82,19 +81,19 @@ export default function DeploymentDetailPage({
                             {field("Commit Hash", deployment.commit_hash)}
                             {field(
                                 "Docker Image Digest",
-                                deployment.docker_image_digest
+                                deployment.docker_image_digest,
                             )}
                             {field("Environment ID", deployment.environment_id)}
                             {field("Component ID", deployment.component_id)}
                             {field(
                                 "Workflow Run ID",
-                                deployment.workflow_run_id
+                                deployment.workflow_run_id,
                             )}
                             {field("Started At", deployment.started_at)}
                             {field("Ended At", deployment.ended_at)}
                             {field(
                                 "Duration (ms)",
-                                deployment.duration_milliseconds
+                                deployment.duration_milliseconds,
                             )}
                         </dl>
                     </div>

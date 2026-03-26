@@ -142,11 +142,15 @@ describe("CI/CD API Module", () => {
         });
 
         it("does NOT have create method (deployments from webhooks)", () => {
-            expect((deploymentsApi as Record<string, unknown>).create).toBeUndefined();
+            expect(
+                (deploymentsApi as Record<string, unknown>).create,
+            ).toBeUndefined();
         });
 
         it("does NOT have delete method", () => {
-            expect((deploymentsApi as Record<string, unknown>).delete).toBeUndefined();
+            expect(
+                (deploymentsApi as Record<string, unknown>).delete,
+            ).toBeUndefined();
         });
     });
 

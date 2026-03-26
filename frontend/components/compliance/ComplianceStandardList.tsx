@@ -43,7 +43,9 @@ export function ComplianceStandardList({
                     data-testid="icon-shield"
                     className="w-12 h-12 mb-3 text-gray-300"
                 />
-                <p className="text-sm">No hay estándares de compliance registrados</p>
+                <p className="text-sm">
+                    No hay estándares de compliance registrados
+                </p>
             </div>
         );
     }

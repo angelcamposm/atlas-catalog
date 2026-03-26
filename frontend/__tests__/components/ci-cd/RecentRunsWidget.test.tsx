@@ -57,7 +57,9 @@ describe("RecentRunsWidget", () => {
         });
 
         it("should display started_at date", () => {
-            const runs = [createMockRun({ started_at: "2024-01-15T10:00:00Z" })];
+            const runs = [
+                createMockRun({ started_at: "2024-01-15T10:00:00Z" }),
+            ];
             render(<RecentRunsWidget runs={runs} />);
             expect(screen.getByText(/2024-01-15/)).toBeInTheDocument();
         });

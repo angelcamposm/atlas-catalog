@@ -63,8 +63,16 @@ const FORM_FIELDS = [
 
 const buildMockApi = (items: SampleItem[] = SAMPLE_ITEMS) => ({
     getAll: jest.fn().mockResolvedValue(makePaginatedResponse(items)),
-    create: jest.fn().mockResolvedValue({ data: { id: 99, name: "New", description: null } }),
-    update: jest.fn().mockResolvedValue({ data: { id: 1, name: "Updated", description: null } }),
+    create: jest
+        .fn()
+        .mockResolvedValue({
+            data: { id: 99, name: "New", description: null },
+        }),
+    update: jest
+        .fn()
+        .mockResolvedValue({
+            data: { id: 1, name: "Updated", description: null },
+        }),
     delete: jest.fn().mockResolvedValue(undefined),
 });
 
@@ -72,7 +80,9 @@ const buildMockApi = (items: SampleItem[] = SAMPLE_ITEMS) => ({
 // Helpers
 // ---------------------------------------------------------------------------
 
-function renderManager(overrides: Partial<Parameters<typeof TaxonomyManager>[0]> = {}) {
+function renderManager(
+    overrides: Partial<Parameters<typeof TaxonomyManager>[0]> = {},
+) {
     const api = buildMockApi();
     const utils = render(
         <TaxonomyManager
@@ -118,7 +128,13 @@ describe("TaxonomyManager", () => {
         it("should show a loading indicator while fetching", async () => {
             const api = buildMockApi();
             api.getAll = jest.fn(
-                () => new Promise((resolve) => setTimeout(() => resolve(makePaginatedResponse(SAMPLE_ITEMS)), 100)),
+                () =>
+                    new Promise((resolve) =>
+                        setTimeout(
+                            () => resolve(makePaginatedResponse(SAMPLE_ITEMS)),
+                            100,
+                        ),
+                    ),
             );
             render(
                 <TaxonomyManager
@@ -129,19 +145,29 @@ describe("TaxonomyManager", () => {
                 />,
             );
             expect(screen.getByTestId("taxonomy-loading")).toBeInTheDocument();
-            await waitFor(() => expect(screen.queryByTestId("taxonomy-loading")).not.toBeInTheDocument());
+            await waitFor(() =>
+                expect(
+                    screen.queryByTestId("taxonomy-loading"),
+                ).not.toBeInTheDocument(),
+            );
         });
 
         it("should render 'Add' button", async () => {
             renderManager();
-            expect(screen.getByRole("button", { name: /add/i })).toBeInTheDocument();
+            expect(
+                screen.getByRole("button", { name: /add/i }),
+            ).toBeInTheDocument();
         });
 
         it("should render Edit and Delete buttons per row", async () => {
             renderManager();
             await waitFor(() => {
-                const editButtons = screen.getAllByRole("button", { name: /edit/i });
-                const deleteButtons = screen.getAllByRole("button", { name: /delete/i });
+                const editButtons = screen.getAllByRole("button", {
+                    name: /edit/i,
+                });
+                const deleteButtons = screen.getAllByRole("button", {
+                    name: /delete/i,
+                });
                 expect(editButtons).toHaveLength(SAMPLE_ITEMS.length);
                 expect(deleteButtons).toHaveLength(SAMPLE_ITEMS.length);
             });
@@ -194,7 +220,9 @@ describe("TaxonomyManager", () => {
     describe("Edit", () => {
         it("should open modal with existing data when Edit is clicked", async () => {
             renderManager();
-            const editButtons = await screen.findAllByRole("button", { name: /edit/i });
+            const editButtons = await screen.findAllByRole("button", {
+                name: /edit/i,
+            });
             fireEvent.click(editButtons[0]);
 
             expect(screen.getByRole("dialog")).toBeInTheDocument();
@@ -205,7 +233,9 @@ describe("TaxonomyManager", () => {
 
         it("should call api.update with id and edited values on submit", async () => {
             const { api } = renderManager();
-            const editButtons = await screen.findAllByRole("button", { name: /edit/i });
+            const editButtons = await screen.findAllByRole("button", {
+                name: /edit/i,
+            });
             fireEvent.click(editButtons[0]);
 
             const nameInput = screen.getByLabelText(/name/i);
@@ -226,7 +256,9 @@ describe("TaxonomyManager", () => {
     describe("Delete", () => {
         it("should call api.delete with item id when Delete is clicked", async () => {
             const { api } = renderManager();
-            const deleteButtons = await screen.findAllByRole("button", { name: /delete/i });
+            const deleteButtons = await screen.findAllByRole("button", {
+                name: /delete/i,
+            });
             fireEvent.click(deleteButtons[0]);
 
             await waitFor(() => {
@@ -238,10 +270,14 @@ describe("TaxonomyManager", () => {
             const { api } = renderManager();
 
             // Wait for initial load to complete
-            const deleteButtons = await screen.findAllByRole("button", { name: /delete/i });
+            const deleteButtons = await screen.findAllByRole("button", {
+                name: /delete/i,
+            });
 
             // Override next getAll call to return only the second item
-            api.getAll.mockResolvedValueOnce(makePaginatedResponse([SAMPLE_ITEMS[1]]));
+            api.getAll.mockResolvedValueOnce(
+                makePaginatedResponse([SAMPLE_ITEMS[1]]),
+            );
 
             fireEvent.click(deleteButtons[0]);
 

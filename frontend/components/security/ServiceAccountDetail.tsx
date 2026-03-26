@@ -20,13 +20,19 @@ interface ServiceAccountDetailProps {
     tokensCount?: number;
 }
 
-export function ServiceAccountDetail({ account, tokensCount }: ServiceAccountDetailProps) {
+export function ServiceAccountDetail({
+    account,
+    tokensCount,
+}: ServiceAccountDetailProps) {
     const initial = account.name.charAt(0).toUpperCase();
-    const createdDate = new Date(account.created_at).toLocaleDateString("es-ES", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
+    const createdDate = new Date(account.created_at).toLocaleDateString(
+        "es-ES",
+        {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        },
+    );
 
     return (
         <div className="rounded-lg border border-gray-200 bg-white p-6">
@@ -73,7 +79,9 @@ export function ServiceAccountDetail({ account, tokensCount }: ServiceAccountDet
                     <dt className="text-gray-500 w-24">Namespace</dt>
                     <dd className="font-medium text-gray-900">
                         {account.namespace ?? (
-                            <span className="text-gray-400 italic">Sin namespace</span>
+                            <span className="text-gray-400 italic">
+                                Sin namespace
+                            </span>
                         )}
                     </dd>
                 </div>

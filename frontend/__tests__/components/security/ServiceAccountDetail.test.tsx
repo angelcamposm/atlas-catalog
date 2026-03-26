@@ -24,24 +24,38 @@ const createMockAccount = (
 describe("ServiceAccountDetail", () => {
     describe("Rendering", () => {
         it("should render the account name", () => {
-            render(<ServiceAccountDetail account={createMockAccount({ name: "ci-runner" })} />);
+            render(
+                <ServiceAccountDetail
+                    account={createMockAccount({ name: "ci-runner" })}
+                />,
+            );
             expect(screen.getByText("ci-runner")).toBeInTheDocument();
         });
 
         it("should display the namespace", () => {
-            render(<ServiceAccountDetail account={createMockAccount({ namespace: "staging" })} />);
+            render(
+                <ServiceAccountDetail
+                    account={createMockAccount({ namespace: "staging" })}
+                />,
+            );
             expect(screen.getByText("staging")).toBeInTheDocument();
         });
 
         it("should show 'Sin namespace' when namespace is null", () => {
             render(
-                <ServiceAccountDetail account={createMockAccount({ namespace: null })} />,
+                <ServiceAccountDetail
+                    account={createMockAccount({ namespace: null })}
+                />,
             );
             expect(screen.getByText("Sin namespace")).toBeInTheDocument();
         });
 
         it("should display the account ID", () => {
-            render(<ServiceAccountDetail account={createMockAccount({ id: 42 })} />);
+            render(
+                <ServiceAccountDetail
+                    account={createMockAccount({ id: 42 })}
+                />,
+            );
             expect(screen.getByText("42")).toBeInTheDocument();
         });
 
@@ -52,7 +66,10 @@ describe("ServiceAccountDetail", () => {
 
         it("should display the tokens count badge when provided", () => {
             render(
-                <ServiceAccountDetail account={createMockAccount()} tokensCount={5} />,
+                <ServiceAccountDetail
+                    account={createMockAccount()}
+                    tokensCount={5}
+                />,
             );
             expect(screen.getByText("5")).toBeInTheDocument();
         });

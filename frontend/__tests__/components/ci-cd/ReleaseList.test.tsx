@@ -52,15 +52,11 @@ describe("ReleaseList", () => {
         it("should render empty state when no releases", () => {
             render(<ReleaseList releases={[]} />);
 
-            expect(
-                screen.getByText("No releases found")
-            ).toBeInTheDocument();
+            expect(screen.getByText("No releases found")).toBeInTheDocument();
         });
 
         it("should show released_at date", () => {
-            const releases = [
-                createMockRelease({ released_at: "2024-03-15" }),
-            ];
+            const releases = [createMockRelease({ released_at: "2024-03-15" })];
             render(<ReleaseList releases={releases} />);
 
             expect(screen.getByText(/2024-03-15/)).toBeInTheDocument();
@@ -106,7 +102,7 @@ describe("ReleaseList", () => {
             render(<ReleaseList releases={releases} />);
 
             expect(
-                screen.queryByRole("button", { name: /view/i })
+                screen.queryByRole("button", { name: /view/i }),
             ).not.toBeInTheDocument();
         });
     });

@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import type { AuthenticationMethod, CreateAuthenticationMethodRequest } from "@/types/api";
+import type {
+    AuthenticationMethod,
+    CreateAuthenticationMethodRequest,
+} from "@/types/api";
 
 /**
  * Formulario para crear o editar un método de autenticación.
@@ -22,7 +25,11 @@ interface AuthMethodFormProps {
     onCancel: () => void;
 }
 
-export function AuthMethodForm({ method, onSave, onCancel }: AuthMethodFormProps) {
+export function AuthMethodForm({
+    method,
+    onSave,
+    onCancel,
+}: AuthMethodFormProps) {
     const [name, setName] = useState(method?.name ?? "");
     const [description, setDescription] = useState(method?.description ?? "");
     const [nameError, setNameError] = useState("");
@@ -35,7 +42,10 @@ export function AuthMethodForm({ method, onSave, onCancel }: AuthMethodFormProps
             setNameError("El nombre es requerido");
             return;
         }
-        onSave({ name: name.trim(), description: description.trim() || undefined });
+        onSave({
+            name: name.trim(),
+            description: description.trim() || undefined,
+        });
     }
 
     return (

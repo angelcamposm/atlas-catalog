@@ -1,6 +1,10 @@
 "use client";
 
-import { HiOutlineShieldCheck, HiOutlinePencilSquare, HiOutlineTrash } from "react-icons/hi2";
+import {
+    HiOutlineShieldCheck,
+    HiOutlinePencilSquare,
+    HiOutlineTrash,
+} from "react-icons/hi2";
 import type { AuthenticationMethod } from "@/types/api";
 
 /**
@@ -22,12 +26,21 @@ interface AuthMethodListProps {
     onDelete?: (id: number) => void;
 }
 
-export function AuthMethodList({ methods, onEdit, onDelete }: AuthMethodListProps) {
+export function AuthMethodList({
+    methods,
+    onEdit,
+    onDelete,
+}: AuthMethodListProps) {
     if (methods.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-12 text-gray-500">
-                <HiOutlineShieldCheck data-testid="icon-shield" className="w-12 h-12 mb-3 text-gray-300" />
-                <p className="text-sm">No hay métodos de autenticación registrados</p>
+                <HiOutlineShieldCheck
+                    data-testid="icon-shield"
+                    className="w-12 h-12 mb-3 text-gray-300"
+                />
+                <p className="text-sm">
+                    No hay métodos de autenticación registrados
+                </p>
             </div>
         );
     }
@@ -54,7 +67,9 @@ export function AuthMethodList({ methods, onEdit, onDelete }: AuthMethodListProp
                 <tbody className="bg-white divide-y divide-gray-200">
                     {methods.map((method) => (
                         <tr key={method.id} className="hover:bg-gray-50">
-                            <td className="px-4 py-3 text-sm text-gray-500">{method.id}</td>
+                            <td className="px-4 py-3 text-sm text-gray-500">
+                                {method.id}
+                            </td>
                             <td className="px-4 py-3 text-sm font-medium text-gray-900">
                                 {method.name}
                             </td>
@@ -68,14 +83,20 @@ export function AuthMethodList({ methods, onEdit, onDelete }: AuthMethodListProp
                                         className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
                                         title="Editar"
                                     >
-                                        <HiOutlinePencilSquare data-testid="icon-edit" className="w-4 h-4" />
+                                        <HiOutlinePencilSquare
+                                            data-testid="icon-edit"
+                                            className="w-4 h-4"
+                                        />
                                     </button>
                                     <button
                                         onClick={() => onDelete?.(method.id)}
                                         className="p-1 text-gray-400 hover:text-red-600 transition-colors"
                                         title="Eliminar"
                                     >
-                                        <HiOutlineTrash data-testid="icon-trash" className="w-4 h-4" />
+                                        <HiOutlineTrash
+                                            data-testid="icon-trash"
+                                            className="w-4 h-4"
+                                        />
                                     </button>
                                 </div>
                             </td>

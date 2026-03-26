@@ -75,7 +75,9 @@ export function UserList({ users, onViewDetail }: UserListProps) {
                             <td className="px-4 py-3">
                                 <Badge
                                     variant={
-                                        user.is_enabled ? "success" : "secondary"
+                                        user.is_enabled
+                                            ? "success"
+                                            : "secondary"
                                     }
                                 >
                                     {user.is_enabled ? "Active" : "Inactive"}

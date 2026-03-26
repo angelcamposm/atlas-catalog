@@ -85,7 +85,10 @@ describe("WorkflowRunDetail", () => {
                     run={createMockRun()}
                     jobs={[]}
                     commits={[
-                        createMockCommit({ sha: "abc1234", message: "fix: resolve deployment issue" }),
+                        createMockCommit({
+                            sha: "abc1234",
+                            message: "fix: resolve deployment issue",
+                        }),
                     ]}
                 />,
             );

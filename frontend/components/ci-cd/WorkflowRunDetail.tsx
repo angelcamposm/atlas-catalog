@@ -63,9 +63,7 @@ export function WorkflowRunDetail({
                             Started
                         </dt>
                         <dd className="mt-1 text-sm text-gray-900">
-                            {run.started_at
-                                ? run.started_at.slice(0, 10)
-                                : "—"}
+                            {run.started_at ? run.started_at.slice(0, 10) : "—"}
                         </dd>
                     </div>
                     <div>
@@ -83,9 +81,7 @@ export function WorkflowRunDetail({
 
             {/* Jobs */}
             <div className="bg-white shadow rounded-lg p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
-                    Jobs
-                </h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-4">Jobs</h3>
                 {jobs.length === 0 ? (
                     <p className="text-gray-500 text-sm">No jobs found</p>
                 ) : (

@@ -36,7 +36,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
     useEffect(() => {
         localStorage.setItem(
             "sidebarCollapsed",
-            JSON.stringify(isSidebarCollapsed)
+            JSON.stringify(isSidebarCollapsed),
         );
     }, [isSidebarCollapsed]);
 

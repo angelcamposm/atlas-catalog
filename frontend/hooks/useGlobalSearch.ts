@@ -62,9 +62,9 @@ export function useGlobalSearch(
             try {
                 const searchParam = apiClient.buildQuery({ search: query });
                 const [apisRes, clustersRes] = await Promise.allSettled([
-                    apiClient.get(
-                        `/v1/catalog/apis${searchParam}`,
-                    ) as Promise<{ data: ApiEntry[] }>,
+                    apiClient.get(`/v1/catalog/apis${searchParam}`) as Promise<{
+                        data: ApiEntry[];
+                    }>,
                     apiClient.get(
                         `/v1/infrastructure/clusters${searchParam}`,
                     ) as Promise<{ data: ClusterEntry[] }>,

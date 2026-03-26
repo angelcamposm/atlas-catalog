@@ -30,9 +30,7 @@ function StatusIcon({ status }: { status: string | null }) {
         return (
             <HiOutlinePlay className="w-4 h-4 text-blue-500 flex-shrink-0" />
         );
-    return (
-        <HiOutlineClock className="w-4 h-4 text-gray-400 flex-shrink-0" />
-    );
+    return <HiOutlineClock className="w-4 h-4 text-gray-400 flex-shrink-0" />;
 }
 
 export function RecentRunsWidget({ runs }: RecentRunsWidgetProps) {

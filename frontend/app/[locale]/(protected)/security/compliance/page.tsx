@@ -45,11 +45,13 @@ export default function CompliancePage() {
     const [error, setError] = useState<string | null>(null);
 
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [editingStandard, setEditingStandard] = useState<ComplianceStandard | null>(null);
+    const [editingStandard, setEditingStandard] =
+        useState<ComplianceStandard | null>(null);
     const [saving, setSaving] = useState(false);
 
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [deletingStandard, setDeletingStandard] = useState<ComplianceStandard | null>(null);
+    const [deletingStandard, setDeletingStandard] =
+        useState<ComplianceStandard | null>(null);
     const [deleting, setDeleting] = useState(false);
 
     const [formData, setFormData] = useState({
@@ -70,7 +72,9 @@ export default function CompliancePage() {
             setStandards(response.data);
         } catch (err) {
             setError(
-                err instanceof Error ? err.message : "Error loading compliance standards",
+                err instanceof Error
+                    ? err.message
+                    : "Error loading compliance standards",
             );
             console.error("Error loading compliance standards:", err);
         } finally {
@@ -119,7 +123,9 @@ export default function CompliancePage() {
         try {
             setSaving(true);
             setError(null);
-            const data: CreateComplianceStandardRequest | UpdateComplianceStandardRequest = {
+            const data:
+                | CreateComplianceStandardRequest
+                | UpdateComplianceStandardRequest = {
                 name: formData.name,
                 display_name: formData.display_name || undefined,
                 description: formData.description || undefined,
@@ -134,7 +140,9 @@ export default function CompliancePage() {
                     data as UpdateComplianceStandardRequest,
                 );
                 setStandards((prev) =>
-                    prev.map((s) => (s.id === editingStandard.id ? response.data : s)),
+                    prev.map((s) =>
+                        s.id === editingStandard.id ? response.data : s,
+                    ),
                 );
             } else {
                 const response = await complianceStandardsApi.create(
@@ -144,7 +152,9 @@ export default function CompliancePage() {
             }
             setDialogOpen(false);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving standard");
+            setError(
+                err instanceof Error ? err.message : "Error saving standard",
+            );
             console.error("Error saving compliance standard:", err);
         } finally {
             setSaving(false);
@@ -156,11 +166,15 @@ export default function CompliancePage() {
         try {
             setDeleting(true);
             await complianceStandardsApi.delete(deletingStandard.id);
-            setStandards((prev) => prev.filter((s) => s.id !== deletingStandard.id));
+            setStandards((prev) =>
+                prev.filter((s) => s.id !== deletingStandard.id),
+            );
             setDeleteDialogOpen(false);
             setDeletingStandard(null);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error deleting standard");
+            setError(
+                err instanceof Error ? err.message : "Error deleting standard",
+            );
             console.error("Error deleting compliance standard:", err);
         } finally {
             setDeleting(false);
@@ -198,7 +212,9 @@ export default function CompliancePage() {
             ) : (
                 <ComplianceStandardList
                     standards={standards}
-                    onView={(id) => router.push(`/${locale}/security/compliance/${id}`)}
+                    onView={(id) =>
+                        router.push(`/${locale}/security/compliance/${id}`)
+                    }
                     onEdit={openEditDialog}
                     onDelete={(id) => {
                         const standard = standards.find((s) => s.id === id);
@@ -212,7 +228,9 @@ export default function CompliancePage() {
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>
-                            {editingStandard ? "Editar Estándar" : "Nuevo Estándar"}
+                            {editingStandard
+                                ? "Editar Estándar"
+                                : "Nuevo Estándar"}
                         </DialogTitle>
                         <DialogDescription>
                             {editingStandard
@@ -228,18 +246,26 @@ export default function CompliancePage() {
                                 id="name"
                                 value={formData.name}
                                 onChange={(e) =>
-                                    setFormData((p) => ({ ...p, name: e.target.value }))
+                                    setFormData((p) => ({
+                                        ...p,
+                                        name: e.target.value,
+                                    }))
                                 }
                                 placeholder="e.g. SOC2, GDPR"
                             />
                         </div>
                         <div className="space-y-1">
-                            <Label htmlFor="display_name">Nombre descriptivo</Label>
+                            <Label htmlFor="display_name">
+                                Nombre descriptivo
+                            </Label>
                             <Input
                                 id="display_name"
                                 value={formData.display_name}
                                 onChange={(e) =>
-                                    setFormData((p) => ({ ...p, display_name: e.target.value }))
+                                    setFormData((p) => ({
+                                        ...p,
+                                        display_name: e.target.value,
+                                    }))
                                 }
                                 placeholder="e.g. SOC 2 Type II"
                             />
@@ -250,19 +276,27 @@ export default function CompliancePage() {
                                 id="description"
                                 value={formData.description}
                                 onChange={(e) =>
-                                    setFormData((p) => ({ ...p, description: e.target.value }))
+                                    setFormData((p) => ({
+                                        ...p,
+                                        description: e.target.value,
+                                    }))
                                 }
                                 rows={3}
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1">
-                                <Label htmlFor="country_code">País/Región</Label>
+                                <Label htmlFor="country_code">
+                                    País/Región
+                                </Label>
                                 <Input
                                     id="country_code"
                                     value={formData.country_code}
                                     onChange={(e) =>
-                                        setFormData((p) => ({ ...p, country_code: e.target.value }))
+                                        setFormData((p) => ({
+                                            ...p,
+                                            country_code: e.target.value,
+                                        }))
                                     }
                                     placeholder="e.g. US, EU"
                                 />
@@ -273,7 +307,10 @@ export default function CompliancePage() {
                                     id="focus_area"
                                     value={formData.focus_area}
                                     onChange={(e) =>
-                                        setFormData((p) => ({ ...p, focus_area: e.target.value }))
+                                        setFormData((p) => ({
+                                            ...p,
+                                            focus_area: e.target.value,
+                                        }))
                                     }
                                     placeholder="e.g. Security"
                                 />
@@ -285,7 +322,10 @@ export default function CompliancePage() {
                                 id="industry"
                                 value={formData.industry}
                                 onChange={(e) =>
-                                    setFormData((p) => ({ ...p, industry: e.target.value }))
+                                    setFormData((p) => ({
+                                        ...p,
+                                        industry: e.target.value,
+                                    }))
                                 }
                                 placeholder="e.g. Finance"
                             />
@@ -296,7 +336,10 @@ export default function CompliancePage() {
                                 id="url"
                                 value={formData.url}
                                 onChange={(e) =>
-                                    setFormData((p) => ({ ...p, url: e.target.value }))
+                                    setFormData((p) => ({
+                                        ...p,
+                                        url: e.target.value,
+                                    }))
                                 }
                                 placeholder="https://..."
                             />
@@ -304,29 +347,46 @@ export default function CompliancePage() {
                     </div>
 
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setDialogOpen(false)}>
+                        <Button
+                            variant="outline"
+                            onClick={() => setDialogOpen(false)}
+                        >
                             Cancelar
                         </Button>
-                        <Button onClick={handleSubmit} disabled={!formData.name.trim() || saving}>
-                            {saving ? "Guardando..." : editingStandard ? "Guardar" : "Crear"}
+                        <Button
+                            onClick={handleSubmit}
+                            disabled={!formData.name.trim() || saving}
+                        >
+                            {saving
+                                ? "Guardando..."
+                                : editingStandard
+                                  ? "Guardar"
+                                  : "Crear"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* Delete Confirmation */}
-            <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+            <AlertDialog
+                open={deleteDialogOpen}
+                onOpenChange={setDeleteDialogOpen}
+            >
                 <AlertDialogContent>
                     <AlertDialogHeader>
                         <AlertDialogTitle>¿Eliminar estándar?</AlertDialogTitle>
                         <AlertDialogDescription>
                             Esta acción eliminará permanentemente el estándar{" "}
-                            <strong>{deletingStandard?.name}</strong> y todos sus requerimientos.
+                            <strong>{deletingStandard?.name}</strong> y todos
+                            sus requerimientos.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleDelete} disabled={deleting}>
+                        <AlertDialogAction
+                            onClick={handleDelete}
+                            disabled={deleting}
+                        >
                             {deleting ? "Eliminando..." : "Eliminar"}
                         </AlertDialogAction>
                     </AlertDialogFooter>

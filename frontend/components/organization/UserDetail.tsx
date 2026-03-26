@@ -40,7 +40,9 @@ export function UserDetail({ user }: UserDetailProps) {
                     <h2 className="text-xl font-semibold">
                         {user.name ?? "Unknown"}
                     </h2>
-                    <p className="text-sm text-muted-foreground">{user.email}</p>
+                    <p className="text-sm text-muted-foreground">
+                        {user.email}
+                    </p>
                 </div>
             </div>
 

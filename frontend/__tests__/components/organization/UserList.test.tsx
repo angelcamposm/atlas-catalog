@@ -29,7 +29,11 @@ describe("UserList", () => {
         it("should render a list of users", () => {
             const users = [
                 createMockUser({ id: 1, name: "John Doe" }),
-                createMockUser({ id: 2, name: "Jane Smith", email: "jane@example.com" }),
+                createMockUser({
+                    id: 2,
+                    name: "Jane Smith",
+                    email: "jane@example.com",
+                }),
             ];
 
             render(<UserList users={users} />);

@@ -39,7 +39,9 @@ describe("TokenList", () => {
         });
 
         it("should display the expiration date of each token", () => {
-            const tokens = [createMockToken({ expires_at: "2025-06-30T00:00:00Z" })];
+            const tokens = [
+                createMockToken({ expires_at: "2025-06-30T00:00:00Z" }),
+            ];
             render(<TokenList tokens={tokens} />);
             // Just test that the date string appears in some form
             expect(screen.getByText(/2025/)).toBeInTheDocument();
@@ -53,12 +55,16 @@ describe("TokenList", () => {
 
         it("should show empty state when no tokens exist", () => {
             render(<TokenList tokens={[]} />);
-            expect(screen.getByText("No hay tokens generados")).toBeInTheDocument();
+            expect(
+                screen.getByText("No hay tokens generados"),
+            ).toBeInTheDocument();
         });
 
         it("should render a generate token button", () => {
             render(<TokenList tokens={[]} />);
-            expect(screen.getByRole("button", { name: /generar token/i })).toBeInTheDocument();
+            expect(
+                screen.getByRole("button", { name: /generar token/i }),
+            ).toBeInTheDocument();
         });
 
         it("should render delete button for each token", () => {
@@ -75,7 +81,9 @@ describe("TokenList", () => {
         it("should call onGenerate when generate token button is clicked", () => {
             const onGenerate = jest.fn();
             render(<TokenList tokens={[]} onGenerate={onGenerate} />);
-            fireEvent.click(screen.getByRole("button", { name: /generar token/i }));
+            fireEvent.click(
+                screen.getByRole("button", { name: /generar token/i }),
+            );
             expect(onGenerate).toHaveBeenCalledTimes(1);
         });
 
@@ -83,7 +91,9 @@ describe("TokenList", () => {
             const onDelete = jest.fn();
             const token = createMockToken({ id: 5 });
             render(<TokenList tokens={[token]} onDelete={onDelete} />);
-            fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+            fireEvent.click(
+                screen.getByTestId("icon-trash").closest("button")!,
+            );
             expect(onDelete).toHaveBeenCalledWith(5);
         });
 
@@ -91,7 +101,9 @@ describe("TokenList", () => {
             const tokens = [createMockToken()];
             expect(() => {
                 render(<TokenList tokens={tokens} />);
-                fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+                fireEvent.click(
+                    screen.getByTestId("icon-trash").closest("button")!,
+                );
             }).not.toThrow();
         });
     });

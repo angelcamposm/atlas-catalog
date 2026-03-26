@@ -27,12 +27,17 @@ export function TokenList({ tokens, onGenerate, onDelete }: TokenListProps) {
         <div className="space-y-4">
             {/* Header with generate button */}
             <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-gray-700">Tokens de acceso</h3>
+                <h3 className="text-sm font-medium text-gray-700">
+                    Tokens de acceso
+                </h3>
                 <button
                     onClick={() => onGenerate?.()}
                     className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
                 >
-                    <HiOutlinePlus data-testid="icon-plus" className="w-4 h-4" />
+                    <HiOutlinePlus
+                        data-testid="icon-plus"
+                        className="w-4 h-4"
+                    />
                     Generar token
                 </button>
             </div>
@@ -74,7 +79,9 @@ export function TokenList({ tokens, onGenerate, onDelete }: TokenListProps) {
                                         {token.token}
                                     </td>
                                     <td className="px-4 py-3 text-sm text-gray-500">
-                                        {new Date(token.expires_at).toLocaleDateString("es-ES")}
+                                        {new Date(
+                                            token.expires_at,
+                                        ).toLocaleDateString("es-ES")}
                                     </td>
                                     <td className="px-4 py-3 text-right">
                                         <button

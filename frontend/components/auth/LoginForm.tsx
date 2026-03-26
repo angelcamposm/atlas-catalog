@@ -18,6 +18,9 @@ interface LoginFormProps {
     locale: string;
 }
 
+const DEV_CREDENTIALS = { email: "admin@example.com", password: "password" };
+const isDev = process.env.NODE_ENV === "development";
+
 export function LoginForm({ locale }: LoginFormProps) {
     const router = useRouter();
     const t = useTranslations("common");
@@ -27,6 +30,11 @@ export function LoginForm({ locale }: LoginFormProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+
+    const fillDevCredentials = () => {
+        setEmail(DEV_CREDENTIALS.email);
+        setPassword(DEV_CREDENTIALS.password);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -142,6 +150,17 @@ export function LoginForm({ locale }: LoginFormProps) {
                         </a>
                     </div>
 
+                    {/* Dev Autofill */}
+                    {isDev && (
+                        <button
+                            type="button"
+                            onClick={fillDevCredentials}
+                            className="w-full text-xs py-2 px-3 rounded-md border border-dashed border-amber-400 text-amber-600 dark:text-amber-400 dark:border-amber-500 bg-amber-50 dark:bg-amber-900/20 hover:bg-amber-100 dark:hover:bg-amber-900/40 transition-colors font-mono"
+                        >
+                            ⚡ Dev: rellenar con admin@example.com
+                        </button>
+                    )}
+
                     {/* Submit Button */}
                     <Button
                         type="submit"
@@ -216,12 +235,9 @@ export function LoginForm({ locale }: LoginFormProps) {
                     {/* Sign Up Link */}
                     <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
                         Don&apos;t have an account?{" "}
-                        <a
-                            href="#"
-                            className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
-                        >
+                        <span className="text-gray-400 dark:text-gray-600 font-medium cursor-not-allowed" title="Registration not available yet">
                             Sign up
-                        </a>
+                        </span>
                     </p>
                 </form>
             </CardContent>

@@ -1,6 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { AuthMethodForm } from "@/components/security/AuthMethodForm";
-import type { AuthenticationMethod, CreateAuthenticationMethodRequest } from "@/types/api";
+import type {
+    AuthenticationMethod,
+    CreateAuthenticationMethodRequest,
+} from "@/types/api";
 
 const createMockMethod = (
     overrides: Partial<AuthenticationMethod> = {},
@@ -32,37 +35,63 @@ describe("AuthMethodForm", () => {
 
         it("should render the description textarea empty in create mode", () => {
             render(<AuthMethodForm onSave={onSave} onCancel={onCancel} />);
-            const textarea = screen.getByLabelText(/descripción/i) as HTMLTextAreaElement;
+            const textarea = screen.getByLabelText(
+                /descripción/i,
+            ) as HTMLTextAreaElement;
             expect(textarea.value).toBe("");
         });
 
         it("should show 'Crear' submit button in create mode", () => {
             render(<AuthMethodForm onSave={onSave} onCancel={onCancel} />);
-            expect(screen.getByRole("button", { name: /crear/i })).toBeInTheDocument();
+            expect(
+                screen.getByRole("button", { name: /crear/i }),
+            ).toBeInTheDocument();
         });
     });
 
     describe("Rendering — edit mode", () => {
         it("should pre-fill name when editing an existing method", () => {
             const method = createMockMethod({ name: "SAML 2.0" });
-            render(<AuthMethodForm method={method} onSave={onSave} onCancel={onCancel} />);
+            render(
+                <AuthMethodForm
+                    method={method}
+                    onSave={onSave}
+                    onCancel={onCancel}
+                />,
+            );
             const input = screen.getByLabelText(/nombre/i) as HTMLInputElement;
             expect(input.value).toBe("SAML 2.0");
         });
 
         it("should pre-fill description when editing", () => {
-            const method = createMockMethod({ description: "Security Assertion Markup Language" });
+            const method = createMockMethod({
+                description: "Security Assertion Markup Language",
+            });
             render(
-                <AuthMethodForm method={method} onSave={onSave} onCancel={onCancel} />,
+                <AuthMethodForm
+                    method={method}
+                    onSave={onSave}
+                    onCancel={onCancel}
+                />,
             );
-            const textarea = screen.getByLabelText(/descripción/i) as HTMLTextAreaElement;
+            const textarea = screen.getByLabelText(
+                /descripción/i,
+            ) as HTMLTextAreaElement;
             expect(textarea.value).toBe("Security Assertion Markup Language");
         });
 
         it("should show 'Actualizar' submit button in edit mode", () => {
             const method = createMockMethod();
-            render(<AuthMethodForm method={method} onSave={onSave} onCancel={onCancel} />);
-            expect(screen.getByRole("button", { name: /actualizar/i })).toBeInTheDocument();
+            render(
+                <AuthMethodForm
+                    method={method}
+                    onSave={onSave}
+                    onCancel={onCancel}
+                />,
+            );
+            expect(
+                screen.getByRole("button", { name: /actualizar/i }),
+            ).toBeInTheDocument();
         });
     });
 

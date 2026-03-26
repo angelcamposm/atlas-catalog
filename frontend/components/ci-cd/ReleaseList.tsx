@@ -1,9 +1,5 @@
 import type { CiRelease } from "@/types/api";
-import {
-    HiOutlineEye,
-    HiOutlinePencil,
-    HiOutlineTrash,
-} from "react-icons/hi2";
+import { HiOutlineEye, HiOutlinePencil, HiOutlineTrash } from "react-icons/hi2";
 
 interface ReleaseListProps {
     releases: CiRelease[];
@@ -92,9 +88,7 @@ export function ReleaseList({
                                     {onDelete && (
                                         <button
                                             aria-label="Delete"
-                                            onClick={() =>
-                                                onDelete(release.id)
-                                            }
+                                            onClick={() => onDelete(release.id)}
                                             className="text-red-600 hover:text-red-900"
                                         >
                                             <HiOutlineTrash className="h-4 w-4 inline" />

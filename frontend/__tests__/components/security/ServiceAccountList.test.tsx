@@ -95,8 +95,12 @@ describe("ServiceAccountList", () => {
         it("should call onDelete with the account id when delete button is clicked", () => {
             const onDelete = jest.fn();
             const account = createMockAccount({ id: 9 });
-            render(<ServiceAccountList accounts={[account]} onDelete={onDelete} />);
-            fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+            render(
+                <ServiceAccountList accounts={[account]} onDelete={onDelete} />,
+            );
+            fireEvent.click(
+                screen.getByTestId("icon-trash").closest("button")!,
+            );
             expect(onDelete).toHaveBeenCalledWith(9);
         });
 
@@ -104,9 +108,15 @@ describe("ServiceAccountList", () => {
             const accounts = [createMockAccount()];
             expect(() => {
                 render(<ServiceAccountList accounts={accounts} />);
-                fireEvent.click(screen.getByTestId("icon-view").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
-                fireEvent.click(screen.getByTestId("icon-trash").closest("button")!);
+                fireEvent.click(
+                    screen.getByTestId("icon-view").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-edit").closest("button")!,
+                );
+                fireEvent.click(
+                    screen.getByTestId("icon-trash").closest("button")!,
+                );
             }).not.toThrow();
         });
     });

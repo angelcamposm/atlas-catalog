@@ -13,7 +13,11 @@ jest.mock("react-icons/hi2", () => ({
 
 // Stub RequirementTable to avoid pulling in its icon mocks
 jest.mock("@/components/compliance/RequirementTable", () => ({
-    RequirementTable: ({ requirements }: { requirements: ComplianceRequirement[] }) => (
+    RequirementTable: ({
+        requirements,
+    }: {
+        requirements: ComplianceRequirement[];
+    }) => (
         <div data-testid="requirement-table">
             <span data-testid="requirement-count">{requirements.length}</span>
         </div>
@@ -71,7 +75,9 @@ describe("ComplianceStandardDetail", () => {
         it("should display the display_name when available", () => {
             render(
                 <ComplianceStandardDetail
-                    standard={createMockStandard({ display_name: "ISO/IEC 27001" })}
+                    standard={createMockStandard({
+                        display_name: "ISO/IEC 27001",
+                    })}
                     requirements={[]}
                 />,
             );
@@ -81,7 +87,9 @@ describe("ComplianceStandardDetail", () => {
         it("should display the description", () => {
             render(
                 <ComplianceStandardDetail
-                    standard={createMockStandard({ description: "Security standard" })}
+                    standard={createMockStandard({
+                        description: "Security standard",
+                    })}
                     requirements={[]}
                 />,
             );
@@ -120,11 +128,16 @@ describe("ComplianceStandardDetail", () => {
                 />,
             );
             expect(screen.getByTestId("requirement-table")).toBeInTheDocument();
-            expect(screen.getByTestId("requirement-count")).toHaveTextContent("2");
+            expect(screen.getByTestId("requirement-count")).toHaveTextContent(
+                "2",
+            );
         });
 
         it("should display requirements count badge", () => {
-            const requirements = [createMockRequirement(), createMockRequirement({ id: 2 })];
+            const requirements = [
+                createMockRequirement(),
+                createMockRequirement({ id: 2 }),
+            ];
             render(
                 <ComplianceStandardDetail
                     standard={createMockStandard()}

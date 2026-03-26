@@ -69,9 +69,7 @@ describe("MetricDetail", () => {
             const onEdit = jest.fn();
             const metric = createMockMetric({ id: 1 });
             render(<MetricDetail metric={metric} onEdit={onEdit} />);
-            fireEvent.click(
-                screen.getByTestId("icon-edit").closest("button")!,
-            );
+            fireEvent.click(screen.getByTestId("icon-edit").closest("button")!);
             expect(onEdit).toHaveBeenCalledWith(1);
         });
 

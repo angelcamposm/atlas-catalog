@@ -126,7 +126,10 @@ export default function ServiceAccountDetailPage({
             </div>
 
             {/* Service Account Detail */}
-            <ServiceAccountDetail account={account} tokensCount={tokens.length} />
+            <ServiceAccountDetail
+                account={account}
+                tokensCount={tokens.length}
+            />
 
             {/* Tokens Section */}
             <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">

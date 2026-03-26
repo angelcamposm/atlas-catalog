@@ -100,7 +100,9 @@ export default function MetricsPage() {
             value: String(metric.value),
             unit: metric.unit ?? "",
             metric_definition_id: String(metric.metric_definition_id),
-            component_id: metric.component_id ? String(metric.component_id) : "",
+            component_id: metric.component_id
+                ? String(metric.component_id)
+                : "",
         });
         setDialogOpen(true);
     };
@@ -155,7 +157,9 @@ export default function MetricsPage() {
             }
             setDialogOpen(false);
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Error saving metric");
+            setError(
+                err instanceof Error ? err.message : "Error saving metric",
+            );
             console.error("Error saving metric:", err);
         } finally {
             setSaving(false);
@@ -167,7 +171,9 @@ export default function MetricsPage() {
         try {
             setDeleting(true);
             await metricsApi.delete(deletingMetric.id);
-            setMetrics((prev) => prev.filter((m) => m.id !== deletingMetric.id));
+            setMetrics((prev) =>
+                prev.filter((m) => m.id !== deletingMetric.id),
+            );
             setDeleteDialogOpen(false);
             setDeletingMetric(null);
         } catch (err) {
@@ -298,7 +304,8 @@ export default function MetricsPage() {
                                     onChange={(e) =>
                                         setFormData((p) => ({
                                             ...p,
-                                            metric_definition_id: e.target.value,
+                                            metric_definition_id:
+                                                e.target.value,
                                         }))
                                     }
                                     placeholder="e.g. 1"

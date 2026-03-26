@@ -11,16 +11,23 @@ import { apiClient } from "@/lib/api-client";
 jest.mock("@/lib/api-client", () => ({
     apiClient: {
         get: jest.fn(),
-        buildQuery: jest.fn().mockImplementation(
-            (params: Record<string, string | number | boolean | undefined>) => {
-                const entries = Object.entries(params).filter(
-                    ([, v]) => v !== undefined,
-                );
-                if (entries.length === 0) return "";
-                const qs = entries.map(([k, v]) => `${k}=${v}`).join("&");
-                return `?${qs}`;
-            },
-        ),
+        buildQuery: jest
+            .fn()
+            .mockImplementation(
+                (
+                    params: Record<
+                        string,
+                        string | number | boolean | undefined
+                    >,
+                ) => {
+                    const entries = Object.entries(params).filter(
+                        ([, v]) => v !== undefined,
+                    );
+                    if (entries.length === 0) return "";
+                    const qs = entries.map(([k, v]) => `${k}=${v}`).join("&");
+                    return `?${qs}`;
+                },
+            ),
     },
 }));
 
@@ -67,7 +74,9 @@ describe("useGlobalSearch", () => {
         it("should call API endpoints after debounce with search param", async () => {
             mockGet.mockResolvedValue({ data: [] });
             renderHook(() => useGlobalSearch("my-api"));
-            await act(async () => { jest.runAllTimers(); });
+            await act(async () => {
+                jest.runAllTimers();
+            });
             await waitFor(() => expect(mockGet).toHaveBeenCalled());
             const calls = mockGet.mock.calls.map((c) => c[0] as string);
             expect(calls.some((url) => url.includes("catalog/apis"))).toBe(
@@ -94,10 +103,10 @@ describe("useGlobalSearch", () => {
                 return Promise.resolve({ data: [] });
             });
 
-            const { result } = renderHook(() =>
-                useGlobalSearch("pay", "en"),
-            );
-            await act(async () => { jest.runAllTimers(); });
+            const { result } = renderHook(() => useGlobalSearch("pay", "en"));
+            await act(async () => {
+                jest.runAllTimers();
+            });
 
             await waitFor(() => result.current.results.length > 0);
             const apiResult = result.current.results.find(
@@ -122,10 +131,10 @@ describe("useGlobalSearch", () => {
                 return Promise.resolve({ data: [] });
             });
 
-            const { result } = renderHook(() =>
-                useGlobalSearch("prod", "en"),
-            );
-            await act(async () => { jest.runAllTimers(); });
+            const { result } = renderHook(() => useGlobalSearch("prod", "en"));
+            await act(async () => {
+                jest.runAllTimers();
+            });
 
             await waitFor(() => result.current.results.length > 0);
             const clusterResult = result.current.results.find(
@@ -139,7 +148,9 @@ describe("useGlobalSearch", () => {
         it("should set isLoading=false after results are fetched", async () => {
             mockGet.mockResolvedValue({ data: [] });
             const { result } = renderHook(() => useGlobalSearch("test"));
-            await act(async () => { jest.runAllTimers(); });
+            await act(async () => {
+                jest.runAllTimers();
+            });
             await waitFor(() => expect(result.current.isLoading).toBe(false));
         });
 
@@ -153,10 +164,10 @@ describe("useGlobalSearch", () => {
                 return Promise.reject(new Error("Network error"));
             });
 
-            const { result } = renderHook(() =>
-                useGlobalSearch("test"),
-            );
-            await act(async () => { jest.runAllTimers(); });
+            const { result } = renderHook(() => useGlobalSearch("test"));
+            await act(async () => {
+                jest.runAllTimers();
+            });
 
             await waitFor(() => expect(result.current.isLoading).toBe(false));
             // At least API results should be present even if clusters failed
@@ -167,13 +178,14 @@ describe("useGlobalSearch", () => {
     describe("Debouncing", () => {
         it("should debounce calls — reset on new query before 300ms", async () => {
             mockGet.mockResolvedValue({ data: [] });
-            const { rerender } = renderHook(
-                ({ q }) => useGlobalSearch(q),
-                { initialProps: { q: "ap" } },
-            );
+            const { rerender } = renderHook(({ q }) => useGlobalSearch(q), {
+                initialProps: { q: "ap" },
+            });
             // Change query before debounce fires
             rerender({ q: "api" });
-            await act(async () => { jest.runAllTimers(); });
+            await act(async () => {
+                jest.runAllTimers();
+            });
             await waitFor(() => expect(mockGet).toHaveBeenCalled());
             // Should only have called once (for "api", not "ap")
             const apisCallCount = mockGet.mock.calls.filter(

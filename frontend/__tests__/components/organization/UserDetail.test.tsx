@@ -67,7 +67,9 @@ describe("UserDetail", () => {
         });
 
         it("should render initials avatar", () => {
-            render(<UserDetail user={createMockUser({ name: "Alice Brown" })} />);
+            render(
+                <UserDetail user={createMockUser({ name: "Alice Brown" })} />,
+            );
             expect(screen.getByText("A")).toBeInTheDocument();
         });
 

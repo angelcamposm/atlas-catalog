@@ -67,7 +67,9 @@ describe("TeamDetail", () => {
 
         it("should render avatar initial from name when label is null", () => {
             render(
-                <TeamDetail team={createMockGroup({ name: "platform", label: null })} />,
+                <TeamDetail
+                    team={createMockGroup({ name: "platform", label: null })}
+                />,
             );
 
             expect(screen.getByText("P")).toBeInTheDocument();
@@ -83,9 +85,7 @@ describe("TeamDetail", () => {
 
         it("should not render description when null", () => {
             render(
-                <TeamDetail
-                    team={createMockGroup({ description: null })}
-                />,
+                <TeamDetail team={createMockGroup({ description: null })} />,
             );
 
             expect(

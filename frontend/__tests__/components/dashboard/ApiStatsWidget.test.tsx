@@ -50,7 +50,7 @@ describe("ApiStatsWidget", () => {
             render(<ApiStatsWidget />);
             expect(
                 document.querySelector(".animate-pulse") ||
-                    screen.queryByTestId("skeleton")
+                    screen.queryByTestId("skeleton"),
             ).toBeTruthy();
         });
     });
@@ -59,7 +59,14 @@ describe("ApiStatsWidget", () => {
         it("shows total API count", async () => {
             apisApi.getAll.mockResolvedValue({
                 data: [createMockApi({ id: 1 }), createMockApi({ id: 2 })],
-                meta: { total: 2, current_page: 1, last_page: 1, per_page: 100, from: 1, to: 2 },
+                meta: {
+                    total: 2,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 1,
+                    to: 2,
+                },
             });
             render(<ApiStatsWidget />);
             await waitFor(() => {
@@ -70,7 +77,14 @@ describe("ApiStatsWidget", () => {
         it("shows widget title", async () => {
             apisApi.getAll.mockResolvedValue({
                 data: [createMockApi()],
-                meta: { total: 1, current_page: 1, last_page: 1, per_page: 100, from: 1, to: 1 },
+                meta: {
+                    total: 1,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 1,
+                    to: 1,
+                },
             });
             render(<ApiStatsWidget />);
             await waitFor(() => {
@@ -81,7 +95,14 @@ describe("ApiStatsWidget", () => {
         it("handles empty data", async () => {
             apisApi.getAll.mockResolvedValue({
                 data: [],
-                meta: { total: 0, current_page: 1, last_page: 1, per_page: 100, from: 0, to: 0 },
+                meta: {
+                    total: 0,
+                    current_page: 1,
+                    last_page: 1,
+                    per_page: 100,
+                    from: 0,
+                    to: 0,
+                },
             });
             render(<ApiStatsWidget />);
             await waitFor(() => {
@@ -96,7 +117,9 @@ describe("ApiStatsWidget", () => {
             render(<ApiStatsWidget />);
             // Should not throw, just fail silently or show error
             await waitFor(() => {
-                expect(screen.queryByText(/Network error/i)).not.toBeInTheDocument();
+                expect(
+                    screen.queryByText(/Network error/i),
+                ).not.toBeInTheDocument();
             });
         });
     });

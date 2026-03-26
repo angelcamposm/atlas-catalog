@@ -234,7 +234,9 @@ export const ciServersApi = {
     /**
      * Create a new CI server
      */
-    create: async (data: CreateCiServerRequest): Promise<{ data: CiServer }> => {
+    create: async (
+        data: CreateCiServerRequest,
+    ): Promise<{ data: CiServer }> => {
         const response = await apiClient.post<unknown>(`${BASE}/servers`, data);
         return ciServerResponseSchema.parse(response);
     },
@@ -242,8 +244,14 @@ export const ciServersApi = {
     /**
      * Update an existing CI server
      */
-    update: async (id: number, data: UpdateCiServerRequest): Promise<{ data: CiServer }> => {
-        const response = await apiClient.put<unknown>(`${BASE}/servers/${id}`, data);
+    update: async (
+        id: number,
+        data: UpdateCiServerRequest,
+    ): Promise<{ data: CiServer }> => {
+        const response = await apiClient.put<unknown>(
+            `${BASE}/servers/${id}`,
+            data,
+        );
         return ciServerResponseSchema.parse(response);
     },
 
@@ -278,16 +286,27 @@ export const releasesApi = {
     /**
      * Create a new release
      */
-    create: async (data: CreateCiReleaseRequest): Promise<{ data: CiRelease }> => {
-        const response = await apiClient.post<unknown>(`${BASE}/releases`, data);
+    create: async (
+        data: CreateCiReleaseRequest,
+    ): Promise<{ data: CiRelease }> => {
+        const response = await apiClient.post<unknown>(
+            `${BASE}/releases`,
+            data,
+        );
         return ciReleaseResponseSchema.parse(response);
     },
 
     /**
      * Update an existing release
      */
-    update: async (id: number, data: UpdateCiReleaseRequest): Promise<{ data: CiRelease }> => {
-        const response = await apiClient.put<unknown>(`${BASE}/releases/${id}`, data);
+    update: async (
+        id: number,
+        data: UpdateCiReleaseRequest,
+    ): Promise<{ data: CiRelease }> => {
+        const response = await apiClient.put<unknown>(
+            `${BASE}/releases/${id}`,
+            data,
+        );
         return ciReleaseResponseSchema.parse(response);
     },
 
@@ -316,15 +335,23 @@ export const deploymentsApi = {
      * Get a single deployment by ID
      */
     getById: async (id: number): Promise<{ data: CiDeployment }> => {
-        const response = await apiClient.get<unknown>(`${BASE}/deployments/${id}`);
+        const response = await apiClient.get<unknown>(
+            `${BASE}/deployments/${id}`,
+        );
         return ciDeploymentResponseSchema.parse(response);
     },
 
     /**
      * Update deployment status
      */
-    update: async (id: number, data: UpdateCiDeploymentRequest): Promise<{ data: CiDeployment }> => {
-        const response = await apiClient.put<unknown>(`${BASE}/deployments/${id}`, data);
+    update: async (
+        id: number,
+        data: UpdateCiDeploymentRequest,
+    ): Promise<{ data: CiDeployment }> => {
+        const response = await apiClient.put<unknown>(
+            `${BASE}/deployments/${id}`,
+            data,
+        );
         return ciDeploymentResponseSchema.parse(response);
     },
 };
