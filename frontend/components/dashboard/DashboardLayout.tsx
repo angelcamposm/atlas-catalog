@@ -7,7 +7,7 @@ import { AppSidebar } from "@/components/layout/AppSidebar";
 import { ModuleSelector } from "@/components/layout/ModuleSelector";
 import { ModuleProvider } from "@/components/layout/ModuleContext";
 import { ProfileModal } from "@/components/profile/ProfileModal";
-import { CommandKSearch } from "@/components/dashboard/CommandKSearch";
+import { CommandPalette } from "@/components/layout/CommandPalette";
 import { useTranslations } from "next-intl";
 import { RouteProgressBar } from "@/components/layout/RouteProgressBar";
 import { Button } from "@/components/ui/Button";
@@ -205,7 +205,7 @@ export function DashboardLayout({ children, locale }: DashboardLayoutProps) {
                 />
 
                 {/* Command K Search */}
-                <CommandKSearch
+                <CommandPalette
                     isOpen={showCommandK}
                     onClose={() => setShowCommandK(false)}
                     locale={locale}
