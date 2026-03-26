@@ -161,6 +161,18 @@ export const serviceStatusSchema = z
     .merge(userReferenceSchema);
 export type ServiceStatus = z.infer<typeof serviceStatusSchema>;
 
+// Compliance Requirements
+export const complianceRequirementSchema = z
+    .object({
+        id: z.number().int(),
+        compliance_standard_id: z.number().int(),
+        name: z.string().trim().min(1),
+        description: nullableString(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type ComplianceRequirement = z.infer<typeof complianceRequirementSchema>;
+
 // Compliance Standards
 export const complianceStandardSchema = z
     .object({
@@ -996,6 +1008,20 @@ export type PaginatedServiceStatusResponse = z.infer<
     typeof paginatedServiceStatusResponseSchema
 >;
 
+// Compliance Requirements
+export const complianceRequirementResponseSchema = createResourceResponseSchema(
+    complianceRequirementSchema,
+);
+export type ComplianceRequirementResponse = z.infer<
+    typeof complianceRequirementResponseSchema
+>;
+
+export const paginatedComplianceRequirementResponseSchema =
+    createPaginatedResponseSchema(complianceRequirementSchema);
+export type PaginatedComplianceRequirementResponse = z.infer<
+    typeof paginatedComplianceRequirementResponseSchema
+>;
+
 // Compliance Standards
 export const complianceStandardResponseSchema = createResourceResponseSchema(
     complianceStandardSchema,
@@ -1371,6 +1397,16 @@ export interface CreateServiceStatusRequest {
 }
 
 export type UpdateServiceStatusRequest = Partial<CreateServiceStatusRequest>;
+
+// Compliance Requirements
+export interface CreateComplianceRequirementRequest {
+    compliance_standard_id: number;
+    name: string;
+    description?: string;
+}
+
+export type UpdateComplianceRequirementRequest =
+    Partial<CreateComplianceRequirementRequest>;
 
 // Compliance Standards
 export interface CreateComplianceStandardRequest {
