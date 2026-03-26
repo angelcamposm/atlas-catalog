@@ -88,13 +88,19 @@ export { securityApi, serviceAccountTokensApi } from "./security";
 // Service Accounts
 export { serviceAccountsApi } from "./service-accounts";
 
-// Compliance Domain (Compliance Standards, Requirements, Service Statuses)
+// Compliance Domain (Compliance Standards, Requirements)
 export {
     complianceApi,
     complianceStandardsApi,
     complianceRequirementsApi,
-    serviceStatusesApi,
 } from "./compliance";
+
+// Operations Domain (Service Statuses, Metrics)
+export {
+    operationsApi,
+    serviceStatusesApi,
+    metricsApi,
+} from "./operations";
 
 // Resources Domain
 export {

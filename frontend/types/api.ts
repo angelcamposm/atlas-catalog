@@ -161,6 +161,20 @@ export const serviceStatusSchema = z
     .merge(userReferenceSchema);
 export type ServiceStatus = z.infer<typeof serviceStatusSchema>;
 
+// Metric
+export const metricSchema = z
+    .object({
+        id: z.number().int(),
+        name: z.string().trim().min(1),
+        value: z.number(),
+        unit: z.string().nullable().optional(),
+        metric_definition_id: z.number().int(),
+        component_id: z.number().int().nullable().optional(),
+    })
+    .merge(timestampsSchema)
+    .merge(userReferenceSchema);
+export type Metric = z.infer<typeof metricSchema>;
+
 // Compliance Requirements
 export const complianceRequirementSchema = z
     .object({
@@ -1008,6 +1022,16 @@ export type PaginatedServiceStatusResponse = z.infer<
     typeof paginatedServiceStatusResponseSchema
 >;
 
+// Metrics
+export const metricResponseSchema = createResourceResponseSchema(metricSchema);
+export type MetricResponse = z.infer<typeof metricResponseSchema>;
+
+export const paginatedMetricResponseSchema =
+    createPaginatedResponseSchema(metricSchema);
+export type PaginatedMetricResponse = z.infer<
+    typeof paginatedMetricResponseSchema
+>;
+
 // Compliance Requirements
 export const complianceRequirementResponseSchema = createResourceResponseSchema(
     complianceRequirementSchema,
@@ -1397,6 +1421,17 @@ export interface CreateServiceStatusRequest {
 }
 
 export type UpdateServiceStatusRequest = Partial<CreateServiceStatusRequest>;
+
+// Metrics
+export interface CreateMetricRequest {
+    name: string;
+    value: number;
+    metric_definition_id: number;
+    unit?: string;
+    component_id?: number;
+}
+
+export type UpdateMetricRequest = Partial<CreateMetricRequest>;
 
 // Compliance Requirements
 export interface CreateComplianceRequirementRequest {

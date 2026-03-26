@@ -12,6 +12,7 @@ import {
     technologyApi,
     groupsApiComplete,
     complianceApi,
+    operationsApi,
     resourcesApiComplete,
     infrastructureTypesApi,
     serviceAccountsApi,
@@ -186,7 +187,7 @@ describe("New API Modules", () => {
     describe("Compliance API", () => {
         it("exports all compliance APIs", () => {
             expect(complianceApi.standards).toBeDefined();
-            expect(complianceApi.serviceStatuses).toBeDefined();
+            expect(complianceApi.requirements).toBeDefined();
         });
 
         it("has all CRUD methods for compliance standards", () => {
@@ -195,6 +196,29 @@ describe("New API Modules", () => {
             expect(complianceApi.standards.create).toBeDefined();
             expect(complianceApi.standards.update).toBeDefined();
             expect(complianceApi.standards.delete).toBeDefined();
+        });
+    });
+
+    describe("Operations API", () => {
+        it("exports all operations APIs", () => {
+            expect(operationsApi.serviceStatuses).toBeDefined();
+            expect(operationsApi.metrics).toBeDefined();
+        });
+
+        it("has all CRUD methods for service statuses", () => {
+            expect(operationsApi.serviceStatuses.getAll).toBeDefined();
+            expect(operationsApi.serviceStatuses.getById).toBeDefined();
+            expect(operationsApi.serviceStatuses.create).toBeDefined();
+            expect(operationsApi.serviceStatuses.update).toBeDefined();
+            expect(operationsApi.serviceStatuses.delete).toBeDefined();
+        });
+
+        it("has all CRUD methods for metrics", () => {
+            expect(operationsApi.metrics.getAll).toBeDefined();
+            expect(operationsApi.metrics.getById).toBeDefined();
+            expect(operationsApi.metrics.create).toBeDefined();
+            expect(operationsApi.metrics.update).toBeDefined();
+            expect(operationsApi.metrics.delete).toBeDefined();
         });
     });
 
