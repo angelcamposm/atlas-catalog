@@ -1,14 +1,14 @@
 "use client";
 
 import { TaxonomyManager } from "@/components/admin/TaxonomyManager";
-import { apiCategoriesApi } from "@/lib/api/api-extended";
+import { componentTypesApi } from "@/lib/api/components";
 
-export default function ApiCategoriesPage() {
+export default function ComponentTypesPage() {
     return (
         <TaxonomyManager
-            title="API Categories"
-            description="Gestiona las categorías de APIs disponibles en el catálogo"
-            api={apiCategoriesApi}
+            title="Component Types"
+            description="Gestiona los tipos de componentes del catálogo"
+            api={componentTypesApi}
             columns={[
                 { key: "name", label: "Nombre" },
                 { key: "description", label: "Descripción" },

@@ -1,14 +1,14 @@
 "use client";
 
 import { TaxonomyManager } from "@/components/admin/TaxonomyManager";
-import { apiCategoriesApi } from "@/lib/api/api-extended";
+import { infrastructureTypesApi } from "@/lib/api/infrastructure-types";
 
-export default function ApiCategoriesPage() {
+export default function InfrastructureTypesPage() {
     return (
         <TaxonomyManager
-            title="API Categories"
-            description="Gestiona las categorías de APIs disponibles en el catálogo"
-            api={apiCategoriesApi}
+            title="Infrastructure Types"
+            description="Gestiona los tipos de infraestructura del catálogo"
+            api={infrastructureTypesApi}
             columns={[
                 { key: "name", label: "Nombre" },
                 { key: "description", label: "Descripción" },

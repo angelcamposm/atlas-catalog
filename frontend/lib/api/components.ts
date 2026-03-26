@@ -368,6 +368,35 @@ export const componentTypesApi = {
             `/v1/catalog/components/types/${id}`
         );
     },
+
+    /**
+     * Create a new component type
+     */
+    async create(data: Partial<ComponentType>): Promise<{ data: ComponentType }> {
+        return apiClient.post<{ data: ComponentType }>(
+            "/v1/catalog/components/types",
+            data
+        );
+    },
+
+    /**
+     * Update an existing component type
+     */
+    async update(id: number, data: Partial<ComponentType>): Promise<{ data: ComponentType }> {
+        return apiClient.put<{ data: ComponentType }>(
+            `/v1/catalog/components/types/${id}`,
+            data
+        );
+    },
+
+    /**
+     * Delete a component type
+     */
+    async delete(id: number): Promise<void> {
+        return apiClient.delete(
+            `/v1/catalog/components/types/${id}`
+        );
+    },
 };
 
 // ============================================================================

@@ -31,11 +31,17 @@ export interface TaxonomyManagerProps<T extends { id: number }> {
     /**
      * API module containing the four CRUD methods used by this component.
      * Each method must match the signature described below.
+     *
+     * Method syntax (rather than arrow syntax) is intentional so TypeScript
+     * treats the data parameters bivariantly, allowing concrete request types
+     * (e.g. `CreateApiCategoryRequest`) to satisfy this interface.
      */
     api: {
         getAll: (page?: number) => Promise<PaginatedResponse<T>>;
-        create: (data: Partial<T>) => Promise<{ data: T }>;
-        update: (id: number, data: Partial<T>) => Promise<{ data: T }>;
+        // eslint-disable-next-line @typescript-eslint/method-signature-style
+        create(data: Partial<T>): Promise<{ data: T }>;
+        // eslint-disable-next-line @typescript-eslint/method-signature-style
+        update(id: number, data: Partial<T>): Promise<{ data: T }>;
         delete: (id: number) => Promise<void>;
     };
     /** Column definitions for the data table. */
