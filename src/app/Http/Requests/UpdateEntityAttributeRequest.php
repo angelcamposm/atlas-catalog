@@ -8,6 +8,7 @@ use App\Enums\EntityType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use App\Models\EntityAttribute;
 
 class UpdateEntityAttributeRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class UpdateEntityAttributeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('attribute')) ?? false;
     }
 
     /**

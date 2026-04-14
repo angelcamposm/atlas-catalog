@@ -31,7 +31,7 @@ class InfrastructureTypePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class InfrastructureTypePolicy
      */
     public function update(User $user, InfrastructureType $infrastructureType): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class InfrastructureTypePolicy
      */
     public function delete(User $user, InfrastructureType $infrastructureType): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class InfrastructureTypePolicy
      */
     public function restore(User $user, InfrastructureType $infrastructureType): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class InfrastructureTypePolicy
      */
     public function forceDelete(User $user, InfrastructureType $infrastructureType): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

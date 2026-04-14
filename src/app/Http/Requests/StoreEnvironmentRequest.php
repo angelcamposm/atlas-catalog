@@ -6,6 +6,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Models\Environment;
 
 class StoreEnvironmentRequest extends FormRequest
 {
@@ -14,7 +16,7 @@ class StoreEnvironmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Environment::class) ?? false;
     }
 
     /**
@@ -26,6 +28,7 @@ class StoreEnvironmentRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:50', 'unique:environments,name'],
+            'type' => ['required', 'string', Rule::in(['development', 'staging', 'production', 'testing', 'qa'])],
             'abbr' => ['nullable', 'string', 'max:3'],
             'approval_required' => ['sometimes', 'boolean'],
             'description' => ['nullable', 'string', 'max:255'],

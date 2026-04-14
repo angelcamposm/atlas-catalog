@@ -22,6 +22,22 @@ class NodeObserver
      */
     public function creating(Node $node): void
     {
+        if (is_null($node->cpu_cores)) {
+            $node->cpu_cores = 1;
+        }
+
+        if (is_null($node->cpu_threads)) {
+            $node->cpu_threads = 1;
+        }
+
+        if (is_null($node->os)) {
+            $node->os = 'Unknown';
+        }
+
+        if (is_null($node->os_version)) {
+            $node->os_version = 'Unknown';
+        }
+
         if (Auth::check() && is_null($node->created_by)) {
             $node->created_by = Auth::id();
         }

@@ -7,6 +7,9 @@ namespace App\Models;
 use App\Enums\DeploymentStatus;
 use App\Observers\DeploymentObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,6 +48,9 @@ class Deployment extends Model
 {
     use HasFactory;
     use BelongsToUser;
+    use Filterable;
+    use Searchable;
+    use Sortable;
 
     /**
      * The table associated with the model.
@@ -75,6 +81,44 @@ class Deployment extends Model
         'meta',
         'created_by',
         'updated_by',
+    ];
+
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'component_id',
+        'environment_id',
+        'cluster_id',
+        'status',
+        'triggered_by',
+        'workflow_run_id',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'version',
+        'commit_hash',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'status',
+        'started_at',
+        'ended_at',
+        'created_at',
+        'updated_at',
     ];
 
     /**

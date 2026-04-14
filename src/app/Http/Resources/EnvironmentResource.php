@@ -6,6 +6,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class EnvironmentResource extends JsonResource
 {
@@ -16,6 +17,9 @@ class EnvironmentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return array_merge(parent::toArray($request), [
+            'slug' => Str::slug($this->name),
+            'type' => $this->type ?? null,
+        ]);
     }
 }

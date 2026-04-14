@@ -30,7 +30,7 @@ class FrameworkPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class FrameworkPolicy
      */
     public function update(User $user, Framework $framework): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class FrameworkPolicy
      */
     public function delete(User $user, Framework $framework): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class FrameworkPolicy
      */
     public function restore(User $user, Framework $framework): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class FrameworkPolicy
      */
     public function forceDelete(User $user, Framework $framework): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

@@ -59,7 +59,7 @@ class GroupMemberRoleController extends Controller
      */
     public function update(UpdateGroupMemberRoleRequest $request, GroupMemberRole $member_role): GroupMemberRoleResource
     {
-        $model = $member_role->update($request->validated());
+        $model = tap($member_role)->update($request->validated());
 
         return new GroupMemberRoleResource($model);
     }
@@ -73,6 +73,8 @@ class GroupMemberRoleController extends Controller
      */
     public function destroy(GroupMemberRole $member_role): Response
     {
+        $this->authorize('delete', $member_role);
+
         $member_role->delete();
 
         return response()->noContent();

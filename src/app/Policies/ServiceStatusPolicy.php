@@ -31,7 +31,7 @@ class ServiceStatusPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class ServiceStatusPolicy
      */
     public function update(User $user, ServiceStatus $serviceStatus): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class ServiceStatusPolicy
      */
     public function delete(User $user, ServiceStatus $serviceStatus): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class ServiceStatusPolicy
      */
     public function restore(User $user, ServiceStatus $serviceStatus): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class ServiceStatusPolicy
      */
     public function forceDelete(User $user, ServiceStatus $serviceStatus): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

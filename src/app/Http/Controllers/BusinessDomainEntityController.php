@@ -22,17 +22,17 @@ class BusinessDomainEntityController extends Controller
      * Handle the incoming request.
      *
      * @param  Request         $request
-     * @param  BusinessDomain  $businessDomain
+     * @param  BusinessDomain  $business_domain
      *
      * @return EntityResourceCollection
      */
-    public function __invoke(Request $request, BusinessDomain $businessDomain): EntityResourceCollection
+    public function __invoke(Request $request, BusinessDomain $business_domain): EntityResourceCollection
     {
         $requestedRelationships = $request->has('with')
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        $components = $businessDomain->entities()->with($requestedRelationships)->paginate();
+        $components = $business_domain->entities()->with($requestedRelationships)->paginate();
 
         return new EntityResourceCollection($components);
     }

@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Link;
 
 class StoreLinkRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreLinkRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Link::class) ?? false;
     }
 
     /**

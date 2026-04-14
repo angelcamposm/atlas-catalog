@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserResourceCollection;
 use App\Observers\UserObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseResource;
@@ -16,18 +18,22 @@ use Illuminate\Database\Eloquent\Attributes\UseResourceCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int $id
  * @property string $email
  * @property string $name
  * @property string $password
+ * @property int|null $role_id
  * @property int $created_by
  * @property int $updated_by
  *
  * @property-read Collection<int, Group> $groups
+ * @property-read Role|null $role
  *
  * @method static create(array $validated)
  * @method static firstOrCreate(array $attributes = [], array $values = [])
@@ -42,8 +48,12 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use BelongsToUser;
+    use HasApiTokens;
     use HasFactory;
     use Notifiable;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The attributes that are mass-assignable.
@@ -56,7 +66,34 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
     ];
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [];
 
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'email',
+    ];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -91,6 +128,16 @@ class User extends Authenticatable
     }
 
     /**
+     * The role that the user belongs to.
+     *
+     * @return BelongsTo<Role>
+     */
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
      * Check if the user has any groups.
      *
      * @return bool
@@ -99,4 +146,35 @@ class User extends Authenticatable
     {
         return $this->groups()->exists();
     }
+
+    /**
+     * Check if the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role->slug === 'admin';
+    }
+
+    /**
+     * Check if the user is an editor.
+     *
+     * @return bool
+     */
+    public function isEditor(): bool
+    {
+        return $this->role && $this->role->slug === 'editor';
+    }
+
+    /**
+     * Check if the user is a viewer.
+     *
+     * @return bool
+     */
+    public function isViewer(): bool
+    {
+        return $this->role && $this->role->slug === 'viewer';
+    }
+
 }

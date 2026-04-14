@@ -35,7 +35,13 @@ class ServiceModelController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new ServiceModelResourceCollection(ServiceModel::with($requestedRelationships)->paginate());
+        return new ServiceModelResourceCollection(
+            ServiceModel::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**
@@ -56,31 +62,31 @@ class ServiceModelController extends Controller
      * Display the specified resource.
      *
      * @param  Request       $request
-     * @param  ServiceModel  $serviceModel
+     * @param  ServiceModel  $service_model
      *
      * @return ServiceModelResource
      */
-    public function show(Request $request, ServiceModel $serviceModel): ServiceModelResource
+    public function show(Request $request, ServiceModel $service_model): ServiceModelResource
     {
         if ($request->has('with')) {
             $allowedRelationships = self::filterAllowedRelationships($request->get('with'));
-            $serviceModel->load($allowedRelationships);
+            $service_model->load($allowedRelationships);
         }
 
-        return new ServiceModelResource($serviceModel);
+        return new ServiceModelResource($service_model);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateServiceModelRequest $request
-     * @param ServiceModel $serviceModel
+     * @param ServiceModel $service_model
      *
      * @return ServiceModelResource
      */
-    public function update(UpdateServiceModelRequest $request, ServiceModel $serviceModel): ServiceModelResource
+    public function update(UpdateServiceModelRequest $request, ServiceModel $service_model): ServiceModelResource
     {
-        $model = $serviceModel->update($request->validated());
+        $model = tap($service_model)->update($request->validated());
 
         return new ServiceModelResource($model);
     }
@@ -88,13 +94,13 @@ class ServiceModelController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ServiceModel $serviceModel
+     * @param ServiceModel $service_model
      *
      * @return Response
      */
-    public function destroy(ServiceModel $serviceModel): Response
+    public function destroy(ServiceModel $service_model): Response
     {
-        $serviceModel->delete();
+        $service_model->delete();
 
         return response()->noContent();
     }

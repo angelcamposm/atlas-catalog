@@ -30,7 +30,7 @@ class ApiCategoryPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ApiCategoryPolicy
      */
     public function update(User $user, ApiCategory $apiCategory): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ApiCategoryPolicy
      */
     public function delete(User $user, ApiCategory $apiCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ApiCategoryPolicy
      */
     public function restore(User $user, ApiCategory $apiCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ApiCategoryPolicy
      */
     public function forceDelete(User $user, ApiCategory $apiCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

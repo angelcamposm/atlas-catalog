@@ -19,7 +19,15 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $category = $this->route('resource_category')
+            ?? $this->route('api_category')
+            ?? $this->route('link_category');
+
+        if ($category) {
+            return $this->user()?->can('update', $category) ?? false;
+        }
+
+        return false;
     }
 
     /**

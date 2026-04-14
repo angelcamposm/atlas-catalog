@@ -8,12 +8,13 @@ use App\Enums\K8sLicensingModel;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use App\Models\Cluster;
 
 class StoreClusterRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Cluster::class) ?? false;
     }
 
     /**

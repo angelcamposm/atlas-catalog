@@ -59,7 +59,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category): CategoryResource
     {
-        $model = $category->update($request->validated());
+        $model = tap($category)->update($request->validated());
 
         return new CategoryResource($model);
     }

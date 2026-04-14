@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Group;
 
 class StoreGroupRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreGroupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Group::class) ?? false;
     }
 
     /**

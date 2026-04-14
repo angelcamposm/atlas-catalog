@@ -19,7 +19,7 @@ class UpdateApiTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('api_type')) ?? false;
     }
 
     /**
@@ -31,7 +31,7 @@ class UpdateApiTypeRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('api_types')->ignore($this->apiType)],
-            'description' => ['required', 'string', 'max:255'],
+            'description' => ['sometimes', 'string', 'max:255'],
         ];
     }
 }

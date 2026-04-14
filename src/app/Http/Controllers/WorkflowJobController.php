@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\WorkflowJobResource;
 use App\Models\WorkflowJob;
 use App\Http\Requests\StoreWorkflowJobRequest;
-use App\Http\Requests\UpdateWorkflowJobRequest;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
 class WorkflowJobController extends Controller
@@ -15,45 +15,35 @@ class WorkflowJobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        return WorkflowJob::paginate()->toResourceCollection();
+        return WorkflowJobResource::collection(WorkflowJob::paginate());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreWorkflowJobRequest $request): JsonResource
+    public function store(StoreWorkflowJobRequest $request): WorkflowJobResource
     {
-        $model = WorkflowJob::create($request->validated());
+        $job = WorkflowJob::create($request->validated());
 
-        return $model->toResource();
+        return new WorkflowJobResource($job);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(WorkflowJob $workflowJob): JsonResource
+    public function show(string $workflow, WorkflowJob $job): WorkflowJobResource
     {
-        return $workflowJob->toResource();
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateWorkflowJobRequest $request, WorkflowJob $workflowJob): JsonResource
-    {
-        $workflowJob->update($request->validated());
-
-        return $workflowJob->toResource();
+        return new WorkflowJobResource($job);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WorkflowJob $workflowJob): Response
+    public function destroy(string $workflow, WorkflowJob $job): Response
     {
-        $workflowJob->delete();
+        $job->delete();
 
         return response()->noContent();
     }

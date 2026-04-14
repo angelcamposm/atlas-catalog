@@ -8,6 +8,7 @@ use App\Enums\DiscoverySource;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\WorkflowJob;
 
 class StoreWorkflowJobRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class StoreWorkflowJobRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', WorkflowJob::class) ?? false;
     }
 
     /**

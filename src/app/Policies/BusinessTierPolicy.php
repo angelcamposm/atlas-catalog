@@ -30,7 +30,7 @@ class BusinessTierPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class BusinessTierPolicy
      */
     public function update(User $user, BusinessTier $businessTier): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class BusinessTierPolicy
      */
     public function delete(User $user, BusinessTier $businessTier): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class BusinessTierPolicy
      */
     public function restore(User $user, BusinessTier $businessTier): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class BusinessTierPolicy
      */
     public function forceDelete(User $user, BusinessTier $businessTier): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

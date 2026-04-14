@@ -40,26 +40,26 @@ class InfrastructureTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param InfrastructureType $infrastructureType
+     * @param InfrastructureType $infrastructure_type
      *
      * @return InfrastructureTypeResource
      */
-    public function show(InfrastructureType $infrastructureType): InfrastructureTypeResource
+    public function show(InfrastructureType $infrastructure_type): InfrastructureTypeResource
     {
-        return new InfrastructureTypeResource($infrastructureType);
+        return new InfrastructureTypeResource($infrastructure_type);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateInfrastructureTypeRequest $request
-     * @param InfrastructureType $infrastructureType
+     * @param InfrastructureType $infrastructure_type
      *
      * @return InfrastructureTypeResource
      */
-    public function update(UpdateInfrastructureTypeRequest $request, InfrastructureType $infrastructureType): InfrastructureTypeResource
+    public function update(UpdateInfrastructureTypeRequest $request, InfrastructureType $infrastructure_type): InfrastructureTypeResource
     {
-        $model = $infrastructureType->update($request->validated());
+        $model = tap($infrastructure_type)->update($request->validated());
 
         return new InfrastructureTypeResource($model);
     }
@@ -67,13 +67,13 @@ class InfrastructureTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param InfrastructureType $infrastructureType
+     * @param InfrastructureType $infrastructure_type
      *
      * @return Response
      */
-    public function destroy(InfrastructureType $infrastructureType): Response
+    public function destroy(InfrastructureType $infrastructure_type): Response
     {
-        $infrastructureType->delete();
+        $infrastructure_type->delete();
 
         return response()->noContent();
     }

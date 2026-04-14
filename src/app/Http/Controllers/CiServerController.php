@@ -62,31 +62,31 @@ class CiServerController extends Controller
      * Display the specified resource.
      *
      * @param  Request  $request
-     * @param  CiServer  $ciServer
+     * @param  CiServer  $server
      *
      * @return CiServerResource
      */
-    public function show(Request $request, CiServer $ciServer): CiServerResource
+    public function show(Request $request, CiServer $server): CiServerResource
     {
         if ($request->has('with')) {
             $requestedRelationships = self::filterAllowedRelationships($request->get('with'));
-            $ciServer->load($requestedRelationships);
+            $server->load($requestedRelationships);
         }
 
-        return new CiServerResource($ciServer);
+        return new CiServerResource($server);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param CiServer $ciServer
+     * @param CiServer $server
      *
      * @return CiServerResource
      */
-    public function update(Request $request, CiServer $ciServer): CiServerResource
+    public function update(Request $request, CiServer $server): CiServerResource
     {
-        $model = $ciServer->update($request->validated());
+        $model = $server->update($request->validated());
 
         return new CiServerResource($model);
     }
@@ -94,13 +94,13 @@ class CiServerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param CiServer $ciServer
+     * @param CiServer $server
      *
      * @return Response
      */
-    public function destroy(CiServer $ciServer): Response
+    public function destroy(CiServer $server): Response
     {
-        $ciServer->delete();
+        $server->delete();
 
         return response()->noContent();
     }

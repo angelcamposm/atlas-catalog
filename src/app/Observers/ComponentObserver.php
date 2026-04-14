@@ -6,6 +6,7 @@ namespace App\Observers;
 
 use App\Models\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ComponentObserver
 {
@@ -22,6 +23,10 @@ class ComponentObserver
      */
     public function creating(Component $component): void
     {
+        if (empty($component->slug) && !empty($component->name)) {
+            $component->slug = Str::slug($component->name);
+        }
+
         if (Auth::check() && is_null($component->created_by)) {
             $component->created_by = Auth::id();
         }

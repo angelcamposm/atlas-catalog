@@ -59,7 +59,7 @@ class PlatformController extends Controller
      */
     public function update(UpdatePlatformRequest $request, Platform $platform): PlatformResource
     {
-        $model = $platform->update($request->validated());
+        $model = tap($platform)->update($request->validated());
 
         return new PlatformResource($model);
     }

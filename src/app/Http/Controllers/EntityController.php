@@ -39,11 +39,30 @@ class EntityController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * Supports filtering, searching, and sorting via query parameters:
+     * - ?filter[field]=value - Filter by field value
+     * - ?search=term - Search across searchable fields
+     * - ?sort=field or ?sort=-field - Sort ascending or descending
+     * - ?with=relation1,relation2 - Eager load relationships
+     *
+     * @param  Request  $request
+     *
      * @return EntityResourceCollection
      */
-    public function index(): EntityResourceCollection
+    public function index(Request $request): EntityResourceCollection
     {
-        return new EntityResourceCollection(Entity::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new EntityResourceCollection(
+            Entity::query()
+                ->filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($relationships)
+                ->paginate()
+        );
     }
 
     /**
@@ -88,7 +107,7 @@ class EntityController extends Controller
      */
     public function update(UpdateEntityRequest $request, Entity $entity): EntityResource
     {
-        $model = $entity->update($request->validated());
+        $model = tap($entity)->update($request->validated());
 
         return new EntityResource($model);
     }
@@ -102,6 +121,8 @@ class EntityController extends Controller
      */
     public function destroy(Entity $entity): Response
     {
+        $this->authorize('delete', $entity);
+
         $entity->delete();
 
         return response()->noContent();

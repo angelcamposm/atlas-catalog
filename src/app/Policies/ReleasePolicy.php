@@ -31,7 +31,7 @@ class ReleasePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class ReleasePolicy
      */
     public function update(User $user, Release $release): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class ReleasePolicy
      */
     public function delete(User $user, Release $release): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class ReleasePolicy
      */
     public function restore(User $user, Release $release): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class ReleasePolicy
      */
     public function forceDelete(User $user, Release $release): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

@@ -59,7 +59,7 @@ class EnvironmentController extends Controller
      */
     public function update(UpdateEnvironmentRequest $request, Environment $environment): EnvironmentResource
     {
-        $model = $environment->update($request->validated());
+        $model = tap($environment)->update($request->validated());
 
         return new EnvironmentResource($model);
     }
@@ -73,6 +73,8 @@ class EnvironmentController extends Controller
      */
     public function destroy(Environment $environment): Response
     {
+        $this->authorize('delete', $environment);
+
         $environment->delete();
 
         return response()->noContent();

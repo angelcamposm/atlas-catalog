@@ -33,11 +33,28 @@ class ReleaseController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * Supports filtering, searching, and sorting via query parameters:
+     * - ?filter[field]=value - Filter by field value
+     * - ?search=term - Search across searchable fields
+     * - ?sort=field or ?sort=-field - Sort ascending or descending
+     * - ?with=relation1,relation2 - Eager load relationships
+     *
      * @return ReleaseResourceCollection
      */
-    public function index(): ReleaseResourceCollection
+    public function index(Request $request): ReleaseResourceCollection
     {
-        return new ReleaseResourceCollection(Release::paginate());
+        $relationships = $request->has('with')
+            ? self::filterAllowedRelationships($request->get('with'))
+            : [];
+
+        return new ReleaseResourceCollection(
+            Release::query()
+                ->filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($relationships)
+                ->paginate()
+        );
     }
 
     /**
@@ -82,9 +99,9 @@ class ReleaseController extends Controller
      */
     public function update(UpdateReleaseRequest $request, Release $release): ReleaseResource
     {
-        $model = $release->update($request->validated());
+        $release->update($request->validated());
 
-        return new ReleaseResource($model);
+        return new ReleaseResource($release);
     }
 
     /**

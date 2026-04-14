@@ -19,7 +19,7 @@ class UpdatePlatformRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('platform')) ?? false;
     }
 
     /**
@@ -32,7 +32,7 @@ class UpdatePlatformRequest extends FormRequest
         return [
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('platforms')->ignore($this->platform)],
             'description' => ['nullable', 'string', 'max:255'],
-            'icon' => ['required', 'string', 'max:50'],
+            'icon' => ['sometimes', 'string', 'max:50'],
         ];
     }
 }

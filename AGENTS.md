@@ -1,0 +1,79 @@
+# Agent Instructions
+
+Este es un proyecto **open source**. El código debe ser **simple, documentado y fácil de seguir**.
+
+## 🎯 Principios de Desarrollo
+
+### Test-Driven Development (TDD) - OBLIGATORIO
+
+**SIEMPRE seguir el ciclo TDD:**
+
+1. **Red** - Escribir el test primero (debe fallar)
+2. **Green** - Código mínimo para que pase
+3. **Refactor** - Mejorar manteniendo tests verdes
+
+```bash
+# Frontend
+cd frontend && pnpm test -- --watch
+
+# Backend
+cd src && ./vendor/bin/phpunit
+```
+
+### Simplicidad
+
+-   Código legible > código clever
+-   Funciones pequeñas con un solo propósito
+-   Nombres descriptivos (sin abreviaturas crípticas)
+-   Si necesitas comentar qué hace el código, refactoriza
+
+### Documentación
+
+-   JSDoc/Docstrings en funciones públicas
+-   Tipos TypeScript completos
+-   README en módulos nuevos
+
+---
+
+## 🔧 Issue Tracking (bd/beads)
+
+This project uses **bd** (beads) for issue tracking. Run `bd onboard` to get started.
+
+### Quick Reference
+
+```bash
+bd ready              # Find available work
+bd show <id>          # View issue details
+bd update <id> --status in_progress  # Claim work
+bd close <id>         # Complete work
+bd sync               # Sync with git
+```
+
+---
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+    ```bash
+    git pull --rebase
+    bd sync
+    git push
+    git status  # MUST show "up to date with origin"
+    ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+
+-   Work is NOT complete until `git push` succeeds
+-   NEVER stop before pushing - that leaves work stranded locally
+-   NEVER say "ready to push when you are" - YOU must push
+-   If push fails, resolve and retry until it succeeds

@@ -8,6 +8,7 @@ use App\Enums\WorkflowRunResult;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\WorkflowRun;
 
 class StoreWorkflowRunRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class StoreWorkflowRunRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', WorkflowRun::class) ?? false;
     }
 
     /**
@@ -28,7 +29,7 @@ class StoreWorkflowRunRequest extends FormRequest
     {
         return [
             'workflow_job_id' => ['required', 'integer', 'exists:workflow_jobs,id'],
-            'description' => ['nullable', 'string'],
+            'description' => ['required', 'string'],
             'display_name' => ['required', 'string', 'max:255'],
             'duration_milliseconds' => ['required', 'integer'],
             'is_enabled' => ['required', 'boolean'],

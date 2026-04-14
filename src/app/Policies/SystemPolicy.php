@@ -31,7 +31,7 @@ class SystemPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class SystemPolicy
      */
     public function update(User $user, System $system): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class SystemPolicy
      */
     public function delete(User $user, System $system): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class SystemPolicy
      */
     public function restore(User $user, System $system): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class SystemPolicy
      */
     public function forceDelete(User $user, System $system): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

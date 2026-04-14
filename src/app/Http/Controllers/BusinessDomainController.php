@@ -50,7 +50,13 @@ class BusinessDomainController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new BusinessDomainResourceCollection(BusinessDomain::with($requestedRelationships)->paginate());
+        return new BusinessDomainResourceCollection(
+            BusinessDomain::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**
@@ -95,7 +101,7 @@ class BusinessDomainController extends Controller
      */
     public function update(UpdateBusinessDomainRequest $request, BusinessDomain $business_domain): BusinessDomainResource
     {
-        $model = $business_domain->update($request->validated());
+        $model = tap($business_domain)->update($request->validated());
 
         return new BusinessDomainResource($model);
     }
@@ -109,6 +115,8 @@ class BusinessDomainController extends Controller
      */
     public function destroy(BusinessDomain $business_domain): Response
     {
+        $this->authorize('delete', $business_domain);
+
         $business_domain->delete();
 
         return response()->noContent();

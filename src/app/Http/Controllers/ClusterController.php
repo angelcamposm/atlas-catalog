@@ -33,10 +33,23 @@ class ClusterController extends Controller
     ];
 
     /**
-     * Display a listing of the resource.
+     * List all Kubernetes/infrastructure clusters with filtering and pagination.
      *
+     * Retrieve a paginated list of compute clusters (EKS, GKE, AKS, OpenShift, etc.)
+     * configured in your infrastructure.
+     *
+     * **Query Parameters:**
+     * - `filter[field]=value` - Filter by field (e.g., ?filter[type_id]=eks)
+     * - `search=term` - Search cluster name and description
+     * - `sort=field` or `sort=-field` - Sort by field (add `-` for descending)
+     * - `with=relation1,relation2` - Eager-load (creator, infrastructure_type, lifecycle, nodes, service_accounts, type, updater)
+     * - `per_page=25` - Items per page (default: 15, max: 100)
+     *
+     * @operationId listClusters
+     * @response 200 Successfully retrieved paginated list of clusters
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized
      * @param  Request  $request
-     *
      * @return ClusterResourceCollection
      */
     public function index(Request $request): ClusterResourceCollection
@@ -45,14 +58,37 @@ class ClusterController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new ClusterResourceCollection(Cluster::with($relationships)->paginate());
+        return new ClusterResourceCollection(
+            Cluster::query()
+                ->filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($relationships)
+                ->paginate()
+        );
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Register a new Kubernetes cluster.
      *
+     * Create a new cluster entry for infrastructure orchestration. Requires cluster name, type (EKS, GKE, etc.),
+     * and infrastructure type classification.
+     *
+     * **Request Body:**
+     * - `name` (required, string, 255 chars) - Cluster name
+     * - `slug` (optional, string) - URL slug
+     * - `description` (optional, string) - Cluster description
+     * - `cluster_type_id` (required, UUID) - Type (EKS, GKE, AKS, OpenShift, etc.)
+     * - `infrastructure_type_id` (optional, UUID) - Infrastructure classification
+     * - `lifecycle_phase_id` (optional, UUID) - Lifecycle phase (development, production, etc.)
+     *
+     * @operationId createCluster
+     * @response 201 Cluster created successfully
+     * @response 400 Validation failed
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized
+     * @response 422 Validation errors
      * @param StoreClusterRequest $request
-     *
      * @return ClusterResource
      */
     public function store(StoreClusterRequest $request): ClusterResource
@@ -63,11 +99,20 @@ class ClusterController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retrieve a specific cluster by ID or slug.
      *
+     * Fetch detailed information about a single cluster, including its nodes and service accounts.
+     *
+     * **Query Parameters:**
+     * - `with=relation1,relation2` - Eager-load relationships
+     *
+     * @operationId getCluster
+     * @response 200 Cluster retrieved successfully
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized
+     * @response 404 Cluster not found
      * @param  Request  $request
      * @param  Cluster  $cluster
-     *
      * @return ClusterResource
      */
     public function show(Request $request, Cluster $cluster): ClusterResource
@@ -81,29 +126,45 @@ class ClusterController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update an existing cluster.
      *
+     * Modify cluster properties like name, type, or lifecycle phase.
+     *
+     * @operationId updateCluster
+     * @response 200 Cluster updated successfully
+     * @response 400 Validation failed
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized
+     * @response 404 Cluster not found
+     * @response 422 Validation errors
      * @param UpdateClusterRequest $request
      * @param Cluster $cluster
-     *
      * @return ClusterResource
      */
     public function update(UpdateClusterRequest $request, Cluster $cluster): ClusterResource
     {
-        $model = $cluster->update($request->validated());
+        $model = tap($cluster)->update($request->validated());
 
         return new ClusterResource($model);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete a cluster from the catalog.
      *
+     * Permanently remove a cluster entry and all its associations.
+     *
+     * @operationId deleteCluster
+     * @response 204 Cluster deleted successfully
+     * @response 401 Unauthenticated
+     * @response 403 Unauthorized
+     * @response 404 Cluster not found
      * @param Cluster $cluster
-     *
      * @return Response
      */
     public function destroy(Cluster $cluster): Response
     {
+        $this->authorize('delete', $cluster);
+
         $cluster->delete();
 
         return response()->noContent();

@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\InfrastructureType;
 
 class StoreInfrastructureTypeRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreInfrastructureTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', InfrastructureType::class) ?? false;
     }
 
     /**

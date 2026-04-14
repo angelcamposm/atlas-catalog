@@ -18,6 +18,9 @@ class DeploymentResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'workflow_run_id' => $this->workflow_run_id,
+            'component_id' => $this->component_id,
+            'environment_id' => $this->environment_id,
             'component' => new ComponentResource($this->whenLoaded('component')),
             'environment' => new EnvironmentResource($this->whenLoaded('environment')),
             'cluster' => new ClusterResource($this->whenLoaded('cluster')),

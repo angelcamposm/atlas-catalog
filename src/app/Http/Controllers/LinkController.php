@@ -59,7 +59,7 @@ class LinkController extends Controller
      */
     public function update(UpdateLinkRequest $request, Link $link): LinkResource
     {
-        $model = $link->update($request->validated());
+        $model = tap($link)->update($request->validated());
 
         return new LinkResource($model);
     }
@@ -73,6 +73,8 @@ class LinkController extends Controller
      */
     public function destroy(Link $link): Response
     {
+        $this->authorize('delete', $link);
+
         $link->delete();
 
         return response()->noContent();

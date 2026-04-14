@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Framework;
 
 class StoreFrameworkRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreFrameworkRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Framework::class) ?? false;
     }
 
     /**

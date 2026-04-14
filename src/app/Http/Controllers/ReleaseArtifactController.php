@@ -41,7 +41,13 @@ class ReleaseArtifactController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new ReleaseArtifactResourceCollection(ReleaseArtifact::with($requestedRelationships)->paginate());
+        return new ReleaseArtifactResourceCollection(
+            ReleaseArtifact::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($requestedRelationships)
+                ->paginate()
+        );
     }
 
     /**
@@ -86,7 +92,7 @@ class ReleaseArtifactController extends Controller
      */
     public function update(UpdateReleaseArtifactRequest $request, ReleaseArtifact $releaseArtifact): ReleaseArtifactResource
     {
-        $model = $releaseArtifact->update($request->validated());
+        $model = tap($releaseArtifact)->update($request->validated());
 
         return new ReleaseArtifactResource($model);
     }

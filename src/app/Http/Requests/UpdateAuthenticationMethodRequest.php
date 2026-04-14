@@ -19,7 +19,7 @@ class UpdateAuthenticationMethodRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('authentication_method')) ?? false;
     }
 
     /**

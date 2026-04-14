@@ -30,7 +30,7 @@ class LinkCategoryPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class LinkCategoryPolicy
      */
     public function update(User $user, LinkCategory $linkCategory): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class LinkCategoryPolicy
      */
     public function delete(User $user, LinkCategory $linkCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class LinkCategoryPolicy
      */
     public function restore(User $user, LinkCategory $linkCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class LinkCategoryPolicy
      */
     public function forceDelete(User $user, LinkCategory $linkCategory): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

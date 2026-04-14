@@ -59,7 +59,7 @@ class ClusterTypeController extends Controller
      */
     public function update(UpdateClusterTypeRequest $request, ClusterType $type): ClusterTypeResource
     {
-        $model = $type->update($request->validated());
+        $model = tap($type)->update($request->validated());
 
         return new ClusterTypeResource($model);
     }

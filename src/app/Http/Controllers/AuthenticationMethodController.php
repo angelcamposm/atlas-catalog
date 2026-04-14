@@ -59,7 +59,7 @@ class AuthenticationMethodController extends Controller
      */
     public function update(UpdateAuthenticationMethodRequest $request, AuthenticationMethod $authentication_method): AuthenticationMethodResource
     {
-        $model = $authentication_method->update($request->validated());
+        $model = tap($authentication_method)->update($request->validated());
 
         return new AuthenticationMethodResource($model);
     }

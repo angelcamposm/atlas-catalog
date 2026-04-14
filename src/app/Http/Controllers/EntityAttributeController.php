@@ -40,26 +40,26 @@ class EntityAttributeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param EntityAttribute  $entityProperty
+     * @param EntityAttribute  $attribute
      *
      * @return EntityAttributeResource
      */
-    public function show(EntityAttribute $entityProperty): EntityAttributeResource
+    public function show(EntityAttribute $attribute): EntityAttributeResource
     {
-        return new EntityAttributeResource($entityProperty);
+        return new EntityAttributeResource($attribute);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateEntityAttributeRequest  $request
-     * @param EntityAttribute               $entityProperty
+     * @param EntityAttribute               $attribute
      *
      * @return EntityAttributeResource
      */
-    public function update(UpdateEntityAttributeRequest $request, EntityAttribute $entityProperty): EntityAttributeResource
+    public function update(UpdateEntityAttributeRequest $request, EntityAttribute $attribute): EntityAttributeResource
     {
-        $model = $entityProperty->update($request->validated());
+        $model = tap($attribute)->update($request->validated());
 
         return new EntityAttributeResource($model);
     }
@@ -67,13 +67,13 @@ class EntityAttributeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param EntityAttribute  $entityProperty
+     * @param EntityAttribute  $attribute
      *
      * @return Response
      */
-    public function destroy(EntityAttribute $entityProperty): Response
+    public function destroy(EntityAttribute $attribute): Response
     {
-        $entityProperty->delete();
+        $attribute->delete();
 
         return response()->noContent();
     }

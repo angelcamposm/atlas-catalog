@@ -19,7 +19,7 @@ class UpdateVendorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('vendor')) ?? false;
     }
 
     /**
@@ -30,9 +30,9 @@ class UpdateVendorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:50', Rule::unique('vendors', 'name')->ignore($this->vendor)],
-            'icon' => ['required', 'string', 'max:50'],
-            'url' => ['required', 'string', 'max:255'],
+            'name' => ['sometimes', 'string', 'max:50', Rule::unique('vendors', 'name')->ignore($this->vendor)],
+            'icon' => ['sometimes', 'string', 'max:50'],
+            'url' => ['sometimes', 'string', 'max:255'],
         ];
     }
 }

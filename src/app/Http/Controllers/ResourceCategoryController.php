@@ -40,26 +40,26 @@ class ResourceCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ResourceCategory $category
+     * @param ResourceCategory $resource_category
      *
      * @return CategoryResource
      */
-    public function show(ResourceCategory $category): CategoryResource
+    public function show(ResourceCategory $resource_category): CategoryResource
     {
-        return new CategoryResource($category);
+        return new CategoryResource($resource_category);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param UpdateCategoryRequest $request
-     * @param ResourceCategory $category
+     * @param ResourceCategory $resource_category
      *
      * @return CategoryResource
      */
-    public function update(UpdateCategoryRequest $request, ResourceCategory $category): CategoryResource
+    public function update(UpdateCategoryRequest $request, ResourceCategory $resource_category): CategoryResource
     {
-        $model = $category->update($request->validated());
+        $model = tap($resource_category)->update($request->validated());
 
         return new CategoryResource($model);
     }
@@ -67,13 +67,15 @@ class ResourceCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ResourceCategory $category
+     * @param ResourceCategory $resource_category
      *
      * @return Response
      */
-    public function destroy(ResourceCategory $category): Response
+    public function destroy(ResourceCategory $resource_category): Response
     {
-        $category->delete();
+        $this->authorize('delete', $resource_category);
+
+        $resource_category->delete();
 
         return response()->noContent();
     }

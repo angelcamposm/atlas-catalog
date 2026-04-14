@@ -22,8 +22,16 @@ class BusinessDomainObserver
      */
     public function creating(BusinessDomain $businessDomain): void
     {
-        if ($businessDomain->hasParent() && is_null($businessDomain->display_name)) {
-            $businessDomain->display_name = $businessDomain->parent->name.' / '.$businessDomain->name;
+        if (is_null($businessDomain->category)) {
+            $businessDomain->category = 'G';
+        }
+
+        if (is_null($businessDomain->display_name)) {
+            if ($businessDomain->hasParent()) {
+                $businessDomain->display_name = $businessDomain->parent->name.' / '.$businessDomain->name;
+            } else {
+                $businessDomain->display_name = $businessDomain->name;
+            }
         }
 
         if (Auth::check() && is_null($businessDomain->created_by)) {

@@ -30,7 +30,7 @@ class ComponentPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ComponentPolicy
      */
     public function update(User $user, Component $component): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ComponentPolicy
      */
     public function delete(User $user, Component $component): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ComponentPolicy
      */
     public function restore(User $user, Component $component): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ComponentPolicy
      */
     public function forceDelete(User $user, Component $component): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

@@ -6,7 +6,10 @@ namespace App\Models;
 
 use App\Observers\ComponentObserver;
 use App\Traits\BelongsToUser;
+use App\Traits\Filterable;
 use App\Traits\HasDeployments;
+use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Database\Factories\ComponentFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
@@ -54,6 +57,9 @@ class Component extends Model
     use HasFactory;
     use BelongsToUser;
     use HasDeployments;
+    use Filterable;
+    use Sortable;
+    use Searchable;
 
     /**
      * The table associated with the model.
@@ -80,6 +86,7 @@ class Component extends Model
         'is_stateless',
         'owner_id',
         'platform_id',
+        'component_type_id',
         'slug',
         'status_id',
         'tags',
@@ -96,6 +103,83 @@ class Component extends Model
     protected $hidden = [
         //
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_exposed' => 'boolean',
+            'is_stateless' => 'boolean',
+            'has_zero_downtime_deployments' => 'boolean',
+        ];
+    }
+    /**
+     * Fields that can be filtered.
+     *
+     * @var array<string>
+     */
+    protected array $filterable = [
+        'domain_id',
+        'platform_id',
+        'status_id',
+        'tier_id',
+        'is_exposed',
+        'is_stateless',
+    ];
+
+    /**
+     * Fields that can be sorted.
+     *
+     * @var array<string>
+     */
+    protected array $sortable = [
+        'id',
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Fields that can be searched.
+     *
+     * @var array<string>
+     */
+    protected array $searchable = [
+        'name',
+        'display_name',
+        'description',
+    ];
+
+    /**
+     * Get the value of the model's route key.
+     * This allows Laravel to resolve components by either slug or ID in route model binding.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        // Return 'slug' to use slug for route model binding by default
+        // The controller can still use ID directly if needed
+        return 'slug';
+    }
+
+    /**
+     * Resolve the model's route binding, supporting both slug and numeric ID.
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        if ($field) {
+            return $this->where($field, $value)->firstOrFail();
+        }
+
+        return $this->where('slug', $value)
+            ->when(is_numeric($value), fn ($query) => $query->orWhere('id', $value))
+            ->firstOrFail();
+    }
 
     public function apis(): BelongsToMany
     {
@@ -164,6 +248,16 @@ class Component extends Model
     public function platform(): BelongsTo
     {
         return $this->belongsTo(Platform::class, 'platform_id', 'id');
+    }
+
+    /**
+     * Get the component type of the component.
+     *
+     * @return BelongsTo<ComponentType>
+     */
+    public function componentType(): BelongsTo
+    {
+        return $this->belongsTo(ComponentType::class, 'component_type_id');
     }
 
     /**

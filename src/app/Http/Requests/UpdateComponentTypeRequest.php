@@ -19,7 +19,7 @@ class UpdateComponentTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('component_type')) ?? false;
     }
 
     /**
@@ -32,7 +32,7 @@ class UpdateComponentTypeRequest extends FormRequest
         return [
             'name' => ['sometimes', 'string', 'max:50', Rule::unique('component_types')->ignore($this->component_type)],
             'description' => ['nullable', 'string', 'max:255'],
-            'icon' => ['required', 'string', 'max:50'],
+            'icon' => ['sometimes', 'string', 'max:50'],
         ];
     }
 }

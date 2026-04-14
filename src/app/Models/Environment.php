@@ -56,6 +56,7 @@ class Environment extends Model
      */
     protected $fillable = [
         'name',
+        'type',
         'abbr',
         'approval_required',
         'description',

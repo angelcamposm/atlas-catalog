@@ -20,7 +20,7 @@ class UpdateBusinessCapabilityRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('business_capability')) ?? false;
     }
 
     /**
@@ -35,6 +35,7 @@ class UpdateBusinessCapabilityRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:255'],
             'parent_id' => ['nullable', 'integer', 'exists:business_capabilities,id'],
             'strategic_value' => ['sometimes', 'integer', Rule::in(StrategicValue::values())],
+            'organization_id' => ['nullable', 'integer', 'exists:organizations,id'],
         ];
     }
 }

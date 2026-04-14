@@ -36,7 +36,13 @@ class NodeController extends Controller
             ? self::filterAllowedRelationships($request->get('with'))
             : [];
 
-        return new NodeResourceCollection(Node::with($relationships)->paginate());
+        return new NodeResourceCollection(
+            Node::filter($request)
+                ->search($request)
+                ->sort($request)
+                ->with($relationships)
+                ->paginate()
+        );
     }
 
     /**
@@ -81,7 +87,7 @@ class NodeController extends Controller
      */
     public function update(UpdateNodeRequest $request, Node $node): NodeResource
     {
-        $model = $node->update($request->validated());
+        $model = tap($node)->update($request->validated());
 
         return new NodeResource($model);
     }
@@ -95,6 +101,8 @@ class NodeController extends Controller
      */
     public function destroy(Node $node): Response
     {
+        $this->authorize('delete', $node);
+
         $node->delete();
 
         return response()->noContent();

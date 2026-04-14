@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Component;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +15,7 @@ class StoreComponentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Component::class) ?? false;
     }
 
     /**
@@ -37,7 +38,7 @@ class StoreComponentRequest extends FormRequest
             'end_of_life_at' => ['nullable', 'date'],
             'owner_id' => ['nullable', 'integer', 'exists:groups,id'],
             'platform_id' => ['nullable', 'integer', 'exists:platforms,id'],
-            'slug' => ['required', 'string', 'max:255', 'unique:components,slug'],
+            'slug' => ['sometimes', 'string', 'max:255', 'unique:components,slug'],
             'status_id' => ['nullable', 'integer', 'exists:service_statuses,id'],
             'tags' => ['nullable', 'json'],
             'tier_id' => ['nullable', 'integer', 'exists:business_tiers,id'],

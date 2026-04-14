@@ -59,6 +59,6 @@ return [
     [
         'name' => 'Other',
         'icon' => null,
-        'url' => null,
+        'url' => '#',
     ],
 ];

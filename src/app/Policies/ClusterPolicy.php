@@ -30,7 +30,7 @@ class ClusterPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -38,7 +38,7 @@ class ClusterPolicy
      */
     public function update(User $user, Cluster $cluster): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -46,7 +46,7 @@ class ClusterPolicy
      */
     public function delete(User $user, Cluster $cluster): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ClusterPolicy
      */
     public function restore(User $user, Cluster $cluster): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -62,6 +62,6 @@ class ClusterPolicy
      */
     public function forceDelete(User $user, Cluster $cluster): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

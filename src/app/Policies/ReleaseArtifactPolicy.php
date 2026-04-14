@@ -31,7 +31,7 @@ class ReleaseArtifactPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -39,7 +39,7 @@ class ReleaseArtifactPolicy
      */
     public function update(User $user, ReleaseArtifact $releaseArtifact): bool
     {
-        return true;
+        return $user->isAdmin() || $user->isEditor();
     }
 
     /**
@@ -47,7 +47,7 @@ class ReleaseArtifactPolicy
      */
     public function delete(User $user, ReleaseArtifact $releaseArtifact): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -55,7 +55,7 @@ class ReleaseArtifactPolicy
      */
     public function restore(User $user, ReleaseArtifact $releaseArtifact): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -63,6 +63,6 @@ class ReleaseArtifactPolicy
      */
     public function forceDelete(User $user, ReleaseArtifact $releaseArtifact): bool
     {
-        return true;
+        return $user->isAdmin();
     }
 }

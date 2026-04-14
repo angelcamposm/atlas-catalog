@@ -7,12 +7,13 @@ namespace App\Http\Requests;
 use App\Enums\DeploymentStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\Deployment;
 
 class StoreDeploymentRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', Deployment::class) ?? false;
     }
 
     public function rules(): array
@@ -27,7 +28,7 @@ class StoreDeploymentRequest extends FormRequest
             'docker_image_digest' => ['nullable', 'string', 'max:255'],
             'workflow_run_id' => ['nullable', 'integer', 'exists:workflow_runs,id'],
             'triggered_by' => ['nullable', 'integer', 'exists:users,id'],
-            'status' => ['required', new Rule(DeploymentStatus::class)],
+            'status' => ['required', Rule::enum(DeploymentStatus::class)],
             'started_at' => ['nullable', 'date'],
             'meta' => ['nullable', 'array'],
         ];

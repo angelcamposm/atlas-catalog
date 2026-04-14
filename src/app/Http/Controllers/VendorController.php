@@ -59,7 +59,7 @@ class VendorController extends Controller
      */
     public function update(UpdateVendorRequest $request, Vendor $vendor): VendorResource
     {
-        $model = $vendor->update($request->validated());
+        $model = tap($vendor)->update($request->validated());
 
         return new VendorResource($model);
     }

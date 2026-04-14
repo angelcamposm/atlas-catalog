@@ -6,6 +6,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\ServiceStatus;
 
 class StoreServiceStatusRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreServiceStatusRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', ServiceStatus::class) ?? false;
     }
 
     /**

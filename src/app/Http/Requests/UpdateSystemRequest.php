@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\System;
 
 class UpdateSystemRequest extends FormRequest
 {
@@ -15,7 +16,7 @@ class UpdateSystemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('system')) ?? false;
     }
 
     /**

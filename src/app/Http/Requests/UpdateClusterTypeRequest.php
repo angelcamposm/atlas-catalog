@@ -19,7 +19,7 @@ class UpdateClusterTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('update', $this->route('type')) ?? false;
     }
 
     /**
@@ -31,7 +31,7 @@ class UpdateClusterTypeRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string', 'max:255', Rule::unique('cluster_types')->ignore($this->clusterType)],
-            'icon' => ['required', 'string', 'max:50'],
+            'icon' => ['sometimes', 'string', 'max:50'],
             'is_enabled' => ['sometimes', 'boolean'],
         ];
     }

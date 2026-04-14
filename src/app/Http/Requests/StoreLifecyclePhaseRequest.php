@@ -7,6 +7,7 @@ namespace App\Http\Requests;
 use App\Rules\ColorRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\LifecyclePhase;
 
 class StoreLifecyclePhaseRequest extends FormRequest
 {
@@ -15,7 +16,7 @@ class StoreLifecyclePhaseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->can('create', LifecyclePhase::class) ?? false;
     }
 
     /**
