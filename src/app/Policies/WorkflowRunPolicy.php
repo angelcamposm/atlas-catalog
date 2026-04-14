@@ -38,7 +38,8 @@ class WorkflowRunPolicy
      */
     public function update(User $user, WorkflowRun $workflowRun): bool
     {
-        return $user->isAdmin() || $user->isEditor();
+        // Los WorkflowRuns son inmutables
+        return false;
     }
 
     /**
@@ -46,7 +47,8 @@ class WorkflowRunPolicy
      */
     public function delete(User $user, WorkflowRun $workflowRun): bool
     {
-        return $user->isAdmin();
+        // Los WorkflowRuns no deben borrarse
+        return false;
     }
 
     /**
@@ -54,7 +56,7 @@ class WorkflowRunPolicy
      */
     public function restore(User $user, WorkflowRun $workflowRun): bool
     {
-        return $user->isAdmin();
+        return false
     }
 
     /**
@@ -62,6 +64,6 @@ class WorkflowRunPolicy
      */
     public function forceDelete(User $user, WorkflowRun $workflowRun): bool
     {
-        return $user->isAdmin();
+        return false;
     }
 }
