@@ -47,6 +47,29 @@ export enum DiscoverySource {
     MANUAL = "MANUAL",
 }
 
+// Domain category (App\Enums\DomainCategory)
+export enum DomainCategory {
+    BUSINESS = "business",
+    TECHNICAL = "technical",
+    SUPPORT = "support",
+}
+
+// Deployment status (App\Enums\DeploymentStatus)
+export enum DeploymentStatus {
+    PENDING = "pending",
+    IN_PROGRESS = "in_progress",
+    SUCCESS = "success",
+    FAILED = "failed",
+    ROLLED_BACK = "rolled_back",
+    CANCELLED = "cancelled",
+}
+
+/**
+ * Laravel 422 validation errors re-exported under a friendlier name.
+ * Keyed by field name, each value is the ordered list of messages.
+ */
+export type FieldErrors = Record<string, string[]>;
+
 // Users and Groups ---------------------------------------------------------
 
 export const userSchema = z

@@ -7,6 +7,7 @@
  */
 
 import { apiClient } from "../api-client";
+import { buildQueryString } from "./_shared";
 import type { Component, ComponentType, PaginatedResponse } from "@/types/api";
 
 // ============================================================================
@@ -27,7 +28,7 @@ export interface ComponentsQueryParams {
     operational_status_id?: number;
     criticality_id?: number;
     is_stateless?: boolean;
-    has_zero_downtime_deployment?: boolean;
+    has_zero_downtime_deployments?: boolean;
     sort_by?: string;
     sort_order?: "asc" | "desc";
 }
@@ -47,7 +48,7 @@ export interface CreateComponentData {
     operational_status_id?: number;
     criticality_id?: number;
     is_stateless?: boolean;
-    has_zero_downtime_deployment?: boolean;
+    has_zero_downtime_deployments?: boolean;
     tags?: Record<string, unknown>;
 }
 
@@ -130,55 +131,12 @@ export const componentsApi = {
      * Get all components with optional filters and pagination
      */
     async getAll(
-        params: ComponentsQueryParams = {}
+        params: ComponentsQueryParams = {},
     ): Promise<PaginatedResponse<Component>> {
-        const searchParams = new URLSearchParams();
-
-        if (params.page) searchParams.set("page", params.page.toString());
-        if (params.per_page)
-            searchParams.set("per_page", params.per_page.toString());
-        if (params.search) searchParams.set("search", params.search);
-        if (params.type_id)
-            searchParams.set("type_id", params.type_id.toString());
-        if (params.lifecycle_id)
-            searchParams.set("lifecycle_id", params.lifecycle_id.toString());
-        if (params.domain_id)
-            searchParams.set("domain_id", params.domain_id.toString());
-        if (params.owner_id)
-            searchParams.set("owner_id", params.owner_id.toString());
-        if (params.platform_id)
-            searchParams.set("platform_id", params.platform_id.toString());
-        if (params.tier_id)
-            searchParams.set("tier_id", params.tier_id.toString());
-        if (params.status_id)
-            searchParams.set("status_id", params.status_id.toString());
-        if (params.operational_status_id)
-            searchParams.set(
-                "operational_status_id",
-                params.operational_status_id.toString()
-            );
-        if (params.criticality_id)
-            searchParams.set(
-                "criticality_id",
-                params.criticality_id.toString()
-            );
-        if (params.is_stateless !== undefined)
-            searchParams.set("is_stateless", params.is_stateless.toString());
-        if (params.has_zero_downtime_deployment !== undefined)
-            searchParams.set(
-                "has_zero_downtime_deployment",
-                params.has_zero_downtime_deployment.toString()
-            );
-        if (params.sort_by) searchParams.set("sort_by", params.sort_by);
-        if (params.sort_order)
-            searchParams.set("sort_order", params.sort_order);
-
-        const queryString = searchParams.toString();
-        const url = queryString
-            ? `/v1/catalog/components?${queryString}`
-            : "/v1/catalog/components";
-
-        return apiClient.get<PaginatedResponse<Component>>(url);
+        const qs = buildQueryString(params);
+        return apiClient.get<PaginatedResponse<Component>>(
+            `/v1/catalog/components${qs}`,
+        );
     },
 
     /**
@@ -188,13 +146,13 @@ export const componentsApi = {
      */
     async getById(
         id: number,
-        withRelations?: string[]
+        withRelations?: string[],
     ): Promise<{ data: ComponentWithRelations }> {
-        const params = withRelations?.length
-            ? `?with=${withRelations.join(";")}`
+        const qs = withRelations?.length
+            ? buildQueryString({ with: withRelations })
             : "";
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/catalog/components/${id}${params}`
+            `/v1/catalog/components/${id}${qs}`,
         );
     },
 
@@ -206,13 +164,13 @@ export const componentsApi = {
      */
     async getBySlug(
         slug: string,
-        withRelations?: string[]
+        withRelations?: string[],
     ): Promise<{ data: ComponentWithRelations }> {
-        const params = withRelations?.length
-            ? `?with=${withRelations.join(";")}`
+        const qs = withRelations?.length
+            ? buildQueryString({ with: withRelations })
             : "";
         return apiClient.get<{ data: ComponentWithRelations }>(
-            `/v1/catalog/components/${slug}${params}`
+            `/v1/catalog/components/${slug}${qs}`,
         );
     },
 
@@ -222,7 +180,7 @@ export const componentsApi = {
     async create(data: CreateComponentData): Promise<{ data: Component }> {
         return apiClient.post<{ data: Component }>(
             "/v1/catalog/components",
-            data
+            data,
         );
     },
 
@@ -231,11 +189,11 @@ export const componentsApi = {
      */
     async update(
         id: number,
-        data: UpdateComponentData
+        data: UpdateComponentData,
     ): Promise<{ data: Component }> {
         return apiClient.put<{ data: Component }>(
             `/v1/catalog/components/${id}`,
-            data
+            data,
         );
     },
 
@@ -251,13 +209,11 @@ export const componentsApi = {
      * TODO: Backend endpoint /v1/catalog/components/{id}/apis not implemented yet
      */
     async getApis(
-        componentId: number
+        componentId: number,
     ): Promise<{ data: { id: number; name: string; relationship: string }[] }> {
-        console.warn(
-            "getApis: Backend endpoint not implemented, returning empty"
-        );
+        // TODO: Backend endpoint /v1/catalog/components/{id}/apis not implemented yet
+        void componentId;
         return Promise.resolve({ data: [] });
-        // return apiClient.get(`/v1/catalog/components/${componentId}/apis`);
     },
 
     /**
@@ -267,14 +223,13 @@ export const componentsApi = {
     async addApi(
         componentId: number,
         apiId: number,
-        relationship: string = "uses"
+        relationship: string = "uses",
     ): Promise<void> {
-        console.warn("addApi: Backend endpoint not implemented");
+        // TODO: Backend endpoint not implemented yet
+        void componentId;
+        void apiId;
+        void relationship;
         return Promise.resolve();
-        // return apiClient.post(`/v1/catalog/components/${componentId}/apis`, {
-        //     api_id: apiId,
-        //     relationship,
-        // });
     },
 
     /**
@@ -282,11 +237,10 @@ export const componentsApi = {
      * TODO: Backend endpoint /v1/catalog/components/{id}/apis/{apiId} not implemented yet
      */
     async removeApi(componentId: number, apiId: number): Promise<void> {
-        console.warn("removeApi: Backend endpoint not implemented");
+        // TODO: Backend endpoint not implemented yet
+        void componentId;
+        void apiId;
         return Promise.resolve();
-        // return apiClient.delete(
-        //     `/v1/catalog/components/${componentId}/apis/${apiId}`
-        // );
     },
 
     /**
@@ -294,13 +248,11 @@ export const componentsApi = {
      * TODO: Backend endpoint /v1/catalog/components/{id}/resources not implemented yet
      */
     async getResources(
-        componentId: number
+        componentId: number,
     ): Promise<{ data: ComponentResource[] }> {
-        console.warn(
-            "getResources: Backend endpoint not implemented, returning empty"
-        );
+        // TODO: Backend endpoint not implemented
+        void componentId;
         return Promise.resolve({ data: [] });
-        // return apiClient.get(`/v1/catalog/components/${componentId}/resources`);
     },
 
     /**
@@ -308,13 +260,11 @@ export const componentsApi = {
      * TODO: Backend endpoint /v1/catalog/components/{id}/releases not implemented yet
      */
     async getReleases(
-        componentId: number
+        componentId: number,
     ): Promise<{ data: ComponentRelease[] }> {
-        console.warn(
-            "getReleases: Backend endpoint not implemented, returning empty"
-        );
+        // TODO: Backend endpoint not implemented
+        void componentId;
         return Promise.resolve({ data: [] });
-        // return apiClient.get(`/v1/catalog/components/${componentId}/releases`);
     },
 
     /**
@@ -322,13 +272,11 @@ export const componentsApi = {
      * TODO: Backend endpoint /v1/catalog/components/{id}/audit not implemented yet
      */
     async getAuditLog(
-        componentId: number
+        componentId: number,
     ): Promise<{ data: ComponentAuditEntry[] }> {
-        console.warn(
-            "getAuditLog: Backend endpoint not implemented, returning empty"
-        );
+        // TODO: Backend endpoint not implemented
+        void componentId;
         return Promise.resolve({ data: [] });
-        // return apiClient.get(`/v1/catalog/components/${componentId}/audit`);
     },
 
     /**
@@ -336,13 +284,11 @@ export const componentsApi = {
      * TODO: Backend endpoint /v1/catalog/components/{id}/dependencies not implemented yet
      */
     async getDependencies(
-        componentId: number
+        componentId: number,
     ): Promise<{ data: ComponentDependency[] }> {
-        console.warn(
-            "getDependencies: Backend endpoint not implemented, returning empty"
-        );
+        // TODO: Backend endpoint not implemented
+        void componentId;
         return Promise.resolve({ data: [] });
-        // return apiClient.get(`/v1/catalog/components/${componentId}/dependencies`);
     },
 };
 
@@ -356,7 +302,7 @@ export const componentTypesApi = {
      */
     async getAll(): Promise<PaginatedResponse<ComponentType>> {
         return apiClient.get<PaginatedResponse<ComponentType>>(
-            "/v1/catalog/components/types"
+            "/v1/catalog/components/types",
         );
     },
 
@@ -365,27 +311,32 @@ export const componentTypesApi = {
      */
     async getById(id: number): Promise<{ data: ComponentType }> {
         return apiClient.get<{ data: ComponentType }>(
-            `/v1/catalog/components/types/${id}`
+            `/v1/catalog/components/types/${id}`,
         );
     },
 
     /**
      * Create a new component type
      */
-    async create(data: Partial<ComponentType>): Promise<{ data: ComponentType }> {
+    async create(
+        data: Partial<ComponentType>,
+    ): Promise<{ data: ComponentType }> {
         return apiClient.post<{ data: ComponentType }>(
             "/v1/catalog/components/types",
-            data
+            data,
         );
     },
 
     /**
      * Update an existing component type
      */
-    async update(id: number, data: Partial<ComponentType>): Promise<{ data: ComponentType }> {
+    async update(
+        id: number,
+        data: Partial<ComponentType>,
+    ): Promise<{ data: ComponentType }> {
         return apiClient.put<{ data: ComponentType }>(
             `/v1/catalog/components/types/${id}`,
-            data
+            data,
         );
     },
 
@@ -393,9 +344,7 @@ export const componentTypesApi = {
      * Delete a component type
      */
     async delete(id: number): Promise<void> {
-        return apiClient.delete(
-            `/v1/catalog/components/types/${id}`
-        );
+        return apiClient.delete(`/v1/catalog/components/types/${id}`);
     },
 };
 
@@ -414,7 +363,7 @@ export function getComponentDisplayName(component: Component): string {
  * Get badge color based on operational status
  */
 export function getOperationalStatusColor(
-    statusId: number | null | undefined
+    statusId: number | null | undefined,
 ): string {
     if (!statusId)
         return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";
@@ -435,7 +384,7 @@ export function getOperationalStatusColor(
  * Get badge color based on criticality
  */
 export function getCriticalityColor(
-    criticalityId: number | null | undefined
+    criticalityId: number | null | undefined,
 ): string {
     if (!criticalityId)
         return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300";

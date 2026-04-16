@@ -16,6 +16,7 @@ const customJestConfig = {
         "<rootDir>/.next/",
         "<rootDir>/node_modules/",
         "<rootDir>/e2e/", // Playwright E2E tests
+        "<rootDir>/__tests__/helpers/", // Shared test utilities, not suites
     ],
 };
 

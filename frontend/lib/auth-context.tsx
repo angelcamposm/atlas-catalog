@@ -13,6 +13,7 @@ import React, {
     useCallback,
     useContext,
     useEffect,
+    useMemo,
     useState,
 } from "react";
 import { authApi, AuthUser, LoginRequest } from "@/lib/api/auth";
@@ -22,7 +23,7 @@ export const TOKEN_KEY = "auth_token";
 
 // Context shape -----------------------------------------------------------
 
-interface AuthState {
+export interface AuthState {
     user: AuthUser | null;
     isAuthenticated: boolean;
     loading: boolean;
@@ -30,14 +31,21 @@ interface AuthState {
     logout: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthState | undefined>(undefined);
+/**
+ * Exported so tests and advanced consumers can inject their own
+ * auth state via <AuthContext.Provider>. Regular app code should
+ * prefer <AuthProvider> + useAuth().
+ */
+export const AuthContext = createContext<AuthState | undefined>(undefined);
 
 // Provider ----------------------------------------------------------------
 
 /**
  * Wrap your app (or protected layout) with this provider.
  */
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({
+    children,
+}: Readonly<{ children: React.ReactNode }>) {
     const [user, setUser] = useState<AuthUser | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -77,7 +85,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return (
         <AuthContext.Provider
-            value={{ user, isAuthenticated: !!user, loading, login, logout }}
+            value={useMemo(
+                () => ({
+                    user,
+                    isAuthenticated: !!user,
+                    loading,
+                    login,
+                    logout,
+                }),
+                [user, loading, login, logout],
+            )}
         >
             {children}
         </AuthContext.Provider>
