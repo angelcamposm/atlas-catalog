@@ -30,7 +30,7 @@ Route::prefix('v1')->middleware(['auth:sanctum'])->group(function () {
             ->name('deployments.index');
         Route::get('deployments/{deployment}', [DeploymentController::class, 'show'])
             ->name('deployments.show');
-        Route::put('deployments/{deployment}', [DeploymentController::class, 'update'])
-            ->name('deployments.update');
+        //Route::put('deployments/{deployment}', [DeploymentController::class, 'update'])
+        //    ->name('deployments.update');
     });
 });

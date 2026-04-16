@@ -2,9 +2,10 @@
 
 use App\Providers\AppServiceProvider;
 use App\Providers\HorizonServiceProvider;
+use Dedoc\Scramble\ScrambleServiceProvider;
 
 return [
-    App\Providers\AppServiceProvider::class,
-    App\Providers\HorizonServiceProvider::class,
-    Dedoc\Scramble\ScrambleServiceProvider::class,
+    AppServiceProvider::class,
+    HorizonServiceProvider::class,
+    ScrambleServiceProvider::class,
 ];
