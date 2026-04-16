@@ -128,9 +128,9 @@ describe("ComponentDetailPage", () => {
             render(<ComponentDetailPage />);
 
             await waitFor(() => {
-                expect(screen.getByTestId("component-header")).toHaveTextContent(
-                    "api-gateway",
-                );
+                expect(
+                    screen.getByTestId("component-header"),
+                ).toHaveTextContent("api-gateway");
             });
         });
 
@@ -150,7 +150,9 @@ describe("ComponentDetailPage", () => {
             expect(
                 screen.getByTestId("business-support-section"),
             ).toBeInTheDocument();
-            expect(screen.getByTestId("lifecycle-timeline")).toBeInTheDocument();
+            expect(
+                screen.getByTestId("lifecycle-timeline"),
+            ).toBeInTheDocument();
         });
 
         it("calls getBySlug with the id from the route", async () => {

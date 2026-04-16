@@ -1,4 +1,186 @@
 /**
+ * Tests for the APIs API module (`lib/api/apis.ts`).
+ *
+ * Verifies URL composition and delegation to `apiClient`. HTTP is mocked.
+ * Mirrors the lean pattern of `components-module.test.ts`.
+ */
+
+import { apisApi } from "@/lib/api/apis";
+
+// ---------------------------------------------------------------------------
+// Mock apiClient
+// ---------------------------------------------------------------------------
+
+jest.mock("@/lib/api-client", () => ({
+    apiClient: {
+        get: jest.fn(),
+        post: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn(),
+    },
+    ApiError: class ApiError extends Error {
+        constructor(
+            message: string,
+            public status: number,
+        ) {
+            super(message);
+        }
+    },
+}));
+
+import { apiClient } from "@/lib/api-client";
+
+const mockGet = apiClient.get as jest.Mock;
+const mockPost = apiClient.post as jest.Mock;
+const mockPut = apiClient.put as jest.Mock;
+const mockDelete = apiClient.delete as jest.Mock;
+
+// ---------------------------------------------------------------------------
+// Fixtures
+// ---------------------------------------------------------------------------
+
+const paginatedEnvelope = {
+    data: [],
+    meta: {
+        current_page: 1,
+        from: 0,
+        to: 0,
+        per_page: 15,
+        total: 0,
+        last_page: 1,
+        path: "/api/v1/catalog/apis",
+    },
+    links: { first: "", last: "", prev: null, next: null },
+};
+
+const singleEnvelope = {
+    data: {
+        id: 1,
+        name: "users-api",
+        display_name: "Users API",
+    },
+};
+
+// ---------------------------------------------------------------------------
+// Tests
+// ---------------------------------------------------------------------------
+
+describe("apisApi", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        mockGet.mockResolvedValue(paginatedEnvelope);
+        mockPost.mockResolvedValue(singleEnvelope);
+        mockPut.mockResolvedValue(singleEnvelope);
+        mockDelete.mockResolvedValue(undefined);
+    });
+
+    describe("getAll", () => {
+        it("requests the collection with no query when params are empty", async () => {
+            await apisApi.getAll();
+            expect(mockGet).toHaveBeenCalledWith("/v1/catalog/apis");
+        });
+
+        it("accepts a page number and encodes it as ?page=N", async () => {
+            await apisApi.getAll({ page: 3 });
+            expect(mockGet).toHaveBeenCalledWith("/v1/catalog/apis?page=3");
+        });
+
+        it("encodes search + multiple filters", async () => {
+            await apisApi.getAll({
+                search: "orders",
+                category_id: 2,
+                protocol: "https",
+                page: 1,
+            });
+            const url = mockGet.mock.calls[0][0] as string;
+            expect(url).toContain("search=orders");
+            expect(url).toContain("category_id=2");
+            expect(url).toContain("protocol=https");
+            expect(url).toContain("page=1");
+        });
+
+        it("returns the paginated envelope from apiClient", async () => {
+            mockGet.mockResolvedValueOnce({
+                ...paginatedEnvelope,
+                data: [{ id: 1, name: "users-api" }],
+                meta: { ...paginatedEnvelope.meta, total: 1 },
+            });
+            const result = await apisApi.getAll();
+            expect(result.data).toHaveLength(1);
+            expect(result.meta.total).toBe(1);
+        });
+    });
+
+    describe("getById", () => {
+        it("requests /v1/catalog/apis/{id}", async () => {
+            mockGet.mockResolvedValueOnce(singleEnvelope);
+            await apisApi.getById(42);
+            expect(mockGet).toHaveBeenCalledWith("/v1/catalog/apis/42");
+        });
+
+        it("appends ?with=... when relations are passed", async () => {
+            mockGet.mockResolvedValueOnce(singleEnvelope);
+            await apisApi.getById(42, ["category", "type"]);
+            const url = mockGet.mock.calls[0][0] as string;
+            expect(url.startsWith("/v1/catalog/apis/42?")).toBe(true);
+            expect(url).toContain("with");
+            expect(url).toContain("category");
+            expect(url).toContain("type");
+        });
+
+        it("returns the resource envelope", async () => {
+            mockGet.mockResolvedValueOnce(singleEnvelope);
+            const result = await apisApi.getById(1);
+            expect(result.data.name).toBe("users-api");
+        });
+    });
+
+    describe("create", () => {
+        it("POSTs to /v1/catalog/apis with the payload", async () => {
+            mockPost.mockResolvedValueOnce(singleEnvelope);
+            await apisApi.create({ name: "new-api" });
+            expect(mockPost).toHaveBeenCalledWith("/v1/catalog/apis", {
+                name: "new-api",
+            });
+        });
+
+        it("returns the created resource", async () => {
+            mockPost.mockResolvedValueOnce({
+                data: { id: 9, name: "new-api" },
+            });
+            const result = await apisApi.create({ name: "new-api" });
+            expect(result.data.id).toBe(9);
+        });
+    });
+
+    describe("update", () => {
+        it("PUTs to /v1/catalog/apis/{id} with the payload", async () => {
+            mockPut.mockResolvedValueOnce(singleEnvelope);
+            await apisApi.update(1, { display_name: "Updated" });
+            expect(mockPut).toHaveBeenCalledWith("/v1/catalog/apis/1", {
+                display_name: "Updated",
+            });
+        });
+    });
+
+    describe("delete", () => {
+        it("DELETEs /v1/catalog/apis/{id}", async () => {
+            await apisApi.delete(7);
+            expect(mockDelete).toHaveBeenCalledWith("/v1/catalog/apis/7");
+        });
+    });
+
+    describe("getComponents", () => {
+        it("requests /v1/catalog/apis/{id}/components", async () => {
+            mockGet.mockResolvedValueOnce(paginatedEnvelope);
+            await apisApi.getComponents(42);
+            expect(mockGet).toHaveBeenCalledWith(
+                "/v1/catalog/apis/42/components",
+            );
+        });
+    });
+});
+/**
  * Tests for APIs module
  */
 
@@ -100,7 +282,7 @@ describe("APIs Module", () => {
 
             mockedApiClient.get.mockResolvedValueOnce(mockResponse);
 
-            const result = await apisApi.getAll(1);
+            const result = await apisApi.getAll({ page: 1 });
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
                 "/v1/catalog/apis?page=1",
@@ -115,7 +297,7 @@ describe("APIs Module", () => {
 
             mockedApiClient.get.mockResolvedValueOnce(mockResponse);
 
-            const result = await apisApi.getAll(2);
+            const result = await apisApi.getAll({ page: 2 });
 
             expect(mockedApiClient.get).toHaveBeenCalledWith(
                 "/v1/catalog/apis?page=2",

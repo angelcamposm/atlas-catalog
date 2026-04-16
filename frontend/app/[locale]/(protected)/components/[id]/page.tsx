@@ -176,7 +176,10 @@ export default function ComponentDetailPage() {
                     }
                     businessCriticality={
                         component.tier
-                            ? { id: component.tier.id, name: component.tier.name }
+                            ? {
+                                  id: component.tier.id,
+                                  name: component.tier.name,
+                              }
                             : undefined
                     }
                     percentage={0}

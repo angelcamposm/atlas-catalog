@@ -1,79 +1,130 @@
 /**
- * API endpoints for managing APIs
+ * APIs API Module
+ *
+ * Consumes the `/v1/catalog/apis` endpoints.
+ * Thin wrapper over `apiClient` using `_shared.buildQueryString` for query
+ * composition. Mirrors the lean pattern of `components.ts`.
  */
 
 import { apiClient } from "../api-client";
-import {
-    apiResponseSchema,
-    paginatedApiResponseSchema,
-    paginatedComponentResponseSchema,
-} from "@/types/api";
-import type {
-    PaginatedApiResponse,
-    PaginatedComponentResponse,
-    ApiResponse,
-    CreateApiRequest,
-    UpdateApiRequest,
-} from "@/types/api";
+import { buildQueryString } from "./_shared";
+import type { Api, Component, PaginatedResponse } from "@/types/api";
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
+
+export interface ApisQueryParams {
+    page?: number;
+    per_page?: number;
+    search?: string;
+    category_id?: number;
+    type_id?: number;
+    status_id?: number;
+    protocol?: string;
+    access_policy_id?: number;
+    authentication_method_id?: number;
+    sort_by?: string;
+    sort_order?: "asc" | "desc";
+    with?: string[];
+}
+
+export interface CreateApiData {
+    name: string;
+    display_name?: string;
+    description?: string;
+    url?: string;
+    version?: string;
+    protocol?: string;
+    document_specification?: Record<string, unknown> | string;
+    released_at?: string;
+    access_policy_id?: number;
+    authentication_method_id?: number;
+    category_id?: number;
+    status_id?: number;
+    type_id?: number;
+}
+
+export type UpdateApiData = Partial<CreateApiData> & {
+    deprecated_at?: string;
+    deprecated_by?: number;
+    deprecation_reason?: string;
+};
+
+export interface ApiWithRelations extends Api {
+    category?: { id: number; name: string } | null;
+    type?: { id: number; name: string } | null;
+    status?: { id: number; name: string } | null;
+    access_policy?: { id: number; name: string } | null;
+    authentication_method?: { id: number; name: string } | null;
+}
+
+// ---------------------------------------------------------------------------
+// Client
+// ---------------------------------------------------------------------------
 
 export const apisApi = {
     /**
-     * Get all APIs with pagination
+     * List APIs with optional filters and pagination.
      */
-    getAll: async (page = 1): Promise<PaginatedApiResponse> => {
-        const response = await apiClient.get<unknown>(
-            `/v1/catalog/apis${apiClient.buildQuery({ page })}`,
+    async getAll(
+        params: ApisQueryParams = {},
+    ): Promise<PaginatedResponse<Api>> {
+        const qs = buildQueryString(params);
+        return apiClient.get<PaginatedResponse<Api>>(
+            `/v1/catalog/apis${qs}`,
         );
-        return paginatedApiResponseSchema.parse(response);
     },
 
     /**
-     * Get a single API by ID
+     * Fetch a single API by numeric ID.
+     * @param id API ID
+     * @param withRelations Optional list of relations to eager-load
      */
-    getById: async (id: number): Promise<ApiResponse> => {
-        const response = await apiClient.get<unknown>(`/v1/catalog/apis/${id}`);
-        return apiResponseSchema.parse(response);
-    },
-
-    /**
-     * Create a new API
-     */
-    create: async (data: CreateApiRequest): Promise<ApiResponse> => {
-        const response = await apiClient.post<unknown>(
-            "/v1/catalog/apis",
-            data,
-        );
-        return apiResponseSchema.parse(response);
-    },
-
-    /**
-     * Update an existing API
-     */
-    update: async (
+    async getById(
         id: number,
-        data: UpdateApiRequest,
-    ): Promise<ApiResponse> => {
-        const response = await apiClient.put<unknown>(
-            `/v1/catalog/apis/${id}`,
-            data,
+        withRelations?: string[],
+    ): Promise<{ data: ApiWithRelations }> {
+        const qs = withRelations?.length
+            ? buildQueryString({ with: withRelations })
+            : "";
+        return apiClient.get<{ data: ApiWithRelations }>(
+            `/v1/catalog/apis/${id}${qs}`,
         );
-        return apiResponseSchema.parse(response);
     },
 
     /**
-     * Delete an API
+     * Create a new API.
      */
-    delete: (id: number) => apiClient.delete(`/v1/catalog/apis/${id}`),
+    async create(data: CreateApiData): Promise<{ data: Api }> {
+        return apiClient.post<{ data: Api }>("/v1/catalog/apis", data);
+    },
 
     /**
-     * Get components associated with a specific API
+     * Update an existing API.
      */
-    getComponents: async (
+    async update(
+        id: number,
+        data: UpdateApiData,
+    ): Promise<{ data: Api }> {
+        return apiClient.put<{ data: Api }>(`/v1/catalog/apis/${id}`, data);
+    },
+
+    /**
+     * Delete an API.
+     */
+    async delete(id: number): Promise<void> {
+        await apiClient.delete(`/v1/catalog/apis/${id}`);
+    },
+
+    /**
+     * List components associated with a given API.
+     */
+    async getComponents(
         apiId: number,
-    ): Promise<PaginatedComponentResponse> => {
-        const response = await apiClient.get<unknown>(
+    ): Promise<PaginatedResponse<Component>> {
+        return apiClient.get<PaginatedResponse<Component>>(
             `/v1/catalog/apis/${apiId}/components`,
         );
-        return paginatedComponentResponseSchema.parse(response);
     },
 };
