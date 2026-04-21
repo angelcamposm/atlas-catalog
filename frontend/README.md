@@ -2,19 +2,23 @@
 
 A modern Next.js application for visualizing and managing API catalogs with internationalization support.
 
+> 💡 **¿Sólo quieres probar el proyecto?** No hace falta que instales nada localmente. Desde la raíz del repo ejecuta `docker compose -f docker-compose.full.yml up --build` y abre http://localhost:3001. Mira el [README principal](../README.md#-quick-start-recomendado) para el flujo completo.
+>
+> Esta guía es para desarrollo **local** del frontend (con hot-reload, IDE, tests, etc.).
+
 ## 🚀 Tech Stack
 
--   **Framework**: [Next.js 16](https://nextjs.org) with App Router
--   **Language**: TypeScript (strict mode)
--   **UI Library**: [React 19](https://react.dev)
--   **Styling**: [Tailwind CSS v4](https://tailwindcss.com)
--   **Components**: [shadcn/ui](https://ui.shadcn.com)
--   **Icons**: [react-icons](https://react-icons.github.io/react-icons/) - Popular icon library with Font Awesome, Hero Icons, Material Design, and more
--   **Typography**: [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin)
--   **Internationalization**: [next-intl v4](https://next-intl.dev)
--   **API Client**: Custom REST client with TypeScript types
--   **Unit Testing**: [Jest](https://jestjs.io) + [Testing Library](https://testing-library.com)
--   **E2E Testing**: [Playwright](https://playwright.dev)
+- **Framework**: [Next.js 16](https://nextjs.org) with App Router
+- **Language**: TypeScript (strict mode)
+- **UI Library**: [React 19](https://react.dev)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com)
+- **Components**: [shadcn/ui](https://ui.shadcn.com)
+- **Icons**: [react-icons](https://react-icons.github.io/react-icons/) - Popular icon library with Font Awesome, Hero Icons, Material Design, and more
+- **Typography**: [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin)
+- **Internationalization**: [next-intl v4](https://next-intl.dev)
+- **API Client**: Custom REST client with TypeScript types
+- **Unit Testing**: [Jest](https://jestjs.io) + [Testing Library](https://testing-library.com)
+- **E2E Testing**: [Playwright](https://playwright.dev)
 
 ## 📁 Project Structure
 
@@ -59,8 +63,11 @@ frontend/
 
 ### Prerequisites
 
--   Node.js 20.x or higher
--   pnpm 10.x or higher
+- Node.js 20.x or higher
+- pnpm 10.x or higher
+- El **backend Laravel** corriendo y accesible (por defecto en `http://localhost:8080/api`).
+    - La forma más simple: `docker compose -f docker-compose.full.yml up -d postgres redis init-db app nginx` desde la raíz del repo.
+    - O ejecútalo localmente con `php artisan serve` (ver [README principal](../README.md#desarrollo-local-sin-docker-avanzado)).
 
 ### Installation
 
@@ -82,10 +89,11 @@ pnpm install
 cp .env.local.example .env.local
 ```
 
-Edit `.env.local` and configure:
+Edit `.env.local` if your backend runs on a different host/port:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080/api
+NEXT_PUBLIC_API_TIMEOUT=30000
 ```
 
 4. Run the development server:
@@ -104,17 +112,17 @@ Atlas Catalog features a **comprehensive and extensible theme system** powered b
 
 ### Available Themes
 
--   ☀️ **Light** - Clean and bright interface
--   🌙 **Dark** - Easy on the eyes for extended use
--   💻 **System** - Automatically follows your OS preference
+- ☀️ **Light** - Clean and bright interface
+- 🌙 **Dark** - Easy on the eyes for extended use
+- 💻 **System** - Automatically follows your OS preference
 
 ### Theme Features
 
--   ✅ Persistent theme selection (saved in localStorage)
--   ✅ No flash of unstyled content (FOUC)
--   ✅ System preference detection
--   ✅ Smooth transitions between themes
--   ✅ **Extensible architecture** - Ready for custom themes
+- ✅ Persistent theme selection (saved in localStorage)
+- ✅ No flash of unstyled content (FOUC)
+- ✅ System preference detection
+- ✅ Smooth transitions between themes
+- ✅ **Extensible architecture** - Ready for custom themes
 
 ### Using Themes
 
@@ -128,18 +136,18 @@ Open your profile modal to select a specific theme with visual previews.
 
 The system is designed to support unlimited custom themes. See [`docs/THEMES.md`](./docs/THEMES.md) for:
 
--   Adding new themes
--   Customizing colors
--   Creating theme variants
--   Best practices
+- Adding new themes
+- Customizing colors
+- Creating theme variants
+- Best practices
 
 **Future themes ready to activate:**
 
--   🔵 Ocean Blue
--   🟣 Royal Purple
--   🌲 Forest Green
--   🌅 Sunset Orange
--   🎨 Custom themes
+- 🔵 Ocean Blue
+- 🟣 Royal Purple
+- 🌲 Forest Green
+- 🌅 Sunset Orange
+- 🎨 Custom themes
 
 ## 🎨 UI Components with shadcn/ui
 
@@ -164,14 +172,14 @@ pnpm dlx shadcn@latest add button card badge dialog
 
 Components are stored in `components/ui/` and include:
 
--   **Button**: Primary, secondary, outline, ghost variants
--   **Card**: Container for grouped content
--   **Badge**: Labels and status indicators
--   **Dialog**: Modal dialogs
--   **Form**: Form fields with validation
--   **Input**: Text inputs
--   **Select**: Dropdown selects
--   And many more...
+- **Button**: Primary, secondary, outline, ghost variants
+- **Card**: Container for grouped content
+- **Badge**: Labels and status indicators
+- **Dialog**: Modal dialogs
+- **Form**: Form fields with validation
+- **Input**: Text inputs
+- **Select**: Dropdown selects
+- And many more...
 
 ### Component Configuration
 
@@ -235,10 +243,10 @@ Use the `prose` class for beautifully styled content:
 
 **Prose modifiers:**
 
--   `prose-sm`, `prose-base`, `prose-lg`, `prose-xl`, `prose-2xl` - Size variants
--   `dark:prose-invert` - Dark mode support
--   `prose-headings:font-bold` - Style specific elements
--   `max-w-none` - Remove default max-width
+- `prose-sm`, `prose-base`, `prose-lg`, `prose-xl`, `prose-2xl` - Size variants
+- `dark:prose-invert` - Dark mode support
+- `prose-headings:font-bold` - Style specific elements
+- `max-w-none` - Remove default max-width
 
 ## 🌍 Internationalization (i18n)
 
@@ -246,8 +254,8 @@ The app supports multiple languages using [next-intl v4](https://next-intl.dev).
 
 ### Supported Languages
 
--   🇺🇸 English (`en`)
--   🇪🇸 Spanish (`es`)
+- 🇺🇸 English (`en`)
+- 🇪🇸 Spanish (`es`)
 
 ### Adding Translations
 
@@ -370,33 +378,38 @@ export interface PaginatedResponse<T> {
 ### Available Scripts
 
 ```bash
-# Development server with hot reload
+# Development server with hot reload (puerto 3001)
 pnpm dev
 
 # Production build
 pnpm build
 
-# Start production server
+# Start production server (puerto 3001)
 pnpm start
 
 # Run linter
 pnpm lint
 
-# Run type checking
-pnpm type-check
+# TypeScript type checking
+pnpm exec tsc --noEmit
 
-# Run unit tests
+# Run unit tests (Jest)
 pnpm test
+pnpm test:watch
 
-# Run E2E tests
+# Run E2E tests (Playwright)
 pnpm test:e2e
+pnpm test:e2e:ui
+pnpm test:e2e:headed
+pnpm test:e2e:debug
+pnpm test:e2e:report
 ```
 
 ### Code Quality
 
--   **ESLint**: Configured for Next.js and TypeScript
--   **TypeScript**: Strict mode enabled
--   **Prettier**: (Optional) Add for code formatting
+- **ESLint**: Configured for Next.js and TypeScript
+- **TypeScript**: Strict mode enabled
+- **Prettier**: (Optional) Add for code formatting
 
 ### Environment Variables
 
@@ -410,27 +423,31 @@ NODE_ENV=development
 
 ## 🐳 Docker Support
 
-### Development
+El frontend forma parte del stack completo orquestado en la raíz del repo. Lo más cómodo es usarlo desde allí:
 
 ```bash
-docker-compose -f docker-compose.dev.yml up frontend
+# Stack completo (frontend + backend + DB + redis) — modo producción
+docker compose -f docker-compose.full.yml up --build
+
+# Stack completo en modo desarrollo (hot-reload)
+docker compose -f docker-compose.full-dev.yml up --build
 ```
 
-### Production
+Para construir sólo la imagen del frontend:
 
 ```bash
-docker-compose up frontend
+docker build -t atlas-frontend:latest -f frontend/Dockerfile ./frontend
 ```
 
-The Dockerfile uses multi-stage builds for optimized production images.
+El `Dockerfile` usa multi-stage builds para imágenes de producción optimizadas. La variable `NEXT_PUBLIC_API_URL` se inyecta en build time vía `--build-arg`.
 
 ## 📚 Additional Resources
 
--   [Next.js Documentation](https://nextjs.org/docs)
--   [shadcn/ui Documentation](https://ui.shadcn.com)
--   [Tailwind CSS Documentation](https://tailwindcss.com)
--   [next-intl Documentation](https://next-intl.dev)
--   [React Documentation](https://react.dev)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [shadcn/ui Documentation](https://ui.shadcn.com)
+- [Tailwind CSS Documentation](https://tailwindcss.com)
+- [next-intl Documentation](https://next-intl.dev)
+- [React Documentation](https://react.dev)
 
 ## 🤝 Contributing
 
@@ -444,81 +461,93 @@ The Dockerfile uses multi-stage builds for optimized production images.
 
 ## 🧪 Testing
 
-Atlas Catalog uses a comprehensive testing strategy with **Jest** for unit tests and **Playwright** for E2E tests.
+Atlas Catalog usa **Jest** para tests unitarios/integración y **Playwright** para E2E.
 
-### Unit Tests (Jest)
+> 📊 **Snapshot actual**
+>
+> | Suite      | Estado                                 | Cobertura (L / S / B / F)         |
+> | ---------- | -------------------------------------- | --------------------------------- |
+> | Jest       | 94 suites · **1.402 tests** · ✅ pasan | **76,4% / 73,7% / 72,8% / 68,4%** |
+> | Playwright | 48 specs                               | n/a (E2E)                         |
 
-Unit tests are located in `__tests__/` and test API modules, utilities, and component logic.
+### Unit / Integration tests (Jest)
+
+Ubicados en `__tests__/`. Mockean el cliente HTTP, así que **no necesitan backend ni servidor de Next**.
 
 ```bash
-# Run all unit tests
+# Todos los tests
 pnpm test
 
-# Run tests in watch mode
-pnpm test --watch
+# Modo watch
+pnpm test:watch
 
-# Run specific test file
+# Un test concreto
 pnpm test clusters-api
+
+# Con cobertura (reporte en frontend/coverage/)
+pnpm test -- --coverage
 ```
 
-**Test coverage includes:**
+**Cubren:**
 
--   API client and modules (`lib/api/`)
--   Zod schema validation
--   Utility functions
+- Cliente API y módulos (`lib/api/`)
+- Validación con esquemas Zod
+- Funciones de utilidad y formatters
+- Hooks y contextos (auth, etc.)
+- Lógica de componentes
 
-### E2E Tests (Playwright)
+### E2E tests (Playwright)
 
-E2E tests are located in `e2e/` and test complete user flows in a real browser.
+Ubicados en `e2e/`. Ejecutan flujos completos en un navegador real (Chromium por defecto).
+
+**Prerrequisitos**:
+
+1. Tener el **backend levantado** en `http://localhost:8080` (la URL configurada en `.env.local`):
+    ```bash
+    # Desde la raíz del repo
+    docker compose -f docker-compose.full.yml up -d postgres redis init-db app nginx
+    ```
+2. Instalar los navegadores de Playwright (sólo la primera vez):
+    ```bash
+    pnpm exec playwright install --with-deps chromium
+    ```
+
+> Playwright arrancará el servidor Next.js automáticamente (`webServer` en `playwright.config.ts`). Si ya lo tienes corriendo en `:3001`, lo reutiliza.
+
+**Comandos**:
 
 ```bash
-# Run all E2E tests (headless)
-pnpm test:e2e
-
-# Run E2E tests with UI mode (interactive)
-pnpm test:e2e:ui
-
-# Run E2E tests in headed browser
-pnpm test:e2e:headed
-
-# Debug E2E tests
-pnpm test:e2e:debug
-
-# View test report
-pnpm test:e2e:report
+pnpm test:e2e            # headless
+pnpm test:e2e:ui         # UI mode (interactivo)
+pnpm test:e2e:headed     # navegador visible
+pnpm test:e2e:debug      # debug paso a paso
+pnpm test:e2e:report     # ver el último reporte HTML
 ```
 
-**E2E test structure:**
+Para apuntar a otra URL del frontend (p.ej. la del contenedor):
+
+```bash
+E2E_BASE_URL=http://localhost:3001 pnpm test:e2e
+```
+
+**Estructura**:
 
 ```text
 e2e/
-├── fixtures.ts              # Shared test utilities & data
-├── auth/
-│   └── login.spec.ts        # Authentication flows
-├── infrastructure/
-│   └── clusters.spec.ts     # Cluster CRUD operations
-├── integration/
-│   └── links.spec.ts        # Links & APIs CRUD
-└── navigation/
-    └── sidebar.spec.ts      # Navigation & routing
+├── fixtures.ts              # Utilidades y datos compartidos
+├── global-setup.ts          # Auth storage state inicial
+├── auth/                    # Login, logout, rutas protegidas
+├── infrastructure/          # Clusters, nodes, etc.
+├── integration/             # Links, APIs
+└── navigation/              # Sidebar, breadcrumbs, idiomas
 ```
 
-**E2E tests cover:**
-
--   🔐 Authentication (login, logout, protected routes)
--   📋 CRUD operations (Clusters, Links, APIs)
--   🧭 Navigation (sidebar, breadcrumbs, language switching)
--   ✅ Form validation
--   📱 Responsive behavior
-
-### Running Tests in CI
+### En CI
 
 ```bash
-# Run all tests
-pnpm test && pnpm test:e2e
+# Lint + types + unit tests + E2E
+pnpm lint && pnpm exec tsc --noEmit && pnpm test && pnpm test:e2e
 ```
-
-Playwright is configured to start the dev server automatically when running E2E tests.
 
 ## 📄 License
 
