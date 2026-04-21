@@ -56,4 +56,23 @@ test.describe("APIs catalog (real backend)", () => {
 
         expect(hasTable || hasEmpty).toBe(true);
     });
+
+    test("search state is reflected in the URL and survives a reload", async ({
+        page,
+    }) => {
+        await page.goto(`${BASE_URL}/es/apis`);
+        await page.waitForLoadState("networkidle");
+
+        const searchBox = page.getByPlaceholder(/buscar apis/i);
+        await searchBox.fill("atlas");
+
+        // URL must include the search term.
+        await expect(page).toHaveURL(/[?&]search=atlas/, { timeout: 5_000 });
+
+        // A reload must restore the same search value.
+        await page.reload();
+        await expect(
+            page.getByPlaceholder(/buscar apis/i),
+        ).toHaveValue("atlas");
+    });
 });

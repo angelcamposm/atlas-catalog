@@ -1,7 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import {
+    useParams,
+    useRouter,
+    useSearchParams,
+} from "next/navigation";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { apisApi } from "@/lib/api/apis";
 import type { ApisQueryParams } from "@/lib/api/apis";
@@ -32,10 +36,28 @@ const COLUMNS: Column<Api>[] = [
 export default function ApisPage() {
     const params = useParams();
     const router = useRouter();
+    const searchParams = useSearchParams();
     const locale = (params?.locale as string) || "es";
 
-    const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
+    // Initialize state from URL so that deep-links and the browser
+    // back/forward buttons restore the user's context.
+    const [search, setSearch] = useState<string>(
+        () => searchParams?.get("search") ?? "",
+    );
+    const [page, setPage] = useState<number>(() => {
+        const raw = Number(searchParams?.get("page"));
+        return Number.isFinite(raw) && raw >= 1 ? raw : 1;
+    });
+
+    // Keep the URL in sync with the current filters so the state is
+    // shareable and survives page reloads.
+    useEffect(() => {
+        const qs = new URLSearchParams();
+        if (search) qs.set("search", search);
+        if (page > 1) qs.set("page", String(page));
+        const nextQs = qs.toString();
+        router.replace(nextQs ? `?${nextQs}` : "?", { scroll: false });
+    }, [search, page, router]);
 
     const queryParams: ApisQueryParams = {
         page,

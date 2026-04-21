@@ -15,10 +15,13 @@ import type { Api, PaginatedResponse } from "@/types/api";
 // ── External dependencies ──────────────────────────────────────────────────
 
 const mockPush = jest.fn();
+const mockReplace = jest.fn();
+let mockSearchParams = new URLSearchParams();
 
 jest.mock("next/navigation", () => ({
-    useRouter: () => ({ push: mockPush }),
+    useRouter: () => ({ push: mockPush, replace: mockReplace }),
     useParams: () => ({ locale: "es" }),
+    useSearchParams: () => mockSearchParams,
 }));
 
 jest.mock(
@@ -105,6 +108,7 @@ const loadingState = {
 describe("ApisPage", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        mockSearchParams = new URLSearchParams();
     });
 
     describe("Layout", () => {
@@ -220,6 +224,63 @@ describe("ApisPage", () => {
             expect(
                 screen.queryByRole("button", { name: /next|siguiente/i }),
             ).not.toBeInTheDocument();
+        });
+    });
+
+    describe("URL state sync", () => {
+        it("initializes search from the ?search= query param", () => {
+            mockSearchParams = new URLSearchParams("search=users");
+            mockUseResourceList.mockReturnValue(idleState());
+            render(<ApisPage />);
+            const input = screen.getByRole("searchbox") as HTMLInputElement;
+            expect(input.value).toBe("users");
+        });
+
+        it("initializes page from the ?page= query param", () => {
+            mockSearchParams = new URLSearchParams("page=3");
+            mockUseResourceList.mockReturnValue(
+                idleState(makePaginatedResponse(mockApis, 3, 5)),
+            );
+            render(<ApisPage />);
+            const firstCall = mockUseResourceList.mock.calls[0];
+            expect(firstCall[1]).toMatchObject({ page: 3 });
+        });
+
+        it("passes initial search from URL into useResourceList", () => {
+            mockSearchParams = new URLSearchParams("search=orders");
+            mockUseResourceList.mockReturnValue(idleState());
+            render(<ApisPage />);
+            const firstCall = mockUseResourceList.mock.calls[0];
+            expect(firstCall[1]).toMatchObject({ search: "orders" });
+        });
+
+        it("pushes search changes to the URL via router.replace", async () => {
+            const user = userEvent.setup();
+            mockUseResourceList.mockReturnValue(idleState());
+            render(<ApisPage />);
+
+            const input = screen.getByRole("searchbox");
+            await user.type(input, "pay");
+
+            expect(mockReplace).toHaveBeenCalled();
+            const lastUrl = mockReplace.mock.calls.at(-1)?.[0] as string;
+            expect(lastUrl).toMatch(/search=pay/);
+            // page=1 should NOT appear in URL (it's the default)
+            expect(lastUrl).not.toMatch(/page=/);
+        });
+
+        it("omits ?search= from the URL when the input is cleared", async () => {
+            mockSearchParams = new URLSearchParams("search=initial");
+            const user = userEvent.setup();
+            mockUseResourceList.mockReturnValue(idleState());
+            render(<ApisPage />);
+
+            const input = screen.getByRole("searchbox");
+            await user.clear(input);
+
+            expect(mockReplace).toHaveBeenCalled();
+            const lastUrl = mockReplace.mock.calls.at(-1)?.[0] as string;
+            expect(lastUrl).not.toMatch(/search=/);
         });
     });
 });
