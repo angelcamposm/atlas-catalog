@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ApiStatsWidget } from "@/components/dashboard/widgets/ApiStatsWidget";
+import { ApisByLifecycleChart } from "@/components/dashboard/widgets/ApisByLifecycleChart";
+import { ApisByTypeChart } from "@/components/dashboard/widgets/ApisByTypeChart";
 import { ClusterHealthWidget } from "@/components/dashboard/widgets/ClusterHealthWidget";
 import { CiCdWidget } from "@/components/dashboard/widgets/CiCdWidget";
 import { ComplianceWidget } from "@/components/dashboard/widgets/ComplianceWidget";
@@ -37,6 +39,12 @@ export default async function DashboardPage() {
                 <div className="lg:col-span-2">
                     <RecentActivityWidget />
                 </div>
+            </div>
+
+            {/* Distribution charts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <ApisByLifecycleChart />
+                <ApisByTypeChart />
             </div>
         </div>
     );
