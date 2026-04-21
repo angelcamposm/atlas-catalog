@@ -27,7 +27,7 @@ There is **no network mocking**.
     pnpm test:e2e:real
     ```
 
-   The Playwright `globalSetup` will:
+The Playwright `globalSetup` will:
 
     - Verify the backend is reachable (and **fail fast** otherwise).
     - Log in as `admin@example.com` / `password`.
@@ -36,13 +36,13 @@ There is **no network mocking**.
 
 ## Environment variables
 
-| Variable               | Default                  | Purpose                                        |
-| ---------------------- | ------------------------ | ---------------------------------------------- |
-| `E2E_BASE_URL`         | `http://localhost:3001`  | Frontend URL                                   |
-| `E2E_API_URL`          | `http://localhost:8080`  | Backend URL (used by `globalSetup` and specs)  |
-| `E2E_ADMIN_EMAIL`      | `admin@example.com`      | Credentials for the seeded admin user          |
-| `E2E_ADMIN_PASSWORD`   | `password`               | "                                              |
-| `E2E_REQUIRE_BACKEND`  | `1`                      | Set to `0` to allow smoke-only runs without a backend |
+| Variable              | Default                 | Purpose                                               |
+| --------------------- | ----------------------- | ----------------------------------------------------- |
+| `E2E_BASE_URL`        | `http://localhost:3001` | Frontend URL                                          |
+| `E2E_API_URL`         | `http://localhost:8080` | Backend URL (used by `globalSetup` and specs)         |
+| `E2E_ADMIN_EMAIL`     | `admin@example.com`     | Credentials for the seeded admin user                 |
+| `E2E_ADMIN_PASSWORD`  | `password`              | "                                                     |
+| `E2E_REQUIRE_BACKEND` | `1`                     | Set to `0` to allow smoke-only runs without a backend |
 
 ## Smoke mode
 

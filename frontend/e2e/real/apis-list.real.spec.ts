@@ -14,9 +14,7 @@ test.describe("APIs catalog (real backend)", () => {
         await expect(
             page.getByRole("heading", { name: /^APIs$/ }),
         ).toBeVisible();
-        await expect(
-            page.getByPlaceholder(/buscar apis/i),
-        ).toBeVisible();
+        await expect(page.getByPlaceholder(/buscar apis/i)).toBeVisible();
     });
 
     test("backend listing endpoint returns a paginated envelope", async ({
@@ -71,8 +69,8 @@ test.describe("APIs catalog (real backend)", () => {
 
         // A reload must restore the same search value.
         await page.reload();
-        await expect(
-            page.getByPlaceholder(/buscar apis/i),
-        ).toHaveValue("atlas");
+        await expect(page.getByPlaceholder(/buscar apis/i)).toHaveValue(
+            "atlas",
+        );
     });
 });

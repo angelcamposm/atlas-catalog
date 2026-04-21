@@ -42,9 +42,7 @@ test.describe("Dashboard (real backend)", () => {
         const chartCount = await page
             .locator(".recharts-responsive-container")
             .count();
-        const emptyCount = await page
-            .getByText(/no apis to display/i)
-            .count();
+        const emptyCount = await page.getByText(/no apis to display/i).count();
 
         expect(chartCount + emptyCount).toBeGreaterThan(0);
     });

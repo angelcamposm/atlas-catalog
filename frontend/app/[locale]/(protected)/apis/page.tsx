@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-    useParams,
-    useRouter,
-    useSearchParams,
-} from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { apisApi } from "@/lib/api/apis";
 import type { ApisQueryParams } from "@/lib/api/apis";
