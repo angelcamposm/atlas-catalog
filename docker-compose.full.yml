@@ -60,12 +60,16 @@ services:
   # ============================================
 
   # Inicialización de base de datos
+  # Las migraciones DEBEN aplicarse siempre. Los seeders se ejecutan en best-effort
+  # (en re-arranques fallan con duplicate-key porque no son idempotentes), por eso
+  # capturamos su error y devolvemos exit 0 para no bloquear la cadena `depends_on`
+  # del servicio `app` (condition: service_completed_successfully).
   init-db:
     <<: *build-config
     command:
       - /bin/sh
       - -c
-      - "sleep 5; php artisan migrate --seed --force"
+      - "sleep 5 && php artisan migrate --force && (php artisan db:seed --force || echo '[init-db] Seeders skipped (likely already seeded).')"
     container_name: atlas-init-db
     depends_on:
       postgres:
