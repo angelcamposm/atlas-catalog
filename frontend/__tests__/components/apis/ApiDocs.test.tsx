@@ -107,10 +107,10 @@ describe("ApiDocs", () => {
 
         it("should apply custom className", () => {
             const { container } = render(
-                <ApiDocs api={mockApi} className="custom-class" />
+                <ApiDocs api={mockApi} className="custom-class" />,
             );
             expect(
-                container.querySelector(".custom-class")
+                container.querySelector(".custom-class"),
             ).toBeInTheDocument();
         });
 
@@ -129,7 +129,7 @@ describe("ApiDocs", () => {
         it("should show helpful description when no spec", () => {
             render(<ApiDocs api={mockApi} />);
             expect(
-                screen.getByText(/Esta API no tiene especificación/)
+                screen.getByText(/Esta API no tiene especificación/),
             ).toBeInTheDocument();
         });
 
@@ -152,9 +152,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             // OpenAPI object specs render the real Swagger UI viewer
-            expect(
-                screen.getByTestId("swagger-ui-viewer")
-            ).toBeInTheDocument();
+            expect(screen.getByTestId("swagger-ui-viewer")).toBeInTheDocument();
         });
 
         it("should detect OpenAPI string format", () => {
@@ -166,7 +164,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("openapi", { selector: "span" })
+                screen.getByText("openapi", { selector: "span" }),
             ).toBeInTheDocument();
         });
 
@@ -181,7 +179,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("openapi", { selector: "span" })
+                screen.getByText("openapi", { selector: "span" }),
             ).toBeInTheDocument();
         });
 
@@ -199,7 +197,7 @@ describe("ApiDocs", () => {
             expect(screen.getByText("Ver API en vivo")).toBeInTheDocument();
             expect(screen.getByText("Ver API en vivo")).toHaveAttribute(
                 "href",
-                "https://api.example.com"
+                "https://api.example.com",
             );
         });
 
@@ -231,7 +229,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("json", { selector: "span" })
+                screen.getByText("json", { selector: "span" }),
             ).toBeInTheDocument();
         });
 
@@ -243,7 +241,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("json", { selector: "span" })
+                screen.getByText("json", { selector: "span" }),
             ).toBeInTheDocument();
         });
 
@@ -286,7 +284,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("openapi", { selector: "span" })
+                screen.getByText("openapi", { selector: "span" }),
             ).toBeInTheDocument();
         });
 
@@ -299,7 +297,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("openapi", { selector: "span" })
+                screen.getByText("openapi", { selector: "span" }),
             ).toBeInTheDocument();
         });
     });
@@ -313,7 +311,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("Formato no reconocido")
+                screen.getByText("Formato no reconocido"),
             ).toBeInTheDocument();
         });
 
@@ -335,7 +333,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("Formato no reconocido")
+                screen.getByText("Formato no reconocido"),
             ).toBeInTheDocument();
         });
 
@@ -347,7 +345,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText(/No se pudo determinar el formato/)
+                screen.getByText(/No se pudo determinar el formato/),
             ).toBeInTheDocument();
         });
     });
@@ -363,7 +361,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("Documentación de la API")
+                screen.getByText("Documentación de la API"),
             ).toBeInTheDocument();
         });
 
@@ -389,10 +387,10 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText("openapi", { selector: "span" })
+                screen.getByText("openapi", { selector: "span" }),
             ).toBeInTheDocument();
             expect(
-                screen.getByText("openapi", { selector: "span" })
+                screen.getByText("openapi", { selector: "span" }),
             ).toHaveClass("uppercase");
         });
     });
@@ -437,7 +435,7 @@ describe("ApiDocs", () => {
             const { container } = render(<ApiDocs api={apiWithSpec} />);
 
             const mainDiv = container.querySelector(
-                ".rounded-lg"
+                ".rounded-lg",
             ) as HTMLDivElement;
             mainDiv.requestFullscreen = requestFullscreenMock;
 
@@ -477,7 +475,7 @@ describe("ApiDocs", () => {
             const { container } = render(<ApiDocs api={apiWithSpec} />);
             const button = screen.getByRole("button");
             const header = container.querySelector(
-                ".flex.items-center.justify-between"
+                ".flex.items-center.justify-between",
             );
 
             // Button should be in header
@@ -539,9 +537,7 @@ describe("ApiDocs", () => {
             };
 
             render(<ApiDocs api={apiWithSpec} />);
-            expect(
-                screen.getByTestId("swagger-ui-viewer")
-            ).toBeInTheDocument();
+            expect(screen.getByTestId("swagger-ui-viewer")).toBeInTheDocument();
         });
 
         it("should show format message for non-OpenAPI specs", () => {
@@ -553,7 +549,7 @@ describe("ApiDocs", () => {
 
             render(<ApiDocs api={apiWithSpec} />);
             expect(
-                screen.getByText(/Se ha detectado documentación/)
+                screen.getByText(/Se ha detectado documentación/),
             ).toBeInTheDocument();
         });
     });
@@ -572,7 +568,7 @@ describe("ApiDocs", () => {
         it("should render header skeleton", () => {
             const { container } = render(<ApiDocsSkeleton />);
             const header = container.querySelector(
-                ".flex.items-center.justify-between"
+                ".flex.items-center.justify-between",
             );
             expect(header).toBeInTheDocument();
         });

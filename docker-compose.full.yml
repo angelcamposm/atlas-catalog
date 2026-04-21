@@ -33,7 +33,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U laravel -d atlas-catalog"]
+      test: [ "CMD-SHELL", "pg_isready -U laravel -d atlas-catalog" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -50,7 +50,7 @@ services:
     volumes:
       - redis-data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -69,7 +69,8 @@ services:
     command:
       - /bin/sh
       - -c
-      - "sleep 5 && php artisan migrate --force && (php artisan db:seed --force || echo '[init-db] Seeders skipped (likely already seeded).')"
+      - "sleep 5 && php artisan migrate --force && (php artisan db:seed --force
+        || echo '[init-db] Seeders skipped (likely already seeded).')"
     container_name: atlas-init-db
     depends_on:
       postgres:
@@ -108,7 +109,7 @@ services:
       - "9000:9000"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "php-fpm-healthcheck || exit 1"]
+      test: [ "CMD-SHELL", "php-fpm-healthcheck || exit 1" ]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -133,7 +134,7 @@ services:
       - ./src:/var/www/html
       - ./build/nginx/default.conf:/etc/nginx/conf.d/default.conf
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080" ]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -24,7 +24,7 @@ services:
     volumes:
       - postgres-data-dev:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U laravel -d atlas-catalog"]
+      test: [ "CMD-SHELL", "pg_isready -U laravel -d atlas-catalog" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -41,7 +41,7 @@ services:
     volumes:
       - redis-data-dev:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -110,7 +110,8 @@ services:
     command:
       - /bin/sh
       - -c
-      - "sleep 5 && php artisan migrate --force && (php artisan db:seed --force || echo '[migrate] Seeders skipped (likely already seeded).')"
+      - "sleep 5 && php artisan migrate --force && (php artisan db:seed --force
+        || echo '[migrate] Seeders skipped (likely already seeded).')"
     depends_on:
       postgres:
         condition: service_healthy

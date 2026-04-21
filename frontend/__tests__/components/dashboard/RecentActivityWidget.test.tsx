@@ -19,9 +19,7 @@ jest.mock("@/lib/api", () => ({
 jest.mock("react-icons/hi2", () => ({
     HiOutlineClock: () => <span data-testid="icon-clock">clock</span>,
     HiOutlineGlobeAlt: () => <span data-testid="icon-globe">globe</span>,
-    HiOutlineCubeTransparent: () => (
-        <span data-testid="icon-cube">cube</span>
-    ),
+    HiOutlineCubeTransparent: () => <span data-testid="icon-cube">cube</span>,
 }));
 
 jest.mock("next/link", () => {
@@ -115,9 +113,7 @@ describe("RecentActivityWidget", () => {
             render(<RecentActivityWidget />);
 
             await waitFor(() => {
-                expect(
-                    screen.getByText("Recent Activity"),
-                ).toBeInTheDocument();
+                expect(screen.getByText("Recent Activity")).toBeInTheDocument();
             });
         });
 
@@ -301,9 +297,7 @@ describe("RecentActivityWidget", () => {
             render(<RecentActivityWidget />);
 
             await waitFor(() => {
-                expect(
-                    screen.getByText("Survivor API"),
-                ).toBeInTheDocument();
+                expect(screen.getByText("Survivor API")).toBeInTheDocument();
             });
         });
     });

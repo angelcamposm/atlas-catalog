@@ -149,7 +149,9 @@ describe("API Detail Page Component", () => {
             id: "1",
             locale: "es",
         });
-        mockUseSearchParams.mockReturnValue(new URLSearchParams() as unknown as ReadonlyURLSearchParams);
+        mockUseSearchParams.mockReturnValue(
+            new URLSearchParams() as unknown as ReadonlyURLSearchParams,
+        );
         mockUseRouter.mockReturnValue(mockRouter as any);
         mockGetById.mockResolvedValue(mockApi);
     });
@@ -157,7 +159,7 @@ describe("API Detail Page Component", () => {
     describe("Rendering - Initial Load", () => {
         it("should render loading state initially", async () => {
             mockGetById.mockImplementationOnce(
-                () => new Promise(() => {}) // Never resolves
+                () => new Promise(() => {}), // Never resolves
             );
 
             render(<ApiDetailPage />);
@@ -179,7 +181,7 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByText("Información general")
+                    screen.getByText("Información general"),
                 ).toBeInTheDocument();
                 expect(screen.getByText("Documentación")).toBeInTheDocument();
                 expect(screen.getByText("Dependencias")).toBeInTheDocument();
@@ -232,7 +234,7 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByTestId("tab-dependencies")
+                    screen.getByTestId("tab-dependencies"),
                 ).toBeInTheDocument();
             });
         });
@@ -269,7 +271,9 @@ describe("API Detail Page Component", () => {
 
         it("should load initial tab from URL search params", async () => {
             mockUseSearchParams.mockReturnValueOnce(
-                new URLSearchParams("tab=docs") as unknown as ReadonlyURLSearchParams
+                new URLSearchParams(
+                    "tab=docs",
+                ) as unknown as ReadonlyURLSearchParams,
             );
 
             render(<ApiDetailPage />);
@@ -281,7 +285,9 @@ describe("API Detail Page Component", () => {
 
         it("should ignore invalid tab from URL", async () => {
             mockUseSearchParams.mockReturnValueOnce(
-                new URLSearchParams("tab=invalid") as unknown as ReadonlyURLSearchParams
+                new URLSearchParams(
+                    "tab=invalid",
+                ) as unknown as ReadonlyURLSearchParams,
             );
 
             render(<ApiDetailPage />);
@@ -335,7 +341,7 @@ describe("API Detail Page Component", () => {
             fireEvent.click(screen.getByTestId("btn-delete"));
 
             expect(confirmSpy).toHaveBeenCalledWith(
-                "¿Estás seguro de que quieres eliminar esta API?"
+                "¿Estás seguro de que quieres eliminar esta API?",
             );
             expect(mockDelete).not.toHaveBeenCalled();
 
@@ -379,7 +385,7 @@ describe("API Detail Page Component", () => {
             fireEvent.click(screen.getByTestId("btn-duplicate"));
 
             expect(mockRouter.push).toHaveBeenCalledWith(
-                "/apis/new?duplicate=1"
+                "/apis/new?duplicate=1",
             );
         });
     });
@@ -405,7 +411,7 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByText(/Identificador de API no válido/i)
+                    screen.getByText(/Identificador de API no válido/i),
                 ).toBeInTheDocument();
             });
         });
@@ -427,7 +433,7 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByText(/No se ha podido cargar esta API/i)
+                    screen.getByText(/No se ha podido cargar esta API/i),
                 ).toBeInTheDocument();
             });
         });
@@ -436,7 +442,7 @@ describe("API Detail Page Component", () => {
     describe("Loading States", () => {
         it("should show header skeleton during load", async () => {
             mockGetById.mockImplementationOnce(
-                () => new Promise(() => {}) // Never resolves
+                () => new Promise(() => {}), // Never resolves
             );
 
             const { rerender } = render(<ApiDetailPage />);
@@ -449,7 +455,7 @@ describe("API Detail Page Component", () => {
 
         it("should show overview skeleton when loading", async () => {
             mockGetById.mockImplementationOnce(
-                () => new Promise(() => {}) // Never resolves
+                () => new Promise(() => {}), // Never resolves
             );
 
             render(<ApiDetailPage />);
@@ -459,7 +465,7 @@ describe("API Detail Page Component", () => {
 
         it("should disable tabs during loading", async () => {
             mockGetById.mockImplementationOnce(
-                () => new Promise(() => {}) // Never resolves
+                () => new Promise(() => {}), // Never resolves
             );
 
             render(<ApiDetailPage />);
@@ -470,7 +476,7 @@ describe("API Detail Page Component", () => {
                     (btn) =>
                         !btn.textContent?.includes("Edit") &&
                         !btn.textContent?.includes("Delete") &&
-                        !btn.textContent?.includes("Duplicate")
+                        !btn.textContent?.includes("Duplicate"),
                 );
 
             tabs.forEach((tab) => {
@@ -480,10 +486,12 @@ describe("API Detail Page Component", () => {
 
         it("should show correct skeleton for selected tab during load", async () => {
             mockUseSearchParams.mockReturnValueOnce(
-                new URLSearchParams("tab=docs") as unknown as ReadonlyURLSearchParams
+                new URLSearchParams(
+                    "tab=docs",
+                ) as unknown as ReadonlyURLSearchParams,
             );
             mockGetById.mockImplementationOnce(
-                () => new Promise(() => {}) // Never resolves
+                () => new Promise(() => {}), // Never resolves
             );
 
             render(<ApiDetailPage />);
@@ -505,7 +513,7 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByTestId("tab-dependencies")
+                    screen.getByTestId("tab-dependencies"),
                 ).toBeInTheDocument();
             });
         });
@@ -571,7 +579,7 @@ describe("API Detail Page Component", () => {
 
             await waitFor(() => {
                 expect(
-                    screen.getByTestId("tab-dependencies")
+                    screen.getByTestId("tab-dependencies"),
                 ).toBeInTheDocument();
             });
         });
@@ -605,7 +613,7 @@ describe("API Detail Page Component", () => {
             await waitFor(() => {
                 expect(screen.getByTestId("tab-docs")).toBeInTheDocument();
                 expect(
-                    screen.queryByTestId("tab-overview")
+                    screen.queryByTestId("tab-overview"),
                 ).not.toBeInTheDocument();
             });
         });

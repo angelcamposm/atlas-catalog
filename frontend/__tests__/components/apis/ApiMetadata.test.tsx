@@ -96,17 +96,17 @@ describe("ApiMetadata", () => {
 
         it("should apply custom className", () => {
             const { container } = render(
-                <ApiMetadata api={mockApi} className="custom-class" />
+                <ApiMetadata api={mockApi} className="custom-class" />,
             );
             expect(
-                container.querySelector(".custom-class")
+                container.querySelector(".custom-class"),
             ).toBeInTheDocument();
         });
 
         it("should display table icon", () => {
             render(<ApiMetadata api={mockApi} />);
             expect(screen.getAllByTestId("icon-table").length).toBeGreaterThan(
-                0
+                0,
             );
         });
     });
@@ -115,14 +115,14 @@ describe("ApiMetadata", () => {
         it("should show info box", () => {
             render(<ApiMetadata api={mockApi} />);
             expect(
-                screen.getByText(/Vista técnica de todos los campos/)
+                screen.getByText(/Vista técnica de todos los campos/),
             ).toBeInTheDocument();
         });
 
         it("should mention debugging and integrations", () => {
             render(<ApiMetadata api={mockApi} />);
             expect(
-                screen.getByText(/Útil para debugging y integraciones/)
+                screen.getByText(/Útil para debugging y integraciones/),
             ).toBeInTheDocument();
         });
     });
@@ -240,7 +240,7 @@ describe("ApiMetadata", () => {
             render(<ApiMetadata api={mockApi} />);
             // Dates should be formatted in Spanish locale
             expect(
-                screen.getByText(/1\/1\/2024|2024-01-01/)
+                screen.getByText(/1\/1\/2024|2024-01-01/),
             ).toBeInTheDocument();
         });
 
@@ -313,7 +313,7 @@ describe("ApiMetadata", () => {
 
                 await waitFor(() => {
                     expect(
-                        screen.getByTestId("icon-check")
+                        screen.getByTestId("icon-check"),
                     ).toBeInTheDocument();
                 });
             }
@@ -347,7 +347,7 @@ describe("ApiMetadata", () => {
             render(<ApiMetadata api={mockApi} />);
             const copyButtons = screen.getAllByRole("button");
             const jsonCopyButton = copyButtons.find((btn) =>
-                btn.textContent?.includes("Copiar JSON")
+                btn.textContent?.includes("Copiar JSON"),
             );
             expect(jsonCopyButton).toBeInTheDocument();
         });
@@ -364,7 +364,7 @@ describe("ApiMetadata", () => {
 
                 await waitFor(() => {
                     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-                        expect.stringContaining('"id"')
+                        expect.stringContaining('"id"'),
                     );
                 });
             }
@@ -447,7 +447,7 @@ describe("ApiMetadata", () => {
         it("should render group skeletons", () => {
             const { container } = render(<ApiMetadataSkeleton />);
             const groupSkeletons = container.querySelectorAll(
-                ".border.border-gray-200"
+                ".border.border-gray-200",
             );
             expect(groupSkeletons.length).toBeGreaterThanOrEqual(3);
         });
@@ -482,7 +482,7 @@ describe("ApiMetadata", () => {
         it("should include date fields", () => {
             render(<ApiMetadata api={mockApi} />);
             expect(
-                screen.getByText("Fecha de lanzamiento")
+                screen.getByText("Fecha de lanzamiento"),
             ).toBeInTheDocument();
             expect(screen.getByText("Creado")).toBeInTheDocument();
             expect(screen.getByText("Actualizado")).toBeInTheDocument();
