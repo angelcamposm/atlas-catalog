@@ -184,38 +184,6 @@ describe("apisApi", () => {
  * Tests for APIs module
  */
 
-import { apisApi } from "@/lib/api";
-
-// Mock the api-client
-jest.mock("@/lib/api-client", () => ({
-    apiClient: {
-        get: jest.fn(),
-        post: jest.fn(),
-        put: jest.fn(),
-        delete: jest.fn(),
-        buildQuery: jest.fn((params: Record<string, unknown>) => {
-            const query = new URLSearchParams();
-            Object.entries(params).forEach(([key, value]) => {
-                if (value !== undefined && value !== null) {
-                    query.append(key, String(value));
-                }
-            });
-            const queryString = query.toString();
-            return queryString ? `?${queryString}` : "";
-        }),
-    },
-    ApiError: class ApiError extends Error {
-        constructor(
-            message: string,
-            public status: number,
-        ) {
-            super(message);
-        }
-    },
-}));
-
-import { apiClient } from "@/lib/api-client";
-
 const mockedApiClient = apiClient as jest.Mocked<typeof apiClient>;
 
 // Helper to create API mock data

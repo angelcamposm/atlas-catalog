@@ -13,6 +13,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
+import type { ReadonlyURLSearchParams } from "next/navigation";
 import ApiDetailPage from "@/app/[locale]/(protected)/apis/[id]/page";
 import type { ApiResponse } from "@/types/api";
 import * as apisApi from "@/lib/api/apis";
@@ -148,7 +149,7 @@ describe("API Detail Page Component", () => {
             id: "1",
             locale: "es",
         });
-        mockUseSearchParams.mockReturnValue(new URLSearchParams());
+        mockUseSearchParams.mockReturnValue(new URLSearchParams() as unknown as ReadonlyURLSearchParams);
         mockUseRouter.mockReturnValue(mockRouter as any);
         mockGetById.mockResolvedValue(mockApi);
     });
@@ -268,7 +269,7 @@ describe("API Detail Page Component", () => {
 
         it("should load initial tab from URL search params", async () => {
             mockUseSearchParams.mockReturnValueOnce(
-                new URLSearchParams("tab=docs")
+                new URLSearchParams("tab=docs") as unknown as ReadonlyURLSearchParams
             );
 
             render(<ApiDetailPage />);
@@ -280,7 +281,7 @@ describe("API Detail Page Component", () => {
 
         it("should ignore invalid tab from URL", async () => {
             mockUseSearchParams.mockReturnValueOnce(
-                new URLSearchParams("tab=invalid")
+                new URLSearchParams("tab=invalid") as unknown as ReadonlyURLSearchParams
             );
 
             render(<ApiDetailPage />);
@@ -479,7 +480,7 @@ describe("API Detail Page Component", () => {
 
         it("should show correct skeleton for selected tab during load", async () => {
             mockUseSearchParams.mockReturnValueOnce(
-                new URLSearchParams("tab=docs")
+                new URLSearchParams("tab=docs") as unknown as ReadonlyURLSearchParams
             );
             mockGetById.mockImplementationOnce(
                 () => new Promise(() => {}) // Never resolves

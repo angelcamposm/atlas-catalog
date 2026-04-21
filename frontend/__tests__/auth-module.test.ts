@@ -36,7 +36,7 @@ describe("authApi", () => {
                     role: "user",
                 },
             };
-            mockPost.mockResolvedValueOnce(mockResponse);
+            mockPost.mockResolvedValueOnce({ data: mockResponse });
 
             const result = await authApi.login({
                 email: "test@example.com",

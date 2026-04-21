@@ -44,7 +44,7 @@ Object.defineProperty(navigator, "clipboard", {
 });
 
 // Base mock API
-const mockApi: Api = {
+const mockApi = {
     id: 1,
     name: "test-api",
     slug: "test-api",
@@ -76,7 +76,7 @@ const mockApi: Api = {
     created_at: "2024-01-01T00:00:00Z",
     updated_at: "2024-01-15T10:30:00Z",
     document_specification: null,
-};
+} as unknown as Api;
 
 describe("ApiMetadata", () => {
     beforeEach(() => {
@@ -245,11 +245,11 @@ describe("ApiMetadata", () => {
         });
 
         it("should show dash for null/undefined values", () => {
-            const apiWithNulls: Api = {
+            const apiWithNulls = {
                 ...mockApi,
                 display_name: null as unknown as string,
                 protocol: null as unknown as string,
-            };
+            } as unknown as Api;
 
             render(<ApiMetadata api={apiWithNulls} />);
             const dashes = screen.getAllByText("—");
@@ -500,14 +500,14 @@ describe("ApiMetadata", () => {
 
     describe("Edge Cases", () => {
         it("should handle API with all null optional fields", () => {
-            const apiWithNulls: Api = {
+            const apiWithNulls = {
                 ...mockApi,
                 display_name: null as unknown as string,
                 protocol: null as unknown as string,
                 released_at: null as unknown as string,
                 deprecated_at: null as unknown as string,
                 deprecated_by: null as unknown as string,
-            };
+            } as unknown as Api;
 
             render(<ApiMetadata api={apiWithNulls} />);
             expect(screen.getByText("Metadatos Completos")).toBeInTheDocument();

@@ -7,7 +7,7 @@
  */
 
 import { apiClient } from "../api-client";
-import { buildQueryString } from "./_shared";
+import { buildQueryString, type QueryParams } from "./_shared";
 import type { Component, ComponentType, PaginatedResponse } from "@/types/api";
 
 // ============================================================================
@@ -133,7 +133,7 @@ export const componentsApi = {
     async getAll(
         params: ComponentsQueryParams = {},
     ): Promise<PaginatedResponse<Component>> {
-        const qs = buildQueryString(params);
+        const qs = buildQueryString(params as QueryParams);
         return apiClient.get<PaginatedResponse<Component>>(
             `/v1/catalog/components${qs}`,
         );

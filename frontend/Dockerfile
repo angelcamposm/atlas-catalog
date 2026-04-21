@@ -28,7 +28,6 @@ WORKDIR /app
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/.pnpm-store ./.pnpm-store
 
 # Copy all source files
 COPY . .

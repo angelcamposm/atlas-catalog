@@ -192,6 +192,7 @@ describe("componentsApi.create", () => {
     it("POSTs to /v1/catalog/components with the payload", async () => {
         const payload = {
             name: "new-service",
+            slug: "new-service",
             display_name: "New Service",
             has_zero_downtime_deployments: true,
         };

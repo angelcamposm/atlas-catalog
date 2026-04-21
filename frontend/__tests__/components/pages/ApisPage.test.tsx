@@ -56,14 +56,14 @@ const mockApis: Api[] = [
         display_name: "Users API",
         protocol: "REST",
         version: "1.0.0",
-    } as Api,
+    } as unknown as Api,
     {
         id: 2,
         name: "orders-api",
         display_name: "Orders API",
         protocol: "GraphQL",
         version: "2.1.0",
-    } as Api,
+    } as unknown as Api,
 ];
 
 function makePaginatedResponse(
@@ -80,6 +80,7 @@ function makePaginatedResponse(
             total: data.length,
             from: 1,
             to: data.length,
+            path: "/v1/apis",
         },
         links: { first: "", last: "", prev: null, next: null },
     };

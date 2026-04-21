@@ -19,7 +19,7 @@ interface Thing {
 function paginated(items: Thing[]): PaginatedResponse<Thing> {
     return {
         data: items,
-        links: { first: null, last: null, prev: null, next: null },
+        links: { first: "", last: "", prev: null, next: null },
         meta: {
             current_page: 1,
             from: items.length ? 1 : null,

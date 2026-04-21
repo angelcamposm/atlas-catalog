@@ -63,7 +63,7 @@ Object.defineProperty(document, "fullscreenElement", {
 });
 
 // Base mock API
-const mockApi: Api = {
+const mockApi = {
     id: 1,
     name: "Test API",
     slug: "test-api",
@@ -86,7 +86,7 @@ const mockApi: Api = {
     created_at: "2024-01-01T00:00:00Z",
     updated_at: "2024-01-01T00:00:00Z",
     document_specification: null,
-};
+} as unknown as Api;
 
 describe("ApiDocs", () => {
     beforeEach(() => {

@@ -80,6 +80,7 @@ function makePaginatedResponse(
             total: data.length,
             from: 1,
             to: data.length,
+            path: "/v1/components",
         },
         links: { first: "", last: "", prev: null, next: null },
     };

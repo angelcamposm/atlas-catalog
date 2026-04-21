@@ -66,12 +66,12 @@ const buildMockApi = (items: SampleItem[] = SAMPLE_ITEMS) => ({
     create: jest
         .fn()
         .mockResolvedValue({
-            data: { id: 99, name: "New", description: null },
+            data: { id: 99, name: "New", description: null } as SampleItem,
         }),
     update: jest
         .fn()
         .mockResolvedValue({
-            data: { id: 1, name: "Updated", description: null },
+            data: { id: 1, name: "Updated", description: null } as SampleItem,
         }),
     delete: jest.fn().mockResolvedValue(undefined),
 });
@@ -81,11 +81,11 @@ const buildMockApi = (items: SampleItem[] = SAMPLE_ITEMS) => ({
 // ---------------------------------------------------------------------------
 
 function renderManager(
-    overrides: Partial<Parameters<typeof TaxonomyManager>[0]> = {},
+    overrides: Partial<React.ComponentProps<typeof TaxonomyManager<SampleItem>>> = {},
 ) {
     const api = buildMockApi();
     const utils = render(
-        <TaxonomyManager
+        <TaxonomyManager<SampleItem>
             title="API Types"
             description="Manage API types"
             api={api}
@@ -137,7 +137,7 @@ describe("TaxonomyManager", () => {
                     ),
             );
             render(
-                <TaxonomyManager
+                <TaxonomyManager<SampleItem>
                     title="API Types"
                     api={api}
                     columns={COLUMNS}

@@ -194,7 +194,13 @@ export default function ComponentDetailPage() {
 
                 <DeploymentsSection deployments={[]} defaultExpanded />
 
-                <DependenciesSection dependencies={[]} defaultExpanded />
+                <DependenciesSection
+                    provides={[]}
+                    consumes={[]}
+                    imports={[]}
+                    requiredBy={[]}
+                    defaultExpanded
+                />
             </div>
         </div>
     );

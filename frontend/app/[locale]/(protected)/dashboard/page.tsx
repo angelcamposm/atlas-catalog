@@ -4,6 +4,7 @@ import { ClusterHealthWidget } from "@/components/dashboard/widgets/ClusterHealt
 import { CiCdWidget } from "@/components/dashboard/widgets/CiCdWidget";
 import { ComplianceWidget } from "@/components/dashboard/widgets/ComplianceWidget";
 import { QuickActionsWidget } from "@/components/dashboard/widgets/QuickActionsWidget";
+import { RecentActivityWidget } from "@/components/dashboard/widgets/RecentActivityWidget";
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
@@ -33,6 +34,9 @@ export default async function DashboardPage() {
             {/* Quick actions */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <QuickActionsWidget />
+                <div className="lg:col-span-2">
+                    <RecentActivityWidget />
+                </div>
             </div>
         </div>
     );

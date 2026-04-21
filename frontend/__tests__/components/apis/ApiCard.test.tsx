@@ -111,7 +111,7 @@ jest.mock("@/components/ui/highlight", () => ({
 }));
 
 // Sample test data
-const mockApi: Api = {
+const mockApi = {
     id: 1,
     name: "payment-api",
     display_name: "Payment API",
@@ -134,7 +134,7 @@ const mockApi: Api = {
     updated_at: "2024-06-20T15:45:00Z",
     created_by: 1,
     updated_by: 1,
-};
+} as unknown as Api;
 
 describe("ApiCard", () => {
     describe("Rendering - Basic", () => {

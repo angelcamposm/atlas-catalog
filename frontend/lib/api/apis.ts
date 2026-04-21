@@ -7,7 +7,7 @@
  */
 
 import { apiClient } from "../api-client";
-import { buildQueryString } from "./_shared";
+import { buildQueryString, type QueryParams } from "./_shared";
 import type { Api, Component, PaginatedResponse } from "@/types/api";
 
 // ---------------------------------------------------------------------------
@@ -70,10 +70,8 @@ export const apisApi = {
     async getAll(
         params: ApisQueryParams = {},
     ): Promise<PaginatedResponse<Api>> {
-        const qs = buildQueryString(params);
-        return apiClient.get<PaginatedResponse<Api>>(
-            `/v1/catalog/apis${qs}`,
-        );
+        const qs = buildQueryString(params as QueryParams);
+        return apiClient.get<PaginatedResponse<Api>>(`/v1/catalog/apis${qs}`);
     },
 
     /**
@@ -103,10 +101,7 @@ export const apisApi = {
     /**
      * Update an existing API.
      */
-    async update(
-        id: number,
-        data: UpdateApiData,
-    ): Promise<{ data: Api }> {
+    async update(id: number, data: UpdateApiData): Promise<{ data: Api }> {
         return apiClient.put<{ data: Api }>(`/v1/catalog/apis/${id}`, data);
     },
 
@@ -120,9 +115,7 @@ export const apisApi = {
     /**
      * List components associated with a given API.
      */
-    async getComponents(
-        apiId: number,
-    ): Promise<PaginatedResponse<Component>> {
+    async getComponents(apiId: number): Promise<PaginatedResponse<Component>> {
         return apiClient.get<PaginatedResponse<Component>>(
             `/v1/catalog/apis/${apiId}/components`,
         );
