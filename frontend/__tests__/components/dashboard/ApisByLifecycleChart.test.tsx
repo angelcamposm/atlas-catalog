@@ -24,9 +24,17 @@ jest.mock("recharts", () => {
     return {
         __esModule: true,
         ResponsiveContainer: ({ children }: { children: React.ReactNode }) =>
-            React.createElement("div", { "data-testid": "chart-wrapper" }, children),
+            React.createElement(
+                "div",
+                { "data-testid": "chart-wrapper" },
+                children,
+            ),
         PieChart: ({ children }: { children: React.ReactNode }) =>
-            React.createElement("div", { "data-testid": "pie-chart" }, children),
+            React.createElement(
+                "div",
+                { "data-testid": "pie-chart" },
+                children,
+            ),
         Pie: ({ data }: { data: Array<{ name: string; value: number }> }) =>
             React.createElement(
                 "ul",
@@ -184,7 +192,9 @@ describe("ApisByLifecycleChart", () => {
             });
             render(<ApisByLifecycleChart />);
             await waitFor(() =>
-                expect(screen.getByText(/no apis to display/i)).toBeInTheDocument(),
+                expect(
+                    screen.getByText(/no apis to display/i),
+                ).toBeInTheDocument(),
             );
         });
     });

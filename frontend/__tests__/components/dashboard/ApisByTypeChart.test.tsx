@@ -21,7 +21,11 @@ jest.mock("recharts", () => {
     return {
         __esModule: true,
         ResponsiveContainer: ({ children }: { children: React.ReactNode }) =>
-            React.createElement("div", { "data-testid": "chart-wrapper" }, children),
+            React.createElement(
+                "div",
+                { "data-testid": "chart-wrapper" },
+                children,
+            ),
         BarChart: ({
             data,
             children,

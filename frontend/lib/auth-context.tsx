@@ -47,12 +47,23 @@ export function AuthProvider({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     const [user, setUser] = useState<AuthUser | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    // When a token is present we start in `loading=true` to avoid a brief
+    // window where consumers see an "unauthenticated" state before the
+    // session has been restored. Without this, route guards based on
+    // `!loading && !isAuthenticated` would incorrectly redirect to the
+    // login page on every page reload of an authenticated session.
+    const [loading, setLoading] = useState<boolean>(() => {
+        if (typeof window === "undefined") return false;
+        return localStorage.getItem(TOKEN_KEY) !== null;
+    });
 
     // On mount: restore session if a token exists
     useEffect(() => {
         const token = localStorage.getItem(TOKEN_KEY);
-        if (!token) return;
+        if (!token) {
+            setLoading(false);
+            return;
+        }
 
         setLoading(true);
         authApi
