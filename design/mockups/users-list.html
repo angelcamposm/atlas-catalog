@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Users · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="users">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Organization / <b>Users</b></div>
+    <h1>Users</h1>
+    <div class="sub">86 users in 14 groups.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline">⇪ Export CSV</button>
+    <button class="btn btn-primary">+ Invite user</button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="⌕  Search by name or email…">
+  <select class="select"><option>Group: All</option></select>
+  <select class="select"><option>Role: All</option><option>Admin</option><option>Editor</option><option>Viewer</option></select>
+  <select class="select"><option>Status: All</option><option>Active</option><option>Invited</option><option>Suspended</option></select>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>User</th><th>Groups</th><th>Role</th><th>Status</th><th>Last active</th><th></th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">CA</div><div><div class="cell-main">Carlos Aguilar</div><div class="cell-sub">carlos@acme.dev</div></div></div></td>
+        <td><div class="chip-row"><span class="badge badge-gray">platform</span><span class="badge badge-gray">admins</span></div></td>
+        <td><span class="badge badge-indigo">Admin</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td class="mono">2m ago</td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MJ</div><div><div class="cell-main">María Jiménez</div><div class="cell-sub">maria.j@acme.dev</div></div></div></td>
+        <td><div class="chip-row"><span class="badge badge-gray">payments</span></div></td>
+        <td><span class="badge badge-blue">Editor</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td class="mono">18m ago</td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">DR</div><div><div class="cell-main">David Romero</div><div class="cell-sub">david.r@acme.dev</div></div></div></td>
+        <td><div class="chip-row"><span class="badge badge-gray">core</span><span class="badge badge-gray">security</span></div></td>
+        <td><span class="badge badge-blue">Editor</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td class="mono">1h ago</td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">AL</div><div><div class="cell-main">Ana López</div><div class="cell-sub">ana.l@acme.dev</div></div></div></td>
+        <td><div class="chip-row"><span class="badge badge-gray">compliance</span></div></td>
+        <td><span class="badge badge-gray">Viewer</span></td>
+        <td><span class="badge badge-amber"><span class="dot"></span>Invited</span></td>
+        <td class="mono">—</td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">JT</div><div><div class="cell-main">Jordi Torres</div><div class="cell-sub">jordi.t@acme.dev</div></div></div></td>
+        <td><div class="chip-row"><span class="badge badge-gray">data</span></div></td>
+        <td><span class="badge badge-gray">Viewer</span></td>
+        <td><span class="badge badge-red"><span class="dot"></span>Suspended</span></td>
+        <td class="mono">34d ago</td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 86
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">4</button><button class="page-btn">›</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

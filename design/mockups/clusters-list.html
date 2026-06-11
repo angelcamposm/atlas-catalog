@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Clusters · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="clusters">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Infrastructure / <b>Clusters</b></div>
+    <h1>Clusters</h1>
+    <div class="sub">8 Kubernetes clusters across 3 environments.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ Register cluster</button></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="⌕  Filter clusters…">
+  <select class="select"><option>Environment: All</option><option>Production</option><option>Staging</option><option>Dev</option></select>
+  <select class="select"><option>Type: All</option><option>EKS</option><option>GKE</option><option>On-prem</option></select>
+</div>
+
+<div class="grid cols-2">
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#10b981,#059669)">⏣</div>
+      <div><div class="cell-main" style="font-size:15px">prod-eu-west-1</div><div class="cell-sub">EKS · Kubernetes 1.31 · Ireland</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Healthy</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Nodes</div><div class="cell-main mono">42</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">618</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">64%</div></div>
+      <div><div class="cell-sub">Memory</div><div class="cell-main mono">71%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-indigo">production</span><span class="badge badge-gray">eks</span><span class="badge badge-gray">eu-west-1</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#10b981,#059669)">⏣</div>
+      <div><div class="cell-main" style="font-size:15px">prod-us-east-1</div><div class="cell-sub">EKS · Kubernetes 1.31 · Virginia</div></div>
+      <span class="badge badge-amber" style="margin-left:auto"><span class="dot"></span>Degraded</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Nodes</div><div class="cell-main mono">38</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">540</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">88%</div></div>
+      <div><div class="cell-sub">Memory</div><div class="cell-main mono">79%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-indigo">production</span><span class="badge badge-gray">eks</span><span class="badge badge-gray">us-east-1</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#3b82f6,#6366f1)">⏣</div>
+      <div><div class="cell-main" style="font-size:15px">staging</div><div class="cell-sub">GKE · Kubernetes 1.32 · Belgium</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Healthy</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Nodes</div><div class="cell-main mono">12</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">204</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">41%</div></div>
+      <div><div class="cell-sub">Memory</div><div class="cell-main mono">55%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-blue">staging</span><span class="badge badge-gray">gke</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#64748b,#94a3b8)">⏣</div>
+      <div><div class="cell-main" style="font-size:15px">dev-shared</div><div class="cell-sub">On-prem · Kubernetes 1.32 · Madrid DC</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Healthy</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Nodes</div><div class="cell-main mono">6</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">96</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">23%</div></div>
+      <div><div class="cell-sub">Memory</div><div class="cell-main mono">38%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-gray">dev</span><span class="badge badge-gray">on-prem</span></div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

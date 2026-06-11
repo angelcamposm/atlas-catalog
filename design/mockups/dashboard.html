@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dashboard · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="dashboard">
+
+<div class="page-head">
+  <div>
+    <h1>Good morning, Carlos</h1>
+    <div class="sub">Here's what's happening across your platform today.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline">⇪ Export</button>
+    <button class="btn btn-primary">+ Register component</button>
+  </div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat">
+    <span class="label">Components</span>
+    <span class="value">342</span>
+    <span class="delta up">▲ 12 this week</span>
+  </div>
+  <div class="card stat">
+    <span class="label">APIs published</span>
+    <span class="value">128</span>
+    <span class="delta up">▲ 4 this week</span>
+  </div>
+  <div class="card stat">
+    <span class="label">Deployments today</span>
+    <span class="value">57</span>
+    <span class="delta down">▼ 8% vs yesterday</span>
+  </div>
+  <div class="card stat">
+    <span class="label">Open compliance gaps</span>
+    <span class="value">9</span>
+    <span class="delta down">▲ 2 new — needs review</span>
+  </div>
+</div>
+
+<div class="grid" style="grid-template-columns: 2fr 1fr;">
+  <div class="card">
+    <div class="card-head">
+      <h3>Recent deployments</h3>
+      <a href="#" style="font-size:12.5px">View all →</a>
+    </div>
+    <table class="table">
+      <thead><tr><th>Component</th><th>Environment</th><th>Release</th><th>Status</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td><div class="cell-main">payments-api</div><div class="cell-sub">Team Payments</div></td><td><span class="badge badge-indigo">production</span></td><td class="mono">v2.14.0</td><td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td><td class="mono">12m ago</td></tr>
+        <tr><td><div class="cell-main">identity-service</div><div class="cell-sub">Team Core</div></td><td><span class="badge badge-blue">staging</span></td><td class="mono">v5.2.1</td><td><span class="badge badge-amber"><span class="dot"></span>Degraded</span></td><td class="mono">38m ago</td></tr>
+        <tr><td><div class="cell-main">catalog-web</div><div class="cell-sub">Team Platform</div></td><td><span class="badge badge-indigo">production</span></td><td class="mono">v1.9.3</td><td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td><td class="mono">1h ago</td></tr>
+        <tr><td><div class="cell-main">billing-worker</div><div class="cell-sub">Team Payments</div></td><td><span class="badge badge-gray">dev</span></td><td class="mono">v0.4.0-rc1</td><td><span class="badge badge-red"><span class="dot"></span>Failed</span></td><td class="mono">2h ago</td></tr>
+        <tr><td><div class="cell-main">notify-gateway</div><div class="cell-sub">Team Comms</div></td><td><span class="badge badge-indigo">production</span></td><td class="mono">v3.0.2</td><td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td><td class="mono">3h ago</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>Cluster health</h3></div>
+      <div class="card-pad" style="display:flex; flex-direction:column; gap:14px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="flex:1"><div class="cell-main">prod-eu-west-1</div><div class="cell-sub">42 nodes · k8s 1.31</div></div>
+          <div class="health-bar"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="flex:1"><div class="cell-main">prod-us-east-1</div><div class="cell-sub">38 nodes · k8s 1.31</div></div>
+          <div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i></i><i></i></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="flex:1"><div class="cell-main">staging</div><div class="cell-sub">12 nodes · k8s 1.32</div></div>
+          <div class="health-bar"><i></i><i class="err"></i><i></i><i></i><i class="off"></i><i class="off"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Recent activity</h3></div>
+      <div class="card-pad" style="display:flex; flex-direction:column; gap:14px; font-size:13px;">
+        <div style="display:flex; gap:10px;"><div class="avatar sm">MJ</div><div><b>María J.</b> registered API <a href="#">orders-v3</a><div class="cell-sub">15 minutes ago</div></div></div>
+        <div style="display:flex; gap:10px;"><div class="avatar sm">DR</div><div><b>David R.</b> promoted <a href="#">identity-service</a> to staging<div class="cell-sub">42 minutes ago</div></div></div>
+        <div style="display:flex; gap:10px;"><div class="avatar sm">AL</div><div><b>Ana L.</b> updated compliance standard <a href="#">PCI-DSS 4.0</a><div class="cell-sub">2 hours ago</div></div></div>
+        <div style="display:flex; gap:10px;"><div class="avatar sm">CA</div><div><b>Carlos</b> created group <a href="#">team-payments</a><div class="cell-sub">5 hours ago</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

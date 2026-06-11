@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design System · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+<style>
+  body { padding: var(--sp-xl); max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--sp-lg); }
+  .swatch { height: 64px; border-radius: var(--r-sm); border: 1px solid var(--border); }
+  .swatch-label { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+  section { display: flex; flex-direction: column; gap: var(--sp-sm); }
+  .specimen { display: flex; flex-wrap: wrap; gap: var(--sp-sm); align-items: center; }
+</style>
+</head>
+<body>
+
+<div>
+  <div class="breadcrumbs"><a href="index.html">← Mockups index</a></div>
+  <h1>Atlas Design System</h1>
+  <p style="color:var(--text-muted); margin-top:8px;">Tokens and components shared by every mockup. Source of truth: <code>assets/atlas.css</code>.</p>
+</div>
+
+<section>
+  <h2>Color</h2>
+  <div class="grid cols-4">
+    <div><div class="swatch" style="background:var(--color-primary)"></div><div class="swatch-label">--color-primary #3b82f6</div></div>
+    <div><div class="swatch" style="background:var(--color-secondary)"></div><div class="swatch-label">--color-secondary #6366f1</div></div>
+    <div><div class="swatch" style="background:var(--color-accent)"></div><div class="swatch-label">--color-accent #10b981</div></div>
+    <div><div class="swatch" style="background:var(--color-destructive)"></div><div class="swatch-label">--color-destructive #ef4444</div></div>
+    <div><div class="swatch" style="background:var(--color-warning)"></div><div class="swatch-label">--color-warning #f59e0b</div></div>
+    <div><div class="swatch" style="background:var(--text-primary)"></div><div class="swatch-label">--text-primary #0f172a</div></div>
+    <div><div class="swatch" style="background:var(--sidebar-bg)"></div><div class="swatch-label">--sidebar-bg #0e1726</div></div>
+    <div><div class="swatch" style="background:var(--bg)"></div><div class="swatch-label">--bg #f5f7fa</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Typography</h2>
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--text-primary)">Sora — page titles & numbers</div>
+    <div style="font-size:16px;">IBM Plex Sans — body, navigation and UI copy. Regular 400, Medium 500, SemiBold 600.</div>
+    <div class="mono">IBM Plex Mono — versions, ids, timestamps, code: v2.14.0 · a3f9c21 · 84ms</div>
+  </div>
+</section>
+
+<section>
+  <h2>Buttons</h2>
+  <div class="card card-pad specimen">
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-outline">Outline</button>
+    <button class="btn btn-ghost">Ghost</button>
+    <button class="btn btn-danger">Danger</button>
+    <button class="btn btn-primary">+ With icon</button>
+  </div>
+</section>
+
+<section>
+  <h2>Badges</h2>
+  <div class="card card-pad specimen">
+    <span class="badge badge-green"><span class="dot"></span>Active</span>
+    <span class="badge badge-amber"><span class="dot"></span>Degraded</span>
+    <span class="badge badge-red"><span class="dot"></span>Failed</span>
+    <span class="badge badge-blue">REST</span>
+    <span class="badge badge-indigo">Internal</span>
+    <span class="badge badge-gray">tag</span>
+  </div>
+</section>
+
+<section>
+  <h2>Form controls</h2>
+  <div class="card card-pad grid cols-3">
+    <div class="field"><label>Text input</label><input placeholder="payments-api"><div class="hint">Lowercase, kebab-case.</div></div>
+    <div class="field"><label>Select</label><select><option>REST</option><option>GraphQL</option></select></div>
+    <div class="field"><label>Search</label><input placeholder="⌕  Filter…"></div>
+  </div>
+</section>
+
+<section>
+  <h2>Table</h2>
+  <div class="card">
+    <table class="table">
+      <thead><tr><th>Name</th><th>Status</th><th>Version</th></tr></thead>
+      <tbody>
+        <tr><td class="cell-main">payments-api</td><td><span class="badge badge-green"><span class="dot"></span>Active</span></td><td class="mono">v2.14.0</td></tr>
+        <tr><td class="cell-main">legacy-billing</td><td><span class="badge badge-red"><span class="dot"></span>Deprecated</span></td><td class="mono">v1.0.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Stat card · Health bar · Tabs · Pagination</h2>
+  <div class="grid cols-2">
+    <div class="card stat"><span class="label">Components</span><span class="value">342</span><span class="delta up">▲ 12 this week</span></div>
+    <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+      <div class="health-bar"><i></i><i></i><i class="warn"></i><i class="err"></i><i class="off"></i></div>
+      <div class="tabs"><a class="tab active">Overview</a><a class="tab">Endpoints</a><a class="tab">Metrics</a></div>
+      <div style="display:flex; gap:6px;"><button class="page-btn">‹</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">›</button></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Spacing & radius</h2>
+  <div class="card card-pad mono" style="font-size:12.5px; line-height:2;">
+    spacing (Fibonacci): xs 8 · sm 13 · md 21 · lg 34 · xl 55<br>
+    radius: sm 8 · md 12 · lg 16 · xl 24
+  </div>
+</section>
+
+</body>
+</html>

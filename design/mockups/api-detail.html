@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>payments-api · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="apis">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs"><a href="apis-list.html">APIs</a> / <b>payments-api</b></div>
+    <h1 style="display:flex;align-items:center;gap:12px;">payments-api
+      <span class="badge badge-green"><span class="dot"></span>Active</span>
+      <span class="badge badge-blue">REST</span>
+    </h1>
+    <div class="sub">Card payments, refunds and payouts. Owned by <a href="#">Team Payments</a>.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline">⎘ OpenAPI spec</button>
+    <button class="btn btn-outline">✎ Edit</button>
+    <button class="btn btn-primary">▶ Try it</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Overview</a>
+  <a class="tab">Endpoints</a>
+  <a class="tab">Consumers</a>
+  <a class="tab">Versions</a>
+  <a class="tab">Access policies</a>
+  <a class="tab">Metrics</a>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr 320px;">
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>About</h3></div>
+      <div class="card-pad">
+        <p style="font-size:14px; line-height:1.65;">Handles the full card payment lifecycle: authorization, capture, refunds and payouts to merchants. Integrates with the ledger service for double-entry accounting and emits domain events for every state transition.</p>
+        <div class="chip-row" style="margin-top:14px;">
+          <span class="badge badge-gray">payments</span>
+          <span class="badge badge-gray">pci-dss</span>
+          <span class="badge badge-gray">tier-1</span>
+          <span class="badge badge-gray">kafka</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Linked components</h3></div>
+      <table class="table">
+        <thead><tr><th>Component</th><th>Relationship</th><th>Lifecycle</th></tr></thead>
+        <tbody>
+          <tr><td><div class="cell-main"><a href="component-detail.html">payments-service</a></div></td><td><span class="badge badge-blue">provides</span></td><td><span class="badge badge-green">Production</span></td></tr>
+          <tr><td><div class="cell-main"><a href="component-detail.html">checkout-web</a></div></td><td><span class="badge badge-indigo">consumes</span></td><td><span class="badge badge-green">Production</span></td></tr>
+          <tr><td><div class="cell-main"><a href="component-detail.html">billing-worker</a></div></td><td><span class="badge badge-indigo">consumes</span></td><td><span class="badge badge-amber">Beta</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Recent releases</h3></div>
+      <table class="table">
+        <thead><tr><th>Version</th><th>Date</th><th>Author</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">v2.14.0</td><td class="mono">2026-06-09</td><td>María J.</td><td>3DS2 flow for EU cards</td></tr>
+          <tr><td class="mono">v2.13.2</td><td class="mono">2026-05-28</td><td>David R.</td><td>Fix idempotency on refunds</td></tr>
+          <tr><td class="mono">v2.13.1</td><td class="mono">2026-05-15</td><td>María J.</td><td>Payout webhooks retries</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Details</h3>
+      <dl class="kv">
+        <dt>Type</dt><dd>REST / OpenAPI 3.1</dd>
+        <dt>Category</dt><dd>Payments</dd>
+        <dt>Version</dt><dd class="mono">v2.14.0</dd>
+        <dt>Access policy</dt><dd>Internal</dd>
+        <dt>Auth method</dt><dd>OAuth 2.0 + mTLS</dd>
+        <dt>System</dt><dd><a href="#">payments-platform</a></dd>
+        <dt>Base URL</dt><dd class="mono">api.internal/payments</dd>
+        <dt>Created</dt><dd class="mono">2023-02-11</dd>
+      </dl>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Owner</h3>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="avatar">P</div>
+        <div><div class="cell-main">Team Payments</div><div class="cell-sub">12 members · #payments-help</div></div>
+      </div>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Compliance</h3>
+      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between;"><span>PCI-DSS 4.0</span><span class="badge badge-green">Compliant</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>SOC 2</span><span class="badge badge-green">Compliant</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>GDPR</span><span class="badge badge-amber">2 gaps</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

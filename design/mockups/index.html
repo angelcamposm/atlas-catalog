@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mockups · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+<style>
+  body { padding: var(--sp-xl); max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--sp-lg); }
+  .idx { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
+  .idx a { display: flex; flex-direction: column; gap: 6px; padding: var(--sp-md); color: inherit; }
+  .idx a:hover { text-decoration: none; border-color: var(--color-primary); }
+  .idx .t { font-weight: 700; color: var(--text-primary); font-family: var(--font-display); }
+  .idx .d { font-size: 13px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div style="display:flex; align-items:center; gap:14px;">
+  <div class="brand-mark" style="width:48px;height:48px;font-size:24px;border-radius:14px;">A</div>
+  <div>
+    <h1>Atlas Catalog — Frontend mockups</h1>
+    <p style="color:var(--text-muted); margin-top:4px;">Static HTML mockups. Open any page directly in the browser. Design tokens & components: <a href="design-system.html">design system</a>.</p>
+  </div>
+</div>
+
+<h2>Foundation</h2>
+<div class="idx">
+  <a class="card" href="design-system.html"><span class="t">🎨 Design system</span><span class="d">Tokens, color, type, buttons, badges, tables, forms.</span></a>
+  <a class="card" href="login.html"><span class="t">🔐 Login</span><span class="d">Split-screen auth with SSO providers.</span></a>
+</div>
+
+<h2>App screens</h2>
+<div class="idx">
+  <a class="card" href="dashboard.html"><span class="t">◧ Dashboard</span><span class="d">KPIs, recent deployments, cluster health, activity feed.</span></a>
+  <a class="card" href="apis-list.html"><span class="t">⬡ APIs — list</span><span class="d">Table pattern with filters, access policies and status.</span></a>
+  <a class="card" href="api-detail.html"><span class="t">⬡ API — detail</span><span class="d">Tabs, linked components, releases, compliance sidebar.</span></a>
+  <a class="card" href="components-list.html"><span class="t">◳ Components — list</span><span class="d">Card-grid pattern with lifecycle and language chips.</span></a>
+  <a class="card" href="component-detail.html"><span class="t">◳ Component — detail</span><span class="d">SLO stats, deployments, APIs, workflow runs, dependencies.</span></a>
+  <a class="card" href="systems-list.html"><span class="t">⬢ Systems — list</span><span class="d">Architecture view with tiers and health bars.</span></a>
+  <a class="card" href="clusters-list.html"><span class="t">⏣ Clusters — list</span><span class="d">Infrastructure cards with capacity metrics.</span></a>
+  <a class="card" href="users-list.html"><span class="t">◉ Users — list</span><span class="d">Org management table with roles and statuses.</span></a>
+  <a class="card" href="settings.html"><span class="t">✦ Settings</span><span class="d">Taxonomy management (types, categories, vendors…).</span></a>
+</div>
+
+<h2>Pending screens (same patterns)</h2>
+<p style="font-size:13.5px; color:var(--text-muted); line-height:1.8;">
+  Resources, Links · Business Domains, Capabilities, Entities (list = systems pattern) ·
+  Nodes, Environments, Deployments (list = users/table pattern) ·
+  Releases, Workflows, CI Servers · Compliance standards & requirements ·
+  Security: service accounts, tokens, auth methods · Groups · Create/Edit forms (modal or full page).
+</p>
+
+</body>
+</html>

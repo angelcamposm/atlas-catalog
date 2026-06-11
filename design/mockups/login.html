@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+<style>
+  body { display: grid; grid-template-columns: 1fr 480px; min-height: 100vh; }
+  .hero {
+    background: var(--sidebar-bg);
+    color: #fff; padding: var(--sp-xl);
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(600px 400px at 85% 15%, rgba(59,130,246,.25), transparent),
+      radial-gradient(500px 500px at 15% 90%, rgba(16,185,129,.15), transparent);
+  }
+  .hero > * { position: relative; }
+  .hero h2 { color: #fff; font-size: 34px; line-height: 1.25; max-width: 480px; }
+  .hero .quote { color: #8fa3bf; font-size: 14px; max-width: 420px; line-height: 1.7; }
+  .panel { background: var(--card); display: flex; align-items: center; padding: var(--sp-xl); }
+  .panel form { width: 100%; display: flex; flex-direction: column; gap: var(--sp-md); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <a class="brand" href="index.html">
+    <div class="brand-mark">A</div>
+    <div class="brand-name">Atlas<small>Service Catalog</small></div>
+  </a>
+  <h2>Every service, API and cluster. One catalog.</h2>
+  <p class="quote">"Atlas gave us a single source of truth for 300+ services. Onboarding time for new engineers dropped from weeks to days."<br><br>— Platform Engineering, Acme Corp</p>
+</div>
+
+<div class="panel">
+  <form>
+    <div>
+      <h1>Welcome back</h1>
+      <p style="color:var(--text-muted); font-size:14px; margin-top:6px;">Sign in to your Atlas workspace.</p>
+    </div>
+
+    <button type="button" class="btn btn-outline" style="justify-content:center; padding:11px;">⎇ &nbsp;Continue with GitHub</button>
+    <button type="button" class="btn btn-outline" style="justify-content:center; padding:11px;">◉ &nbsp;Continue with Google SSO</button>
+
+    <div style="display:flex; align-items:center; gap:12px; color:var(--text-subtle); font-size:12px;">
+      <hr class="divider" style="flex:1"> or with email <hr class="divider" style="flex:1">
+    </div>
+
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="you@company.com">
+    </div>
+    <div class="field">
+      <label style="display:flex;">Password <a href="#" style="margin-left:auto; font-weight:500; font-size:12.5px;">Forgot?</a></label>
+      <input type="password" placeholder="••••••••••••">
+    </div>
+
+    <button type="button" class="btn btn-primary" style="justify-content:center; padding:12px;">Sign in</button>
+    <p style="font-size:13px; color:var(--text-muted); text-align:center;">No account? <a href="#">Ask your admin for an invite</a>.</p>
+  </form>
+</div>
+
+</body>
+</html>

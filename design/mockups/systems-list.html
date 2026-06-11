@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Systems · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="systems">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Architecture / <b>Systems</b></div>
+    <h1>Systems</h1>
+    <div class="sub">24 systems grouping components by business purpose.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ New system</button></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="⌕  Filter systems…">
+  <select class="select"><option>Domain: All</option><option>Commerce</option><option>Identity</option><option>Platform</option></select>
+  <select class="select"><option>Tier: All</option><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option></select>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>System</th><th>Business domain</th><th>Tier</th><th>Components</th><th>APIs</th><th>Owner</th><th>Health</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">payments-platform</a></div><div class="cell-sub">Card payments, payouts and ledger</div></td>
+        <td>Commerce</td><td><span class="badge badge-red">Tier 1</span></td>
+        <td class="mono">9</td><td class="mono">4</td>
+        <td>Team Payments</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">identity</a></div><div class="cell-sub">AuthN/Z, sessions, user graph</div></td>
+        <td>Identity</td><td><span class="badge badge-red">Tier 1</span></td>
+        <td class="mono">5</td><td class="mono">3</td>
+        <td>Team Core</td>
+        <td><div class="health-bar"><i></i><i></i><i class="warn"></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">storefront</a></div><div class="cell-sub">Customer web & mobile experience</div></td>
+        <td>Commerce</td><td><span class="badge badge-amber">Tier 2</span></td>
+        <td class="mono">12</td><td class="mono">6</td>
+        <td>Team Commerce</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">developer-platform</a></div><div class="cell-sub">Internal tooling, CI/CD, catalog</div></td>
+        <td>Platform</td><td><span class="badge badge-amber">Tier 2</span></td>
+        <td class="mono">8</td><td class="mono">2</td>
+        <td>Team Platform</td>
+        <td><div class="health-bar"><i></i><i class="err"></i><i></i><i></i><i class="off"></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">analytics</a></div><div class="cell-sub">Event pipeline & data warehouse</div></td>
+        <td>Data</td><td><span class="badge badge-gray">Tier 3</span></td>
+        <td class="mono">6</td><td class="mono">1</td>
+        <td>Team Data</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">Showing 1–24 of 24</div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

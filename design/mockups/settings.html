@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Settings · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="settings">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Organization / <b>Settings</b></div>
+    <h1>Settings</h1>
+    <div class="sub">Catalog taxonomies, integrations and platform configuration.</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Taxonomies</a>
+  <a class="tab">Integrations</a>
+  <a class="tab">API tokens</a>
+  <a class="tab">Webhooks</a>
+  <a class="tab">Appearance</a>
+</div>
+
+<div class="grid" style="grid-template-columns: 240px 1fr;">
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:4px; align-self:start;">
+    <a class="nav-item active" style="color:var(--text-primary); background:var(--color-primary-soft); box-shadow:none;">Component types</a>
+    <a class="nav-item" style="color:var(--text-muted);">API types</a>
+    <a class="nav-item" style="color:var(--text-muted);">API categories</a>
+    <a class="nav-item" style="color:var(--text-muted);">Lifecycle phases</a>
+    <a class="nav-item" style="color:var(--text-muted);">Service statuses</a>
+    <a class="nav-item" style="color:var(--text-muted);">Resource categories</a>
+    <a class="nav-item" style="color:var(--text-muted);">Link categories</a>
+    <a class="nav-item" style="color:var(--text-muted);">Vendors</a>
+    <a class="nav-item" style="color:var(--text-muted);">Business tiers</a>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3>Component types</h3>
+      <button class="btn btn-primary" style="margin-left:auto">+ Add type</button>
+    </div>
+    <table class="table">
+      <thead><tr><th>Name</th><th>Slug</th><th>Components</th><th>Description</th><th></th></tr></thead>
+      <tbody>
+        <tr><td class="cell-main">Service</td><td class="mono">service</td><td class="mono">198</td><td>Deployable backend service</td><td><button class="btn btn-ghost">✎</button><button class="btn btn-ghost">🗑</button></td></tr>
+        <tr><td class="cell-main">Website</td><td class="mono">website</td><td class="mono">42</td><td>User-facing web application</td><td><button class="btn btn-ghost">✎</button><button class="btn btn-ghost">🗑</button></td></tr>
+        <tr><td class="cell-main">Library</td><td class="mono">library</td><td class="mono">67</td><td>Shared code package</td><td><button class="btn btn-ghost">✎</button><button class="btn btn-ghost">🗑</button></td></tr>
+        <tr><td class="cell-main">Worker</td><td class="mono">worker</td><td class="mono">29</td><td>Async/background processor</td><td><button class="btn btn-ghost">✎</button><button class="btn btn-ghost">🗑</button></td></tr>
+        <tr><td class="cell-main">CLI</td><td class="mono">cli</td><td class="mono">6</td><td>Command-line tool</td><td><button class="btn btn-ghost">✎</button><button class="btn btn-ghost">🗑</button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

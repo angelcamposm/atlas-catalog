@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>APIs · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="apis">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Catalog / <b>APIs</b></div>
+    <h1>APIs</h1>
+    <div class="sub">128 APIs registered across 24 systems.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline">⇪ Import OpenAPI</button>
+    <button class="btn btn-primary">+ New API</button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="⌕  Filter by name, owner, tag…">
+  <select class="select"><option>Type: All</option><option>REST</option><option>GraphQL</option><option>gRPC</option><option>Async</option></select>
+  <select class="select"><option>Category: All</option></select>
+  <select class="select"><option>Status: All</option><option>Active</option><option>Deprecated</option></select>
+  <select class="select"><option>Access: All</option><option>Public</option><option>Internal</option><option>Partner</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Name</th><th>Type</th><th>Version</th><th>Owner</th><th>Access</th><th>Status</th><th></th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="api-detail.html">payments-api</a></div><div class="cell-sub">Card payments, refunds and payouts</div></td>
+        <td><span class="badge badge-blue">REST</span></td><td class="mono">v2.14</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">P</div>Team Payments</div></td>
+        <td><span class="badge badge-indigo">Internal</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="api-detail.html">orders-v3</a></div><div class="cell-sub">Order lifecycle management</div></td>
+        <td><span class="badge badge-blue">REST</span></td><td class="mono">v3.0</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">C</div>Team Commerce</div></td>
+        <td><span class="badge badge-green">Public</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="api-detail.html">identity-graph</a></div><div class="cell-sub">User identity and session queries</div></td>
+        <td><span class="badge badge-indigo">GraphQL</span></td><td class="mono">v5.2</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">K</div>Team Core</div></td>
+        <td><span class="badge badge-indigo">Internal</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="api-detail.html">events-stream</a></div><div class="cell-sub">Domain events firehose (Kafka)</div></td>
+        <td><span class="badge badge-amber">Async</span></td><td class="mono">v1.7</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">P</div>Team Platform</div></td>
+        <td><span class="badge badge-indigo">Internal</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="api-detail.html">legacy-billing</a></div><div class="cell-sub">SOAP billing endpoints — sunset Q3</div></td>
+        <td><span class="badge badge-gray">SOAP</span></td><td class="mono">v1.0</td>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">P</div>Team Payments</div></td>
+        <td><span class="badge badge-indigo">Internal</span></td>
+        <td><span class="badge badge-red"><span class="dot"></span>Deprecated</span></td>
+        <td><button class="btn btn-ghost">⋯</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 128
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn">‹</button>
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn">…</button>
+      <button class="page-btn">6</button>
+      <button class="page-btn">›</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
