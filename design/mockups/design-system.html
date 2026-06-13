@@ -21,25 +21,50 @@
 </div>
 
 <section>
+  <h2>Brand</h2>
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="specimen" style="gap:var(--sp-lg);">
+      <div class="brand-mark" style="width:64px;height:64px;border-radius:16px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Atlas"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></div>
+      <div class="brand-mark" style="width:44px;height:44px;border-radius:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></div>
+        <div style="font-family:var(--font-display); font-weight:600; font-size:18px; letter-spacing:-.01em; color:var(--text-primary)">Atlas <span style="color:var(--text-subtle); font-weight:500;">Service Catalog</span></div>
+      </div>
+    </div>
+    <p class="swatch-label" style="margin:0;">Logomark = globo / meridiano monolínea (motivo cartográfico). Fuente única: <code>ATLAS_LOGO</code> en <code>assets/app.js</code> · usa <code>currentColor</code>, por lo que hereda el color del contenedor (blanco sobre tile de marca). Tile: <code>.brand-mark</code>.</p>
+  </div>
+</section>
+
+<section>
   <h2>Color</h2>
   <div class="grid cols-4">
-    <div><div class="swatch" style="background:var(--color-primary)"></div><div class="swatch-label">--color-primary #3b82f6</div></div>
-    <div><div class="swatch" style="background:var(--color-secondary)"></div><div class="swatch-label">--color-secondary #6366f1</div></div>
-    <div><div class="swatch" style="background:var(--color-accent)"></div><div class="swatch-label">--color-accent #10b981</div></div>
-    <div><div class="swatch" style="background:var(--color-destructive)"></div><div class="swatch-label">--color-destructive #ef4444</div></div>
-    <div><div class="swatch" style="background:var(--color-warning)"></div><div class="swatch-label">--color-warning #f59e0b</div></div>
-    <div><div class="swatch" style="background:var(--text-primary)"></div><div class="swatch-label">--text-primary #0f172a</div></div>
-    <div><div class="swatch" style="background:var(--sidebar-bg)"></div><div class="swatch-label">--sidebar-bg #0e1726</div></div>
-    <div><div class="swatch" style="background:var(--bg)"></div><div class="swatch-label">--bg #f5f7fa</div></div>
+    <div><div class="swatch" style="background:var(--color-primary)"></div><div class="swatch-label">--color-primary #1b84ff</div></div>
+    <div><div class="swatch" style="background:var(--color-secondary)"></div><div class="swatch-label">--color-secondary #7239ea</div></div>
+    <div><div class="swatch" style="background:var(--color-accent)"></div><div class="swatch-label">--color-accent #17c653</div></div>
+    <div><div class="swatch" style="background:var(--color-destructive)"></div><div class="swatch-label">--color-destructive #f8285a</div></div>
+    <div><div class="swatch" style="background:var(--color-warning)"></div><div class="swatch-label">--color-warning #f6b100</div></div>
+    <div><div class="swatch" style="background:var(--text-primary)"></div><div class="swatch-label">--text-primary #071437</div></div>
+    <div><div class="swatch" style="background:var(--sidebar-bg)"></div><div class="swatch-label">--sidebar-bg #1e1e2d</div></div>
+    <div><div class="swatch" style="background:var(--bg)"></div><div class="swatch-label">--bg #fcfcfc</div></div>
+  </div>
+  <p class="swatch-label" style="margin-top:4px;">Acentos planos para tiles/iconos de entidad (clases <code>.c-*</code>):</p>
+  <div class="grid cols-4">
+    <div><div class="swatch c-blue"></div><div class="swatch-label">.c-blue</div></div>
+    <div><div class="swatch c-emerald"></div><div class="swatch-label">.c-emerald</div></div>
+    <div><div class="swatch c-teal"></div><div class="swatch-label">.c-teal</div></div>
+    <div><div class="swatch c-cyan"></div><div class="swatch-label">.c-cyan</div></div>
+    <div><div class="swatch c-violet"></div><div class="swatch-label">.c-violet</div></div>
+    <div><div class="swatch c-amber"></div><div class="swatch-label">.c-amber</div></div>
+    <div><div class="swatch c-slate"></div><div class="swatch-label">.c-slate</div></div>
   </div>
 </section>
 
 <section>
   <h2>Typography</h2>
   <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
-    <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--text-primary)">Sora — page titles & numbers</div>
-    <div style="font-size:16px;">IBM Plex Sans — body, navigation and UI copy. Regular 400, Medium 500, SemiBold 600.</div>
-    <div class="mono">IBM Plex Mono — versions, ids, timestamps, code: v2.14.0 · a3f9c21 · 84ms</div>
+    <div style="font-family:var(--font-display); font-size:28px; font-weight:600; letter-spacing:-.03em; color:var(--text-primary)">Space Grotesk — titulares y cifras</div>
+    <div style="font-size:16px;">Inter — body, navegación y texto de UI. Regular 400, Medium 500, SemiBold 600, Bold 700.</div>
+    <div class="mono">JetBrains Mono — versiones, ids, timestamps, código: v2.14.0 · a3f9c21 · 84ms</div>
   </div>
 </section>
 
@@ -57,9 +82,9 @@
 <section>
   <h2>Badges</h2>
   <div class="card card-pad specimen">
-    <span class="badge badge-green"><span class="dot"></span>Active</span>
-    <span class="badge badge-amber"><span class="dot"></span>Degraded</span>
-    <span class="badge badge-red"><span class="dot"></span>Failed</span>
+    <span class="badge badge-green">Active</span>
+    <span class="badge badge-amber">Degraded</span>
+    <span class="badge badge-red">Failed</span>
     <span class="badge badge-blue">REST</span>
     <span class="badge badge-indigo">Internal</span>
     <span class="badge badge-gray">tag</span>
@@ -68,10 +93,73 @@
 
 <section>
   <h2>Form controls</h2>
-  <div class="card card-pad grid cols-3">
-    <div class="field"><label>Text input</label><input placeholder="payments-api"><div class="hint">Lowercase, kebab-case.</div></div>
-    <div class="field"><label>Select</label><select><option>REST</option><option>GraphQL</option></select></div>
-    <div class="field"><label>Search</label><input placeholder="Filter…"></div>
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:var(--sp-lg);">
+
+    <div class="form-grid">
+      <div class="field req"><label>Text</label><input placeholder="payments-api"><div class="hint">Lowercase, kebab-case.</div></div>
+      <div class="field"><label>Select</label><select><option>REST</option><option>GraphQL</option><option>gRPC</option></select></div>
+      <div class="field"><label>Email</label><input type="email" placeholder="team@acme.io"></div>
+      <div class="field"><label>URL</label><input type="url" placeholder="https://…"></div>
+      <div class="field"><label>Number</label><input type="number" placeholder="3" min="0"></div>
+      <div class="field"><label>Date</label><input type="date"></div>
+    </div>
+
+    <div class="form-grid">
+      <div class="field"><label>Password</label>
+        <div class="input-group"><input type="password" value="supersecret"><button class="ig-btn" title="Show"><span class="mi">visibility</span></button></div>
+      </div>
+      <div class="field"><label>Currency</label>
+        <div class="input-group"><span class="addon">€</span><input type="number" placeholder="0.00"><span class="addon suffix">EUR</span></div>
+      </div>
+      <div class="field"><label>Percentage</label>
+        <div class="input-group"><input type="number" placeholder="95"><span class="addon suffix">%</span></div>
+      </div>
+      <div class="field"><label>Units</label>
+        <div class="input-group"><input type="number" placeholder="512"><span class="addon suffix">MiB</span></div>
+      </div>
+      <div class="field full"><label>Multiselect (tags)</label>
+        <div class="multiselect">
+          <span class="ms-tag">REST<span class="mi">close</span></span>
+          <span class="ms-tag">gRPC<span class="mi">close</span></span>
+          <span class="ms-tag">internal<span class="mi">close</span></span>
+          <input class="ms-input" placeholder="Add tag…">
+        </div>
+      </div>
+      <div class="field full"><label>Textarea</label><textarea placeholder="Short description…"></textarea></div>
+    </div>
+
+    <div style="display:flex; flex-wrap:wrap; gap:var(--sp-xl); align-items:flex-start;">
+      <div>
+        <div class="swatch-label" style="margin:0 0 8px;">Checkbox</div>
+        <div class="choice-group" style="flex-direction:column; gap:8px;">
+          <label class="choice"><input type="checkbox" checked> Public</label>
+          <label class="choice"><input type="checkbox"> Deprecated</label>
+        </div>
+      </div>
+      <div>
+        <div class="swatch-label" style="margin:0 0 8px;">Radio</div>
+        <div class="choice-group" style="flex-direction:column; gap:8px;">
+          <label class="choice"><input type="radio" name="t" checked> REST</label>
+          <label class="choice"><input type="radio" name="t"> GraphQL</label>
+        </div>
+      </div>
+      <div>
+        <div class="swatch-label" style="margin:0 0 8px;">Switch (inline)</div>
+        <div class="choice-group" style="flex-direction:column; gap:10px;">
+          <label class="switch-toggle"><span class="switch"><input type="checkbox" checked><span class="track"></span></span> Active</label>
+          <label class="switch-toggle"><span class="switch"><input type="checkbox"><span class="track"></span></span> <span class="sw-off">Inactive</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="swatch-label" style="margin:0 0 8px;">Switch rows (settings pattern)</div>
+      <div style="max-width:520px;">
+        <div class="switch-row"><div><div class="sw-label">Email notifications</div><div class="sw-hint">Deploys, incidents and compliance alerts.</div></div><label class="switch"><input type="checkbox" checked><span class="track"></span></label></div>
+        <div class="switch-row"><div><div class="sw-label">Require approval to deploy</div><div class="sw-hint">Production deployments need a second reviewer.</div></div><label class="switch"><input type="checkbox"><span class="track"></span></label></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -81,8 +169,8 @@
     <table class="table">
       <thead><tr><th>Name</th><th>Status</th><th>Version</th></tr></thead>
       <tbody>
-        <tr><td class="cell-main">payments-api</td><td><span class="badge badge-green"><span class="dot"></span>Active</span></td><td class="mono">v2.14.0</td></tr>
-        <tr><td class="cell-main">legacy-billing</td><td><span class="badge badge-red"><span class="dot"></span>Deprecated</span></td><td class="mono">v1.0.0</td></tr>
+        <tr><td class="cell-main">payments-api</td><td><span class="badge badge-green">Active</span></td><td class="mono">v2.14.0</td></tr>
+        <tr><td class="cell-main">legacy-billing</td><td><span class="badge badge-red">Deprecated</span></td><td class="mono">v1.0.0</td></tr>
       </tbody>
     </table>
   </div>
@@ -97,6 +185,144 @@
       <div class="tabs"><a class="tab active">Overview</a><a class="tab">Endpoints</a><a class="tab">Metrics</a></div>
       <div style="display:flex; gap:6px;"><button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn"><span class="mi">chevron_right</span></button></div>
     </div>
+  </div>
+</section>
+
+<section>
+  <h2>Code &amp; config</h2>
+  <p class="swatch-label" style="margin:0;">Para mostrar docker-compose, Dockerfile, YAML, JSON, snippets… Cabecera con ruta + lenguaje + copiar. Tokens de sintaxis: <code>.tok-a</code> (clave) · <code>.tok-s</code> (string) · <code>.tok-n</code> (número) · <code>.tok-k</code> (keyword) · <code>.tok-f</code> (func/tipo) · <code>.tok-c</code> (comentario).</p>
+  <div class="grid cols-2" style="align-items:start;">
+    <div class="code-block numbered scroll">
+      <div class="code-head"><span class="mi path-ico">description</span><span class="fname">docker-compose.yml</span><span class="badge badge-gray">YAML</span><button class="ig-btn copy" title="Copy"><span class="mi">content_copy</span></button></div>
+      <pre><code><span class="line"><span class="tok-a">version</span>: <span class="tok-s">"3.9"</span></span><span class="line"><span class="tok-a">services</span>:</span><span class="line">  <span class="tok-a">payments-api</span>:</span><span class="line">    <span class="tok-a">image</span>: <span class="tok-s">registry.acme.io/payments:2.14.0</span></span><span class="line">    <span class="tok-a">ports</span>:</span><span class="line">      - <span class="tok-s">"8080:8080"</span></span><span class="line">    <span class="tok-a">environment</span>:</span><span class="line">      <span class="tok-a">DATABASE_URL</span>: <span class="tok-s">${DATABASE_URL}</span></span><span class="line">      <span class="tok-a">LOG_LEVEL</span>: <span class="tok-s">info</span></span><span class="line">    <span class="tok-a">depends_on</span>: [<span class="tok-s">postgres</span>]</span><span class="line">    <span class="tok-a">deploy</span>:</span><span class="line">      <span class="tok-a">replicas</span>: <span class="tok-n">3</span></span><span class="line">  <span class="tok-a">postgres</span>:</span><span class="line">    <span class="tok-a">image</span>: <span class="tok-s">postgres:16</span></span><span class="line">    <span class="tok-a">volumes</span>: [<span class="tok-s">pgdata:/var/lib/postgresql/data</span>]</span><span class="line"><span class="tok-c"># single source of truth</span></span></code></pre>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+      <div class="code-block">
+        <div class="code-head"><span class="fname">Dockerfile</span><span class="badge badge-gray">Docker</span><button class="ig-btn copy" title="Copy"><span class="mi">content_copy</span></button></div>
+        <pre><code><span class="tok-k">FROM</span> <span class="tok-s">golang:1.22-alpine</span>
+<span class="tok-k">WORKDIR</span> <span class="tok-s">/app</span>
+<span class="tok-k">COPY</span> . .
+<span class="tok-k">RUN</span> go build <span class="tok-p">-o</span> server
+<span class="tok-k">EXPOSE</span> <span class="tok-n">8080</span>
+<span class="tok-k">CMD</span> [<span class="tok-s">"./server"</span>]</code></pre>
+      </div>
+      <div class="code-block terminal">
+        <div class="code-head"><span class="fname">deploy.sh</span><button class="ig-btn copy" title="Copy"><span class="mi">content_copy</span></button></div>
+        <pre><code><span class="prompt">$</span> docker compose up <span class="tok-p">-d</span>
+<span class="tok-c">[+] Running 2/2</span>
+<span class="prompt">$</span> kubectl rollout status deploy/payments</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>API</h2>
+  <div class="card card-pad specimen" style="gap:var(--sp-sm);">
+    <span class="method method-get">GET</span>
+    <span class="method method-post">POST</span>
+    <span class="method method-put">PUT</span>
+    <span class="method method-patch">PATCH</span>
+    <span class="method method-delete">DELETE</span>
+    <span style="width:14px"></span>
+    <span class="status-code ok">200</span>
+    <span class="status-code ok">201</span>
+    <span class="status-code warn">401</span>
+    <span class="status-code err">500</span>
+    <span style="width:14px"></span>
+    <span class="type-chip">string</span>
+    <span class="type-chip">uuid</span>
+    <span class="type-chip">integer</span>
+  </div>
+
+  <div class="grid cols-2" style="align-items:start;">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:8px;">Endpoints</h3>
+      <div class="endpoint"><span class="method method-get">GET</span><span class="path">/v1/payments</span><span class="desc">List payments</span></div>
+      <div class="endpoint"><span class="method method-post">POST</span><span class="path">/v1/payments</span><span class="desc">Create a payment</span></div>
+      <div class="endpoint"><span class="method method-get">GET</span><span class="path">/v1/payments/{id}</span><span class="desc">Retrieve one</span></div>
+      <div class="endpoint"><span class="method method-delete">DELETE</span><span class="path">/v1/payments/{id}</span><span class="desc">Refund / void</span></div>
+    </div>
+    <div class="card">
+      <table class="table">
+        <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">amount</td><td><span class="type-chip">integer</span></td><td><span class="badge badge-red">required</span></td><td>Amount in minor units.</td></tr>
+          <tr><td class="mono">currency</td><td><span class="type-chip">string</span></td><td><span class="badge badge-red">required</span></td><td>ISO 4217 code.</td></tr>
+          <tr><td class="mono">idempotency_key</td><td><span class="type-chip">uuid</span></td><td><span class="badge badge-gray">optional</span></td><td>Dedupe retries.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Swagger / OpenAPI explorer</h2>
+  <p class="swatch-label" style="margin:0;">Interactivo de verdad (clic para plegar/desplegar — <code>&lt;details&gt;</code> nativo, sin JS). Operación = <code>&lt;details class="op MÉTODO"&gt;</code>. Reutiliza <code>.method</code>, <code>.table</code>, <code>.status-code</code>, <code>.type-chip</code> y <code>.code-block</code>.</p>
+  <div class="swagger">
+    <div class="tag-head"><h3>Payments</h3><span class="tag-desc">Card payments, refunds and payouts</span></div>
+
+    <details class="op get">
+      <summary><span class="method method-get">GET</span><span class="summary-path">/v1/payments</span><span class="summary-desc">List payments</span><span class="mi chev">expand_more</span></summary>
+      <div class="op-body">
+        <div><div class="op-section-label">Query parameters</div>
+          <div class="card" style="margin-top:8px;"><table class="table">
+            <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">status</td><td><span class="type-chip">string</span></td><td><span class="badge badge-gray">optional</span></td><td>active · refunded · failed</td></tr>
+              <tr><td class="mono">limit</td><td><span class="type-chip">integer</span></td><td><span class="badge badge-gray">optional</span></td><td>Page size (max 100).</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div><div class="op-section-label">Responses</div>
+          <div class="card" style="margin-top:8px;"><table class="table">
+            <tbody>
+              <tr><td style="width:70px"><span class="status-code ok">200</span></td><td>Paged list of payments.</td></tr>
+              <tr><td><span class="status-code warn">401</span></td><td>Missing or invalid token.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="op-actions"><button class="btn btn-primary">Try it out</button><button class="btn btn-outline">Authorize</button></div>
+      </div>
+    </details>
+
+    <details class="op post" open>
+      <summary><span class="method method-post">POST</span><span class="summary-path">/v1/payments</span><span class="summary-desc">Create a payment</span><span class="mi chev">expand_more</span></summary>
+      <div class="op-body">
+        <div><div class="op-section-label">Request body · application/json</div>
+          <div class="code-block" style="margin-top:8px;"><div class="code-head"><span class="fname">example</span><span class="badge badge-gray">JSON</span></div>
+            <pre><code>{
+  <span class="tok-a">"amount"</span>: <span class="tok-n">4200</span>,
+  <span class="tok-a">"currency"</span>: <span class="tok-s">"EUR"</span>,
+  <span class="tok-a">"idempotency_key"</span>: <span class="tok-s">"a3f9c21e-…"</span>
+}</code></pre>
+          </div>
+        </div>
+        <div><div class="op-section-label">Responses</div>
+          <div class="card" style="margin-top:8px;"><table class="table">
+            <tbody>
+              <tr><td style="width:70px"><span class="status-code ok">201</span></td><td>Payment created.</td></tr>
+              <tr><td><span class="status-code warn">400</span></td><td>Validation error.</td></tr>
+              <tr><td><span class="status-code err">500</span></td><td>Processor unavailable.</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="op-actions"><button class="btn btn-primary">Try it out</button></div>
+      </div>
+    </details>
+
+    <details class="op delete">
+      <summary><span class="method method-delete">DELETE</span><span class="summary-path">/v1/payments/{id}</span><span class="summary-desc">Refund / void</span><span class="mi chev">expand_more</span></summary>
+      <div class="op-body">
+        <div><div class="op-section-label">Path parameters</div>
+          <div class="card" style="margin-top:8px;"><table class="table">
+            <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody><tr><td class="mono">id</td><td><span class="type-chip">uuid</span></td><td><span class="badge badge-red">required</span></td><td>Payment identifier.</td></tr></tbody>
+          </table></div>
+        </div>
+        <div class="op-actions"><button class="btn btn-danger">Try it out</button></div>
+      </div>
+    </details>
   </div>
 </section>
 

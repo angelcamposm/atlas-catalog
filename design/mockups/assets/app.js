@@ -10,6 +10,11 @@
 
 const THEMES = ['light', 'dark']; // extend with custom themes defined in atlas.css
 
+/* Atlas logomark — flat, geometric globe/meridian (cartography identity).
+   Inherits color from its container (currentColor). Reuse anywhere with:
+   <div class="brand-mark">…this svg…</div>  (see design-system.html → Brand). */
+const ATLAS_LOGO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Atlas"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg>`;
+
 const NAV = [
   { label: null, items: [
     { id: 'dashboard', ico: 'dashboard', text: 'Dashboard', href: 'dashboard.html' },
@@ -70,7 +75,7 @@ const NAV = [
   const sidebar = `
     <aside class="sidebar">
       <a class="brand" href="index.html">
-        <div class="brand-mark">A</div>
+        <div class="brand-mark">${ATLAS_LOGO}</div>
         <div class="brand-name">Atlas<small>Service Catalog</small></div>
       </a>
       <nav>${groups}</nav>

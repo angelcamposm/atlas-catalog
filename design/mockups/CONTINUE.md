@@ -8,6 +8,13 @@ design system** (tipografía, espaciado, jerarquía, consistencia).
 > SIEMPRE las clases de `assets/atlas.css` y el shell de `assets/app.js`. Copia una
 > pantalla existente del mismo patrón y cámbiale el contenido. Eso es todo.
 
+> ⚠️ **Esto es solo para MOSTRAR los mockups (cómo se ve y se navega).** No es código de
+> producción. Componentes como el visor de código, el explorador Swagger, el multiselect,
+> los switches o el resaltado de sintaxis son **aproximaciones visuales estáticas**; en la
+> construcción real se reemplazan por **librerías de terceros ya trabajadas** (p. ej. Swagger
+> UI / Redoc, Shiki / Prism, react-select / Headless UI). No intentes hacerlos "funcionales":
+> con que se vean correctos y consistentes es suficiente.
+
 ---
 
 ## 1. Reglas de oro (no negociables)
@@ -24,9 +31,11 @@ design system** (tipografía, espaciado, jerarquía, consistencia).
    - Texto: `--text-primary` (títulos) · `--text-body` · `--text-muted` · `--text-subtle`
    - Marca: `--color-primary #1b84ff` · `--color-accent #17c653` (éxito) ·
      `--color-warning #f6b100` · `--color-destructive #f8285a`
-   - Fuentes: `Inter` (UI) y `JetBrains Mono` (usar clase `.mono` para versiones, IDs, rutas).
-4. **Jerarquía tipográfica fija** (ya en CSS): `h1` 24/700 · `h2` 18/600 · `h3` 15/600 ·
-   body 16. No cambies tamaños a mano.
+   - Fuentes: **`Space Grotesk`** (display: titulares h1/h2, marca, cifras grandes) ·
+     `Inter` (UI/body) · `JetBrains Mono` (clase `.mono`: versiones, IDs, rutas). Ya aplicadas
+     por el CSS — no las pongas a mano.
+4. **Jerarquía tipográfica fija** (ya en CSS): `h1` 25/600 display · `h2` 18/600 display ·
+   `h3` 15/600 · body 16. No cambies tamaños a mano.
 5. **Toda pantalla empieza con `.page-head`** (breadcrumbs + h1 + `.sub` + `.actions`).
 6. **Navegación real**: cada enlace a una pantalla existente debe apuntar a su `.html`.
    Al crear una pantalla, **actualiza su `href` en `app.js`** (cambia `'#'` por el archivo).
@@ -121,14 +130,58 @@ Se escriben con la clase helper `.mi` y el **nombre (ligature)** del icono como 
 
 - **Fila de KPIs**: `<div class="grid cols-4"> … <div class="card stat"><span class="label">…</span><span class="value" style="font-size:24px">…</span></div> … </div>`
 - **Toolbar**: `<div class="toolbar"><input class="input" placeholder="⌕ …"><select class="select">…</select><button class="btn btn-ghost" style="margin-left:auto">Clear filters</button></div>`
-- **Badges de estado** (siempre con `<span class="dot"></span>`):
+- **Badges de estado** (sin punto/dot — solo texto): `<span class="badge badge-green">Active</span>`.
   `badge-green` activo/ok · `badge-amber` warning · `badge-red` error/deprecated ·
   `badge-blue` info/staging · `badge-indigo` production/internal · `badge-gray` neutro.
 - **Health bar**: `<div class="health-bar"><i></i><i></i><i class="warn"></i><i class="err"></i><i class="off"></i></div>` (5 segmentos; clases `warn`/`err`/`off`).
 - **Tabs**: `<div class="tabs"><a class="tab active">…</a><a class="tab">…</a></div>`
 - **Celda principal de tabla**: `<td><div class="cell-main"><a href="…">nombre</a></div><div class="cell-sub">descripción</div></td>`
 - **Avatar en celda**: `<div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">XX</div>Nombre</div>`
+- **Icono de entidad**: `<div class="icon-tile c-emerald"><span class="mi">database</span></div>` (acentos `.c-*`).
 - **Paginación**: copia el bloque `.pagination` de `deployments-list.html`.
+
+### Controles de formulario (todos en `design-system.html` → Form controls)
+
+Altura unificada vía `--control-h` (input = select = multiselect). Envuelve cada uno en `.field` (label + control + `.hint`); `.field.req` añade el asterisco. Layout en `.form-grid` (2 cols, `.full` para ancho completo).
+
+- **Input / select / textarea**: `<div class="field"><label>…</label><input></div>`. Tipos nativos: `text, email, url, number, date, password`.
+- **Input-group** (prefijo/sufijo o botón) — moneda, %, unidades, password:
+  `<div class="input-group"><span class="addon">€</span><input type="number"><span class="addon suffix">EUR</span></div>`
+  · password: `<div class="input-group"><input type="password"><button class="ig-btn"><span class="mi">visibility</span></button></div>`
+- **Multiselect (tags)**: `<div class="multiselect"><span class="ms-tag">REST<span class="mi">close</span></span>…<input class="ms-input" placeholder="Add…"></div>`
+- **Checkbox / radio**: `<label class="choice"><input type="checkbox"> Label</label>` (agrúpalos en `.choice-group`).
+- **Switch inline (on/off)**: `<label class="switch-toggle"><span class="switch"><input type="checkbox" checked><span class="track"></span></span> Active</label>`
+- **Switch row (ajustes)**: `<div class="switch-row"><div><div class="sw-label">…</div><div class="sw-hint">…</div></div><label class="switch"><input type="checkbox"><span class="track"></span></label></div>`
+
+### Código y API (componentes "de programación" — ver `design-system.html` → Code & config / API)
+
+Para mostrar **docker-compose, Dockerfile, YAML, JSON, comandos** y especificaciones de API. **Importante** en este catálogo: los compose/Dockerfile se muestran a menudo.
+
+- **Bloque de código**:
+  ```html
+  <div class="code-block numbered scroll">
+    <div class="code-head"><span class="mi path-ico">description</span><span class="fname">docker-compose.yml</span>
+      <span class="badge badge-gray">YAML</span><button class="ig-btn copy"><span class="mi">content_copy</span></button></div>
+    <pre><code><span class="line">…</span>…</code></pre>
+  </div>
+  ```
+  · `numbered` = números de línea (envuelve cada línea en `<span class="line">`) · `scroll` = altura máx + scroll para ficheros largos.
+- **Tokens de sintaxis** (envuelve el texto): `.tok-a` clave/atributo · `.tok-s` string · `.tok-n` número · `.tok-k` keyword · `.tok-f` función/tipo · `.tok-c` comentario · `.tok-p` puntuación. Colores ya theme-aware (claro/oscuro).
+- **Terminal**: `<div class="code-block terminal">…</div>` (siempre oscuro) con `<span class="prompt">$</span>` para el prompt.
+- **Métodos HTTP**: `<span class="method method-get">GET</span>` (`get/post/put/patch/delete`).
+- **Códigos de estado**: `<span class="status-code ok|warn|err">200</span>`.
+- **Tipos**: `<span class="type-chip">uuid</span>`.
+- **Endpoint**: `<div class="endpoint"><span class="method method-get">GET</span><span class="path">/v1/…</span><span class="desc">…</span></div>`.
+- **Tabla de parámetros**: `.table` normal con `.type-chip` y badge `required`/`optional`.
+- **Swagger / OpenAPI explorer** (interactivo, sin JS — `<details>` nativo). Una operación:
+  ```html
+  <details class="op post">
+    <summary><span class="method method-post">POST</span><span class="summary-path">/v1/payments</span>
+      <span class="summary-desc">Create a payment</span><span class="mi chev">expand_more</span></summary>
+    <div class="op-body"> …params (.table), request body (.code-block), responses (.status-code), .op-actions… </div>
+  </details>
+  ```
+  Agrupa operaciones bajo `<div class="swagger">` con `<div class="tag-head"><h3>Tag</h3>…</div>`. Clase de método en `.op`: `get/post/put/patch/delete` (colorea borde y cabecera). Añade `open` para mostrarla expandida.
 
 ---
 
@@ -165,7 +218,7 @@ deployments-list · releases-list · workflows-list · compliance · security ·
 - [ ] Empieza con `.page-head` (breadcrumbs + h1 + sub + actions).
 - [ ] Cero CSS nuevo inline salvo layout con `var(--…)`.
 - [ ] Enlaces de la tabla apuntan a su detalle (o `#` si aún no existe).
-- [ ] Badges de estado usan `<span class="dot"></span>` y el color semántico correcto.
+- [ ] Badges de estado SIN punto (solo texto) y con el color semántico correcto.
 - [ ] **Cero emojis / glyphs unicode**: todos los iconos son `<span class="mi">nombre</span>`.
 - [ ] **Cero colores crudos** en superficies/texto/bordes: solo `var(--…)` (se ve bien en dark).
 - [ ] Datos coherentes con el resto de pantallas (equipos, versiones, clústeres).

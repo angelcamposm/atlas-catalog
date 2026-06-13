@@ -6,7 +6,7 @@
    Inter type, soft "light" badges, dashed row separators.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=block');
 
 /* ============================================================
@@ -60,13 +60,34 @@
   /* Radius */
   --r-sm: 6px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px;
 
-  /* Type */
+  /* Shared height for form controls (input = select = multiselect) */
+  --control-h: 40px;
+
+  /* Code / syntax (light). Dark overrides in [data-theme="dark"]. */
+  --code-bg: #f7f8fa; --code-fg: #252f4a; --code-border: var(--border);
+  --tok-key: #7c3aed; --tok-str: #0a7d33; --tok-num: #b45309;
+  --tok-fn: #056ee9; --tok-com: #8a92a8; --tok-punct: #5b6275; --tok-attr: #0a7d33;
+  /* Chevron used by selects / multiselect (stroke = --text-muted) */
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234b5675' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+
+  /* Type — Space Grotesk for display/headings gives identity;
+     Inter for UI/body; JetBrains Mono for technical metadata. */
   --font-sans: 'Inter', sans-serif;
-  --font-display: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   --shadow-sm: 0 3px 4px 0 rgba(0, 0, 0, .03);
   --shadow-md: 0 7px 18px 0 rgba(0, 0, 0, .06);
+
+  /* Flat accent colors for icon tiles / brand-marks / entity icons.
+     Solid, no gradients. Themeable via these tokens. */
+  --c-blue:    #1b84ff;
+  --c-emerald: #17c653;
+  --c-teal:    #14b8a6;
+  --c-cyan:    #0ea5e9;
+  --c-violet:  #7239ea;
+  --c-amber:   #f6b100;
+  --c-slate:   #4b5675;
 }
 
 /* ---------- Dark theme ---------- */
@@ -96,6 +117,10 @@
 
   --shadow-sm: 0 3px 4px 0 rgba(0, 0, 0, .3);
   --shadow-md: 0 7px 18px 0 rgba(0, 0, 0, .45);
+
+  --code-bg: #0e111a; --code-fg: #d3d8e3; --code-border: #222637;
+  --tok-key: #c084fc; --tok-str: #5ed69a; --tok-num: #f6b100;
+  --tok-fn: #6cb6ff; --tok-com: #6b7280; --tok-punct: #9aa3b5; --tok-attr: #5ed69a;
 }
 
 /* ---------- Material Symbols icon helper ---------- */
@@ -123,9 +148,9 @@ body {
 a { color: var(--color-primary); text-decoration: none; }
 a:hover { color: var(--color-primary-600); }
 
-h1, h2, h3 { color: var(--text-primary); letter-spacing: -.01em; }
-h1 { font-size: 24px; font-weight: 700; }
-h2 { font-size: 18px; font-weight: 600; }
+h1, h2, h3 { color: var(--text-primary); letter-spacing: -.02em; }
+h1 { font-family: var(--font-display); font-size: 25px; font-weight: 600; }
+h2 { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
 h3 { font-size: 15px; font-weight: 600; }
 code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 
@@ -146,12 +171,13 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 .sidebar a { text-decoration: none; }
 .brand { display: flex; align-items: center; gap: 10px; padding: 4px 10px 14px; border-bottom: 1px dashed var(--sidebar-border); }
 .brand-mark {
-  width: 36px; height: 36px; border-radius: 8px; flex: none;
+  width: 36px; height: 36px; border-radius: 9px; flex: none;
   background: var(--color-primary);
   display: grid; place-items: center; color: #fff;
-  font-weight: 800; font-size: 17px;
+  font-family: var(--font-display); font-weight: 700; font-size: 18px;
 }
-.brand-name { font-weight: 700; color: var(--sidebar-text-active); font-size: 16px; }
+.brand-mark svg { width: 62%; height: 62%; display: block; }
+.brand-name { font-family: var(--font-display); font-weight: 600; color: var(--sidebar-text-active); font-size: 16px; letter-spacing: -.01em; }
 .brand-name small { display: block; font-size: 10px; color: var(--sidebar-text); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
 
 .nav-group-label {
@@ -165,8 +191,9 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
   cursor: pointer; transition: background .15s, color .15s;
 }
 .nav-item:hover { background: rgba(255,255,255,.04); color: #d5d5dc; }
-.nav-item.active { background: var(--sidebar-item-active); color: var(--sidebar-text-active); }
-.nav-item.active .ico { color: var(--color-primary); opacity: 1; }
+.nav-item.active { background: var(--sidebar-item-active); color: var(--sidebar-text-active); box-shadow: inset 3px 0 0 var(--color-primary); }
+.nav-item.active .mi { color: var(--color-primary); opacity: 1; }
+.nav-item .mi { font-size: 20px; opacity: .8; }
 .nav-item .ico { width: 18px; text-align: center; opacity: .8; }
 .nav-item .count {
   margin-left: auto; font-size: 11px; font-weight: 600;
@@ -199,7 +226,7 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 .avatar {
   width: 38px; height: 38px; border-radius: var(--r-sm); flex: none;
   display: grid; place-items: center; color: #fff; font-weight: 600; font-size: 13px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: var(--color-primary);
 }
 .avatar.sm { width: 30px; height: 30px; font-size: 11px; border-radius: 6px; }
 
@@ -244,7 +271,7 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 /* ---------- Stats ---------- */
 .stat { padding: var(--sp-md); display: flex; flex-direction: column; gap: 5px; }
 .stat .label { font-size: 12.5px; color: var(--text-subtle); font-weight: 500; }
-.stat .value { font-size: 28px; font-weight: 700; color: var(--text-primary); letter-spacing: -.02em; }
+.stat .value { font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--text-primary); letter-spacing: -.03em; }
 .stat .delta { font-size: 12px; font-weight: 600; }
 .delta.up { color: var(--color-accent); } .delta.down { color: var(--color-destructive); }
 
@@ -253,7 +280,6 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
   display: inline-flex; align-items: center; gap: 5px;
   font: 600 11px var(--font-sans); padding: 4px 8px; border-radius: 5px;
 }
-.badge .dot { width: 6px; height: 6px; border-radius: 99px; background: currentColor; }
 .badge-blue { background: var(--color-primary-soft); color: var(--color-primary-600); }
 .badge-green { background: var(--color-accent-soft); color: #04b440; }
 .badge-amber { background: var(--color-warning-soft); color: #c59a00; }
@@ -279,16 +305,19 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 /* ---------- Toolbar / filters ---------- */
 .toolbar { display: flex; align-items: center; gap: var(--sp-xs); flex-wrap: wrap; }
 .input {
-  font: 13px var(--font-sans); padding: 10px 12px; min-width: 250px;
+  height: var(--control-h); font: 13px var(--font-sans); padding: 0 12px; min-width: 250px;
   border: 1px solid var(--border-strong); border-radius: var(--r-sm); background: var(--card); color: var(--text-body);
 }
 .input::placeholder { color: var(--text-subtle); }
 .select {
-  font: 500 13px var(--font-sans); padding: 10px 12px;
+  height: var(--control-h); font: 500 13px var(--font-sans); padding: 0 34px 0 12px;
   border: 1px solid var(--border-strong); border-radius: var(--r-sm);
-  background: var(--card); color: var(--text-muted); cursor: pointer;
+  background: var(--card) var(--chevron) no-repeat right 12px center; background-size: 14px;
+  color: var(--text-muted); cursor: pointer;
+  appearance: none; -webkit-appearance: none;
 }
 .select:hover { border-color: var(--color-primary); }
+.input:focus, .select:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27, 132, 255, .12); }
 
 /* ---------- Tabs ---------- */
 .tabs { display: flex; gap: var(--sp-md); border-bottom: 1px solid var(--border-strong); }
@@ -321,12 +350,88 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 .field label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
 .field .hint { font-size: 12px; color: var(--text-subtle); }
 .field input, .field select, .field textarea {
-  font: 13.5px var(--font-sans); padding: 11px 13px;
+  font: 13.5px var(--font-sans); padding: 0 13px; height: var(--control-h);
   border: 1px solid var(--border-strong); border-radius: var(--r-sm); background: var(--card); color: var(--text-body);
+}
+.field textarea { height: auto; padding: 11px 13px; min-height: 88px; resize: vertical; line-height: 1.5; }
+.field select {
+  padding: 0 34px 0 13px; cursor: pointer; appearance: none; -webkit-appearance: none;
+  background: var(--card) var(--chevron) no-repeat right 13px center; background-size: 14px;
 }
 .field input:focus, .field textarea:focus, .field select:focus {
   outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27, 132, 255, .12);
 }
+
+/* --- Input group: leading/trailing addon or button (currency, %, units, password…) ---
+   <div class="field"><label>Price</label>
+     <div class="input-group"><span class="addon">€</span><input type="number" placeholder="0.00"><span class="addon suffix">EUR</span></div>
+   </div>
+   Password: <div class="input-group"><input type="password"><button class="ig-btn"><span class="mi">visibility</span></button></div> */
+.input-group { display: flex; align-items: stretch; height: var(--control-h); width: 100%;
+  border: 1px solid var(--border-strong); border-radius: var(--r-sm); background: var(--card); overflow: hidden; }
+.input-group:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27, 132, 255, .12); }
+.input-group input { flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+  font: 13.5px var(--font-sans); color: var(--text-body); padding: 0 13px; }
+.input-group .addon { display: inline-flex; align-items: center; padding: 0 12px;
+  background: var(--muted); color: var(--text-muted); font: 600 13px var(--font-sans); border-right: 1px solid var(--border); white-space: nowrap; }
+.input-group .addon.suffix { border-right: 0; border-left: 1px solid var(--border); }
+.input-group .ig-btn { border: none; background: transparent; color: var(--text-muted); padding: 0 11px; cursor: pointer; display: grid; place-items: center; }
+.input-group .ig-btn:hover { color: var(--color-primary); }
+
+/* --- Multiselect: removable chips + free-text area, same baseline height ---
+   <div class="multiselect"><span class="ms-tag">REST<span class="mi">close</span></span>
+     <span class="ms-tag">gRPC<span class="mi">close</span></span><input class="ms-input" placeholder="Add…"></div> */
+.multiselect { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; width: 100%;
+  min-height: var(--control-h); padding: 5px 34px 5px 8px; cursor: text;
+  border: 1px solid var(--border-strong); border-radius: var(--r-sm);
+  background: var(--card) var(--chevron) no-repeat right 12px center; background-size: 14px; }
+.multiselect:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(27, 132, 255, .12); }
+.ms-tag { display: inline-flex; align-items: center; gap: 4px; font: 600 12px var(--font-sans);
+  background: var(--color-primary-soft); color: var(--color-primary-600); padding: 4px 6px 4px 9px; border-radius: 5px; }
+.ms-tag .mi { font-size: 15px; cursor: pointer; opacity: .7; }
+.ms-tag .mi:hover { opacity: 1; }
+.ms-input { flex: 1; min-width: 70px; border: none; outline: none; background: transparent;
+  font: 13px var(--font-sans); color: var(--text-body); padding: 4px 0; }
+.ms-input::placeholder { color: var(--text-subtle); }
+
+/* --- Checkbox / radio (use real inputs, themed accent) --- */
+.choice { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-body); cursor: pointer; }
+.choice input { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; flex: none; }
+.choice-group { display: flex; flex-wrap: wrap; gap: var(--sp-md); }
+
+/* ============================================================
+   UTILITIES — use these instead of inline hex/colors so a theme
+   change propagates everywhere. NEVER write color:#xxx in a page.
+   ============================================================ */
+
+/* Text colors */
+.t-primary { color: var(--text-primary); }
+.t-body    { color: var(--text-body); }
+.t-muted   { color: var(--text-muted); }
+.t-subtle  { color: var(--text-subtle); }
+.t-brand   { color: var(--color-primary); }
+.t-accent  { color: var(--color-accent); }
+.t-warning { color: var(--color-warning); }
+.t-danger  { color: var(--color-destructive); }
+.t-info    { color: var(--color-secondary); }
+
+/* Flat accent backgrounds (for .brand-mark / .avatar / entity icon tiles) */
+.c-blue    { background: var(--c-blue); }
+.c-emerald { background: var(--c-emerald); }
+.c-teal    { background: var(--c-teal); }
+.c-cyan    { background: var(--c-cyan); }
+.c-violet  { background: var(--c-violet); }
+.c-amber   { background: var(--c-amber); }
+.c-slate   { background: var(--c-slate); }
+
+/* An icon tile (solid square + white Material icon). Pair with a .c-* class.
+   <div class="icon-tile c-emerald"><span class="mi">database</span></div> */
+.icon-tile {
+  width: 36px; height: 36px; border-radius: 9px; flex: none;
+  display: grid; place-items: center; color: #fff; background: var(--c-slate);
+}
+.icon-tile.lg { width: 44px; height: 44px; border-radius: 11px; }
+.icon-tile .mi { color: #fff; }
 
 /* ---------- Misc ---------- */
 .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -337,3 +442,158 @@ code, .mono { font-family: var(--font-mono); font-size: 12.5px; }
 .health-bar i.warn { background: var(--color-warning); }
 .health-bar i.err { background: var(--color-destructive); }
 .health-bar i.off { background: var(--border-strong); }
+
+/* ============================================================
+   CRUD — form layout, fieldsets, switch, action bar, modal
+   Used by the *-form.html pages. See CONTINUE.md.
+   ============================================================ */
+
+/* Two-column page: form on the left, contextual help on the right */
+.form-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--sp-md); align-items: start; }
+@media (max-width: 1100px) { .form-layout { grid-template-columns: 1fr; } }
+
+/* A titled block of fields inside a card */
+.form-section { display: flex; flex-direction: column; gap: var(--sp-md); }
+.form-section + .form-section { margin-top: var(--sp-md); padding-top: var(--sp-md); border-top: 1px solid var(--border); }
+.form-section h3 { margin-bottom: 2px; }
+.form-section .section-sub { font-size: 12.5px; color: var(--text-muted); margin-top: -8px; }
+
+/* Grid of .field — default 2 columns, .cols-1 / .full to span */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
+.form-grid.cols-1 { grid-template-columns: 1fr; }
+.form-grid .full { grid-column: 1 / -1; }
+
+/* Required marker */
+.field.req label::after { content: ' *'; color: var(--color-destructive); }
+
+/* Toggle switch (use inside a row with a label) */
+.switch-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-md); padding: 11px 0; border-bottom: 1px dashed var(--border-dashed); }
+.switch-row:last-child { border-bottom: 0; }
+.switch-row .sw-label { font-size: 13.5px; font-weight: 600; color: var(--text-primary); }
+.switch-row .sw-hint { font-size: 12px; color: var(--text-subtle); font-weight: 400; }
+.switch { position: relative; width: 40px; height: 22px; flex: none; cursor: pointer; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.switch .track { position: absolute; inset: 0; background: var(--border-strong); border-radius: 999px; transition: background .15s; }
+.switch .track::before { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; background: #fff; border-radius: 50%; transition: transform .15s; box-shadow: var(--shadow-sm); }
+.switch input:checked + .track { background: var(--color-primary); }
+.switch input:checked + .track::before { transform: translateX(18px); }
+/* Inline switch with a label (on/off, active/inactive):
+   <label class="switch-toggle"><span class="switch"><input type="checkbox" checked><span class="track"></span></span> Active</label> */
+.switch-toggle { display: inline-flex; align-items: center; gap: 9px; cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--text-primary); }
+.switch-toggle .sw-off { color: var(--text-subtle); font-weight: 500; }
+
+/* Sticky action bar at the bottom of a form */
+.form-actions { position: sticky; bottom: 0; display: flex; align-items: center; gap: var(--sp-sm); padding: var(--sp-md) 0; margin-top: var(--sp-md); background: var(--bg); border-top: 1px solid var(--border); }
+.form-actions .spacer { margin-left: auto; }
+
+/* Modal (delete confirmation, quick create) */
+.modal-overlay { position: fixed; inset: 0; background: rgba(7, 20, 55, .45); display: flex; align-items: center; justify-content: center; z-index: 50; padding: var(--sp-md); }
+.modal { width: 100%; max-width: 460px; background: var(--card); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-md); overflow: hidden; }
+.modal-head { display: flex; align-items: center; gap: 12px; padding: var(--sp-md); border-bottom: 1px solid var(--border); }
+.modal-head .mi { color: var(--color-destructive); }
+.modal-head h3 { margin: 0; }
+.modal-body { padding: var(--sp-md); font-size: 13.5px; color: var(--text-body); line-height: 1.6; }
+.modal-foot { display: flex; justify-content: flex-end; gap: var(--sp-sm); padding: var(--sp-md); border-top: 1px solid var(--border); background: var(--muted); }
+
+/* ============================================================
+   CODE & API — developer-oriented display components
+   ============================================================ */
+
+/* Code block: header (filename + lang + copy) over a monospaced body.
+   <div class="code-block">
+     <div class="code-head"><span class="fname">main.go</span><span class="badge badge-gray">Go</span>
+       <button class="ig-btn copy"><span class="mi">content_copy</span></button></div>
+     <pre><code>…tokens…</code></pre>
+   </div> */
+.code-block { border: 1px solid var(--code-border); border-radius: var(--r-md); overflow: hidden; background: var(--code-bg); }
+.code-head { display: flex; align-items: center; gap: 8px; padding: 7px 10px 7px 14px; border-bottom: 1px solid var(--code-border); background: var(--card); }
+.code-head .fname { font: 600 12px var(--font-mono); color: var(--text-muted); }
+.code-head .copy { margin-left: auto; }
+.code-block pre { margin: 0; padding: 14px 16px; overflow-x: auto; }
+.code-block pre code, pre code { display: block; font: 12.5px/1.7 var(--font-mono); color: var(--code-fg); white-space: pre; }
+/* Inline code chip */
+code:not(pre code) { font: 12px var(--font-mono); background: var(--muted); color: var(--text-body); padding: 1px 6px; border-radius: 5px; border: 1px solid var(--border); }
+
+/* Terminal variant — always dark, with a colored prompt */
+.code-block.terminal { --code-bg: #0e111a; --code-fg: #d3d8e3; --code-border: #222637; }
+.code-block.terminal .code-head { background: #151823; }
+.prompt { color: var(--color-accent); user-select: none; }
+
+/* Syntax tokens (wrap text in these spans) */
+.tok-k { color: var(--tok-key); }       /* keyword */
+.tok-s { color: var(--tok-str); }       /* string */
+.tok-n { color: var(--tok-num); }       /* number / constant */
+.tok-f { color: var(--tok-fn); }        /* function / type */
+.tok-a { color: var(--tok-attr); }      /* attribute / key */
+.tok-p { color: var(--tok-punct); }     /* punctuation */
+.tok-c { color: var(--tok-com); font-style: italic; } /* comment */
+
+/* HTTP method badges (mono, uppercase) */
+.method { font: 700 11px var(--font-mono); letter-spacing: .03em; text-transform: uppercase;
+  padding: 3px 7px; border-radius: 5px; display: inline-block; min-width: 50px; text-align: center; }
+.method-get    { background: var(--color-primary-soft);     color: var(--color-primary-600); }
+.method-post   { background: var(--color-accent-soft);      color: #04b440; }
+.method-put,
+.method-patch  { background: var(--color-warning-soft);     color: #c59a00; }
+.method-delete { background: var(--color-destructive-soft); color: #d81a48; }
+
+/* Endpoint row: method + path (+ optional description / auth) */
+.endpoint { display: flex; align-items: center; gap: 12px; font: 13px var(--font-mono);
+  padding: 11px 0; border-bottom: 1px dashed var(--border-dashed); }
+.endpoint:last-child { border-bottom: 0; }
+.endpoint .path { color: var(--text-primary); font-weight: 600; }
+.endpoint .desc { margin-left: auto; font-family: var(--font-sans); font-size: 12.5px; color: var(--text-subtle); }
+
+/* Type chip (for schema/param types: string, integer, uuid…) */
+.type-chip { font: 600 11px var(--font-mono); color: var(--color-secondary);
+  background: var(--color-secondary-soft); padding: 2px 7px; border-radius: 5px; }
+
+/* HTTP status code chip */
+.status-code { font: 700 11px var(--font-mono); padding: 3px 7px; border-radius: 5px; }
+.status-code.ok   { background: var(--color-accent-soft);      color: #04b440; }
+.status-code.warn { background: var(--color-warning-soft);     color: #c59a00; }
+.status-code.err  { background: var(--color-destructive-soft); color: #d81a48; }
+
+/* Line numbers (great for config files: docker-compose.yml, Dockerfile…).
+   Wrap each line in <span class="line">…</span> and add class "numbered". */
+.code-block.numbered pre code { counter-reset: ln; }
+.code-block.numbered .line { counter-increment: ln; display: block; }
+.code-block.numbered .line::before {
+  content: counter(ln); display: inline-block; width: 2.2em; margin-right: 16px;
+  color: var(--text-subtle); text-align: right; user-select: none; -webkit-user-select: none;
+}
+/* Cap height for long files and scroll inside the block */
+.code-block.scroll pre { max-height: 360px; overflow: auto; }
+
+/* File path header (folder icon + path), e.g. a Dockerfile / compose path */
+.code-head .path-ico { color: var(--text-subtle); font-size: 16px; }
+
+/* ============================================================
+   SWAGGER / OPENAPI EXPLORER — interactive (native <details>)
+   <details class="op get"><summary>…</summary><div class="op-body">…</div></details>
+   Method classes: get · post · put · patch · delete
+   ============================================================ */
+.swagger { display: flex; flex-direction: column; gap: 10px; }
+.swagger .tag-head { display: flex; align-items: baseline; gap: 10px; padding: var(--sp-sm) 0 2px; border-bottom: 1px solid var(--border); }
+.swagger .tag-head h3 { font-family: var(--font-display); }
+.swagger .tag-head .tag-desc { font-size: 12.5px; color: var(--text-subtle); }
+
+.op { border: 1px solid var(--border-strong); border-left-width: 5px; border-radius: var(--r-sm);
+  overflow: hidden; background: var(--card); border-left-color: var(--c-slate); }
+.op[open] { box-shadow: var(--shadow-sm); }
+.op > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 9px 12px; }
+.op > summary::-webkit-details-marker { display: none; }
+.op > summary .summary-path { font: 600 13px var(--font-mono); color: var(--text-primary); }
+.op > summary .summary-desc { margin-left: auto; font: 400 12.5px var(--font-sans); color: var(--text-muted); }
+.op > summary .chev { color: var(--text-subtle); transition: transform .15s; }
+.op[open] > summary .chev { transform: rotate(180deg); }
+
+.op.get    { border-left-color: var(--color-primary); }     .op.get    > summary { background: var(--color-primary-soft); }
+.op.post   { border-left-color: var(--color-accent); }      .op.post   > summary { background: var(--color-accent-soft); }
+.op.put    { border-left-color: var(--color-warning); }     .op.put    > summary { background: var(--color-warning-soft); }
+.op.patch  { border-left-color: var(--color-warning); }     .op.patch  > summary { background: var(--color-warning-soft); }
+.op.delete { border-left-color: var(--color-destructive); } .op.delete > summary { background: var(--color-destructive-soft); }
+
+.op-body { padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: var(--sp-md); }
+.op-body .op-section-label { font: 600 11px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-subtle); }
+.op-body .op-actions { display: flex; gap: var(--sp-sm); align-items: center; }

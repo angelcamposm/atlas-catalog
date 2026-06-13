@@ -13,10 +13,11 @@
     position: relative; overflow: hidden;
   }
   .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background:
-      radial-gradient(600px 400px at 85% 15%, rgba(27,132,255,.25), transparent),
-      radial-gradient(500px 500px at 15% 90%, rgba(114,57,234,.18), transparent);
+    content: ''; position: absolute; inset: 0; opacity: .5;
+    background-image:
+      linear-gradient(var(--sidebar-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--sidebar-border) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
   .hero > * { position: relative; }
   .hero h2 { color: #fff; font-size: 34px; line-height: 1.25; max-width: 480px; }
@@ -29,7 +30,7 @@
 
 <div class="hero">
   <a class="brand" href="index.html">
-    <div class="brand-mark">A</div>
+    <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Atlas"><circle cx="12" cy="12" r="9"/><path d="M3.2 12h17.6"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/></svg></div>
     <div class="brand-name">Atlas<small>Service Catalog</small></div>
   </a>
   <h2>Every service, API and cluster. One catalog.</h2>
