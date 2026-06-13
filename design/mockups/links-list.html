@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Links · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="links">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Catalog / <b>Links</b></div>
+    <h1>Links</h1>
+    <div class="sub">External references attached to APIs, components, systems and runbooks.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">rocket_launch</span> Export</button>
+    <button class="btn btn-primary">+ New link</button>
+  </div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Total links</span><span class="value" style="font-size:24px">214</span></div>
+  <div class="card stat"><span class="label">Docs</span><span class="value" style="font-size:24px">96</span></div>
+  <div class="card stat"><span class="label">Dashboards</span><span class="value" style="font-size:24px">52</span></div>
+  <div class="card stat"><span class="label">Runbooks</span><span class="value" style="font-size:24px">38</span></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter by title, URL or owner…">
+  <select class="select"><option>Type: All</option><option>Docs</option><option>Dashboard</option><option>Runbook</option><option>Repo</option><option>Wiki</option></select>
+  <select class="select"><option>Entity: All</option><option>API</option><option>Component</option><option>System</option><option>Resource</option></select>
+  <select class="select"><option>Status: All</option><option>Active</option><option>Broken</option><option>Archived</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Title</th><th>Type</th><th>URL</th><th>Linked entity</th><th>Owner</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">payments-service API reference</a></div><div class="cell-sub">OpenAPI 3.1 spec for /v2 endpoints</div></td>
+        <td><span class="badge badge-blue">Docs</span></td>
+        <td class="mono">docs.acme.dev/payments-api</td>
+        <td>API <a href="#">payments-api</a></td>
+        <td>Team Payments</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Grafana · payments SLOs</a></div><div class="cell-sub">Latency, error-rate and saturation</div></td>
+        <td><span class="badge badge-indigo">Dashboard</span></td>
+        <td class="mono">grafana.acme.dev/d/payments</td>
+        <td>Component <a href="#">payments-service</a></td>
+        <td>Team Payments</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Runbook · identity outage</a></div><div class="cell-sub">PagerDuty playbook for the identity stack</div></td>
+        <td><span class="badge badge-amber">Runbook</span></td>
+        <td class="mono">runbooks.acme.dev/identity</td>
+        <td>System <a href="#">identity</a></td>
+        <td>Team Core</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Source · catalog-web</a></div><div class="cell-sub">GitHub monorepo (team-platform org)</div></td>
+        <td><span class="badge badge-gray">Repo</span></td>
+        <td class="mono">github.com/acme/catalog-web</td>
+        <td>Component <a href="#">catalog-web</a></td>
+        <td>Team Platform</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Architecture decision records</a></div><div class="cell-sub">ADRs for the payments platform</div></td>
+        <td><span class="badge badge-blue">Wiki</span></td>
+        <td class="mono">wiki.acme.dev/adr/payments</td>
+        <td>System <a href="#">payments-platform</a></td>
+        <td>Team Payments</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Old storefront status page</a></div><div class="cell-sub">Replaced by the unified status page</div></td>
+        <td><span class="badge badge-indigo">Dashboard</span></td>
+        <td class="mono">status-old.acme.dev</td>
+        <td>System <a href="#">storefront</a></td>
+        <td>Team Commerce</td>
+        <td><span class="badge badge-gray">Archived</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Orders API quickstart</a></div><div class="cell-sub">curl-based tutorial for orders-v3</div></td>
+        <td><span class="badge badge-blue">Docs</span></td>
+        <td class="mono">docs.acme.dev/orders-v3</td>
+        <td>API <a href="#">orders-api</a></td>
+        <td>Team Commerce</td>
+        <td><span class="badge badge-red"><span class="dot"></span>Broken</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Analytics pipeline diagram</a></div><div class="cell-sub">BigQuery + Looker architecture</div></td>
+        <td><span class="badge badge-blue">Docs</span></td>
+        <td class="mono">docs.acme.dev/analytics</td>
+        <td>System <a href="#">analytics</a></td>
+        <td>Team Data</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 214
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">9</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

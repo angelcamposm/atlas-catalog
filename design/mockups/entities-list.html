@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Entities · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="entities">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Architecture / <b>Entities</b></div>
+    <h1>Entities</h1>
+    <div class="sub">Core business entities modelled across domains, with owning systems and schema coverage.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ New entity</button></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter entities…">
+  <select class="select"><option>Domain: All</option><option>Commerce</option><option>Identity</option><option>Platform</option><option>Data</option></select>
+  <select class="select"><option>Status: All</option><option>Healthy</option><option>Degraded</option><option>At risk</option></select>
+  <select class="select"><option>Coverage: All</option><option>Complete</option><option>Partial</option><option>Missing</option></select>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Entity</th><th>Domain</th><th>Owning system</th><th>Attributes</th><th>Coverage</th><th>Status</th><th>Health</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">Customer</a></div><div class="cell-sub">End-user profile and preferences</div></td>
+        <td>Commerce</td>
+        <td><a href="#">storefront</a></td>
+        <td class="mono">42</td>
+        <td><span class="badge badge-green">Complete</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Order</a></div><div class="cell-sub">Cart checkout, line items, fulfilment</div></td>
+        <td>Commerce</td>
+        <td><a href="#">storefront</a></td>
+        <td class="mono">38</td>
+        <td><span class="badge badge-green">Complete</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Payment</a></div><div class="cell-sub">Authorization, capture, refund</div></td>
+        <td>Commerce</td>
+        <td><a href="#">payments-platform</a></td>
+        <td class="mono">24</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+        <td><span class="badge badge-amber"><span class="dot"></span>Degraded</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">User</a></div><div class="cell-sub">Workforce account &amp; entitlements</div></td>
+        <td>Identity</td>
+        <td><a href="#">identity</a></td>
+        <td class="mono">31</td>
+        <td><span class="badge badge-green">Complete</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Session</a></div><div class="cell-sub">Active SSO and refresh tokens</div></td>
+        <td>Identity</td>
+        <td><a href="#">identity</a></td>
+        <td class="mono">12</td>
+        <td><span class="badge badge-green">Complete</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Component</a></div><div class="cell-sub">Catalog metadata &amp; ownership</div></td>
+        <td>Platform</td>
+        <td><a href="#">developer-platform</a></td>
+        <td class="mono">28</td>
+        <td><span class="badge badge-amber">Partial</span></td>
+        <td><span class="badge badge-amber"><span class="dot"></span>At risk</span></td>
+        <td><div class="health-bar"><i></i><i class="err"></i><i></i><i></i><i class="off"></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Event</a></div><div class="cell-sub">Domain events emitted by services</div></td>
+        <td>Data</td>
+        <td><a href="#">analytics</a></td>
+        <td class="mono">19</td>
+        <td><span class="badge badge-red">Missing</span></td>
+        <td><span class="badge badge-red"><span class="dot"></span>At risk</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Product</a></div><div class="cell-sub">Catalogue SKU and pricing</div></td>
+        <td>Commerce</td>
+        <td><a href="#">storefront</a></td>
+        <td class="mono">22</td>
+        <td><span class="badge badge-green">Complete</span></td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">Showing 1–8 of 22</div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

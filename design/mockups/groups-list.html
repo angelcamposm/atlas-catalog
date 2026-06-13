@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Groups · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="groups">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Organization / <b>Groups</b></div>
+    <h1>Groups</h1>
+    <div class="sub">14 groups organising 86 users around teams, domains and access scopes.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">rocket_launch</span> Export CSV</button>
+    <button class="btn btn-primary">+ New group</button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter by name or description…">
+  <select class="select"><option>Role: All</option><option>Admin</option><option>Editor</option><option>Viewer</option></select>
+  <select class="select"><option>Source: All</option><option>Internal</option><option>SSO</option><option>LDAP</option></select>
+  <select class="select"><option>Members: All</option><option>Empty</option><option>1–5</option><option>6–20</option><option>20+</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Group</th><th>Description</th><th>Members</th><th>Default role</th><th>Owner</th><th>Source</th><th></th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">PA</div><div><div class="cell-main"><a href="#">team-payments</a></div><div class="cell-sub">Owners of the payments platform</div></div></div></td>
+        <td>Builds &amp; runs payments-service, ledger and payouts</td>
+        <td class="mono">14</td>
+        <td><span class="badge badge-indigo">Editor</span></td>
+        <td>Team Payments</td>
+        <td><span class="badge badge-gray">Internal</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">CO</div><div><div class="cell-main"><a href="#">team-commerce</a></div><div class="cell-sub">Storefront, checkout and order management</div></div></div></td>
+        <td>Customer-facing web &amp; mobile experience</td>
+        <td class="mono">18</td>
+        <td><span class="badge badge-indigo">Editor</span></td>
+        <td>Team Commerce</td>
+        <td><span class="badge badge-gray">SSO</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">CR</div><div><div class="cell-main"><a href="#">team-core</a></div><div class="cell-sub">Identity, sessions and core platform APIs</div></div></div></td>
+        <td>Owns the workforce identity stack</td>
+        <td class="mono">9</td>
+        <td><span class="badge badge-indigo">Editor</span></td>
+        <td>Team Core</td>
+        <td><span class="badge badge-gray">SSO</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">PL</div><div><div class="cell-main"><a href="#">team-platform</a></div><div class="cell-sub">Internal developer platform &amp; CI/CD</div></div></div></td>
+        <td>Builds the catalog and golden paths</td>
+        <td class="mono">12</td>
+        <td><span class="badge badge-indigo">Editor</span></td>
+        <td>Team Platform</td>
+        <td><span class="badge badge-gray">Internal</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">DA</div><div><div class="cell-main"><a href="#">team-data</a></div><div class="cell-sub">Analytics, BI and the data warehouse</div></div></div></td>
+        <td>Owns the event pipeline &amp; warehouse</td>
+        <td class="mono">7</td>
+        <td><span class="badge badge-blue">Viewer</span></td>
+        <td>Team Data</td>
+        <td><span class="badge badge-gray">SSO</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">SE</div><div><div class="cell-main"><a href="#">security-reviewers</a></div><div class="cell-sub">Approves sensitive changes across teams</div></div></div></td>
+        <td>Cross-team security &amp; compliance reviewers</td>
+        <td class="mono">5</td>
+        <td><span class="badge badge-indigo">Admin</span></td>
+        <td>Team Security</td>
+        <td><span class="badge badge-gray">Internal</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">CO</div><div><div class="cell-main"><a href="#">compliance-auditors</a></div><div class="cell-sub">Read-only access for compliance audits</div></div></div></td>
+        <td>External auditors &amp; compliance leads</td>
+        <td class="mono">3</td>
+        <td><span class="badge badge-gray">Viewer</span></td>
+        <td>Team Security</td>
+        <td><span class="badge badge-gray">LDAP</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">AD</div><div><div class="cell-main"><a href="#">admins</a></div><div class="cell-sub">Catalog administrators (break-glass)</div></div></div></td>
+        <td>Full access — use sparingly</td>
+        <td class="mono">4</td>
+        <td><span class="badge badge-indigo">Admin</span></td>
+        <td>Platform team</td>
+        <td><span class="badge badge-gray">Internal</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–8 of 14
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

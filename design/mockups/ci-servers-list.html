@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CI Servers · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="ci-servers">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">CI / CD / <b>CI Servers</b></div>
+    <h1>CI Servers</h1>
+    <div class="sub">6 CI runners powering the workflows of every component in the catalog.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ Register CI server</button></div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">CI servers</span><span class="value" style="font-size:24px">6</span></div>
+  <div class="card stat"><span class="label">Workflows</span><span class="value" style="font-size:24px">214</span></div>
+  <div class="card stat"><span class="label">Runs / day</span><span class="value" style="font-size:24px">1,420</span></div>
+  <div class="card stat"><span class="label">Success rate</span><span class="value" style="font-size:24px;color:var(--color-accent)">96.2%</span></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter CI servers…">
+  <select class="select"><option>Type: All</option><option>GitHub Actions</option><option>GitLab CI</option><option>Jenkins</option><option>Buildkite</option></select>
+  <select class="select"><option>Status: All</option><option>Healthy</option><option>Degraded</option><option>Offline</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Server</th><th>Type</th><th>URL</th><th>Workflows</th><th>Last run</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">acme-gh-prod</a></div><div class="cell-sub">Hosted runners for the acme org</div></td>
+        <td><span class="badge badge-blue">GitHub Actions</span></td>
+        <td class="mono">github.com/acme</td>
+        <td class="mono">128</td>
+        <td>3m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">acme-gitlab-prod</a></div><div class="cell-sub">Self-hosted GitLab CI in eu-west-1</div></td>
+        <td><span class="badge badge-indigo">GitLab CI</span></td>
+        <td class="mono">gitlab.acme.dev</td>
+        <td class="mono">42</td>
+        <td>11m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">legacy-jenkins</a></div><div class="cell-sub">Jenkins controller for legacy pipelines</div></td>
+        <td><span class="badge badge-amber">Jenkins</span></td>
+        <td class="mono">ci-legacy.acme.dev</td>
+        <td class="mono">31</td>
+        <td>1h ago</td>
+        <td><span class="badge badge-amber"><span class="dot"></span>Degraded</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">payments-bk</a></div><div class="cell-sub">Buildkite cluster for the payments team</div></td>
+        <td><span class="badge badge-gray">Buildkite</span></td>
+        <td class="mono">buildkite.com/acme/payments</td>
+        <td class="mono">9</td>
+        <td>22m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">acme-gh-staging</a></div><div class="cell-sub">GitHub Actions for staging deploys</div></td>
+        <td><span class="badge badge-blue">GitHub Actions</span></td>
+        <td class="mono">github.com/acme-stg</td>
+        <td class="mono">38</td>
+        <td>6m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">acme-jenkins-shared</a></div><div class="cell-sub">Shared Jenkins for ops jobs</div></td>
+        <td><span class="badge badge-amber">Jenkins</span></td>
+        <td class="mono">ci.acme.dev</td>
+        <td class="mono">4</td>
+        <td>3d ago</td>
+        <td><span class="badge badge-red"><span class="dot"></span>Offline</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">Showing 1–6 of 6</div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Capabilities · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="capabilities">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Architecture / <b>Capabilities</b></div>
+    <h1>Capabilities</h1>
+    <div class="sub">Business capabilities delivered by one or more systems, with maturity and ownership.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ New capability</button></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter capabilities…">
+  <select class="select"><option>Domain: All</option><option>Commerce</option><option>Identity</option><option>Platform</option><option>Data</option></select>
+  <select class="select"><option>Maturity: All</option><option>Initial</option><option>Defined</option><option>Managed</option><option>Optimised</option></select>
+  <select class="select"><option>Status: All</option><option>Healthy</option><option>Degraded</option><option>At risk</option></select>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Capability</th><th>Domain</th><th>Systems</th><th>Maturity</th><th>Owner</th><th>Health</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">Card payments</a></div><div class="cell-sub">Authorize, capture and settle card transactions</div></td>
+        <td>Commerce</td>
+        <td class="mono">3</td>
+        <td><span class="badge badge-green">Optimised</span></td>
+        <td>Team Payments</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Fraud detection</a></div><div class="cell-sub">Real-time risk scoring for payments</div></td>
+        <td>Commerce</td>
+        <td class="mono">2</td>
+        <td><span class="badge badge-blue">Managed</span></td>
+        <td>Team Payments</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Single sign-on</a></div><div class="cell-sub">Workforce SSO with SAML &amp; OIDC</div></td>
+        <td>Identity</td>
+        <td class="mono">2</td>
+        <td><span class="badge badge-green">Optimised</span></td>
+        <td>Team Core</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Customer identity</a></div><div class="cell-sub">Registration, login and profile for end users</div></td>
+        <td>Identity</td>
+        <td class="mono">3</td>
+        <td><span class="badge badge-blue">Managed</span></td>
+        <td>Team Core</td>
+        <td><div class="health-bar"><i></i><i></i><i class="warn"></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Internal developer platform</a></div><div class="cell-sub">CI/CD, golden paths and the service catalog</div></td>
+        <td>Platform</td>
+        <td class="mono">4</td>
+        <td><span class="badge badge-blue">Defined</span></td>
+        <td>Team Platform</td>
+        <td><div class="health-bar"><i></i><i class="err"></i><i></i><i></i><i class="off"></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Product catalogue</a></div><div class="cell-sub">Master data of SKUs, prices and inventory</div></td>
+        <td>Commerce</td>
+        <td class="mono">2</td>
+        <td><span class="badge badge-blue">Managed</span></td>
+        <td>Team Commerce</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Notifications</a></div><div class="cell-sub">Transactional email, push and SMS</div></td>
+        <td>Platform</td>
+        <td class="mono">1</td>
+        <td><span class="badge badge-amber">Initial</span></td>
+        <td>Team Comms</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Event analytics</a></div><div class="cell-sub">Streaming events into the warehouse</div></td>
+        <td>Data</td>
+        <td class="mono">2</td>
+        <td><span class="badge badge-blue">Defined</span></td>
+        <td>Team Data</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">Showing 1–8 of 18</div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

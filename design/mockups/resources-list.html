@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Resources · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="resources">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Catalog / <b>Resources</b></div>
+    <h1>Resources</h1>
+    <div class="sub">57 infrastructure resources (databases, buckets, queues, caches…) shared across systems.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">rocket_launch</span> Export</button>
+    <button class="btn btn-primary">+ New resource</button>
+  </div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Total resources</span><span class="value" style="font-size:24px">57</span></div>
+  <div class="card stat"><span class="label">Databases</span><span class="value" style="font-size:24px">18</span></div>
+  <div class="card stat"><span class="label">Buckets / objects</span><span class="value" style="font-size:24px">14</span></div>
+  <div class="card stat"><span class="label">Queues &amp; topics</span><span class="value" style="font-size:24px">12</span></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter by name, system or owner…">
+  <select class="select"><option>Type: All</option><option>Database</option><option>Bucket</option><option>Queue</option><option>Topic</option><option>Cache</option><option>Secret</option></select>
+  <select class="select"><option>Provider: All</option><option>AWS</option><option>GCP</option><option>On-prem</option></select>
+  <select class="select"><option>Environment: All</option><option>production</option><option>staging</option><option>dev</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Resource</th><th>Type</th><th>Provider</th><th>System</th><th>Environment</th><th>Owner</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">payments-primary-db</a></div><div class="cell-sub mono">postgres://payments-prod.cluster-eu.rds</div></td>
+        <td><span class="badge badge-blue">Database</span></td>
+        <td>AWS · RDS</td>
+        <td><a href="#">payments-platform</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Payments</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">orders-redis</a></div><div class="cell-sub mono">redis://orders-cache.cluster-us.cache</div></td>
+        <td><span class="badge badge-amber">Cache</span></td>
+        <td>AWS · ElastiCache</td>
+        <td><a href="#">storefront</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Commerce</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">identity-events</a></div><div class="cell-sub mono">arn:aws:sns:eu-west-1:…:identity-events</div></td>
+        <td><span class="badge badge-indigo">Topic</span></td>
+        <td>AWS · SNS</td>
+        <td><a href="#">identity</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Core</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">analytics-warehouse</a></div><div class="cell-sub mono">bigquery://acme.analytics.events</div></td>
+        <td><span class="badge badge-blue">Database</span></td>
+        <td>GCP · BigQuery</td>
+        <td><a href="#">analytics</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Data</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">billing-queue</a></div><div class="cell-sub mono">arn:aws:sqs:eu-west-1:…:billing-queue</div></td>
+        <td><span class="badge badge-gray">Queue</span></td>
+        <td>AWS · SQS</td>
+        <td><a href="#">payments-platform</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Payments</td>
+        <td><span class="badge badge-amber"><span class="dot"></span>Degraded</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">catalog-assets</a></div><div class="cell-sub mono">s3://acme-catalog-assets-prod</div></td>
+        <td><span class="badge badge-gray">Bucket</span></td>
+        <td>AWS · S3</td>
+        <td><a href="#">storefront</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Commerce</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">orders-archive</a></div><div class="cell-sub mono">gs://acme-orders-archive</div></td>
+        <td><span class="badge badge-gray">Bucket</span></td>
+        <td>GCP · GCS</td>
+        <td><a href="#">storefront</a></td>
+        <td><span class="badge badge-blue">staging</span></td>
+        <td>Team Commerce</td>
+        <td><span class="badge badge-red"><span class="dot"></span>Deprecated</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">identity-secrets</a></div><div class="cell-sub mono">vault://secret/identity/*</div></td>
+        <td><span class="badge badge-amber">Secret</span></td>
+        <td>On-prem · Vault</td>
+        <td><a href="#">identity</a></td>
+        <td><span class="badge badge-indigo">production</span></td>
+        <td>Team Core</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 57
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nodes · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="nodes">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Infrastructure / <b>Nodes</b></div>
+    <h1>Nodes</h1>
+    <div class="sub">98 worker nodes across 8 clusters, grouped by role and capacity.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ Register node</button></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter nodes…">
+  <select class="select"><option>Cluster: All</option><option>prod-eu-west-1</option><option>prod-us-east-1</option><option>staging</option><option>dev-shared</option></select>
+  <select class="select"><option>Role: All</option><option>control-plane</option><option>worker</option><option>gpu</option></select>
+  <select class="select"><option>Status: All</option><option>Ready</option><option>Degraded</option><option>NotReady</option></select>
+</div>
+
+<div class="grid cols-2">
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#10b981,#059669)"><span class="mi">dns</span></div>
+      <div><div class="cell-main" style="font-size:15px">ip-10-0-12-47.eu-west-1</div><div class="cell-sub mono">m5.2xlarge · 8 vCPU · 32 GiB</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Ready</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Cluster</div><div class="cell-main mono">prod-eu</div></div>
+      <div><div class="cell-sub">Role</div><div class="cell-main mono">worker</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">18 / 58</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">42%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-indigo">production</span><span class="badge badge-gray">eks</span><span class="badge badge-gray">linux</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#10b981,#059669)"><span class="mi">dns</span></div>
+      <div><div class="cell-main" style="font-size:15px">ip-10-0-14-09.eu-west-1</div><div class="cell-sub mono">m5.2xlarge · 8 vCPU · 32 GiB</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Ready</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Cluster</div><div class="cell-main mono">prod-eu</div></div>
+      <div><div class="cell-sub">Role</div><div class="cell-main mono">worker</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">21 / 58</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">58%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-indigo">production</span><span class="badge badge-gray">eks</span><span class="badge badge-gray">linux</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#3b82f6,#6366f1)"><span class="mi">dns</span></div>
+      <div><div class="cell-main" style="font-size:15px">gpu-prod-01</div><div class="cell-sub mono">p4d.24xlarge · 96 vCPU · 1.1 TiB · 8×A100</div></div>
+      <span class="badge badge-amber" style="margin-left:auto"><span class="dot"></span>Degraded</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Cluster</div><div class="cell-main mono">prod-us</div></div>
+      <div><div class="cell-sub">Role</div><div class="cell-main mono">gpu</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">7 / 12</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">88%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-indigo">production</span><span class="badge badge-gray">eks</span><span class="badge badge-gray">gpu</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#3b82f6,#6366f1)"><span class="mi">dns</span></div>
+      <div><div class="cell-main" style="font-size:15px">staging-node-03</div><div class="cell-sub mono">n2-standard-8 · 8 vCPU · 32 GiB</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Ready</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Cluster</div><div class="cell-main mono">staging</div></div>
+      <div><div class="cell-sub">Role</div><div class="cell-main mono">worker</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">12 / 48</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">31%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-blue">staging</span><span class="badge badge-gray">gke</span><span class="badge badge-gray">linux</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#64748b,#94a3b8)"><span class="mi">dns</span></div>
+      <div><div class="cell-main" style="font-size:15px">dev-bare-02</div><div class="cell-sub mono">Dell R650 · 32 vCPU · 128 GiB</div></div>
+      <span class="badge badge-green" style="margin-left:auto"><span class="dot"></span>Ready</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Cluster</div><div class="cell-main mono">dev-shared</div></div>
+      <div><div class="cell-sub">Role</div><div class="cell-main mono">worker</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">9 / 110</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">22%</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-gray">dev</span><span class="badge badge-gray">on-prem</span><span class="badge badge-gray">linux</span></div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><span class="mi">dns</span></div>
+      <div><div class="cell-main" style="font-size:15px">ip-10-0-21-13.eu-west-1</div><div class="cell-sub mono">c5.xlarge · 4 vCPU · 8 GiB</div></div>
+      <span class="badge badge-red" style="margin-left:auto"><span class="dot"></span>NotReady</span>
+    </div>
+    <div class="grid cols-4" style="gap:var(--sp-xs)">
+      <div><div class="cell-sub">Cluster</div><div class="cell-main mono">prod-eu</div></div>
+      <div><div class="cell-sub">Role</div><div class="cell-main mono">control-plane</div></div>
+      <div><div class="cell-sub">Pods</div><div class="cell-main mono">—</div></div>
+      <div><div class="cell-sub">CPU</div><div class="cell-main mono">—</div></div>
+    </div>
+    <div class="chip-row"><span class="badge badge-indigo">production</span><span class="badge badge-gray">eks</span><span class="badge badge-gray">control-plane</span></div>
+  </div>
+</div>
+
+<div class="pagination">Showing 1–6 of 98</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
