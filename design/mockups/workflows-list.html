@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workflows · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="workflows">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">CI / CD / <b>Workflows</b></div>
+    <h1>Workflows</h1>
+    <div class="sub">CI/CD pipelines defined across components, with latest run status.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ New workflow</button></div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Workflows</span><span class="value" style="font-size:24px">196</span></div>
+  <div class="card stat"><span class="label">Runs today</span><span class="value" style="font-size:24px">1,438</span></div>
+  <div class="card stat"><span class="label">Success rate</span><span class="value" style="font-size:24px;color:var(--color-accent)">94.2%</span></div>
+  <div class="card stat"><span class="label">Avg duration</span><span class="value" style="font-size:24px">4m 12s</span></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter by name, component, CI server…">
+  <select class="select"><option>CI Server: All</option><option>GitHub Actions</option><option>GitLab CI</option><option>Jenkins</option></select>
+  <select class="select"><option>Last run: All</option><option>Success</option><option>Failed</option><option>Running</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Workflow</th><th>Component</th><th>CI Server</th><th>Trigger</th><th>Duration</th><th>Last run</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">build-test-deploy</a></div><div class="cell-sub mono">.github/workflows/main.yml</div></td>
+        <td>payments-service</td><td><span class="badge badge-gray">GitHub Actions</span></td>
+        <td class="mono">push <span class="mi">arrow_forward</span> main</td><td class="mono">3m 48s</td><td>8m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Success</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">nightly-e2e</a></div><div class="cell-sub mono">.github/workflows/e2e.yml</div></td>
+        <td>orders-service</td><td><span class="badge badge-gray">GitHub Actions</span></td>
+        <td class="mono">schedule · 02:00</td><td class="mono">11m 02s</td><td>6h ago</td>
+        <td><span class="badge badge-red"><span class="dot"></span>Failed</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">release-pipeline</a></div><div class="cell-sub mono">.gitlab-ci.yml</div></td>
+        <td>identity-api</td><td><span class="badge badge-amber">GitLab CI</span></td>
+        <td class="mono">tag <span class="mi">arrow_forward</span> v*</td><td class="mono">6m 33s</td><td>1d ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Success</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">container-scan</a></div><div class="cell-sub mono">Jenkinsfile</div></td>
+        <td>notifications-worker</td><td><span class="badge badge-blue">Jenkins</span></td>
+        <td class="mono">push <span class="mi">arrow_forward</span> any</td><td class="mono">1m 57s</td><td>just now</td>
+        <td><span class="badge badge-blue"><span class="dot"></span>Running</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">lint-and-unit</a></div><div class="cell-sub mono">.github/workflows/ci.yml</div></td>
+        <td>search-indexer</td><td><span class="badge badge-gray">GitHub Actions</span></td>
+        <td class="mono">pull_request</td><td class="mono">52s</td><td>3h ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Success</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 196
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">…</button><button class="page-btn">8</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

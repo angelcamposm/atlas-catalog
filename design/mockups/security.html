@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Security · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="security">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Governance / <b>Security</b></div>
+    <h1>Security</h1>
+    <div class="sub">Service accounts, API tokens and authentication methods.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ New service account</button></div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Service accounts</span><span class="value" style="font-size:24px">74</span></div>
+  <div class="card stat"><span class="label">Active tokens</span><span class="value" style="font-size:24px">312</span></div>
+  <div class="card stat"><span class="label">Expiring &lt; 30d</span><span class="value" style="font-size:24px;color:#d97706">9</span></div>
+  <div class="card stat"><span class="label">Expired</span><span class="value" style="font-size:24px;color:var(--color-destructive)">4</span></div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Service accounts</a>
+  <a class="tab">Tokens</a>
+  <a class="tab">Auth methods</a>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Service account</th><th>Owner team</th><th>Scopes</th><th>Tokens</th><th>Last used</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main mono"><a href="#">svc-payments-prod</a></div><div class="cell-sub">Payments production runtime</div></td>
+        <td>Team Payments</td>
+        <td><div class="chip-row"><span class="badge badge-gray">read</span><span class="badge badge-gray">write</span></div></td>
+        <td class="mono">3</td><td>2m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main mono"><a href="#">svc-ci-deployer</a></div><div class="cell-sub">CI/CD deployment bot</div></td>
+        <td>Team Platform</td>
+        <td><div class="chip-row"><span class="badge badge-gray">deploy</span><span class="badge badge-gray">read</span></div></td>
+        <td class="mono">5</td><td>14m ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main mono"><a href="#">svc-analytics-export</a></div><div class="cell-sub">Nightly data export</div></td>
+        <td>Team Data</td>
+        <td><div class="chip-row"><span class="badge badge-gray">read</span></div></td>
+        <td class="mono">1</td><td>6h ago</td>
+        <td><span class="badge badge-amber"><span class="dot"></span>Token expiring</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main mono"><a href="#">svc-legacy-sync</a></div><div class="cell-sub">Legacy billing integration</div></td>
+        <td>Team Payments</td>
+        <td><div class="chip-row"><span class="badge badge-gray">read</span><span class="badge badge-gray">write</span></div></td>
+        <td class="mono">2</td><td>32d ago</td>
+        <td><span class="badge badge-red"><span class="dot"></span>Token expired</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main mono"><a href="#">svc-monitoring</a></div><div class="cell-sub">Observability scrapers</div></td>
+        <td>Team Platform</td>
+        <td><div class="chip-row"><span class="badge badge-gray">read</span></div></td>
+        <td class="mono">4</td><td>just now</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Active</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 74
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Compliance · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="compliance">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Governance / <b>Compliance</b></div>
+    <h1>Compliance</h1>
+    <div class="sub">Standards, requirements and per-component conformance.</div>
+  </div>
+  <div class="actions"><button class="btn btn-outline">Export report</button><button class="btn btn-primary">+ Add standard</button></div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Standards tracked</span><span class="value" style="font-size:24px">6</span></div>
+  <div class="card stat"><span class="label">Requirements</span><span class="value" style="font-size:24px">214</span></div>
+  <div class="card stat"><span class="label">Overall conformance</span><span class="value" style="font-size:24px;color:var(--color-accent)">87%</span></div>
+  <div class="card stat"><span class="label">Open findings</span><span class="value" style="font-size:24px;color:var(--color-destructive)">23</span></div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Standards</a>
+  <a class="tab">Requirements</a>
+  <a class="tab">By component</a>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Standard</th><th>Owner</th><th>Requirements</th><th>Conformance</th><th>Last audit</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="#">SOC 2 Type II</a></div><div class="cell-sub">Security, availability, confidentiality</div></td>
+        <td>Security Office</td><td class="mono">64</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i class="warn"></i></div></td>
+        <td>May 2026</td><td><span class="badge badge-green"><span class="dot"></span>Certified</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">ISO 27001</a></div><div class="cell-sub">Information security management</div></td>
+        <td>Security Office</td><td class="mono">58</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+        <td>Mar 2026</td><td><span class="badge badge-green"><span class="dot"></span>Certified</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">PCI DSS 4.0</a></div><div class="cell-sub">Payment card data handling</div></td>
+        <td>Team Payments</td><td class="mono">42</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i class="err"></i></div></td>
+        <td>Apr 2026</td><td><span class="badge badge-amber"><span class="dot"></span>In remediation</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">GDPR</a></div><div class="cell-sub">EU data protection</div></td>
+        <td>Legal</td><td class="mono">31</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i class="warn"></i></div></td>
+        <td>Feb 2026</td><td><span class="badge badge-green"><span class="dot"></span>Compliant</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="#">Internal SDLC</a></div><div class="cell-sub">Secure dev lifecycle baseline</div></td>
+        <td>Platform</td><td class="mono">19</td>
+        <td><div class="health-bar"><i></i><i></i><i class="warn"></i><i class="err"></i><i class="off"></i></div></td>
+        <td>Jun 2026</td><td><span class="badge badge-red"><span class="dot"></span>At risk</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">Showing 1–6 of 6</div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

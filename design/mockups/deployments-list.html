@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deployments · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="deployments">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Infrastructure / <b>Deployments</b></div>
+    <h1>Deployments</h1>
+    <div class="sub">Live mapping of components to environments and clusters.</div>
+  </div>
+  <div class="actions"><button class="btn btn-primary">+ New deployment</button></div>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Total deployments</span><span class="value" style="font-size:24px">418</span></div>
+  <div class="card stat"><span class="label">Healthy</span><span class="value" style="font-size:24px;color:var(--color-accent)">402</span></div>
+  <div class="card stat"><span class="label">Degraded</span><span class="value" style="font-size:24px;color:#d97706">11</span></div>
+  <div class="card stat"><span class="label">Failing</span><span class="value" style="font-size:24px;color:var(--color-destructive)">5</span></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter by component, image, cluster…">
+  <select class="select"><option>Environment: All</option><option>production</option><option>staging</option><option>dev</option></select>
+  <select class="select"><option>Cluster: All</option><option>eks-prod-eu</option><option>eks-prod-us</option><option>gke-staging</option></select>
+  <select class="select"><option>Status: All</option><option>Healthy</option><option>Degraded</option><option>Failing</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Component</th><th>Environment</th><th>Cluster</th><th>Version</th><th>Replicas</th><th>Deployed</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="component-detail.html">payments-service</a></div><div class="cell-sub mono">payments/svc:2.14.0</div></td>
+        <td><span class="badge badge-indigo">production</span></td><td class="mono">eks-prod-eu</td><td class="mono">v2.14.0</td>
+        <td class="mono">6/6</td><td>2h ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="component-detail.html">orders-service</a></div><div class="cell-sub mono">commerce/orders:3.0.1</div></td>
+        <td><span class="badge badge-indigo">production</span></td><td class="mono">eks-prod-us</td><td class="mono">v3.0.1</td>
+        <td class="mono">8/8</td><td>5h ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="component-detail.html">identity-api</a></div><div class="cell-sub mono">core/identity:5.2.0</div></td>
+        <td><span class="badge badge-indigo">production</span></td><td class="mono">eks-prod-eu</td><td class="mono">v5.2.0</td>
+        <td class="mono">4/5</td><td>1d ago</td>
+        <td><span class="badge badge-amber"><span class="dot"></span>Degraded</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="component-detail.html">notifications-worker</a></div><div class="cell-sub mono">platform/notify:1.9.3</div></td>
+        <td><span class="badge badge-blue">staging</span></td><td class="mono">gke-staging</td><td class="mono">v1.9.3</td>
+        <td class="mono">0/2</td><td>20m ago</td>
+        <td><span class="badge badge-red"><span class="dot"></span>Failing</span></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="component-detail.html">search-indexer</a></div><div class="cell-sub mono">data/search:0.8.1</div></td>
+        <td><span class="badge badge-gray">dev</span></td><td class="mono">gke-staging</td><td class="mono">v0.8.1</td>
+        <td class="mono">1/1</td><td>3d ago</td>
+        <td><span class="badge badge-green"><span class="dot"></span>Healthy</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 418
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">17</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

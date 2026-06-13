@@ -7,6 +7,16 @@
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=block');
+
+/* ============================================================
+   THEMING
+   Light is the default (:root). Dark lives in [data-theme="dark"].
+   To add a new theme, copy the dark block and change the values
+   under a new selector, e.g. [data-theme="ocean"] { … }.
+   The active theme is set on <html data-theme="…"> by app.js
+   (toggle in the topbar, persisted to localStorage).
+   ============================================================ */
 
 :root {
   /* Brand (Metronic palette) */
@@ -58,6 +68,49 @@
   --shadow-sm: 0 3px 4px 0 rgba(0, 0, 0, .03);
   --shadow-md: 0 7px 18px 0 rgba(0, 0, 0, .06);
 }
+
+/* ---------- Dark theme ---------- */
+[data-theme="dark"] {
+  --color-primary-soft: #102744;
+  --color-secondary-soft: #1d1533;
+  --color-accent-soft: #0f2a1c;
+  --color-warning-soft: #2c2410;
+  --color-destructive-soft: #2e1622;
+
+  --text-primary: #eef1f8;
+  --text-body: #c3c9da;
+  --text-muted: #8a92a8;
+  --text-subtle: #5b6275;
+
+  --bg: #0b0e17;
+  --card: #151823;
+  --border: #222637;
+  --border-strong: #2d3346;
+  --border-dashed: #2d3346;
+  --muted: #1b1f2c;
+
+  /* sidebar stays dark; nudge it so it reads as part of the surface */
+  --sidebar-bg: #11131c;
+  --sidebar-border: #222637;
+  --sidebar-item-active: #222637;
+
+  --shadow-sm: 0 3px 4px 0 rgba(0, 0, 0, .3);
+  --shadow-md: 0 7px 18px 0 rgba(0, 0, 0, .45);
+}
+
+/* ---------- Material Symbols icon helper ---------- */
+.mi {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal; font-style: normal;
+  font-size: 20px; line-height: 1;
+  letter-spacing: normal; text-transform: none;
+  display: inline-block; white-space: nowrap; direction: ltr;
+  vertical-align: middle;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  user-select: none;
+}
+.mi.sm { font-size: 16px; }
+.mi.lg { font-size: 24px; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; }
