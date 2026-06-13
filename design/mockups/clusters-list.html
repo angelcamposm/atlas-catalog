@@ -13,7 +13,7 @@
     <h1>Clusters</h1>
     <div class="sub">8 Kubernetes clusters across 3 environments.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ Register cluster</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-cluster">+ Register cluster</button></div>
 </div>
 
 <div class="toolbar">
@@ -83,6 +83,70 @@
     <div class="chip-row"><span class="badge badge-gray">dev</span><span class="badge badge-gray">on-prem</span></div>
   </div>
 </div>
+
+<aside class="drawer" id="form-cluster">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Infrastructure / Clusters / <b>New</b></div>
+      <h2>Register cluster</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="prod-eu-west-2"></div>
+        <div class="field"><label>Type</label>
+          <select><option>EKS</option><option>GKE</option><option>AKS</option><option>On-prem</option><option>OpenShift</option></select>
+        </div>
+        <div class="field"><label>Environment</label>
+          <select><option>production</option><option>staging</option><option>dev</option></select>
+        </div>
+        <div class="field req"><label>Region</label>
+          <select><option>eu-west-1</option><option>eu-west-2</option><option>us-east-1</option><option>us-east-2</option><option>eu-central-1</option></select>
+        </div>
+        <div class="field"><label>Kubernetes version</label>
+          <select><option>v1.32</option><option>v1.31</option><option>v1.30</option></select>
+        </div>
+        <div class="field full"><label>Description</label><textarea placeholder="Where is this cluster and what does it host?"></textarea></div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Capacity &amp; ownership</h3>
+      <div class="form-grid">
+        <div class="field"><label>Node count</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">nodes</span></div>
+        </div>
+        <div class="field"><label>CPU budget</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">vCPU</span></div>
+        </div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-platform</option><option>team-payments</option><option>team-commerce</option></select>
+        </div>
+        <div class="field"><label>Visibility</label>
+          <select><option>Internal</option><option>Restricted</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Connection</h3>
+      <div class="form-grid">
+        <div class="field full"><label>API server URL</label>
+          <div class="input-group"><span class="addon">https://</span><input class="mono" placeholder="api.cluster.acme.dev"></div>
+        </div>
+        <div class="field full"><label>Kubeconfig (secret)</label>
+          <div class="input-group"><input type="password" placeholder="Paste or upload"><button class="ig-btn"><span class="mi">visibility</span></button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Register cluster</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

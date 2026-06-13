@@ -13,7 +13,7 @@
     <h1>Environments</h1>
     <div class="sub">Logical promotion stages mapped to clusters and namespaces.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ New environment</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-environment">+ New environment</button></div>
 </div>
 
 <div class="toolbar">
@@ -82,6 +82,60 @@
     <div class="chip-row"><span class="badge badge-gray">Idle</span></div>
   </div>
 </div>
+
+<aside class="drawer" id="form-environment">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Infrastructure / Environments / <b>New</b></div>
+      <h2>New environment</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="production"></div>
+        <div class="field req"><label>Type</label>
+          <select><option>Production</option><option>Staging</option><option>Development</option><option>Sandbox</option></select>
+        </div>
+        <div class="field"><label>Visibility</label>
+          <select><option>Protected</option><option>Pre-prod</option><option>Internal</option><option>Public</option></select>
+        </div>
+        <div class="field req full"><label>Description</label><textarea placeholder="What does this environment represent?"></textarea></div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-platform</option><option>team-payments</option><option>team-commerce</option></select>
+        </div>
+        <div class="field"><label>Approval required</label>
+          <select><option>Yes</option><option>No</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Clusters &amp; namespace</h3>
+      <div class="form-grid">
+        <div class="field full"><label>Clusters in this environment</label>
+          <div class="multiselect">
+            <span class="ms-tag">prod-eu-west-1<span class="mi">close</span></span>
+            <span class="ms-tag">prod-us-east-1<span class="mi">close</span></span>
+            <input class="ms-input" placeholder="Add cluster…">
+          </div>
+        </div>
+        <div class="field"><label>Default namespace prefix</label>
+          <input class="mono" placeholder="prod-">
+        </div>
+        <div class="field"><label>Auto-deploy</label>
+          <select><option>Disabled</option><option>On push to main</option><option>On release</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Create environment</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

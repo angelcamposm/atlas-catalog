@@ -15,7 +15,7 @@
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">rocket_launch</span> Export</button>
-    <button class="btn btn-primary">+ New link</button>
+    <button class="btn btn-primary" data-drawer-trigger="form-link">+ New link</button>
   </div>
 </div>
 
@@ -111,6 +111,56 @@
     </div>
   </div>
 </div>
+
+<aside class="drawer" id="form-link">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Catalog / Links / <b>New</b></div>
+      <h2>New link</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Title</label><input placeholder="payments-service API reference"></div>
+        <div class="field req"><label>Type</label>
+          <select><option>Docs</option><option>Dashboard</option><option>Runbook</option><option>Repo</option><option>Wiki</option></select>
+        </div>
+        <div class="field"><label>Status</label>
+          <select><option>Active</option><option>Archived</option></select>
+        </div>
+        <div class="field req full"><label>URL</label>
+          <div class="input-group"><span class="addon">https://</span><input class="mono" placeholder="docs.acme.dev/payments"></div>
+        </div>
+        <div class="field full"><label>Description</label><textarea placeholder="What is at this link?"></textarea></div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Linked entity</h3>
+      <div class="form-grid">
+        <div class="field"><label>Entity type</label>
+          <select><option>API</option><option>Component</option><option>System</option><option>Resource</option></select>
+        </div>
+        <div class="field"><label>Entity</label>
+          <select><option>payments-api</option><option>payments-service</option><option>identity</option><option>storefront</option></select>
+        </div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-payments</option><option>team-commerce</option><option>team-core</option></select>
+        </div>
+        <div class="field"><label>Visibility</label>
+          <select><option>Internal</option><option>Public</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Create link</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

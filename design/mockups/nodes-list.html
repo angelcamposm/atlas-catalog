@@ -13,7 +13,7 @@
     <h1>Nodes</h1>
     <div class="sub">98 worker nodes across 8 clusters, grouped by role and capacity.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ Register node</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-node">+ Register node</button></div>
 </div>
 
 <div class="toolbar">
@@ -116,6 +116,79 @@
 </div>
 
 <div class="pagination">Showing 1–6 of 98</div>
+
+<aside class="drawer" id="form-node">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Infrastructure / Nodes / <b>New</b></div>
+      <h2>Register node</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Hostname / IP</label>
+          <div class="input-group"><span class="addon">ip-</span><input class="mono" placeholder="10-0-12-47.eu-west-1"></div>
+        </div>
+        <div class="field"><label>Cluster</label>
+          <select><option>prod-eu-west-1</option><option>prod-us-east-1</option><option>staging</option><option>dev-shared</option></select>
+        </div>
+        <div class="field"><label>Role</label>
+          <select><option>worker</option><option>control-plane</option><option>gpu</option></select>
+        </div>
+        <div class="field"><label>Instance type</label>
+          <select><option>m5.large</option><option>m5.xlarge</option><option>m5.2xlarge</option><option>p4d.24xlarge</option><option>n2-standard-8</option><option>On-prem: Dell R650</option></select>
+        </div>
+        <div class="field"><label>Zone</label>
+          <select><option>eu-west-1a</option><option>eu-west-1b</option><option>us-east-1a</option><option>us-central1-a</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Capacity</h3>
+      <div class="form-grid">
+        <div class="field"><label>vCPU</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">cores</span></div>
+        </div>
+        <div class="field"><label>Memory</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">GiB</span></div>
+        </div>
+        <div class="field"><label>Max pods</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">pods</span></div>
+        </div>
+        <div class="field"><label>GPU</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">devices</span></div>
+        </div>
+        <div class="field full"><label>Taints</label>
+          <div class="multiselect">
+            <span class="ms-tag">dedicated=payments:NoSchedule<span class="mi">close</span></span>
+            <input class="ms-input" placeholder="Add taint…">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Operations</h3>
+      <div class="form-grid">
+        <div class="field"><label>Owner</label>
+          <select><option>team-platform</option><option>team-payments</option><option>team-commerce</option></select>
+        </div>
+        <div class="field"><label>Status</label>
+          <select><option>Ready</option><option>Degraded</option><option>NotReady</option><option>Draining</option></select>
+        </div>
+        <label class="choice full"><input type="checkbox" checked> Schedule workloads on this node</label>
+        <label class="choice full"><input type="checkbox"> Enforce Pod Security Standards (restricted)</label>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Register node</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

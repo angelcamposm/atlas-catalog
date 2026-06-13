@@ -13,7 +13,7 @@
     <h1>Business Domains</h1>
     <div class="sub">Top-level business areas grouping systems and capabilities.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ New domain</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-domain">+ New domain</button></div>
 </div>
 
 <div class="toolbar">
@@ -54,6 +54,42 @@
   </table>
   <div class="pagination">Showing 1–5 of 5</div>
 </div>
+
+<aside class="drawer" id="form-domain">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Architecture / Domains / <b>New</b></div>
+      <h2>New domain</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="Commerce"></div>
+        <div class="field req"><label>Slug</label><input class="mono" placeholder="commerce"></div>
+        <div class="field req full"><label>Description</label><textarea placeholder="What does this business domain cover?"></textarea></div>
+        <div class="field"><label>Owner</label>
+          <select><option>VP Commerce</option><option>VP Engineering</option><option>VP Security</option><option>VP Data</option><option>VP Operations</option></select>
+        </div>
+        <div class="field"><label>Color</label>
+          <select><option>Blue</option><option>Emerald</option><option>Violet</option><option>Amber</option><option>Slate</option></select>
+        </div>
+        <div class="field full"><label>Tags</label>
+          <div class="multiselect">
+            <input class="ms-input" placeholder="Add tag…">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Create domain</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

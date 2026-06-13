@@ -115,4 +115,39 @@ const NAV = [
     localStorage.setItem('atlas-theme', next);
     setIcon();
   });
+
+  /* ---- Drawer (side panel for Create/Edit forms) ----
+     Markup:
+       <body data-drawer-open="form-entity">
+         …
+         <aside class="drawer" id="form-entity"> …form… </aside>
+       </body>
+     Triggers: any element with [data-drawer-trigger="ID"] or [data-drawer-open="ID"].
+     Close:   [data-drawer-close], the Esc key, click on the backdrop. */
+  const appEl = document.querySelector('.app');
+  const drawerEl = document.querySelector('.drawer');
+  if (appEl && drawerEl) {
+    // Inject the backdrop once per page
+    const backdrop = document.createElement('div');
+    backdrop.className = 'drawer-backdrop';
+    appEl.appendChild(backdrop);
+
+    const open = (id) => { document.body.dataset.drawerOpen = id || ''; };
+    const close = () => { delete document.body.dataset.drawerOpen; };
+
+    document.querySelectorAll('[data-drawer-trigger]').forEach(el => {
+      el.addEventListener('click', (e) => { e.preventDefault(); open(el.dataset.drawerTrigger); });
+    });
+    // Auto-open on load if <body data-drawer-open="ID"> points to an existing drawer
+    const autoId = document.body.dataset.drawerOpen;
+    if (autoId && document.getElementById(autoId)) open(autoId);
+
+    document.querySelectorAll('[data-drawer-close]').forEach(el => {
+      el.addEventListener('click', close);
+    });
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.dataset.drawerOpen) close();
+    });
+  }
 })();

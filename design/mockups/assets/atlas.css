@@ -597,3 +597,63 @@ code:not(pre code) { font: 12px var(--font-mono); background: var(--muted); colo
 .op-body { padding: 16px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: var(--sp-md); }
 .op-body .op-section-label { font: 600 11px var(--font-sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-subtle); }
 .op-body .op-actions { display: flex; gap: var(--sp-sm); align-items: center; }
+
+/* ============================================================
+   DRAWER (side panel) — used by the Create/Edit forms.
+   Markup:
+     <body data-drawer-open="form-entity">
+       …
+       <aside class="drawer" id="form-entity"> …form… </aside>
+     </body>
+   The drawer sits inside .content (where the page author puts it).
+   app.js injects a single .drawer-backdrop into .app on demand.
+   Behaviour:
+   - Wide (≥1400px): drawer docks on the right, pushes .content left.
+   - Standard (<1400px): drawer floats over .content with a backdrop.
+   - Open via <body data-drawer-open="ID"> or [data-drawer-trigger="ID"].
+   - Close via [data-drawer-close], the X button, the Esc key or the backdrop.
+   ============================================================ */
+.drawer { display: none; }
+[data-drawer-open] .drawer { display: flex; flex-direction: column; }
+
+/* Backdrop is appended to .app by app.js (one per page). */
+.drawer-backdrop { display: none; }
+[data-drawer-open] .drawer-backdrop {
+  display: block;
+  position: fixed; inset: 0;
+  background: rgba(7, 20, 55, .35);
+  z-index: 90;
+}
+
+/* The drawer itself is always position:fixed on the right edge. */
+[data-drawer-open] .drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(640px, 100vw);
+  background: var(--card);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, .18);
+  z-index: 100;
+}
+
+/* Wide layout: dock beside the content, no overlay, and the content
+   shrinks via margin-right to make room for the drawer. */
+@media (min-width: 1400px) {
+  [data-drawer-open] .drawer-backdrop { display: none; }
+  [data-drawer-open] .drawer { box-shadow: -1px 0 0 var(--border); }
+  [data-drawer-open] .content { margin-right: min(640px, 100vw); }
+}
+
+.drawer-head { display: flex; align-items: center; gap: 12px; padding: var(--sp-md); border-bottom: 1px solid var(--border); }
+.drawer-head .drawer-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.drawer-head .drawer-title .breadcrumbs { margin-bottom: 0; }
+.drawer-head .icon-btn { margin-left: auto; }
+.drawer-body { flex: 1; overflow-y: auto; padding: var(--sp-md); display: flex; flex-direction: column; gap: var(--sp-md); }
+.drawer-foot { display: flex; align-items: center; gap: var(--sp-sm); padding: var(--sp-md); border-top: 1px solid var(--border); background: var(--card); }
+.drawer-foot .spacer { margin-left: auto; }
+
+/* Hide a column in the table when the drawer is open and the screen is wide
+   (e.g. an "actions" column that would otherwise be off-screen). */
+@media (min-width: 1400px) {
+  [data-drawer-open] .hide-with-drawer { display: none; }
+}

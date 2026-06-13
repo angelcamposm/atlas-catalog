@@ -15,7 +15,7 @@
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">rocket_launch</span> Export CSV</button>
-    <button class="btn btn-primary">+ Invite user</button>
+    <button class="btn btn-primary" data-drawer-trigger="form-user">+ Invite user</button>
   </div>
 </div>
 
@@ -79,6 +79,59 @@
     </div>
   </div>
 </div>
+
+<aside class="drawer" id="form-user">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Organization / Users / <b>Invite</b></div>
+      <h2>Invite user</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req"><label>First name</label><input placeholder="María"></div>
+        <div class="field req"><label>Last name</label><input placeholder="Jiménez"></div>
+        <div class="field req full"><label>Email</label>
+          <input type="email" placeholder="maria.j@acme.dev">
+        </div>
+        <div class="field"><label>Role</label>
+          <select><option>Viewer</option><option>Editor</option><option>Admin</option></select>
+        </div>
+        <div class="field"><label>Status</label>
+          <select><option>Invited</option><option>Active</option><option>Suspended</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Groups</h3>
+      <div class="form-grid">
+        <div class="field full"><label>Add to groups</label>
+          <div class="multiselect">
+            <span class="ms-tag">team-payments<span class="mi">close</span></span>
+            <input class="ms-input" placeholder="Search groups…">
+          </div>
+          <span class="hint">The user's effective role is the highest of their groups' default roles.</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Invitation</h3>
+      <div class="form-grid cols-1">
+        <label class="choice"><input type="checkbox" checked> Send invitation email with magic link</label>
+        <label class="choice"><input type="checkbox"> Require SSO sign-in</label>
+        <label class="choice"><input type="checkbox"> Expire invitation in 7 days</label>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">send</span> Send invitation</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

@@ -13,7 +13,7 @@
     <h1>CI Servers</h1>
     <div class="sub">6 CI runners powering the workflows of every component in the catalog.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ Register CI server</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-ci-server">+ Register CI server</button></div>
 </div>
 
 <div class="grid cols-4">
@@ -86,6 +86,57 @@
   </table>
   <div class="pagination">Showing 1–6 of 6</div>
 </div>
+
+<aside class="drawer" id="form-ci-server">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">CI / CD / CI Servers / <b>New</b></div>
+      <h2>Register CI server</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="acme-gh-prod"></div>
+        <div class="field req"><label>Type</label>
+          <select><option>GitHub Actions</option><option>GitLab CI</option><option>Jenkins</option><option>Buildkite</option><option>CircleCI</option><option>Drone</option></select>
+        </div>
+        <div class="field"><label>Environment</label>
+          <select><option>production</option><option>staging</option><option>dev</option></select>
+        </div>
+        <div class="field full"><label>URL</label>
+          <div class="input-group"><span class="addon">https://</span><input class="mono" placeholder="github.com/acme"></div>
+        </div>
+        <div class="field full"><label>Description</label><textarea placeholder="What does this CI server run?"></textarea></div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-platform</option><option>team-payments</option><option>team-core</option></select>
+        </div>
+        <div class="field"><label>Status</label>
+          <select><option>Healthy</option><option>Degraded</option><option>Offline</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Connection</h3>
+      <div class="form-grid">
+        <div class="field full"><label>API token</label>
+          <div class="input-group"><input type="password" placeholder="Paste token"><button class="ig-btn"><span class="mi">visibility</span></button></div>
+          <span class="hint">Stored encrypted. Used to read workflow status.</span>
+        </div>
+        <label class="choice"><input type="checkbox" checked> Verify TLS certificate</label>
+        <label class="choice"><input type="checkbox"> Allow self-hosted runners</label>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-outline">Test connection</button>
+    <button class="btn btn-primary"><span class="mi">check</span> Register</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

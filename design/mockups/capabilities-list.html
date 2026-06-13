@@ -13,7 +13,7 @@
     <h1>Capabilities</h1>
     <div class="sub">Business capabilities delivered by one or more systems, with maturity and ownership.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ New capability</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-capability">+ New capability</button></div>
 </div>
 
 <div class="toolbar">
@@ -95,6 +95,54 @@
   </table>
   <div class="pagination">Showing 1–8 of 18</div>
 </div>
+
+<aside class="drawer" id="form-capability">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Architecture / Capabilities / <b>New</b></div>
+      <h2>New capability</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="Card payments"></div>
+        <div class="field req"><label>Slug</label><input class="mono" placeholder="card-payments"></div>
+        <div class="field req full"><label>Description</label><textarea placeholder="What business outcome does this capability deliver?"></textarea></div>
+        <div class="field"><label>Domain</label>
+          <select><option>Commerce</option><option>Identity</option><option>Platform</option><option>Data</option><option>Operations</option></select>
+        </div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-payments</option><option>team-commerce</option><option>team-core</option><option>team-platform</option><option>team-data</option></select>
+        </div>
+        <div class="field"><label>Maturity</label>
+          <select><option>Initial</option><option>Defined</option><option>Managed</option><option>Optimised</option></select>
+        </div>
+        <div class="field"><label>Status</label>
+          <select><option>Healthy</option><option>Degraded</option><option>At risk</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Supporting systems</h3>
+      <div class="field full">
+        <label>Systems delivering this capability</label>
+        <div class="multiselect">
+          <span class="ms-tag">payments-platform<span class="mi">close</span></span>
+          <input class="ms-input" placeholder="Add system…">
+        </div>
+        <span class="hint">Each system here will appear as an "evidence" link on the capability page.</span>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Create capability</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

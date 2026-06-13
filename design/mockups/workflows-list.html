@@ -13,7 +13,7 @@
     <h1>Workflows</h1>
     <div class="sub">CI/CD pipelines defined across components, with latest run status.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ New workflow</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-workflow">+ New workflow</button></div>
 </div>
 
 <div class="grid cols-4">
@@ -73,6 +73,75 @@
     </div>
   </div>
 </div>
+
+<aside class="drawer" id="form-workflow">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">CI / CD / Workflows / <b>New</b></div>
+      <h2>New workflow</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="payments-ci"></div>
+        <div class="field req"><label>Component</label>
+          <select><option>payments-service</option><option>orders-service</option><option>identity-api</option><option>catalog-web</option></select>
+        </div>
+        <div class="field"><label>CI server</label>
+          <select><option>acme-gh-prod</option><option>acme-gitlab-prod</option><option>acme-gh-staging</option><option>payments-bk</option></select>
+        </div>
+        <div class="field"><label>Triggers</label>
+          <div class="multiselect">
+            <span class="ms-tag">push<span class="mi">close</span></span>
+            <span class="ms-tag">pull_request<span class="mi">close</span></span>
+            <input class="ms-input" placeholder="Add trigger…">
+          </div>
+        </div>
+        <div class="field full"><label>Description</label><textarea placeholder="What does this pipeline do?"></textarea></div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Pipeline</h3>
+      <div class="form-grid">
+        <div class="field full"><label>YAML / config</label>
+          <textarea class="mono" rows="8" placeholder="name: payments-ci
+on:
+  push:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: make test"></textarea>
+        </div>
+        <div class="field"><label>Default branch</label>
+          <input class="mono" placeholder="main">
+        </div>
+        <div class="field"><label>Timeout</label>
+          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">min</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Notifications</h3>
+      <div class="form-grid cols-1">
+        <label class="choice"><input type="checkbox" checked> Slack #deploys on failure</label>
+        <label class="choice"><input type="checkbox"> PagerDuty on repeated failure</label>
+        <label class="choice"><input type="checkbox"> Email the team on success</label>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-outline">Validate</button>
+    <button class="btn btn-primary"><span class="mi">check</span> Create workflow</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

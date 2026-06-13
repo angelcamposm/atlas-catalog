@@ -14,7 +14,7 @@
     <div class="sub">342 services, libraries and websites registered in the catalog.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-primary">+ Register component</button>
+    <button class="btn btn-primary" data-drawer-trigger="form-component">+ Register component</button>
   </div>
 </div>
 
@@ -100,6 +100,71 @@
     <button class="page-btn"><span class="mi">chevron_right</span></button>
   </div>
 </div>
+
+<aside class="drawer" id="form-component">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Catalog / Components / <b>New</b></div>
+      <h2>New component</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="payments-service"></div>
+        <div class="field req"><label>Slug</label><input class="mono" placeholder="payments-service"></div>
+        <div class="field"><label>Type</label>
+          <select><option>Service</option><option>Library</option><option>Website</option><option>Worker</option><option>CLI</option></select>
+        </div>
+        <div class="field req full"><label>Description</label><textarea placeholder="What does this component do?"></textarea></div>
+        <div class="field"><label>System</label>
+          <select><option>payments-platform</option><option>storefront</option><option>identity</option><option>developer-platform</option></select>
+        </div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-payments</option><option>team-commerce</option><option>team-core</option><option>team-platform</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Source &amp; language</h3>
+      <div class="form-grid">
+        <div class="field req"><label>Language</label>
+          <select><option>Go</option><option>TypeScript</option><option>Rust</option><option>Java</option><option>Python</option><option>PHP</option></select>
+        </div>
+        <div class="field"><label>Repository</label><input class="mono" placeholder="github.com/acme/payments"></div>
+        <div class="field full"><label>Tags</label>
+          <div class="multiselect">
+            <span class="ms-tag">tier-1<span class="mi">close</span></span>
+            <input class="ms-input" placeholder="Add tag…">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Lifecycle</h3>
+      <div class="form-grid">
+        <div class="field"><label>Lifecycle</label>
+          <select><option>Experimental</option><option>Beta</option><option selected>Production</option><option>Deprecated</option></select>
+        </div>
+        <div class="field"><label>Business tier</label>
+          <select><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option></select>
+        </div>
+        <div class="switch-row full">
+          <div><div class="sw-label">On-call enabled</div><div class="sw-hint">Page the team when this component emits an alert.</div></div>
+          <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-outline">Save as draft</button>
+    <button class="btn btn-primary"><span class="mi">check</span> Register</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

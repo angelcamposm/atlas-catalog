@@ -15,7 +15,7 @@
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">rocket_launch</span> Export CSV</button>
-    <button class="btn btn-primary">+ New group</button>
+    <button class="btn btn-primary" data-drawer-trigger="form-group">+ New group</button>
   </div>
 </div>
 
@@ -112,6 +112,68 @@
     </div>
   </div>
 </div>
+
+<aside class="drawer" id="form-group">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Organization / Groups / <b>New</b></div>
+      <h2>New group</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="team-payments"></div>
+        <div class="field"><label>Display name</label>
+          <input placeholder="Team Payments">
+        </div>
+        <div class="field req full"><label>Description</label>
+          <textarea placeholder="What is this group for?"></textarea>
+        </div>
+        <div class="field"><label>Source</label>
+          <select><option>Internal</option><option>SSO (SAML)</option><option>SSO (OIDC)</option><option>LDAP</option><option>SCIM</option></select>
+        </div>
+        <div class="field"><label>Default role</label>
+          <select><option>Viewer</option><option>Editor</option><option>Admin</option></select>
+        </div>
+        <div class="field"><label>Owner</label>
+          <select><option>team-payments</option><option>team-platform</option><option>team-security</option></select>
+        </div>
+        <div class="field"><label>Visibility</label>
+          <select><option>Internal</option><option>Restricted</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Members</h3>
+      <div class="form-grid">
+        <div class="field full"><label>Add members</label>
+          <div class="multiselect">
+            <span class="ms-tag">carlos@acme.dev<span class="mi">close</span></span>
+            <span class="ms-tag">maria.j@acme.dev<span class="mi">close</span></span>
+            <input class="ms-input" placeholder="Search by name or email…">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Permissions</h3>
+      <div class="form-grid cols-1">
+        <label class="choice"><input type="checkbox" checked> Can register new components</label>
+        <label class="choice"><input type="checkbox" checked> Can approve deployments to production</label>
+        <label class="choice"><input type="checkbox"> Can manage other groups</label>
+        <label class="choice"><input type="checkbox"> Can view audit logs</label>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Create group</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>

@@ -13,7 +13,7 @@
     <h1>Releases</h1>
     <div class="sub">Versioned releases across all components, with changelog and promotion state.</div>
   </div>
-  <div class="actions"><button class="btn btn-primary">+ Cut release</button></div>
+  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-release">+ Cut release</button></div>
 </div>
 
 <div class="toolbar">
@@ -71,6 +71,55 @@
     </div>
   </div>
 </div>
+
+<aside class="drawer" id="form-release">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">CI / CD / Releases / <b>New</b></div>
+      <h2>Cut release</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Release</h3>
+      <div class="form-grid">
+        <div class="field req"><label>Component</label>
+          <select><option>payments-service</option><option>orders-service</option><option>identity-api</option><option>notifications-worker</option></select>
+        </div>
+        <div class="field req"><label>Version</label>
+          <input class="mono" placeholder="v2.15.0">
+        </div>
+        <div class="field"><label>Stage</label>
+          <select><option>Pre-release</option><option>Released</option><option>Rolled back</option></select>
+        </div>
+        <div class="field"><label>Release date</label>
+          <input type="date">
+        </div>
+        <div class="field full"><label>Changelog</label>
+          <textarea placeholder="What changed? (markdown supported)"></textarea>
+        </div>
+        <div class="field full"><label>Commit / tag</label>
+          <div class="input-group"><span class="addon">git</span><input class="mono" placeholder="a1b2c3d"></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section">
+      <h3>Promotion</h3>
+      <div class="form-grid cols-1">
+        <label class="choice"><input type="checkbox" checked> Promote to staging immediately</label>
+        <label class="choice"><input type="checkbox"> Schedule production promotion</label>
+        <label class="choice"><input type="checkbox"> Notify subscribers of the API</label>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-outline">Save draft</button>
+    <button class="btn btn-primary"><span class="mi">new_releases</span> Cut release</button>
+  </div>
+</aside>
 
 <script src="assets/app.js"></script>
 </body>
