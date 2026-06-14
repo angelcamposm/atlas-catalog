@@ -191,15 +191,21 @@ Para mostrar **docker-compose, Dockerfile, YAML, JSON, comandos** y especificaci
 dashboard · login · design-system · apis-list · api-detail · components-list ·
 component-detail · resource-detail · link-detail · capability-detail · entity-detail ·
 node-detail · ci-server-detail · metric · group-detail · cluster-detail · environment-detail ·
-deployment-detail · release-detail · workflow-detail · user-detail · domain-detail ·
+deployment-detail · release-detail · workflow-detail · workflow-runs-list ·
+workflow-run-detail · system-detail · user-detail · domain-detail ·
 systems-list · domains-list · clusters-list · environments-list · resources-list · links-list ·
 capabilities-list · entities-list · nodes-list · ci-servers-list · groups-list ·
-deployments-list · releases-list · workflows-list · compliance · security · users-list · settings
+deployments-list · releases-list · workflows-list · service-accounts-list ·
+service-account-detail · credentials-list · credential-detail ·
+compliance-requirements-list · compliance-requirement-detail · webhooks ·
+compliance · security · users-list · settings
 
 ### ⬜ Pendientes
 
-Nada. Todas las pantallas de la app (listas + detalles) están hechas. Si quieres seguir
-ampliando, mira "Ideas futuras" más abajo.
+Lista vacía. Todas las pantallas de la app (listas + detalles) están hechas. Cada drawer
+Create/Edit solo pide campos que la API acepta. Ver
+[`BACKEND_VS_MOCKUPS.md`](BACKEND_VS_MOCKUPS.md) para el mapeo campo-por-campo y la
+lista de decisiones pendientes del equipo backend.
 
 > Al terminar cada pantalla: (1) cambia su `href` en `app.js` de `'#'` al archivo,
 > (2) muévela de "Pending" a "App screens" en `index.html`.
@@ -211,6 +217,10 @@ ampliando, mira "Ideas futuras" más abajo.
 - Página de "Audit log" global (todas las acciones de todos los usuarios).
 - Página de "Settings → API tokens" del usuario actual.
 - "Welcome / onboarding" tour para usuarios nuevos.
+- Página de "Authentication methods" (lookup CRUD — backend tiene `authentication_methods`
+  como apiResource pero no hay mockup).
+- Página de "Vendors", "Frameworks", "Programming languages", "Platforms",
+  "Service models" (los 5 lookup CRUD que faltan en el área Tech).
 
 > Al terminar cada pantalla: (1) cambia su `href` en `app.js` de `'#'` al archivo,
 > (2) muévela de "Pending" a "App screens" en `index.html`.
