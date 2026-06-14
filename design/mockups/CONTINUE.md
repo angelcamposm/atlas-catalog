@@ -189,23 +189,28 @@ Para mostrar **docker-compose, Dockerfile, YAML, JSON, comandos** y especificaci
 
 ### ✅ Hechas
 dashboard · login · design-system · apis-list · api-detail · components-list ·
-component-detail · systems-list · domains-list · clusters-list · environments-list ·
+component-detail · resource-detail · link-detail · capability-detail · entity-detail ·
+node-detail · ci-server-detail · metric · group-detail · cluster-detail · environment-detail ·
+deployment-detail · release-detail · workflow-detail · user-detail · domain-detail ·
+systems-list · domains-list · clusters-list · environments-list · resources-list · links-list ·
+capabilities-list · entities-list · nodes-list · ci-servers-list · groups-list ·
 deployments-list · releases-list · workflows-list · compliance · security · users-list · settings
 
-### ⬜ Pendientes (con patrón a usar)
+### ⬜ Pendientes
 
-| Pantalla | `data-active` / NAV id | Patrón | Notas de contenido |
-|---|---|---|---|
-| Resources | `resources` | Tabla + toolbar | Tipo (DB, bucket, queue, cache…), proveedor, sistema, entorno, estado. |
-| Links | `links` | Tabla + toolbar | Título, URL, tipo (docs, dashboard, runbook), entidad asociada, owner. |
-| Capabilities | `capabilities` | Tabla health-bar (como systems) | Capacidad, dominio, sistemas, madurez, owner, health. |
-| Entities | `entities` | Tabla health-bar | Entidad de negocio, dominio, sistema dueño, nº atributos, estado. |
-| Nodes | `nodes` | Tarjetas (como clusters) o tabla | Nodo, clúster, rol, CPU/mem, pods, estado. |
-| CI Servers | `ci-servers` | Tabla + toolbar | Servidor, tipo (GH Actions, GitLab, Jenkins), URL, workflows, estado. |
-| Metrics | `metrics` | Dashboard (KPIs + tarjetas) | KPIs de plataforma + secciones tipo dashboard. Sin librerías de chart: usa barras/sparklines simples con divs. |
-| Groups | `groups` | Tabla (como users) | Grupo, descripción, nº miembros, rol por defecto, owner. |
-| Resource detail / Cluster detail | — | Detalle (como component-detail) | Solo si sobra tiempo. |
-| Create/Edit form | — | `.card` + `.field` (ver `settings.html`) | Modal o página completa con campos `.field`. |
+Nada. Todas las pantallas de la app (listas + detalles) están hechas. Si quieres seguir
+ampliando, mira "Ideas futuras" más abajo.
+
+> Al terminar cada pantalla: (1) cambia su `href` en `app.js` de `'#'` al archivo,
+> (2) muévela de "Pending" a "App screens" en `index.html`.
+
+### Ideas futuras (no en scope)
+
+- Página de "Search": buscar cross-entity (component + system + API + release …).
+- Página de "Diff" entre dos releases de un componente.
+- Página de "Audit log" global (todas las acciones de todos los usuarios).
+- Página de "Settings → API tokens" del usuario actual.
+- "Welcome / onboarding" tour para usuarios nuevos.
 
 > Al terminar cada pantalla: (1) cambia su `href` en `app.js` de `'#'` al archivo,
 > (2) muévela de "Pending" a "App screens" en `index.html`.

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>production · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="environments">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs"><a href="environments-list.html">Environments</a> / <b>production</b></div>
+    <h1 style="display:flex;align-items:center;gap:12px;">production
+      <span class="badge badge-indigo">Protected</span>
+      <span class="badge badge-green">Healthy</span>
+    </h1>
+    <div class="sub">Customer-facing production environment. Spans 2 clusters across eu-west-1 and us-east-1. Approvals required.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">monitoring</span> Grafana</button>
+    <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
+    <button class="btn btn-primary"><span class="mi">rocket_launch</span> New deployment</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Overview</a>
+  <a class="tab">Deployments (214)</a>
+  <a class="tab">Namespaces</a>
+  <a class="tab">Approvals</a>
+  <a class="tab">Access</a>
+  <a class="tab">Activity</a>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Deployments</span><span class="value" style="font-size:24px">214</span></div>
+  <div class="card stat"><span class="label">Components</span><span class="value" style="font-size:24px">186</span></div>
+  <div class="card stat"><span class="label">Namespaces</span><span class="value" style="font-size:24px">22</span></div>
+  <div class="card stat"><span class="label">Uptime (30d)</span><span class="value" style="font-size:24px;color:var(--color-accent)">99.98%</span></div>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr 320px;">
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>Clusters</h3></div>
+      <table class="table">
+        <thead><tr><th>Cluster</th><th>Region</th><th>Nodes</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-main"><a href="cluster-detail.html">prod-eu-west-1</a></td><td>eu-west-1</td><td class="mono">42</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td class="cell-main"><a href="cluster-detail.html">prod-us-east-1</a></td><td>us-east-1</td><td class="mono">38</td><td><span class="badge badge-amber">Degraded</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Active deployments</h3><a href="deployments-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
+      <table class="table">
+        <thead><tr><th>Component</th><th>Release</th><th>Cluster</th><th>Replicas</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td class="mono">v2.14.0</td><td class="mono">prod-eu-west-1</td><td class="mono">6 / 6</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">orders-service</a></td><td class="mono">v3.0.1</td><td class="mono">prod-us-east-1</td><td class="mono">8 / 8</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">identity-api</a></td><td class="mono">v5.2.0</td><td class="mono">prod-eu-west-1</td><td class="mono">4 / 5</td><td><span class="badge badge-amber">Degraded</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">checkout-web</a></td><td class="mono">v4.2.1</td><td class="mono">prod-us-east-1</td><td class="mono">3 / 3</td><td><span class="badge badge-green">Healthy</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Namespaces</h3></div>
+      <table class="table">
+        <thead><tr><th>Namespace</th><th>Owner</th><th>Pods</th><th>Resource quota</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-main mono">payments</td><td><a href="group-detail.html">team-payments</a></td><td class="mono">38</td><td class="mono">80 vCPU · 320 GiB</td></tr>
+          <tr><td class="cell-main mono">commerce</td><td><a href="group-detail.html">team-commerce</a></td><td class="mono">52</td><td class="mono">120 vCPU · 480 GiB</td></tr>
+          <tr><td class="cell-main mono">core</td><td><a href="group-detail.html">team-core</a></td><td class="mono">22</td><td class="mono">40 vCPU · 160 GiB</td></tr>
+          <tr><td class="cell-main mono">platform</td><td><a href="group-detail.html">team-platform</a></td><td class="mono">28</td><td class="mono">60 vCPU · 240 GiB</td></tr>
+          <tr><td class="cell-main mono">data</td><td><a href="group-detail.html">team-data</a></td><td class="mono">14</td><td class="mono">40 vCPU · 200 GiB</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Details</h3>
+      <dl class="kv">
+        <dt>Name</dt><dd class="mono">production</dd>
+        <dt>Type</dt><dd>Production</dd>
+        <dt>Visibility</dt><dd><span class="badge badge-indigo">Protected</span></dd>
+        <dt>Approval required</dt><dd>Yes</dd>
+        <dt>Auto-deploy</dt><dd>Disabled</dd>
+        <dt>Clusters</dt><dd>2</dd>
+        <dt>Namespace prefix</dt><dd class="mono">prod-</dd>
+        <dt>Owner</dt><dd><a href="group-detail.html">team-platform</a></dd>
+        <dt>Created</dt><dd class="mono">2022-04-18</dd>
+      </dl>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Approval policy</h3>
+      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between;"><span>Minimum approvers</span><span>2</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Approver groups</span><span class="mono">payments-leads, admins</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Change window</span><span>10:00–16:00 UTC</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Freeze</span><span class="badge badge-green">None</span></div>
+      </div>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Links</h3>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+        <a href="#"><span class="mi">content_copy</span> Deploy runbook</a>
+        <a href="#"><span class="mi">content_copy</span> Incident response</a>
+        <a href="#"><span class="mi">monitoring</span> Status page</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

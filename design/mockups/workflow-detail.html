@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>build-test-deploy · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="workflows">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs"><a href="workflows-list.html">Workflows</a> / <b>build-test-deploy</b></div>
+    <h1 style="display:flex;align-items:center;gap:12px;">build-test-deploy
+      <span class="badge badge-green">Success</span>
+      <span class="badge badge-gray">GitHub Actions</span>
+    </h1>
+    <div class="sub">Main CI/CD pipeline for <a href="component-detail.html">payments-service</a>. Triggered on push to <span class="mono">main</span>.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">play_arrow</span> Run now</button>
+    <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
+    <button class="btn btn-primary"><span class="mi">content_copy</span> View YAML</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Overview</a>
+  <a class="tab">Runs (28)</a>
+  <a class="tab">YAML</a>
+  <a class="tab">Triggers</a>
+  <a class="tab">Notifications</a>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Total runs</span><span class="value" style="font-size:24px">1,284</span></div>
+  <div class="card stat"><span class="label">Success rate</span><span class="value" style="font-size:24px;color:var(--color-accent)">96.4%</span></div>
+  <div class="card stat"><span class="label">Avg duration</span><span class="value" style="font-size:24px">3m 48s</span></div>
+  <div class="card stat"><span class="label">Last run</span><span class="value" style="font-size:18px">8m ago</span></div>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr 320px;">
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>Recent runs</h3></div>
+      <table class="table">
+        <thead><tr><th>Run</th><th>Commit</th><th>Branch</th><th>Status</th><th>Duration</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-main mono">#1284</td><td class="mono">a3f9c21</td><td>main</td><td><span class="badge badge-green">Success</span></td><td class="mono">3m 48s</td><td class="mono">8m ago</td></tr>
+          <tr><td class="cell-main mono">#1283</td><td class="mono">88be4d0</td><td>main</td><td><span class="badge badge-green">Success</span></td><td class="mono">3m 52s</td><td class="mono">2h ago</td></tr>
+          <tr><td class="cell-main mono">#1282</td><td class="mono">6f3a9c1</td><td>main</td><td><span class="badge badge-red">Failed</span></td><td class="mono">1m 12s</td><td class="mono">4h ago</td></tr>
+          <tr><td class="cell-main mono">#1281</td><td class="mono">c2d7b58</td><td>main</td><td><span class="badge badge-green">Success</span></td><td class="mono">3m 41s</td><td class="mono">6h ago</td></tr>
+          <tr><td class="cell-main mono">#1280</td><td class="mono">9e1f4a7</td><td>main</td><td><span class="badge badge-green">Success</span></td><td class="mono">3m 56s</td><td class="mono">9h ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Pipeline (YAML)</h3><span class="badge badge-gray">YAML</span><button class="ig-btn copy"><span class="mi">content_copy</span></button></div>
+      <div class="code-block numbered">
+<pre><code><span class="line"><span class="tok-k">name</span>: <span class="tok-s">build-test-deploy</span></span><span class="line"><span class="tok-k">on</span>:</span><span class="line">  <span class="tok-k">push</span>:</span><span class="line">    <span class="tok-k">branches</span>: [<span class="tok-s">main</span>]</span><span class="line">  <span class="tok-k">pull_request</span>:</span><span class="line">    <span class="tok-k">branches</span>: [<span class="tok-s">main</span>]</span><span class="line"></span><span class="line"><span class="tok-k">jobs</span>:</span><span class="line">  <span class="tok-f">test</span>:</span><span class="line">    <span class="tok-k">runs-on</span>: <span class="tok-s">ubuntu-latest</span></span><span class="line">    <span class="tok-k">steps</span>:</span><span class="line">      - <span class="tok-k">uses</span>: <span class="tok-s">actions/checkout@v4</span></span><span class="line">      - <span class="tok-k">uses</span>: <span class="tok-s">actions/setup-go@v5</span></span><span class="line">        <span class="tok-k">with</span>:</span><span class="line">          <span class="tok-k">go-version</span>: <span class="tok-s">1.24</span></span><span class="line">      - <span class="tok-k">run</span>: <span class="tok-s">make test</span></span><span class="line">      - <span class="tok-k">run</span>: <span class="tok-s">make lint</span></span><span class="line"></span><span class="line">  <span class="tok-f">build</span>:</span><span class="line">    <span class="tok-k">needs</span>: test</span><span class="line">    <span class="tok-k">runs-on</span>: <span class="tok-s">ubuntu-latest</span></span><span class="line">    <span class="tok-k">steps</span>:</span><span class="line">      - <span class="tok-k">run</span>: <span class="tok-s">docker build -t payments:${{ github.sha }} .</span></span><span class="line"></span><span class="line">  <span class="tok-f">deploy-staging</span>:</span><span class="line">    <span class="tok-k">needs</span>: build</span><span class="line">    <span class="tok-k">if</span>: <span class="tok-s">github.ref == 'refs/heads/main'</span></span><span class="line">    <span class="tok-k">runs-on</span>: <span class="tok-s">ubuntu-latest</span></span><span class="line">    <span class="tok-k">steps</span>:</span><span class="line">      - <span class="tok-k">run</span>: <span class="tok-s">./scripts/deploy.sh staging</span></span><span class="line"></span><span class="line">  <span class="tok-f">deploy-production</span>:</span><span class="line">    <span class="tok-k">needs</span>: deploy-staging</span><span class="line">    <span class="tok-k">if</span>: <span class="tok-s">github.ref == 'refs/heads/main'</span></span><span class="line">    <span class="tok-k">runs-on</span>: <span class="tok-s">ubuntu-latest</span></span><span class="line">    <span class="tok-k">environment</span>: <span class="tok-s">production</span></span><span class="line">    <span class="tok-k">steps</span>:</span><span class="line">      - <span class="tok-k">run</span>: <span class="tok-s">./scripts/deploy.sh production</span></span></code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Details</h3>
+      <dl class="kv">
+        <dt>Name</dt><dd class="mono">build-test-deploy</dd>
+        <dt>Component</dt><dd><a href="component-detail.html">payments-service</a></dd>
+        <dt>CI server</dt><dd><a href="ci-server-detail.html">acme-gh-prod</a></dd>
+        <dt>Source</dt><dd class="mono">.github/workflows/main.yml</dd>
+        <dt>Default branch</dt><dd class="mono">main</dd>
+        <dt>Timeout</dt><dd class="mono">15 min</dd>
+        <dt>Owner</dt><dd><a href="group-detail.html">team-payments</a></dd>
+        <dt>Created</dt><dd class="mono">2022-09-04</dd>
+      </dl>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Triggers</h3>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between;"><span>push to main</span><span class="badge badge-green">Active</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>pull_request to main</span><span class="badge badge-green">Active</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>workflow_dispatch</span><span class="badge badge-green">Active</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>schedule</span><span class="badge badge-gray">None</span></div>
+      </div>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Notifications</h3>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+        <a href="#"><span class="mi">chat</span> Slack #payments-deploys on failure</a>
+        <a href="#"><span class="mi">chat</span> Slack #payments-deploys on success</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

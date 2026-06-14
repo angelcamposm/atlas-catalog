@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>team-payments · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="groups">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs"><a href="groups-list.html">Groups</a> / <b>team-payments</b></div>
+    <h1 style="display:flex;align-items:center;gap:12px;">
+      <div class="avatar" style="width:36px;height:36px;font-size:14px">PA</div>
+      team-payments
+      <span class="badge badge-indigo">Editor</span>
+      <span class="badge badge-gray">Internal</span>
+    </h1>
+    <div class="sub">Builds and runs payments-service, ledger and payouts. Owns the payments platform.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
+    <button class="btn btn-primary"><span class="mi">person_add</span> Add members</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Overview</a>
+  <a class="tab">Members (14)</a>
+  <a class="tab">Permissions</a>
+  <a class="tab">Owned systems</a>
+  <a class="tab">Activity</a>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Members</span><span class="value" style="font-size:24px">14</span></div>
+  <div class="card stat"><span class="label">Systems</span><span class="value" style="font-size:24px">1</span></div>
+  <div class="card stat"><span class="label">Components</span><span class="value" style="font-size:24px">9</span></div>
+  <div class="card stat"><span class="label">Last change</span><span class="value" style="font-size:18px">3d ago</span></div>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr 320px;">
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>Members</h3><a href="users-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
+      <table class="table">
+        <thead><tr><th>User</th><th>Role override</th><th>Joined</th><th>Last active</th></tr></thead>
+        <tbody>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MJ</div><div><div class="cell-main">María Jiménez</div><div class="cell-sub">maria.j@acme.dev</div></div></div></td><td><span class="badge badge-indigo">Lead</span></td><td class="mono">2022-01-12</td><td class="mono">18m ago</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MR</div><div><div class="cell-main">Marta Ramos</div><div class="cell-sub">marta.r@acme.dev</div></div></div></td><td>—</td><td class="mono">2022-03-04</td><td class="mono">2h ago</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">DR</div><div><div class="cell-main">David Romero</div><div class="cell-sub">david.r@acme.dev</div></div></div></td><td>—</td><td class="mono">2022-05-21</td><td class="mono">1h ago</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">JL</div><div><div class="cell-main">Javier López</div><div class="cell-sub">javier.l@acme.dev</div></div></div></td><td>—</td><td class="mono">2023-02-14</td><td class="mono">yesterday</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">AS</div><div><div class="cell-main">Andrea Soler</div><div class="cell-sub">andrea.s@acme.dev</div></div></div></td><td>—</td><td class="mono">2023-08-02</td><td class="mono">4d ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Owned systems &amp; components</h3></div>
+      <table class="table">
+        <thead><tr><th>Type</th><th>Name</th><th>Tier</th><th>Health</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-indigo">System</span></td><td class="cell-main"><a href="#">payments-platform</a></td><td><span class="badge badge-red">Tier 1</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
+          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td>Tier 1</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">ledger-worker</a></td><td>Tier 1</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">billing-reporter</a></td><td>Tier 2</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">fraud-scorer</a></td><td>Tier 1</td><td><span class="badge badge-amber">Degraded</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Details</h3>
+      <dl class="kv">
+        <dt>Slug</dt><dd class="mono">team-payments</dd>
+        <dt>Display name</dt><dd>Team Payments</dd>
+        <dt>Source</dt><dd>Internal</dd>
+        <dt>Default role</dt><dd><span class="badge badge-indigo">Editor</span></dd>
+        <dt>Owner</dt><dd>Team Payments</dd>
+        <dt>Visibility</dt><dd>Internal</dd>
+        <dt>Created</dt><dd class="mono">2022-01-12</dd>
+        <dt>Members</dt><dd class="mono">14</dd>
+      </dl>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Permissions</h3>
+      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between;"><span>Register new components</span><span class="badge badge-green">Allowed</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Approve production deploys</span><span class="badge badge-green">Allowed</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Manage other groups</span><span class="badge badge-gray">Denied</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>View audit logs</span><span class="badge badge-amber">Restricted</span></div>
+      </div>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Sync</h3>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between;"><span>Source</span><span>Internal</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>Last sync</span><span class="mono">3d ago</span></div>
+        <div style="display:flex; justify-content:space-between;"><span>External IDP</span><span>—</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

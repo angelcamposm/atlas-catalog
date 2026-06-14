@@ -57,6 +57,26 @@
   <a class="card" href="settings.html"><span class="t"><span class="mi">settings</span> Settings</span><span class="d">Taxonomy management (types, categories, vendors…).</span></a>
 </div>
 
+<h2>Detail pages</h2>
+<div class="idx">
+  <a class="card" href="api-detail.html"><span class="t"><span class="mi">api</span> API — detail</span><span class="d">Endpoints, consumers, versions, compliance.</span></a>
+  <a class="card" href="component-detail.html"><span class="t"><span class="mi">widgets</span> Component — detail</span><span class="d">SLO stats, deployments, APIs, workflow runs, dependencies.</span></a>
+  <a class="card" href="resource-detail.html"><span class="t"><span class="mi">database</span> Resource — detail</span><span class="d">Connection, consumers, access, compliance, backups.</span></a>
+  <a class="card" href="link-detail.html"><span class="t"><span class="mi">link</span> Link — detail</span><span class="d">URL, linked entity, health check, quick actions.</span></a>
+  <a class="card" href="capability-detail.html"><span class="t"><span class="mi">extension</span> Capability — detail</span><span class="d">Maturity, supporting systems, SLOs, charter.</span></a>
+  <a class="card" href="entity-detail.html"><span class="t"><span class="mi">table</span> Entity — detail</span><span class="d">Schema, coverage by system, compliance, PII.</span></a>
+  <a class="card" href="cluster-detail.html"><span class="t"><span class="mi">lan</span> Cluster — detail</span><span class="d">Nodes, workloads, namespaces, access.</span></a>
+  <a class="card" href="node-detail.html"><span class="t"><span class="mi">dns</span> Node — detail</span><span class="d">Pods on this node, capacity, taints &amp; labels, events.</span></a>
+  <a class="card" href="environment-detail.html"><span class="t"><span class="mi">cached</span> Environment — detail</span><span class="d">Clusters, deployments, namespaces, approval policy.</span></a>
+  <a class="card" href="deployment-detail.html"><span class="t"><span class="mi">rocket_launch</span> Deployment — detail</span><span class="d">Pods, rollout history, health checks, manifest.</span></a>
+  <a class="card" href="release-detail.html"><span class="t"><span class="mi">new_releases</span> Release — detail</span><span class="d">Changelog, deployments, commits, previous/next.</span></a>
+  <a class="card" href="workflow-detail.html"><span class="t"><span class="mi">account_tree</span> Workflow — detail</span><span class="d">Runs, YAML pipeline, triggers, notifications.</span></a>
+  <a class="card" href="ci-server-detail.html"><span class="t"><span class="mi">memory</span> CI Server — detail</span><span class="d">Workflows, runs, connection, runner capacity.</span></a>
+  <a class="card" href="group-detail.html"><span class="t"><span class="mi">groups</span> Group — detail</span><span class="d">Members, owned systems, permissions, sync.</span></a>
+  <a class="card" href="user-detail.html"><span class="t"><span class="mi">person</span> User — detail</span><span class="d">Groups, sessions, API tokens, activity log.</span></a>
+  <a class="card" href="domain-detail.html"><span class="t"><span class="mi">domain</span> Business Domain — detail</span><span class="d">Systems, capabilities, components, strategy.</span></a>
+</div>
+
 <h2>CRUD drawers (Create / Edit)</h2>
 <p style="font-size:13.5px; color:var(--text-muted); line-height:1.8; margin-bottom:var(--sp-md);">
   Each list has a side drawer (push on wide screens, overlay on standard). Click <b>+ New</b> or the row's edit button to open it.
@@ -81,10 +101,11 @@
   <a class="card" href="users-list.html"><span class="t"><span class="mi">person</span> Users — Invite / Edit</span><span class="d">Email, role, groups and invitation policy.</span></a>
 </div>
 
-<h2>Pending screens (same patterns)</h2>
+<h2>Status</h2>
 <p style="font-size:13.5px; color:var(--text-muted); line-height:1.8;">
-  Resource / Cluster / Group / Environment / Node / Workflow / Release / Deployment detail pages (only for entities with no standalone <code>*-detail.html</code>).<br>
-  <b>See <a href="CONTINUE.md">CONTINUE.md</a> for the exact rules, templates and checklist to finish these.</b>
+  All app screens are mocked: 17 list pages, 16 detail pages, 18 Create/Edit drawers, plus
+  dashboard, login, design system, compliance, security, metrics and settings.<br>
+  <b>See <a href="CONTINUE.md">CONTINUE.md</a> for the exact rules, templates and checklist used to build them.</b>
 </p>
 
 </body>
