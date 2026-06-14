@@ -68,18 +68,17 @@
       <h3>Identity</h3>
       <div class="form-grid">
         <div class="field req full"><label>Name</label><input placeholder="Commerce"></div>
-        <div class="field req"><label>Slug</label><input class="mono" placeholder="commerce"></div>
+        <div class="field"><label>Display name</label><input placeholder="Commerce"></div>
+        <div class="field"><label>Slug</label><input class="mono" placeholder="commerce"></div>
         <div class="field req full"><label>Description</label><textarea placeholder="What does this business domain cover?"></textarea></div>
-        <div class="field"><label>Owner</label>
-          <select><option>VP Commerce</option><option>VP Engineering</option><option>VP Security</option><option>VP Data</option><option>VP Operations</option></select>
+        <div class="field"><label>Category</label>
+          <select><option value="C">C · Core</option><option value="G">G · Generic</option><option value="S">S · Supporting</option></select>
         </div>
-        <div class="field"><label>Color</label>
-          <select><option>Blue</option><option>Emerald</option><option>Violet</option><option>Amber</option><option>Slate</option></select>
+        <div class="field"><label>Parent domain</label>
+          <select><option>— (top-level)</option></select>
         </div>
-        <div class="field full"><label>Tags</label>
-          <div class="multiselect">
-            <input class="ms-input" placeholder="Add tag…">
-          </div>
+        <div class="form-grid cols-1" style="grid-column: 1 / -1;">
+          <label class="choice"><input type="checkbox" checked> Is enabled</label>
         </div>
       </div>
     </div>

@@ -96,36 +96,22 @@
       <h3>Identity</h3>
       <div class="form-grid">
         <div class="field req full"><label>Name</label><input placeholder="production"></div>
+        <div class="field"><label>Display name</label><input placeholder="Production"></div>
+        <div class="field"><label>Abbreviation</label><input class="mono" placeholder="PRD" maxlength="3"></div>
         <div class="field req"><label>Type</label>
-          <select><option>Production</option><option>Staging</option><option>Development</option><option>Sandbox</option></select>
+          <select><option>production</option><option>staging</option><option>development</option><option>testing</option><option>qa</option></select>
         </div>
-        <div class="field"><label>Visibility</label>
-          <select><option>Protected</option><option>Pre-prod</option><option>Internal</option><option>Public</option></select>
+        <div class="field full"><label>Description</label><textarea placeholder="What does this environment represent?"></textarea></div>
+        <div class="field"><label>Namespace prefix</label><input class="mono" placeholder="prd-" maxlength="3"></div>
+        <div class="field"><label>Namespace suffix</label><input class="mono" placeholder="-01" maxlength="3"></div>
+        <div class="field"><label>Sort order</label><input type="number" placeholder="1"></div>
+        <div class="field"><label>Owner (user)</label>
+          <select><option>carlos@acme.dev</option><option>maria.j@acme.dev</option><option>david.r@acme.dev</option></select>
         </div>
-        <div class="field req full"><label>Description</label><textarea placeholder="What does this environment represent?"></textarea></div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-platform</option><option>team-payments</option><option>team-commerce</option></select>
-        </div>
-        <div class="field"><label>Approval required</label>
-          <select><option>Yes</option><option>No</option></select>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Clusters &amp; namespace</h3>
-      <div class="form-grid">
-        <div class="field full"><label>Clusters in this environment</label>
-          <div class="multiselect">
-            <span class="ms-tag">prod-eu-west-1<span class="mi">close</span></span>
-            <span class="ms-tag">prod-us-east-1<span class="mi">close</span></span>
-            <input class="ms-input" placeholder="Add cluster…">
-          </div>
-        </div>
-        <div class="field"><label>Default namespace prefix</label>
-          <input class="mono" placeholder="prod-">
-        </div>
-        <div class="field"><label>Auto-deploy</label>
-          <select><option>Disabled</option><option>On push to main</option><option>On release</option></select>
+        <div class="form-grid cols-1" style="grid-column: 1 / -1;">
+          <label class="choice"><input type="checkbox" checked> Approval required</label>
+          <label class="choice"><input type="checkbox" checked> Is production environment</label>
+          <label class="choice"><input type="checkbox" checked> Display in matrix</label>
         </div>
       </div>
     </div>

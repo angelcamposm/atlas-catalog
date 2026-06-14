@@ -117,46 +117,18 @@
       <h3>Identity</h3>
       <div class="form-grid">
         <div class="field req full"><label>Name</label><input placeholder="Customer"></div>
-        <div class="field req"><label>Slug</label><input class="mono" placeholder="customer"></div>
         <div class="field req full"><label>Description</label><textarea placeholder="What does this entity represent?"></textarea></div>
-        <div class="field"><label>Domain</label>
-          <select><option>Commerce</option><option>Identity</option><option>Platform</option><option>Data</option><option>Operations</option></select>
+        <div class="form-grid cols-1" style="grid-column: 1 / -1;">
+          <label class="choice"><input type="checkbox" checked> Is aggregate</label>
+          <label class="choice"><input type="checkbox" checked> Is aggregate root</label>
+          <label class="choice"><input type="checkbox" checked> Is enabled</label>
         </div>
-        <div class="field"><label>Owning system</label>
-          <select><option>storefront</option><option>payments-platform</option><option>identity</option><option>developer-platform</option><option>analytics</option></select>
-        </div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-commerce</option><option>team-payments</option><option>team-core</option><option>team-platform</option><option>team-data</option></select>
-        </div>
-        <div class="field"><label>Status</label>
-          <select><option>Healthy</option><option>Degraded</option><option>At risk</option></select>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Schema</h3>
-      <div class="form-grid cols-1">
-        <div class="field">
-          <label>Attributes</label>
-          <span class="hint">Define the attributes of this entity. Slug is the JSON property name.</span>
-        </div>
-        <div class="field full">
-          <div class="input-group"><span class="addon">+</span><input placeholder="Add attribute (e.g. email · string · required)"></div>
-        </div>
-      </div>
-      <div class="card card-pad" style="background:var(--muted); display:flex; flex-direction:column; gap:6px;">
-        <div style="display:flex; align-items:center; gap:8px; font: 600 13px var(--font-mono);">
-          <span class="type-chip">string</span> email <span class="badge badge-red">required</span>
-          <span class="mi" style="margin-left:auto; cursor:pointer">delete</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; font: 600 13px var(--font-mono);">
-          <span class="type-chip">uuid</span> id <span class="badge badge-red">required</span>
-          <span class="mi" style="margin-left:auto; cursor:pointer">delete</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; font: 600 13px var(--font-mono);">
-          <span class="type-chip">datetime</span> created_at
-          <span class="mi" style="margin-left:auto; cursor:pointer">delete</span>
-        </div>
+        <p style="font-size:12.5px; color:var(--text-muted); padding:0 var(--sp-md); line-height:1.6; grid-column: 1 / -1;">
+          Schema attributes are managed separately via the
+          <span class="mono">/architecture/entities/{id}/attributes</span> endpoint. Use the
+          entity detail page (after saving) to add, edit or remove individual
+          <span class="mono">EntityAttribute</span> records (name, type, required, PII, sensitive).
+        </p>
       </div>
     </div>
   </div>

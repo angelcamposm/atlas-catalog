@@ -101,51 +101,35 @@
       <h3>Identity</h3>
       <div class="form-grid">
         <div class="field req full"><label>Name</label><input placeholder="payments-api"></div>
-        <div class="field req"><label>Slug</label><input class="mono" placeholder="payments-api"></div>
-        <div class="field"><label>System</label>
-          <select><option>payments-platform</option><option>storefront</option><option>identity</option><option>developer-platform</option></select>
-        </div>
+        <div class="field"><label>Display name</label><input placeholder="Payments API"></div>
         <div class="field req full"><label>Description</label><textarea placeholder="What does this API do?"></textarea></div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-payments</option><option>team-commerce</option><option>team-core</option><option>team-platform</option></select>
+        <div class="field"><label>Type</label>
+          <select><option>REST</option><option>GraphQL</option><option>gRPC</option><option>Async</option><option>WebSocket</option></select>
         </div>
-        <div class="field"><label>Tags</label>
-          <div class="multiselect">
-            <span class="ms-tag">payments<span class="mi">close</span></span>
-            <input class="ms-input" placeholder="Add tag…">
-          </div>
+        <div class="field"><label>Category</label>
+          <select><option>Payments</option><option>Identity</option><option>Commerce</option><option>Platform</option></select>
         </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Interface</h3>
-      <div class="form-grid">
-        <div class="field req"><label>Type</label>
-          <select><option>REST / OpenAPI 3.1</option><option>GraphQL</option><option>gRPC</option><option>Async (Kafka)</option></select>
-        </div>
-        <div class="field"><label>Base URL</label><input class="mono" placeholder="api.acme.dev/payments"></div>
-        <div class="field"><label>Version</label><input class="mono" placeholder="v1.0.0"></div>
-        <div class="field"><label>Auth method</label>
-          <select><option>OAuth 2.0</option><option>API key</option><option>mTLS</option><option>OpenID Connect</option></select>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Lifecycle</h3>
-      <div class="form-grid">
-        <div class="field"><label>Lifecycle</label>
-          <select><option>Experimental</option><option>Beta</option><option selected>Production</option><option>Deprecated</option></select>
+        <div class="field"><label>Status</label>
+          <select><option>Active</option><option>Deprecated</option><option>Experimental</option></select>
         </div>
         <div class="field"><label>Access policy</label>
-          <select><option>Internal</option><option>Partner</option><option>Public</option></select>
+          <select><option>Internal</option><option>Public</option><option>Partner</option><option>Composite</option></select>
         </div>
-        <div class="switch-row full">
-          <div><div class="sw-label">Public in portal</div></div>
-          <label class="switch"><input type="checkbox"><span class="track"></span></label>
+        <div class="field"><label>Auth method</label>
+          <select><option>OAuth 2.0</option><option>API key</option><option>mTLS</option><option>JWT</option><option>OpenID Connect</option></select>
         </div>
-        <div class="switch-row full">
-          <div><div class="sw-label">Auto-generate SDKs</div></div>
-          <label class="switch"><input type="checkbox" checked><span class="track"></span></label>
+        <div class="field"><label>Released at</label>
+          <input type="date">
+        </div>
+        <div class="field"><label>URL</label>
+          <input type="url" placeholder="https://api.acme.dev/payments">
+        </div>
+        <div class="field"><label>Version</label><input class="mono" placeholder="v1.0.0"></div>
+        <div class="field"><label>Protocol</label>
+          <select><option>https</option><option>http</option><option>ws</option><option>wss</option></select>
+        </div>
+        <div class="field full"><label>OpenAPI spec (JSON)</label>
+          <textarea class="mono" rows="5" placeholder='{ "openapi": "3.1.0", … }'></textarea>
         </div>
       </div>
     </div>

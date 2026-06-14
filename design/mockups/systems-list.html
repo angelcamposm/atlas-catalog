@@ -78,36 +78,23 @@
     <div class="form-section">
       <h3>Identity</h3>
       <div class="form-grid">
-        <div class="field req full"><label>Name</label><input placeholder="payments-platform"></div>
-        <div class="field req"><label>Slug</label><input class="mono" placeholder="payments-platform"></div>
+        <div class="field req"><label>Name</label><input placeholder="payments-platform"></div>
+        <div class="field"><label>Display name</label><input placeholder="Payments Platform"></div>
         <div class="field req full"><label>Description</label><textarea placeholder="What does this system do?"></textarea></div>
-        <div class="field"><label>Business domain</label>
-          <select><option>Commerce</option><option>Identity</option><option>Platform</option><option>Data</option><option>Operations</option></select>
-        </div>
-        <div class="field"><label>Business tier</label>
-          <select><option>Tier 1</option><option>Tier 2</option><option>Tier 3</option></select>
-        </div>
         <div class="field"><label>Owner</label>
           <select><option>team-payments</option><option>team-commerce</option><option>team-core</option><option>team-platform</option><option>team-data</option></select>
         </div>
-        <div class="field"><label>Lifecycle</label>
-          <select><option>Active</option><option>Planned</option><option>Deprecated</option></select>
+        <div class="field"><label>Email</label>
+          <input type="email" placeholder="payments-platform@acme.dev">
         </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Architecture</h3>
-      <div class="form-grid">
-        <div class="field"><label>Architecture</label>
-          <select><option>Monolith</option><option>Modular monolith</option><option>Microservices</option><option>Event-driven</option><option>Serverless</option></select>
+        <div class="field"><label>Icon</label>
+          <input placeholder="payments">
         </div>
-        <div class="field"><label>Criticality</label>
-          <select><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select>
+        <div class="field"><label>Label</label>
+          <input placeholder="Payments team">
         </div>
         <div class="field full"><label>Tags</label>
-          <div class="multiselect">
-            <input class="ms-input" placeholder="Add tag…">
-          </div>
+          <input placeholder="payments, tier-1">
         </div>
       </div>
     </div>

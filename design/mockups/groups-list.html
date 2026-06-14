@@ -129,42 +129,27 @@
         <div class="field"><label>Display name</label>
           <input placeholder="Team Payments">
         </div>
+        <div class="field"><label>Type</label>
+          <select><option>team</option><option>security</option><option>admin</option><option>compliance</option></select>
+        </div>
+        <div class="field"><label>Parent group</label>
+          <select><option>— (top-level)</option></select>
+        </div>
+        <div class="field"><label>Email</label>
+          <input type="email" placeholder="team-payments@acme.dev">
+        </div>
+        <div class="field"><label>Icon</label>
+          <input placeholder="payments">
+        </div>
+        <div class="field"><label>Label</label>
+          <input placeholder="Payments team">
+        </div>
         <div class="field req full"><label>Description</label>
           <textarea placeholder="What is this group for?"></textarea>
         </div>
-        <div class="field"><label>Source</label>
-          <select><option>Internal</option><option>SSO (SAML)</option><option>SSO (OIDC)</option><option>LDAP</option><option>SCIM</option></select>
+        <div class="field full"><label>Tags</label>
+          <input placeholder="payments, tier-1">
         </div>
-        <div class="field"><label>Default role</label>
-          <select><option>Viewer</option><option>Editor</option><option>Admin</option></select>
-        </div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-payments</option><option>team-platform</option><option>team-security</option></select>
-        </div>
-        <div class="field"><label>Visibility</label>
-          <select><option>Internal</option><option>Restricted</option></select>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Members</h3>
-      <div class="form-grid">
-        <div class="field full"><label>Add members</label>
-          <div class="multiselect">
-            <span class="ms-tag">carlos@acme.dev<span class="mi">close</span></span>
-            <span class="ms-tag">maria.j@acme.dev<span class="mi">close</span></span>
-            <input class="ms-input" placeholder="Search by name or email…">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Permissions</h3>
-      <div class="form-grid cols-1">
-        <label class="choice"><input type="checkbox" checked> Can register new components</label>
-        <label class="choice"><input type="checkbox" checked> Can approve deployments to production</label>
-        <label class="choice"><input type="checkbox"> Can manage other groups</label>
-        <label class="choice"><input type="checkbox"> Can view audit logs</label>
       </div>
     </div>
   </div>

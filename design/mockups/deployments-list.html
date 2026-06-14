@@ -75,69 +75,17 @@
   </div>
 </div>
 
-<aside class="drawer" id="form-deployment">
-  <div class="drawer-head">
-    <div class="drawer-title">
-      <div class="breadcrumbs">Infrastructure / Deployments / <b>New</b></div>
-      <h2>New deployment</h2>
+<div class="card" style="margin-top:var(--sp-md);">
+  <div class="card-pad" style="display:flex; align-items:center; gap:14px;">
+    <div class="brand-mark c-slate"><span class="mi">webhook</span></div>
+    <div style="flex:1">
+      <div class="cell-main" style="font-size:14px;">Deployments are created by the CI webhook, not from the UI</div>
+      <div class="cell-sub">Configure your CI server to POST to <span class="mono">/api/v1/webhooks/deployments</span> when a deployment finishes. The catalog records the snapshot (component, release, environment, cluster, commit, image digest, status) and rejects all other writes.</div>
     </div>
-    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+    <button class="btn btn-outline"><span class="mi">content_copy</span> Copy webhook URL</button>
+    <button class="btn btn-outline"><span class="mi">open_in_new</span> Webhook docs</button>
   </div>
-  <div class="drawer-body">
-    <div class="form-section">
-      <h3>Component &amp; version</h3>
-      <div class="form-grid">
-        <div class="field req"><label>Component</label>
-          <select><option>payments-service</option><option>orders-service</option><option>identity-api</option><option>notifications-worker</option><option>search-indexer</option></select>
-        </div>
-        <div class="field req"><label>Release</label>
-          <select><option>v2.14.0</option><option>v2.13.2</option><option>v3.0.1</option><option>v5.2.0</option></select>
-        </div>
-        <div class="field req"><label>Environment</label>
-          <select><option>production</option><option>staging</option><option>dev</option></select>
-        </div>
-        <div class="field req"><label>Cluster</label>
-          <select><option>prod-eu-west-1</option><option>prod-us-east-1</option><option>gke-staging</option></select>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Runtime</h3>
-      <div class="form-grid">
-        <div class="field"><label>Replicas</label>
-          <div class="input-group"><input type="number" placeholder="1"><span class="addon suffix">pods</span></div>
-        </div>
-        <div class="field"><label>Strategy</label>
-          <select><option>Rolling update</option><option>Recreate</option><option>Blue/green</option><option>Canary</option></select>
-        </div>
-        <div class="field"><label>Namespace</label>
-          <input class="mono" placeholder="payments">
-        </div>
-        <div class="field"><label>Service account</label>
-          <select><option>payments-sa</option><option>default</option></select>
-        </div>
-        <div class="field full"><label>Image override</label>
-          <div class="input-group"><span class="addon">registry.acme.dev/</span><input class="mono" placeholder="payments/svc:latest"></div>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Safety</h3>
-      <div class="form-grid cols-1">
-        <label class="choice"><input type="checkbox" checked> Run database migrations before rollout</label>
-        <label class="choice"><input type="checkbox" checked> Auto-rollback on failing health checks</label>
-        <label class="choice"><input type="checkbox"> Pause for manual approval before traffic shift</label>
-        <label class="choice"><input type="checkbox"> Notify #deploys after completion</label>
-      </div>
-    </div>
-  </div>
-  <div class="drawer-foot">
-    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
-    <span class="spacer"></span>
-    <button class="btn btn-outline">Save &amp; dry-run</button>
-    <button class="btn btn-primary"><span class="mi">rocket_launch</span> Deploy</button>
-  </div>
-</aside>
+</div>
 
 <script src="assets/app.js"></script>
 </body>

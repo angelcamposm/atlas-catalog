@@ -124,33 +124,28 @@
     <div class="form-section">
       <h3>Identity</h3>
       <div class="form-grid">
-        <div class="field req full"><label>Title</label><input placeholder="payments-service API reference"></div>
-        <div class="field req"><label>Type</label>
-          <select><option>Docs</option><option>Dashboard</option><option>Runbook</option><option>Repo</option><option>Wiki</option></select>
-        </div>
-        <div class="field"><label>Status</label>
-          <select><option>Active</option><option>Archived</option></select>
-        </div>
+        <div class="field req full"><label>Name</label><input placeholder="payments-service API reference"></div>
         <div class="field req full"><label>URL</label>
-          <div class="input-group"><span class="addon">https://</span><input class="mono" placeholder="docs.acme.dev/payments"></div>
+          <input type="url" placeholder="https://docs.acme.dev/payments">
+        </div>
+        <div class="field"><label>Category</label>
+          <select><option>Docs</option><option>Dashboard</option><option>Runbook</option><option>Repo</option><option>Wiki</option></select>
         </div>
         <div class="field full"><label>Description</label><textarea placeholder="What is at this link?"></textarea></div>
       </div>
     </div>
     <div class="form-section">
-      <h3>Linked entity</h3>
+      <h3>Linked entity (polymorphic)</h3>
+      <p style="font-size:12.5px; color:var(--text-muted); padding-bottom:8px;">
+        Pick the catalog entity this link attaches to. The backend stores the pair
+        <span class="mono">model_name</span> + <span class="mono">model_id</span>.
+      </p>
       <div class="form-grid">
         <div class="field"><label>Entity type</label>
-          <select><option>API</option><option>Component</option><option>System</option><option>Resource</option></select>
+          <select><option>Api</option><option>Component</option><option>System</option><option>Resource</option><option>Environment</option><option>Cluster</option><option>Node</option><option>BusinessDomain</option><option>BusinessCapability</option><option>Entity</option></select>
         </div>
-        <div class="field"><label>Entity</label>
-          <select><option>payments-api</option><option>payments-service</option><option>identity</option><option>storefront</option></select>
-        </div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-payments</option><option>team-commerce</option><option>team-core</option></select>
-        </div>
-        <div class="field"><label>Visibility</label>
-          <select><option>Internal</option><option>Public</option></select>
+        <div class="field"><label>Entity ID</label>
+          <input type="number" placeholder="42">
         </div>
       </div>
     </div>

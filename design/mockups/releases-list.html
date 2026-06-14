@@ -90,26 +90,23 @@
         <div class="field req"><label>Version</label>
           <input class="mono" placeholder="v2.15.0">
         </div>
-        <div class="field"><label>Stage</label>
-          <select><option>Pre-release</option><option>Released</option><option>Rolled back</option></select>
+        <div class="field req"><label>Status</label>
+          <input placeholder="Released" maxlength="20">
+          <span class="hint">Free-text status. Convention: Released / Pre-release / Rolled back.</span>
         </div>
-        <div class="field"><label>Release date</label>
+        <div class="field"><label>Released at</label>
           <input type="date">
         </div>
         <div class="field full"><label>Changelog</label>
           <textarea placeholder="What changed? (markdown supported)"></textarea>
         </div>
-        <div class="field full"><label>Commit / tag</label>
-          <div class="input-group"><span class="addon">git</span><input class="mono" placeholder="a1b2c3d"></div>
+        <div class="field"><label>Workflow run (optional)</label>
+          <input type="number" placeholder="1284">
+          <span class="hint">The run that produced this release.</span>
         </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Promotion</h3>
-      <div class="form-grid cols-1">
-        <label class="choice"><input type="checkbox" checked> Promote to staging immediately</label>
-        <label class="choice"><input type="checkbox"> Schedule production promotion</label>
-        <label class="choice"><input type="checkbox"> Notify subscribers of the API</label>
+        <div class="field full"><label>Metadata (JSON)</label>
+          <textarea class="mono" rows="4" placeholder='{ "commit_sha": "a1b2c3d", "git_tag": "payments/v2.15.0" }'></textarea>
+        </div>
       </div>
     </div>
   </div>

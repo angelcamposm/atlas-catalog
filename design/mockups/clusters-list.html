@@ -97,46 +97,47 @@
       <h3>Identity</h3>
       <div class="form-grid">
         <div class="field req full"><label>Name</label><input placeholder="prod-eu-west-2"></div>
+        <div class="field"><label>Display name</label><input placeholder="Production · Europe West 2"></div>
+        <div class="field full"><label>Description</label><textarea placeholder="Where is this cluster and what does it host?"></textarea></div>
         <div class="field"><label>Type</label>
           <select><option>EKS</option><option>GKE</option><option>AKS</option><option>On-prem</option><option>OpenShift</option></select>
         </div>
-        <div class="field"><label>Environment</label>
-          <select><option>production</option><option>staging</option><option>dev</option></select>
+        <div class="field"><label>Infrastructure</label>
+          <select><option>cloud</option><option>private-cloud</option><option>public-cloud</option><option>hybrid-cloud</option><option>on-premise</option></select>
         </div>
-        <div class="field req"><label>Region</label>
-          <select><option>eu-west-1</option><option>eu-west-2</option><option>us-east-1</option><option>us-east-2</option><option>eu-central-1</option></select>
+        <div class="field"><label>Lifecycle</label>
+          <select><option>Production</option><option>Beta</option><option>Experimental</option><option>Deprecated</option></select>
         </div>
-        <div class="field"><label>Kubernetes version</label>
-          <select><option>v1.32</option><option>v1.31</option><option>v1.30</option></select>
+        <div class="field"><label>Version</label>
+          <input class="mono" placeholder="v1.31">
         </div>
-        <div class="field full"><label>Description</label><textarea placeholder="Where is this cluster and what does it host?"></textarea></div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Capacity &amp; ownership</h3>
-      <div class="form-grid">
-        <div class="field"><label>Node count</label>
-          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">nodes</span></div>
+        <div class="field"><label>Full version</label>
+          <input class="mono" placeholder="v1.31.4-eks-a1b2c3d">
         </div>
-        <div class="field"><label>CPU budget</label>
-          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">vCPU</span></div>
+        <div class="field"><label>Timezone</label>
+          <input class="mono" placeholder="Europe/Madrid">
         </div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-platform</option><option>team-payments</option><option>team-commerce</option></select>
+        <div class="field full"><label>Cluster UUID</label>
+          <input class="mono" placeholder="a1b2c3d4-e5f6-7890-abcd-ef1234567890">
         </div>
-        <div class="field"><label>Visibility</label>
-          <select><option>Internal</option><option>Restricted</option></select>
+        <div class="field full"><label>URL (console)</label>
+          <input type="url" placeholder="https://acme.eks.eu-west-1.console.aws">
+        </div>
+        <div class="field full"><label>API URL</label>
+          <input type="url" placeholder="https://api.eks.eu-west-1.acme.dev">
         </div>
       </div>
     </div>
     <div class="form-section">
-      <h3>Connection</h3>
+      <h3>Licensing</h3>
       <div class="form-grid">
-        <div class="field full"><label>API server URL</label>
-          <div class="input-group"><span class="addon">https://</span><input class="mono" placeholder="api.cluster.acme.dev"></div>
+        <label class="choice full"><input type="checkbox"> Has licensing</label>
+        <div class="field full"><label>Licensing model</label>
+          <select><option>None</option><option>OpenShift</option></select>
+          <span class="hint">Only relevant when 'Has licensing' is checked (e.g. OpenShift).</span>
         </div>
-        <div class="field full"><label>Kubeconfig (secret)</label>
-          <div class="input-group"><input type="password" placeholder="Paste or upload"><button class="ig-btn"><span class="mi">visibility</span></button></div>
+        <div class="field full"><label>Tags (JSON array)</label>
+          <textarea class="mono" rows="3" placeholder='["production", "eks", "eu-west-1"]'></textarea>
         </div>
       </div>
     </div>

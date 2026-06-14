@@ -133,54 +133,18 @@
       <h3>Identity</h3>
       <div class="form-grid">
         <div class="field req full"><label>Name</label><input placeholder="payments-primary-db"></div>
-        <div class="field"><label>Type</label>
+        <div class="field"><label>Category</label>
           <select><option>Database</option><option>Bucket</option><option>Queue</option><option>Topic</option><option>Cache</option><option>Secret</option></select>
         </div>
-        <div class="field"><label>Environment</label>
-          <select><option>production</option><option>staging</option><option>dev</option></select>
-        </div>
-        <div class="field req full"><label>Connection string</label>
-          <div class="input-group"><input class="mono" placeholder="postgres://host:5432/db"><span class="addon suffix">TLS</span></div>
-        </div>
       </div>
     </div>
-    <div class="form-section">
-      <h3>Provenance</h3>
-      <div class="form-grid">
-        <div class="field"><label>Provider</label>
-          <select><option>AWS · RDS</option><option>AWS · S3</option><option>AWS · SQS</option><option>AWS · SNS</option><option>GCP · BigQuery</option><option>GCP · GCS</option><option>On-prem · Vault</option></select>
-        </div>
-        <div class="field"><label>Region</label>
-          <select><option>eu-west-1</option><option>us-east-1</option><option>eu-central-1</option><option>us-central1</option></select>
-        </div>
-        <div class="field"><label>System</label>
-          <select><option>payments-platform</option><option>storefront</option><option>identity</option><option>analytics</option></select>
-        </div>
-        <div class="field"><label>Owner</label>
-          <select><option>team-payments</option><option>team-commerce</option><option>team-core</option><option>team-data</option></select>
-        </div>
-        <div class="field full"><label>Tags</label>
-          <div class="multiselect">
-            <span class="ms-tag">pci-dss<span class="mi">close</span></span>
-            <input class="ms-input" placeholder="Add tag…">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Compliance</h3>
-      <div class="form-grid cols-1">
-        <label class="choice"><input type="checkbox" checked> Encrypt at rest</label>
-        <label class="choice"><input type="checkbox" checked> Encrypted in transit (TLS)</label>
-        <label class="choice"><input type="checkbox"> Backed up daily</label>
-        <label class="choice"><input type="checkbox"> Public access disabled</label>
-      </div>
-    </div>
+    <p style="font-size:12.5px; color:var(--text-muted); padding:0 var(--sp-md) var(--sp-md); line-height:1.6;">
+      The Resource model is deliberately minimal: only <span class="mono">name</span> + <span class="mono">category_id</span>. Connection, provider, region, system, environment, owner, tags and compliance live on the owning component/system. Add a <a href="links-list.html">link</a> to attach docs, runbooks and dashboards.
+    </p>
   </div>
   <div class="drawer-foot">
     <button class="btn btn-ghost" data-drawer-close>Cancel</button>
     <span class="spacer"></span>
-    <button class="btn btn-outline">Save as draft</button>
     <button class="btn btn-primary"><span class="mi">check</span> Create resource</button>
   </div>
 </aside>
