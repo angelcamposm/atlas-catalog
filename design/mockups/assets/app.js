@@ -43,9 +43,14 @@ const NAV = [
     { id: 'ci-servers', ico: 'memory', text: 'CI Servers', href: 'ci-servers-list.html' },
   ]},
   { label: 'Governance', items: [
-    { id: 'compliance', ico: 'verified', text: 'Compliance', href: 'compliance.html' },
-    { id: 'security', ico: 'shield', text: 'Security', href: 'security.html' },
+    { id: 'compliance', ico: 'verified', text: 'Compliance', href: 'compliance-requirements-list.html' },
     { id: 'metrics', ico: 'monitoring', text: 'Metrics', href: 'metrics.html' },
+  ]},
+  { label: 'Security', items: [
+    { id: 'security', ico: 'shield', text: 'Overview', href: 'security.html' },
+    { id: 'service-accounts', ico: 'manage_accounts', text: 'Service accounts', href: 'service-accounts-list.html', count: 18 },
+    { id: 'credentials', ico: 'key', text: 'Credentials', href: 'credentials-list.html', count: 22 },
+    { id: 'webhooks', ico: 'webhook', text: 'Webhooks', href: 'webhooks.html' },
   ]},
   { label: 'Organization', items: [
     { id: 'groups', ico: 'groups', text: 'Groups', href: 'groups-list.html' },

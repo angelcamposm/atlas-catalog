@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Card data at rest must be encrypted · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="compliance">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs"><a href="compliance-requirements-list.html">Compliance</a> / <b>Card data at rest must be encrypted</b></div>
+    <h1 style="display:flex;align-items:center;gap:12px;">Card data at rest must be encrypted
+      <span class="badge badge-indigo">PCI-DSS 4.0</span>
+      <span class="badge badge-green">Enabled</span>
+    </h1>
+    <div class="sub">PCI-DSS 3.4 / 4.0 §3.5 · Encrypted at rest compliance check.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Overview</a>
+  <a class="tab">Controls (2)</a>
+  <a class="tab">Evaluated entities</a>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Standard</span><span class="value" style="font-size:18px">PCI-DSS 4.0</span></div>
+  <div class="card stat"><span class="label">Controls</span><span class="value" style="font-size:24px">2</span></div>
+  <div class="card stat"><span class="label">Passing</span><span class="value" style="font-size:24px;color:var(--color-accent)">100%</span></div>
+  <div class="card stat"><span class="label">Enabled</span><span class="value" style="font-size:24px;color:var(--color-accent)">Yes</span></div>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr 320px;">
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>Controls</h3></div>
+      <table class="table">
+        <thead><tr><th>ID</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-main mono">3.4</td><td>PAN must be unreadable when stored</td></tr>
+          <tr><td class="cell-main mono">3.5</td><td>Cryptographic keys must be managed</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Evaluated entities</h3></div>
+      <table class="table">
+        <thead><tr><th>Type</th><th>Entity</th><th>Result</th><th>Evaluated</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-blue">Resource</span></td><td class="cell-main"><a href="resource-detail.html">payments-primary-db</a></td><td><span class="badge badge-green">Pass</span></td><td class="mono">2h ago</td></tr>
+          <tr><td><span class="badge badge-blue">Resource</span></td><td class="cell-main"><a href="resource-detail.html">identity-secrets</a></td><td><span class="badge badge-green">Pass</span></td><td class="mono">2h ago</td></tr>
+          <tr><td><span class="badge badge-blue">Resource</span></td><td class="cell-main"><a href="resource-detail.html">billing-queue</a></td><td><span class="badge badge-amber">N/A</span></td><td class="mono">2h ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Details</h3>
+      <dl class="kv">
+        <dt>Name</dt><dd>Card data at rest must be encrypted</dd>
+        <dt>Description</dt><dd>Cardholder data must be encrypted at rest using AES-256 or stronger, with keys rotated at least annually.</dd>
+        <dt>Standard</dt><dd><span class="badge badge-indigo">PCI-DSS 4.0</span></dd>
+        <dt>Enabled</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Created</dt><dd class="mono">2023-04-12</dd>
+        <dt>Updated</dt><dd class="mono">2026-03-15</dd>
+      </dl>
+    </div>
+
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Controls (JSON)</h3>
+      <pre style="font-family:var(--font-mono); font-size:11.5px; line-height:1.55; background:var(--muted); padding:10px; border-radius:8px; overflow:auto;"><span class="tok-p">[</span>
+  <span class="tok-p">{</span>
+    <span class="tok-a">"id"</span><span class="tok-p">:</span> <span class="tok-s">"3.4"</span><span class="tok-p">,</span>
+    <span class="tok-a">"description"</span><span class="tok-p">:</span> <span class="tok-s">"PAN must be unreadable when stored"</span>
+  <span class="tok-p">},</span>
+  <span class="tok-p">{</span>
+    <span class="tok-a">"id"</span><span class="tok-p">:</span> <span class="tok-s">"3.5"</span><span class="tok-p">,</span>
+    <span class="tok-a">"description"</span><span class="tok-p">:</span> <span class="tok-s">"Cryptographic keys must be managed"</span>
+  <span class="tok-p">}</span>
+<span class="tok-p">]</span></pre>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

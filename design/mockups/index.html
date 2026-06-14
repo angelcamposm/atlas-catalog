@@ -97,15 +97,29 @@
   <a class="card" href="releases-list.html"><span class="t"><span class="mi">new_releases</span> Releases — Create / Edit</span><span class="d">Version, changelog and promotion rules.</span></a>
   <a class="card" href="workflows-list.html"><span class="t"><span class="mi">account_tree</span> Workflows — Create / Edit</span><span class="d">Triggers, pipeline YAML and notifications.</span></a>
   <a class="card" href="ci-servers-list.html"><span class="t"><span class="mi">memory</span> CI Servers — Create / Edit</span><span class="d">Type, URL, API token and ownership.</span></a>
-  <a class="card" href="groups-list.html"><span class="t"><span class="mi">groups</span> Groups — Create / Edit</span><span class="d">Members, source, default role and permissions.</span></a>
-  <a class="card" href="users-list.html"><span class="t"><span class="mi">person</span> Users — Invite / Edit</span><span class="d">Email, role, groups and invitation policy.</span></a>
+  <a class="card" href="groups-list.html"><span class="t"><span class="mi">groups</span> Groups — Create / Edit</span><span class="d">Name, type, email, icon, label, parent.</span></a>
+  <a class="card" href="users-list.html"><span class="t"><span class="mi">person</span> Users — Create</span><span class="d">Name, email, password. Role/groups come from relations.</span></a>
+  <a class="card" href="service-accounts-list.html"><span class="t"><span class="mi">manage_accounts</span> Service accounts — Create</span><span class="d">Name, description, owner, metadata, is_enabled.</span></a>
+  <a class="card" href="credentials-list.html"><span class="t"><span class="mi">key</span> Credentials — Create</span><span class="d">Name, type, owner, username, secret (write-only).</span></a>
+  <a class="card" href="compliance-requirements-list.html"><span class="t"><span class="mi">verified</span> Compliance requirements — Create</span><span class="d">Name, standard, controls (JSON), is_enabled.</span></a>
+</div>
+
+<h2>Security &amp; webhooks</h2>
+<p style="font-size:13.5px; color:var(--text-muted); line-height:1.8; margin-bottom:var(--sp-md);">
+  Service accounts hold tokens, credentials hold the secret material that tokens reference,
+  and webhooks let CI servers push events into the catalog.
+</p>
+<div class="idx">
+  <a class="card" href="security.html"><span class="t"><span class="mi">shield</span> Security overview</span><span class="d">KPIs (service accounts, active tokens, expiring) + tabs for accounts / tokens / auth methods.</span></a>
+  <a class="card" href="webhooks.html"><span class="t"><span class="mi">webhook</span> Webhooks</span><span class="d">Inbound endpoints (deployments, workflow runs, CI sync) with sample payloads.</span></a>
 </div>
 
 <h2>Status</h2>
 <p style="font-size:13.5px; color:var(--text-muted); line-height:1.8;">
-  All app screens are mocked: 17 list pages, 16 detail pages, 18 Create/Edit drawers, plus
-  dashboard, login, design system, compliance, security, metrics and settings.<br>
-  <b>See <a href="CONTINUE.md">CONTINUE.md</a> for the exact rules, templates and checklist used to build them.</b>
+  17 list pages, 18 detail pages, 18 Create/Edit drawers, plus dashboard, login, design
+  system, security overview, metrics, webhooks and settings.<br>
+  Every page is aligned with the Laravel API — see <a href="BACKEND_VS_MOCKUPS.md">BACKEND_VS_MOCKUPS.md</a>
+  for the field-by-field mapping. The build rules live in <a href="CONTINUE.md">CONTINUE.md</a>.
 </p>
 
 </body>

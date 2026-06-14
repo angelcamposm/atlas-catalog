@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Webhooks · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="webhooks">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Security / <b>Webhooks</b></div>
+    <h1>Webhooks</h1>
+    <div class="sub">External systems push events to the catalog. The catalog uses them to ingest CI runs and deployments.</div>
+  </div>
+</div>
+
+<div class="grid cols-3">
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark c-blue"><span class="mi">rocket_launch</span></div>
+      <div><div class="cell-main" style="font-size:15px">Deployment events</div><div class="cell-sub mono">POST /api/v1/webhooks/deployments</div></div>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+      Called by CI servers after a deployment finishes. Creates or updates a <a href="deployments-list.html">Deployment</a> record with the immutable snapshot (component, release, environment, cluster, commit, image digest, status).
+    </p>
+    <div class="code-block terminal">
+<pre><code><span class="prompt">$</span> curl -X POST {catalog}/api/v1/webhooks/deployments \
+    -H "Authorization: Bearer cat_pat_..." \
+    -H "X-Webhook-Signature: sha256=..." \
+    -d '{
+      "component": "payments-service",
+      "environment": "production",
+      "cluster": "prod-eu-west-1",
+      "release": "v2.14.0",
+      "version": "v2.14.0",
+      "commit_hash": "a3f9c21",
+      "docker_image_digest": "sha256:9f8e7d...",
+      "workflow_run_id": 1284,
+      "triggered_by": "m.ramos",
+      "status": "success",
+      "started_at": "2026-06-14T06:42:11Z",
+      "ended_at": "2026-06-14T06:45:59Z",
+      "duration_milliseconds": 228000,
+      "meta": { "replicas": 6, "namespace": "payments" }
+    }'</code></pre>
+    </div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark c-emerald"><span class="mi">account_tree</span></div>
+      <div><div class="cell-main" style="font-size:15px">Workflow run events</div><div class="cell-sub mono">POST /api/v1/ci-cd/workflows/runs</div></div>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+      Called by CI servers to register a new <a href="workflow-run-detail.html">WorkflowRun</a> (result, duration, started_at, commit). The catalog also stores a <span class="mono">WorkflowRunCommit</span> with the SHA, author, branch and message.
+    </p>
+    <div class="code-block terminal">
+<pre><code><span class="prompt">$</span> curl -X POST {catalog}/api/v1/ci-cd/workflows/runs \
+    -H "Authorization: Bearer cat_pat_..." \
+    -d '{
+      "workflow_job_id": 7,
+      "display_name": "Deploy payments-service to production",
+      "description": "Promote the v2.14.0 build",
+      "result": "SUCCESS",
+      "duration_milliseconds": 228000,
+      "started_at": "2026-06-14T06:42:11Z",
+      "started_by": "m.ramos",
+      "url": "https://github.com/.../runs/1284",
+      "is_enabled": true,
+      "commit": {
+        "sha": "a3f9c21",
+        "message": "feat(payments): idempotent payouts",
+        "author_name": "Marta R.",
+        "author_email": "marta.r@acme.dev",
+        "branch": "main",
+        "committed_at": "2026-06-14T06:24:00Z"
+      }
+    }'</code></pre>
+    </div>
+  </div>
+
+  <div class="card card-pad" style="display:flex; flex-direction:column; gap:14px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <div class="brand-mark c-violet"><span class="mi">memory</span></div>
+      <div><div class="cell-main" style="font-size:15px">CI server sync</div><div class="cell-sub mono">POST /api/v1/ci-cd/servers/{id}/sync</div></div>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+      Triggers a re-sync of a <a href="ci-server-detail.html">CI server</a>: re-reads the list of workflow jobs, updates <span class="mono">last_synced_at</span>, refreshes the counts on the server detail page.
+    </p>
+    <div class="code-block terminal">
+<pre><code><span class="prompt">$</span> curl -X POST {catalog}/api/v1/ci-cd/servers/1/sync \
+    -H "Authorization: Bearer cat_pat_..."
+
+<span class="tok-c"># Response: 202 Accepted</span>
+<span class="tok-c"># { "queued_at": "2026-06-14T06:42:11Z" }</span></code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-head"><h3>Recent deliveries</h3></div>
+  <table class="table">
+    <thead><tr><th>When</th><th>Source</th><th>Endpoint</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">3m ago</td><td class="mono">acme-gh-prod</td><td class="mono">/webhooks/deployments</td><td><span class="badge badge-green">201</span></td><td class="mono">deployment #4821</td></tr>
+      <tr><td class="mono">8m ago</td><td class="mono">acme-gh-prod</td><td class="mono">/workflows/runs</td><td><span class="badge badge-green">201</span></td><td class="mono">run #1284</td></tr>
+      <tr><td class="mono">1h ago</td><td class="mono">acme-gh-prod</td><td class="mono">/webhooks/deployments</td><td><span class="badge badge-green">201</span></td><td class="mono">deployment #4820</td></tr>
+      <tr><td class="mono">4h ago</td><td class="mono">legacy-jenkins</td><td class="mono">/webhooks/deployments</td><td><span class="badge badge-red">422</span></td><td class="mono">missing component_id</td></tr>
+      <tr><td class="mono">6h ago</td><td class="mono">acme-gh-prod</td><td class="mono">/workflows/runs</td><td><span class="badge badge-red">401</span></td><td class="mono">invalid signature</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

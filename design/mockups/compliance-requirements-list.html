@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Compliance requirements · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="compliance">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">Governance / <b>Compliance</b></div>
+    <h1>Compliance requirements</h1>
+    <div class="sub">Concrete controls derived from compliance standards. Each requirement is checked against the catalog entities.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-primary" data-drawer-trigger="form-requirement">+ New requirement</button>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter requirements…">
+  <select class="select"><option>Standard: All</option><option>PCI-DSS</option><option>SOC 2</option><option>ISO 27001</option><option>GDPR</option></select>
+  <select class="select"><option>Status: All</option><option>Enabled</option><option>Disabled</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Name</th><th>Standard</th><th>Controls</th><th>Compliance</th><th>Enabled</th><th></th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="compliance-requirement-detail.html">Card data at rest must be encrypted</a></div><div class="cell-sub">PCI-DSS 3.4 / 4.0 §3.5</div></td>
+        <td><span class="badge badge-indigo">PCI-DSS 4.0</span></td>
+        <td class="mono">2</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="compliance-requirement-detail.html">Production access requires MFA</a></div><div class="cell-sub">SOC 2 CC6.1 / ISO 27001 A.9.4</div></td>
+        <td><span class="badge badge-blue">SOC 2</span></td>
+        <td class="mono">3</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i></i></div></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="compliance-requirement-detail.html">PII must have a deletion procedure</a></div><div class="cell-sub">GDPR Art. 17</div></td>
+        <td><span class="badge badge-amber">GDPR</span></td>
+        <td class="mono">1</td>
+        <td><div class="health-bar"><i></i><i></i><i class="warn"></i><i></i><i></i></div></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="compliance-requirement-detail.html">All secrets must be rotated every 90 days</a></div><div class="cell-sub">ISO 27001 A.10.1</div></td>
+        <td><span class="badge badge-blue">ISO 27001</span></td>
+        <td class="mono">1</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="compliance-requirement-detail.html">All APIs must have an owner group</a></div><div class="cell-sub">Internal policy</div></td>
+        <td><span class="badge badge-gray">Internal</span></td>
+        <td class="mono">1</td>
+        <td><div class="health-bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></td>
+        <td><span class="badge badge-amber">No</span></td>
+        <td><button class="btn btn-ghost"><span class="mi">more_horiz</span></button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">Showing 1–5 of 24</div>
+</div>
+
+<aside class="drawer" id="form-requirement">
+  <div class="drawer-head">
+    <div class="drawer-title">
+      <div class="breadcrumbs">Governance / Compliance / <b>New</b></div>
+      <h2>New requirement</h2>
+    </div>
+    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
+  </div>
+  <div class="drawer-body">
+    <div class="form-section">
+      <h3>Identity</h3>
+      <div class="form-grid">
+        <div class="field req full"><label>Name</label><input placeholder="Card data at rest must be encrypted"></div>
+        <div class="field req"><label>Standard</label>
+          <select><option>PCI-DSS 4.0</option><option>PCI-DSS 3.2</option><option>SOC 2</option><option>ISO 27001</option><option>GDPR</option><option>HIPAA</option><option>Internal</option></select>
+        </div>
+        <div class="field full"><label>Description</label><textarea placeholder="What does this requirement assert?"></textarea></div>
+        <div class="field full"><label>Controls (JSON)</label>
+          <textarea class="mono" rows="5" placeholder='[
+  { "id": "3.4", "description": "PAN must be unreadable when stored" },
+  { "id": "3.5", "description": "Cryptographic keys must be managed" }
+]'></textarea>
+        </div>
+        <div class="form-grid cols-1" style="grid-column: 1 / -1;">
+          <label class="choice"><input type="checkbox" checked> Is enabled</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
+    <span class="spacer"></span>
+    <button class="btn btn-primary"><span class="mi">check</span> Create requirement</button>
+  </div>
+</aside>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
