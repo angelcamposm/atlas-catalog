@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workflow runs · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="workflows">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs">CI / CD / <b>Workflow runs</b></div>
+    <h1>Workflow runs</h1>
+    <div class="sub">Every execution of every workflow job across CI servers.</div>
+  </div>
+  <div class="actions"></div>
+</div>
+
+<div class="toolbar">
+  <input class="input" placeholder="Filter by name, component, CI server, started by…">
+  <select class="select"><option>Job: All</option></select>
+  <select class="select"><option>CI Server: All</option><option>GitHub Actions</option><option>GitLab CI</option><option>Jenkins</option></select>
+  <select class="select"><option>Result: All</option><option>Success</option><option>Failure</option><option>Aborted</option><option>Unstable</option><option>Not built</option></select>
+  <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Run</th><th>Workflow job</th><th>Component</th><th>CI server</th><th>Result</th><th>Duration</th><th>Started by</th><th>Started</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><div class="cell-main"><a href="workflow-run-detail.html">#1284</a></div><div class="cell-sub mono">deploy-production</div></td>
+        <td><a href="workflow-detail.html">build-test-deploy</a></td>
+        <td><a href="component-detail.html">payments-service</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-green">Success</span></td>
+        <td class="mono">3m 48s</td>
+        <td>m.ramos</td>
+        <td class="mono">8m ago</td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="workflow-run-detail.html">#1283</a></div><div class="cell-sub mono">build-and-test</div></td>
+        <td><a href="workflow-detail.html">build-test-deploy</a></td>
+        <td><a href="component-detail.html">payments-service</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-green">Success</span></td>
+        <td class="mono">3m 52s</td>
+        <td>m.ramos</td>
+        <td class="mono">2h ago</td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="workflow-run-detail.html">#1282</a></div><div class="cell-sub mono">deploy-production</div></td>
+        <td><a href="workflow-detail.html">build-test-deploy</a></td>
+        <td><a href="component-detail.html">payments-service</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-red">Failure</span></td>
+        <td class="mono">1m 12s</td>
+        <td>d.romero</td>
+        <td class="mono">4h ago</td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="workflow-run-detail.html">#1281</a></div><div class="cell-sub mono">container-scan</div></td>
+        <td><a href="#">container-scan</a></td>
+        <td><a href="component-detail.html">notifications-worker</a></td>
+        <td><a href="#">legacy-jenkins</a></td>
+        <td><span class="badge badge-amber">Unstable</span></td>
+        <td class="mono">1m 57s</td>
+        <td>p.diaz</td>
+        <td class="mono">just now</td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="workflow-run-detail.html">#1280</a></div><div class="cell-sub mono">nightly-e2e</div></td>
+        <td><a href="#">nightly-e2e</a></td>
+        <td><a href="component-detail.html">orders-service</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-red">Failure</span></td>
+        <td class="mono">11m 02s</td>
+        <td>schedule</td>
+        <td class="mono">6h ago</td>
+      </tr>
+      <tr>
+        <td><div class="cell-main"><a href="workflow-run-detail.html">#1279</a></div><div class="cell-sub mono">lint-and-unit</div></td>
+        <td><a href="#">lint-and-unit</a></td>
+        <td><a href="component-detail.html">search-indexer</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-green">Success</span></td>
+        <td class="mono">52s</td>
+        <td>t.novak</td>
+        <td class="mono">3h ago</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination">
+    Showing 1–25 of 1,438
+    <div style="margin-left:auto; display:flex; gap:6px;">
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">58</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

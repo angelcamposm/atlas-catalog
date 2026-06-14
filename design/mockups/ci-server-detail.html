@@ -11,58 +11,56 @@
   <div>
     <div class="breadcrumbs"><a href="ci-servers-list.html">CI Servers</a> / <b>acme-gh-prod</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">acme-gh-prod
-      <span class="badge badge-green">Healthy</span>
-      <span class="badge badge-blue">GitHub Actions</span>
+      <span class="badge badge-green">Enabled</span>
+      <span class="badge badge-blue">github</span>
     </h1>
-    <div class="sub">Hosted runners for the acme GitHub organisation. Powers 128 workflows across the catalog.</div>
+    <div class="sub">GitHub Actions server for the acme org. Powers 128 workflow jobs.</div>
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">play_arrow</span> Test connection</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">lock</span> Rotate token</button>
+    <button class="btn btn-primary"><span class="mi">refresh</span> Resync</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Workflows (128)</a>
-  <a class="tab">Runners</a>
+  <a class="tab">Workflow jobs (128)</a>
+  <a class="tab">Connection</a>
   <a class="tab">Activity</a>
-  <a class="tab">Settings</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Workflows</span><span class="value" style="font-size:24px">128</span></div>
-  <div class="card stat"><span class="label">Runs / day</span><span class="value" style="font-size:24px">942</span></div>
-  <div class="card stat"><span class="label">Success rate</span><span class="value" style="font-size:24px;color:var(--color-accent)">96.2%</span></div>
-  <div class="card stat"><span class="label">Avg duration</span><span class="value" style="font-size:24px">4m 12s</span></div>
+  <div class="card stat"><span class="label">Workflow jobs</span><span class="value" style="font-size:24px">128</span></div>
+  <div class="card stat"><span class="label">Enabled</span><span class="value" style="font-size:24px;color:var(--color-accent)">Yes</span></div>
+  <div class="card stat"><span class="label">Credential</span><span class="value" style="font-size:18px">gh-pat-…</span></div>
+  <div class="card stat"><span class="label">Last synced</span><span class="value" style="font-size:18px">3m ago</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card">
-      <div class="card-head"><h3>Workflows</h3><a href="workflows-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
+      <div class="card-head"><h3>Workflow jobs</h3></div>
       <table class="table">
-        <thead><tr><th>Workflow</th><th>Component</th><th>Last run</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Component</th><th>Source</th><th>Enabled</th><th>Last synced</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main"><a href="workflow-detail.html">build-test-deploy</a></td><td><a href="component-detail.html">payments-service</a></td><td class="mono">8m ago</td><td><span class="badge badge-green">Success</span></td></tr>
-          <tr><td class="cell-main"><a href="#">lint-and-unit</a></td><td><a href="component-detail.html">orders-service</a></td><td class="mono">14m ago</td><td><span class="badge badge-green">Success</span></td></tr>
-          <tr><td class="cell-main"><a href="#">nightly-e2e</a></td><td><a href="component-detail.html">orders-service</a></td><td class="mono">6h ago</td><td><span class="badge badge-red">Failed</span></td></tr>
-          <tr><td class="cell-main"><a href="#">container-scan</a></td><td><a href="component-detail.html">catalog-web</a></td><td class="mono">22m ago</td><td><span class="badge badge-green">Success</span></td></tr>
-          <tr><td class="cell-main"><a href="#">docs-build</a></td><td><a href="component-detail.html">catalog-web</a></td><td class="mono">1h ago</td><td><span class="badge badge-green">Success</span></td></tr>
+          <tr><td class="cell-main"><a href="workflow-detail.html">build-test-deploy</a></td><td><a href="component-detail.html">payments-service</a></td><td><span class="badge badge-blue">Pipeline</span></td><td><span class="badge badge-green">Yes</span></td><td class="mono">3m ago</td></tr>
+          <tr><td class="cell-main"><a href="#">lint-and-unit</a></td><td><a href="component-detail.html">orders-service</a></td><td><span class="badge badge-blue">Pipeline</span></td><td><span class="badge badge-green">Yes</span></td><td class="mono">8m ago</td></tr>
+          <tr><td class="cell-main"><a href="#">container-scan</a></td><td><a href="component-detail.html">catalog-web</a></td><td><span class="badge badge-blue">Pipeline</span></td><td><span class="badge badge-green">Yes</span></td><td class="mono">22m ago</td></tr>
+          <tr><td class="cell-main"><a href="#">nightly-e2e</a></td><td><a href="component-detail.html">orders-service</a></td><td><span class="badge badge-gray">Manual</span></td><td><span class="badge badge-amber">Disabled</span></td><td class="mono">6h ago</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Recent runs across all workflows</h3></div>
+      <div class="card-head"><h3>Recent activity</h3></div>
       <table class="table">
-        <thead><tr><th>Workflow</th><th>Commit</th><th>Status</th><th>Duration</th><th>When</th></tr></thead>
+        <thead><tr><th>When</th><th>Action</th><th>Detail</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main">build-test-deploy</td><td class="mono">a3f9c21</td><td><span class="badge badge-green">Success</span></td><td class="mono">3m 48s</td><td class="mono">8m ago</td></tr>
-          <tr><td class="cell-main">lint-and-unit</td><td class="mono">6f3a9c1</td><td><span class="badge badge-green">Success</span></td><td class="mono">52s</td><td class="mono">14m ago</td></tr>
-          <tr><td class="cell-main">container-scan</td><td class="mono">2a5c8b1</td><td><span class="badge badge-green">Success</span></td><td class="mono">1m 12s</td><td class="mono">22m ago</td></tr>
-          <tr><td class="cell-main">nightly-e2e</td><td class="mono">88be4d0</td><td><span class="badge badge-red">Failed</span></td><td class="mono">11m 02s</td><td class="mono">6h ago</td></tr>
+          <tr><td class="mono">3m ago</td><td>Sync</td><td>128 jobs read, 2 updated</td></tr>
+          <tr><td class="mono">1h ago</td><td>Sync</td><td>128 jobs read, 0 updated</td></tr>
+          <tr><td class="mono">4h ago</td><td>Job updated</td><td>nightly-e2e disabled</td></tr>
+          <tr><td class="mono">1d ago</td><td>Job added</td><td>docs-build</td></tr>
         </tbody>
       </table>
     </div>
@@ -73,33 +71,28 @@
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
         <dt>Name</dt><dd class="mono">acme-gh-prod</dd>
-        <dt>Type</dt><dd>GitHub Actions</dd>
-        <dt>Environment</dt><dd><span class="badge badge-indigo">production</span></dd>
-        <dt>URL</dt><dd class="mono">github.com/acme</dd>
-        <dt>Status</dt><dd><span class="badge badge-green">Healthy</span></dd>
+        <dt>Slug</dt><dd class="mono">acme-gh-prod</dd>
+        <dt>Display name</dt><dd>Acme · GitHub · Production</dd>
+        <dt>Description</dt><dd>Hosted runners for the acme org</dd>
+        <dt>Driver</dt><dd><span class="badge badge-blue">github</span></dd>
+        <dt>URL</dt><dd class="mono">https://github.com/acme</dd>
         <dt>Owner</dt><dd><a href="group-detail.html">team-platform</a></dd>
-        <dt>Last run</dt><dd class="mono">3m ago</dd>
+        <dt>Enabled</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Credential</dt><dd><a href="credential-detail.html">gh-pat-production</a></dd>
+        <dt>Discovery source</dt><dd><span class="badge badge-blue">Pipeline</span></dd>
+        <dt>Last synced at</dt><dd class="mono">2026-06-14 06:39</dd>
         <dt>Created</dt><dd class="mono">2022-06-30</dd>
+        <dt>Updated</dt><dd class="mono">2026-06-12</dd>
       </dl>
     </div>
 
     <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Connection</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>API token</span><span class="badge badge-green">Valid · 22d left</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>TLS verify</span><span class="badge badge-green">Enabled</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Self-hosted runners</span><span class="badge badge-amber">6 registered</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Webhook</span><span class="badge badge-green">Active</span></div>
-      </div>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Capacity</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Runners</span><span>32 hosted · 6 self-hosted</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Concurrent jobs</span><span>24 / 32</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Queue depth</span><span class="mono">0</span></div>
-      </div>
+      <h3 style="margin-bottom:14px;">Metadata</h3>
+      <pre style="font-family:var(--font-mono); font-size:11.5px; line-height:1.55; background:var(--muted); padding:10px; border-radius:8px; overflow:auto;"><span class="tok-p">{</span>
+  <span class="tok-a">"org"</span><span class="tok-p">:</span> <span class="tok-s">"acme"</span><span class="tok-p">,</span>
+  <span class="tok-a">"enterprise"</span><span class="tok-p">:</span> <span class="tok-s">"acme-corp"</span><span class="tok-p">,</span>
+  <span class="tok-a">"runner_groups"</span><span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-s">"default"</span><span class="tok-p">,</span> <span class="tok-s">"production"</span><span class="tok-p">]</span>
+<span class="tok-p">}</span></pre>
     </div>
   </div>
 </div>

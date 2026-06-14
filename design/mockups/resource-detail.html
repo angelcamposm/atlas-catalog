@@ -11,32 +11,18 @@
   <div>
     <div class="breadcrumbs"><a href="resources-list.html">Resources</a> / <b>payments-primary-db</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">payments-primary-db
-      <span class="badge badge-green">Healthy</span>
       <span class="badge badge-blue">Database</span>
     </h1>
-    <div class="sub">PostgreSQL primary for the payments platform. Owned by <a href="group-detail.html">team-payments</a>.</div>
+    <div class="sub">Cataloged infrastructure resource. See the owning component/system for runtime details.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">monitoring</span> Metrics</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">lock</span> Rotate credentials</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Connections</a>
-  <a class="tab">Schema</a>
-  <a class="tab">Backups</a>
-  <a class="tab">Compliance</a>
-  <a class="tab">Activity</a>
-</div>
-
-<div class="grid cols-4">
-  <div class="card stat"><span class="label">Connections</span><span class="value" style="font-size:24px">128 / 200</span></div>
-  <div class="card stat"><span class="label">Storage used</span><span class="value" style="font-size:24px">412 GiB</span></div>
-  <div class="card stat"><span class="label">Replication lag</span><span class="value" style="font-size:24px;color:var(--color-accent)">12 ms</span></div>
-  <div class="card stat"><span class="label">Last backup</span><span class="value" style="font-size:18px">4h ago</span></div>
+  <a class="tab">Links</a>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -44,38 +30,33 @@
     <div class="card">
       <div class="card-head"><h3>About</h3></div>
       <div class="card-pad">
-        <p style="font-size:14px; line-height:1.65;">Primary PostgreSQL instance backing the payments service. Hosts schemas for accounts, transactions, refunds and payouts. Replicated synchronously to the read replica in us-east-1.</p>
-        <div class="chip-row" style="margin-top:14px;">
-          <span class="badge badge-gray">postgres-16</span>
-          <span class="badge badge-gray">pci-dss</span>
-          <span class="badge badge-gray">tier-1</span>
-          <span class="badge badge-gray">encrypted</span>
-        </div>
+        <p style="font-size:14px; line-height:1.65;">This is a catalog entry. The Atlas Catalog tracks the resource identity (name + category) and links it to the components and systems that depend on it. Runtime details (connection string, backup policy, encryption, schema, consumers) live in the owning system and component records.</p>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Consumers</h3></div>
+      <div class="card-head"><h3>Linked links</h3></div>
       <table class="table">
-        <thead><tr><th>Component</th><th>System</th><th>Access</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Category</th><th>Entity</th><th>URL</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td><a href="#">payments-platform</a></td><td>read-write</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">ledger-worker</a></td><td><a href="#">payments-platform</a></td><td>read-write</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">billing-reporter</a></td><td><a href="#">payments-platform</a></td><td>read-only</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">fraud-scorer</a></td><td><a href="#">payments-platform</a></td><td>read-only</td><td><span class="badge badge-amber">Degraded</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card">
-      <div class="card-head"><h3>Recent access</h3></div>
-      <table class="table">
-        <thead><tr><th>When</th><th>Actor</th><th>Action</th><th>Detail</th></tr></thead>
-        <tbody>
-          <tr><td class="mono">2m ago</td><td>payments-service</td><td>SELECT</td><td class="mono">accounts WHERE id = $1</td></tr>
-          <tr><td class="mono">4m ago</td><td>ledger-worker</td><td>BEGIN</td><td class="mono">txn=4821</td></tr>
-          <tr><td class="mono">11m ago</td><td>fraud-scorer</td><td>TIMEOUT</td><td class="mono">5s on transactions</td></tr>
-          <tr><td class="mono">18m ago</td><td>analytics-export</td><td>COPY</td><td class="mono">2,401 rows · 1.2 MiB</td></tr>
+          <tr>
+            <td class="cell-main"><a href="link-detail.html">payments-primary-db runbook</a></td>
+            <td><span class="badge badge-amber">Runbook</span></td>
+            <td>Resource · payments-primary-db</td>
+            <td class="mono">runbooks.acme.dev/payments-db</td>
+          </tr>
+          <tr>
+            <td class="cell-main"><a href="link-detail.html">payments-primary-db schema</a></td>
+            <td><span class="badge badge-blue">Docs</span></td>
+            <td>Resource · payments-primary-db</td>
+            <td class="mono">docs.acme.dev/payments-db</td>
+          </tr>
+          <tr>
+            <td class="cell-main"><a href="link-detail.html">RDS console</a></td>
+            <td><span class="badge badge-indigo">Dashboard</span></td>
+            <td>Resource · payments-primary-db</td>
+            <td class="mono">console.aws.amazon.com/rds</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -85,39 +66,21 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
-        <dt>Type</dt><dd>Database · PostgreSQL 16.2</dd>
-        <dt>Provider</dt><dd>AWS · RDS</dd>
-        <dt>Region</dt><dd>eu-west-1</dd>
-        <dt>Environment</dt><dd><span class="badge badge-indigo">production</span></dd>
-        <dt>Endpoint</dt><dd class="mono">payments-prod.cluster-eu.rds</dd>
-        <dt>Port</dt><dd class="mono">5432</dd>
-        <dt>Engine version</dt><dd class="mono">16.2.R2</dd>
-        <dt>Instance class</dt><dd class="mono">db.r6g.2xlarge</dd>
-        <dt>Storage</dt><dd class="mono">500 GiB · gp3</dd>
-        <dt>Owner</dt><dd><a href="group-detail.html">team-payments</a></dd>
+        <dt>Name</dt><dd class="mono">payments-primary-db</dd>
+        <dt>Slug</dt><dd class="mono">payments-primary-db</dd>
+        <dt>Category</dt><dd><span class="badge badge-blue">Database</span></dd>
         <dt>Created</dt><dd class="mono">2022-11-04</dd>
+        <dt>Updated</dt><dd class="mono">2026-04-18</dd>
       </dl>
     </div>
 
     <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Compliance</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Encrypt at rest</span><span class="badge badge-green">KMS · acme-payments</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Encrypt in transit</span><span class="badge badge-green">TLS 1.3</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Public access</span><span class="badge badge-green">Disabled</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Automated backups</span><span class="badge badge-green">35d retention</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>PCI-DSS scope</span><span class="badge badge-amber">In scope</span></div>
-      </div>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Links</h3>
-      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <a href="#"><span class="mi">monitoring</span> RDS console</a>
-        <a href="#"><span class="mi">monitoring</span> CloudWatch dashboards</a>
-        <a href="#"><span class="mi">content_copy</span> Connection runbook</a>
-        <a href="#"><span class="mi">content_copy</span> Schema migration guide</a>
-      </div>
+      <h3 style="margin-bottom:14px;">What the backend stores</h3>
+      <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+        The Resource model only persists <span class="mono">name</span> and <span class="mono">category_id</span>.
+        Everything else (provider, region, connection, compliance, schema) belongs to the
+        owning component or system. Use the links panel to navigate to those records.
+      </p>
     </div>
   </div>
 </div>

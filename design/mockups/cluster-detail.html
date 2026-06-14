@@ -12,32 +12,30 @@
     <div class="breadcrumbs"><a href="clusters-list.html">Clusters</a> / <b>prod-eu-west-1</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">prod-eu-west-1
       <span class="badge badge-green">Healthy</span>
-      <span class="badge badge-indigo">production</span>
       <span class="badge badge-gray">EKS</span>
+      <span class="badge badge-indigo">cloud</span>
     </h1>
-    <div class="sub">EKS production cluster in eu-west-1 (Ireland). Owned by <a href="group-detail.html">team-platform</a>.</div>
+    <div class="sub">EKS managed cluster. Kubernetes <span class="mono">v1.31.4</span> in <span class="mono">Europe/Madrid</span>.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">monitoring</span> Grafana</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">rocket_launch</span> Drain node</button>
+    <button class="btn btn-outline"><span class="mi">refresh</span> Resync</button>
+    <button class="btn btn-primary"><span class="mi">add</span> Register node</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
   <a class="tab">Nodes</a>
-  <a class="tab">Workloads</a>
-  <a class="tab">Namespaces</a>
-  <a class="tab">Access</a>
+  <a class="tab">Service accounts</a>
   <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Nodes</span><span class="value" style="font-size:24px">42 / 42</span></div>
-  <div class="card stat"><span class="label">Pods</span><span class="value" style="font-size:24px">618</span></div>
-  <div class="card stat"><span class="label">CPU</span><span class="value" style="font-size:24px">64%</span></div>
-  <div class="card stat"><span class="label">Memory</span><span class="value" style="font-size:24px">71%</span></div>
+  <div class="card stat"><span class="label">Nodes</span><span class="value" style="font-size:24px">42</span></div>
+  <div class="card stat"><span class="label">Service accounts</span><span class="value" style="font-size:24px">18</span></div>
+  <div class="card stat"><span class="label">Lifecycle</span><span class="value" style="font-size:18px">Production</span></div>
+  <div class="card stat"><span class="label">Last seen</span><span class="value" style="font-size:18px">just now</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -45,39 +43,39 @@
     <div class="card">
       <div class="card-head"><h3>Nodes</h3><a href="nodes-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
       <table class="table">
-        <thead><tr><th>Node</th><th>Role</th><th>vCPU</th><th>Mem</th><th>Pods</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Hostname</th><th>IP</th><th>Type</th><th>Architecture</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main mono">ip-10-0-12-47.eu-west-1</td><td>worker</td><td class="mono">8</td><td class="mono">32 GiB</td><td class="mono">18 / 58</td><td><span class="badge badge-green">Ready</span></td></tr>
-          <tr><td class="cell-main mono">ip-10-0-14-09.eu-west-1</td><td>worker</td><td class="mono">8</td><td class="mono">32 GiB</td><td class="mono">21 / 58</td><td><span class="badge badge-green">Ready</span></td></tr>
-          <tr><td class="cell-main mono">ip-10-0-16-22.eu-west-1</td><td>worker</td><td class="mono">16</td><td class="mono">64 GiB</td><td class="mono">14 / 58</td><td><span class="badge badge-green">Ready</span></td></tr>
-          <tr><td class="cell-main mono">ip-10-0-18-04.eu-west-1</td><td>worker</td><td class="mono">8</td><td class="mono">32 GiB</td><td class="mono">33 / 58</td><td><span class="badge badge-amber">Degraded</span></td></tr>
-          <tr><td class="cell-main mono">ip-10-0-21-13.eu-west-1</td><td>control-plane</td><td class="mono">4</td><td class="mono">8 GiB</td><td class="mono">—</td><td><span class="badge badge-red">NotReady</span></td></tr>
+          <tr><td class="cell-main"><a href="node-detail.html">ip-10-0-12-47.eu-west-1</a></td><td class="mono">ip-10-0-12-47</td><td class="mono">10.0.12.47</td><td>Virtual</td><td>x86-64</td></tr>
+          <tr><td class="cell-main"><a href="node-detail.html">ip-10-0-14-09.eu-west-1</a></td><td class="mono">ip-10-0-14-09</td><td class="mono">10.0.14.09</td><td>Virtual</td><td>x86-64</td></tr>
+          <tr><td class="cell-main"><a href="node-detail.html">ip-10-0-16-22.eu-west-1</a></td><td class="mono">ip-10-0-16-22</td><td class="mono">10.0.16.22</td><td>Virtual</td><td>x86-64</td></tr>
+          <tr><td class="cell-main"><a href="node-detail.html">ip-10-0-18-04.eu-west-1</a></td><td class="mono">ip-10-0-18-04</td><td class="mono">10.0.18.04</td><td>Virtual</td><td>x86-64</td></tr>
+          <tr><td class="cell-main"><a href="node-detail.html">gpu-prod-01</a></td><td class="mono">gpu-prod-01</td><td class="mono">10.0.20.01</td><td>Physical</td><td>x86-64</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Workloads</h3></div>
+      <div class="card-head"><h3>Service accounts</h3></div>
       <table class="table">
-        <thead><tr><th>Workload</th><th>Namespace</th><th>Replicas</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Namespace</th><th>Owner</th><th>Enabled</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td class="mono">payments</td><td class="mono">6 / 6</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">identity-api</a></td><td class="mono">core</td><td class="mono">4 / 5</td><td><span class="badge badge-amber">Degraded</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">orders-service</a></td><td class="mono">commerce</td><td class="mono">8 / 8</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">catalog-web</a></td><td class="mono">platform</td><td class="mono">3 / 3</td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td class="cell-main">payments-sa</td><td class="mono">payments</td><td><a href="group-detail.html">team-payments</a></td><td><span class="badge badge-green">Yes</span></td></tr>
+          <tr><td class="cell-main">ledger-sa</td><td class="mono">payments</td><td><a href="group-detail.html">team-payments</a></td><td><span class="badge badge-green">Yes</span></td></tr>
+          <tr><td class="cell-main">orders-sa</td><td class="mono">commerce</td><td><a href="group-detail.html">team-commerce</a></td><td><span class="badge badge-green">Yes</span></td></tr>
+          <tr><td class="cell-main">catalog-ci</td><td class="mono">platform</td><td><a href="group-detail.html">team-platform</a></td><td><span class="badge badge-green">Yes</span></td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Recent events</h3></div>
+      <div class="card-head"><h3>Recent activity</h3></div>
       <table class="table">
-        <thead><tr><th>When</th><th>Type</th><th>Reason</th><th>Object</th></tr></thead>
+        <thead><tr><th>When</th><th>Action</th><th>Detail</th></tr></thead>
         <tbody>
-          <tr><td class="mono">3m ago</td><td><span class="badge badge-green">Normal</span></td><td>Started</td><td class="mono">payments-service-7d8c</td></tr>
-          <tr><td class="mono">8m ago</td><td><span class="badge badge-amber">Warning</span></td><td>OOMKilled</td><td class="mono">fraud-scorer-3f1a</td></tr>
-          <tr><td class="mono">14m ago</td><td><span class="badge badge-red">Warning</span></td><td>NodeNotReady</td><td class="mono">ip-10-0-21-13.eu-west-1</td></tr>
-          <tr><td class="mono">22m ago</td><td><span class="badge badge-green">Normal</span></td><td>Scaled up</td><td class="mono">orders-service 6 → 8</td></tr>
+          <tr><td class="mono">3m ago</td><td>Heartbeat</td><td>API server reachable</td></tr>
+          <tr><td class="mono">1h ago</td><td>Node joined</td><td class="mono">ip-10-0-22-08</td></tr>
+          <tr><td class="mono">4h ago</td><td>Node left</td><td class="mono">ip-10-0-21-13 (NotReady)</td></tr>
+          <tr><td class="mono">1d ago</td><td>Version updated</td><td>v1.31.3 → v1.31.4</td></tr>
         </tbody>
       </table>
     </div>
@@ -87,36 +85,31 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
-        <dt>Type</dt><dd>EKS (managed)</dd>
-        <dt>Region</dt><dd>eu-west-1 (Ireland)</dd>
-        <dt>Environment</dt><dd><span class="badge badge-indigo">production</span></dd>
-        <dt>Kubernetes</dt><dd class="mono">v1.31.4</dd>
-        <dt>API server</dt><dd class="mono">api.eks.eu-west-1.acme.dev</dd>
-        <dt>CNI</dt><dd class="mono">AWS VPC CNI</dd>
-        <dt>Node count</dt><dd class="mono">42 (3 control-plane)</dd>
-        <dt>Total vCPU</dt><dd class="mono">720 cores</dd>
-        <dt>Total memory</dt><dd class="mono">2.8 TiB</dd>
-        <dt>Owner</dt><dd><a href="group-detail.html">team-platform</a></dd>
+        <dt>Name</dt><dd class="mono">prod-eu-west-1</dd>
+        <dt>Display name</dt><dd>Production · Europe West 1</dd>
+        <dt>Description</dt><dd>Production EKS in eu-west-1 (Ireland)</dd>
+        <dt>Cluster UUID</dt><dd class="mono">a1b2c3d4-e5f6-…</dd>
+        <dt>Type</dt><dd><span class="badge badge-gray">EKS</span></dd>
+        <dt>Infrastructure</dt><dd><span class="badge badge-indigo">cloud</span></dd>
+        <dt>Version</dt><dd class="mono">v1.31</dd>
+        <dt>Full version</dt><dd class="mono">v1.31.4-eks-a1b2c3d</dd>
+        <dt>API URL</dt><dd class="mono">api.eks.eu-west-1.acme.dev</dd>
+        <dt>URL</dt><dd class="mono">https://acme.eks.eu-west-1.console.aws</dd>
+        <dt>Lifecycle</dt><dd><span class="badge badge-green">Production</span></dd>
+        <dt>Timezone</dt><dd class="mono">Europe/Madrid</dd>
+        <dt>Has licensing</dt><dd>No</dd>
+        <dt>Licensing model</dt><dd>None</dd>
+        <dt>Tags</dt><dd><span class="badge badge-gray">production</span> <span class="badge badge-gray">eks</span> <span class="badge badge-gray">eu-west-1</span></dd>
         <dt>Created</dt><dd class="mono">2022-04-18</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Access</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>AWS auth</span><span class="badge badge-green">Active</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>SSO group</span><span class="mono">platform-prod-admins</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Break-glass</span><span class="badge badge-amber">2 accounts</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Audit logging</span><span class="badge badge-green">CloudTrail + S3</span></div>
-      </div>
     </div>
 
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Links</h3>
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
         <a href="#"><span class="mi">monitoring</span> Grafana · cluster</a>
+        <a href="#"><span class="mi">open_in_new</span> EKS console</a>
         <a href="#"><span class="mi">content_copy</span> Connect with kubectl</a>
-        <a href="#"><span class="mi">content_copy</span> Node pool runbook</a>
         <a href="#"><span class="mi">content_copy</span> Upgrade procedure (v1.32)</a>
       </div>
     </div>

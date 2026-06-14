@@ -12,30 +12,27 @@
     <div class="breadcrumbs"><a href="releases-list.html">Releases</a> / <b>v2.14.0</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;"><span class="mono">v2.14.0</span>
       <span class="badge badge-green">Released</span>
-      <span class="badge badge-indigo">production</span>
     </h1>
-    <div class="sub">payments-service release promoted to production on Jun 12, 2026. Idempotent payouts + retries.</div>
+    <div class="sub">payments-service release · published 2026-06-12 · via workflow run <a href="#">#1284</a>.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">rocket_launch</span> Deploy</button>
     <button class="btn btn-outline"><span class="mi">content_copy</span> Diff vs v2.13.2</button>
-    <button class="btn btn-primary"><span class="mi">edit</span> Edit changelog</button>
+    <button class="btn btn-outline"><span class="mi">edit</span> Edit changelog</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Changelog</a>
   <a class="tab">Deployments</a>
-  <a class="tab">Commits</a>
+  <a class="tab">Changelog</a>
   <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
   <div class="card stat"><span class="label">Deployments</span><span class="value" style="font-size:24px">3</span></div>
-  <div class="card stat"><span class="label">Uptime</span><span class="value" style="font-size:24px;color:var(--color-accent)">99.99%</span></div>
-  <div class="card stat"><span class="label">Issues</span><span class="value" style="font-size:24px;color:var(--color-accent)">0</span></div>
-  <div class="card stat"><span class="label">Age</span><span class="value" style="font-size:18px">2 days</span></div>
+  <div class="card stat"><span class="label">Status</span><span class="value" style="font-size:24px;color:var(--color-accent)">Released</span></div>
+  <div class="card stat"><span class="label">Released</span><span class="value" style="font-size:18px">2d ago</span></div>
+  <div class="card stat"><span class="label">Artfacts</span><span class="value" style="font-size:24px">2</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -43,27 +40,23 @@
     <div class="card">
       <div class="card-head"><h3>Deployments of this release</h3></div>
       <table class="table">
-        <thead><tr><th>Environment</th><th>Cluster</th><th>Replicas</th><th>Status</th><th>Deployed</th></tr></thead>
+        <thead><tr><th>Environment</th><th>Cluster</th><th>Status</th><th>Started</th></tr></thead>
         <tbody>
-          <tr><td><span class="badge badge-indigo">production</span></td><td class="mono">prod-eu-west-1</td><td class="mono">6 / 6</td><td><span class="badge badge-green">Healthy</span></td><td class="mono">2h ago</td></tr>
-          <tr><td><span class="badge badge-blue">staging</span></td><td class="mono">gke-staging</td><td class="mono">2 / 2</td><td><span class="badge badge-green">Healthy</span></td><td class="mono">3d ago</td></tr>
-          <tr><td><span class="badge badge-gray">dev</span></td><td class="mono">dev-shared</td><td class="mono">1 / 1</td><td><span class="badge badge-green">Healthy</span></td><td class="mono">4d ago</td></tr>
+          <tr><td><span class="badge badge-indigo">production</span></td><td class="mono">prod-eu-west-1</td><td><span class="badge badge-green">Success</span></td><td class="mono">2h ago</td></tr>
+          <tr><td><span class="badge badge-blue">staging</span></td><td class="mono">gke-staging</td><td><span class="badge badge-green">Success</span></td><td class="mono">3d ago</td></tr>
+          <tr><td><span class="badge badge-gray">dev</span></td><td class="mono">dev-shared</td><td><span class="badge badge-green">Success</span></td><td class="mono">4d ago</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Commits</h3></div>
-      <table class="table">
-        <thead><tr><th>SHA</th><th>Author</th><th>Message</th></tr></thead>
-        <tbody>
-          <tr><td class="cell-main mono">a3f9c21</td><td>Marta R.</td><td>feat(payments): idempotent payouts with safe retries</td></tr>
-          <tr><td class="cell-main mono">7b0e44a</td><td>David R.</td><td>refactor: split ledger client to a dedicated package</td></tr>
-          <tr><td class="cell-main mono">e8c2d09</td><td>Andrea S.</td><td>test(e2e): add coverage for 3DS2 EU flows</td></tr>
-          <tr><td class="cell-main mono">4d1b73f</td><td>Javier L.</td><td>chore: bump postgres driver to 16.2</td></tr>
-          <tr><td class="cell-main mono">2a5c8b1</td><td>María J.</td><td>feat(observability): SLO histogram for /charge</td></tr>
-        </tbody>
-      </table>
+      <div class="card-head"><h3>Changelog</h3></div>
+      <div class="card-pad" style="font-size:13px; line-height:1.7;">
+        <div><span class="badge badge-green">+ Added</span> Idempotent payouts with safe retries</div>
+        <div style="margin-top:6px;"><span class="badge badge-green">+ Added</span> SLO histogram for <span class="mono">/charge</span></div>
+        <div style="margin-top:6px;"><span class="badge badge-blue">~ Changed</span> Split ledger client to a dedicated package</div>
+        <div style="margin-top:6px;"><span class="badge badge-red">- Removed</span> Legacy retry middleware</div>
+      </div>
     </div>
   </div>
 
@@ -73,25 +66,23 @@
       <dl class="kv">
         <dt>Version</dt><dd class="mono">v2.14.0</dd>
         <dt>Component</dt><dd><a href="component-detail.html">payments-service</a></dd>
-        <dt>Stage</dt><dd><span class="badge badge-green">Released</span></dd>
-        <dt>Promoted to</dt><dd><span class="badge badge-indigo">production</span></dd>
-        <dt>Author</dt><dd><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">MR</div>m.ramos</div></dd>
-        <dt>Release date</dt><dd class="mono">2026-06-12</dd>
-        <dt>Git tag</dt><dd class="mono">payments/v2.14.0</dd>
-        <dt>Commit</dt><dd class="mono">a3f9c21</dd>
-        <dt>Previous</dt><dd class="mono"><a href="#">v2.13.2</a></dd>
-        <dt>Next</dt><dd class="mono"><a href="#">v2.15.0-rc2</a></dd>
+        <dt>Status</dt><dd><span class="badge badge-green">Released</span></dd>
+        <dt>Released at</dt><dd class="mono">2026-06-12</dd>
+        <dt>Workflow run</dt><dd><a href="#">#1284</a></dd>
+        <dt>Released by</dt><dd><a href="user-detail.html">Marta Ramos</a></dd>
+        <dt>Created</dt><dd class="mono">2026-06-12</dd>
+        <dt>Updated</dt><dd class="mono">2026-06-12</dd>
       </dl>
     </div>
 
     <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Changelog</h3>
-      <div style="font-size:13px; line-height:1.7;">
-        <div><span class="badge badge-green">+ Added</span> Idempotent payouts with safe retries</div>
-        <div style="margin-top:6px;"><span class="badge badge-green">+ Added</span> SLO histogram for <span class="mono">/charge</span></div>
-        <div style="margin-top:6px;"><span class="badge badge-blue">~ Changed</span> Split ledger client to a dedicated package</div>
-        <div style="margin-top:6px;"><span class="badge badge-red">- Removed</span> Legacy retry middleware</div>
-      </div>
+      <h3 style="margin-bottom:14px;">Metadata</h3>
+      <pre style="font-family:var(--font-mono); font-size:11.5px; line-height:1.55; background:var(--muted); padding:10px; border-radius:8px; overflow:auto;"><span class="tok-p">{</span>
+  <span class="tok-a">"commit_sha"</span><span class="tok-p">:</span> <span class="tok-s">"a3f9c21"</span><span class="tok-p">,</span>
+  <span class="tok-a">"git_tag"</span><span class="tok-p">:</span> <span class="tok-s">"payments/v2.14.0"</span><span class="tok-p">,</span>
+  <span class="tok-a">"previous"</span><span class="tok-p">:</span> <span class="tok-s">"v2.13.2"</span><span class="tok-p">,</span>
+  <span class="tok-a">"approvers"</span><span class="tok-p">:</span> <span class="tok-p">[</span><span class="tok-s">"maria.j"</span><span class="tok-p">,</span> <span class="tok-s">"carlos.a"</span><span class="tok-p">]</span>
+<span class="tok-p">}</span></pre>
     </div>
 
     <div class="card card-pad">

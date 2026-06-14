@@ -11,69 +11,68 @@
   <div>
     <div class="breadcrumbs"><a href="components-list.html">Components</a> / <b>payments-service</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">payments-service
-      <span class="badge badge-green">Production</span>
+      <span class="badge badge-green">Healthy</span>
       <span class="badge badge-gray">service</span>
     </h1>
-    <div class="sub">Core payment processing. Owned by <a href="#">Team Payments</a> · System <a href="#">payments-platform</a></div>
+    <div class="sub">Core payment processing. Owned by <a href="group-detail.html">Team Payments</a> · Domain <a href="domain-detail.html">Commerce</a>.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">account_tree</span> Repository</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">rocket_launch</span> Deploy</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
   <a class="tab">APIs</a>
+  <a class="tab">Entities</a>
+  <a class="tab">Systems</a>
   <a class="tab">Deployments</a>
-  <a class="tab">Dependencies</a>
-  <a class="tab">CI / CD</a>
-  <a class="tab">Metrics</a>
-  <a class="tab">Docs</a>
+  <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Uptime (30d)</span><span class="value" style="font-size:24px">99.98%</span></div>
-  <div class="card stat"><span class="label">p95 latency</span><span class="value" style="font-size:24px">84ms</span></div>
-  <div class="card stat"><span class="label">Deploys / week</span><span class="value" style="font-size:24px">14</span></div>
-  <div class="card stat"><span class="label">Open incidents</span><span class="value" style="font-size:24px">0</span></div>
+  <div class="card stat"><span class="label">APIs</span><span class="value" style="font-size:24px">3</span></div>
+  <div class="card stat"><span class="label">Entities</span><span class="value" style="font-size:24px">5</span></div>
+  <div class="card stat"><span class="label">Systems</span><span class="value" style="font-size:24px">1</span></div>
+  <div class="card stat"><span class="label">Deployments (90d)</span><span class="value" style="font-size:24px">42</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card">
-      <div class="card-head"><h3>Deployments</h3><a href="#" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
-      <table class="table">
-        <thead><tr><th>Environment</th><th>Release</th><th>Cluster</th><th>Status</th><th>Deployed</th></tr></thead>
-        <tbody>
-          <tr><td><span class="badge badge-indigo">production</span></td><td class="mono">v2.14.0</td><td class="mono">prod-eu-west-1</td><td><span class="badge badge-green">Healthy</span></td><td class="mono">12m ago</td></tr>
-          <tr><td><span class="badge badge-blue">staging</span></td><td class="mono">v2.15.0-rc2</td><td class="mono">staging</td><td><span class="badge badge-green">Healthy</span></td><td class="mono">3h ago</td></tr>
-          <tr><td><span class="badge badge-gray">dev</span></td><td class="mono">v2.15.0-rc2</td><td class="mono">dev-shared</td><td><span class="badge badge-amber">Degraded</span></td><td class="mono">5h ago</td></tr>
-        </tbody>
-      </table>
+      <div class="card-head"><h3>About</h3></div>
+      <div class="card-pad">
+        <p style="font-size:14px; line-height:1.65;">Core payment processing service. Stateless, exposed, supports zero-downtime deployments. Discovered automatically by the catalog pipeline.</p>
+        <div class="chip-row" style="margin-top:14px;">
+          <span class="badge badge-green">Stateless</span>
+          <span class="badge badge-blue">Exposed</span>
+          <span class="badge badge-green">Zero-downtime</span>
+          <span class="badge badge-gray">tier-1</span>
+          <span class="badge badge-gray">payments</span>
+        </div>
+      </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Provided & consumed APIs</h3></div>
+      <div class="card-head"><h3>Provided &amp; consumed APIs</h3></div>
       <table class="table">
         <thead><tr><th>API</th><th>Relation</th><th>Type</th><th>Status</th></tr></thead>
         <tbody>
           <tr><td class="cell-main"><a href="api-detail.html">payments-api</a></td><td><span class="badge badge-blue">provides</span></td><td>REST</td><td><span class="badge badge-green">Active</span></td></tr>
           <tr><td class="cell-main"><a href="api-detail.html">ledger-api</a></td><td><span class="badge badge-indigo">consumes</span></td><td>gRPC</td><td><span class="badge badge-green">Active</span></td></tr>
-          <tr><td class="cell-main"><a href="api-detail.html">events-stream</a></td><td><span class="badge badge-indigo">consumes</span></td><td>Async</td><td><span class="badge badge-green">Active</span></td></tr>
+          <tr><td class="cell-main"><a href="api-detail.html">events-stream</a></td><td><span class="badge badge-indigo">consumes</span></td><td>WebSocket</td><td><span class="badge badge-green">Active</span></td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Latest workflow runs</h3></div>
+      <div class="card-head"><h3>Recent deployments</h3><a href="deployments-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
       <table class="table">
-        <thead><tr><th>Workflow</th><th>Commit</th><th>Status</th><th>Duration</th><th>When</th></tr></thead>
+        <thead><tr><th>Environment</th><th>Release</th><th>Status</th><th>Started</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main">build-and-test</td><td class="mono">a3f9c21</td><td><span class="badge badge-green">Passed</span></td><td class="mono">4m 12s</td><td class="mono">25m ago</td></tr>
-          <tr><td class="cell-main">deploy-production</td><td class="mono">a3f9c21</td><td><span class="badge badge-green">Passed</span></td><td class="mono">2m 03s</td><td class="mono">14m ago</td></tr>
-          <tr><td class="cell-main">nightly-e2e</td><td class="mono">88be4d0</td><td><span class="badge badge-red">Failed</span></td><td class="mono">11m 40s</td><td class="mono">9h ago</td></tr>
+          <tr><td><span class="badge badge-indigo">production</span></td><td class="mono">v2.14.0</td><td><span class="badge badge-green">Success</span></td><td class="mono">2h ago</td></tr>
+          <tr><td><span class="badge badge-blue">staging</span></td><td class="mono">v2.15.0-rc2</td><td><span class="badge badge-green">Success</span></td><td class="mono">3h ago</td></tr>
+          <tr><td><span class="badge badge-gray">dev</span></td><td class="mono">v2.15.0-rc2</td><td><span class="badge badge-amber">InProgress</span></td><td class="mono">5h ago</td></tr>
         </tbody>
       </table>
     </div>
@@ -83,34 +82,34 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
-        <dt>Type</dt><dd>Service</dd>
-        <dt>Lifecycle</dt><dd>Production</dd>
-        <dt>Tier</dt><dd>Tier 1 (critical)</dd>
-        <dt>Language</dt><dd>Go 1.24</dd>
-        <dt>Framework</dt><dd>chi + sqlc</dd>
-        <dt>Repository</dt><dd class="mono">gh/acme/payments</dd>
-        <dt>On-call</dt><dd>#payments-oncall</dd>
+        <dt>Name</dt><dd class="mono">payments-service</dd>
+        <dt>Slug</dt><dd class="mono">payments-service</dd>
+        <dt>Display name</dt><dd>Payments Service</dd>
+        <dt>Description</dt><dd>Core payment processing</dd>
+        <dt>Component type</dt><dd><span class="badge badge-gray">service</span></dd>
+        <dt>Platform</dt><dd><a href="#">Linux</a></dd>
+        <dt>Business domain</dt><dd><a href="domain-detail.html">Commerce</a></dd>
+        <dt>Business tier</dt><dd><span class="badge badge-red">Tier 1</span></dd>
+        <dt>Lifecycle</dt><dd><span class="badge badge-green">Production</span></dd>
+        <dt>Service status</dt><dd><span class="badge badge-green">Healthy</span></dd>
+        <dt>Owner</dt><dd><a href="group-detail.html">team-payments</a></dd>
+        <dt>Is stateless</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Is exposed</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Zero-downtime deploys</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Discovery source</dt><dd><span class="badge badge-blue">Pipeline</span></dd>
+        <dt>End of life</dt><dd>—</dd>
         <dt>Created</dt><dd class="mono">2022-09-01</dd>
+        <dt>Updated</dt><dd class="mono">2026-06-12</dd>
       </dl>
     </div>
 
     <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Dependencies</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><a href="#">postgres-payments</a><span class="badge badge-gray">database</span></div>
-        <div style="display:flex; justify-content:space-between;"><a href="#">redis-sessions</a><span class="badge badge-gray">cache</span></div>
-        <div style="display:flex; justify-content:space-between;"><a href="#">kafka-main</a><span class="badge badge-gray">queue</span></div>
-        <div style="display:flex; justify-content:space-between;"><a href="#">vault</a><span class="badge badge-gray">secrets</span></div>
-      </div>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Links</h3>
-      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <a href="#"><span class="mi">content_copy</span> Runbook</a>
-        <a href="#"><span class="mi">content_copy</span> Grafana dashboard</a>
-        <a href="#"><span class="mi">content_copy</span> Architecture decision records</a>
-        <a href="#"><span class="mi">content_copy</span> PagerDuty service</a>
+      <h3 style="margin-bottom:14px;">Tags</h3>
+      <div style="display:flex; flex-direction:column; gap:6px; font-size:13px;">
+        <span class="badge badge-gray">payments</span>
+        <span class="badge badge-gray">tier-1</span>
+        <span class="badge badge-gray">pci-dss</span>
+        <span class="badge badge-gray">kafka</span>
       </div>
     </div>
   </div>

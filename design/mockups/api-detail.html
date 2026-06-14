@@ -14,22 +14,19 @@
       <span class="badge badge-green">Active</span>
       <span class="badge badge-blue">REST</span>
     </h1>
-    <div class="sub">Card payments, refunds and payouts. Owned by <a href="#">Team Payments</a>.</div>
+    <div class="sub">Card payments, refunds and payouts. Maintained by <a href="group-detail.html">Team Payments</a>.</div>
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">content_copy</span> OpenAPI spec</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">play_arrow</span> Try it</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Endpoints</a>
-  <a class="tab">Consumers</a>
-  <a class="tab">Versions</a>
-  <a class="tab">Access policies</a>
-  <a class="tab">Metrics</a>
+  <a class="tab">Specification</a>
+  <a class="tab">Components</a>
+  <a class="tab">Deployments</a>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -48,6 +45,13 @@
     </div>
 
     <div class="card">
+      <div class="card-head"><h3>OpenAPI specification</h3><span class="badge badge-gray">JSON</span></div>
+      <div class="code-block numbered scroll">
+<pre><code><span class="line"><span class="tok-p">{</span></span><span class="line">  <span class="tok-a">"openapi"</span><span class="tok-p">:</span> <span class="tok-s">"3.1.0"</span><span class="tok-p">,</span></span><span class="line">  <span class="tok-a">"info"</span><span class="tok-p">:</span> <span class="tok-p">{</span></span><span class="line">    <span class="tok-a">"title"</span><span class="tok-p">:</span> <span class="tok-s">"payments-api"</span><span class="tok-p">,</span></span><span class="line">    <span class="tok-a">"version"</span><span class="tok-p">:</span> <span class="tok-s">"v2.14.0"</span><span class="tok-p">,</span></span><span class="line">    <span class="tok-a">"description"</span><span class="tok-p">:</span> <span class="tok-s">"Card payments, refunds and payouts"</span></span><span class="line">  <span class="tok-p">},</span></span><span class="line">  <span class="tok-a">"servers"</span><span class="tok-p">:</span> <span class="tok-p">[{</span> <span class="tok-a">"url"</span><span class="tok-p">:</span> <span class="tok-s">"https://api.internal/payments"</span> <span class="tok-p">}],</span></span><span class="line">  <span class="tok-a">"paths"</span><span class="tok-p">:</span> <span class="tok-p">{</span></span><span class="line">    <span class="tok-a">"/v1/charges"</span><span class="tok-p">:</span> <span class="tok-p">{</span> <span class="tok-a">"post"</span><span class="tok-p">:</span> <span class="tok-p">{</span> <span class="tok-a">"summary"</span><span class="tok-p">:</span> <span class="tok-s">"Create a charge"</span> <span class="tok-p">}</span> <span class="tok-p">},</span></span><span class="line">    <span class="tok-a">"/v1/refunds"</span><span class="tok-p">:</span> <span class="tok-p">{</span> <span class="tok-a">"post"</span><span class="tok-p">:</span> <span class="tok-p">{</span> <span class="tok-a">"summary"</span><span class="tok-p">:</span> <span class="tok-s">"Refund a charge"</span> <span class="tok-p">}</span> <span class="tok-p">}</span></span><span class="line">  <span class="tok-p">}</span></span><span class="line"><span class="tok-p">}</span></span></code></pre>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="card-head"><h3>Linked components</h3></div>
       <table class="table">
         <thead><tr><th>Component</th><th>Relationship</th><th>Lifecycle</th></tr></thead>
@@ -58,41 +62,29 @@
         </tbody>
       </table>
     </div>
-
-    <div class="card">
-      <div class="card-head"><h3>Recent releases</h3></div>
-      <table class="table">
-        <thead><tr><th>Version</th><th>Date</th><th>Author</th><th>Notes</th></tr></thead>
-        <tbody>
-          <tr><td class="mono">v2.14.0</td><td class="mono">2026-06-09</td><td>María J.</td><td>3DS2 flow for EU cards</td></tr>
-          <tr><td class="mono">v2.13.2</td><td class="mono">2026-05-28</td><td>David R.</td><td>Fix idempotency on refunds</td></tr>
-          <tr><td class="mono">v2.13.1</td><td class="mono">2026-05-15</td><td>María J.</td><td>Payout webhooks retries</td></tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
-        <dt>Type</dt><dd>REST / OpenAPI 3.1</dd>
-        <dt>Category</dt><dd>Payments</dd>
+        <dt>Name</dt><dd class="mono">payments-api</dd>
+        <dt>Slug</dt><dd class="mono">payments-api</dd>
+        <dt>Display name</dt><dd>Payments API</dd>
+        <dt>Description</dt><dd>Card payments, refunds and payouts</dd>
         <dt>Version</dt><dd class="mono">v2.14.0</dd>
-        <dt>Access policy</dt><dd>Internal</dd>
+        <dt>URL</dt><dd class="mono">https://api.internal/payments</dd>
+        <dt>Protocol</dt><dd><span class="badge badge-blue">HTTPS</span></dd>
+        <dt>Type</dt><dd><span class="badge badge-blue">REST</span></dd>
+        <dt>Category</dt><dd>Payments</dd>
+        <dt>Status</dt><dd><span class="badge badge-green">Active</span></dd>
+        <dt>Access policy</dt><dd><span class="badge badge-indigo">Internal</span></dd>
         <dt>Auth method</dt><dd>OAuth 2.0 + mTLS</dd>
-        <dt>System</dt><dd><a href="#">payments-platform</a></dd>
-        <dt>Base URL</dt><dd class="mono">api.internal/payments</dd>
+        <dt>Released at</dt><dd class="mono">2026-06-12</dd>
+        <dt>Deprecated at</dt><dd>—</dd>
         <dt>Created</dt><dd class="mono">2023-02-11</dd>
+        <dt>Updated</dt><dd class="mono">2026-06-12</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Owner</h3>
-      <div style="display:flex; align-items:center; gap:10px;">
-        <div class="avatar">P</div>
-        <div><div class="cell-main">Team Payments</div><div class="cell-sub">12 members · #payments-help</div></div>
-      </div>
     </div>
 
     <div class="card card-pad">

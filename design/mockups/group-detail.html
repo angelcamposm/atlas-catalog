@@ -13,58 +13,54 @@
     <h1 style="display:flex;align-items:center;gap:12px;">
       <div class="avatar" style="width:36px;height:36px;font-size:14px">PA</div>
       team-payments
-      <span class="badge badge-indigo">Editor</span>
-      <span class="badge badge-gray">Internal</span>
+      <span class="badge badge-gray">team</span>
     </h1>
-    <div class="sub">Builds and runs payments-service, ledger and payouts. Owns the payments platform.</div>
+    <div class="sub">Builds &amp; runs payments-service, ledger and payouts. Owns the payments platform.</div>
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">person_add</span> Add members</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
   <a class="tab">Members (14)</a>
-  <a class="tab">Permissions</a>
   <a class="tab">Owned systems</a>
   <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
   <div class="card stat"><span class="label">Members</span><span class="value" style="font-size:24px">14</span></div>
-  <div class="card stat"><span class="label">Systems</span><span class="value" style="font-size:24px">1</span></div>
-  <div class="card stat"><span class="label">Components</span><span class="value" style="font-size:24px">9</span></div>
-  <div class="card stat"><span class="label">Last change</span><span class="value" style="font-size:18px">3d ago</span></div>
+  <div class="card stat"><span class="label">Owned systems</span><span class="value" style="font-size:24px">1</span></div>
+  <div class="card stat"><span class="label">Sub-groups</span><span class="value" style="font-size:24px">0</span></div>
+  <div class="card stat"><span class="label">Type</span><span class="value" style="font-size:18px">team</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card">
-      <div class="card-head"><h3>Members</h3><a href="users-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
+      <div class="card-head"><h3>Members</h3></div>
       <table class="table">
-        <thead><tr><th>User</th><th>Role override</th><th>Joined</th><th>Last active</th></tr></thead>
+        <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Joined</th></tr></thead>
         <tbody>
-          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MJ</div><div><div class="cell-main">María Jiménez</div><div class="cell-sub">maria.j@acme.dev</div></div></div></td><td><span class="badge badge-indigo">Lead</span></td><td class="mono">2022-01-12</td><td class="mono">18m ago</td></tr>
-          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MR</div><div><div class="cell-main">Marta Ramos</div><div class="cell-sub">marta.r@acme.dev</div></div></div></td><td>—</td><td class="mono">2022-03-04</td><td class="mono">2h ago</td></tr>
-          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">DR</div><div><div class="cell-main">David Romero</div><div class="cell-sub">david.r@acme.dev</div></div></div></td><td>—</td><td class="mono">2022-05-21</td><td class="mono">1h ago</td></tr>
-          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">JL</div><div><div class="cell-main">Javier López</div><div class="cell-sub">javier.l@acme.dev</div></div></div></td><td>—</td><td class="mono">2023-02-14</td><td class="mono">yesterday</td></tr>
-          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">AS</div><div><div class="cell-main">Andrea Soler</div><div class="cell-sub">andrea.s@acme.dev</div></div></div></td><td>—</td><td class="mono">2023-08-02</td><td class="mono">4d ago</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MJ</div><div><div class="cell-main"><a href="user-detail.html">María Jiménez</a></div><div class="cell-sub">maria.j@acme.dev</div></div></div></td><td class="mono">maria.j@acme.dev</td><td><span class="badge badge-indigo">Lead</span></td><td class="mono">2022-01-12</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">MR</div><div><div class="cell-main"><a href="user-detail.html">Marta Ramos</a></div><div class="cell-sub">marta.r@acme.dev</div></div></div></td><td class="mono">marta.r@acme.dev</td><td>—</td><td class="mono">2022-03-04</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">DR</div><div><div class="cell-main"><a href="user-detail.html">David Romero</a></div><div class="cell-sub">david.r@acme.dev</div></div></div></td><td class="mono">david.r@acme.dev</td><td>—</td><td class="mono">2022-05-21</td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar sm">JL</div><div><div class="cell-main"><a href="user-detail.html">Javier López</a></div><div class="cell-sub">javier.l@acme.dev</div></div></div></td><td class="mono">javier.l@acme.dev</td><td>—</td><td class="mono">2023-02-14</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Owned systems &amp; components</h3></div>
+      <div class="card-head"><h3>Owned systems</h3></div>
+      <p style="padding:14px 16px; font-size:13px; color:var(--text-muted);">
+        Computed by querying <span class="mono">System::where('owner_id', $group->id)</span> in the
+        backend. Not a direct relation on the Group model.
+      </p>
       <table class="table">
-        <thead><tr><th>Type</th><th>Name</th><th>Tier</th><th>Health</th></tr></thead>
+        <thead><tr><th>System</th><th>Description</th><th>Components</th></tr></thead>
         <tbody>
-          <tr><td><span class="badge badge-indigo">System</span></td><td class="cell-main"><a href="#">payments-platform</a></td><td><span class="badge badge-red">Tier 1</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
-          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td>Tier 1</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">ledger-worker</a></td><td>Tier 1</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">billing-reporter</a></td><td>Tier 2</td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">fraud-scorer</a></td><td>Tier 1</td><td><span class="badge badge-amber">Degraded</span></td></tr>
+          <tr><td class="cell-main"><a href="system-detail.html">payments-platform</a></td><td>Card payments, payouts and ledger</td><td class="mono">9</td></tr>
         </tbody>
       </table>
     </div>
@@ -74,34 +70,18 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
+        <dt>Name</dt><dd class="mono">team-payments</dd>
         <dt>Slug</dt><dd class="mono">team-payments</dd>
         <dt>Display name</dt><dd>Team Payments</dd>
-        <dt>Source</dt><dd>Internal</dd>
-        <dt>Default role</dt><dd><span class="badge badge-indigo">Editor</span></dd>
-        <dt>Owner</dt><dd>Team Payments</dd>
-        <dt>Visibility</dt><dd>Internal</dd>
+        <dt>Label</dt><dd>Payments team</dd>
+        <dt>Email</dt><dd class="mono">payments@acme.dev</dd>
+        <dt>Type</dt><dd><span class="badge badge-gray">team</span></dd>
+        <dt>Parent group</dt><dd>—</dd>
+        <dt>Icon</dt><dd><span class="mi">payments</span></dd>
+        <dt>Description</dt><dd>Builds &amp; runs payments-service, ledger and payouts</dd>
         <dt>Created</dt><dd class="mono">2022-01-12</dd>
-        <dt>Members</dt><dd class="mono">14</dd>
+        <dt>Updated</dt><dd class="mono">2026-04-01</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Permissions</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Register new components</span><span class="badge badge-green">Allowed</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Approve production deploys</span><span class="badge badge-green">Allowed</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Manage other groups</span><span class="badge badge-gray">Denied</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>View audit logs</span><span class="badge badge-amber">Restricted</span></div>
-      </div>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Sync</h3>
-      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Source</span><span>Internal</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Last sync</span><span class="mono">3d ago</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>External IDP</span><span>—</span></div>
-      </div>
     </div>
   </div>
 </div>

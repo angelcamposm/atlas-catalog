@@ -11,58 +11,80 @@
   <div>
     <div class="breadcrumbs"><a href="deployments-list.html">Deployments</a> / <b>payments-service → production</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">payments-service → production
-      <span class="badge badge-green">Healthy</span>
-      <span class="badge badge-indigo">production</span>
+      <span class="badge badge-green">Success</span>
     </h1>
-    <div class="sub">Release <a href="release-detail.html"><span class="mono">v2.14.0</span></a> deployed to <a href="cluster-detail.html">prod-eu-west-1</a> 2 hours ago.</div>
+    <div class="sub">Release <a href="release-detail.html"><span class="mono">v2.14.0</span></a> deployed to <a href="cluster-detail.html">prod-eu-west-1</a> · <a href="environment-detail.html">production</a>.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">monitoring</span> Grafana</button>
-    <button class="btn btn-outline"><span class="mi">content_copy</span> Logs</button>
-    <button class="btn btn-outline"><span class="mi">undo</span> Rollback</button>
+    <button class="btn btn-outline"><span class="mi">open_in_new</span> Workflow run</button>
+    <button class="btn btn-outline"><span class="mi">content_copy</span> Copy digest</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Pods</a>
-  <a class="tab">Rollout history</a>
-  <a class="tab">Logs</a>
-  <a class="tab">Events</a>
+  <a class="tab">Metadata</a>
+  <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Replicas</span><span class="value" style="font-size:24px">6 / 6</span></div>
-  <div class="card stat"><span class="label">CPU</span><span class="value" style="font-size:24px">38%</span></div>
-  <div class="card stat"><span class="label">Memory</span><span class="value" style="font-size:24px">412 MiB avg</span></div>
-  <div class="card stat"><span class="label">Restarts</span><span class="value" style="font-size:24px;color:var(--color-accent)">0</span></div>
+  <div class="card stat"><span class="label">Status</span><span class="value" style="font-size:24px;color:var(--color-accent)">Success</span></div>
+  <div class="card stat"><span class="label">Duration</span><span class="value" style="font-size:24px">3m 48s</span></div>
+  <div class="card stat"><span class="label">Triggered by</span><span class="value" style="font-size:18px">m.ramos</span></div>
+  <div class="card stat"><span class="label">Started</span><span class="value" style="font-size:18px">2h ago</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card">
-      <div class="card-head"><h3>Pods</h3></div>
+      <div class="card-head"><h3>About</h3></div>
+      <div class="card-pad">
+        <p style="font-size:14px; line-height:1.65;">Deployment record created by the CI webhook from the deploy-production workflow run. The catalog stores the immutable snapshot of the deployment: which component, which release, which environment, which cluster, which commit, and which image digest. It does not manage replicas, strategy, namespace or service account — those are owned by the workload definition (Helm chart / kustomize / Argo) referenced by the workflow.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Linked entities</h3></div>
       <table class="table">
-        <thead><tr><th>Pod</th><th>Node</th><th>Status</th><th>Restarts</th><th>Age</th></tr></thead>
+        <thead><tr><th>Type</th><th>Entity</th><th>Detail</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main mono">payments-service-7d8c-x4j2q</td><td class="mono">ip-10-0-12-47</td><td><span class="badge badge-green">Running</span></td><td class="mono">0</td><td class="mono">2h</td></tr>
-          <tr><td class="cell-main mono">payments-service-7d8c-z9k1p</td><td class="mono">ip-10-0-14-09</td><td><span class="badge badge-green">Running</span></td><td class="mono">0</td><td class="mono">2h</td></tr>
-          <tr><td class="cell-main mono">payments-service-7d8c-r3m8v</td><td class="mono">ip-10-0-16-22</td><td><span class="badge badge-green">Running</span></td><td class="mono">0</td><td class="mono">2h</td></tr>
-          <tr><td class="cell-main mono">payments-service-7d8c-h7f2n</td><td class="mono">ip-10-0-18-04</td><td><span class="badge badge-green">Running</span></td><td class="mono">0</td><td class="mono">2h</td></tr>
-          <tr><td class="cell-main mono">payments-service-7d8c-b2q6w</td><td class="mono">ip-10-0-19-15</td><td><span class="badge badge-green">Running</span></td><td class="mono">0</td><td class="mono">2h</td></tr>
-          <tr><td class="cell-main mono">payments-service-7d8c-k1n3s</td><td class="mono">ip-10-0-22-08</td><td><span class="badge badge-green">Running</span></td><td class="mono">0</td><td class="mono">2h</td></tr>
+          <tr>
+            <td><span class="badge badge-gray">Component</span></td>
+            <td class="cell-main"><a href="component-detail.html">payments-service</a></td>
+            <td class="mono">v2.14.0</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gray">Release</span></td>
+            <td class="cell-main"><a href="release-detail.html">v2.14.0</a></td>
+            <td class="mono">released 2026-06-12</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gray">Environment</span></td>
+            <td class="cell-main"><a href="environment-detail.html">production</a></td>
+            <td><span class="badge badge-indigo">production</span></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-gray">Cluster</span></td>
+            <td class="cell-main"><a href="cluster-detail.html">prod-eu-west-1</a></td>
+            <td class="mono">EKS</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">Workflow run</span></td>
+            <td class="cell-main"><a href="#">deploy-production #1284</a></td>
+            <td><span class="badge badge-green">Success</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Rollout history</h3></div>
+      <div class="card-head"><h3>Activity</h3></div>
       <table class="table">
-        <thead><tr><th>Revision</th><th>Image</th><th>Replicas</th><th>Deployed</th><th>By</th></tr></thead>
+        <thead><tr><th>When</th><th>Status</th><th>Detail</th></tr></thead>
         <tbody>
-          <tr><td class="mono">7d8c</td><td class="mono">payments/svc:2.14.0</td><td class="mono">6 / 6</td><td class="mono">2h ago</td><td>m.ramos</td></tr>
-          <tr><td class="mono">2f1a</td><td class="mono">payments/svc:2.13.2</td><td class="mono">0 / 0</td><td class="mono">18d ago</td><td>d.romero</td></tr>
-          <tr><td class="mono">a9c2</td><td class="mono">payments/svc:2.13.1</td><td class="mono">0 / 0</td><td class="mono">32d ago</td><td>m.jimenez</td></tr>
+          <tr><td class="mono">2h ago</td><td><span class="badge badge-blue">InProgress</span></td><td>Deployment started by webhook</td></tr>
+          <tr><td class="mono">2h ago</td><td><span class="badge badge-green">Success</span></td><td>All replicas ready</td></tr>
+          <tr><td class="mono">2h ago</td><td><span class="badge badge-green">Success</span></td><td>Health checks passing</td></tr>
         </tbody>
       </table>
     </div>
@@ -74,33 +96,42 @@
       <dl class="kv">
         <dt>Component</dt><dd><a href="component-detail.html">payments-service</a></dd>
         <dt>Release</dt><dd><a href="release-detail.html"><span class="mono">v2.14.0</span></a></dd>
-        <dt>Environment</dt><dd><span class="badge badge-indigo">production</span></dd>
+        <dt>Environment</dt><dd><a href="environment-detail.html">production</a></dd>
         <dt>Cluster</dt><dd><a href="cluster-detail.html">prod-eu-west-1</a></dd>
-        <dt>Namespace</dt><dd class="mono">payments</dd>
-        <dt>Strategy</dt><dd>Rolling update</dd>
-        <dt>Image</dt><dd class="mono">registry.acme.dev/payments/svc:2.14.0</dd>
-        <dt>Service account</dt><dd class="mono">payments-sa</dd>
-        <dt>Deployed by</dt><dd>m.ramos</dd>
-        <dt>Deployed at</dt><dd class="mono">2026-06-14 06:42</dd>
+        <dt>Version</dt><dd class="mono">v2.14.0</dd>
+        <dt>Commit hash</dt><dd class="mono">a3f9c21</dd>
+        <dt>Docker image digest</dt><dd class="mono">sha256:9f8e7d…</dd>
+        <dt>Workflow run</dt><dd><a href="#">#1284</a></dd>
+        <dt>Triggered by</dt><dd><a href="user-detail.html">Marta Ramos</a></dd>
+        <dt>Status</dt><dd><span class="badge badge-green">Success</span></dd>
+        <dt>Started at</dt><dd class="mono">2026-06-14 06:42:11</dd>
+        <dt>Ended at</dt><dd class="mono">2026-06-14 06:45:59</dd>
+        <dt>Duration</dt><dd class="mono">3m 48s (228,000 ms)</dd>
+        <dt>Created</dt><dd class="mono">2026-06-14 06:42:11</dd>
       </dl>
     </div>
 
     <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Health checks</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Readiness</span><span class="badge badge-green">Passing</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Liveness</span><span class="badge badge-green">Passing</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Startup</span><span class="badge badge-green">Passing</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Auto-rollback</span><span class="badge badge-green">Enabled</span></div>
-      </div>
+      <h3 style="margin-bottom:14px;">Metadata</h3>
+      <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
+        The <span class="mono">meta</span> field is a free-form JSON bag the CI server attaches
+        to the webhook. The catalog does not interpret it. Example payload:
+      </p>
+      <pre style="font-family:var(--font-mono); font-size:11.5px; line-height:1.55; background:var(--muted); padding:10px; border-radius:8px; margin-top:8px; overflow:auto;"><span class="tok-p">{</span>
+  <span class="tok-a">"replicas"</span><span class="tok-p">:</span> <span class="tok-n">6</span><span class="tok-p">,</span>
+  <span class="tok-a">"strategy"</span><span class="tok-p">:</span> <span class="tok-s">"RollingUpdate"</span><span class="tok-p">,</span>
+  <span class="tok-a">"namespace"</span><span class="tok-p">:</span> <span class="tok-s">"payments"</span><span class="tok-p">,</span>
+  <span class="tok-a">"service_account"</span><span class="tok-p">:</span> <span class="tok-s">"payments-sa"</span><span class="tok-p">,</span>
+  <span class="tok-a">"image"</span><span class="tok-p">:</span> <span class="tok-s">"registry.acme.dev/payments/svc:2.14.0"</span>
+<span class="tok-p">}</span></pre>
     </div>
 
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Links</h3>
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <a href="#"><span class="mi">content_copy</span> Manifest (kustomize)</a>
-        <a href="#"><span class="mi">monitoring</span> Grafana · deployment</a>
-        <a href="#"><span class="mi">content_copy</span> Runbook</a>
+        <a href="#"><span class="mi">content_copy</span> Deploy runbook</a>
+        <a href="#"><span class="mi">content_copy</span> Rollback procedure</a>
+        <a href="#"><span class="mi">monitoring</span> Deployment dashboard</a>
       </div>
     </div>
   </div>

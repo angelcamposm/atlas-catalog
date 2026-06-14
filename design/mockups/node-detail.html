@@ -12,57 +12,68 @@
     <div class="breadcrumbs"><a href="nodes-list.html">Nodes</a> / <b>ip-10-0-12-47.eu-west-1</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">ip-10-0-12-47.eu-west-1
       <span class="badge badge-green">Ready</span>
-      <span class="badge badge-gray">worker</span>
+      <span class="badge badge-gray">V · x86-64</span>
     </h1>
-    <div class="sub">Worker node in <a href="cluster-detail.html">prod-eu-west-1</a> (eu-west-1a). Instance type <span class="mono">m5.2xlarge</span>.</div>
+    <div class="sub">Virtual node, x86-64 architecture, discovered by <a href="#">Pipeline</a>.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">monitoring</span> Metrics</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">pause</span> Cordon</button>
+    <button class="btn btn-primary"><span class="mi">refresh</span> Resync</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Pods</a>
-  <a class="tab">Capacity</a>
-  <a class="tab">Taints &amp; labels</a>
-  <a class="tab">Events</a>
+  <a class="tab">Clusters</a>
+  <a class="tab">Hardware</a>
+  <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Pods</span><span class="value" style="font-size:24px">18 / 58</span></div>
-  <div class="card stat"><span class="label">CPU usage</span><span class="value" style="font-size:24px">42%</span></div>
-  <div class="card stat"><span class="label">Memory usage</span><span class="value" style="font-size:24px">58%</span></div>
-  <div class="card stat"><span class="label">Uptime</span><span class="value" style="font-size:18px">23d 4h</span></div>
+  <div class="card stat"><span class="label">CPU cores</span><span class="value" style="font-size:24px">16</span></div>
+  <div class="card stat"><span class="label">Memory</span><span class="value" style="font-size:24px">64 GiB</span></div>
+  <div class="card stat"><span class="label">SMT</span><span class="value" style="font-size:24px;color:var(--color-accent)">Enabled</span></div>
+  <div class="card stat"><span class="label">Last seen</span><span class="value" style="font-size:18px">just now</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card">
-      <div class="card-head"><h3>Pods on this node</h3></div>
+      <div class="card-head"><h3>Clusters</h3></div>
       <table class="table">
-        <thead><tr><th>Pod</th><th>Namespace</th><th>Owner</th><th>Status</th><th>Age</th></tr></thead>
+        <thead><tr><th>Cluster</th><th>Role</th><th>Type</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main mono">payments-service-7d8c-x4j2q</td><td class="mono">payments</td><td><a href="component-detail.html">payments-service</a></td><td><span class="badge badge-green">Running</span></td><td class="mono">12d</td></tr>
-          <tr><td class="cell-main mono">ledger-worker-3f1a-b9z7x</td><td class="mono">payments</td><td><a href="component-detail.html">ledger-worker</a></td><td><span class="badge badge-green">Running</span></td><td class="mono">6d</td></tr>
-          <tr><td class="cell-main mono">fraud-scorer-2a8e-h2k9d</td><td class="mono">payments</td><td><a href="component-detail.html">fraud-scorer</a></td><td><span class="badge badge-green">Running</span></td><td class="mono">3d</td></tr>
-          <tr><td class="cell-main mono">identity-api-5g3r-m1p4w</td><td class="mono">core</td><td><a href="component-detail.html">identity-api</a></td><td><span class="badge badge-green">Running</span></td><td class="mono">1d</td></tr>
-          <tr><td class="cell-main mono">checkout-web-1v2n-q8r2s</td><td class="mono">commerce</td><td><a href="component-detail.html">checkout-web</a></td><td><span class="badge badge-amber">Pending</span></td><td class="mono">4m</td></tr>
+          <tr>
+            <td class="cell-main"><a href="cluster-detail.html">prod-eu-west-1</a></td>
+            <td>Worker</td>
+            <td><span class="badge badge-gray">EKS</span></td>
+            <td><span class="badge badge-green">Healthy</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Recent events</h3></div>
+      <div class="card-head"><h3>Hardware</h3></div>
+      <dl class="kv" style="padding:14px 16px;">
+        <dt>Architecture</dt><dd>x86-64</dd>
+        <dt>Sockets</dt><dd class="mono">2</dd>
+        <dt>Cores / socket</dt><dd class="mono">8</dd>
+        <dt>Total cores</dt><dd class="mono">16</dd>
+        <dt>Threads</dt><dd class="mono">32</dd>
+        <dt>SMT</dt><dd>Enabled</dd>
+        <dt>Memory</dt><dd class="mono">68,719,476,736 bytes (64 GiB)</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Recent activity</h3></div>
       <table class="table">
-        <thead><tr><th>When</th><th>Type</th><th>Reason</th><th>Message</th></tr></thead>
+        <thead><tr><th>When</th><th>Source</th><th>Action</th></tr></thead>
         <tbody>
-          <tr><td class="mono">3m ago</td><td><span class="badge badge-green">Normal</span></td><td>Pulled</td><td class="mono">Successfully pulled image "payments:2.14.0"</td></tr>
-          <tr><td class="mono">12m ago</td><td><span class="badge badge-amber">Warning</span></td><td>MemoryPressure</td><td>Throttling memory since 11m</td></tr>
-          <tr><td class="mono">1h ago</td><td><span class="badge badge-green">Normal</span></td><td>Started</td><td class="mono">Started container payments</td></tr>
-          <tr><td class="mono">23d ago</td><td><span class="badge badge-green">Normal</span></td><td>Registered</td><td>Node joined the cluster</td></tr>
+          <tr><td class="mono">3m ago</td><td><span class="badge badge-blue">Pipeline</span></td><td>Heartbeat received</td></tr>
+          <tr><td class="mono">1h ago</td><td><span class="badge badge-blue">Pipeline</span></td><td>Hardware inventory updated</td></tr>
+          <tr><td class="mono">23d ago</td><td><span class="badge badge-gray">Manual</span></td><td>Node registered</td></tr>
         </tbody>
       </table>
     </div>
@@ -72,38 +83,27 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
-        <dt>Hostname</dt><dd class="mono">ip-10-0-12-47.eu-west-1</dd>
-        <dt>Internal IP</dt><dd class="mono">10.0.12.47</dd>
-        <dt>Cluster</dt><dd><a href="cluster-detail.html">prod-eu-west-1</a></dd>
-        <dt>Zone</dt><dd class="mono">eu-west-1a</dd>
-        <dt>Role</dt><dd>worker</dd>
-        <dt>Instance type</dt><dd class="mono">m5.2xlarge</dd>
-        <dt>vCPU</dt><dd class="mono">8 cores</dd>
-        <dt>Memory</dt><dd class="mono">32 GiB</dd>
-        <dt>Max pods</dt><dd class="mono">58</dd>
+        <dt>Name</dt><dd class="mono">ip-10-0-12-47.eu-west-1</dd>
+        <dt>Hostname</dt><dd class="mono">ip-10-0-12-47</dd>
+        <dt>FQDN</dt><dd class="mono">ip-10-0-12-47.eu-west-1.compute.internal</dd>
+        <dt>IP address</dt><dd class="mono">10.0.12.47</dd>
+        <dt>MAC address</dt><dd class="mono">0a:8b:3f:11:ce:42</dd>
+        <dt>Node type</dt><dd>Virtual</dd>
+        <dt>CPU architecture</dt><dd>x86-64</dd>
         <dt>OS</dt><dd>Amazon Linux 2</dd>
-        <dt>Kernel</dt><dd class="mono">5.10.225-213.876</dd>
-        <dt>Kubelet</dt><dd class="mono">v1.31.4</dd>
-        <dt>Container runtime</dt><dd class="mono">containerd 1.7.20</dd>
+        <dt>OS version</dt><dd class="mono">5.10.225-213.876</dd>
+        <dt>Timezone</dt><dd class="mono">Europe/Madrid</dd>
+        <dt>Discovery source</dt><dd><span class="badge badge-blue">Pipeline</span></dd>
         <dt>Registered</dt><dd class="mono">2026-05-22 14:08</dd>
       </dl>
     </div>
 
     <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Taints</h3>
-      <div style="display:flex; flex-wrap:wrap; gap:6px; font-size:13px;">
-        <span class="badge badge-gray">dedicated=payments:NoSchedule</span>
-      </div>
-      <p class="hint" style="margin-top:8px;">Only pods tolerating this taint can be scheduled here.</p>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Labels</h3>
-      <div style="display:flex; flex-direction:column; gap:6px; font-size:12px; font-family: var(--font-mono);">
-        <div><span class="type-chip">string</span> kubernetes.io/hostname</div>
-        <div><span class="type-chip">string</span> node.kubernetes.io/role=worker</div>
-        <div><span class="type-chip">string</span> topology.kubernetes.io/zone=eu-west-1a</div>
-        <div><span class="type-chip">string</span> workload=general</div>
+      <h3 style="margin-bottom:14px;">Links</h3>
+      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
+        <a href="#"><span class="mi">monitoring</span> Node exporter dashboard</a>
+        <a href="#"><span class="mi">content_copy</span> Hardware inventory</a>
+        <a href="#"><span class="mi">content_copy</span> Provisioning runbook</a>
       </div>
     </div>
   </div>

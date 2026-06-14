@@ -11,61 +11,73 @@
   <div>
     <div class="breadcrumbs"><a href="entities-list.html">Entities</a> / <b>Customer</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">Customer
-      <span class="badge badge-green">Healthy</span>
-      <span class="badge badge-green">Complete</span>
+      <span class="badge badge-green">Enabled</span>
     </h1>
-    <div class="sub">End-user profile and preferences. Owning system <a href="#">storefront</a>. Domain <span class="badge badge-gray">Commerce</span>.</div>
+    <div class="sub">End-user profile and preferences. Aggregate root: Yes.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">content_copy</span> Export schema</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">add</span> Add attribute</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Schema (42)</a>
-  <a class="tab">Coverage</a>
-  <a class="tab">Linked systems</a>
+  <a class="tab">Schema (8)</a>
+  <a class="tab">Components (4)</a>
   <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Attributes</span><span class="value" style="font-size:24px">42</span></div>
-  <div class="card stat"><span class="label">Coverage</span><span class="value" style="font-size:24px;color:var(--color-accent)">100%</span></div>
-  <div class="card stat"><span class="label">Linked systems</span><span class="value" style="font-size:24px">4</span></div>
-  <div class="card stat"><span class="label">Last change</span><span class="value" style="font-size:18px">12d ago</span></div>
+  <div class="card stat"><span class="label">Attributes</span><span class="value" style="font-size:24px">8</span></div>
+  <div class="card stat"><span class="label">Components</span><span class="value" style="font-size:24px">4</span></div>
+  <div class="card stat"><span class="label">Aggregate</span><span class="value" style="font-size:18px;color:var(--color-accent)">Yes</span></div>
+  <div class="card stat"><span class="label">Aggregate root</span><span class="value" style="font-size:18px;color:var(--color-accent)">Yes</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
   <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
     <div class="card">
+      <div class="card-head"><h3>About</h3></div>
+      <div class="card-pad">
+        <p style="font-size:14px; line-height:1.65;">The Customer entity models the end-user profile and preferences. It is the aggregate root of the customer subdomain: every other customer-related entity (Address, PaymentMethod) hangs off a Customer.</p>
+        <div class="chip-row" style="margin-top:14px;">
+          <span class="badge badge-green">Aggregate</span>
+          <span class="badge badge-green">Aggregate root</span>
+          <span class="badge badge-green">Enabled</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
       <div class="card-head"><h3>Schema attributes</h3></div>
+      <p style="padding:14px 16px; font-size:13px; color:var(--text-muted);">
+        Loaded from <span class="mono">/architecture/entities/{id}/attributes</span>. Each row is
+        an <span class="mono">EntityAttribute</span> with type from the <span class="mono">EntityType</span> enum.
+      </p>
       <table class="table">
-        <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+        <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>PII</th><th>Description</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main mono">id</td><td><span class="type-chip">uuid</span></td><td><span class="badge badge-red">required</span></td><td>Primary identifier</td></tr>
-          <tr><td class="cell-main mono">email</td><td><span class="type-chip">string</span></td><td><span class="badge badge-red">required</span></td><td>Login email (unique)</td></tr>
-          <tr><td class="cell-main mono">display_name</td><td><span class="type-chip">string</span></td><td>—</td><td>Preferred name for the UI</td></tr>
-          <tr><td class="cell-main mono">locale</td><td><span class="type-chip">string</span></td><td>—</td><td>BCP-47 tag (e.g. en-GB)</td></tr>
-          <tr><td class="cell-main mono">timezone</td><td><span class="type-chip">string</span></td><td>—</td><td>IANA timezone</td></tr>
-          <tr><td class="cell-main mono">created_at</td><td><span class="type-chip">datetime</span></td><td><span class="badge badge-red">required</span></td><td>Account creation</td></tr>
-          <tr><td class="cell-main mono">last_seen_at</td><td><span class="type-chip">datetime</span></td><td>—</td><td>Last successful login</td></tr>
-          <tr><td class="cell-main mono">marketing_opt_in</td><td><span class="type-chip">boolean</span></td><td>—</td><td>GDPR consent flag</td></tr>
+          <tr><td class="cell-main mono">id</td><td><span class="type-chip">UUID</span></td><td><span class="badge badge-red">required</span></td><td>—</td><td>Primary identifier</td></tr>
+          <tr><td class="cell-main mono">email</td><td><span class="type-chip">string</span></td><td><span class="badge badge-red">required</span></td><td><span class="badge badge-red">PII</span></td><td>Login email (unique)</td></tr>
+          <tr><td class="cell-main mono">display_name</td><td><span class="type-chip">string</span></td><td>—</td><td>—</td><td>Preferred name for the UI</td></tr>
+          <tr><td class="cell-main mono">locale</td><td><span class="type-chip">string</span></td><td>—</td><td>—</td><td>BCP-47 tag (e.g. en-GB)</td></tr>
+          <tr><td class="cell-main mono">timezone</td><td><span class="type-chip">string</span></td><td>—</td><td>—</td><td>IANA timezone</td></tr>
+          <tr><td class="cell-main mono">created_at</td><td><span class="type-chip">DateTime</span></td><td><span class="badge badge-red">required</span></td><td>—</td><td>Account creation</td></tr>
+          <tr><td class="cell-main mono">last_seen_at</td><td><span class="type-chip">DateTime</span></td><td>—</td><td>—</td><td>Last successful login</td></tr>
+          <tr><td class="cell-main mono">marketing_opt_in</td><td><span class="type-chip">boolean</span></td><td>—</td><td>—</td><td>GDPR consent flag</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Coverage by system</h3></div>
+      <div class="card-head"><h3>Components using this entity</h3></div>
       <table class="table">
-        <thead><tr><th>System</th><th>Component</th><th>Mapped attributes</th><th>Coverage</th></tr></thead>
+        <thead><tr><th>Component</th><th>System</th><th>Lifecycle</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main"><a href="#">storefront</a></td><td><a href="component-detail.html">checkout-web</a></td><td class="mono">42 / 42</td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">identity</a></td><td><a href="component-detail.html">identity-api</a></td><td class="mono">38 / 42</td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i class="off"></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">payments-platform</a></td><td><a href="component-detail.html">payments-service</a></td><td class="mono">31 / 42</td><td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i class="off"></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">analytics</a></td><td><a href="component-detail.html">analytics-warehouse</a></td><td class="mono">28 / 42</td><td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i class="off"></i></div></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">checkout-web</a></td><td><a href="system-detail.html">storefront</a></td><td><span class="badge badge-green">Production</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">identity-api</a></td><td><a href="system-detail.html">identity</a></td><td><span class="badge badge-green">Production</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td><a href="system-detail.html">payments-platform</a></td><td><span class="badge badge-green">Production</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">analytics-warehouse</a></td><td><a href="system-detail.html">analytics</a></td><td><span class="badge badge-green">Production</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -77,31 +89,19 @@
       <dl class="kv">
         <dt>Name</dt><dd>Customer</dd>
         <dt>Slug</dt><dd class="mono">customer</dd>
-        <dt>Domain</dt><dd>Commerce</dd>
-        <dt>Owning system</dt><dd><a href="#">storefront</a></dd>
-        <dt>Owner</dt><dd><a href="group-detail.html">team-commerce</a></dd>
-        <dt>Status</dt><dd><span class="badge badge-green">Healthy</span></dd>
-        <dt>Coverage</dt><dd><span class="badge badge-green">Complete</span></dd>
-        <dt>Attributes</dt><dd class="mono">42</dd>
+        <dt>Description</dt><dd>End-user profile and preferences</dd>
+        <dt>Is aggregate</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Is aggregate root</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Enabled</dt><dd><span class="badge badge-green">Yes</span></dd>
         <dt>Created</dt><dd class="mono">2023-02-04</dd>
-        <dt>Last change</dt><dd class="mono">2026-06-02</dd>
+        <dt>Updated</dt><dd class="mono">2026-06-02</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Compliance</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>PII classification</span><span class="badge badge-red">High</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>GDPR</span><span class="badge badge-green">In scope</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Right to erasure</span><span class="badge badge-green">Supported</span></div>
-      </div>
     </div>
 
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Links</h3>
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
         <a href="#"><span class="mi">content_copy</span> Schema (JSON Schema)</a>
-        <a href="#"><span class="mi">content_copy</span> Avro definition</a>
         <a href="#"><span class="mi">content_copy</span> Data classification</a>
       </div>
     </div>

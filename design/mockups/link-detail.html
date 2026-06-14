@@ -11,10 +11,9 @@
   <div>
     <div class="breadcrumbs"><a href="links-list.html">Links</a> / <b>payments-service API reference</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">payments-service API reference
-      <span class="badge badge-green">Active</span>
       <span class="badge badge-blue">Docs</span>
     </h1>
-    <div class="sub">OpenAPI 3.1 spec for the <span class="mono">/v2</span> endpoints of the payments API. Linked to <a href="api-detail.html">payments-api</a>.</div>
+    <div class="sub">OpenAPI 3.1 spec for the <span class="mono">/v2</span> endpoints. Linked to <a href="api-detail.html">payments-api</a>.</div>
   </div>
   <div class="actions">
     <button class="btn btn-outline"><span class="mi">open_in_new</span> Open</button>
@@ -25,7 +24,6 @@
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Linked entities</a>
   <a class="tab">History</a>
 </div>
 
@@ -44,15 +42,18 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Linked entities</h3></div>
+      <div class="card-head"><h3>Linked entity</h3></div>
       <table class="table">
-        <thead><tr><th>Type</th><th>Entity</th><th>Relation</th></tr></thead>
+        <thead><tr><th>Type</th><th>Entity</th></tr></thead>
         <tbody>
-          <tr><td><span class="badge badge-blue">API</span></td><td class="cell-main"><a href="api-detail.html">payments-api</a></td><td>documents</td></tr>
-          <tr><td><span class="badge badge-gray">Component</span></td><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td>documents</td></tr>
-          <tr><td><span class="badge badge-indigo">System</span></td><td class="cell-main"><a href="#">payments-platform</a></td><td>references</td></tr>
+          <tr><td><span class="badge badge-blue">API</span></td><td class="cell-main"><a href="api-detail.html">payments-api</a></td></tr>
         </tbody>
       </table>
+      <div class="card-pad" style="font-size:12.5px; color:var(--text-muted);">
+        The link is attached via the polymorphic pair <span class="mono">model_name</span> +
+        <span class="mono">model_id</span> in the backend. The link can be reattached to any
+        catalog entity (Component, System, Resource, …) by changing those fields.
+      </div>
     </div>
   </div>
 
@@ -60,31 +61,22 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
-        <dt>Type</dt><dd><span class="badge badge-blue">Docs</span></dd>
-        <dt>URL</dt><dd class="mono">docs.acme.dev/payments-api</dd>
-        <dt>Status</dt><dd><span class="badge badge-green">Active</span></dd>
-        <dt>Owner</dt><dd><a href="group-detail.html">team-payments</a></dd>
-        <dt>Visibility</dt><dd>Internal</dd>
-        <dt>Last checked</dt><dd class="mono">2h ago</dd>
-        <dt>HTTP status</dt><dd><span class="status-code ok">200 OK</span></dd>
+        <dt>Name</dt><dd>payments-service API reference</dd>
+        <dt>Slug</dt><dd class="mono">payments-service-api-reference</dd>
+        <dt>URL</dt><dd class="mono">https://docs.acme.dev/payments-api</dd>
+        <dt>Category</dt><dd><span class="badge badge-blue">Docs</span></dd>
+        <dt>Description</dt><dd>OpenAPI 3.1 spec for /v2 endpoints</dd>
+        <dt>Model name</dt><dd class="mono">App\Models\Api</dd>
+        <dt>Model ID</dt><dd class="mono">42</dd>
         <dt>Created</dt><dd class="mono">2023-04-18</dd>
+        <dt>Updated</dt><dd class="mono">2026-05-30</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Health</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Link check</span><span class="badge badge-green">Passing</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Response time</span><span class="mono">128 ms</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Last failure</span><span>—</span></div>
-      </div>
     </div>
 
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Quick actions</h3>
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
         <a href="#"><span class="mi">open_in_new</span> Open in new tab</a>
-        <a href="#"><span class="mi">content_copy</span> Copy markdown</a>
         <a href="#"><span class="mi">link</span> Get short URL</a>
       </div>
     </div>

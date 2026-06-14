@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Workflow run #1284 · Atlas Catalog</title>
+<link rel="stylesheet" href="assets/atlas.css">
+</head>
+<body data-active="workflows">
+
+<div class="page-head">
+  <div>
+    <div class="breadcrumbs"><a href="workflows-list.html">Workflow jobs</a> / <a href="workflow-detail.html">build-test-deploy</a> / <b>Run #1284</b></div>
+    <h1 style="display:flex;align-items:center;gap:12px;">Run #1284
+      <span class="badge badge-green">Success</span>
+    </h1>
+    <div class="sub">deploy-production · started by <a href="user-detail.html">Marta Ramos</a> on 2026-06-14 06:42:11.</div>
+  </div>
+  <div class="actions">
+    <button class="btn btn-outline"><span class="mi">open_in_new</span> View in CI</button>
+    <button class="btn btn-outline"><span class="mi">content_copy</span> Re-run</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <a class="tab active">Overview</a>
+  <a class="tab">Commit</a>
+  <a class="tab">Resulting deployment</a>
+  <a class="tab">Activity</a>
+</div>
+
+<div class="grid cols-4">
+  <div class="card stat"><span class="label">Result</span><span class="value" style="font-size:24px;color:var(--color-accent)">Success</span></div>
+  <div class="card stat"><span class="label">Duration</span><span class="value" style="font-size:24px">3m 48s</span></div>
+  <div class="card stat"><span class="label">Started by</span><span class="value" style="font-size:18px">Marta Ramos</span></div>
+  <div class="card stat"><span class="label">Enabled</span><span class="value" style="font-size:24px;color:var(--color-accent)">Yes</span></div>
+</div>
+
+<div class="grid" style="grid-template-columns: 1fr 320px;">
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card">
+      <div class="card-head"><h3>Commit</h3></div>
+      <table class="table">
+        <thead><tr><th>SHA</th><th>Message</th><th>Author</th><th>Branch</th><th>Committed</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="cell-main mono">a3f9c21</td>
+            <td>feat(payments): idempotent payouts with safe retries</td>
+            <td>Marta R.</td>
+            <td class="mono">main</td>
+            <td class="mono">25m ago</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h3>Resulting deployment</h3></div>
+      <p style="padding:14px 16px; font-size:13px; color:var(--text-muted);">
+        Runs that deploy to an environment create a <a href="deployment-detail.html">Deployment</a> record via the CI webhook. This run deployed <span class="mono">v2.14.0</span> to <span class="mono">prod-eu-west-1</span> / <a href="environment-detail.html">production</a>.
+      </p>
+      <table class="table">
+        <thead><tr><th>Deployment</th><th>Component</th><th>Environment</th><th>Status</th><th>Started</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="cell-main"><a href="deployment-detail.html">payments-service → production</a></td>
+            <td><a href="component-detail.html">payments-service</a></td>
+            <td><span class="badge badge-indigo">production</span></td>
+            <td><span class="badge badge-green">Success</span></td>
+            <td class="mono">2h ago</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+    <div class="card card-pad">
+      <h3 style="margin-bottom:14px;">Details</h3>
+      <dl class="kv">
+        <dt>Run ID</dt><dd class="mono">#1284</dd>
+        <dt>Display name</dt><dd>Deploy payments-service to production</dd>
+        <dt>Description</dt><dd>Promote the v2.14.0 build to the production environment</dd>
+        <dt>Workflow job</dt><dd><a href="workflow-detail.html">build-test-deploy</a></dd>
+        <dt>CI server</dt><dd><a href="ci-server-detail.html">acme-gh-prod</a></dd>
+        <dt>Result</dt><dd><span class="badge badge-green">Success</span></dd>
+        <dt>Duration</dt><dd class="mono">3m 48s (228,000 ms)</dd>
+        <dt>Started at</dt><dd class="mono">2026-06-14 06:42:11</dd>
+        <dt>Started by</dt><dd><a href="user-detail.html">Marta Ramos</a></dd>
+        <dt>URL</dt><dd class="mono">github.com/acme/payments/actions/runs/1284</dd>
+        <dt>Enabled</dt><dd><span class="badge badge-green">Yes</span></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

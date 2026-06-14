@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Workflows · Atlas Catalog</title>
+<title>Workflow jobs · Atlas Catalog</title>
 <link rel="stylesheet" href="assets/atlas.css">
 </head>
 <body data-active="workflows">
 
 <div class="page-head">
   <div>
-    <div class="breadcrumbs">CI / CD / <b>Workflows</b></div>
-    <h1>Workflows</h1>
-    <div class="sub">CI/CD pipelines defined across components, with latest run status.</div>
+    <div class="breadcrumbs">CI / CD / <b>Workflow jobs</b></div>
+    <h1>Workflow jobs</h1>
+    <div class="sub">128 workflow job definitions across 6 CI servers. <a href="workflow-runs-list.html">View runs →</a></div>
   </div>
-  <div class="actions"><button class="btn btn-primary" data-drawer-trigger="form-workflow">+ New workflow</button></div>
+  <div class="actions"></div>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Workflows</span><span class="value" style="font-size:24px">196</span></div>
+  <div class="card stat"><span class="label">Workflow jobs</span><span class="value" style="font-size:24px">128</span></div>
   <div class="card stat"><span class="label">Runs today</span><span class="value" style="font-size:24px">1,438</span></div>
   <div class="card stat"><span class="label">Success rate</span><span class="value" style="font-size:24px;color:var(--color-accent)">94.2%</span></div>
   <div class="card stat"><span class="label">Avg duration</span><span class="value" style="font-size:24px">4m 12s</span></div>
@@ -26,122 +26,69 @@
 <div class="toolbar">
   <input class="input" placeholder="Filter by name, component, CI server…">
   <select class="select"><option>CI Server: All</option><option>GitHub Actions</option><option>GitLab CI</option><option>Jenkins</option></select>
-  <select class="select"><option>Last run: All</option><option>Success</option><option>Failed</option><option>Running</option></select>
+  <select class="select"><option>Source: All</option><option>Pipeline</option><option>Manual</option><option>Scan</option></select>
+  <select class="select"><option>Enabled: All</option><option>Yes</option><option>No</option></select>
   <button class="btn btn-ghost" style="margin-left:auto">Clear filters</button>
 </div>
 
 <div class="card">
   <table class="table">
-    <thead><tr><th>Workflow</th><th>Component</th><th>CI Server</th><th>Trigger</th><th>Duration</th><th>Last run</th><th>Status</th></tr></thead>
+    <thead><tr><th>Name</th><th>Component</th><th>CI Server</th><th>Source</th><th>Enabled</th><th>Last synced</th><th>Last run</th></tr></thead>
     <tbody>
       <tr>
         <td><div class="cell-main"><a href="workflow-detail.html">build-test-deploy</a></div><div class="cell-sub mono">.github/workflows/main.yml</div></td>
-        <td>payments-service</td><td><span class="badge badge-gray">GitHub Actions</span></td>
-        <td class="mono">push <span class="mi">arrow_forward</span> main</td><td class="mono">3m 48s</td><td>8m ago</td>
-        <td><span class="badge badge-green">Success</span></td>
+        <td><a href="component-detail.html">payments-service</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-blue">Pipeline</span></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td class="mono">3m ago</td>
+        <td><a href="workflow-run-detail.html">#1284</a> · <span class="badge badge-green">Success</span></td>
       </tr>
       <tr>
         <td><div class="cell-main"><a href="#">nightly-e2e</a></div><div class="cell-sub mono">.github/workflows/e2e.yml</div></td>
-        <td>orders-service</td><td><span class="badge badge-gray">GitHub Actions</span></td>
-        <td class="mono">schedule · 02:00</td><td class="mono">11m 02s</td><td>6h ago</td>
-        <td><span class="badge badge-red">Failed</span></td>
+        <td><a href="component-detail.html">orders-service</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-blue">Pipeline</span></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td class="mono">3m ago</td>
+        <td><a href="workflow-run-detail.html">#1280</a> · <span class="badge badge-red">Failure</span></td>
       </tr>
       <tr>
         <td><div class="cell-main"><a href="#">release-pipeline</a></div><div class="cell-sub mono">.gitlab-ci.yml</div></td>
-        <td>identity-api</td><td><span class="badge badge-amber">GitLab CI</span></td>
-        <td class="mono">tag <span class="mi">arrow_forward</span> v*</td><td class="mono">6m 33s</td><td>1d ago</td>
-        <td><span class="badge badge-green">Success</span></td>
+        <td><a href="component-detail.html">identity-api</a></td>
+        <td><a href="ci-server-detail.html">acme-gitlab-prod</a></td>
+        <td><span class="badge badge-blue">Pipeline</span></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td class="mono">11m ago</td>
+        <td><a href="workflow-run-detail.html">#1275</a> · <span class="badge badge-green">Success</span></td>
       </tr>
       <tr>
         <td><div class="cell-main"><a href="#">container-scan</a></div><div class="cell-sub mono">Jenkinsfile</div></td>
-        <td>notifications-worker</td><td><span class="badge badge-blue">Jenkins</span></td>
-        <td class="mono">push <span class="mi">arrow_forward</span> any</td><td class="mono">1m 57s</td><td>just now</td>
-        <td><span class="badge badge-blue">Running</span></td>
+        <td><a href="component-detail.html">notifications-worker</a></td>
+        <td><a href="#">legacy-jenkins</a></td>
+        <td><span class="badge badge-gray">Manual</span></td>
+        <td><span class="badge badge-amber">No</span></td>
+        <td class="mono">1h ago</td>
+        <td><a href="workflow-run-detail.html">#1281</a> · <span class="badge badge-amber">Unstable</span></td>
       </tr>
       <tr>
         <td><div class="cell-main"><a href="#">lint-and-unit</a></div><div class="cell-sub mono">.github/workflows/ci.yml</div></td>
-        <td>search-indexer</td><td><span class="badge badge-gray">GitHub Actions</span></td>
-        <td class="mono">pull_request</td><td class="mono">52s</td><td>3h ago</td>
-        <td><span class="badge badge-green">Success</span></td>
+        <td><a href="component-detail.html">search-indexer</a></td>
+        <td><a href="ci-server-detail.html">acme-gh-prod</a></td>
+        <td><span class="badge badge-blue">Pipeline</span></td>
+        <td><span class="badge badge-green">Yes</span></td>
+        <td class="mono">3m ago</td>
+        <td><a href="workflow-run-detail.html">#1279</a> · <span class="badge badge-green">Success</span></td>
       </tr>
     </tbody>
   </table>
   <div class="pagination">
-    Showing 1–25 of 196
+    Showing 1–25 of 128
     <div style="margin-left:auto; display:flex; gap:6px;">
-      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">…</button><button class="page-btn">8</button><button class="page-btn"><span class="mi">chevron_right</span></button>
+      <button class="page-btn"><span class="mi">chevron_left</span></button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">…</button><button class="page-btn">6</button><button class="page-btn"><span class="mi">chevron_right</span></button>
     </div>
   </div>
 </div>
-
-<aside class="drawer" id="form-workflow">
-  <div class="drawer-head">
-    <div class="drawer-title">
-      <div class="breadcrumbs">CI / CD / Workflows / <b>New</b></div>
-      <h2>New workflow</h2>
-    </div>
-    <button class="icon-btn" data-drawer-close title="Close"><span class="mi">close</span></button>
-  </div>
-  <div class="drawer-body">
-    <div class="form-section">
-      <h3>Identity</h3>
-      <div class="form-grid">
-        <div class="field req full"><label>Name</label><input placeholder="payments-ci"></div>
-        <div class="field req"><label>Component</label>
-          <select><option>payments-service</option><option>orders-service</option><option>identity-api</option><option>catalog-web</option></select>
-        </div>
-        <div class="field"><label>CI server</label>
-          <select><option>acme-gh-prod</option><option>acme-gitlab-prod</option><option>acme-gh-staging</option><option>payments-bk</option></select>
-        </div>
-        <div class="field"><label>Triggers</label>
-          <div class="multiselect">
-            <span class="ms-tag">push<span class="mi">close</span></span>
-            <span class="ms-tag">pull_request<span class="mi">close</span></span>
-            <input class="ms-input" placeholder="Add trigger…">
-          </div>
-        </div>
-        <div class="field full"><label>Description</label><textarea placeholder="What does this pipeline do?"></textarea></div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Pipeline</h3>
-      <div class="form-grid">
-        <div class="field full"><label>YAML / config</label>
-          <textarea class="mono" rows="8" placeholder="name: payments-ci
-on:
-  push:
-    branches: [main]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: make test"></textarea>
-        </div>
-        <div class="field"><label>Default branch</label>
-          <input class="mono" placeholder="main">
-        </div>
-        <div class="field"><label>Timeout</label>
-          <div class="input-group"><input type="number" placeholder="0"><span class="addon suffix">min</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="form-section">
-      <h3>Notifications</h3>
-      <div class="form-grid cols-1">
-        <label class="choice"><input type="checkbox" checked> Slack #deploys on failure</label>
-        <label class="choice"><input type="checkbox"> PagerDuty on repeated failure</label>
-        <label class="choice"><input type="checkbox"> Email the team on success</label>
-      </div>
-    </div>
-  </div>
-  <div class="drawer-foot">
-    <button class="btn btn-ghost" data-drawer-close>Cancel</button>
-    <span class="spacer"></span>
-    <button class="btn btn-outline">Validate</button>
-    <button class="btn btn-primary"><span class="mi">check</span> Create workflow</button>
-  </div>
-</aside>
 
 <script src="assets/app.js"></script>
 </body>

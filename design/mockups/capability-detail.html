@@ -11,31 +11,27 @@
   <div>
     <div class="breadcrumbs"><a href="capabilities-list.html">Capabilities</a> / <b>Card payments</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">Card payments
-      <span class="badge badge-green">Optimised</span>
-      <span class="badge badge-green">Healthy</span>
+      <span class="badge badge-indigo">Differentiator</span>
     </h1>
-    <div class="sub">Authorize, capture and settle card transactions. Domain <span class="badge badge-gray">Commerce</span>. Owned by <a href="group-detail.html">team-payments</a>.</div>
+    <div class="sub">Authorize, capture and settle card transactions. Strategic value 5 of 5.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">monitoring</span> SLO dashboard</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">add</span> Add system</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
   <a class="tab">Systems (3)</a>
-  <a class="tab">Components</a>
-  <a class="tab">APIs</a>
-  <a class="tab">Compliance</a>
+  <a class="tab">Sub-capabilities</a>
+  <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
+  <div class="card stat"><span class="label">Strategic value</span><span class="value" style="font-size:24px">5 / 5</span></div>
   <div class="card stat"><span class="label">Systems</span><span class="value" style="font-size:24px">3</span></div>
-  <div class="card stat"><span class="label">Components</span><span class="value" style="font-size:24px">7</span></div>
-  <div class="card stat"><span class="label">APIs</span><span class="value" style="font-size:24px">4</span></div>
-  <div class="card stat"><span class="label">SLO compliance</span><span class="value" style="font-size:24px;color:var(--color-accent)">99.94%</span></div>
+  <div class="card stat"><span class="label">Sub-capabilities</span><span class="value" style="font-size:24px">0</span></div>
+  <div class="card stat"><span class="label">Organization</span><span class="value" style="font-size:18px">Acme</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -43,52 +39,21 @@
     <div class="card">
       <div class="card-head"><h3>About</h3></div>
       <div class="card-pad">
-        <p style="font-size:14px; line-height:1.65;">Card payments is the end-to-end ability to authorize, capture, refund and payout card transactions. It is the most critical commerce capability: every euro in revenue depends on it. SLO is 99.95% availability and p95 &lt; 200ms authorisation.</p>
-        <div class="chip-row" style="margin-top:14px;">
-          <span class="badge badge-gray">commerce</span>
-          <span class="badge badge-gray">tier-1</span>
-          <span class="badge badge-gray">pci-dss</span>
-          <span class="badge badge-gray">3ds2</span>
-        </div>
+        <p style="font-size:14px; line-height:1.65;">Card payments is the end-to-end ability to authorize, capture, refund and payout card transactions. It is the most critical commerce capability: every euro in revenue depends on it. Strategic value 5 (Differentiator) means losing it stops the business.</p>
       </div>
     </div>
 
     <div class="card">
       <div class="card-head"><h3>Supporting systems</h3></div>
+      <p style="padding:14px 16px; font-size:13px; color:var(--text-muted);">
+        Computed from the pivot table <span class="mono">business_capability_systems</span>.
+      </p>
       <table class="table">
-        <thead><tr><th>System</th><th>Role</th><th>Components</th><th>Health</th></tr></thead>
+        <thead><tr><th>System</th><th>Role</th><th>Components</th></tr></thead>
         <tbody>
-          <tr>
-            <td class="cell-main"><a href="#">payments-platform</a></td>
-            <td>Primary implementation</td>
-            <td class="mono">4</td>
-            <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
-          </tr>
-          <tr>
-            <td class="cell-main"><a href="#">storefront</a></td>
-            <td>Checkout / web SDK</td>
-            <td class="mono">2</td>
-            <td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td>
-          </tr>
-          <tr>
-            <td class="cell-main"><a href="#">identity</a></td>
-            <td>Fraud signals (3DS)</td>
-            <td class="mono">1</td>
-            <td><div class="health-bar"><i></i><i></i><i class="warn"></i><i></i><i></i></div></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card">
-      <div class="card-head"><h3>Key components</h3></div>
-      <table class="table">
-        <thead><tr><th>Component</th><th>System</th><th>Language</th><th>Tier</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td>payments-platform</td><td>Go 1.24</td><td><span class="badge badge-red">Tier 1</span></td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">ledger-worker</a></td><td>payments-platform</td><td>Go 1.24</td><td><span class="badge badge-red">Tier 1</span></td><td><span class="badge badge-green">Healthy</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">fraud-scorer</a></td><td>payments-platform</td><td>Python 3.12</td><td><span class="badge badge-red">Tier 1</span></td><td><span class="badge badge-amber">Degraded</span></td></tr>
-          <tr><td class="cell-main"><a href="component-detail.html">checkout-web</a></td><td>storefront</td><td>TypeScript</td><td><span class="badge badge-amber">Tier 2</span></td><td><span class="badge badge-green">Healthy</span></td></tr>
+          <tr><td class="cell-main"><a href="system-detail.html">payments-platform</a></td><td>Primary implementation</td><td class="mono">4</td></tr>
+          <tr><td class="cell-main"><a href="system-detail.html">storefront</a></td><td>Checkout / web SDK</td><td class="mono">2</td></tr>
+          <tr><td class="cell-main"><a href="system-detail.html">identity</a></td><td>Fraud signals (3DS)</td><td class="mono">1</td></tr>
         </tbody>
       </table>
     </div>
@@ -100,28 +65,18 @@
       <dl class="kv">
         <dt>Name</dt><dd>Card payments</dd>
         <dt>Slug</dt><dd class="mono">card-payments</dd>
-        <dt>Domain</dt><dd>Commerce</dd>
-        <dt>Maturity</dt><dd><span class="badge badge-green">Optimised</span></dd>
-        <dt>Owner</dt><dd><a href="group-detail.html">team-payments</a></dd>
-        <dt>Status</dt><dd><span class="badge badge-green">Healthy</span></dd>
+        <dt>Description</dt><dd>Authorize, capture and settle card transactions</dd>
+        <dt>Strategic value</dt><dd><span class="badge badge-indigo">Differentiator (5)</span></dd>
+        <dt>Parent</dt><dd>—</dd>
+        <dt>Organization</dt><dd><a href="#">Acme</a></dd>
         <dt>Created</dt><dd class="mono">2022-08-12</dd>
+        <dt>Updated</dt><dd class="mono">2026-05-30</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">SLOs</h3>
-      <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between;"><span>Availability</span><span class="mono">99.95%</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Authorisation p95</span><span class="mono">&lt; 200ms</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Capture p99</span><span class="mono">&lt; 1.5s</span></div>
-        <div style="display:flex; justify-content:space-between;"><span>Error budget</span><span class="badge badge-green">82% left</span></div>
-      </div>
     </div>
 
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Links</h3>
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <a href="#"><span class="mi">monitoring</span> SLO dashboard</a>
         <a href="#"><span class="mi">content_copy</span> Architecture diagram</a>
         <a href="#"><span class="mi">content_copy</span> Capability charter</a>
       </div>

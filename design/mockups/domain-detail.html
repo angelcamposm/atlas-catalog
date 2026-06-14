@@ -11,30 +11,29 @@
   <div>
     <div class="breadcrumbs"><a href="domains-list.html">Business Domains</a> / <b>Commerce</b></div>
     <h1 style="display:flex;align-items:center;gap:12px;">Commerce
-      <span class="badge badge-blue">Healthy</span>
+      <span class="badge badge-indigo">C · Core</span>
+      <span class="badge badge-green">Enabled</span>
     </h1>
-    <div class="sub">Storefront, orders, payments and fulfilment. Top-level business area. Owned by VP Commerce.</div>
+    <div class="sub">Storefront, orders, payments and fulfilment. Core business area.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">monitoring</span> Overview dashboard</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">add</span> Add system</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
-  <a class="tab">Systems (6)</a>
-  <a class="tab">Capabilities (18)</a>
-  <a class="tab">Components (112)</a>
+  <a class="tab">Components</a>
+  <a class="tab">Entities</a>
+  <a class="tab">Sub-domains</a>
   <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
-  <div class="card stat"><span class="label">Systems</span><span class="value" style="font-size:24px">6</span></div>
-  <div class="card stat"><span class="label">Capabilities</span><span class="value" style="font-size:24px">18</span></div>
   <div class="card stat"><span class="label">Components</span><span class="value" style="font-size:24px">112</span></div>
-  <div class="card stat"><span class="label">APIs</span><span class="value" style="font-size:24px">38</span></div>
+  <div class="card stat"><span class="label">Entities</span><span class="value" style="font-size:24px">14</span></div>
+  <div class="card stat"><span class="label">Sub-domains</span><span class="value" style="font-size:24px">3</span></div>
+  <div class="card stat"><span class="label">Category</span><span class="value" style="font-size:24px">Core</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -45,47 +44,34 @@
         <p style="font-size:14px; line-height:1.65;">The Commerce domain covers everything needed to acquire, convert and retain customers: the storefront experience, the order lifecycle, the payments stack and the fulfilment chain. It is the largest domain in the catalog by component count.</p>
         <div class="chip-row" style="margin-top:14px;">
           <span class="badge badge-gray">commerce</span>
-          <span class="badge badge-gray">tier-1</span>
-          <span class="badge badge-gray">customer-facing</span>
+          <span class="badge badge-indigo">Core</span>
+          <span class="badge badge-green">Enabled</span>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Systems</h3><a href="systems-list.html" style="font-size:12.5px">View all <span class="mi">arrow_forward</span></a></div>
+      <div class="card-head"><h3>Sub-domains</h3></div>
       <table class="table">
-        <thead><tr><th>System</th><th>Components</th><th>APIs</th><th>Tier</th><th>Health</th></tr></thead>
+        <thead><tr><th>Sub-domain</th><th>Category</th><th>Components</th></tr></thead>
         <tbody>
-          <tr><td class="cell-main"><a href="#">storefront</a></td><td class="mono">12</td><td class="mono">6</td><td><span class="badge badge-amber">Tier 2</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">payments-platform</a></td><td class="mono">9</td><td class="mono">4</td><td><span class="badge badge-red">Tier 1</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">checkout</a></td><td class="mono">5</td><td class="mono">3</td><td><span class="badge badge-red">Tier 1</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">fulfilment</a></td><td class="mono">8</td><td class="mono">2</td><td><span class="badge badge-amber">Tier 2</span></td><td><div class="health-bar"><i></i><i></i><i></i><i class="warn"></i><i></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">pricing</a></td><td class="mono">4</td><td class="mono">1</td><td><span class="badge badge-amber">Tier 2</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
-          <tr><td class="cell-main"><a href="#">loyalty</a></td><td class="mono">3</td><td class="mono">1</td><td><span class="badge badge-gray">Tier 3</span></td><td><div class="health-bar"><i></i><i></i><i></i><i></i><i></i></div></td></tr>
+          <tr><td class="cell-main"><a href="#">Storefront</a></td><td><span class="badge badge-gray">S · Supporting</span></td><td class="mono">42</td></tr>
+          <tr><td class="cell-main"><a href="#">Payments</a></td><td><span class="badge badge-indigo">C · Core</span></td><td class="mono">38</td></tr>
+          <tr><td class="cell-main"><a href="#">Fulfilment</a></td><td><span class="badge badge-gray">S · Supporting</span></td><td class="mono">32</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card">
-      <div class="card-head"><h3>Capabilities</h3></div>
-      <div style="display:flex; flex-direction:column; gap:0;">
-        <div class="card-pad" style="border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-          <div><div class="cell-main"><a href="capability-detail.html">Card payments</a></div><div class="cell-sub">Authorize, capture and settle</div></div>
-          <span class="badge badge-green">Optimised</span>
-        </div>
-        <div class="card-pad" style="border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-          <div><div class="cell-main"><a href="#">Order management</a></div><div class="cell-sub">Cart checkout, line items, fulfilment</div></div>
-          <span class="badge badge-blue">Managed</span>
-        </div>
-        <div class="card-pad" style="border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-          <div><div class="cell-main"><a href="#">Fraud detection</a></div><div class="cell-sub">Real-time risk scoring</div></div>
-          <span class="badge badge-blue">Managed</span>
-        </div>
-        <div class="card-pad" style="display:flex; justify-content:space-between; align-items:center;">
-          <div><div class="cell-main"><a href="#">Product catalogue</a></div><div class="cell-sub">SKUs, prices and inventory</div></div>
-          <span class="badge badge-blue">Managed</span>
-        </div>
-      </div>
+      <div class="card-head"><h3>Top components</h3></div>
+      <table class="table">
+        <thead><tr><th>Component</th><th>Lifecycle</th><th>Tier</th></tr></thead>
+        <tbody>
+          <tr><td class="cell-main"><a href="component-detail.html">payments-service</a></td><td><span class="badge badge-green">Production</span></td><td><span class="badge badge-red">Tier 1</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">orders-service</a></td><td><span class="badge badge-green">Production</span></td><td><span class="badge badge-red">Tier 1</span></td></tr>
+          <tr><td class="cell-main"><a href="component-detail.html">checkout-web</a></td><td><span class="badge badge-green">Production</span></td><td><span class="badge badge-amber">Tier 2</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -95,29 +81,19 @@
       <dl class="kv">
         <dt>Name</dt><dd>Commerce</dd>
         <dt>Slug</dt><dd class="mono">commerce</dd>
-        <dt>Owner</dt><dd>VP Commerce</dd>
-        <dt>Color</dt><dd><span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--color-primary);vertical-align:middle"></span> Blue</dd>
-        <dt>Systems</dt><dd class="mono">6</dd>
-        <dt>Capabilities</dt><dd class="mono">18</dd>
-        <dt>Components</dt><dd class="mono">112</dd>
+        <dt>Display name</dt><dd>Commerce</dd>
+        <dt>Description</dt><dd>Storefront, orders, payments and fulfilment</dd>
+        <dt>Category</dt><dd><span class="badge badge-indigo">C · Core</span></dd>
+        <dt>Enabled</dt><dd><span class="badge badge-green">Yes</span></dd>
+        <dt>Parent</dt><dd>—</dd>
         <dt>Created</dt><dd class="mono">2022-03-12</dd>
+        <dt>Updated</dt><dd class="mono">2026-05-30</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">Tags</h3>
-      <div style="display:flex; flex-direction:column; gap:6px; font-size:13px;">
-        <span class="badge badge-gray">commerce</span>
-        <span class="badge badge-gray">customer-facing</span>
-        <span class="badge badge-gray">tier-1</span>
-        <span class="badge badge-gray">revenue</span>
-      </div>
     </div>
 
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Links</h3>
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <a href="#"><span class="mi">monitoring</span> Domain dashboard</a>
         <a href="#"><span class="mi">content_copy</span> Strategy review (Q3)</a>
         <a href="#"><span class="mi">content_copy</span> Capability map</a>
       </div>

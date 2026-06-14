@@ -14,31 +14,27 @@
       <div class="avatar" style="width:36px;height:36px;font-size:14px">CA</div>
       Carlos Aguilar
       <span class="badge badge-indigo">Admin</span>
-      <span class="badge badge-green">Active</span>
     </h1>
-    <div class="sub">Catalog administrator and member of <a href="group-detail.html">team-platform</a> &amp; <a href="group-detail.html">admins</a>.</div>
+    <div class="sub">Catalog administrator. Member of <a href="group-detail.html">team-platform</a> &amp; <a href="group-detail.html">admins</a>.</div>
   </div>
   <div class="actions">
-    <button class="btn btn-outline"><span class="mi">chat</span> Message</button>
     <button class="btn btn-outline"><span class="mi">edit</span> Edit</button>
-    <button class="btn btn-primary"><span class="mi">lock</span> Reset MFA</button>
+    <button class="btn btn-primary"><span class="mi">lock</span> Reset password</button>
   </div>
 </div>
 
 <div class="tabs">
   <a class="tab active">Overview</a>
   <a class="tab">Groups (2)</a>
-  <a class="tab">Permissions</a>
-  <a class="tab">Sessions</a>
-  <a class="tab">API tokens</a>
+  <a class="tab">Role</a>
   <a class="tab">Activity</a>
 </div>
 
 <div class="grid cols-4">
   <div class="card stat"><span class="label">Groups</span><span class="value" style="font-size:24px">2</span></div>
-  <div class="card stat"><span class="label">Sessions</span><span class="value" style="font-size:24px">3</span></div>
-  <div class="card stat"><span class="label">API tokens</span><span class="value" style="font-size:24px">1</span></div>
-  <div class="card stat"><span class="label">Last active</span><span class="value" style="font-size:18px">2m ago</span></div>
+  <div class="card stat"><span class="label">Role</span><span class="value" style="font-size:24px">Admin</span></div>
+  <div class="card stat"><span class="label">Email verified</span><span class="value" style="font-size:24px;color:var(--color-accent)">Yes</span></div>
+  <div class="card stat"><span class="label">Created</span><span class="value" style="font-size:18px">2024-04-12</span></div>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 320px;">
@@ -46,34 +42,20 @@
     <div class="card">
       <div class="card-head"><h3>Groups</h3></div>
       <table class="table">
-        <thead><tr><th>Group</th><th>Source</th><th>Default role</th><th>Effective role</th><th>Joined</th></tr></thead>
+        <thead><tr><th>Group</th><th>Type</th><th>Email</th><th>Members</th></tr></thead>
         <tbody>
           <tr>
             <td class="cell-main"><a href="group-detail.html">team-platform</a></td>
-            <td><span class="badge badge-gray">Internal</span></td>
-            <td><span class="badge badge-indigo">Editor</span></td>
-            <td><span class="badge badge-indigo">Editor</span></td>
-            <td class="mono">2024-04-12</td>
+            <td><span class="badge badge-gray">team</span></td>
+            <td class="mono">platform@acme.dev</td>
+            <td class="mono">12</td>
           </tr>
           <tr>
             <td class="cell-main"><a href="group-detail.html">admins</a></td>
-            <td><span class="badge badge-gray">Internal</span></td>
-            <td><span class="badge badge-indigo">Admin</span></td>
-            <td><span class="badge badge-indigo">Admin</span></td>
-            <td class="mono">2025-08-03</td>
+            <td><span class="badge badge-amber">admin</span></td>
+            <td class="mono">admins@acme.dev</td>
+            <td class="mono">4</td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card">
-      <div class="card-head"><h3>Active sessions</h3></div>
-      <table class="table">
-        <thead><tr><th>Device</th><th>Location</th><th>IP</th><th>Started</th><th>Last active</th></tr></thead>
-        <tbody>
-          <tr><td><div class="cell-main mono">Chrome · macOS</div><div class="cell-sub">This device</div></td><td>Madrid, ES</td><td class="mono">83.45.221.18</td><td class="mono">3h ago</td><td class="mono">2m ago</td></tr>
-          <tr><td class="mono">Safari · iPhone 16</td><td>Madrid, ES</td><td class="mono">83.45.221.18</td><td class="mono">1d ago</td><td class="mono">2h ago</td></tr>
-          <tr><td class="mono">Firefox · Linux</td><td>Remote</td><td class="mono">212.34.119.7</td><td class="mono">4d ago</td><td class="mono">3d ago</td></tr>
         </tbody>
       </table>
     </div>
@@ -81,13 +63,13 @@
     <div class="card">
       <div class="card-head"><h3>Recent activity</h3></div>
       <table class="table">
-        <thead><tr><th>When</th><th>Action</th><th>Target</th><th>IP</th></tr></thead>
+        <thead><tr><th>When</th><th>Action</th><th>Target</th></tr></thead>
         <tbody>
-          <tr><td class="mono">2m ago</td><td>login</td><td class="mono">Web UI</td><td class="mono">83.45.221.18</td></tr>
-          <tr><td class="mono">1h ago</td><td>update</td><td class="mono">component: payments-service</td><td class="mono">83.45.221.18</td></tr>
-          <tr><td class="mono">3h ago</td><td>approve</td><td class="mono">deployment #4821</td><td class="mono">83.45.221.18</td></tr>
-          <tr><td class="mono">5h ago</td><td>create</td><td class="mono">group: admins</td><td class="mono">83.45.221.18</td></tr>
-          <tr><td class="mono">1d ago</td><td>login</td><td class="mono">iPhone 16</td><td class="mono">83.45.221.18</td></tr>
+          <tr><td class="mono">2m ago</td><td>login</td><td class="mono">Web UI</td></tr>
+          <tr><td class="mono">1h ago</td><td>update</td><td class="mono">component: payments-service</td></tr>
+          <tr><td class="mono">3h ago</td><td>approve</td><td class="mono">deployment #4821</td></tr>
+          <tr><td class="mono">5h ago</td><td>create</td><td class="mono">group: admins</td></tr>
+          <tr><td class="mono">1d ago</td><td>login</td><td class="mono">iPhone 16</td></tr>
         </tbody>
       </table>
     </div>
@@ -97,27 +79,14 @@
     <div class="card card-pad">
       <h3 style="margin-bottom:14px;">Details</h3>
       <dl class="kv">
+        <dt>Name</dt><dd>Carlos Aguilar</dd>
         <dt>Email</dt><dd class="mono">carlos@acme.dev</dd>
-        <dt>Status</dt><dd><span class="badge badge-green">Active</span></dd>
+        <dt>Email verified</dt><dd class="mono">2024-04-12 10:24</dd>
         <dt>Role</dt><dd><span class="badge badge-indigo">Admin</span></dd>
         <dt>Groups</dt><dd><a href="group-detail.html">team-platform</a>, <a href="group-detail.html">admins</a></dd>
-        <dt>Timezone</dt><dd class="mono">Europe/Madrid</dd>
-        <dt>Joined</dt><dd class="mono">2024-04-12</dd>
-        <dt>Last active</dt><dd class="mono">2m ago</dd>
-        <dt>MFA</dt><dd><span class="badge badge-green">TOTP enabled</span></dd>
-        <dt>SSO</dt><dd>Not required</dd>
+        <dt>Created</dt><dd class="mono">2024-04-12</dd>
+        <dt>Updated</dt><dd class="mono">2026-06-12</dd>
       </dl>
-    </div>
-
-    <div class="card card-pad">
-      <h3 style="margin-bottom:14px;">API tokens</h3>
-      <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span class="mono">cat_pat_4f2a…</span>
-          <span class="badge badge-amber">expires in 18d</span>
-        </div>
-        <p class="hint">Used by the catalog-web CI to push deployments.</p>
-      </div>
     </div>
 
     <div class="card card-pad">
@@ -125,7 +94,6 @@
       <div style="display:flex; flex-direction:column; gap:8px; font-size:13px;">
         <a href="#"><span class="mi">chat</span> Slack · @carlos.aguilar</a>
         <a href="#"><span class="mi">mail</span> Email · carlos@acme.dev</a>
-        <a href="#"><span class="mi">videocam</span> Google Calendar</a>
       </div>
     </div>
   </div>
